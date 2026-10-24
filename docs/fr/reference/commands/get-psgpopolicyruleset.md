@@ -12,6 +12,7 @@ Get-PSGPOPolicyRuleSet -GpmcBackupPath <string> [-Name <string[]>] [-SetName <st
 Get-PSGPOPolicyRuleSet -Name <string[]> [-SetName <string>] [-Directory <GPOToolsDirectory>] [-Server <string>] [<CommonParameters>]
 Get-PSGPOPolicyRuleSet -Backup <Backup[]> [-SetName <string>] [<CommonParameters>]
 Get-PSGPOPolicyRuleSet -Container <string> [-SetName <string>] [-Directory <GPOToolsDirectory>] [-Server <string>] [<CommonParameters>]
+Get-PSGPOPolicyRuleSet -EffectiveState -RuleSet <GPOToolsPolicyRuleSet[]> [-SetName <string>] [<CommonParameters>]
 ```
 
 ## Description
@@ -21,6 +22,8 @@ A rule set holds the settings of one or more GPOs, as the Policy Analyzer of the
 It is read from .PolicyRules files (those of the security baselines of Microsoft, or of Policy Analyzer), or made from GPOs: of the domain, of backups of HGPM (Get-PSGPOBackup) or of GPMC (the GPOs folder of a security baseline), as GPO2PolicyRules.exe does. Compare-PSGPOPolicyRuleSet compares sets, Export-PSGPOPolicyRuleSet saves one.
 
 With -Container, the set is made of the GPOs that apply to a domain or an OU, in their order of precedence as the Group Policy Inheritance tab of GPMC lists them (the enforced links first, from the domain down, then the others from the OU up until an OU that blocks the inheritance; the links disabled and the parts a GPO status disables left out): each setting then has the precedence of its GPO, and Compare-PSGPOPolicyRuleSet shows the value that wins. The security filtering, the WMI filters and the loopback processing are those of each computer or user, not taken into account.
+
+With -EffectiveState, the set is the state of this computer for the settings of -RuleSet, as "Compare to Effective State" of Policy Analyzer reads it (Windows): the registry of the computer and of the user of the session (the security options and the startup of the services included), the other security settings (secedit /export) and the advanced audit policy (auditpol /backup). A setting the computer does not have is not in the set. secedit and auditpol need PowerShell run as an administrator: without, their settings are left out, with a warning. The set is named as Policy Analyzer names it, EffectiveState_<computer>_<date>.
 
 ## Paramètres
 
@@ -64,9 +67,25 @@ A domain or an OU: its distinguished name, the name of the domain, or the name o
 |---|---|---|---|---|
 | `String` | Oui | Nommé | Aucune | Non |
 
+### -EffectiveState
+
+The effective state of this computer for the settings of -RuleSet.
+
+| Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
+|---|---|---|---|---|
+| `SwitchParameter` | Oui | Nommé | Aucune | Non |
+
+### -RuleSet
+
+With -EffectiveState: the sets whose settings are read on the computer (the baselines).
+
+| Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
+|---|---|---|---|---|
+| `GPOToolsPolicyRuleSet[]` | Oui | Nommé | Aucune | Non |
+
 ### -SetName
 
-Name of the set made from GPOs: by default the name of the GPO when there is one, else the name of the domain or of the folder; "<OU> (precedence)" with -Container.
+Name of the set made from GPOs: by default the name of the GPO when there is one, else the name of the domain or of the folder; "<OU> (precedence)" with -Container; EffectiveState_<computer>_<yyyyMMdd-HHmmss> with -EffectiveState.
 
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|
@@ -117,6 +136,16 @@ Compare-PSGPOPolicyRuleSet -RuleSet (Get-PSGPOPolicyRuleSet .\MSFT-Win11-v25H2.P
 ```
 
 ### Exemple 5
+
+```powershell
+# This computer against the baseline of Microsoft (PowerShell run as an administrator)
+$baseline = Get-PSGPOPolicyRuleSet .\MSFT-Win11-v25H2.PolicyRules
+$state = Get-PSGPOPolicyRuleSet -EffectiveState -RuleSet $baseline
+Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $state -DifferenceOnly
+Export-PSGPOPolicyRuleSet -RuleSet $state -Path ".\$($state.Name).PolicyRules"
+```
+
+### Exemple 6
 
 ```powershell
 Get-PSGPOBackup -Path /srv/gpo-backups -Name 'Default Domain Policy' | Select-Object -First 1 | Get-PSGPOPolicyRuleSet

@@ -15,7 +15,7 @@
 function Initialize-PSGPOPolicyAnalyzerView {
     $analyzerControlNames = @(
         'analyzerView', 'analyzerFolderTextBox', 'analyzerFolderBrowseButton', 'analyzerFolderReadButton', 'analyzerSetsList', 'analyzerSetsEmptyTextBlock',
-        'analyzerAddGposButton', 'analyzerAddGpmcButton', 'analyzerSaveSetButton', 'analyzerRemoveSetButton', 'analyzerCompareButton', 'analyzerSetsStatusTextBlock',
+        'analyzerAddGposButton', 'analyzerAddGpmcButton', 'analyzerSaveSetButton', 'analyzerRemoveSetButton', 'analyzerCompareButton', 'analyzerEffectiveButton', 'analyzerSetsStatusTextBlock',
         'analyzerGposPanel', 'analyzerGposModeComboBox', 'analyzerGposSomComboBox', 'analyzerGposSomTextBlock', 'analyzerGposFilterTextBox', 'analyzerGposList', 'analyzerGposNameTextBox', 'analyzerGposErrorTextBlock', 'analyzerGposConfirmButton',
         'analyzerGposCancelButton', 'analyzerFilePanel', 'analyzerFileTitleTextBlock', 'analyzerFilePathTextBox', 'analyzerFileBrowseButton', 'analyzerFileAllCheckBox',
         'analyzerFileErrorTextBlock', 'analyzerFileConfirmButton', 'analyzerFileCancelButton', 'analyzerShowComboBox', 'analyzerSearchTextBox', 'analyzerExportButton',
@@ -53,6 +53,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
             'Domain' { Get-PSGPOText 'GPOs of the domain: {0} GPO(s), {1} settings' $gpos $RuleSet.Rules.Count }
             'Gpmc' { Get-PSGPOText 'Backups: {0} GPO(s), {1} settings' $gpos $RuleSet.Rules.Count }
             'Container' { Get-PSGPOText 'The GPOs that apply, by precedence: {0} GPO(s), {1} settings' $gpos $RuleSet.Rules.Count }
+            'Effective' { Get-PSGPOText 'Effective state of this computer: {0} settings' $RuleSet.Rules.Count }
             default { Get-PSGPOText '{0} GPO(s), {1} settings' $gpos $RuleSet.Rules.Count }
         }
     }
@@ -427,15 +428,40 @@ function Initialize-PSGPOPolicyAnalyzerView {
         Show-AnalyzerDetail
     }
 
+    # The sets checked compared; with -EffectiveState, to the effective state of the computer for
+    # their settings too, saved in the folder as Policy Analyzer does (EffectiveState_<computer>_<date>).
     function Invoke-AnalyzerCompare {
+        param([switch]$EffectiveState)
         $sets = @($analyzer.Sets | Where-Object IsChecked | ForEach-Object RuleSet)
         if (-not $sets.Count) { $analyzerSetsStatusTextBlock.Text = Get-PSGPOText 'Check one or more rule sets to compare.'; return }
-        $analyzerSetsStatusTextBlock.Text = Get-PSGPOText 'Comparing {0} rule set(s)...' $sets.Count
+        $analyzerSetsStatusTextBlock.Text = if ($EffectiveState) { Get-PSGPOText 'Reading the effective state of this computer...' } else { Get-PSGPOText 'Comparing {0} rule set(s)...' $sets.Count }
         $analyzerCompareButton.IsEnabled = $false
+        $analyzerEffectiveButton.IsEnabled = $false
         # Posted: the text shows before the window waits for the comparison.
         $analyzer.Comparing = $sets
+        $analyzer.EffectiveState = [bool]$EffectiveState
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
                 try {
+                    $notes = [System.Collections.Generic.List[string]]::new()
+                    if ($analyzer.EffectiveState) {
+                        $state = New-PSGPOPolicyRuleSetFromEffectiveState -RuleSet ([GPOToolsPolicyRuleSet[]]$analyzer.Comparing)
+                        if ($state.Skipped) { $notes.Add((Get-PSGPOText '{0} security and audit settings are not read: secedit and auditpol need PowerShell run as an administrator.' $state.Skipped)) }
+                        $set = $state.RuleSet
+                        $folder = "$($analyzerFolderTextBox.Text)".Trim()
+                        $saved = $null
+                        if ($folder) {
+                            try {
+                                $saved = Export-PSGPOPolicyRuleSet -RuleSet $set -Path (Join-Path $folder "$($set.Name).PolicyRules") -Confirm:$false -ErrorAction Stop
+                                $set.Path = $saved.FullName
+                                $notes.Add((Get-PSGPOText 'The effective state is saved in {0}.' $saved.FullName))
+                            } catch {
+                                $notes.Add((Get-PSGPOText 'The effective state is not saved: {0}' $_.Exception.GetBaseException().Message))
+                            }
+                        }
+                        # Its file in the list once the folder is read again, else the set itself.
+                        if ($saved) { Read-AnalyzerFolder } else { $analyzer.Sets.Add([AvaloniaPolicyRuleSetItem]@{ Name = $set.Name; Detail = Get-AnalyzerSetDetail -RuleSet $set -Kind Effective; Path = $set.Name; Kind = 'Effective'; RuleSet = $set }); Update-AnalyzerSetsList }
+                        $analyzer.Comparing = @($analyzer.Comparing) + $set
+                    }
                     $comparison = @(Get-PSGPOPolicyRuleComparison -RuleSet ([GPOToolsPolicyRuleSet[]]$analyzer.Comparing))
                     $analyzer.Columns = @(if ($comparison.Count) { $comparison[0].Cells | ForEach-Object Set } else { Get-PSGPOPolicyRuleColumnName -RuleSet ([GPOToolsPolicyRuleSet[]]$analyzer.Comparing) })
                     $analyzer.Rows = [object[]]@(foreach ($row in $comparison) { (ConvertTo-AnalyzerRow -Row $row).psobject.BaseObject })
@@ -443,11 +469,12 @@ function Initialize-PSGPOPolicyAnalyzerView {
                     $analyzerEmptyTextBlock.IsVisible = $false
                     $analyzerGrid.IsVisible = $true
                     Update-AnalyzerGridRow
-                    $analyzerSetsStatusTextBlock.Text = ''
+                    $analyzerSetsStatusTextBlock.Text = $notes -join [Environment]::NewLine
                 } catch {
                     $analyzerSetsStatusTextBlock.Text = Get-PSGPOText 'The sets are not compared: {0}' $_.Exception.GetBaseException().Message
                 } finally {
                     $analyzerCompareButton.IsEnabled = $true
+                    $analyzerEffectiveButton.IsEnabled = $true
                 }
             }, [Avalonia.Threading.DispatcherPriority]::Background)
     }
@@ -518,6 +545,9 @@ function Initialize-PSGPOPolicyAnalyzerView {
     $analyzerFileConfirmButton.Add_Click({ Submit-AnalyzerFile })
     $analyzerFileCancelButton.Add_Click({ $analyzerFilePanel.IsVisible = $false })
     $analyzerCompareButton.Add_Click({ Invoke-AnalyzerCompare })
+    # The effective state is the one of a Windows computer.
+    $analyzerEffectiveButton.IsVisible = [bool]$IsWindows
+    $analyzerEffectiveButton.Add_Click({ Invoke-AnalyzerCompare -EffectiveState })
     $analyzerApplySetButton.Add_Click({ Open-AnalyzerApplyForm })
     $analyzerApplyConfirmButton.Add_Click({ Submit-AnalyzerApply })
     $analyzerApplyCancelButton.Add_Click({ $analyzerApplyPanel.IsVisible = $false })

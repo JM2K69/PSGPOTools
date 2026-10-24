@@ -59,6 +59,7 @@ not part of it, as in Policy Analyzer.
 | Backups of HGPM | `Get-PSGPOBackup ... \| Get-PSGPOPolicyRuleSet` |
 | Backups of GPMC (the `GPOs` folder of a security baseline) or of HGPM (their folder, a GPO, one backup) | `Get-PSGPOPolicyRuleSet -BackupPath` |
 | The GPOs that apply to a domain or an OU, by precedence | `Get-PSGPOPolicyRuleSet -Container` |
+| The effective state of this computer for the settings of other sets (Windows only) | `Get-PSGPOPolicyRuleSet -EffectiveState` |
 
 `Export-PSGPOPolicyRuleSet` saves sets as a `.PolicyRules` file, as `GPO2PolicyRules.exe` writes
 it: Policy Analyzer opens it, and `LGPO.exe /p` applies it to the local policy of a computer.
@@ -141,6 +142,45 @@ Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $domain -DifferenceOnly |
 
 One set alone shows its own conflicts and duplicates: the GPOs applied together that set the same
 setting.
+
+## The effective state of this computer (Windows only)
+
+!!! note "Windows only"
+    The effective state is the one of the Windows computer HGPM runs on: the button
+    **Compare to effective state** is shown on Windows only, and `Get-PSGPOPolicyRuleSet
+    -EffectiveState` stops on Linux.
+
+As **Compare to Effective State** of Policy Analyzer, **Compare to effective state** compares the
+sets checked to what this computer, and the user of the session, have now. For each setting of the
+sets, HGPM reads:
+
+| Settings | Read from | Administrator |
+|---|---|---|
+| Administrative templates and other registry settings, of the computer and of the user | the registry (HKLM, HKCU) | no |
+| Security options (`[Registry Values]`), startup of the services | the registry | no |
+| Account policies, user rights, other security settings | `secedit /export` (the security database of the computer, where Group Policy applies them) | yes |
+| Advanced audit policy | `auditpol /backup` | yes |
+
+![The baseline of Microsoft against the effective state of a Windows 11 computer](../assets/screenshots/61-policy-analyzer-effective-state.png)
+
+- The effective state is a rule set of its own, a column next to the sets checked: a setting the
+  computer does not have is empty there (grey), a value deleted is `[[[delete]]]`, a user right
+  nobody has is empty.
+- It is saved in the folder of the rule sets as Policy Analyzer saves it,
+  `EffectiveState_<computer>_<yyyyMMdd-HHmmss>.PolicyRules`, and listed with the other sets.
+- `secedit` and `auditpol` need PowerShell **run as an administrator**: without, the registry is
+  read and the window, or a warning of the command, says how many security and audit settings are
+  not.
+- The user settings are those of the account that runs PowerShell: run as an administrator under
+  another account, they are the ones of that account.
+
+```powershell
+# PowerShell run as an administrator
+$baseline = Get-PSGPOPolicyRuleSet -Path .\MSFT-Win11-v25H2.PolicyRules
+$state = Get-PSGPOPolicyRuleSet -EffectiveState -RuleSet $baseline
+Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $state -DifferenceOnly | Format-Table Name, MSFT-Win11-v25H2, $state.Name
+Export-PSGPOPolicyRuleSet -RuleSet $state -Path ".\$($state.Name).PolicyRules"
+```
 
 ## Writing a rule set in a GPO
 
