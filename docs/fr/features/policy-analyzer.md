@@ -57,7 +57,8 @@ côté client. Les préférences et les scripts n'en font pas partie, comme dans
 | fichiers `.PolicyRules`, ou tous ceux d'un dossier (`Documents\PolicyAnalyzer` pour Policy Analyzer) | `Get-PSGPOPolicyRuleSet -Path` |
 | GPO du domaine, telles qu'elles sont | `Get-PSGPOPolicyRuleSet -Name` |
 | sauvegardes de HGPM | `Get-PSGPOBackup ... \| Get-PSGPOPolicyRuleSet` |
-| sauvegardes de GPMC : le dossier `GPOs` d'une baseline de sécurité | `Get-PSGPOPolicyRuleSet -GpmcBackupPath` |
+| sauvegardes de GPMC (le dossier `GPOs` d'une baseline de sécurité) ou de HGPM (leur dossier, une GPO, une sauvegarde) | `Get-PSGPOPolicyRuleSet -BackupPath` |
+| les GPO qui s'appliquent à un domaine ou une UO, par priorité | `Get-PSGPOPolicyRuleSet -Container` |
 
 `Export-PSGPOPolicyRuleSet` enregistre des jeux dans un fichier `.PolicyRules`, comme l'écrit
 `GPO2PolicyRules.exe` : Policy Analyzer l'ouvre, et `LGPO.exe /p` l'applique à la stratégie locale
@@ -70,6 +71,33 @@ Get-PSGPOPolicyRuleSet -Name 'Postes - *' -SetName 'Postes' |
 
 # La baseline de Microsoft, à partir de ses sauvegardes de GPO (ce que contient son fichier .PolicyRules)
 Get-PSGPOPolicyRuleSet -GpmcBackupPath '.\Windows 11 v25H2 Security Baseline\GPOs'
+```
+
+## Les GPO d'une UO, par priorité
+
+Policy Analyzer ne dit pas quelle GPO d'un jeu l'emporte. HGPM le fait pour les GPO qui
+s'appliquent à un domaine ou une UO : `Get-PSGPOPolicyRuleSet -Container`, ou *Les GPO qui
+s'appliquent à un domaine ou une UO, par ordre de priorité* dans **GPO du domaine...** de la
+fenêtre, les ordonne comme l'onglet *Héritage de stratégie de groupe* de GPMC :
+
+1. les liens appliqués d'abord, du domaine vers l'UO (celui le plus proche du domaine l'emporte) ;
+2. puis les autres liens, de l'UO vers le domaine, jusqu'à une UO qui bloque l'héritage (ses
+   propres liens compris) ;
+3. les liens désactivés, et les GPO dont tous les paramètres sont désactivés, écartés ; les
+   paramètres ordinateur ou utilisateur que l'état d'une GPO désactive aussi.
+
+Chaque paramètre montre alors la valeur de la GPO de priorité 1 qui le définit : deux GPO de l'UO
+en désaccord ne sont pas un conflit, la priorité tranche (gris clair), et les détails listent
+chaque GPO avec sa priorité, celle qui est *appliquée* en premier. Un `**delvals.` d'une GPO plus
+prioritaire efface les valeurs de sa clé que les autres écrivent, comme le client les applique
+(`[[[Delete all values]]]`). Le filtrage de sécurité, les filtres WMI et le traitement en boucle
+dépendent de chaque ordinateur ou utilisateur : ils ne sont pas pris en compte, ni les liens des
+sites.
+
+```powershell
+$baseline = Get-PSGPOPolicyRuleSet -Path .\MSFT-Win11-v25H2.PolicyRules
+$portables = Get-PSGPOPolicyRuleSet -Container 'OU=Laptops,OU=Workstations,DC=contoso,DC=com'
+Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $portables -ConflictOnly
 ```
 
 ## Comparer des jeux de règles

@@ -465,6 +465,19 @@ function Get-PSGPOPolicyRuleComparison {
         }
     }
 
+    # In a set by precedence, a **delvals. clears the values of its key the GPOs of lower precedence
+    # write: the highest precedence of a **delvals. by key (scope|key).
+    $clearedAt = for ($index = 0; $index -lt $RuleSet.Count; $index++) {
+        $keys = @{}
+        foreach ($rule in $RuleSet[$index].Rules) {
+            if ($rule.Precedence -le 0 -or -not $rule.IsDeleteAllValues()) { continue }
+            $key = "$($rule.Scope)|$($rule.Key)".ToLowerInvariant()
+            if (-not $keys.ContainsKey($key) -or $rule.Precedence -lt $keys[$key]) { $keys[$key] = $rule.Precedence }
+        }
+        , $keys
+    }
+    $clearedAt = @($clearedAt)
+
     # @(): one name alone comes back as a string, whose [0] is its first letter.
     $columns = @(Get-PSGPOPolicyRuleColumnName -RuleSet $RuleSet)
     $scopeOrder = @{ Computer = 0; User = 1 }
@@ -475,25 +488,41 @@ function Get-PSGPOPolicyRuleComparison {
         $types = @($lists | ForEach-Object { $_ } | Where-Object { $_.Kind -eq 'Registry' -and -not $_.IsDelete() -and -not $_.IsDeleteAllValues() } | ForEach-Object RegType | Select-Object -Unique)
         $cells = for ($index = 0; $index -lt $RuleSet.Count; $index++) {
             $rules = $lists[$index]
+            # By precedence (the GPOs of an OU): the GPO of precedence 1 first, its value wins.
+            $ordered = $rules.Count -and -not @($rules | Where-Object Precedence -LE 0).Count
+            if ($ordered) { $rules = [System.Collections.Generic.List[GPOToolsPolicyRule]]@($rules | Sort-Object Precedence) }
             $distinct = @($rules | ForEach-Object { $_.GetComparable() } | Select-Object -Unique)
-            $state = if (-not $rules.Count) { 'Absent' } elseif ($distinct.Count -gt 1) { 'Conflict' } elseif ($rules.Count -gt 1) { 'Duplicate' } else { 'Set' }
-            $value = switch ($state) {
-                'Absent' { '' }
-                'Conflict' { '***CONFLICT***' }
-                default {
-                    $text = Format-PSGPOPolicyRuleValue -Rule $rules[0] -Setting $item.CatalogSetting
-                    if ($types.Count -gt 1 -and $rules[0].Kind -eq 'Registry' -and -not $rules[0].IsDelete()) { "$text ($($rules[0].RegType))" } else { $text }
-                }
+            $winner = if ($rules.Count) { $rules[0] }
+            $cleared = $false
+            if ($ordered -and $winner.Kind -eq 'Registry' -and -not $winner.IsDeleteAllValues()) {
+                $at = $clearedAt[$index]["$($winner.Scope)|$($winner.Key)".ToLowerInvariant()]
+                $cleared = $null -ne $at -and $at -lt $winner.Precedence
             }
+            $state = if (-not $rules.Count) { 'Absent' }
+                elseif ($cleared) { 'Overridden' }
+                elseif ($distinct.Count -gt 1) { if ($ordered) { 'Overridden' } else { 'Conflict' } }
+                elseif ($rules.Count -gt 1) { 'Duplicate' } else { 'Set' }
+            $value = if (-not $rules.Count) { '' }
+                elseif ($state -eq 'Conflict') { '***CONFLICT***' }
+                elseif ($cleared) { '[[[Delete all values]]]' }
+                else {
+                    $text = Format-PSGPOPolicyRuleValue -Rule $winner -Setting $item.CatalogSetting
+                    if ($types.Count -gt 1 -and $winner.Kind -eq 'Registry' -and -not $winner.IsDelete()) { "$text ($($winner.RegType))" } else { $text }
+                }
             [pscustomobject]@{
                 PSTypeName = 'PSGPOTools.PolicyRuleCell'
                 Set = $columns[$index]
                 State = $state
                 Value = $value
-                Comparable = if ($state -in 'Set', 'Duplicate') { $distinct[0] } else { $null }
+                Comparable = if ($cleared) { '[[[Delete all values]]]' } elseif ($state -in 'Set', 'Duplicate', 'Overridden') { $winner.GetComparable() } else { $null }
                 Rules = @($rules)
-                Values = @($rules | ForEach-Object {
-                        [pscustomobject]@{ PolicyName = $_.PolicyName; Value = Format-PSGPOPolicyRuleValue -Rule $_ -Setting $item.CatalogSetting; SourceFile = $_.SourceFile }
+                # Applied: the value of the GPO that wins in a set by precedence.
+                Values = @(for ($each = 0; $each -lt $rules.Count; $each++) {
+                        $rule = $rules[$each]
+                        [pscustomobject]@{
+                            PolicyName = $rule.PolicyName; Value = Format-PSGPOPolicyRuleValue -Rule $rule -Setting $item.CatalogSetting; SourceFile = $rule.SourceFile
+                            Precedence = $rule.Precedence; Applied = $ordered -and $each -eq 0 -and -not $cleared
+                        }
                     })
             }
         }
@@ -539,4 +568,61 @@ function Get-PSGPOPolicyRuleColumnName {
         $name
     }
     [string[]]@($names)
+}
+
+# The rule set of the backups of a folder: GPMC backups (a folder of them as Backup-GPO writes it,
+# the GPOs folder of a security baseline, or one backup), and those of HGPM (Backup-PSGPO: their
+# folder, the newest backup of each GPO; the folder of a GPO, its newest; one backup, or its Files
+# folder). As GPO2PolicyRules: the GPOs by name, the newest backup of each.
+function New-PSGPOPolicyRuleSetFromBackupFolder {
+    [CmdletBinding()]
+    [OutputType([GPOToolsPolicyRuleSet])]
+    param(
+        [Parameter(Mandatory)] [string]$Path,
+        [string[]]$Name,
+        [string]$SetName
+    )
+
+    $full = [System.IO.Path]::GetFullPath($Path).TrimEnd([System.IO.Path]::DirectorySeparatorChar, [System.IO.Path]::AltDirectorySeparatorChar)
+    if (-not (Test-Path -LiteralPath $full -PathType Container)) { throw "No folder $Path." }
+    $same = { param($A, $B) [string]::Equals([System.IO.Path]::GetFullPath($A).TrimEnd('\', '/'), [System.IO.Path]::GetFullPath($B).TrimEnd('\', '/'), [System.StringComparison]::OrdinalIgnoreCase) }
+    # The Files folder of a backup of HGPM: the backup.
+    if ([System.IO.Path]::GetFileName($full) -ieq 'Files' -and (Test-Path -LiteralPath (Join-Path ([System.IO.Path]::GetDirectoryName($full)) 'manifest.json'))) { $full = [System.IO.Path]::GetDirectoryName($full) }
+
+    $own = @()
+    if (Test-Path -LiteralPath (Join-Path $full 'manifest.json')) {
+        # One backup of HGPM: read with the others of its folder of backups.
+        $root = [System.IO.Path]::GetDirectoryName([System.IO.Path]::GetDirectoryName($full))
+        $own = @(Get-PSGPOBackupEntry -Path $root | Where-Object { & $same $_.Path $full })
+    } elseif (@(Get-ChildItem -LiteralPath $full -Directory | Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'manifest.json') }).Count) {
+        # The folder of a GPO of HGPM, its backups by date: the newest.
+        $root = [System.IO.Path]::GetDirectoryName($full)
+        $own = @(Get-PSGPOBackupEntry -Path $root | Where-Object { & $same ([System.IO.Path]::GetDirectoryName($_.Path)) $full })
+    } else {
+        $own = @(Get-PSGPOBackupEntry -Path $full -ErrorAction SilentlyContinue)
+    }
+    $gpmc = @(Get-PSGPOGpmcBackupEntry -Path $full -WarningAction SilentlyContinue)
+    $match = { param($DisplayName) -not $Name -or @($Name | Where-Object { Test-PSGPONameMatch -Name $DisplayName -Pattern $_ }).Count }
+    $sources = @(@($gpmc) + @($own) | Where-Object { & $match $_.DisplayName } | Sort-Object { if ($_.BackedUp) { $_.BackedUp } else { [datetime]::MinValue } } -Descending | Group-Object Id | ForEach-Object { $_.Group[0] } | Sort-Object DisplayName)
+    if (-not $sources.Count) { throw "No backup of GPMC nor of HGPM$(if ($Name) { " of '$($Name -join "', '")'" }) in $Path." }
+
+    $set = [GPOToolsPolicyRuleSet]::new($(if ($SetName) { $SetName } elseif ($sources.Count -eq 1) { $sources[0].DisplayName } else { [System.IO.Path]::GetFileName($full) }))
+    $set.Path = $full
+    foreach ($source in $sources) {
+        if ($source.PSObject.TypeNames -contains 'PSGPOTools.GpmcBackup') {
+            $files = Read-PSGPOGpmcBackupFile -Backup $source
+            $root = Join-Path $source.Path 'DomainSysvol' 'GPO'
+            $machine = $source.MachineExtensionNames
+            $user = $source.UserExtensionNames
+        } else {
+            $files = Read-PSGPOBackupFile -Backup $source
+            $root = Join-Path $source.Path 'Files'
+            $extensions = Get-PSGPOBackupExtensionName -Backup $source -Files $files
+            $machine = $extensions.Machine
+            $user = $extensions.User
+        }
+        foreach ($rule in @(ConvertTo-PSGPOPolicyRule -Files $files -PolicyName $source.DisplayName -SourceRoot $root)) { $set.Rules.Add($rule) }
+        Add-PSGPOPolicyRuleExtension -RuleSet $set -MachineExtensionNames $machine -UserExtensionNames $user
+    }
+    $set
 }

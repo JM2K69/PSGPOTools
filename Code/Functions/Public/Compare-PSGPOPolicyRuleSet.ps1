@@ -14,11 +14,14 @@ function Compare-PSGPOPolicyRuleSet {
         values), Difference (a conflict, or a set does not configure it), the setting as Policy
         Analyzer lists it (PolicyType, Group, Setting) and as GPMC shows it (Path, Name, Option:
         the policies of the ADMX loaded by Initialize-PSGPOAdmx, the security settings), its
-        explanation, and Cells: for each set its state (Absent, Set, Duplicate, Conflict) and the
-        value of each GPO. Export-PSGPOPolicyRuleComparison saves the rows as an Excel workbook.
+        explanation, and Cells: for each set its state (Absent, Set, Duplicate, Conflict,
+        Overridden) and the value of each GPO. Export-PSGPOPolicyRuleComparison saves the rows as
+        an Excel workbook.
 
         One set alone shows its own conflicts and duplicates. The precedence of the GPOs of a set
-        is not taken into account.
+        is not taken into account, but for the GPOs of a domain or an OU (Get-PSGPOPolicyRuleSet
+        -Container): the value of the GPO of precedence 1 is the one of the set (Overridden when
+        others give another one), a **delvals. of higher precedence clearing the values of its key.
     .PARAMETER RuleSet
         The sets (Get-PSGPOPolicyRuleSet), in the order of their columns.
     .PARAMETER DifferenceOnly

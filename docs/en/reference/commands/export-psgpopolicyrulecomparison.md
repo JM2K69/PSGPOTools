@@ -12,7 +12,7 @@ Export-PSGPOPolicyRuleComparison [-InputObject] <PolicyRuleComparison[]> [-Path]
 
 ## Description
 
-Writes a .xlsx file (without Excel nor any module, on any platform) from the rows of Compare-PSGPOPolicyRuleSet: a sheet Comparison with a row per setting and a column per set, with the colours of Policy Analyzer (yellow: the sets, or two GPOs of a set, give the setting different values; grey: the set does not configure it; light grey: it is set several times to the same value), and a sheet GPOs with the GPOs of each set.
+Writes a .xlsx file (without Excel nor any module, on any platform) from the rows of Compare-PSGPOPolicyRuleSet: a sheet Comparison with a row per setting and a column per set, with the colours of Policy Analyzer (yellow: the sets, or two GPOs of a set, give the setting different values; grey: the set does not configure it; light grey: it is set several times to the same value, or by GPOs of an OU whose precedence decides), and a sheet GPOs with the GPOs of each set.
 
 By default the table as the Policy Viewer shows it ("Export table to Excel"); with -All, also the value of each GPO, the explanation and the reference of each setting ("Export all data to Excel").
 
