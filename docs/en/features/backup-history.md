@@ -113,7 +113,7 @@ Each change the domain accepted, from the console or a command, is a line of the
 |---|---|
 | `Time` | when (UTC) |
 | `Account`, `Computer`, `Server` | who, from which computer, on which domain controller |
-| `Action` | `NewGpo`, `RenameGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SetWmiFilter`, `NewWmiFilter`, `EditWmiFilter`, `RemoveWmiFilter`, `SetWmiFilterPermission`, `SetGpoPermission`, `SetGpoSecurityFiltering`, `SaveGpoFile`, `RestoreGpo`, `ImportGpo`, `RemoveGpo`, `RemoveDeletedGpoBackup`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration` |
+| `Action` | `NewGpo`, `RenameGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SetWmiFilter`, `NewWmiFilter`, `EditWmiFilter`, `RemoveWmiFilter`, `SetWmiFilterPermission`, `SetGpoPermission`, `SetGpoSecurityFiltering`, `SaveGpoFile`, `RestoreGpo`, `ImportGpo`, `ImportPolicyRuleSet`, `RemoveGpo`, `RemoveDeletedGpoBackup`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration` |
 | `Target`, `GpoName`, `GpoId` | on what: the GPO, the domain or OU, the configuration |
 | `Details` | how: the link options changed, the file saved with its SHA-256 and the new version, the rights of the creators and the permissions removed at an approval... |
 

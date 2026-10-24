@@ -12,7 +12,7 @@ function Get-PSGPOLauncherWindowXaml {
 <Window xmlns='https://github.com/avaloniaui'
         xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
         Title='HGPM'
-        Width='760' Height='460'
+        Width='1000' Height='340'
         MinWidth='420' MinHeight='300'
         WindowStartupLocation='CenterScreen'
         Background='{DynamicResource BackgroundBrush}'
@@ -44,7 +44,7 @@ $(Get-PSGPOWindowResourceXaml)
 
         <!-- The tiles of the consoles -->
         <ScrollViewer Grid.Row='1'>
-            <WrapPanel Name='toolsPanel' Margin='14'/>
+            <WrapPanel Name='toolsPanel' Margin='14' HorizontalAlignment='Center'/>
         </ScrollViewer>
 
         <!-- Why a console did not open -->

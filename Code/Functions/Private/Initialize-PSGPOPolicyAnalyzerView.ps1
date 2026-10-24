@@ -20,7 +20,9 @@ function Initialize-PSGPOPolicyAnalyzerView {
         'analyzerGposCancelButton', 'analyzerFilePanel', 'analyzerFileTitleTextBlock', 'analyzerFilePathTextBox', 'analyzerFileBrowseButton', 'analyzerFileAllCheckBox',
         'analyzerFileErrorTextBlock', 'analyzerFileConfirmButton', 'analyzerFileCancelButton', 'analyzerShowComboBox', 'analyzerSearchTextBox', 'analyzerExportButton',
         'analyzerEmptyTextBlock', 'analyzerGrid', 'analyzerSummaryTextBlock', 'analyzerDetailsBorder', 'analyzerDetailsNameTextBlock', 'analyzerDetailsPathTextBlock',
-        'analyzerDetailsSettingTextBlock', 'analyzerDetailsValuesList', 'analyzerDetailsExplainTextBlock'
+        'analyzerDetailsSettingTextBlock', 'analyzerDetailsValuesList', 'analyzerDetailsExplainTextBlock',
+        'analyzerApplySetButton', 'analyzerApplyPanel', 'analyzerApplyTitleTextBlock', 'analyzerApplyGpoComboBox', 'analyzerApplyNewNameTextBox',
+        'analyzerApplyPoliciesList', 'analyzerApplyReplaceCheckBox', 'analyzerApplyErrorTextBlock', 'analyzerApplyConfirmButton', 'analyzerApplyCancelButton'
     )
     foreach ($analyzerName in $analyzerControlNames) { Set-Variable -Name $analyzerName -Value (Get-PSGPOAvaloniaControl $window $analyzerName) }
 
@@ -28,7 +30,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
     # File: what the file form does (Save, Excel, Gpmc) and the file a second click replaces.
     $analyzer = @{
         Loaded = $false; Sets = [System.Collections.Generic.List[object]]::new(); Rows = @(); Shown = @(); Columns = @()
-        FileMode = $null; Replace = $null; SetToSave = $null; Picker = @{ Task = $null; Timer = $null; Done = $null }
+        FileMode = $null; Replace = $null; SetToSave = $null; SetToApply = $null; Picker = @{ Task = $null; Timer = $null; Done = $null }
         Directory = $Directory; DomainParameters = $DomainParameters
     }
     # The colours of Policy Analyzer, readable in the light and dark themes.
@@ -164,6 +166,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
     function Hide-AnalyzerForm {
         $analyzerGposPanel.IsVisible = $false
         $analyzerFilePanel.IsVisible = $false
+        $analyzerApplyPanel.IsVisible = $false
     }
 
     # --- GPOs of the domain as a set ---------------------------------------------------------------
@@ -200,6 +203,46 @@ function Initialize-PSGPOPolicyAnalyzerView {
         $analyzer.Sets.Add([AvaloniaPolicyRuleSetItem]@{ Name = $set.Name; Detail = Get-AnalyzerSetDetail -RuleSet $set -Kind Domain -GpoCount $gpos.Count; Path = $set.Path; Kind = 'Domain'; RuleSet = $set; IsChecked = $true })
         $analyzerGposPanel.IsVisible = $false
         Update-AnalyzerSetsList
+    }
+
+    # --- The settings of a set written in a GPO of the domain (Import-PSGPOPolicyRuleSet) ----------
+
+    function Open-AnalyzerApplyForm {
+        $item = $analyzerSetsList.SelectedItem
+        if (-not $item) { $analyzerSetsStatusTextBlock.Text = Get-PSGPOText 'Select the set to write in a GPO.'; return }
+        Hide-AnalyzerForm
+        $analyzer.SetToApply = $item
+        $analyzerApplyTitleTextBlock.Text = Get-PSGPOText "Write the settings of the set '{0}' in a GPO of the domain" $item.Name
+        $analyzerApplyErrorTextBlock.Text = ''
+        $analyzerApplyNewNameTextBox.Text = ''
+        $analyzerApplyReplaceCheckBox.IsChecked = $false
+        $analyzerApplyGpoComboBox.ItemsSource = $null
+        $analyzerApplyPanel.IsVisible = $true
+        # The GPOs the account edits, the domain read the first time.
+        $null = Get-AnalyzerDirectory
+        if (-not $analyzer.Directory) { $analyzerApplyErrorTextBlock.Text = $analyzerGposErrorTextBlock.Text }
+        $analyzerApplyGpoComboBox.ItemsSource = [object[]]@(foreach ($gpo in @($analyzer.Directory.Gpos | Sort-Object DisplayName)) { if ($gpo.CanEdit) { $gpo.psobject.BaseObject } })
+        $analyzerApplyPoliciesList.ItemsSource = [string[]]@($item.RuleSet.GetPolicyNames())
+        $analyzerApplyPoliciesList.SelectAll()
+    }
+
+    function Submit-AnalyzerApply {
+        $item = $analyzer.SetToApply
+        if (-not $analyzer.Directory) { return }
+        $newName = "$($analyzerApplyNewNameTextBox.Text)".Trim()
+        $target = if ($newName) { $newName } elseif ($analyzerApplyGpoComboBox.SelectedItem) { $analyzerApplyGpoComboBox.SelectedItem.DisplayName }
+        if (-not $target) { $analyzerApplyErrorTextBlock.Text = Get-PSGPOText 'Choose the GPO, or give the name of a new one.'; return }
+        $policies = @($analyzerApplyPoliciesList.SelectedItems | ForEach-Object { "$_" })
+        if (-not $policies.Count) { $analyzerApplyErrorTextBlock.Text = Get-PSGPOText 'Select the GPOs of the set whose settings are written.'; return }
+        if ($newName -and $analyzer.Directory.FindGpo($newName)) { $analyzerApplyErrorTextBlock.Text = Get-PSGPOText "A GPO named '{0}' already exists: choose it in the list." $newName; return }
+        try {
+            $done = Invoke-PSGPOPolicyRuleImport -Directory $analyzer.Directory -RuleSet $item.RuleSet -TargetName $target -PolicyName $policies -Replace:([bool]$analyzerApplyReplaceCheckBox.IsChecked) -CreateIfNeeded:([bool]$newName) -WarningAction SilentlyContinue
+        } catch {
+            $analyzerApplyErrorTextBlock.Text = Get-PSGPOText 'The settings are not written: {0}' $_.Exception.GetBaseException().Message
+            return
+        }
+        $analyzerApplyPanel.IsVisible = $false
+        $analyzerSetsStatusTextBlock.Text = Get-PSGPOText "Written in the GPO '{0}': {1} registry settings, {2} security settings, {3} audit settings{4}." $done.DisplayName $done.Registry $done.SecurityTemplate $done.Audit $(if (@($done.Skipped).Count) { Get-PSGPOText '; {0} not written (no data in the set)' @($done.Skipped).Count } else { '' })
     }
 
     # --- The file form: GPMC backups to add, a set to save, the comparison to export ----------------
@@ -422,6 +465,9 @@ function Initialize-PSGPOPolicyAnalyzerView {
     $analyzerFileConfirmButton.Add_Click({ Submit-AnalyzerFile })
     $analyzerFileCancelButton.Add_Click({ $analyzerFilePanel.IsVisible = $false })
     $analyzerCompareButton.Add_Click({ Invoke-AnalyzerCompare })
+    $analyzerApplySetButton.Add_Click({ Open-AnalyzerApplyForm })
+    $analyzerApplyConfirmButton.Add_Click({ Submit-AnalyzerApply })
+    $analyzerApplyCancelButton.Add_Click({ $analyzerApplyPanel.IsVisible = $false })
     $analyzerShowComboBox.Add_SelectionChanged({ Update-AnalyzerGridRow })
     $analyzerSearchTextBox.add_PropertyChanged({
         param($control, $e)

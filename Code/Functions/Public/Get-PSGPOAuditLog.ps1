@@ -18,7 +18,7 @@ function Get-PSGPOAuditLog {
         Only these actions (NewGpo, RenameGpo, SetGpoStatus, RemoveGpo, RemoveDeletedGpoBackup,
         NewLink, SetLink, RemoveLink, SetBlockInheritance, SetWmiFilter, NewWmiFilter,
         EditWmiFilter, RemoveWmiFilter, SetWmiFilterPermission, SetGpoPermission,
-        SetGpoSecurityFiltering, ApproveGpo, PendingGpo, SaveGpoFile, RestoreGpo, ImportGpo,
+        SetGpoSecurityFiltering, ApproveGpo, PendingGpo, SaveGpoFile, RestoreGpo, ImportGpo, ImportPolicyRuleSet,
         NewFilteringGroups, SaveConfiguration, InstallAdmx, NewPasswordPolicy, SetPasswordPolicy,
         RemovePasswordPolicy); * and ? make a pattern.
     .PARAMETER Account

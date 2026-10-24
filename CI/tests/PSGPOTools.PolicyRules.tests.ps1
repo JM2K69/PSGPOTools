@@ -226,6 +226,83 @@ InModuleScope -ModuleName HGPM {
         }
     }
 
+    Describe 'Rule sets written in a GPO' {
+        BeforeEach {
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            $Reference = [GPOToolsPolicyRuleSet]::Parse([System.IO.File]::ReadAllBytes($Expected), 'Fixture')
+            $Reference.AddExtension('Machine', '{2A8FDC61-2347-4C87-92F6-B05EB91A201A}', 'Group Policy Mitigation Options')
+            # The GPO has settings of its own: a value, a list, a service and a security setting.
+            $Pol = [GPOToolsRegistryPol]::new()
+            $Pol.Entries.Add([GPOToolsPolEntry]::new('Software\Policies\Own', 'Kept', [GPOToolsPolType]::DWord, [BitConverter]::GetBytes([uint32]9)))
+            $Pol.Entries.Add([GPOToolsPolEntry]::new('Software\Policies\HGPM Test\List', '9', [GPOToolsPolType]::String, [GPOToolsPolEntry]::EncodeString('old')))
+            $Directory.WritePolicyFile($Gpo, 'Machine', $Pol.ToBytes())
+            $Template = [GPOToolsSecurityTemplate]::new()
+            $Template.SetValue('System Access', 'LockoutBadCount', '5')
+            $Template.AddEntry('Service General Setting', '"Spooler",2,""', $null)
+            $Directory.WriteSecurityTemplate($Gpo, $Template.ToBytes())
+            $Backups = Join-Path $TestDrive "Backups-$([guid]::NewGuid())"
+            $SetOfGpo = { Get-PSGPOPolicyRuleSet -Directory $Directory -Name $Gpo.DisplayName -SetName 'GPO' }
+        }
+
+        It 'Merges the settings of the set in the GPO: the GPO then has them, and keeps its own' {
+            $Version = $Gpo.Version
+            $Result = Import-PSGPOPolicyRuleSet -Directory $Directory -RuleSet $Reference -TargetName $Gpo.DisplayName -PolicyName 'HGPM Test - Computer' -BackupPath $Backups -Confirm:$false 3>$null
+            $Result.Policies | Should -Be @('HGPM Test - Computer')
+            $Result.Registry | Should -Be 16 -Because 'BigEndian has no data in a rule set'
+            @($Result.Skipped) | Should -BeLike '*BigEndian*REG_DWORD_BIG_ENDIAN without its data*'
+            $Result.SecurityTemplate | Should -Be 14
+            $Result.Audit | Should -Be 4
+            $Result.BackupBefore | Should -Not -BeNullOrEmpty
+            $Gpo.Version | Should -Not -Be $Version
+
+            $Written = & $SetOfGpo
+            $Imported = Select-RuleSet -Set $Reference -Name 'Set' -PolicyName 'HGPM Test - Computer'
+            $Rows = @(Compare-PSGPOPolicyRuleSet -RuleSet $Imported, $Written)
+            @($Rows | Where-Object { $_.Cells[0].State -ne 'Absent' -and $_.Difference } | ForEach-Object Setting) | Should -Be @('BigEndian') -Because 'every setting of the set is in the GPO'
+            ($Rows | Where-Object Setting -EQ 'Kept').GPO | Should -Be '9' -Because 'the GPO keeps its own settings'
+            ($Rows | Where-Object Setting -EQ 'LockoutBadCount').GPO | Should -Not -BeNullOrEmpty
+            # A **delvals. clears the values of the key; a service is replaced, not listed twice.
+            @($Written.Rules | Where-Object { $_.Key -eq 'Software\Policies\HGPM Test\List' } | ForEach-Object ValueName) | Should -Be @('**delvals.', '1')
+            @($Written.Rules | Where-Object LineItem -Like '"Spooler"*').Count | Should -Be 1
+            ($Written.Rules | Where-Object LineItem -Like '"Spooler"*').LineItem | Should -Be '"Spooler",4,"D:AR(A;;RPWPCCDCLCSWRCWDWOGA;;;BA)"'
+            # The extensions of the settings, and those of the set, with the tool of the administrative templates.
+            $Gpo.MachineExtensionNames.Contains('[{35378EAC-683F-11D2-A89A-00C04FBBCFA2}') | Should -BeTrue -Because $Gpo.MachineExtensionNames
+            $Gpo.MachineExtensionNames.Contains('[{827D319E-6EAC-11D2-A4EA-00C04F79F83A}') | Should -BeTrue -Because $Gpo.MachineExtensionNames
+            $Gpo.MachineExtensionNames.Contains('[{F3CCC681-B74C-4060-9F26-CD84525DCA2A}{0F3F3735-573D-9804-99E4-AB2A69BA5FD4}]') | Should -BeTrue -Because $Gpo.MachineExtensionNames
+            $Gpo.MachineExtensionNames.Contains('[{2A8FDC61-2347-4C87-92F6-B05EB91A201A}{D02B1F72-3407-48AE-BA88-E8213C6761F1}]') | Should -BeTrue -Because $Gpo.MachineExtensionNames
+            $Gpo.UserExtensionNames.Contains('[{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{D02B1F73-3407-48AE-BA88-E8213C6761F1}]') | Should -BeTrue -Because $Gpo.UserExtensionNames
+        }
+
+        It 'Replaces the settings of the GPO by those of the set with -Replace' {
+            $null = Import-PSGPOPolicyRuleSet -Directory $Directory -RuleSet $Reference -TargetName $Gpo.DisplayName -PolicyName 'HGPM Test - Second' -Replace -NoBackup -Confirm:$false
+            $Written = & $SetOfGpo
+            @($Written.Rules | Where-Object ValueName -EQ 'Kept').Count | Should -Be 0
+            @($Written.Rules | Where-Object LineItem -Like 'LockoutBadCount*').Count | Should -Be 0
+            @($Written.Rules | Where-Object Kind -EQ 'Registry' | ForEach-Object ValueName) | Should -Be @('Same', 'Differs', 'TypeDiffers', 'OnlyB')
+            @($Written.Rules | Where-Object Kind -EQ 'SecurityTemplate' | ForEach-Object LineItem) | Should -Be @('MinimumPasswordAge=2', 'SeBackupPrivilege=*S-1-5-32-544,*S-1-5-32-551')
+        }
+
+        It 'Warns of the settings the GPOs of the set give different values, and writes the value of the last one' {
+            $null = Import-PSGPOPolicyRuleSet -Directory $Directory -RuleSet $Reference -TargetName $Gpo.DisplayName -NoBackup -Confirm:$false -WarningVariable Warned 3>$null
+            "$Warned" | Should -BeLike '*3 setting(s) given different values by the GPOs of the rule set*'
+            $Written = & $SetOfGpo
+            ($Written.Rules | Where-Object ValueName -EQ 'Differs').RegData | Should -Be '2'
+            ($Written.Rules | Where-Object LineItem -Like 'MinimumPasswordAge=*').LineItem | Should -Be 'MinimumPasswordAge=2'
+        }
+
+        It 'Changes nothing with -WhatIf, refuses a GPO the domain does not have, creates it with -CreateIfNeeded' {
+            $Version = $Gpo.Version
+            Import-PSGPOPolicyRuleSet -Directory $Directory -RuleSet $Reference -TargetName $Gpo.DisplayName -WhatIf 3>$null
+            $Gpo.Version | Should -Be $Version
+            { Import-PSGPOPolicyRuleSet -Directory $Directory -RuleSet $Reference -TargetName 'C - New Baseline' -Confirm:$false 3>$null } | Should -Throw -ExpectedMessage '*-CreateIfNeeded*'
+            { Import-PSGPOPolicyRuleSet -Directory $Directory -RuleSet $Reference -TargetName $Gpo.DisplayName -PolicyName 'Nothing' -Confirm:$false } | Should -Throw -ExpectedMessage "No setting of the GPOs 'Nothing'*"
+            $Result = Import-PSGPOPolicyRuleSet -Directory $Directory -RuleSet $Reference -TargetName 'C - New Baseline' -PolicyName 'HGPM Test - Second' -CreateIfNeeded -NoBackup -Confirm:$false
+            $Directory.FindGpo('C - New Baseline') | Should -Not -BeNullOrEmpty
+            $Result.Registry | Should -Be 4
+        }
+    }
+
     Describe 'Names of the policies of the ADMX' {
         BeforeAll {
             Initialize-PSGPOAdmx -Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions') -UICulture 'en-US' 3>$null

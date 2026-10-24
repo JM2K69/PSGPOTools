@@ -117,6 +117,38 @@ Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $domaine -DifferenceOnly |
 Un jeu seul montre ses propres conflits et doublons : les GPO appliquées ensemble qui configurent
 le même paramètre.
 
+## Écrire un jeu de règles dans une GPO
+
+`Import-PSGPOPolicyRuleSet` écrit les paramètres d'un jeu de règles dans une GPO du domaine, comme
+`LGPO.exe /p` applique un fichier `.PolicyRules` à la stratégie locale d'un ordinateur, aussi bien
+sur Active Directory que sur Samba AD : une baseline de sécurité de Microsoft devient une GPO sans
+ses sauvegardes GPMC, et sans Windows. Dans la fenêtre, **Écrire dans une GPO...** le fait pour le
+jeu sélectionné.
+
+- Les paramètres de registre vont dans les fichiers `Registry.pol` de la GPO (ordinateur et
+  utilisateur), le modèle de sécurité dans `GptTmpl.inf`, la stratégie d'audit avancée dans
+  `audit.csv` ; la GPO déclare les extensions côté client dont ils ont besoin, y compris celles que
+  liste le jeu (protection contre les exploits, LAPS...), et sa version augmente.
+- **Fusionnés** par défaut : un paramètre du jeu remplace le même paramètre de la GPO (un
+  `**delvals.` vide d'abord les valeurs de sa clé, comme pour une liste), les autres paramètres de
+  la GPO restent. `-Replace` (*Remplacer les paramètres de registre...* dans la fenêtre) ne laisse
+  que ceux du jeu.
+- Seules les GPO du jeu indiquées (`-PolicyName`, la liste de la fenêtre) sont écrites : une
+  baseline contient des GPO pour les ordinateurs, les utilisateurs, les contrôleurs de domaine...
+  Un paramètre auquel deux d'entre elles donnent des valeurs différentes prend la valeur de la
+  dernière, après un avertissement.
+- La GPO est d'abord sauvegardée (`-NoBackup` l'évite), et le changement est journalisé
+  (`ImportPolicyRuleSet`). Ses liens, son état, ses autorisations, ses préférences et ses scripts
+  ne changent pas.
+- Un `REG_DWORD_BIG_ENDIAN` n'est pas écrit : Policy Analyzer ne garde pas sa donnée.
+
+```powershell
+Get-PSGPOPolicyRuleSet -Path .\MSFT-Win11-v25H2.PolicyRules |
+    Import-PSGPOPolicyRuleSet -TargetName 'Postes - Baseline' -PolicyName '*- Computer' -CreateIfNeeded -WhatIf
+```
+
+![Les paramètres d'une baseline de sécurité écrits dans une GPO du domaine](../assets/screenshots/55-policy-analyzer-write.fr.png)
+
 ## Classeur Excel
 
 `Export-PSGPOPolicyRuleComparison` enregistre une comparaison dans un classeur Excel, écrit par

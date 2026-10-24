@@ -74,6 +74,12 @@ function Get-PSGPOPolicyAnalyzerViewXaml {
                                     <TextBlock Text='Save as .PolicyRules...' VerticalAlignment='Center'/>
                                 </StackPanel>
                             </Button>
+                            <Button Name='analyzerApplySetButton' Margin='0,0,6,6' ToolTip.Tip='Write the settings of the selected set in a GPO of the domain, as LGPO.exe /p applies them to a computer'>
+                                <StackPanel Orientation='Horizontal' Spacing='6'>
+                                    <PathIcon Data='{StaticResource Icon.arrow-import}'/>
+                                    <TextBlock Text='Write in a GPO...' VerticalAlignment='Center'/>
+                                </StackPanel>
+                            </Button>
                             <Button Name='analyzerRemoveSetButton' Margin='0,0,6,6' ToolTip.Tip='Remove the selected set from the list (its file is kept)'>
                                 <StackPanel Orientation='Horizontal' Spacing='6'>
                                     <PathIcon Data='{StaticResource Icon.delete}'/>
@@ -119,6 +125,34 @@ function Get-PSGPOPolicyAnalyzerViewXaml {
                             <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
                                 <Button Name='analyzerGposConfirmButton' Content='Add' MinWidth='100'/>
                                 <Button Name='analyzerGposCancelButton' Content='Cancel' Width='100'/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <!-- The settings of a set written in a GPO of the domain, merged or in place of its own -->
+                    <Border Grid.Row='1' Name='analyzerApplyPanel' IsVisible='False' Margin='0,0,0,8' Padding='12' CornerRadius='4'
+                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                        <StackPanel Spacing='8'>
+                            <TextBlock Name='analyzerApplyTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                            <Grid ColumnDefinitions='Auto,*' RowDefinitions='Auto,Auto'>
+                                <TextBlock Grid.Row='0' Grid.Column='0' Text='GPO of the domain' VerticalAlignment='Center' Margin='0,0,8,0' Foreground='{DynamicResource TextBrush}'/>
+                                <ComboBox Grid.Row='0' Grid.Column='1' Name='analyzerApplyGpoComboBox' HorizontalAlignment='Stretch'>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text='{Binding DisplayName}'/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <TextBlock Grid.Row='1' Grid.Column='0' Text='or a new GPO' VerticalAlignment='Center' Margin='0,8,8,0' Foreground='{DynamicResource TextBrush}'/>
+                                <TextBox Grid.Row='1' Grid.Column='1' Name='analyzerApplyNewNameTextBox' Margin='0,8,0,0' Watermark='Name of the GPO to create'/>
+                            </Grid>
+                            <TextBlock Text='The settings of these GPOs of the set' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                            <ListBox Name='analyzerApplyPoliciesList' MaxHeight='160' SelectionMode='Multiple,Toggle'/>
+                            <CheckBox Name='analyzerApplyReplaceCheckBox' Content='Replace the registry settings, security template and audit policy of the GPO, instead of merging them'/>
+                            <TextBlock Text='The GPO is backed up first, in the folder of the backups of the console.' FontSize='12' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                            <TextBlock Name='analyzerApplyErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding $self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                <Button Name='analyzerApplyConfirmButton' Content='Write' MinWidth='100'/>
+                                <Button Name='analyzerApplyCancelButton' Content='Cancel' Width='100'/>
                             </StackPanel>
                         </StackPanel>
                     </Border>

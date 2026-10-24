@@ -729,6 +729,7 @@ InModuleScope -ModuleName HGPM {
             $SecondName = "PSGPOTools test GPO 2 $Stamp"
             $TerminalName = "PSGPOTools test GPO terminal $Stamp"
             $ImportName = "PSGPOTools test GPO import $Stamp"
+            $RulesName = "PSGPOTools test GPO rules $Stamp"
             # An OU of the test, then the directory read again to have it.
             $null = Invoke-PSGPOSambaTool -ArgumentList 'ou', 'add', $OuDN, '-H', "ldap://$Server", '--use-kerberos=required'
             $Directory = Get-PSGPODirectory -Server $Server
@@ -740,7 +741,7 @@ InModuleScope -ModuleName HGPM {
 
         AfterAll {
             # Everything the tests created, whatever failed.
-            foreach ($Name in $GpoName, $SecondName, $TerminalName, $ImportName) {
+            foreach ($Name in $GpoName, $SecondName, $TerminalName, $ImportName, $RulesName) {
                 $Gpo = (Get-PSGPODirectory -Server $Server).FindGpo($Name)
                 if (-not $Gpo) { continue }
                 $Id = '{' + $Gpo.Id.ToString().ToUpperInvariant() + '}'
@@ -1011,6 +1012,27 @@ InModuleScope -ModuleName HGPM {
             # The first console reads its links again (the next tests use it).
             $Directory.SetLinks($Ou, [GPOToolsGpoLink]::Format($OtherOu.Links))
             foreach ($Link in $Ou.Links) { $Link.Gpo = $Directory.FindGpoByDistinguishedName($Link.GpoDistinguishedName) }
+        }
+
+        It 'Writes the settings of a rule set in a new GPO, which the domain reads back, and audits it' {
+            $Set = Get-PSGPOPolicyRuleSet -Path (Join-Path $PSScriptRoot 'Fixtures' 'PolicyRules' 'gpo2policyrules.PolicyRules')
+            $Result = Import-PSGPOPolicyRuleSet -Directory $Directory -RuleSet $Set -TargetName $RulesName -PolicyName 'HGPM Test - Computer' -CreateIfNeeded -NoBackup -Confirm:$false 3>$null
+            $Result.Registry | Should -Be 16
+            $Result.SecurityTemplate | Should -Be 14
+            $Result.Audit | Should -Be 4
+
+            # Read again from the domain: every setting of the set, but the one it has no data of.
+            $Read = Get-PSGPODirectory -Server $Server
+            $Again = Get-PSGPOPolicyRuleSet -Directory $Read -Name $RulesName -SetName 'Domain'
+            $Imported = [GPOToolsPolicyRuleSet]::new('Set')
+            foreach ($Rule in $Set.Rules) { if ($Rule.PolicyName -eq 'HGPM Test - Computer') { $Imported.Rules.Add($Rule) } }
+            $Rows = @(Compare-PSGPOPolicyRuleSet -RuleSet $Imported, $Again -DifferenceOnly)
+            @($Rows | ForEach-Object Setting) | Should -Be @('BigEndian')
+            $Gpo = $Read.FindGpo($RulesName)
+            $Gpo.MachineExtensionNames.Contains('[{F3CCC681-B74C-4060-9F26-CD84525DCA2A}{0F3F3735-573D-9804-99E4-AB2A69BA5FD4}]') | Should -BeTrue -Because $Gpo.MachineExtensionNames
+            $Gpo.GetComputerVersion() | Should -BeGreaterThan 0
+            $Gpo.GetUserVersion() | Should -BeGreaterThan 0
+            @(Get-ChildItem -LiteralPath $script:AuditLog -Filter '*.jsonl' | Get-Content | Where-Object { $_ -match '"Action":"ImportPolicyRuleSet"' }).Count | Should -Be 1
         }
 
         It 'Writes the Registry.pol of the GPO in SYSVOL and increases its version' {

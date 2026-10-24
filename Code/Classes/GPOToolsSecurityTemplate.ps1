@@ -124,6 +124,13 @@ class GPOToolsSecurityTemplate {
         return @($this.Sections[$Section] | Where-Object { $null -ne $_.Key })
     }
 
+    # A line added at the end of a section, $null value for a line without '=' (the "name",mode,"SDDL"
+    # lines of services, files and registry keys); SetValue changes a key in place instead.
+    [void] AddEntry([string]$Section, [string]$Key, [object]$Value) {
+        if (-not $this.Sections.Contains($Section)) { $this.Sections[$Section] = [System.Collections.Generic.List[object]]::new() }
+        $this.Sections[$Section].Add(@{ Key = $Key; Value = $(if ($null -eq $Value) { $null } else { "$Value" }); Line = $null })
+    }
+
     # Raw value of a key ($null when the setting is not defined).
     [string] GetValue([string]$Section, [string]$Key) {
         if (-not $this.Sections.Contains($Section)) { return $null }

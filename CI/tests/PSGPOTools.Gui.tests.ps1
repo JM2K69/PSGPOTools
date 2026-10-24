@@ -2630,6 +2630,41 @@ InModuleScope -ModuleName HGPM {
             Should -Invoke Get-PSGPODirectory -Times 1 -Exactly -ParameterFilter { $Server -eq 'dc.hgpm.test' } -Because 'the domain is read once'
         }
 
+        It 'Writes the settings of the selected set in a GPO of the domain, or in a new one' {
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            Mock Get-PSGPODefaultBackupPath { Join-Path $TestDrive 'ApplyBackups' }
+            Start-PSGPOPolicyAnalyzerWindow -Directory $Directory -Path $Rules -OnShown {
+                param($Ui)
+                Invoke-Click $Ui.analyzerApplySetButton
+                $Ui.analyzerSetsStatusTextBlock.Text | Should -Be 'Select the set to write in a GPO.'
+                $Ui.analyzerSetsList.SelectedIndex = 0
+                Invoke-Click $Ui.analyzerApplySetButton
+                $Ui.analyzerApplyPanel.IsVisible | Should -BeTrue
+                $Ui.analyzerApplyTitleTextBlock.Text | Should -Be "Write the settings of the set 'Fixture' in a GPO of the domain"
+                @($Ui.analyzerApplyPoliciesList.SelectedItems) | Should -Be @('HGPM Test - Computer', 'HGPM Test - Second')
+                Invoke-Click $Ui.analyzerApplyConfirmButton
+                $Ui.analyzerApplyErrorTextBlock.Text | Should -Be 'Choose the GPO, or give the name of a new one.'
+
+                $Ui.analyzerApplyGpoComboBox.SelectedItem = @($Ui.analyzerApplyGpoComboBox.ItemsSource | Where-Object DisplayName -EQ 'C - Servers - Security Baseline')[0]
+                $Ui.analyzerApplyPoliciesList.SelectedItems.Remove('HGPM Test - Computer')
+                Invoke-Click $Ui.analyzerApplyConfirmButton
+                $Ui.analyzerApplyPanel.IsVisible | Should -BeFalse
+                $Ui.analyzerSetsStatusTextBlock.Text | Should -Be "Written in the GPO 'C - Servers - Security Baseline': 4 registry settings, 2 security settings, 0 audit settings."
+                $Written = Get-PSGPOPolicyRuleSet -Directory $Directory -Name 'C - Servers - Security Baseline'
+                ($Written.Rules | Where-Object ValueName -EQ 'OnlyB').RegData | Should -Be '0'
+
+                Invoke-Click $Ui.analyzerApplySetButton
+                $Ui.analyzerApplyNewNameTextBox.Text = 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.analyzerApplyConfirmButton
+                $Ui.analyzerApplyErrorTextBlock.Text | Should -Be "A GPO named 'C - Servers - Security Baseline' already exists: choose it in the list."
+                $Ui.analyzerApplyNewNameTextBox.Text = 'C - Baseline from a rule set'
+                Invoke-Click $Ui.analyzerApplyConfirmButton
+                $Ui.analyzerSetsStatusTextBlock.Text | Should -BeLike "Written in the GPO 'C - Baseline from a rule set': 20 registry settings*; 1 not written (no data in the set)."
+                $Directory.FindGpo('C - Baseline from a rule set') | Should -Not -BeNullOrEmpty
+            }
+            @(Get-ChildItem -LiteralPath (Join-Path $TestDrive 'ApplyBackups') -Recurse -Filter 'manifest.json').Count | Should -BeGreaterThan 0 -Because 'the GPO is backed up first'
+        }
+
         It 'Is opened by the button of the GPO console, on the domain of the console' {
             Mock Show-PolicyAnalyzerAvalonia { $Seen.Opened = $true }
             $Seen = @{ Opened = $false }
