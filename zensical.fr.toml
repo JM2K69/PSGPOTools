@@ -23,7 +23,7 @@ nav = [
   ] },
   { "Fonctionnalités" = [
     "features/launcher.md",
-    # A section for each tool of the launcher (Start-HGPM), in the order of its tiles.
+    # A section for each console of the launcher (Start-HGPM), then its tools, in the order of its tiles.
     { "Gestion de stratégie de groupe" = [
       "features/console.md",
       "features/gpo-management.md",
@@ -37,10 +37,9 @@ nav = [
     { "Paramètres de mot de passe" = [
       "features/password-policies.md",
     ] },
-    { "Créateur de filtres WMI" = [
+    # The tools of the launcher that are not consoles of the domain.
+    { "Outils" = [
       "features/wmi-filter-creator.md",
-    ] },
-    { "Policy Analyzer" = [
       "features/policy-analyzer.md",
     ] },
   ] },
