@@ -67,8 +67,7 @@ function New-PSGPOPolicyRuleSetFromSom {
         foreach ($rule in $read[$gpo.Id]) {
             if (($rule.Scope -eq 'User' -and $userOff) -or ($rule.Scope -eq 'Computer' -and $computerOff)) { continue }
             # A copy per place the GPO applies: the same GPO linked twice is listed twice.
-            $copy = [GPOToolsPolicyRule]::new()
-            foreach ($property in $rule.PSObject.Properties) { if ($property.IsSettable) { $copy.($property.Name) = $property.Value } }
+            $copy = $rule.Clone()
             $copy.Precedence = $item.Precedence
             $set.Rules.Add($copy)
         }

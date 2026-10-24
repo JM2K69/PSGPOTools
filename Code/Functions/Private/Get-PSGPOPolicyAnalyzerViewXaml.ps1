@@ -93,6 +93,14 @@ function Get-PSGPOPolicyAnalyzerViewXaml {
                                 <TextBlock Text='View / Compare' VerticalAlignment='Center'/>
                             </StackPanel>
                         </Button>
+                        <!-- Windows: the sets checked against this computer, as Policy Analyzer -->
+                        <Button Name='analyzerEffectiveButton' HorizontalAlignment='Stretch' HorizontalContentAlignment='Center' Height='36'
+                                ToolTip.Tip='The sets checked against the settings this computer and its user have now; the security settings and the audit policy need PowerShell run as an administrator'>
+                            <StackPanel Orientation='Horizontal' Spacing='8'>
+                                <PathIcon Data='{StaticResource Icon.desktop}'/>
+                                <TextBlock Text='Compare to effective state' VerticalAlignment='Center'/>
+                            </StackPanel>
+                        </Button>
                         <TextBlock Name='analyzerSetsStatusTextBlock' FontSize='12' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'
                                    IsVisible='{Binding $self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
                     </StackPanel>

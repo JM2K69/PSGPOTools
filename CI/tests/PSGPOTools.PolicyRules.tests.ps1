@@ -378,6 +378,94 @@ InModuleScope -ModuleName HGPM {
         }
     }
 
+    Describe 'Effective state of the computer' {
+        BeforeAll {
+            function New-TestRule {
+                param([hashtable]$Values)
+                $Rule = [GPOToolsPolicyRule]::new()
+                $Rule.PolicyName = 'Baseline GPO'
+                foreach ($Name in $Values.Keys) { $Rule.$Name = $Values[$Name] }
+                $Rule
+            }
+            $Baseline = [GPOToolsPolicyRuleSet]::new('Baseline')
+            foreach ($Values in @(
+                    @{ Kind = 'Registry'; Scope = 'Computer'; Key = 'Software\Policies\Test'; ValueName = 'Enabled'; RegType = 'REG_DWORD'; RegData = '1' }
+                    @{ Kind = 'Registry'; Scope = 'Computer'; Key = 'Software\Policies\Test'; ValueName = '**del.Old'; RegType = 'REG_SZ'; RegData = ' ' }
+                    @{ Kind = 'Registry'; Scope = 'Computer'; Key = 'Software\Policies\Test'; ValueName = 'Missing'; RegType = 'REG_SZ'; RegData = 'x' }
+                    @{ Kind = 'Registry'; Scope = 'User'; Key = 'Software\Policies\List'; ValueName = '**delvals.'; RegType = 'REG_SZ'; RegData = ' ' }
+                    @{ Kind = 'Registry'; Scope = 'User'; Key = 'Software\Policies\List'; ValueName = '1'; RegType = 'REG_MULTI_SZ'; RegData = 'a\0b' }
+                    @{ Kind = 'SecurityTemplate'; Section = 'Registry Values'; LineItem = 'MACHINE\System\Lsa\NoLMHash=4,1' }
+                    @{ Kind = 'SecurityTemplate'; Section = 'Service General Setting'; LineItem = '"Spooler",4,""' }
+                    @{ Kind = 'SecurityTemplate'; Section = 'Privilege Rights'; LineItem = 'SeBackupPrivilege=*S-1-5-32-544' }
+                    @{ Kind = 'SecurityTemplate'; Section = 'Privilege Rights'; LineItem = 'SeTcbPrivilege=' }
+                    @{ Kind = 'AuditSubcategory'; Guid = '{0cce923f-69ae-11d9-bed3-505054503030}'; Name = 'Audit Credential Validation'; Setting = '3' }
+                )) { $Baseline.Rules.Add((New-TestRule $Values)) }
+        }
+        BeforeEach {
+            Mock Test-PSGPOEffectiveStateSupported { $true }
+            Mock Get-PSGPOEffectiveRegistryKey {
+                $Values = [System.Collections.Generic.Dictionary[string, GPOToolsPolEntry]]::new([System.StringComparer]::OrdinalIgnoreCase)
+                switch ("$Scope|$Key") {
+                    'Computer|Software\Policies\Test' { $Values['Enabled'] = [GPOToolsPolEntry]::new($Key, 'Enabled', 'DWord', [BitConverter]::GetBytes([int]0)) }
+                    'User|Software\Policies\List' { $Values['1'] = [GPOToolsPolEntry]::new($Key, '1', 'MultiString', [System.Text.Encoding]::Unicode.GetBytes("b`0a`0`0")) }
+                    'Computer|System\Lsa' { $Values['NoLMHash'] = [GPOToolsPolEntry]::new($Key, 'NoLMHash', 'DWord', [BitConverter]::GetBytes([int]1)) }
+                    'Computer|SYSTEM\CurrentControlSet\Services\Spooler' { $Values['Start'] = [GPOToolsPolEntry]::new($Key, 'Start', 'DWord', [BitConverter]::GetBytes([int]2)) }
+                    default { return }
+                }
+                $Values
+            }
+            Mock Get-PSGPOEffectiveSecurityTemplate { , [System.Text.Encoding]::Unicode.GetBytes("`u{FEFF}[Unicode]`r`nUnicode=yes`r`n[Privilege Rights]`r`nSeBackupPrivilege = *S-1-5-32-551,*S-1-5-32-544`r`n[Version]`r`nsignature=`"`$CHICAGO`$`"`r`nRevision=1`r`n") }
+            Mock Get-PSGPOEffectiveAuditPolicy { , [System.Text.Encoding]::UTF8.GetBytes("Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclusion Setting,Setting Value`r`nCLI,System,Audit Credential Validation,{0CCE923F-69AE-11D9-BED3-505054503030},Success,,1`r`n") }
+        }
+
+        It 'Reads, for each setting of the sets, the value the computer and its user have now' {
+            Mock Test-PSGPOIsAdministrator { $true }
+            $State = New-PSGPOPolicyRuleSetFromEffectiveState -RuleSet $Baseline -SetName 'Here'
+            $State.Skipped | Should -Be 0
+            $Set = $State.RuleSet
+            $Set.Name | Should -Be 'Here'
+            $Lines = @($Set.Rules | ForEach-Object { '{0}|{1}' -f $_.GetIdentity(), $_.GetComparable() })
+            $Lines | Should -Be @(
+                'computer|registry|software\policies\test|enabled|REG_DWORD|0'
+                'computer|registry|software\policies\test|old|[[[delete]]]'
+                'user|registry|software\policies\list|**delvals.|[[[Delete all values]]]'
+                'user|registry|software\policies\list|1|REG_MULTI_SZ|a,b'
+                'computer|securitytemplate|registry values|machine\system\lsa\nolmhash|4,1'
+                'computer|securitytemplate|service general setting|spooler|2,""'
+                'computer|securitytemplate|privilege rights|sebackupprivilege|*S-1-5-32-544,*S-1-5-32-551'
+                'computer|securitytemplate|privilege rights|setcbprivilege|'
+                'computer|auditsubcategory|{0cce923f-69ae-11d9-bed3-505054503030}|1'
+            ) -Because 'a value the computer does not have is not in the set, a value deleted is, and a right nobody has is empty'
+            @($Set.Rules.PolicyName | Select-Object -Unique) | Should -Be 'Effective state'
+            ($Set.Rules | Where-Object ValueName -EQ 'Enabled').SourceFile | Should -Be 'HKLM\Software\Policies\Test'
+            # Saved and read again as Policy Analyzer does.
+            $Read = [GPOToolsPolicyRuleSet]::Parse($Set.ToBytes(), 'Here')
+            @($Read.Rules | ForEach-Object { '{0}|{1}' -f $_.GetIdentity(), $_.GetComparable() }) | Should -Be $Lines
+            $Rows = @(Compare-PSGPOPolicyRuleSet -RuleSet $Baseline, $Set -DifferenceOnly)
+            @($Rows | ForEach-Object { $_.Cells[1].State }) | Should -Contain 'Absent' -Because 'the value the computer does not have'
+            $Rows.Count | Should -Be 5 -Because 'Enabled, Missing, the startup of Spooler, the accounts of SeBackupPrivilege and the audit differ'
+        }
+
+        It 'Without an administrator, reads the registry and counts the settings secedit and auditpol give' {
+            Mock Test-PSGPOIsAdministrator { $false }
+            $State = New-PSGPOPolicyRuleSetFromEffectiveState -RuleSet $Baseline
+            $State.Skipped | Should -Be 3
+            $State.RuleSet.Name | Should -Match '^EffectiveState_.+_\d{8}-\d{6}$'
+            @($State.RuleSet.Rules | Where-Object { $_.Section -eq 'Privilege Rights' -or $_.Kind -like 'Audit*' }) | Should -BeNullOrEmpty
+            @($State.RuleSet.Rules).Count | Should -Be 6
+            Should -Invoke Get-PSGPOEffectiveSecurityTemplate -Times 0 -Exactly
+            Should -Invoke Get-PSGPOEffectiveAuditPolicy -Times 0 -Exactly
+            $Output = Get-PSGPOPolicyRuleSet -EffectiveState -RuleSet $Baseline -SetName 'Mine' 3>&1
+            @($Output | Where-Object { $_ -is [System.Management.Automation.WarningRecord] }).Message | Should -Be '3 security and audit settings are not read: secedit and auditpol need PowerShell run as an administrator.'
+            @($Output | Where-Object { $_ -is [GPOToolsPolicyRuleSet] }).Name | Should -Be 'Mine'
+        }
+
+        It 'Is the one of a Windows computer' {
+            Mock Test-PSGPOEffectiveStateSupported { $false }
+            { New-PSGPOPolicyRuleSetFromEffectiveState -RuleSet $Baseline } | Should -Throw '*Windows*'
+        }
+    }
+
     Describe 'Names of the policies of the ADMX' {
         BeforeAll {
             Initialize-PSGPOAdmx -Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions') -UICulture 'en-US' 3>$null

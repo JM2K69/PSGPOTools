@@ -54,6 +54,9 @@ class GPOToolsPolicyRule {
     # Sections whose values are lists of accounts, compared in any order.
     static [string[]] $AccountSections = @('Privilege Rights', 'Group Membership')
 
+    # A copy, to give it another GPO, precedence or value.
+    [GPOToolsPolicyRule] Clone() { return [GPOToolsPolicyRule]$this.MemberwiseClone() }
+
     [bool] IsDelete() { return $this.Kind -eq 'Registry' -and $this.ValueName.StartsWith('**del.', [System.StringComparison]::OrdinalIgnoreCase) }
     [bool] IsDeleteAllValues() { return $this.Kind -eq 'Registry' -and $this.ValueName.StartsWith('**delvals.', [System.StringComparison]::OrdinalIgnoreCase) }
 

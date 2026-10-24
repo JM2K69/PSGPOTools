@@ -61,6 +61,7 @@ côté client. Les préférences et les scripts n'en font pas partie, comme dans
 | sauvegardes de HGPM | `Get-PSGPOBackup ... \| Get-PSGPOPolicyRuleSet` |
 | sauvegardes de GPMC (le dossier `GPOs` d'une baseline de sécurité) ou de HGPM (leur dossier, une GPO, une sauvegarde) | `Get-PSGPOPolicyRuleSet -BackupPath` |
 | les GPO qui s'appliquent à un domaine ou une UO, par priorité | `Get-PSGPOPolicyRuleSet -Container` |
+| l'état effectif de cet ordinateur pour les paramètres d'autres jeux (Windows uniquement) | `Get-PSGPOPolicyRuleSet -EffectiveState` |
 
 `Export-PSGPOPolicyRuleSet` enregistre des jeux dans un fichier `.PolicyRules`, comme l'écrit
 `GPO2PolicyRules.exe` : Policy Analyzer l'ouvre, et `LGPO.exe /p` l'applique à la stratégie locale
@@ -145,6 +146,45 @@ Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $domaine -DifferenceOnly |
 
 Un jeu seul montre ses propres conflits et doublons : les GPO appliquées ensemble qui configurent
 le même paramètre.
+
+## L'état effectif de cet ordinateur (Windows uniquement)
+
+!!! note "Windows uniquement"
+    L'état effectif est celui de l'ordinateur Windows sur lequel HGPM tourne : le bouton
+    **Comparer à l'état effectif** n'apparaît que sous Windows, et `Get-PSGPOPolicyRuleSet
+    -EffectiveState` s'arrête sous Linux.
+
+Comme **Compare to Effective State** de Policy Analyzer, **Comparer à l'état effectif** compare
+les jeux cochés à ce qu'ont maintenant cet ordinateur et l'utilisateur de la session. Pour chaque
+paramètre des jeux, HGPM lit :
+
+| Paramètres | Lus dans | Administrateur |
+|---|---|---|
+| Modèles d'administration et autres paramètres du registre, de l'ordinateur et de l'utilisateur | le registre (HKLM, HKCU) | non |
+| Options de sécurité (`[Registry Values]`), démarrage des services | le registre | non |
+| Stratégies de comptes, droits utilisateur, autres paramètres de sécurité | `secedit /export` (la base de sécurité de l'ordinateur, où la stratégie de groupe les applique) | oui |
+| Stratégie d'audit avancée | `auditpol /backup` | oui |
+
+![La baseline de Microsoft face à l'état effectif d'un ordinateur Windows 11](../assets/screenshots/61-policy-analyzer-effective-state.fr.png)
+
+- L'état effectif est un jeu de règles à part entière, une colonne à côté des jeux cochés : un
+  paramètre que l'ordinateur n'a pas y est vide (gris), une valeur supprimée est `[[[delete]]]`,
+  un droit utilisateur que personne n'a est vide.
+- Il est enregistré dans le dossier des jeux de règles comme Policy Analyzer l'enregistre,
+  `EffectiveState_<ordinateur>_<aaaaMMjj-HHmmss>.PolicyRules`, et listé avec les autres jeux.
+- `secedit` et `auditpol` demandent PowerShell **lancé en administrateur** : sinon, le registre est
+  lu et la fenêtre, ou un avertissement de la commande, dit combien de paramètres de sécurité et
+  d'audit ne le sont pas.
+- Les paramètres utilisateur sont ceux du compte qui lance PowerShell : lancé en administrateur
+  sous un autre compte, ce sont ceux de ce compte.
+
+```powershell
+# PowerShell lancé en administrateur
+$baseline = Get-PSGPOPolicyRuleSet -Path .\MSFT-Win11-v25H2.PolicyRules
+$etat = Get-PSGPOPolicyRuleSet -EffectiveState -RuleSet $baseline
+Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $etat -DifferenceOnly | Format-Table Name, MSFT-Win11-v25H2, $etat.Name
+Export-PSGPOPolicyRuleSet -RuleSet $etat -Path ".\$($etat.Name).PolicyRules"
+```
 
 ## Écrire un jeu de règles dans une GPO
 

@@ -2493,6 +2493,30 @@ InModuleScope -ModuleName HGPM {
             $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
         }
 
+        It 'Compares the sets checked to the effective state of the computer, saved in the folder as Policy Analyzer does' {
+            $Folder = Join-Path $TestDrive 'Effective'
+            $null = New-Item -ItemType Directory -Path $Folder -Force
+            Copy-Item -LiteralPath (Join-Path $Rules 'Fixture.PolicyRules') -Destination $Folder
+            Mock New-PSGPOPolicyRuleSetFromEffectiveState {
+                $Set = [GPOToolsPolicyRuleSet]::new('EffectiveState_TEST_20261024-120000')
+                foreach ($Rule in @($RuleSet[0].Rules)[0..4]) { $Copy = $Rule.Clone(); $Copy.PolicyName = 'Effective state'; $Set.Rules.Add($Copy) }
+                [pscustomobject]@{ RuleSet = $Set; Skipped = 2 }
+            }
+            Start-PSGPOPolicyAnalyzerWindow -Path $Folder -OnShown {
+                param($Ui)
+                $Ui.analyzerEffectiveButton.IsVisible | Should -Be ([bool]$IsWindows) -Because 'the effective state is the one of a Windows computer'
+                @($Ui.analyzerSetsList.ItemsSource)[0].IsChecked = $true
+                Invoke-Click $Ui.analyzerEffectiveButton
+                Invoke-UiLoop -Until { $Ui.analyzerGrid.IsVisible -and $Ui.analyzerEffectiveButton.IsEnabled } -TimeoutMilliseconds 30000
+                @($Ui.analyzerGrid.Columns | ForEach-Object Header) | Should -Be @('Scope', 'Setting', 'Option', 'Fixture', 'EffectiveState_TEST_20261024-120000', 'Path')
+                $Saved = Join-Path $Folder 'EffectiveState_TEST_20261024-120000.PolicyRules'
+                $Ui.analyzerSetsStatusTextBlock.Text | Should -Be "2 security and audit settings are not read: secedit and auditpol need PowerShell run as an administrator.$([Environment]::NewLine)The effective state is saved in $Saved."
+                Test-Path -LiteralPath $Saved | Should -BeTrue
+                @($Ui.analyzerSetsList.ItemsSource.Name) | Should -Be @('EffectiveState_TEST_20261024-120000', 'Fixture') -Because 'the folder is read again'
+            }
+            Should -Invoke New-PSGPOPolicyRuleSetFromEffectiveState -Times 1 -Exactly -ParameterFilter { $RuleSet.Count -eq 1 -and $RuleSet[0].Name -eq 'Fixture' }
+        }
+
         It 'Lists the rule sets of its folder, compares them and shows the details of a setting' {
             $Directory = Import-PSGPODirectory -Path $SamplePath
             Start-PSGPOPolicyAnalyzerWindow -Directory $Directory -OnShown {

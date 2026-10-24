@@ -20,6 +20,14 @@ function Get-PSGPOPolicyRuleSet {
         setting then has the precedence of its GPO, and Compare-PSGPOPolicyRuleSet shows the value
         that wins. The security filtering, the WMI filters and the loopback processing are those of
         each computer or user, not taken into account.
+
+        With -EffectiveState, the set is the state of this computer for the settings of -RuleSet, as
+        "Compare to Effective State" of Policy Analyzer reads it (Windows): the registry of the
+        computer and of the user of the session (the security options and the startup of the services included), the other security
+        settings (secedit /export) and the advanced audit policy (auditpol /backup).
+        A setting the computer does not have is not in the set. secedit and auditpol need
+        PowerShell run as an administrator: without, their settings are left out, with a warning.
+        The set is named as Policy Analyzer names it, EffectiveState_<computer>_<date>.
     .PARAMETER Path
         Files of Policy Analyzer (.PolicyRules), or folders: the .PolicyRules files they hold.
         One set per file, named after it.
@@ -35,9 +43,14 @@ function Get-PSGPOPolicyRuleSet {
     .PARAMETER Container
         A domain or an OU: its distinguished name, the name of the domain, or the name of an OU when
         only one OU has it. The set holds the GPOs that apply to it, by precedence.
+    .PARAMETER EffectiveState
+        The effective state of this computer for the settings of -RuleSet.
+    .PARAMETER RuleSet
+        With -EffectiveState: the sets whose settings are read on the computer (the baselines).
     .PARAMETER SetName
         Name of the set made from GPOs: by default the name of the GPO when there is one, else
-        the name of the domain or of the folder; "<OU> (precedence)" with -Container.
+        the name of the domain or of the folder; "<OU> (precedence)" with -Container;
+        EffectiveState_<computer>_<yyyyMMdd-HHmmss> with -EffectiveState.
     .PARAMETER Directory
         Directory of the domain (Get-PSGPODirectory); the domain is read when not given.
     .PARAMETER Server
@@ -52,6 +65,12 @@ function Get-PSGPOPolicyRuleSet {
         # What the computers of an OU get, against the baseline of Microsoft
         $ou = Get-PSGPOPolicyRuleSet -Container 'OU=Workstations,DC=contoso,DC=com'
         Compare-PSGPOPolicyRuleSet -RuleSet (Get-PSGPOPolicyRuleSet .\MSFT-Win11-v25H2.PolicyRules), $ou -DifferenceOnly
+    .EXAMPLE
+        # This computer against the baseline of Microsoft (PowerShell run as an administrator)
+        $baseline = Get-PSGPOPolicyRuleSet .\MSFT-Win11-v25H2.PolicyRules
+        $state = Get-PSGPOPolicyRuleSet -EffectiveState -RuleSet $baseline
+        Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $state -DifferenceOnly
+        Export-PSGPOPolicyRuleSet -RuleSet $state -Path ".\$($state.Name).PolicyRules"
     .EXAMPLE
         Get-PSGPOBackup -Path /srv/gpo-backups -Name 'Default Domain Policy' | Select-Object -First 1 | Get-PSGPOPolicyRuleSet
     .OUTPUTS
@@ -84,10 +103,17 @@ function Get-PSGPOPolicyRuleSet {
         [Parameter(Mandatory, ParameterSetName = 'Container')]
         [string]$Container,
 
+        [Parameter(Mandatory, ParameterSetName = 'EffectiveState')]
+        [switch]$EffectiveState,
+
+        [Parameter(Mandatory, ParameterSetName = 'EffectiveState')]
+        [GPOToolsPolicyRuleSet[]]$RuleSet,
+
         [Parameter(ParameterSetName = 'Domain')]
         [Parameter(ParameterSetName = 'Backup')]
         [Parameter(ParameterSetName = 'Gpmc')]
         [Parameter(ParameterSetName = 'Container')]
+        [Parameter(ParameterSetName = 'EffectiveState')]
         [string]$SetName,
 
         [Parameter(ParameterSetName = 'Domain')]
@@ -128,6 +154,11 @@ function Get-PSGPOPolicyRuleSet {
                         }
                     }
                 }
+            }
+            'EffectiveState' {
+                $state = New-PSGPOPolicyRuleSetFromEffectiveState -RuleSet $RuleSet -SetName $SetName
+                if ($state.Skipped) { Write-Warning "$($state.Skipped) security and audit settings are not read: secedit and auditpol need PowerShell run as an administrator." }
+                $state.RuleSet
             }
             'Container' {
                 if (-not $Directory) {
