@@ -1,0 +1,71 @@
+# Compare-PSGPOPolicyRuleSet
+
+Compares rule sets setting by setting, as the Policy Viewer of Policy Analyzer does.
+
+_The help of the command, as `Get-Help Compare-PSGPOPolicyRuleSet -Full` gives it._
+
+## Syntax
+
+```powershell
+Compare-PSGPOPolicyRuleSet [-RuleSet] <GPOToolsPolicyRuleSet[]> [-DifferenceOnly] [-ConflictOnly] [<CommonParameters>]
+```
+
+## Description
+
+One row per setting configured by one of the sets, with a property per set (named after it) holding its value: empty when the set does not configure the setting, ***CONFLICT*** when two GPOs of the set give it different values. As Policy Analyzer, [[[delete]]] is a registry value deleted, [[[Delete all values]]] the values of a key deleted, lists whose order does not matter (accounts of a user right, REG_MULTI_SZ) are compared in any order, and a REG_DWORD 5 is not a REG_SZ 5.
+
+Each row also has Conflict (two sets, or two GPOs of a set, give the setting different values), Difference (a conflict, or a set does not configure it), the setting as Policy Analyzer lists it (PolicyType, Group, Setting) and as GPMC shows it (Path, Name, Option: the policies of the ADMX loaded by Initialize-PSGPOAdmx, the security settings), its explanation, and Cells: for each set its state (Absent, Set, Duplicate, Conflict) and the value of each GPO. Export-PSGPOPolicyRuleComparison saves the rows as an Excel workbook.
+
+One set alone shows its own conflicts and duplicates. The precedence of the GPOs of a set is not taken into account.
+
+## Parameters
+
+### -RuleSet
+
+The sets (Get-PSGPOPolicyRuleSet), in the order of their columns.
+
+| Type | Required | Position | Default value | Accepts pipeline input |
+|---|---|---|---|---|
+| `GPOToolsPolicyRuleSet[]` | Yes | 1 | None | Yes |
+
+### -DifferenceOnly
+
+Only the rows with a difference, as "Show only Differences" of Policy Analyzer.
+
+| Type | Required | Position | Default value | Accepts pipeline input |
+|---|---|---|---|---|
+| `SwitchParameter` | No | Named | None | No |
+
+### -ConflictOnly
+
+Only the rows with a conflict, as "Show only Conflicts".
+
+| Type | Required | Position | Default value | Accepts pipeline input |
+|---|---|---|---|---|
+| `SwitchParameter` | No | Named | None | No |
+
+## Examples
+
+### Example 1
+
+```powershell
+$baseline = Get-PSGPOPolicyRuleSet -Path .\MSFT-Win11-v25H2.PolicyRules
+$domain = Get-PSGPOPolicyRuleSet -Name 'Workstations - *' -SetName 'Domain'
+Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $domain -DifferenceOnly | Format-Table Scope, Name, MSFT-Win11-v25H2, Domain
+```
+
+### Example 2
+
+```powershell
+Get-PSGPOPolicyRuleSet -Path .\MyGpos.PolicyRules | Compare-PSGPOPolicyRuleSet -ConflictOnly
+```
+
+## Outputs
+
+- `PSGPOTools.PolicyRuleComparison`
+
+## Related
+
+- [Get-PSGPOPolicyRuleSet](get-psgpopolicyruleset.md)
+- [Export-PSGPOPolicyRuleComparison](export-psgpopolicyrulecomparison.md)
+- [All the commands](../commands.md)

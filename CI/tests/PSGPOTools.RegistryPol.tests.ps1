@@ -97,6 +97,16 @@ InModuleScope -ModuleName HGPM {
             { [GPOToolsRegistryPol]::Parse($Bytes[0..($Bytes.Length - 5)]) } | Should -Throw -ExpectedMessage '*truncated*'
         }
 
+        It 'Writes an entry without data, a key created as the security baselines do (Safer)' {
+            $Pol = [GPOToolsRegistryPol]::new()
+            $Pol.Entries.Add([GPOToolsPolEntry]::new('Software\Policies\Microsoft\Windows\Safer', '', [GPOToolsPolType]::None, [byte[]]::new(0)))
+            $Pol.Entries[0].Data.Length | Should -Be 0 -Because 'an empty array, not $null'
+            $Read = [GPOToolsRegistryPol]::Parse($Pol.ToBytes())
+            $Read.Entries.Count | Should -Be 1
+            $Read.Entries[0].Key | Should -Be 'Software\Policies\Microsoft\Windows\Safer'
+            $Read.Entries[0].Type | Should -Be ([GPOToolsPolType]::None)
+        }
+
         It 'Writes the registry values of a setting as the Group Policy editor does' {
             $Pol = [GPOToolsRegistryPol]::new()
             foreach ($Value in @(

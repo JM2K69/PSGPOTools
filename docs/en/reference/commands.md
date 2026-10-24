@@ -71,6 +71,21 @@ Backup-PSGPO -Path /srv/gpo-backups -Comment 'Nightly'
 Get-PSGPODrift -Path /srv/gpo-backups | Where-Object State -EQ 'Drifted' | ForEach-Object Changes
 ```
 
+## Policy Analyzer
+
+| Command | Does |
+|---|---|
+| [`Get-PSGPOPolicyRuleSet`](commands/get-psgpopolicyruleset.md) `-Path \| -Name \| -Backup \| -GpmcBackupPath [-SetName]` | reads `.PolicyRules` files (the security baselines of Microsoft), or makes a rule set from GPOs of the domain, backups of HGPM or GPMC |
+| [`Compare-PSGPOPolicyRuleSet`](commands/compare-psgpopolicyruleset.md) `-RuleSet [-DifferenceOnly] [-ConflictOnly]` | compares rule sets setting by setting, a column per set, as Policy Analyzer does |
+| [`Export-PSGPOPolicyRuleSet`](commands/export-psgpopolicyruleset.md) `-RuleSet -Path [-Force]` | saves rule sets as a `.PolicyRules` file, which Policy Analyzer and `LGPO.exe /p` read |
+| [`Export-PSGPOPolicyRuleComparison`](commands/export-psgpopolicyrulecomparison.md) `-InputObject -Path [-All] [-Force]` | saves a comparison as an Excel workbook, with the colours of Policy Analyzer |
+
+```powershell
+$baseline = Get-PSGPOPolicyRuleSet -Path .\MSFT-Win11-v25H2.PolicyRules
+$domain = Get-PSGPOPolicyRuleSet -Name 'Workstations - *' -SetName 'Domain'
+Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $domain -DifferenceOnly | Export-PSGPOPolicyRuleComparison -Path ./Differences.xlsx
+```
+
 ## Administrative templates
 
 | Command | Does |
@@ -120,6 +135,8 @@ New-PSGPOFineGrainedPasswordPolicy -Name 'PSO - Tier 1 Admins' -Precedence 10 -M
 | `PSGPOTools.Permission` | `Get-PSGPOPermission`, `Set-PSGPOPermission` | `GpoName`, `GpoId`, `Trustee`, `Sid`, `Permission`, `Inherited`, `Denied` |
 | `PSGPOTools.Backup` | `Backup-PSGPO`, `Get-PSGPOBackup` | `Path`, `Id`, `DisplayName`, `BackedUp`, `BackedUpBy`, `Modified`, `Comment`, `Labels`, `Files` |
 | `PSGPOTools.SettingChange` | `Compare-PSGPOBackup`, `Get-PSGPODrift` | `Change`, `Scope`, `Path`, `Name`, `Before`, `After` |
+| `GPOToolsPolicyRuleSet` | `Get-PSGPOPolicyRuleSet` | `Name`, `Path`, `Rules`, `Extensions`, `GetPolicyNames()` |
+| `PSGPOTools.PolicyRuleComparison` | `Compare-PSGPOPolicyRuleSet` | `Scope`, `Path`, `Name`, `Option`, a property per set, `Conflict`, `Difference`, `PolicyType`, `Group`, `Setting`, `Explain`, `Cells` |
 | `PSGPOTools.Drift` | `Get-PSGPODrift` | `DisplayName`, `State`, `Approved`, `ApprovedBy`, `Changes` |
 | `PSGPOTools.Restore` | `Restore-PSGPO` | `DisplayName`, `Id`, `Version`, `BackupBefore`, `CreatedAgain`, `Linked`, `Problems` |
 | `PSGPOTools.RemovedBackup` | `Remove-PSGPOBackup` | `DisplayName`, `Id`, `Backups`, `Templates`, `Path` |

@@ -2,12 +2,17 @@
 
 ## Unreleased
 
+### Added
+
+* Policy Analyzer, as in the Security Compliance Toolkit of Microsoft, on Windows and Linux, with the same `.PolicyRules` files: `Get-PSGPOPolicyRuleSet` reads them (the security baselines of Microsoft) or makes a rule set from GPOs of the domain, backups of HGPM or of GPMC, the file `GPO2PolicyRules.exe` makes, byte for byte; `Compare-PSGPOPolicyRuleSet` compares sets setting by setting, a column per set (conflicts, differences, duplicates and `***CONFLICT***` in a set, lists of accounts in any order, `REG_DWORD` and `REG_SZ` told apart, the policies of the ADMX and the security settings by name); `Export-PSGPOPolicyRuleSet` saves a `.PolicyRules` file Policy Analyzer and `LGPO.exe /p` read, several sets merged; `Export-PSGPOPolicyRuleComparison` writes the comparison as an Excel workbook with the colours of Policy Analyzer, without Excel nor any module. A documentation page, Policy Analyzer
+
 ### Changed
 
 * The central store of the domain is used by default when it holds ADMX files, as GPMC: the window that asks for the ADMX files selects it, before the folder chosen last, and says it is the central store; `Initialize-PSGPOAdmx` without `-Path` loads it (Windows, and the SYSVOL of a Samba domain controller)
 
 ### Fixed
 
+* A `Registry.pol` with an entry without data (a key created without value, as the `Safer` key of the security baselines) could not be written
 * On Windows, the windows of the consoles (ADMX files, GPO console, PSO console) opened behind the terminal that started them: they now open in front
 
 ## 0.1.9 - alpha

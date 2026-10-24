@@ -2,3 +2,6 @@
 CI/tests/Fixtures/*.inf binary
 # WMI filters exported as GPMC does: UTF-16 .mof files kept byte for byte
 CI/tests/Fixtures/**/*.mof binary
+# The rule sets of Policy Analyzer and the GPMC backups they are made from, kept byte for byte
+CI/tests/Fixtures/PolicyRules/*.PolicyRules binary
+CI/tests/Fixtures/PolicyRules/GPOs/** binary

@@ -1,0 +1,5 @@
+Machine Name,Policy Target,Subcategory,Subcategory GUID,Inclusion Setting,Exclusion Setting,Setting Value
+,System,Audit Credential Validation,{0cce923f-69ae-11d9-bed3-505054503030},Success and Failure,,3
+,System,Audit Logon,{0cce9215-69ae-11d9-bed3-505054503030},No Auditing,,0
+,,Option:CrashOnAuditFail,,Enabled,,1
+,System,RegistryGlobalSacl,,,,D:(AU;SA;KA;;;WD)
