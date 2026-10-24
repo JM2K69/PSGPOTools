@@ -1,5 +1,11 @@
 # HGPM Release History
 
+## Unreleased
+
+### Changed
+
+* The screenshots of the approval workflow (the console of a Tier 1 technician, its new GPO, its approval, the GPO approved) taken again, in English and French: the header of the console without the Policy Analyzer button
+
 ## 0.1.11 - alpha
 
 ### Added

@@ -37,7 +37,7 @@ Une GPO a aussi deux onglets :
 
 ![L'onglet Settings](../assets/screenshots/03-gpo-settings.fr.png)
 
-**Refresh** (ou F5) relit le domaine, sur le même contrôleur de domaine avec le même compte, comme
+**Actualiser** (ou F5) relit le domaine, sur le même contrôleur de domaine avec le même compte, comme
 GPMC : les modifications des autres consoles et de GPMC apparaissent, l'arbre gardant ce qui est
 déplié et sélectionné. Sinon la console lit le domaine une fois ; une GPO modifiée depuis sa
 lecture n'est pas écrasée ([éditeur de stratégies](policy-editor.md)) : rafraîchissez, puis refaites
