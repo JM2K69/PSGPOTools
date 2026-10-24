@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Changed
+
+* The central store of the domain is used by default when it holds ADMX files, as GPMC: the window that asks for the ADMX files selects it, before the folder chosen last, and says it is the central store; `Initialize-PSGPOAdmx` without `-Path` loads it (Windows, and the SYSVOL of a Samba domain controller)
+
 ### Fixed
 
 * On Windows, the windows of the consoles (ADMX files, GPO console, PSO console) opened behind the terminal that started them: they now open in front

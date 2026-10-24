@@ -9,7 +9,9 @@ Function Initialize-PSGPOAdmx {
         -UICulture.
     .PARAMETER Path
         Folder containing the .admx files and one sub-folder per culture for the .adml files.
-        Defaults to %windir%\PolicyDefinitions on Windows; required on Linux and macOS.
+        Defaults to the central store of the domain when it holds ADMX files, as GPMC
+        (\\<domain>\SYSVOL\<domain>\Policies\PolicyDefinitions; on a Samba domain controller, its
+        SYSVOL), else to %windir%\PolicyDefinitions on Windows; required elsewhere on Linux and macOS.
     .PARAMETER UICulture
         Culture of the ADML files to load (sub-folder name, for example en-US or fr-FR); detected
         when not given.
@@ -30,8 +32,11 @@ Function Initialize-PSGPOAdmx {
     )
 
     if (-not $Path) {
+        $Path = @(Get-PSGPOAdmxCentralStore)[0]
+    }
+    if (-not $Path) {
         if (-not $IsWindows) {
-            $found = @(Get-PSGPOAdmxCandidate)
+            $found = @(Get-PSGPOAdmxCandidate -CentralStore @())
             $hint = if ($found.Count) { " Found on this computer: $($found -join ', ')." } else { ' Install-PSGPOAdmx downloads those of HGPM.' }
             throw "Specify -Path: there is no local PolicyDefinitions folder outside Windows (use a copy of the ADMX files or the SYSVOL central store).$hint"
         }

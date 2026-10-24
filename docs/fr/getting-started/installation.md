@@ -55,7 +55,9 @@ d'Avalonia.
 
 Le module n'embarque pas de fichiers ADMX : la console lit ceux du magasin central du domaine
 (`\domaine\SYSVOL\domaine\Policies\PolicyDefinitions`), de Windows (`%windir%\PolicyDefinitions`)
-ou du SYSVOL d'un contrôleur de domaine Samba, sinon demande un dossier. Là où il n'y en a pas (un
+ou du SYSVOL d'un contrôleur de domaine Samba, sinon demande un dossier. Comme GPMC, elle prend
+le magasin central quand il a des fichiers ADMX, avant le dossier choisi la dernière fois ;
+`Initialize-PSGPOAdmx` sans `-Path` aussi. Là où il n'y en a pas (un
 ordinateur Linux, un domaine sans magasin central), `Install-PSGPOAdmx` télécharge la copie du
 dépôt depuis GitHub (`sources/PolicyDefinitions` : 236 fichiers `.admx`, leurs fichiers `.adml` en
 22 langues), au tag de la version du module. Chaque ensemble de fichiers (les `.admx`, chaque

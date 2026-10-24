@@ -2482,6 +2482,8 @@ InModuleScope -ModuleName HGPM {
             $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
             # Show-GPOManagerAvalonia sets the language of the session (French on a French computer).
             $null = Set-PSGPOLanguage -Language 'en-US'
+            # Not the central store of the domain of the computer running the tests.
+            Mock Get-PSGPOAdmxCentralStore { }
         }
         AfterAll {
             $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
@@ -2519,6 +2521,26 @@ InModuleScope -ModuleName HGPM {
                 param($Ui)
                 $Ui.pathTextBox.Text | Should -Be $PolicyDefinitions
                 $Ui.cultureComboBox.SelectedItem | Should -Be 'fr-FR'
+            }
+        }
+
+        It 'Selects the central store of the domain rather than the folder chosen last' {
+            $Store = Join-Path $TestDrive 'Store'
+            $null = New-Item -ItemType Directory -Path (Join-Path $Store 'en-US') -Force
+            Set-Content -LiteralPath (Join-Path $Store 'test.admx') -Value '<policyDefinitions/>'
+            Set-Content -LiteralPath (Join-Path $Store 'en-US' 'test.adml') -Value '<policyDefinitionResources/>'
+            $Store = [System.IO.Path]::GetFullPath($Store)
+            Mock Get-PSGPOAdmxCentralStore { $Store }
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $PolicyDefinitions; UICulture = 'en-US' }
+            $null = Show-PSGPOAdmxWindow -OnShown {
+                param($Ui)
+                @($Ui.candidateComboBox.ItemsSource)[0] | Should -Be $Store
+                $Ui.candidateComboBox.SelectedItem | Should -Be $Store
+                $Ui.pathTextBox.Text | Should -Be $Store
+                $Ui.statusTextBlock.Text | Should -Be 'Central store of the domain: 1 ADMX files, 1 language.'
+                # The folder chosen last is still there, without the words of the central store.
+                $Ui.pathTextBox.Text = $PolicyDefinitions
+                $Ui.statusTextBlock.Text | Should -Match '^\d+ ADMX files'
             }
         }
 

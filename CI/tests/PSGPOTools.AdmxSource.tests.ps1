@@ -101,6 +101,32 @@ InModuleScope -ModuleName HGPM {
             ($Found | Select-Object -Unique).Count | Should -Be $Found.Count
         }
 
+        It 'Puts the central store of the domain first, then the folder chosen last' {
+            $Store = New-PolicyDefinitions 'CentralStore' 'en-US'
+            $Path = New-PolicyDefinitions 'ChosenLast' 'en-US'
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $Path }
+            Mock Get-PSGPOAdmxCentralStore { [System.IO.Path]::GetFullPath($Store) }
+            $Found = @(Get-PSGPOAdmxCandidate)
+            $Found[0] | Should -Be ([System.IO.Path]::GetFullPath($Store))
+            $Found[1] | Should -Be ([System.IO.Path]::GetFullPath($Path))
+        }
+
+        It 'Finds the central store in the SYSVOL of a Samba domain controller' -Skip:$IsWindows {
+            $Sysvol = Join-Path $TestDrive 'sysvol'
+            $null = New-PolicyDefinitions (Join-Path 'sysvol' 'hardenbox.labo' 'Policies' 'PolicyDefinitions') 'en-US'
+            $null = New-Item -ItemType Directory -Path (Join-Path $Sysvol 'other.labo' 'Policies') -Force
+            @(Get-PSGPOAdmxCentralStore -SambaSysvol $Sysvol) | Should -Be @([System.IO.Path]::GetFullPath((Join-Path $Sysvol 'hardenbox.labo' 'Policies' 'PolicyDefinitions')))
+        }
+
+        It 'Loads the central store when Initialize-PSGPOAdmx has no -Path' {
+            $Store = [System.IO.Path]::GetFullPath((New-PolicyDefinitions 'CentralStoreDefault' 'en-US'))
+            Mock Get-PSGPOAdmxCentralStore { $Store }
+            # Stops before the files are read: the folder chosen is what is checked.
+            Mock Resolve-PSGPOAdmxCulture { throw 'stop' }
+            { Initialize-PSGPOAdmx } | Should -Throw 'stop'
+            Should -Invoke Resolve-PSGPOAdmxCulture -Times 1 -Exactly -ParameterFilter { $Path -eq $Store }
+        }
+
         It 'Leaves out a folder without .admx file' {
             $Empty = Join-Path $TestDrive 'Empty'
             $null = New-Item -ItemType Directory -Path $Empty -Force
