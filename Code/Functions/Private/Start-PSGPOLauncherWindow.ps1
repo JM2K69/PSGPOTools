@@ -52,6 +52,9 @@ function Start-PSGPOLauncherWindow {
         $title.FontWeight = [Avalonia.Media.FontWeight]::SemiBold
         $title.TextAlignment = [Avalonia.Media.TextAlignment]::Center
         $title.TextWrapping = [Avalonia.Media.TextWrapping]::Wrap
+        # Its own brush, as the description: the foreground the tile gives it on pointer over made it
+        # lay out its lines again, on the left, once the pointer left.
+        $null = $title.Bind([Avalonia.Controls.TextBlock]::ForegroundProperty, [Avalonia.Controls.ResourceNodeExtensions]::GetResourceObservable($window, 'TextBrush', $null))
 
         $description = [Avalonia.Controls.TextBlock]::new()
         $description.Text = $tool.Description
