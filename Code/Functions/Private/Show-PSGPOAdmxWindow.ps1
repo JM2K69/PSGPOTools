@@ -1,6 +1,7 @@
 <#
     Window asking where the ADMX files are, shown by Show-GPOManagerAvalonia when none is loaded:
-    a PolicyDefinitions folder (found on this computer, typed, or picked) and the language of its
+    a PolicyDefinitions folder (found on this computer, typed, or picked; the central store of the
+    domain selected when there is one) and the language of its
     ADML files, detected from the names of its language folders and chosen in the window when
     several fit. Load runs Initialize-PSGPOAdmx and remembers the choice for the next time; the
     console needs them: Cancel (or closing the window) does not open it.
@@ -93,11 +94,14 @@ function Show-PSGPOAdmxWindow {
             [string]::Equals("$($settings.PolicyDefinitions)", $path, [System.StringComparison]::OrdinalIgnoreCase)) { $chosen = $settings.UICulture }
         if ($chosen) { $cultureComboBox.SelectedItem = $chosen }
         $count = "$admx ADMX files, $($language.Available.Count) language$(if ($language.Available.Count -gt 1) { 's' })"
+        $full = try { [System.IO.Path]::GetFullPath($path).TrimEnd('\', '/') } catch { $path }
+        if ($central | Where-Object { [string]::Equals($_, $full, [System.StringComparison]::OrdinalIgnoreCase) }) { $count = Get-PSGPOText 'Central store of the domain: {0}' $count }
         if ($chosen) { Set-Status "$count." } else { Set-Status "$count`: choose the language of the ADML files." }
         $loadButton.IsEnabled = [bool]$chosen
     }
 
-    $candidates = @(Get-PSGPOAdmxCandidate)
+    $central = @(Get-PSGPOAdmxCentralStore)
+    $candidates = @(Get-PSGPOAdmxCandidate -CentralStore $central)
     $candidateComboBox.ItemsSource = $candidates
     $candidateComboBox.IsEnabled = $candidates.Count -gt 0
     $candidateComboBox.add_SelectionChanged({ if ($candidateComboBox.SelectedItem) { $pathTextBox.Text = "$($candidateComboBox.SelectedItem)" } })
@@ -108,8 +112,9 @@ function Show-PSGPOAdmxWindow {
     })
     $cultureComboBox.add_SelectionChanged({ $loadButton.IsEnabled = -not $state.Busy -and $null -ne $cultureComboBox.SelectedItem })
 
-    # The folder chosen last, else the first one found.
-    $initial = if ($settings.PolicyDefinitions -and (Test-Path -LiteralPath $settings.PolicyDefinitions -PathType Container)) { $settings.PolicyDefinitions }
+    # The central store of the domain, as GPMC; else the folder chosen last, else the first one found.
+    $initial = if ($central.Count) { $central[0] }
+        elseif ($settings.PolicyDefinitions -and (Test-Path -LiteralPath $settings.PolicyDefinitions -PathType Container)) { $settings.PolicyDefinitions }
         elseif ($candidates.Count) { $candidates[0] }
     if ($initial -and $candidates -contains $initial) { $candidateComboBox.SelectedItem = $initial }
     elseif ($initial) { $pathTextBox.Text = $initial }

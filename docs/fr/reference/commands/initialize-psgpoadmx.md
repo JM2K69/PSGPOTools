@@ -18,7 +18,7 @@ The language is detected from the names of the language folders of PolicyDefinit
 
 ### -Path
 
-Folder containing the .admx files and one sub-folder per culture for the .adml files. Defaults to %windir%\PolicyDefinitions on Windows; required on Linux and macOS.
+Folder containing the .admx files and one sub-folder per culture for the .adml files. Defaults to the central store of the domain when it holds ADMX files, as GPMC (\\<domain>\SYSVOL\<domain>\Policies\PolicyDefinitions; on a Samba domain controller, its SYSVOL), else to %windir%\PolicyDefinitions on Windows; required elsewhere on Linux and macOS.
 
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|

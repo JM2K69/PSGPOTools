@@ -542,6 +542,7 @@
     'Choose a PolicyDefinitions folder.' = 'Choisissez un dossier PolicyDefinitions.'
     'The folder ''{0}'' does not exist.' = 'Le dossier « {0} » n''existe pas.'
     'No .admx file in ''{0}'': choose the PolicyDefinitions folder itself.' = 'Aucun fichier .admx dans « {0} » : choisissez le dossier PolicyDefinitions lui-même.'
+    'Central store of the domain: {0}' = 'Magasin central du domaine : {0}'
     'Loading the ADMX files of {0} in {1}...' = 'Chargement des fichiers ADMX de {0} en {1}...'
     'The ADMX files cannot be loaded: {0}' = 'Les fichiers ADMX ne peuvent pas être chargés : {0}'
     'Configuration of the domain {0}, for every console of the domain: {1}.' = 'Configuration du domaine {0}, pour toutes les consoles du domaine : {1}.'

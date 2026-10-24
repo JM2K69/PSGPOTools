@@ -56,40 +56,69 @@ function Resolve-PSGPOAdmxCulture {
     [pscustomobject]@{ Culture = $found; Available = $available }
 }
 
-# PolicyDefinitions folders found on this computer, the most relevant first: the central store of
-# the domain (Windows), the folder chosen last, the folder of Windows, the SYSVOL of a Samba
-# domain controller when readable, and the copy next to the module or of Install-PSGPOAdmx.
-function Get-PSGPOAdmxCandidate {
+# The folders of $Path that hold .admx files, each once, as full paths.
+function Select-PSGPOAdmxFolder {
     [CmdletBinding()]
     [OutputType([string])]
-    param()
+    param([AllowEmptyCollection()] [string[]]$Path)
+
+    $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    foreach ($item in $Path) {
+        if (-not $item) { continue }
+        $full = try { [System.IO.Path]::GetFullPath($item).TrimEnd('\', '/') } catch { continue }
+        if (-not $seen.Add($full)) { continue }
+        $hasAdmx = try { [bool](Get-ChildItem -LiteralPath $full -File -Filter '*.admx' -ErrorAction Stop | Select-Object -First 1) } catch { $false }
+        if ($hasAdmx) { $full }
+    }
+}
+
+# The central store of the domain, when it holds ADMX files, as GPMC uses it before the files of
+# the computer: \\<domain>\SYSVOL\<domain>\Policies\PolicyDefinitions on a computer of the domain
+# (Windows, the domain controllers Windows or Samba), Policies/PolicyDefinitions in the SYSVOL of
+# a Samba domain controller (Linux).
+function Get-PSGPOAdmxCentralStore {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        # The SYSVOL of Samba (a parameter for the tests).
+        [string]$SambaSysvol = '/var/lib/samba/sysvol'
+    )
 
     $paths = [System.Collections.Generic.List[string]]::new()
-    $platform = Get-PSGPOPlatform
-    if ($IsWindows -and $platform.DomainName) {
-        $paths.Add("\\$($platform.DomainName)\SYSVOL\$($platform.DomainName)\Policies\PolicyDefinitions")
-    }
-    $last = (Get-PSGPOUserSetting).PolicyDefinitions
-    if ($last) { $paths.Add($last) }
-    if ($IsWindows -and $env:windir) { $paths.Add((Join-Path $env:windir 'PolicyDefinitions')) }
-    if (-not $IsWindows) {
-        foreach ($sysvol in @(Get-ChildItem -LiteralPath '/var/lib/samba/sysvol' -Directory -ErrorAction SilentlyContinue)) {
+    if ($IsWindows) {
+        $domain = (Get-PSGPOPlatform).DomainName
+        if ($domain) { $paths.Add("\\$domain\SYSVOL\$domain\Policies\PolicyDefinitions") }
+    } else {
+        foreach ($sysvol in @(Get-ChildItem -LiteralPath $SambaSysvol -Directory -ErrorAction SilentlyContinue)) {
             $paths.Add((Join-Path $sysvol.FullName 'Policies' 'PolicyDefinitions'))
         }
     }
+    Select-PSGPOAdmxFolder -Path $paths
+}
+
+# PolicyDefinitions folders found on this computer, the most relevant first: the central store of
+# the domain, the folder chosen last, the folder of Windows, and the copy next to the module or of
+# Install-PSGPOAdmx.
+function Get-PSGPOAdmxCandidate {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        # The central store found already (Get-PSGPOAdmxCentralStore), not looked for again.
+        [AllowEmptyCollection()] [string[]]$CentralStore
+    )
+
+    $paths = [System.Collections.Generic.List[string]]::new()
+    if (-not $PSBoundParameters.ContainsKey('CentralStore')) { $CentralStore = @(Get-PSGPOAdmxCentralStore) }
+    foreach ($store in $CentralStore) { $paths.Add($store) }
+    $last = (Get-PSGPOUserSetting).PolicyDefinitions
+    if ($last) { $paths.Add($last) }
+    if ($IsWindows -and $env:windir) { $paths.Add((Join-Path $env:windir 'PolicyDefinitions')) }
     foreach ($base in $PSScriptRoot, (Split-Path -Parent $PSScriptRoot)) {
         $paths.Add((Join-Path $base 'sources' 'PolicyDefinitions'))
     }
     # Those of Install-PSGPOAdmx in the data folder of the user.
     $paths.Add(@(Get-PSGPOAdmxInstallFolder)[-1])
-
-    $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
-    foreach ($path in $paths) {
-        $full = try { [System.IO.Path]::GetFullPath($path).TrimEnd('\', '/') } catch { continue }
-        if (-not $seen.Add($full)) { continue }
-        $hasAdmx = try { [bool](Get-ChildItem -LiteralPath $full -File -Filter '*.admx' -ErrorAction Stop | Select-Object -First 1) } catch { $false }
-        if ($hasAdmx) { $full }
-    }
+    Select-PSGPOAdmxFolder -Path $paths
 }
 
 # Settings of the user kept between sessions: <config>/PSGPOTools/settings.json (~/.config on
