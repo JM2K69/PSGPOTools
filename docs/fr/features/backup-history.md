@@ -117,7 +117,7 @@ journal d'audit :
 |---|---|
 | `Time` | quand (UTC) |
 | `Account`, `Computer`, `Server` | qui, depuis quel ordinateur, sur quel contrôleur de domaine |
-| `Action` | `NewGpo`, `RenameGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SetWmiFilter`, `NewWmiFilter`, `EditWmiFilter`, `RemoveWmiFilter`, `SetWmiFilterPermission`, `SetGpoPermission`, `SetGpoSecurityFiltering`, `SaveGpoFile`, `RestoreGpo`, `ImportGpo`, `RemoveGpo`, `RemoveDeletedGpoBackup`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration` |
+| `Action` | `NewGpo`, `RenameGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SetWmiFilter`, `NewWmiFilter`, `EditWmiFilter`, `RemoveWmiFilter`, `SetWmiFilterPermission`, `SetGpoPermission`, `SetGpoSecurityFiltering`, `SaveGpoFile`, `RestoreGpo`, `ImportGpo`, `ImportPolicyRuleSet`, `RemoveGpo`, `RemoveDeletedGpoBackup`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration` |
 | `Target`, `GpoName`, `GpoId` | sur quoi : la GPO, le domaine ou l'OU, la configuration |
 | `Details` | comment : les options de lien changées, le fichier enregistré avec son SHA-256 et la nouvelle version, les droits des créateurs et les permissions retirées à une approbation… |
 

@@ -60,9 +60,14 @@ function Start-PSGPOLauncherWindow {
         $description.TextWrapping = [Avalonia.Media.TextWrapping]::Wrap
         $null = $description.Bind([Avalonia.Controls.TextBlock]::ForegroundProperty, [Avalonia.Controls.ResourceNodeExtensions]::GetResourceObservable($window, 'SecondaryTextBrush', $null))
 
+        # The texts as wide as the inside of the tile, centered by their TextAlignment: measured on
+        # the width of their panel, a title on two lines was drawn on another once the pointer left
+        # the tile, its lines then on the left.
+        $icon.HorizontalAlignment = [Avalonia.Layout.HorizontalAlignment]::Center
+        foreach ($text in $title, $description) { $text.Width = 220 - 2 * 12 - 2 }
         $content = [Avalonia.Controls.StackPanel]::new()
         $content.Spacing = 8
-        $content.HorizontalAlignment = [Avalonia.Layout.HorizontalAlignment]::Center
+        $content.HorizontalAlignment = [Avalonia.Layout.HorizontalAlignment]::Stretch
         $content.VerticalAlignment = [Avalonia.Layout.VerticalAlignment]::Center
         foreach ($child in $icon, $title, $description) { $content.Children.Add($child) }
 

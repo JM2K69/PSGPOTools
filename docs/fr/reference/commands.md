@@ -83,6 +83,7 @@ Get-PSGPODrift -Path /srv/gpo-backups | Where-Object State -EQ 'Drifted' | ForEa
 | [`Compare-PSGPOPolicyRuleSet`](commands/compare-psgpopolicyruleset.md) `-RuleSet [-DifferenceOnly] [-ConflictOnly]` | compare des jeux de règles paramètre par paramètre, une colonne par jeu, comme Policy Analyzer |
 | [`Export-PSGPOPolicyRuleSet`](commands/export-psgpopolicyruleset.md) `-RuleSet -Path [-Force]` | enregistre des jeux de règles dans un fichier `.PolicyRules`, que Policy Analyzer et `LGPO.exe /p` lisent |
 | [`Export-PSGPOPolicyRuleComparison`](commands/export-psgpopolicyrulecomparison.md) `-InputObject -Path [-All] [-Force]` | enregistre une comparaison dans un classeur Excel, avec les couleurs de Policy Analyzer |
+| [`Import-PSGPOPolicyRuleSet`](commands/import-psgpopolicyruleset.md) `-RuleSet -TargetName [-PolicyName] [-Replace] [-CreateIfNeeded] [-BackupPath] [-NoBackup]` | écrit les paramètres d'un jeu de règles dans une GPO du domaine, comme `LGPO.exe /p` l'applique à un ordinateur |
 
 ```powershell
 $baseline = Get-PSGPOPolicyRuleSet -Path .\MSFT-Win11-v25H2.PolicyRules

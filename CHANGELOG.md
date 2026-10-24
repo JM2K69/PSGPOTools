@@ -1,5 +1,19 @@
 # HGPM Release History
 
+## Unreleased
+
+### Added
+
+* Write a rule set in a GPO of the domain, as `LGPO.exe /p` applies one to a computer, on Active Directory and Samba AD: `Import-PSGPOPolicyRuleSet`, and **Write in a GPO...** in the Policy Analyzer window. The registry settings, security template and advanced audit policy of the set merged in the GPO (or in place of its own with `-Replace`), the client-side extensions they need declared (those the set lists included), the GPOs of the set chosen, the GPO backed up first, created when needed, the change audited (`ImportPolicyRuleSet`); checked on a Samba domain, the GPO read back
+
+### Changed
+
+* The launcher shows its four tiles on one line
+
+### Fixed
+
+* The title of a tile of the launcher on two lines (Group Policy Management) went to the left once the pointer left the tile
+
 ## 0.1.10 - alpha
 
 ### Added

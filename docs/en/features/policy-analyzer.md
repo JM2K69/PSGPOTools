@@ -114,6 +114,34 @@ Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $domain -DifferenceOnly |
 One set alone shows its own conflicts and duplicates: the GPOs applied together that set the same
 setting.
 
+## Writing a rule set in a GPO
+
+`Import-PSGPOPolicyRuleSet` writes the settings of a rule set in a GPO of the domain, as
+`LGPO.exe /p` applies a `.PolicyRules` file to the local policy of a computer, on Active Directory
+and Samba AD alike: a security baseline of Microsoft becomes a GPO without its GPMC backups, and
+without Windows. In the window, **Write in a GPO...** does it for the selected set.
+
+- The registry settings go to the `Registry.pol` files of the GPO (computer and user), the security
+  template to `GptTmpl.inf`, the advanced audit policy to `audit.csv`; the GPO declares the
+  client-side extensions they need, those the set lists included (exploit protection, LAPS...),
+  and its version increases.
+- **Merged** by default: a setting of the set replaces the same setting of the GPO (a `**delvals.`
+  clears the values of its key first, as for a list), the other settings of the GPO stay.
+  `-Replace` (*Replace the registry settings...* in the window) leaves only those of the set.
+- Only the GPOs of the set given (`-PolicyName`, the list of the window) are written: a baseline
+  holds GPOs for the computers, the users, the domain controllers... A setting two of them give
+  different values gets the value of the last one, after a warning.
+- The GPO is backed up first (`-NoBackup` skips it), and the change is audited
+  (`ImportPolicyRuleSet`). Its links, status, permissions, preferences and scripts do not change.
+- A `REG_DWORD_BIG_ENDIAN` is not written: Policy Analyzer does not keep its data.
+
+```powershell
+Get-PSGPOPolicyRuleSet -Path .\MSFT-Win11-v25H2.PolicyRules |
+    Import-PSGPOPolicyRuleSet -TargetName 'Workstations - Baseline' -PolicyName '*- Computer' -CreateIfNeeded -WhatIf
+```
+
+![The settings of a security baseline written in a GPO of the domain](../assets/screenshots/55-policy-analyzer-write.png)
+
 ## Excel workbook
 
 `Export-PSGPOPolicyRuleComparison` saves a comparison as an Excel workbook, written by HGPM
