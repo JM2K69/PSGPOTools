@@ -158,4 +158,10 @@ function Get-PSGPOLauncherTool {
         Description = Get-PSGPOText 'Build, check and test WMI filters from ready-made queries, then export them to .mof'
         Icon        = 'filter'
     }
+    @{
+        Command     = 'Show-PolicyAnalyzerAvalonia'
+        Title       = Get-PSGPOText 'Policy Analyzer'
+        Description = Get-PSGPOText 'GPOs and the security baselines of Microsoft compared setting by setting, as in the Security Compliance Toolkit'
+        Icon        = 'table-search'
+    }
 }

@@ -78,6 +78,7 @@ Get-PSGPODrift -Path /srv/gpo-backups | Where-Object State -EQ 'Drifted' | ForEa
 
 | Command | Does |
 |---|---|
+| [`Show-PolicyAnalyzerAvalonia`](commands/show-policyanalyzeravalonia.md) `[-Path] [-Directory \| -Server] [-PolicyDefinitions] [-Language]` | opens Policy Analyzer: rule sets compared in a window, as Policy Analyzer does |
 | [`Get-PSGPOPolicyRuleSet`](commands/get-psgpopolicyruleset.md) `-Path \| -Name \| -Backup \| -GpmcBackupPath [-SetName]` | reads `.PolicyRules` files (the security baselines of Microsoft), or makes a rule set from GPOs of the domain, backups of HGPM or GPMC |
 | [`Compare-PSGPOPolicyRuleSet`](commands/compare-psgpopolicyruleset.md) `-RuleSet [-DifferenceOnly] [-ConflictOnly]` | compares rule sets setting by setting, a column per set, as Policy Analyzer does |
 | [`Export-PSGPOPolicyRuleSet`](commands/export-psgpopolicyruleset.md) `-RuleSet -Path [-Force]` | saves rule sets as a `.PolicyRules` file, which Policy Analyzer and `LGPO.exe /p` read |

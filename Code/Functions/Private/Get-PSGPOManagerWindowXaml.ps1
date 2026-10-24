@@ -50,7 +50,7 @@ $(Get-PSGPOWindowResourceXaml)
                             <TextBlock Text='Group Policy Management' VerticalAlignment='Center'/>
                         </StackPanel>
                     </Button>
-                    <Button Name='analyzerButton' Height='36' ToolTip.Tip='Compare GPOs and the security baselines of Microsoft setting by setting, as Policy Analyzer'>
+                    <Button Name='analyzerButton' Height='36' ToolTip.Tip='Compare GPOs and the security baselines of Microsoft setting by setting, as Policy Analyzer (Show-PolicyAnalyzerAvalonia)'>
                         <StackPanel Orientation='Horizontal' Spacing='8'>
                             <PathIcon Data='{StaticResource Icon.table-search}'/>
                             <TextBlock Text='Policy Analyzer' VerticalAlignment='Center'/>
@@ -1284,7 +1284,6 @@ $(Get-PSGPOWindowResourceXaml)
         </Grid>
         </Grid>
 
-$(Get-PSGPOPolicyAnalyzerViewXaml)
 
         <!-- Status bar: this computer, its addresses, the domain and the domain controller read -->
         <Border Grid.Row='2' Name='statusBar' Background='{DynamicResource HeaderBackgroundBrush}'
