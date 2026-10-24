@@ -294,7 +294,7 @@ function Start-PSGPOPasswordPolicyWindow {
     $window.Add_Closed({
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { $cts.Cancel() }, [Avalonia.Threading.DispatcherPriority]::Background)
     })
-    $window.Show()
+    Show-PSGPOWindow -Window $window
 
     $onShownState = @{ Error = $null }
     if ($OnShown) {
