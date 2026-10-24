@@ -1,0 +1,353 @@
+{
+  "Namespaces": [
+    "root\\CIMv2",
+    "root\\StandardCimv2",
+    "root\\CIMv2\\Security\\MicrosoftTpm",
+    "root\\CIMv2\\Security\\MicrosoftVolumeEncryption",
+    "root\\Microsoft\\Windows\\DeviceGuard",
+    "root\\SecurityCenter2",
+    "root\\WMI"
+  ],
+  "Classes": [
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_OperatingSystem", "Description": "The operating system: version, build, edition, architecture, language.",
+      "Properties": [
+        { "Name": "ProductType", "Type": "Number", "Description": "Workstation, domain controller or server.", "Values": [ { "Value": "1", "Text": "Workstation" }, { "Value": "2", "Text": "Domain controller" }, { "Value": "3", "Text": "Member server" } ] },
+        { "Name": "Version", "Type": "String", "Description": "Version of the kernel, as text: 10.0.26100 for example; compare it with LIKE." },
+        { "Name": "BuildNumber", "Type": "String", "Description": "Build number, as text: compare five-digit builds only." },
+        { "Name": "Caption", "Type": "String", "Description": "Name of the operating system, in its language." },
+        { "Name": "OperatingSystemSKU", "Type": "Number", "Description": "Edition (SKU).", "Values": [ { "Value": "4", "Text": "Enterprise" }, { "Value": "48", "Text": "Pro" }, { "Value": "121", "Text": "Education" }, { "Value": "125", "Text": "Enterprise LTSC" }, { "Value": "175", "Text": "Enterprise multi-session" }, { "Value": "7", "Text": "Server Standard" }, { "Value": "8", "Text": "Server Datacenter" }, { "Value": "13", "Text": "Server Standard (Core)" }, { "Value": "12", "Text": "Server Datacenter (Core)" } ] },
+        { "Name": "OSArchitecture", "Type": "String", "Description": "64-bit or 32-bit, in the language of the system: compare it with LIKE '64%'.", "Values": [ { "Value": "64%", "Text": "64-bit" }, { "Value": "32%", "Text": "32-bit" } ] },
+        { "Name": "OSLanguage", "Type": "Number", "Description": "Language of the installation (LCID), not the display language.", "Values": [ { "Value": "1036", "Text": "French (France)" }, { "Value": "1033", "Text": "English (United States)" }, { "Value": "2057", "Text": "English (United Kingdom)" }, { "Value": "1031", "Text": "German (Germany)" }, { "Value": "3082", "Text": "Spanish (Spain)" }, { "Value": "1040", "Text": "Italian (Italy)" } ] }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_ComputerSystem", "Description": "The computer: name, domain, role, manufacturer, model, type, memory.",
+      "Properties": [
+        { "Name": "Name", "Type": "String", "Description": "Name of the computer." },
+        { "Name": "Domain", "Type": "String", "Description": "DNS name of the domain (or the workgroup)." },
+        { "Name": "PartOfDomain", "Type": "Boolean", "Description": "The computer is a member of a domain." },
+        { "Name": "DomainRole", "Type": "Number", "Description": "Role in the domain.", "Values": [ { "Value": "0", "Text": "Standalone workstation" }, { "Value": "1", "Text": "Member workstation" }, { "Value": "2", "Text": "Standalone server" }, { "Value": "3", "Text": "Member server" }, { "Value": "4", "Text": "Backup domain controller" }, { "Value": "5", "Text": "Primary domain controller" } ] },
+        { "Name": "Manufacturer", "Type": "String", "Description": "Manufacturer of the computer." },
+        { "Name": "Model", "Type": "String", "Description": "Model of the computer." },
+        { "Name": "PCSystemType", "Type": "Number", "Description": "Type of computer.", "Values": [ { "Value": "1", "Text": "Desktop" }, { "Value": "2", "Text": "Mobile" }, { "Value": "3", "Text": "Workstation" }, { "Value": "4", "Text": "Enterprise server" } ] },
+        { "Name": "TotalPhysicalMemory", "Type": "Number", "Description": "Memory, in bytes (a little below the memory installed)." },
+        { "Name": "NumberOfLogicalProcessors", "Type": "Number", "Description": "Number of logical processors." },
+        { "Name": "HypervisorPresent", "Type": "Boolean", "Description": "A hypervisor runs: a virtual machine, or a Hyper-V host (or VBS)." },
+        { "Name": "BootupState", "Type": "String", "Description": "How the computer started.", "Values": [ { "Value": "Normal boot", "Text": "Normal boot" } ] }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_Processor", "Description": "The processors.",
+      "Properties": [
+        { "Name": "Manufacturer", "Type": "String", "Description": "Maker of the processor.", "Values": [ { "Value": "GenuineIntel", "Text": "Intel" }, { "Value": "AuthenticAMD", "Text": "AMD" } ] },
+        { "Name": "Name", "Type": "String", "Description": "Name of the processor." },
+        { "Name": "NumberOfCores", "Type": "Number", "Description": "Number of cores." },
+        { "Name": "NumberOfLogicalProcessors", "Type": "Number", "Description": "Number of logical processors." },
+        { "Name": "Architecture", "Type": "Number", "Description": "Architecture.", "Values": [ { "Value": "0", "Text": "x86" }, { "Value": "9", "Text": "x64" }, { "Value": "12", "Text": "ARM64" } ] },
+        { "Name": "AddressWidth", "Type": "Number", "Description": "32 or 64 bits." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_LogicalDisk", "Description": "The drives: their letter, type, size and free space.",
+      "Properties": [
+        { "Name": "DeviceID", "Type": "String", "Description": "Letter of the drive: C: for example." },
+        { "Name": "DriveType", "Type": "Number", "Description": "Type of drive.", "Values": [ { "Value": "2", "Text": "Removable" }, { "Value": "3", "Text": "Local disk" }, { "Value": "4", "Text": "Network drive" }, { "Value": "5", "Text": "CD/DVD" } ] },
+        { "Name": "FreeSpace", "Type": "Number", "Description": "Free space, in bytes." },
+        { "Name": "Size", "Type": "Number", "Description": "Size, in bytes." },
+        { "Name": "FileSystem", "Type": "String", "Description": "File system: NTFS, ReFS, FAT32." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_BIOS", "Description": "The firmware of the computer.",
+      "Properties": [
+        { "Name": "Manufacturer", "Type": "String", "Description": "Maker of the firmware." },
+        { "Name": "SMBIOSBIOSVersion", "Type": "String", "Description": "Version of the firmware." },
+        { "Name": "SerialNumber", "Type": "String", "Description": "Serial number of the computer." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_SystemEnclosure", "Description": "The chassis of the computer.",
+      "Properties": [
+        { "Name": "Manufacturer", "Type": "String", "Description": "Maker of the chassis." },
+        { "Name": "SMBIOSAssetTag", "Type": "String", "Description": "Asset tag of the chassis." },
+        { "Name": "SerialNumber", "Type": "String", "Description": "Serial number of the chassis." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_Battery", "Description": "The batteries: a laptop has one (a UPS can show as one).",
+      "Properties": [
+        { "Name": "Name", "Type": "String", "Description": "Name of the battery." },
+        { "Name": "DeviceID", "Type": "String", "Description": "Identifier of the battery." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_IP4RouteTable", "Description": "The IPv4 routes: the route of its own address tells the subnet of a computer.",
+      "Properties": [
+        { "Name": "Destination", "Type": "String", "Description": "Destination of the route." },
+        { "Name": "Mask", "Type": "String", "Description": "Mask of the route: 255.255.255.255 for the address of the computer." },
+        { "Name": "NextHop", "Type": "String", "Description": "Next hop: the gateway of the route 0.0.0.0." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_NetworkAdapterConfiguration", "Description": "The configuration of the network adapters (IPAddress is a list: it cannot be compared).",
+      "Properties": [
+        { "Name": "IPEnabled", "Type": "Boolean", "Description": "The adapter has IP." },
+        { "Name": "DHCPEnabled", "Type": "Boolean", "Description": "The adapter gets its address by DHCP." },
+        { "Name": "DNSDomain", "Type": "String", "Description": "DNS suffix of the adapter." },
+        { "Name": "Description", "Type": "String", "Description": "Name of the adapter." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_TimeZone", "Description": "The time zone of the computer.",
+      "Properties": [
+        { "Name": "Bias", "Type": "Number", "Description": "Offset from UTC, in minutes: 60 for Paris, -300 for New York." },
+        { "Name": "StandardName", "Type": "String", "Description": "Name of the time zone, in the language of the system." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_LocalTime", "Description": "The local time when the GPOs are applied.",
+      "Properties": [
+        { "Name": "DayOfWeek", "Type": "Number", "Description": "Day of the week.", "Values": [ { "Value": "0", "Text": "Sunday" }, { "Value": "1", "Text": "Monday" }, { "Value": "2", "Text": "Tuesday" }, { "Value": "3", "Text": "Wednesday" }, { "Value": "4", "Text": "Thursday" }, { "Value": "5", "Text": "Friday" }, { "Value": "6", "Text": "Saturday" } ] },
+        { "Name": "Hour", "Type": "Number", "Description": "Hour, 0 to 23." },
+        { "Name": "Month", "Type": "Number", "Description": "Month, 1 to 12." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_Service", "Description": "The services of Windows.",
+      "Properties": [
+        { "Name": "Name", "Type": "String", "Description": "Name of the service: Spooler for example." },
+        { "Name": "DisplayName", "Type": "String", "Description": "Display name of the service." },
+        { "Name": "State", "Type": "String", "Description": "State of the service.", "Values": [ { "Value": "Running", "Text": "Running" }, { "Value": "Stopped", "Text": "Stopped" } ] },
+        { "Name": "StartMode", "Type": "String", "Description": "Startup type.", "Values": [ { "Value": "Auto", "Text": "Automatic" }, { "Value": "Manual", "Text": "Manual" }, { "Value": "Disabled", "Text": "Disabled" } ] }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_QuickFixEngineering", "Description": "The updates installed (a cumulative update can hide older ones).",
+      "Properties": [
+        { "Name": "HotFixID", "Type": "String", "Description": "Number of the update: KB5001234 for example." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_InstalledWin32Program", "Description": "The programs installed, as Settings lists them: fast (Windows 10 and later clients).",
+      "Properties": [
+        { "Name": "Name", "Type": "String", "Description": "Name of the program." },
+        { "Name": "Vendor", "Type": "String", "Description": "Publisher of the program." },
+        { "Name": "Version", "Type": "String", "Description": "Version of the program, as text." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_Product", "Description": "The programs installed by Windows Installer (MSI).",
+      "Warning": "Win32_Product checks and repairs every MSI program each time it is read, and is slow: prefer Win32_InstalledWin32Program.",
+      "Properties": [
+        { "Name": "Name", "Type": "String", "Description": "Name of the program." },
+        { "Name": "Vendor", "Type": "String", "Description": "Publisher of the program." },
+        { "Name": "Version", "Type": "String", "Description": "Version of the program, as text." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_OptionalFeature", "Description": "The optional features of Windows.",
+      "Properties": [
+        { "Name": "Name", "Type": "String", "Description": "Name of the feature: Microsoft-Hyper-V-All for example." },
+        { "Name": "InstallState", "Type": "Number", "Description": "State of the feature.", "Values": [ { "Value": "1", "Text": "Enabled" }, { "Value": "2", "Text": "Disabled" }, { "Value": "3", "Text": "Absent" } ] }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_ServerFeature", "Description": "The roles and features of Windows Server (servers only).",
+      "Properties": [
+        { "Name": "ID", "Type": "Number", "Description": "Identifier of the role or feature.", "Values": [ { "Value": "2", "Text": "Web Server (IIS)" }, { "Value": "10", "Text": "Active Directory Domain Services" }, { "Value": "12", "Text": "DHCP Server" }, { "Value": "13", "Text": "DNS Server" }, { "Value": "20", "Text": "Hyper-V" }, { "Value": "130", "Text": "Remote Desktop Session Host" }, { "Value": "135", "Text": "Print Server" } ] },
+        { "Name": "Name", "Type": "String", "Description": "Name of the role or feature, in the language of the system." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "CIM_DataFile", "Description": "The files: give the full path in Name.",
+      "Warning": "Query a file by its full Name only: a query by its folder or extension reads the whole disk.",
+      "Properties": [
+        { "Name": "Name", "Type": "String", "Description": "Full path of the file: C:\\Windows\\notepad.exe." },
+        { "Name": "Version", "Type": "String", "Description": "Version of the file, as text." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_Directory", "Description": "The folders: give the full path in Name.",
+      "Properties": [
+        { "Name": "Name", "Type": "String", "Description": "Full path of the folder: C:\\Program Files\\Contoso." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_Environment", "Description": "The environment variables.",
+      "Properties": [
+        { "Name": "Name", "Type": "String", "Description": "Name of the variable." },
+        { "Name": "VariableValue", "Type": "String", "Description": "Value of the variable." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2", "Name": "Win32_DiskPartition", "Description": "The partitions of the disks.",
+      "Properties": [
+        { "Name": "Type", "Type": "String", "Description": "Type of the partition: GPT: System is the partition of an UEFI computer.", "Values": [ { "Value": "GPT: System", "Text": "EFI system partition" } ] },
+        { "Name": "Bootable", "Type": "Boolean", "Description": "The partition starts the computer." }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2\\Security\\MicrosoftTpm", "Name": "Win32_Tpm", "Description": "The TPM of the computer (no instance without a TPM).",
+      "Properties": [
+        { "Name": "IsEnabled_InitialValue", "Type": "Boolean", "Description": "The TPM is enabled." },
+        { "Name": "IsActivated_InitialValue", "Type": "Boolean", "Description": "The TPM is activated." },
+        { "Name": "SpecVersion", "Type": "String", "Description": "Version of the TPM: 2.0, 0, 1.16 for example.", "Values": [ { "Value": "2.0%", "Text": "TPM 2.0" }, { "Value": "1.2%", "Text": "TPM 1.2" } ] }
+      ]
+    },
+    {
+      "Namespace": "root\\CIMv2\\Security\\MicrosoftVolumeEncryption", "Name": "Win32_EncryptableVolume", "Description": "The volumes BitLocker can encrypt.",
+      "Properties": [
+        { "Name": "DriveLetter", "Type": "String", "Description": "Letter of the volume: C:." },
+        { "Name": "ProtectionStatus", "Type": "Number", "Description": "BitLocker protection.", "Values": [ { "Value": "0", "Text": "Off" }, { "Value": "1", "Text": "On" }, { "Value": "2", "Text": "Unknown" } ] },
+        { "Name": "ConversionStatus", "Type": "Number", "Description": "Encryption.", "Values": [ { "Value": "0", "Text": "Fully decrypted" }, { "Value": "1", "Text": "Fully encrypted" }, { "Value": "2", "Text": "Encryption in progress" }, { "Value": "3", "Text": "Decryption in progress" } ] }
+      ]
+    },
+    {
+      "Namespace": "root\\Microsoft\\Windows\\DeviceGuard", "Name": "Win32_DeviceGuard", "Description": "Virtualization-based security (VBS) and code integrity.",
+      "Properties": [
+        { "Name": "VirtualizationBasedSecurityStatus", "Type": "Number", "Description": "Virtualization-based security.", "Values": [ { "Value": "0", "Text": "Off" }, { "Value": "1", "Text": "Enabled, not running" }, { "Value": "2", "Text": "Running" } ] },
+        { "Name": "CodeIntegrityPolicyEnforcementStatus", "Type": "Number", "Description": "Code integrity policy (App Control).", "Values": [ { "Value": "0", "Text": "Off" }, { "Value": "1", "Text": "Audit" }, { "Value": "2", "Text": "Enforced" } ] }
+      ]
+    },
+    {
+      "Namespace": "root\\SecurityCenter2", "Name": "AntiVirusProduct", "Description": "The antivirus programs registered in the Security Center.",
+      "Warning": "root\\SecurityCenter2 does not exist on Windows Server: the query is False there.",
+      "Properties": [
+        { "Name": "displayName", "Type": "String", "Description": "Name of the antivirus program." }
+      ]
+    }
+  ],
+  "Templates": [
+    { "Id": "Workstations", "Category": "Operating system", "Name": "Workstations", "Description": "Windows clients, not servers.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE ProductType = 1", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem" },
+    { "Id": "MemberServers", "Category": "Operating system", "Name": "Member servers", "Description": "Windows Server, domain controllers excepted.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE ProductType = 3", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem" },
+    { "Id": "DomainControllers", "Category": "Operating system", "Name": "Domain controllers", "Description": "The domain controllers of Windows Server.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE ProductType = 2", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem" },
+    { "Id": "Servers", "Category": "Operating system", "Name": "Servers", "Description": "Windows Server, domain controllers included.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE ProductType <> 1", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem" },
+    { "Id": "NotDomainControllers", "Category": "Operating system", "Name": "All but domain controllers", "Description": "Workstations and member servers.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE ProductType <> 2", "Source": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/jj717288(v=ws.11)" },
+    { "Id": "Windows11", "Category": "Operating system", "Name": "Windows 11", "Description": "Every release of Windows 11.", "Note": "BuildNumber is a text: the comparison is right between builds of five digits, Version LIKE '10.0%' keeps the older systems out.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE Version LIKE '10.0%' AND BuildNumber >= '22000' AND ProductType = 1", "Source": "https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information" },
+    { "Id": "Windows10", "Category": "Operating system", "Name": "Windows 10", "Description": "Every release of Windows 10.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE Version LIKE '10.0%' AND BuildNumber < '22000' AND ProductType = 1", "Source": "https://learn.microsoft.com/en-us/windows/release-health/release-information" },
+    { "Id": "Windows11Release", "Category": "Operating system", "Name": "A release of Windows 11", "Description": "One version of Windows 11, by its build.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE BuildNumber = '{Build}' AND ProductType = 1",
+      "Parameters": [ { "Name": "Build", "Label": "Release", "Kind": "Choice", "Default": "26100", "Choices": [ { "Value": "22000", "Text": "21H2 (22000)" }, { "Value": "22621", "Text": "22H2 (22621)" }, { "Value": "22631", "Text": "23H2 (22631)" }, { "Value": "26100", "Text": "24H2, LTSC 2024 (26100)" }, { "Value": "26200", "Text": "25H2 (26200)" }, { "Value": "26300", "Text": "26H2 (26300)" } ] } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information" },
+    { "Id": "WindowsServerVersion", "Category": "Operating system", "Name": "A version of Windows Server", "Description": "One version of Windows Server, by its build.", "Note": "Windows Server 2025 and Windows 11 24H2 share the build 26100: ProductType tells them apart.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE BuildNumber = '{Build}' AND ProductType <> 1",
+      "Parameters": [ { "Name": "Build", "Label": "Version", "Kind": "Choice", "Default": "26100", "Choices": [ { "Value": "14393", "Text": "Windows Server 2016 (14393)" }, { "Value": "17763", "Text": "Windows Server 2019 (17763)" }, { "Value": "20348", "Text": "Windows Server 2022 (20348)" }, { "Value": "26100", "Text": "Windows Server 2025 (26100)" } ] } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/release-health/windows-server-release-info" },
+    { "Id": "MinimumBuild", "Category": "Operating system", "Name": "Minimum build", "Description": "Windows 10, 11 or Server from a build on.", "Note": "BuildNumber is a text: give a build of five digits.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE Version LIKE '10.0%' AND BuildNumber >= '{Build}'",
+      "Parameters": [ { "Name": "Build", "Label": "Build number", "Kind": "Number", "Default": "19045" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem" },
+    { "Id": "LegacyWindows", "Category": "Operating system", "Name": "Windows before Windows 10", "Description": "Windows 7, 8, 8.1, Server 2008 R2, 2012 and 2012 R2 (version 6.x).", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE Version LIKE '6.%'", "Source": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/jj717288(v=ws.11)" },
+    { "Id": "Edition", "Category": "Edition and language", "Name": "Edition of Windows", "Description": "One edition, by its SKU.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE OperatingSystemSKU = {Sku}",
+      "Parameters": [ { "Name": "Sku", "Label": "Edition", "Kind": "Choice", "Default": "4", "Choices": [ { "Value": "4", "Text": "Enterprise" }, { "Value": "125", "Text": "Enterprise LTSC" }, { "Value": "175", "Text": "Enterprise multi-session" }, { "Value": "48", "Text": "Pro" }, { "Value": "121", "Text": "Education" }, { "Value": "7", "Text": "Server Standard" }, { "Value": "8", "Text": "Server Datacenter" } ] } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem" },
+    { "Id": "ServerCore", "Category": "Edition and language", "Name": "Server Core", "Description": "Windows Server installed without the desktop experience.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE OperatingSystemSKU = 12 OR OperatingSystemSKU = 13 OR OperatingSystemSKU = 14 OR OperatingSystemSKU = 147 OR OperatingSystemSKU = 148", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem" },
+    { "Id": "Os64", "Category": "Edition and language", "Name": "64-bit Windows", "Description": "The 64-bit operating systems.", "Note": "OSArchitecture is in the language of the system (64 bits, 64-Bit...): LIKE '64%' reads them all.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE OSArchitecture LIKE '64%'", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem" },
+    { "Id": "Os32", "Category": "Edition and language", "Name": "32-bit Windows", "Description": "The 32-bit operating systems.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE OSArchitecture LIKE '32%'", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem" },
+    { "Id": "Arm64", "Category": "Edition and language", "Name": "ARM64 processor", "Description": "The computers with an ARM64 processor.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_Processor WHERE Architecture = 12", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-processor" },
+    { "Id": "Language", "Category": "Edition and language", "Name": "Language of the installation", "Description": "The language Windows was installed in.", "Note": "OSLanguage is the language of the installation, not the display language a user chose.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OperatingSystem WHERE OSLanguage = {Language}",
+      "Parameters": [ { "Name": "Language", "Label": "Language", "Kind": "Choice", "Default": "1036", "Choices": [ { "Value": "1036", "Text": "French (France)" }, { "Value": "3084", "Text": "French (Canada)" }, { "Value": "2060", "Text": "French (Belgium)" }, { "Value": "4108", "Text": "French (Switzerland)" }, { "Value": "1033", "Text": "English (United States)" }, { "Value": "2057", "Text": "English (United Kingdom)" }, { "Value": "1031", "Text": "German (Germany)" }, { "Value": "3082", "Text": "Spanish (Spain)" }, { "Value": "1040", "Text": "Italian (Italy)" }, { "Value": "1043", "Text": "Dutch (Netherlands)" }, { "Value": "2070", "Text": "Portuguese (Portugal)" }, { "Value": "1046", "Text": "Portuguese (Brazil)" }, { "Value": "1041", "Text": "Japanese" }, { "Value": "1049", "Text": "Russian" } ] } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem" },
+    { "Id": "DomainMembers", "Category": "Domain and name", "Name": "Members of a domain", "Description": "The computers joined to a domain.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE PartOfDomain = TRUE", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-computersystem" },
+    { "Id": "DomainName", "Category": "Domain and name", "Name": "Computers of a domain", "Description": "The members of one domain, by its DNS name.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE Domain = '{Domain}'",
+      "Parameters": [ { "Name": "Domain", "Label": "DNS name of the domain", "Kind": "Text", "Default": "contoso.com" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-computersystem" },
+    { "Id": "ComputerName", "Category": "Domain and name", "Name": "Name of the computer", "Description": "The computers whose name matches a pattern.", "Note": "% stands for any text and _ for one character: write [_] for an underscore.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE Name LIKE '{Pattern}'",
+      "Parameters": [ { "Name": "Pattern", "Label": "Pattern of the name", "Kind": "Text", "Default": "PC-%" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/wmisdk/like-operator" },
+    { "Id": "PdcEmulator", "Category": "Domain and name", "Name": "PDC emulator", "Description": "The domain controller that holds the PDC emulator role.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE DomainRole = 5", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-computersystem" },
+    { "Id": "Laptops", "Category": "Hardware", "Name": "Laptops", "Description": "The mobile computers.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE PCSystemType = 2", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-computersystem" },
+    { "Id": "Desktops", "Category": "Hardware", "Name": "Desktops", "Description": "The desktop computers and workstations.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE PCSystemType = 1 OR PCSystemType = 3", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-computersystem" },
+    { "Id": "Battery", "Category": "Hardware", "Name": "Computers with a battery", "Description": "The computers with a battery: laptops and tablets.", "Note": "A UPS connected by USB can show as a battery.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_Battery", "Source": "https://woshub.com/group-policy-filtering-using-wmi-filters/" },
+    { "Id": "Manufacturer", "Category": "Hardware", "Name": "Manufacturer", "Description": "The computers of one manufacturer.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE Manufacturer LIKE '{Manufacturer}%'",
+      "Parameters": [ { "Name": "Manufacturer", "Label": "Manufacturer", "Kind": "Text", "Default": "Dell" } ],
+      "Source": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc779036(v=ws.10)" },
+    { "Id": "Model", "Category": "Hardware", "Name": "Model", "Description": "The computers whose model holds a text.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE Model LIKE '%{Model}%'",
+      "Parameters": [ { "Name": "Model", "Label": "Model", "Kind": "Text", "Default": "Latitude" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-computersystem" },
+    { "Id": "Memory", "Category": "Hardware", "Name": "Minimum memory", "Description": "The computers with at least this memory.", "Note": "TotalPhysicalMemory is a little below the memory installed: a GB counts here 1,000,000,000 bytes.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE TotalPhysicalMemory >= {Memory}",
+      "Parameters": [ { "Name": "Memory", "Label": "Memory (GB)", "Kind": "Number", "Default": "8", "Multiplier": 1000000000 } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-computersystem" },
+    { "Id": "FreeSpace", "Category": "Hardware", "Name": "Free space on a drive", "Description": "The computers with at least this free space on a drive.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_LogicalDisk WHERE DeviceID = '{Drive}' AND FreeSpace >= {Free}",
+      "Parameters": [ { "Name": "Drive", "Label": "Drive", "Kind": "Text", "Default": "C:" }, { "Name": "Free", "Label": "Free space (GB)", "Kind": "Number", "Default": "20", "Multiplier": 1073741824 } ],
+      "Source": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc779036(v=ws.10)" },
+    { "Id": "Cores", "Category": "Hardware", "Name": "Minimum processor cores", "Description": "The computers whose processor has at least this number of cores.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_Processor WHERE NumberOfCores >= {Cores}",
+      "Parameters": [ { "Name": "Cores", "Label": "Cores", "Kind": "Number", "Default": "4" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-processor" },
+    { "Id": "ProcessorVendor", "Category": "Hardware", "Name": "Maker of the processor", "Description": "Intel or AMD processors.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_Processor WHERE Manufacturer = '{Vendor}'",
+      "Parameters": [ { "Name": "Vendor", "Label": "Maker", "Kind": "Choice", "Default": "GenuineIntel", "Choices": [ { "Value": "GenuineIntel", "Text": "Intel" }, { "Value": "AuthenticAMD", "Text": "AMD" } ] } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-processor" },
+    { "Id": "Uefi", "Category": "Hardware", "Name": "UEFI firmware", "Description": "The computers started in UEFI mode, by their EFI system partition.", "Note": "A heuristic: no WMI class tells the firmware mode or Secure Boot as a value; test it on your models.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_DiskPartition WHERE Type = 'GPT: System'", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-diskpartition" },
+    { "Id": "HypervisorPresent", "Category": "Virtual machines", "Name": "Hypervisor present", "Description": "Virtual machines of any hypervisor.", "Note": "Also True on a physical Hyper-V host and with virtualization-based security.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE HypervisorPresent = TRUE", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-computersystem" },
+    { "Id": "HyperVGuest", "Category": "Virtual machines", "Name": "Hyper-V or Azure virtual machines", "Description": "The virtual machines of Hyper-V and Azure.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE Manufacturer = 'Microsoft Corporation' AND Model = 'Virtual Machine'", "Source": "https://learn.microsoft.com/en-us/archive/technet-wiki/942.hyper-v-how-to-detect-if-a-computer-is-a-vm-using-script" },
+    { "Id": "AzureGuest", "Category": "Virtual machines", "Name": "Azure virtual machines", "Description": "The virtual machines of Azure, by the asset tag of their chassis.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_SystemEnclosure WHERE SMBIOSAssetTag = '7783-7084-3265-9085-8269-3286-77'", "Source": "https://launchpad.net/bugs/1693939" },
+    { "Id": "VMwareGuest", "Category": "Virtual machines", "Name": "VMware virtual machines", "Description": "The virtual machines of VMware.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE Manufacturer LIKE 'VMware%'", "Source": "https://woshub.com/group-policy-filtering-using-wmi-filters/" },
+    { "Id": "VirtualBoxGuest", "Category": "Virtual machines", "Name": "VirtualBox virtual machines", "Description": "The virtual machines of VirtualBox.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE Manufacturer = 'innotek GmbH' OR Model = 'VirtualBox'", "Source": "https://www.powershellgallery.com/packages/OSDeploy" },
+    { "Id": "KvmGuest", "Category": "Virtual machines", "Name": "KVM, QEMU and Proxmox virtual machines", "Description": "The virtual machines of KVM and QEMU (Proxmox VE).", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE Manufacturer LIKE 'QEMU%'", "Source": "https://www.powershellgallery.com/packages/OSDeploy" },
+    { "Id": "NutanixGuest", "Category": "Virtual machines", "Name": "Nutanix AHV virtual machines", "Description": "The virtual machines of Nutanix AHV.", "Note": "The physical nodes of Nutanix also show Nutanix: Model AHV keeps them out.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE Manufacturer = 'Nutanix' AND Model = 'AHV'", "Source": "https://issues.redhat.com/browse/RHEL-7533" },
+    { "Id": "XenGuest", "Category": "Virtual machines", "Name": "Xen virtual machines", "Description": "The virtual machines of Xen and XenServer.", "Note": "Values seen in the community: check them with the test on one of your virtual machines.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE Manufacturer LIKE 'Xen%'", "Source": "https://www.powershellgallery.com/packages/OSDeploy" },
+    { "Id": "AwsGuest", "Category": "Virtual machines", "Name": "Amazon EC2 instances", "Description": "The instances of Amazon EC2 (Nitro).", "Note": "Values seen in the community: check them with the test on one of your virtual machines.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE Manufacturer LIKE 'Amazon EC2%'", "Source": "https://www.powershellgallery.com/packages/OSDeploy" },
+    { "Id": "PhysicalComputers", "Category": "Virtual machines", "Name": "Physical computers", "Description": "Neither Hyper-V, VMware, VirtualBox nor QEMU virtual machines.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE NOT Model LIKE '%Virtual%' AND NOT Manufacturer LIKE 'VMware%' AND NOT Manufacturer LIKE 'QEMU%' AND NOT Manufacturer = 'innotek GmbH'", "Source": "https://woshub.com/group-policy-filtering-using-wmi-filters/" },
+    { "Id": "TpmEnabled", "Category": "Security", "Name": "TPM enabled", "Description": "The computers with an enabled TPM.", "Note": "The test needs an elevated session: the GPOs are evaluated by the system.", "Namespace": "root\\CIMv2\\Security\\MicrosoftTpm", "Query": "SELECT * FROM Win32_Tpm WHERE IsEnabled_InitialValue = TRUE", "Source": "https://learn.microsoft.com/en-us/windows/win32/secprov/win32-tpm" },
+    { "Id": "Tpm20", "Category": "Security", "Name": "TPM 2.0", "Description": "The computers with a TPM 2.0.", "Note": "The test needs an elevated session: the GPOs are evaluated by the system.", "Namespace": "root\\CIMv2\\Security\\MicrosoftTpm", "Query": "SELECT * FROM Win32_Tpm WHERE SpecVersion LIKE '2.0%'", "Source": "https://learn.microsoft.com/en-us/windows/win32/secprov/win32-tpm" },
+    { "Id": "BitLockerOn", "Category": "Security", "Name": "BitLocker protects a drive", "Description": "The computers whose drive BitLocker protects.", "Note": "The test needs an elevated session: the GPOs are evaluated by the system.", "Namespace": "root\\CIMv2\\Security\\MicrosoftVolumeEncryption", "Query": "SELECT * FROM Win32_EncryptableVolume WHERE DriveLetter = '{Drive}' AND ProtectionStatus = 1",
+      "Parameters": [ { "Name": "Drive", "Label": "Drive", "Kind": "Text", "Default": "C:" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/secprov/win32-encryptablevolume" },
+    { "Id": "BitLockerOff", "Category": "Security", "Name": "BitLocker does not protect a drive", "Description": "The computers whose drive is not protected yet: to apply a BitLocker GPO to them.", "Note": "The test needs an elevated session: the GPOs are evaluated by the system.", "Namespace": "root\\CIMv2\\Security\\MicrosoftVolumeEncryption", "Query": "SELECT * FROM Win32_EncryptableVolume WHERE DriveLetter = '{Drive}' AND ProtectionStatus = 0",
+      "Parameters": [ { "Name": "Drive", "Label": "Drive", "Kind": "Text", "Default": "C:" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/secprov/win32-encryptablevolume" },
+    { "Id": "VbsRunning", "Category": "Security", "Name": "Virtualization-based security running", "Description": "The computers where VBS runs (Windows 10, Server 2016 and later).", "Namespace": "root\\Microsoft\\Windows\\DeviceGuard", "Query": "SELECT * FROM Win32_DeviceGuard WHERE VirtualizationBasedSecurityStatus = 2", "Source": "https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity" },
+    { "Id": "CodeIntegrityEnforced", "Category": "Security", "Name": "Code integrity policy enforced", "Description": "The computers where an App Control policy is enforced.", "Namespace": "root\\Microsoft\\Windows\\DeviceGuard", "Query": "SELECT * FROM Win32_DeviceGuard WHERE CodeIntegrityPolicyEnforcementStatus = 2", "Source": "https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity" },
+    { "Id": "Antivirus", "Category": "Security", "Name": "Antivirus registered", "Description": "The workstations where an antivirus program is registered in the Security Center.", "Note": "root\\SecurityCenter2 does not exist on Windows Server: the query is False there.", "Namespace": "root\\SecurityCenter2", "Query": "SELECT * FROM AntiVirusProduct WHERE displayName LIKE '%{Name}%'",
+      "Parameters": [ { "Name": "Name", "Label": "Name of the antivirus", "Kind": "Text", "Default": "Defender" } ],
+      "Source": "https://docs.lansweeper.com/classic/docs/how-lansweeper-scans-antivirus-information" },
+    { "Id": "Subnet", "Category": "Network and location", "Name": "IP subnet", "Description": "The computers with an IPv4 address in a subnet, as a site.", "Note": "The route of its own address (mask 255.255.255.255) tells the address of a computer: IPAddress of the adapters is a list, which WQL cannot compare.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_IP4RouteTable WHERE Mask = '255.255.255.255' AND Destination LIKE '{Prefix}%'",
+      "Parameters": [ { "Name": "Prefix", "Label": "Start of the addresses", "Kind": "Text", "Default": "10.1.1.", "Hint": "10.1.1. or 192.168." } ],
+      "Source": "https://woshub.com/group-policy-filtering-using-wmi-filters/" },
+    { "Id": "Gateway", "Category": "Network and location", "Name": "Default gateway", "Description": "The computers whose default route goes through a gateway.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_IP4RouteTable WHERE Destination = '0.0.0.0' AND NextHop = '{Gateway}'",
+      "Parameters": [ { "Name": "Gateway", "Label": "Address of the gateway", "Kind": "Text", "Default": "10.1.1.254" } ],
+      "Source": "https://learn.microsoft.com/en-us/previous-versions/windows/desktop/wmiiprouteprov/win32-ip4routetable" },
+    { "Id": "DnsSuffix", "Category": "Network and location", "Name": "DNS suffix of a network adapter", "Description": "The computers with a network adapter in a DNS domain.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = TRUE AND DNSDomain = '{Suffix}'",
+      "Parameters": [ { "Name": "Suffix", "Label": "DNS suffix", "Kind": "Text", "Default": "site1.contoso.com" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-networkadapterconfiguration" },
+    { "Id": "TimeZone", "Category": "Network and location", "Name": "Time zone", "Description": "The computers of a time zone, by its offset from UTC.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_TimeZone WHERE Bias = {Bias}",
+      "Parameters": [ { "Name": "Bias", "Label": "Time zone", "Kind": "Choice", "Default": "60", "Choices": [ { "Value": "0", "Text": "UTC, London, Lisbon" }, { "Value": "60", "Text": "Paris, Brussels, Berlin (UTC+1)" }, { "Value": "120", "Text": "Athens, Helsinki (UTC+2)" }, { "Value": "-300", "Text": "New York, Montreal (UTC-5)" }, { "Value": "-360", "Text": "Chicago (UTC-6)" }, { "Value": "-480", "Text": "Los Angeles (UTC-8)" }, { "Value": "330", "Text": "India (UTC+5:30)" }, { "Value": "540", "Text": "Tokyo (UTC+9)" } ] } ],
+      "Source": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc779036(v=ws.10)" },
+    { "Id": "InstalledProgram", "Category": "Software and services", "Name": "Program installed", "Description": "The computers where a program is installed, as Settings lists it.", "Note": "Win32_InstalledWin32Program is fast but exists on clients only (Windows 10 and later).", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_InstalledWin32Program WHERE Name LIKE '%{Name}%'",
+      "Parameters": [ { "Name": "Name", "Label": "Name of the program", "Kind": "Text", "Default": "7-Zip" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/wmisdk/win32-installedwin32program" },
+    { "Id": "InstalledMsi", "Category": "Software and services", "Name": "MSI program installed (slow)", "Description": "The computers where Windows Installer installed a program, servers included.", "Note": "Win32_Product checks and repairs every MSI program each time it is read, and is slow: prefer Win32_InstalledWin32Program.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_Product WHERE Name LIKE '%{Name}%'",
+      "Parameters": [ { "Name": "Name", "Label": "Name of the program", "Kind": "Text", "Default": "7-Zip" } ],
+      "Source": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/admin-development/windows-installer-reconfigured-all-applications" },
+    { "Id": "ServicePresent", "Category": "Software and services", "Name": "Service installed", "Description": "The computers with a service, by its name.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_Service WHERE Name = '{Service}'",
+      "Parameters": [ { "Name": "Service", "Label": "Name of the service", "Kind": "Text", "Default": "Spooler" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-service" },
+    { "Id": "ServiceRunning", "Category": "Software and services", "Name": "Service running", "Description": "The computers where a service runs.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_Service WHERE Name = '{Service}' AND State = 'Running'",
+      "Parameters": [ { "Name": "Service", "Label": "Name of the service", "Kind": "Text", "Default": "Spooler" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-service" },
+    { "Id": "HotFix", "Category": "Software and services", "Name": "Update installed", "Description": "The computers with an update, by its KB number.", "Note": "A cumulative update can hide the older updates it replaces.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_QuickFixEngineering WHERE HotFixID = '{HotFix}'",
+      "Parameters": [ { "Name": "HotFix", "Label": "KB number", "Kind": "Text", "Default": "KB5001234" } ],
+      "Source": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc779036(v=ws.10)" },
+    { "Id": "OptionalFeature", "Category": "Software and services", "Name": "Optional feature enabled", "Description": "The computers where an optional feature of Windows is enabled.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_OptionalFeature WHERE Name = '{Feature}' AND InstallState = 1",
+      "Parameters": [ { "Name": "Feature", "Label": "Name of the feature", "Kind": "Text", "Default": "Microsoft-Hyper-V-All" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-optionalfeature" },
+    { "Id": "ServerRole", "Category": "Software and services", "Name": "Role of Windows Server installed", "Description": "The servers with a role or a feature.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ServerFeature WHERE ID = {Role}",
+      "Parameters": [ { "Name": "Role", "Label": "Role", "Kind": "Choice", "Default": "2", "Choices": [ { "Value": "2", "Text": "Web Server (IIS)" }, { "Value": "10", "Text": "Active Directory Domain Services" }, { "Value": "12", "Text": "DHCP Server" }, { "Value": "13", "Text": "DNS Server" }, { "Value": "20", "Text": "Hyper-V" }, { "Value": "130", "Text": "Remote Desktop Session Host" }, { "Value": "135", "Text": "Print Server" } ] } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/wmisdk/win32-serverfeature" },
+    { "Id": "EnvironmentVariable", "Category": "Software and services", "Name": "Environment variable", "Description": "The computers where a system variable has a value.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_Environment WHERE Name = '{Variable}' AND VariableValue = '{Value}'",
+      "Parameters": [ { "Name": "Variable", "Label": "Name of the variable", "Kind": "Text", "Default": "SITE" }, { "Name": "Value", "Label": "Value", "Kind": "Text", "Default": "PARIS" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-environment" },
+    { "Id": "FileExists", "Category": "Files", "Name": "File exists", "Description": "The computers where a file exists.", "Note": "Give the full path: the backslashes are doubled in the query.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM CIM_DataFile WHERE Name = '{Path}'",
+      "Parameters": [ { "Name": "Path", "Label": "Path of the file", "Kind": "Text", "Default": "C:\\Windows\\System32\\inetsrv\\iisres.dll" } ],
+      "Source": "https://learn.microsoft.com/en-us/archive/blogs/askds/fun-with-wmi-filters-in-group-policy" },
+    { "Id": "FileVersion", "Category": "Files", "Name": "Minimum version of a file", "Description": "The computers where a file has at least a version.", "Note": "Version is a text: compare versions with as many digits.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM CIM_DataFile WHERE Name = '{Path}' AND Version >= '{Version}'",
+      "Parameters": [ { "Name": "Path", "Label": "Path of the file", "Kind": "Text", "Default": "C:\\Program Files\\Contoso\\app.exe" }, { "Name": "Version", "Label": "Version", "Kind": "Text", "Default": "2.0" } ],
+      "Source": "https://learn.microsoft.com/en-us/archive/blogs/askds/fun-with-wmi-filters-in-group-policy" },
+    { "Id": "FolderExists", "Category": "Files", "Name": "Folder exists", "Description": "The computers where a folder exists.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_Directory WHERE Name = '{Path}'",
+      "Parameters": [ { "Name": "Path", "Label": "Path of the folder", "Kind": "Text", "Default": "C:\\Program Files\\Contoso" } ],
+      "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-directory" },
+    { "Id": "WorkingDays", "Category": "Time and state", "Name": "Working days", "Description": "Monday to Friday, when the GPOs are applied.", "Note": "Evaluated at each refresh of the policies only.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_LocalTime WHERE DayOfWeek >= 1 AND DayOfWeek <= 5", "Source": "https://learn.microsoft.com/en-us/archive/blogs/askds/fun-with-wmi-filters-in-group-policy" },
+    { "Id": "Hours", "Category": "Time and state", "Name": "Hours of the day", "Description": "Between two hours, when the GPOs are applied.", "Note": "Evaluated at each refresh of the policies only.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_LocalTime WHERE Hour >= {From} AND Hour < {To}",
+      "Parameters": [ { "Name": "From", "Label": "From (hour)", "Kind": "Number", "Default": "8" }, { "Name": "To", "Label": "To (hour)", "Kind": "Number", "Default": "18" } ],
+      "Source": "https://learn.microsoft.com/en-us/archive/blogs/askds/fun-with-wmi-filters-in-group-policy" },
+    { "Id": "NormalBoot", "Category": "Time and state", "Name": "Normal boot", "Description": "The computers not started in safe mode.", "Namespace": "root\\CIMv2", "Query": "SELECT * FROM Win32_ComputerSystem WHERE BootupState = 'Normal boot'", "Source": "https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-computersystem" }
+  ]
+}

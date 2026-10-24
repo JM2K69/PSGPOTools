@@ -32,9 +32,12 @@ page. The commands that change the domain support `-WhatIf` and `-Confirm`.
 | [`New-PSGPOWmiFilter`](commands/new-psgpowmifilter.md) `-Name -Query [-Namespace] [-Description]` | creates a WMI filter |
 | [`Set-PSGPOWmiFilter`](commands/set-psgpowmifilter.md) `-Name [-NewName] [-Description] [-Query] [-Namespace]` | changes the name, description or queries of a WMI filter |
 | [`Remove-PSGPOWmiFilter`](commands/remove-psgpowmifilter.md) `-Name` | deletes WMI filters no GPO uses |
-| [`Export-PSGPOWmiFilter`](commands/export-psgpowmifilter.md) `-Name -Path [-Force]` | exports WMI filters to `.mof` files, as GPMC does |
+| [`Export-PSGPOWmiFilter`](commands/export-psgpowmifilter.md) `-Name -Path [-Force]`, `-InputObject -Path [-Domain]` | exports WMI filters to `.mof` files, as GPMC does; with `-InputObject`, filters written without a domain |
 | [`Import-PSGPOWmiFilter`](commands/import-psgpowmifilter.md) `-Path [-Name]` | creates WMI filters from `.mof` files of GPMC or HGPM |
 | [`Get-PSGPOWmiFilterPermission`](commands/get-psgpowmifilterpermission.md) `[-Name]` | who creates WMI filters (without `-Name`), who changes each filter, as the Delegation tabs of GPMC |
+| [`Show-WmiFilterCreatorAvalonia`](commands/show-wmifiltercreatoravalonia.md) `[-Path] [-Server] [-Credential] [-UseSsl] [-Language]` | opens the WMI filter creator: ready-made queries, query builder, check, test, `.mof` export, creation in the domain |
+| [`Get-PSGPOWmiQueryTemplate`](commands/get-psgpowmiquerytemplate.md) `[-Id] [-Category] [-Value]` | the ready-made WQL queries of the creator, their parameters filled |
+| [`Test-PSGPOWmiFilter`](commands/test-psgpowmifilter.md) `-Query [-Namespace]`, `-InputObject`, `-Path` `[-ComputerName] [-Credential]` | tests a WMI filter on a computer, as Windows evaluates it (Windows) |
 | [`Set-PSGPOWmiFilterPermission`](commands/set-psgpowmifilterpermission.md) `[-Name] -Account -Permission WmiCreate\|WmiEdit\|WmiFullControl\|None` | delegates the creation of the WMI filters, or the change of a filter, with the ACEs of GPMC |
 
 A name given with `-Name` is the name of the GPO, brackets included (`Servers [Lyon]`); with `*` or `?` it is a wildcard pattern. Two GPOs with the same name are each taken.
@@ -105,6 +108,7 @@ Get-PSGPOPolicy -Scope Machine | Where-Object DisplayName -Like '*biometrics*' |
 
 | Command | Does |
 |---|---|
+| [`Start-HGPM`](commands/start-hgpm.md) `[-Language]` | opens the launcher: a tile for each console of HGPM |
 | [`Test-PSGPOUpdate`](commands/test-psgpoupdate.md) `[-Prerelease] [-Quiet] [-Repository]` | tells whether a newer version of HGPM is on the PowerShell Gallery, and the command that installs it |
 
 ## Password policies

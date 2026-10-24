@@ -188,19 +188,9 @@ function Start-PSGPOPasswordPolicyWindow {
         Show-PolicyResult -Text (Get-PSGPOText 'The domain is read again from {0}, at {1}.' $(if ($Store -is [GPOToolsLdapPasswordPolicyStore]) { $Store.Server } else { $Store.Source }) (Get-Date).ToString('T'))
     }
 
-    # Theme: the window starts on the theme of the system.
-    $platformSettings = [Avalonia.Application]::Current.PlatformSettings
-    $theme = @{ Dark = $null -ne $platformSettings -and $platformSettings.GetColorValues().ThemeVariant -eq [Avalonia.Platform.PlatformThemeVariant]::Dark }
-    function Update-ThemeButton {
-        $ui.themeToggleText.Text = Get-PSGPOText $(if ($theme.Dark) { 'Light mode' } else { 'Dark mode' })
-        $ui.themeToggleIcon.Data = [Avalonia.Media.Geometry]::Parse((Get-PSGPOIconData -Name $(if ($theme.Dark) { 'weather-sunny' } else { 'weather-moon' })))
-    }
-    Update-ThemeButton
-    $ui.themeToggleButton.Add_Click({
-        $theme.Dark = -not $theme.Dark
-        $window.RequestedThemeVariant = if ($theme.Dark) { [Avalonia.Styling.ThemeVariant]::Dark } else { [Avalonia.Styling.ThemeVariant]::Light }
-        Update-ThemeButton
-    })
+    # Theme: the one of the session, the same in every window (PSGPOTheme.ps1).
+    Register-PSGPOThemeWindow -Window $window -ToggleText $ui.themeToggleText -ToggleIcon $ui.themeToggleIcon
+    $ui.themeToggleButton.Add_Click({ Switch-PSGPOTheme })
 
     $ui.policiesButton.Add_Click({ Show-View 'Policies' })
     $ui.resultantButton.Add_Click({ Show-View 'Resultant' })

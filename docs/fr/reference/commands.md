@@ -32,9 +32,12 @@ ouvre sa page. Les commandes qui modifient le domaine acceptent `-WhatIf` et `-C
 | [`New-PSGPOWmiFilter`](commands/new-psgpowmifilter.md) `-Name -Query [-Namespace] [-Description]` | crée un filtre WMI |
 | [`Set-PSGPOWmiFilter`](commands/set-psgpowmifilter.md) `-Name [-NewName] [-Description] [-Query] [-Namespace]` | modifie le nom, la description ou les requêtes d'un filtre WMI |
 | [`Remove-PSGPOWmiFilter`](commands/remove-psgpowmifilter.md) `-Name` | supprime des filtres WMI qu'aucune GPO n'utilise |
-| [`Export-PSGPOWmiFilter`](commands/export-psgpowmifilter.md) `-Name -Path [-Force]` | exporte des filtres WMI en fichiers `.mof`, comme GPMC |
+| [`Export-PSGPOWmiFilter`](commands/export-psgpowmifilter.md) `-Name -Path [-Force]`, `-InputObject -Path [-Domain]` | exporte des filtres WMI en fichiers `.mof`, comme GPMC ; avec `-InputObject`, des filtres écrits sans domaine |
 | [`Import-PSGPOWmiFilter`](commands/import-psgpowmifilter.md) `-Path [-Name]` | crée des filtres WMI à partir de fichiers `.mof` de GPMC ou de HGPM |
 | [`Get-PSGPOWmiFilterPermission`](commands/get-psgpowmifilterpermission.md) `[-Name]` | qui crée des filtres WMI (sans `-Name`), qui modifie chaque filtre, comme les onglets Délégation de GPMC |
+| [`Show-WmiFilterCreatorAvalonia`](commands/show-wmifiltercreatoravalonia.md) `[-Path] [-Server] [-Credential] [-UseSsl] [-Language]` | ouvre le créateur de filtres WMI : requêtes prêtes à l'emploi, générateur de requête, vérification, test, export `.mof`, création dans le domaine |
+| [`Get-PSGPOWmiQueryTemplate`](commands/get-psgpowmiquerytemplate.md) `[-Id] [-Category] [-Value]` | les requêtes WQL prêtes à l'emploi du créateur, leurs paramètres remplis |
+| [`Test-PSGPOWmiFilter`](commands/test-psgpowmifilter.md) `-Query [-Namespace]`, `-InputObject`, `-Path` `[-ComputerName] [-Credential]` | teste un filtre WMI sur un ordinateur, comme Windows l'évalue (Windows) |
 | [`Set-PSGPOWmiFilterPermission`](commands/set-psgpowmifilterpermission.md) `[-Name] -Account -Permission WmiCreate\|WmiEdit\|WmiFullControl\|None` | délègue la création des filtres WMI, ou la modification d'un filtre, avec les ACE de GPMC |
 
 Un nom donné avec `-Name` est le nom de la GPO, crochets compris (`Servers [Lyon]`) ; avec `*` ou `?`, c'est un motif. Deux GPO de même nom sont prises chacune.
@@ -105,6 +108,7 @@ Get-PSGPOPolicy -Scope Machine | Where-Object DisplayName -Like '*biom*' | Selec
 
 | Commande | Fait |
 |---|---|
+| [`Start-HGPM`](commands/start-hgpm.md) `[-Language]` | ouvre le lanceur : une tuile par console de HGPM |
 | [`Test-PSGPOUpdate`](commands/test-psgpoupdate.md) `[-Prerelease] [-Quiet] [-Repository]` | dit si une version plus récente de HGPM est sur la PowerShell Gallery, et la commande qui l'installe |
 
 ## Stratégies de mot de passe
