@@ -117,6 +117,13 @@ class GPOToolsSecurityTemplate {
         return @($this.Sections[$Section] | Where-Object { $null -ne $_.Key } | ForEach-Object { $_.Key })
     }
 
+    # The settings of a section as read, in their order: Key and Value ($null for a line without
+    # '=', which GetValue returns as '').
+    [object[]] GetEntries([string]$Section) {
+        if (-not $this.Sections.Contains($Section)) { return @() }
+        return @($this.Sections[$Section] | Where-Object { $null -ne $_.Key })
+    }
+
     # Raw value of a key ($null when the setting is not defined).
     [string] GetValue([string]$Section, [string]$Key) {
         if (-not $this.Sections.Contains($Section)) { return $null }

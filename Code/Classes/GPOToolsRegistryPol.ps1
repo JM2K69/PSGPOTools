@@ -37,7 +37,8 @@ class GPOToolsPolEntry {
         $this.Key = $Key
         $this.ValueName = $ValueName
         $this.Type = $Type
-        $this.Data = if ($null -eq $Data) { [byte[]]::new(0) } else { $Data }
+        # Not "= if (...)": the pipeline turns an empty array into $null.
+        if ($null -eq $Data) { $this.Data = [byte[]]::new(0) } else { $this.Data = $Data }
     }
 
     # Value name without its **del. prefix, and whether the entry deletes it.
