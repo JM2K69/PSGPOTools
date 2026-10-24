@@ -10,6 +10,12 @@ Linux**, and manages the GPOs of **Samba AD** and **Windows Active Directory** d
 
 <div class="grid cards" markdown>
 
+- **The launcher**
+
+    `Start-HGPM`: a tile for each tool of HGPM, in the language and the theme chosen for all of
+    them.
+    [The launcher](features/launcher.md)
+
 - **Group Policy Management view**
 
     The domain, its OUs and their GPO links, the Group Policy Objects, as GPMC shows them; create,
@@ -41,6 +47,18 @@ Linux**, and manages the GPOs of **Samba AD** and **Windows Active Directory** d
     user or a group, and why.
     [Password policies](features/password-policies.md)
 
+- **WMI Filter Creator**
+
+    WMI filters built from ready-made queries or a query builder, checked as they are typed,
+    tested on the computer, exported to `.mof` or created in the domain.
+    [WMI filter creator](features/wmi-filter-creator.md)
+
+- **Policy Analyzer**
+
+    GPOs, backups and the security baselines of Microsoft compared setting by setting, with the
+    `.PolicyRules` files of the Security Compliance Toolkit; a baseline written in a GPO.
+    [Policy Analyzer](features/policy-analyzer.md)
+
 </div>
 
 ## At a glance
@@ -57,7 +75,7 @@ Linux**, and manages the GPOs of **Samba AD** and **Windows Active Directory** d
 ## Where to start
 
 1. [Install the module](getting-started/installation.md) and what it needs on your platform.
-2. [Open the console](getting-started/first-steps.md) on your domain.
+2. [Start the launcher](getting-started/first-steps.md) and open a tool on your domain.
 3. Follow a [workflow](workflows/index.md): create and link a GPO, back it up and restore it,
    approve the GPOs of the Tier 1 technicians.
 

@@ -22,18 +22,22 @@ $(Get-PSGPOWindowResourceXaml)
 
     <Grid RowDefinitions='Auto,*,Auto'>
 
-        <!-- Header: logo, title, theme -->
+        <!-- Header: logo, title, language of the consoles, theme -->
         <Border Grid.Row='0' Background='{DynamicResource BackgroundBrush}' BorderThickness='0,0,0,1'
                 BorderBrush='{DynamicResource BorderBrush}' Padding='20,16'>
-            <Grid ColumnDefinitions='Auto,*,Auto'>
+            <Grid ColumnDefinitions='Auto,*,Auto,Auto'>
                 <Image Grid.Column='0' Name='logoImage' Width='44' Height='44' VerticalAlignment='Center' Margin='0,0,12,0'
                        RenderOptions.BitmapInterpolationMode='HighQuality'/>
                 <StackPanel Grid.Column='1' VerticalAlignment='Center' Margin='0,0,16,0'>
                     <TextBlock Text='HGPM' FontSize='22' FontWeight='Bold' Foreground='{DynamicResource TextBrush}'/>
-                    <TextBlock Text='Choose a console' FontSize='12' TextTrimming='CharacterEllipsis'
+                    <TextBlock Name='subtitleTextBlock' Text='Choose a console' FontSize='12' TextTrimming='CharacterEllipsis'
                                Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,2,0,0'/>
                 </StackPanel>
-                <Button Grid.Column='2' Name='themeToggleButton' Height='36' Width='140' VerticalAlignment='Center'>
+                <!-- The language of the launcher and of the consoles it opens, kept for the next time: an item
+                     for each language of Resources/Strings, added by the code -->
+                <ComboBox Grid.Column='2' Name='languageComboBox' Height='36' Width='130' Margin='0,0,12,0' VerticalAlignment='Center'
+                          ToolTip.Tip='Language of the consoles'/>
+                <Button Grid.Column='3' Name='themeToggleButton' Height='36' Width='140' VerticalAlignment='Center'>
                     <StackPanel Orientation='Horizontal' Spacing='8'>
                         <PathIcon Name='themeToggleIcon' Data='{StaticResource Icon.weather-moon}'/>
                         <TextBlock Name='themeToggleText' Text='Dark mode' VerticalAlignment='Center'/>

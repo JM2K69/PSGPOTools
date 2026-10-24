@@ -1,5 +1,7 @@
 # Policy Analyzer
 
+![La tuile Policy Analyzer](../assets/screenshots/60-tile-policy-analyzer.fr.png){ align=right width="170" }
+
 Le [Security Compliance Toolkit](https://www.microsoft.com/download/details.aspx?id=55319) de
 Microsoft contient Policy Analyzer : il compare des ensembles de GPO paramètre par paramètre, et
 montre les paramètres qu'un ensemble configure deux fois ou avec des valeurs différentes. HGPM fait

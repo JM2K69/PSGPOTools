@@ -1,5 +1,7 @@
 # Créateur de filtres WMI
 
+![La tuile Créateur de filtres WMI](../assets/screenshots/59-tile-wmi-filter-creator.fr.png){ align=right width="170" }
+
 `Show-WmiFilterCreatorAvalonia` (ou la tuile **Créateur de filtres WMI** de `Start-HGPM`) écrit les
 filtres WMI des GPO : à partir de requêtes prêtes à l'emploi ou d'un générateur de requête, chaque
 requête vérifiée à la saisie, le filtre testé sur l'ordinateur, puis exporté en fichier `.mof` au

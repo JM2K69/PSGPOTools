@@ -1,5 +1,7 @@
 # Password policies (PSO)
 
+![The Password Settings tile](../assets/screenshots/58-tile-password-settings.png){ align=right width="170" }
+
 `Show-PSOManagerAvalonia` opens the second console of HGPM: the **fine-grained password policies**
 of the domain (password settings objects, PSO), as the *Active Directory Administrative Center*
 manages them, for **Windows and Samba AD domains**, from **Windows or Linux**.

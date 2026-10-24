@@ -25,17 +25,27 @@ nav = [
     "getting-started/lab.md",
   ] },
   { "Features" = [
-    "features/console.md",
-    "features/gpo-management.md",
-    "features/wmi-filters-and-linux.md",
-    "features/wmi-filter-creator.md",
-    "features/policy-editor.md",
-    "features/preferences.md",
-    "features/backup-history.md",
-    "features/policy-analyzer.md",
-    "features/configuration.md",
-    "features/delegation.md",
-    "features/password-policies.md",
+    "features/launcher.md",
+    # A section for each tool of the launcher (Start-HGPM), in the order of its tiles.
+    { "Group Policy Management" = [
+      "features/console.md",
+      "features/gpo-management.md",
+      "features/policy-editor.md",
+      "features/preferences.md",
+      "features/wmi-filters-and-linux.md",
+      "features/backup-history.md",
+      "features/delegation.md",
+      "features/configuration.md",
+    ] },
+    { "Password Settings" = [
+      "features/password-policies.md",
+    ] },
+    { "WMI Filter Creator" = [
+      "features/wmi-filter-creator.md",
+    ] },
+    { "Policy Analyzer" = [
+      "features/policy-analyzer.md",
+    ] },
   ] },
   { "Workflows" = [
     "workflows/index.md",

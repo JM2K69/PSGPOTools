@@ -858,6 +858,7 @@
 
     # --- Launcher (Start-HGPM) ---------------------------------------------------------------
     'HGPM' = 'HGPM'
+    'Language of the consoles' = 'Langue des consoles'
     'Choose a console' = 'Choisissez une console'
     'The GPOs of the domain, their links, settings, delegation and backups' = 'Les GPO du domaine, leurs liens, paramètres, délégation et sauvegardes'
     'The fine-grained password policies (PSO) and the ones a user or a group gets' = "Les stratégies de mot de passe affinées (PSO) et celles qu'obtient un utilisateur ou un groupe"
