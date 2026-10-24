@@ -16,7 +16,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
     $analyzerControlNames = @(
         'analyzerView', 'analyzerFolderTextBox', 'analyzerFolderBrowseButton', 'analyzerFolderReadButton', 'analyzerSetsList', 'analyzerSetsEmptyTextBlock',
         'analyzerAddGposButton', 'analyzerAddGpmcButton', 'analyzerSaveSetButton', 'analyzerRemoveSetButton', 'analyzerCompareButton', 'analyzerSetsStatusTextBlock',
-        'analyzerGposPanel', 'analyzerGposFilterTextBox', 'analyzerGposList', 'analyzerGposNameTextBox', 'analyzerGposErrorTextBlock', 'analyzerGposConfirmButton',
+        'analyzerGposPanel', 'analyzerGposModeComboBox', 'analyzerGposSomComboBox', 'analyzerGposSomTextBlock', 'analyzerGposFilterTextBox', 'analyzerGposList', 'analyzerGposNameTextBox', 'analyzerGposErrorTextBlock', 'analyzerGposConfirmButton',
         'analyzerGposCancelButton', 'analyzerFilePanel', 'analyzerFileTitleTextBlock', 'analyzerFilePathTextBox', 'analyzerFileBrowseButton', 'analyzerFileAllCheckBox',
         'analyzerFileErrorTextBlock', 'analyzerFileConfirmButton', 'analyzerFileCancelButton', 'analyzerShowComboBox', 'analyzerSearchTextBox', 'analyzerExportButton',
         'analyzerEmptyTextBlock', 'analyzerGrid', 'analyzerSummaryTextBlock', 'analyzerDetailsBorder', 'analyzerDetailsNameTextBlock', 'analyzerDetailsPathTextBlock',
@@ -31,7 +31,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
     $analyzer = @{
         Loaded = $false; Sets = [System.Collections.Generic.List[object]]::new(); Rows = @(); Shown = @(); Columns = @()
         FileMode = $null; Replace = $null; SetToSave = $null; SetToApply = $null; Picker = @{ Task = $null; Timer = $null; Done = $null }
-        Directory = $Directory; DomainParameters = $DomainParameters
+        Directory = $Directory; DomainParameters = $DomainParameters; Soms = @()
     }
     # The colours of Policy Analyzer, readable in the light and dark themes.
     $analyzerBrush = @{ Conflict = '#80FFE14D'; Absent = '#4D9E9E9E'; Duplicate = '#269E9E9E'; Normal = '#00000000' }
@@ -51,7 +51,8 @@ function Initialize-PSGPOPolicyAnalyzerView {
         $gpos = if ($GpoCount -ge 0) { $GpoCount } else { @($RuleSet.GetPolicyNames()).Count }
         switch ($Kind) {
             'Domain' { Get-PSGPOText 'GPOs of the domain: {0} GPO(s), {1} settings' $gpos $RuleSet.Rules.Count }
-            'Gpmc' { Get-PSGPOText 'GPMC backups: {0} GPO(s), {1} settings' $gpos $RuleSet.Rules.Count }
+            'Gpmc' { Get-PSGPOText 'Backups: {0} GPO(s), {1} settings' $gpos $RuleSet.Rules.Count }
+            'Container' { Get-PSGPOText 'The GPOs that apply, by precedence: {0} GPO(s), {1} settings' $gpos $RuleSet.Rules.Count }
             default { Get-PSGPOText '{0} GPO(s), {1} settings' $gpos $RuleSet.Rules.Count }
         }
     }
@@ -186,12 +187,56 @@ function Initialize-PSGPOPolicyAnalyzerView {
         $analyzerGposErrorTextBlock.Text = ''
         $null = Get-AnalyzerDirectory
         Update-AnalyzerGposList
+        # The domain and its OUs, as paths: the domain first, then each OU under its parent.
+        $soms = [System.Collections.Generic.List[object]]::new()
+        $labels = [System.Collections.Generic.List[string]]::new()
+        if ($analyzer.Directory) {
+            $stack = [System.Collections.Generic.Stack[object]]::new()
+            $stack.Push(@($analyzer.Directory.Domain, $analyzer.Directory.DomainName))
+            while ($stack.Count) {
+                $pair = $stack.Pop()
+                $soms.Add($pair[0])
+                $labels.Add($pair[1])
+                $children = @($pair[0].Children | Sort-Object Name)
+                [array]::Reverse($children)
+                foreach ($child in $children) { $stack.Push(@($child, "$($pair[1]) > $($child.Name)")) }
+            }
+        }
+        $analyzer.Soms = $soms.ToArray()
+        $analyzerGposSomComboBox.ItemsSource = $labels.ToArray()
+        $analyzerGposSomComboBox.SelectedIndex = if ($labels.Count) { 0 } else { -1 }
+        Update-AnalyzerGposMode
         $analyzerGposPanel.IsVisible = $true
         $analyzerGposFilterTextBox.Focus()
     }
 
+    # The list of the GPOs, or the domain and OUs, for the mode chosen.
+    function Update-AnalyzerGposMode {
+        $bySom = $analyzerGposModeComboBox.SelectedIndex -eq 1
+        $analyzerGposSomComboBox.IsVisible = $bySom
+        $analyzerGposSomTextBlock.IsVisible = $bySom
+        $analyzerGposFilterTextBox.IsVisible = -not $bySom
+        $analyzerGposList.IsVisible = -not $bySom
+    }
+
     function Submit-AnalyzerGpoSelection {
         if (-not $analyzer.Directory) { return }
+        if ($analyzerGposModeComboBox.SelectedIndex -eq 1) {
+            $index = $analyzerGposSomComboBox.SelectedIndex
+            if ($index -lt 0) { $analyzerGposErrorTextBlock.Text = Get-PSGPOText 'Choose the domain or the OU.'; return }
+            $som = $analyzer.Soms[$index]
+            try {
+                $set = New-PSGPOPolicyRuleSetFromSom -Directory $analyzer.Directory -Som $som -SetName "$($analyzerGposNameTextBox.Text)".Trim()
+            } catch {
+                $analyzerGposErrorTextBlock.Text = Get-PSGPOText 'The GPOs are not read: {0}' $_.Exception.GetBaseException().Message
+                return
+            }
+            $count = @(Get-PSGPOSomPrecedence -Som $som | ForEach-Object { $_.Gpo.Id } | Select-Object -Unique).Count
+            $analyzer.Sets.Add([AvaloniaPolicyRuleSetItem]@{ Name = $set.Name; Detail = Get-AnalyzerSetDetail -RuleSet $set -Kind Container -GpoCount $count; Path = $som.DistinguishedName; Kind = 'Container'; RuleSet = $set; IsChecked = $true })
+            $analyzerGposPanel.IsVisible = $false
+            Update-AnalyzerSetsList
+            return
+        }
         $gpos = @($analyzerGposList.SelectedItems | Where-Object { $_ -is [GPOToolsGpo] })
         if (-not $gpos.Count) { $analyzerGposErrorTextBlock.Text = Get-PSGPOText 'Select one or more GPOs.'; return }
         try {
@@ -252,7 +297,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
         $folder = "$($analyzerFolderTextBox.Text)".Trim()
         switch ($Mode) {
             'Gpmc' {
-                $analyzerFileTitleTextBlock.Text = Get-PSGPOText 'A rule set of GPMC backups: the folder of the backups (the GPOs folder of a security baseline of Microsoft)'
+                $analyzerFileTitleTextBlock.Text = Get-PSGPOText 'A rule set of backups: a folder of GPMC backups (the GPOs folder of a security baseline of Microsoft), the folder of the backups of HGPM, or one backup'
                 $analyzerFilePathTextBox.Text = ''
                 $analyzerFileConfirmButton.Content = Get-PSGPOText 'Add'
             }
@@ -358,7 +403,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
         $item.Option = ConvertTo-PSGPODisplayText $Row.Option
         $item.Values = [string[]]@($Row.Cells | ForEach-Object { ConvertTo-PSGPODisplayText $_.Value })
         $item.Brushes = [string[]]@($Row.Cells | ForEach-Object {
-                if ($_.State -eq 'Absent') { $analyzerBrush.Absent } elseif ($Row.Conflict) { $analyzerBrush.Conflict } elseif ($_.State -eq 'Duplicate') { $analyzerBrush.Duplicate } else { $analyzerBrush.Normal }
+                if ($_.State -eq 'Absent') { $analyzerBrush.Absent } elseif ($Row.Conflict) { $analyzerBrush.Conflict } elseif ($_.State -in 'Duplicate', 'Overridden') { $analyzerBrush.Duplicate } else { $analyzerBrush.Normal }
             })
         $item.Source = $Row
         $item.SearchText = (@($item.Name, $item.Path, $item.Option, $Row.Group, $Row.Setting) + $item.Values + @($Row.Cells | ForEach-Object { $_.Values } | ForEach-Object PolicyName)) -join "`n"
@@ -424,7 +469,14 @@ function Initialize-PSGPOPolicyAnalyzerView {
         }
         $analyzerDetailsValuesList.ItemsSource = [object[]]@(foreach ($cell in $row.Cells) {
                 $text = if ($cell.State -eq 'Absent') { Get-PSGPOText '(not configured)' }
-                    else { (@($cell.Values) | ForEach-Object { "$($_.PolicyName): $(ConvertTo-PSGPODisplayText $_.Value)" }) -join [Environment]::NewLine }
+                    else {
+                        (@($cell.Values) | ForEach-Object {
+                                if ($_.Precedence -gt 0) {
+                                    $mark = if ($_.Applied) { Get-PSGPOText 'precedence {0}, applied' $_.Precedence } else { Get-PSGPOText 'precedence {0}' $_.Precedence }
+                                    "$($_.PolicyName) ($mark): $(ConvertTo-PSGPODisplayText $_.Value)"
+                                } else { "$($_.PolicyName): $(ConvertTo-PSGPODisplayText $_.Value)" }
+                            }) -join [Environment]::NewLine
+                    }
                 [AvaloniaPolicyRuleValueItem]@{ Set = $cell.Set; Text = $text }
             })
         $analyzerDetailsExplainTextBlock.Text = $row.Explain
@@ -445,6 +497,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
         if ($e.Property.Name -eq 'Text' -and $analyzerGposPanel.IsVisible) { Update-AnalyzerGposList }
     })
     $analyzerGposConfirmButton.Add_Click({ Submit-AnalyzerGpoSelection })
+    $analyzerGposModeComboBox.Add_SelectionChanged({ Update-AnalyzerGposMode })
     $analyzerGposCancelButton.Add_Click({ $analyzerGposPanel.IsVisible = $false })
     $analyzerAddGpmcButton.Add_Click({ Open-AnalyzerFileForm -Mode Gpmc })
     $analyzerSaveSetButton.Add_Click({ Open-AnalyzerFileForm -Mode Save })
@@ -457,7 +510,7 @@ function Initialize-PSGPOPolicyAnalyzerView {
         })
     $analyzerFileBrowseButton.Add_Click({
             switch ($analyzer.FileMode) {
-                'Gpmc' { Start-AnalyzerPicker -Mode Folder -Title (Get-PSGPOText 'GPMC backups...') -Done { param($Path) $analyzerFilePathTextBox.Text = $Path } }
+                'Gpmc' { Start-AnalyzerPicker -Mode Folder -Title (Get-PSGPOText 'Backups...') -Done { param($Path) $analyzerFilePathTextBox.Text = $Path } }
                 'Save' { Start-AnalyzerPicker -Mode Save -Title (Get-PSGPOText 'Save as .PolicyRules...') -Path $analyzerFilePathTextBox.Text -TypeName (Get-PSGPOText 'Policy Analyzer rule set (.PolicyRules)') -Extension 'PolicyRules' -Done { param($Path) $analyzerFilePathTextBox.Text = $Path } }
                 'Excel' { Start-AnalyzerPicker -Mode Save -Title (Get-PSGPOText 'Export to Excel...') -Path $analyzerFilePathTextBox.Text -TypeName (Get-PSGPOText 'Excel workbook (.xlsx)') -Extension 'xlsx' -Done { param($Path) $analyzerFilePathTextBox.Text = $Path } }
             }

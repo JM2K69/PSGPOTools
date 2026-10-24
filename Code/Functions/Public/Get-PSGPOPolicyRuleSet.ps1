@@ -12,19 +12,32 @@ function Get-PSGPOPolicyRuleSet {
         Policy Analyzer), or made from GPOs: of the domain, of backups of HGPM (Get-PSGPOBackup)
         or of GPMC (the GPOs folder of a security baseline), as GPO2PolicyRules.exe does.
         Compare-PSGPOPolicyRuleSet compares sets, Export-PSGPOPolicyRuleSet saves one.
+
+        With -Container, the set is made of the GPOs that apply to a domain or an OU, in their
+        order of precedence as the Group Policy Inheritance tab of GPMC lists them (the enforced
+        links first, from the domain down, then the others from the OU up until an OU that blocks
+        the inheritance; the links disabled and the parts a GPO status disables left out): each
+        setting then has the precedence of its GPO, and Compare-PSGPOPolicyRuleSet shows the value
+        that wins. The security filtering, the WMI filters and the loopback processing are those of
+        each computer or user, not taken into account.
     .PARAMETER Path
         Files of Policy Analyzer (.PolicyRules), or folders: the .PolicyRules files they hold.
         One set per file, named after it.
     .PARAMETER Name
-        Display names of the GPOs (* and ? make a pattern): of the domain, or of the GPMC backups
-        of -GpmcBackupPath (all of them by default).
+        Display names of the GPOs (* and ? make a pattern): of the domain, or of the backups of
+        -GpmcBackupPath (all of them by default).
     .PARAMETER Backup
         Backups of HGPM (Get-PSGPOBackup).
     .PARAMETER GpmcBackupPath
-        A folder of GPMC backups (Backup-GPO, the GPOs folder of a security baseline), or one backup.
+        A folder of backups (alias -BackupPath): of GPMC (Backup-GPO, the GPOs folder of a security
+        baseline, or one backup), or of HGPM (the folder of Backup-PSGPO, the newest backup of each
+        GPO; the folder of a GPO; one backup, or its Files folder).
+    .PARAMETER Container
+        A domain or an OU: its distinguished name, the name of the domain, or the name of an OU when
+        only one OU has it. The set holds the GPOs that apply to it, by precedence.
     .PARAMETER SetName
         Name of the set made from GPOs: by default the name of the GPO when there is one, else
-        the name of the domain or of the folder.
+        the name of the domain or of the folder; "<OU> (precedence)" with -Container.
     .PARAMETER Directory
         Directory of the domain (Get-PSGPODirectory); the domain is read when not given.
     .PARAMETER Server
@@ -35,6 +48,10 @@ function Get-PSGPOPolicyRuleSet {
         Get-PSGPOPolicyRuleSet -Name 'Tier 1 - Servers*' -SetName 'Production'
     .EXAMPLE
         Get-PSGPOPolicyRuleSet -GpmcBackupPath '.\Windows 11 v25H2 Security Baseline\GPOs'
+    .EXAMPLE
+        # What the computers of an OU get, against the baseline of Microsoft
+        $ou = Get-PSGPOPolicyRuleSet -Container 'OU=Workstations,DC=contoso,DC=com'
+        Compare-PSGPOPolicyRuleSet -RuleSet (Get-PSGPOPolicyRuleSet .\MSFT-Win11-v25H2.PolicyRules), $ou -DifferenceOnly
     .EXAMPLE
         Get-PSGPOBackup -Path /srv/gpo-backups -Name 'Default Domain Policy' | Select-Object -First 1 | Get-PSGPOPolicyRuleSet
     .OUTPUTS
@@ -61,17 +78,24 @@ function Get-PSGPOPolicyRuleSet {
         [object[]]$Backup,
 
         [Parameter(Mandatory, ParameterSetName = 'Gpmc')]
+        [Alias('BackupPath')]
         [string]$GpmcBackupPath,
+
+        [Parameter(Mandatory, ParameterSetName = 'Container')]
+        [string]$Container,
 
         [Parameter(ParameterSetName = 'Domain')]
         [Parameter(ParameterSetName = 'Backup')]
         [Parameter(ParameterSetName = 'Gpmc')]
+        [Parameter(ParameterSetName = 'Container')]
         [string]$SetName,
 
         [Parameter(ParameterSetName = 'Domain')]
+        [Parameter(ParameterSetName = 'Container')]
         [GPOToolsDirectory]$Directory,
 
         [Parameter(ParameterSetName = 'Domain')]
+        [Parameter(ParameterSetName = 'Container')]
         [string]$Server
     )
 
@@ -105,6 +129,14 @@ function Get-PSGPOPolicyRuleSet {
                     }
                 }
             }
+            'Container' {
+                if (-not $Directory) {
+                    $read = @{}
+                    if ($Server) { $read.Server = $Server }
+                    $Directory = Get-PSGPODirectory @read -ErrorAction Stop
+                }
+                New-PSGPOPolicyRuleSetFromSom -Directory $Directory -Som (Resolve-PSGPOSom -Directory $Directory -Target $Container) -SetName $SetName
+            }
             'Domain' {
                 if (-not $Directory) {
                     $read = @{}
@@ -129,18 +161,7 @@ function Get-PSGPOPolicyRuleSet {
             }
             'Gpmc' {
                 $full = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($GpmcBackupPath)
-                $entries = @(Get-PSGPOGpmcBackupEntry -Path $full | Where-Object { $entry = $_; -not $Name -or @($Name | Where-Object { Test-PSGPONameMatch -Name $entry.DisplayName -Pattern $_ }).Count })
-                if (-not $entries.Count) { throw "No GPMC backup$(if ($Name) { " of '$($Name -join "', '")'" }) in $GpmcBackupPath." }
-                # As GPO2PolicyRules: the GPOs by name, the newest backup of each.
-                $entries = @($entries | Group-Object Id | ForEach-Object { $_.Group[0] } | Sort-Object DisplayName)
-                $set = [GPOToolsPolicyRuleSet]::new($(if ($SetName) { $SetName } elseif ($entries.Count -eq 1) { $entries[0].DisplayName } else { Split-Path -Path $full -Leaf }))
-                $set.Path = $full
-                foreach ($entry in $entries) {
-                    $root = Join-Path $entry.Path 'DomainSysvol' 'GPO'
-                    foreach ($rule in @(ConvertTo-PSGPOPolicyRule -Files (Read-PSGPOGpmcBackupFile -Backup $entry) -PolicyName $entry.DisplayName -SourceRoot $root)) { $set.Rules.Add($rule) }
-                    Add-PSGPOPolicyRuleExtension -RuleSet $set -MachineExtensionNames $entry.MachineExtensionNames -UserExtensionNames $entry.UserExtensionNames
-                }
-                $set
+                New-PSGPOPolicyRuleSetFromBackupFolder -Path $full -Name $Name -SetName $SetName
             }
         }
     }

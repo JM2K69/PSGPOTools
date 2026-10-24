@@ -7,7 +7,8 @@ function Export-PSGPOPolicyRuleComparison {
         Compare-PSGPOPolicyRuleSet: a sheet Comparison with a row per setting and a column per
         set, with the colours of Policy Analyzer (yellow: the sets, or two GPOs of a set, give the
         setting different values; grey: the set does not configure it; light grey: it is set
-        several times to the same value), and a sheet GPOs with the GPOs of each set.
+        several times to the same value, or by GPOs of an OU whose precedence decides), and a sheet
+        GPOs with the GPOs of each set.
 
         By default the table as the Policy Viewer shows it ("Export table to Excel"); with -All,
         also the value of each GPO, the explanation and the reference of each setting
@@ -64,14 +65,20 @@ function Export-PSGPOPolicyRuleComparison {
                 New-PSGPOXlsxCell $row.Name
                 New-PSGPOXlsxCell $row.Option
                 foreach ($cell in $row.Cells) {
-                    $style = if ($cell.State -eq 'Absent') { 'Absent' } elseif ($row.Conflict) { 'Conflict' } elseif ($cell.State -eq 'Duplicate') { 'Duplicate' } else { 'Normal' }
+                    $style = if ($cell.State -eq 'Absent') { 'Absent' } elseif ($row.Conflict) { 'Conflict' } elseif ($cell.State -in 'Duplicate', 'Overridden') { 'Duplicate' } else { 'Normal' }
                     New-PSGPOXlsxCell $cell.Value $style
                 }
                 New-PSGPOXlsxCell $row.PolicyType
                 New-PSGPOXlsxCell $row.Group
                 New-PSGPOXlsxCell $row.Setting
                 if ($All) {
-                    foreach ($cell in $row.Cells) { New-PSGPOXlsxCell ((@($cell.Values) | ForEach-Object { "$($_.PolicyName): $($_.Value)" }) -join [Environment]::NewLine) }
+                    # By precedence (the GPOs of an OU): the precedence of each GPO, the one applied.
+                    foreach ($cell in $row.Cells) {
+                        New-PSGPOXlsxCell ((@($cell.Values) | ForEach-Object {
+                                    if ($_.Precedence -gt 0) { '{0} ({1}{2}): {3}' -f $_.PolicyName, $_.Precedence, $(if ($_.Applied) { ', applied' } else { '' }), $_.Value }
+                                    else { "$($_.PolicyName): $($_.Value)" }
+                                }) -join [Environment]::NewLine)
+                    }
                     New-PSGPOXlsxCell $row.Explain
                     New-PSGPOXlsxCell $row.Reference
                 }

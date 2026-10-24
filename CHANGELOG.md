@@ -5,11 +5,13 @@
 ### Added
 
 * Write a rule set in a GPO of the domain, as `LGPO.exe /p` applies one to a computer, on Active Directory and Samba AD: `Import-PSGPOPolicyRuleSet`, and **Write in a GPO...** in the Policy Analyzer window. The registry settings, security template and advanced audit policy of the set merged in the GPO (or in place of its own with `-Replace`), the client-side extensions they need declared (those the set lists included), the GPOs of the set chosen, the GPO backed up first, created when needed, the change audited (`ImportPolicyRuleSet`); checked on a Samba domain, the GPO read back
+* The GPOs that apply to a domain or an OU as a rule set, by precedence as the Group Policy Inheritance tab of GPMC orders them (enforced links first, block inheritance, disabled links and GPO status): `Get-PSGPOPolicyRuleSet -Container`, and *The GPOs that apply to a domain or an OU* in the Policy Analyzer window. Each setting has the value that wins, the details list each GPO with its precedence; a `**delvals.` of higher precedence clears the values of its key
 
 ### Changed
 
 * The launcher shows its four tiles on one line
 * The GPO console no longer has a **Policy Analyzer** button: the launcher and `Show-PolicyAnalyzerAvalonia` open it
+* **Backups...** of the Policy Analyzer window, and `Get-PSGPOPolicyRuleSet -GpmcBackupPath` (alias `-BackupPath`), read the backups of HGPM too: their folder (the newest backup of each GPO), the folder of a GPO, one backup or its `Files` folder
 
 ### Fixed
 

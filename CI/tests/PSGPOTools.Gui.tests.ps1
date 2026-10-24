@@ -2567,7 +2567,7 @@ InModuleScope -ModuleName HGPM {
                 Invoke-Click $Ui.analyzerFileConfirmButton
                 $Gpmc = @($Ui.analyzerSetsList.ItemsSource)[1]
                 $Gpmc.Kind | Should -Be 'Gpmc'
-                $Gpmc.Detail | Should -Be 'GPMC backups: 2 GPO(s), 41 settings'
+                $Gpmc.Detail | Should -Be 'Backups: 2 GPO(s), 41 settings'
 
                 $Ui.analyzerSetsList.SelectedItem = $Gpmc
                 Invoke-Click $Ui.analyzerSaveSetButton
@@ -2628,6 +2628,38 @@ InModuleScope -ModuleName HGPM {
                 Invoke-Click $Ui.analyzerAddGposButton
             }
             Should -Invoke Get-PSGPODirectory -Times 1 -Exactly -ParameterFilter { $Server -eq 'dc.hgpm.test' } -Because 'the domain is read once'
+        }
+
+        It 'Adds the GPOs that apply to an OU as a set, by precedence, and shows which one wins' {
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            foreach ($Pair in @(@('C - Laptops - Power Management', 1), @('C - Workstations - BitLocker', 2))) {
+                $Pol = [GPOToolsRegistryPol]::new()
+                $Pol.Entries.Add([GPOToolsPolEntry]::new('Software\Policies\HGPM', 'Value', [GPOToolsPolType]::DWord, [BitConverter]::GetBytes([uint32]$Pair[1])))
+                $Directory.WritePolicyFile($Directory.FindGpo($Pair[0]), 'Machine', $Pol.ToBytes())
+            }
+            Start-PSGPOPolicyAnalyzerWindow -Directory $Directory -Path (Join-Path $TestDrive 'Empty') -OnShown {
+                param($Ui)
+                Invoke-Click $Ui.analyzerAddGposButton
+                $Ui.analyzerGposSomComboBox.IsVisible | Should -BeFalse
+                $Ui.analyzerGposModeComboBox.SelectedIndex = 1
+                $Ui.analyzerGposSomComboBox.IsVisible | Should -BeTrue
+                $Ui.analyzerGposList.IsVisible | Should -BeFalse
+                @($Ui.analyzerGposSomComboBox.ItemsSource)[0] | Should -Be 'corp.contoso.com'
+                $Ui.analyzerGposSomComboBox.SelectedIndex = [array]::IndexOf(@($Ui.analyzerGposSomComboBox.ItemsSource), 'corp.contoso.com > Sites > Lyon > Workstations > Laptops')
+                Invoke-Click $Ui.analyzerGposConfirmButton
+                $Set = @($Ui.analyzerSetsList.ItemsSource)[0]
+                $Set.Kind | Should -Be 'Container'
+                $Set.Name | Should -Be 'Laptops (precedence)'
+                $Set.Detail | Should -BeLike 'The GPOs that apply, by precedence: 8 GPO(s), * settings'
+                Invoke-Click $Ui.analyzerCompareButton
+                Invoke-UiLoop -Until { $Ui.analyzerGrid.IsVisible -and $Ui.analyzerCompareButton.IsEnabled } -TimeoutMilliseconds 30000
+                $Ui.analyzerSearchTextBox.Text = 'HGPM'
+                $Row = @($Ui.analyzerGrid.ItemsSource) | Where-Object { $_.Source.Setting -eq 'Value' }
+                $Row.Values | Should -Be @('1')
+                $Ui.analyzerGrid.SelectedItem = $Row
+                Invoke-UiLoop -Until { $Ui.analyzerDetailsBorder.IsVisible } -TimeoutMilliseconds 3000
+                @($Ui.analyzerDetailsValuesList.ItemsSource)[0].Text | Should -Be ("C - Laptops - Power Management (precedence 3, applied): 1" + [Environment]::NewLine + "C - Workstations - BitLocker (precedence 4): 2")
+            }
         }
 
         It 'Writes the settings of the selected set in a GPO of the domain, or in a new one' {
@@ -2999,6 +3031,7 @@ InModuleScope -ModuleName HGPM {
                 }
             } finally { $null = Set-PSGPOLanguage -Language 'en-US' }
         }
+
     }
 
     Describe 'WMI Filter Creator window' -Skip:$AvaloniaMissing {

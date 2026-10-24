@@ -55,7 +55,8 @@ not part of it, as in Policy Analyzer.
 | `.PolicyRules` files, or all those of a folder (`Documents\PolicyAnalyzer` for Policy Analyzer) | `Get-PSGPOPolicyRuleSet -Path` |
 | GPOs of the domain, as they are now | `Get-PSGPOPolicyRuleSet -Name` |
 | Backups of HGPM | `Get-PSGPOBackup ... \| Get-PSGPOPolicyRuleSet` |
-| Backups of GPMC: the `GPOs` folder of a security baseline | `Get-PSGPOPolicyRuleSet -GpmcBackupPath` |
+| Backups of GPMC (the `GPOs` folder of a security baseline) or of HGPM (their folder, a GPO, one backup) | `Get-PSGPOPolicyRuleSet -BackupPath` |
+| The GPOs that apply to a domain or an OU, by precedence | `Get-PSGPOPolicyRuleSet -Container` |
 
 `Export-PSGPOPolicyRuleSet` saves sets as a `.PolicyRules` file, as `GPO2PolicyRules.exe` writes
 it: Policy Analyzer opens it, and `LGPO.exe /p` applies it to the local policy of a computer.
@@ -68,6 +69,32 @@ Get-PSGPOPolicyRuleSet -Name 'Workstations - *' -SetName 'Workstations' |
 
 # The baseline of Microsoft, from its GPO backups (what its .PolicyRules file holds)
 Get-PSGPOPolicyRuleSet -GpmcBackupPath '.\Windows 11 v25H2 Security Baseline\GPOs'
+```
+
+## The GPOs of an OU, by precedence
+
+Policy Analyzer does not say which GPO of a set wins. HGPM does for the GPOs that apply to a domain
+or an OU: `Get-PSGPOPolicyRuleSet -Container`, or *The GPOs that apply to a domain or an OU, by
+precedence* in **GPOs of the domain...** of the window, orders them as the *Group Policy
+Inheritance* tab of GPMC:
+
+1. the enforced links first, from the domain down to the OU (the one nearest the domain wins);
+2. then the other links, from the OU up to the domain, until an OU that blocks the inheritance
+   (its own links included);
+3. the disabled links, and the GPOs whose settings are all disabled, left out; the computer or
+   user settings a GPO status disables too.
+
+Each setting then shows the value of the GPO of precedence 1 that sets it: two GPOs of the OU that
+disagree are not a conflict, the precedence decides (light grey), and the details list each GPO with
+its precedence, the one *applied* first. A `**delvals.` of a GPO of higher precedence clears the
+values of its key the others write, as the client applies them (`[[[Delete all values]]]`). The
+security filtering, the WMI filters and the loopback processing depend on each computer or user:
+they are not taken into account, nor the links of the sites.
+
+```powershell
+$baseline = Get-PSGPOPolicyRuleSet -Path .\MSFT-Win11-v25H2.PolicyRules
+$laptops = Get-PSGPOPolicyRuleSet -Container 'OU=Laptops,OU=Workstations,DC=contoso,DC=com'
+Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $laptops -ConflictOnly
 ```
 
 ## Comparing rule sets

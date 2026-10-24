@@ -45,6 +45,9 @@ class GPOToolsPolicyRule {
     [string]$Option
     [string]$GlobalType
     [string]$Sacl
+    # The precedence of its GPO where it applies (1 wins, as the Group Policy Inheritance tab of
+    # GPMC numbers them); 0 in a set without order (a file, GPOs chosen). Not in the file.
+    [int]$Precedence
 
     # Sections whose lines are "name",mode,"value" rather than key=value.
     static [string[]] $ListSections = @('Service General Setting', 'Registry Keys', 'File Security')

@@ -114,6 +114,14 @@ InModuleScope -ModuleName HGPM {
             $FromBackup.Name | Should -Be 'Backup'
             ($FromBackup.Rules | Where-Object ValueName -EQ 'Value').RegData | Should -Be '7'
             @(Compare-PSGPOPolicyRuleSet -RuleSet $Set, $FromBackup -DifferenceOnly).Count | Should -Be 0
+            # The folder of the backups, the folder of the GPO, the backup, its Files folder.
+            foreach ($Folder in (Join-Path $TestDrive 'Backups'), [System.IO.Path]::GetDirectoryName($Backup.Path), $Backup.Path, (Join-Path $Backup.Path 'Files')) {
+                $FromFolder = Get-PSGPOPolicyRuleSet -BackupPath $Folder
+                ($FromFolder.Rules | Where-Object ValueName -EQ 'Value').RegData | Should -Be '7' -Because $Folder
+                $FromFolder.Name | Should -Be $Gpo.DisplayName
+            }
+            $Empty = New-Item -ItemType Directory -Path (Join-Path $TestDrive 'NoBackup') -Force
+            { Get-PSGPOPolicyRuleSet -BackupPath $Empty.FullName } | Should -Throw -ExpectedMessage 'No backup of GPMC nor of HGPM*'
         }
 
         It 'Saves a set as GPO2PolicyRules does, several sets merged in one file' {
@@ -300,6 +308,73 @@ InModuleScope -ModuleName HGPM {
             $Result = Import-PSGPOPolicyRuleSet -Directory $Directory -RuleSet $Reference -TargetName 'C - New Baseline' -PolicyName 'HGPM Test - Second' -CreateIfNeeded -NoBackup -Confirm:$false
             $Directory.FindGpo('C - New Baseline') | Should -Not -BeNullOrEmpty
             $Result.Registry | Should -Be 4
+        }
+    }
+
+    Describe 'GPOs that apply to a domain or an OU, by precedence' {
+        BeforeEach {
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            $Laptops = $Directory.FindSom('OU=Laptops,OU=Workstations,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com')
+            # A value in two GPOs of the OU, a **delvals. of the one of higher precedence, and a part
+            # of a GPO its status disables.
+            $Write = {
+                param($Name, [object[]]$Entries, [int]$Flags = -1)
+                $Gpo = $Directory.FindGpo($Name)
+                $Pol = [GPOToolsRegistryPol]::new()
+                foreach ($Entry in $Entries) { $Pol.Entries.Add([GPOToolsPolEntry]::new($Entry[0], $Entry[1], [GPOToolsPolType]$Entry[2], [byte[]]$Entry[3])) }
+                $Directory.WritePolicyFile($Gpo, 'Machine', $Pol.ToBytes())
+                if ($Flags -ge 0) { $Gpo.Flags = $Flags }
+            }
+            $Dword = { param([uint32]$Value) [BitConverter]::GetBytes($Value) }
+            & $Write 'C - Laptops - Power Management' @(@('Software\Policies\HGPM', 'Value', 'DWord', (& $Dword 1)), @('Software\Policies\HGPM\List', '**delvals.', 'String', [GPOToolsPolEntry]::EncodeString(' ')))
+            & $Write 'C - Workstations - BitLocker' @(@('Software\Policies\HGPM', 'Value', 'DWord', (& $Dword 2)), @('Software\Policies\HGPM\List', '1', 'String', [GPOToolsPolEntry]::EncodeString('cleared')))
+            & $Write 'C - All - Windows Firewall' @(, @('Software\Policies\HGPM', 'Off', 'DWord', (& $Dword 1))) -Flags 2
+        }
+
+        It 'Orders the GPOs as the Group Policy Inheritance tab of GPMC: enforced first from the domain, then from the OU up' {
+            @(Get-PSGPOSomPrecedence -Som $Laptops | ForEach-Object { '{0} {1}' -f $_.Precedence, $_.Gpo.DisplayName }) | Should -Be @(
+                '1 C - All - LAPS'
+                '2 C - Workstations - Security Baseline Windows 11'
+                '3 C - Laptops - Power Management'
+                '4 C - Workstations - BitLocker'
+                '5 C - Workstations - Windows Update Ring Broad'
+                '6 Default Domain Policy'
+                '7 C - All - Defender Antivirus'
+                '8 C - All - Windows Firewall'
+            ) -Because 'the disabled link of OLD - Windows 10 Baseline does not apply'
+            # An OU that blocks the inheritance: the enforced links only, then its own.
+            $Kiosks = $Directory.FindSom('OU=Kiosks,OU=Workstations,OU=Paris,OU=Sites,DC=corp,DC=contoso,DC=com')
+            @(Get-PSGPOSomPrecedence -Som $Kiosks | ForEach-Object Gpo | ForEach-Object DisplayName) | Should -Be @('C - All - LAPS', 'C - Workstations - Security Baseline Windows 11', 'C - Kiosks - Assigned Access')
+        }
+
+        It 'Shows the value that wins, the values it overrides, and the values a **delvals. of higher precedence clears' {
+            $Set = Get-PSGPOPolicyRuleSet -Directory $Directory -Container 'OU=Laptops,OU=Workstations,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com'
+            $Set.Name | Should -Be 'Laptops (precedence)'
+            ($Set.Rules | Where-Object ValueName -EQ 'Value' | Sort-Object Precedence | ForEach-Object { "$($_.PolicyName)=$($_.Precedence)" }) | Should -Be @('C - Laptops - Power Management=3', 'C - Workstations - BitLocker=4')
+            @($Set.Rules | Where-Object ValueName -EQ 'Off').Count | Should -Be 0 -Because 'the status of the GPO disables its computer settings'
+
+            $Rows = @(Compare-PSGPOPolicyRuleSet -RuleSet $Set)
+            $Value = $Rows | Where-Object Setting -EQ 'Value'
+            $Value.'Laptops (precedence)' | Should -Be '1'
+            $Value.Cells[0].State | Should -Be 'Overridden'
+            $Value.Conflict | Should -BeFalse -Because 'the precedence decides'
+            @($Value.Cells[0].Values | ForEach-Object { '{0} {1} {2}' -f $_.PolicyName, $_.Precedence, $_.Applied }) | Should -Be @('C - Laptops - Power Management 3 True', 'C - Workstations - BitLocker 4 False')
+            $Cleared = $Rows | Where-Object { $_.Group -eq 'Software\Policies\HGPM\List' -and $_.Setting -eq '1' }
+            $Cleared.'Laptops (precedence)' | Should -Be '[[[Delete all values]]]'
+            $Cleared.Cells[0].State | Should -Be 'Overridden'
+
+            # Against a set without order: the value that wins is the one compared.
+            $Baseline = [GPOToolsPolicyRuleSet]::new('Baseline')
+            $Baseline.Rules.Add([GPOToolsPolicyRule]@{ Kind = 'Registry'; Scope = 'Computer'; Key = 'Software\Policies\HGPM'; ValueName = 'Value'; RegType = 'REG_DWORD'; RegData = '2'; PolicyName = 'Baseline' })
+            $Against = @(Compare-PSGPOPolicyRuleSet -RuleSet $Baseline, $Set) | Where-Object Setting -EQ 'Value'
+            $Against.Conflict | Should -BeTrue
+            $Against.Baseline | Should -Be '2'
+            $Against.'Laptops (precedence)' | Should -Be '1'
+        }
+
+        It 'Finds the OU by its name, and says when several OUs have it' {
+            (Get-PSGPOPolicyRuleSet -Directory $Directory -Container 'Kiosks' -SetName 'Kiosks').Path | Should -Be 'OU=Kiosks,OU=Workstations,OU=Paris,OU=Sites,DC=corp,DC=contoso,DC=com'
+            { Get-PSGPOPolicyRuleSet -Directory $Directory -Container 'Laptops' } | Should -Throw -ExpectedMessage "Several OUs are named 'Laptops'*"
         }
     }
 

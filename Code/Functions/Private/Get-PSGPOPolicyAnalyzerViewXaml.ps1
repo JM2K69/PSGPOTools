@@ -62,10 +62,10 @@ function Get-PSGPOPolicyAnalyzerViewXaml {
                                     <TextBlock Text='GPOs of the domain...' VerticalAlignment='Center'/>
                                 </StackPanel>
                             </Button>
-                            <Button Name='analyzerAddGpmcButton' Margin='0,0,6,6'>
+                            <Button Name='analyzerAddGpmcButton' Margin='0,0,6,6' ToolTip.Tip='A rule set of backups of GPMC (the GPOs folder of a security baseline of Microsoft) or of HGPM'>
                                 <StackPanel Orientation='Horizontal' Spacing='6'>
                                     <PathIcon Data='{StaticResource Icon.folder}'/>
-                                    <TextBlock Text='GPMC backups...' VerticalAlignment='Center'/>
+                                    <TextBlock Text='Backups...' VerticalAlignment='Center'/>
                                 </StackPanel>
                             </Button>
                             <Button Name='analyzerSaveSetButton' Margin='0,0,6,6' ToolTip.Tip='Save the selected set as a .PolicyRules file, which Policy Analyzer and LGPO.exe read'>
@@ -109,6 +109,14 @@ function Get-PSGPOPolicyAnalyzerViewXaml {
                             BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}' Background='{DynamicResource SecondaryBackgroundBrush}'>
                         <StackPanel Spacing='8'>
                             <TextBlock Text='A rule set of GPOs of the domain, as they are now' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                            <!-- The GPOs chosen, or those that apply to a domain or an OU by precedence -->
+                            <ComboBox Name='analyzerGposModeComboBox' HorizontalAlignment='Stretch' SelectedIndex='0'>
+                                <ComboBoxItem Content='The GPOs chosen'/>
+                                <ComboBoxItem Content='The GPOs that apply to a domain or an OU, by precedence (the value that wins)'/>
+                            </ComboBox>
+                            <ComboBox Name='analyzerGposSomComboBox' HorizontalAlignment='Stretch' IsVisible='False'/>
+                            <TextBlock Name='analyzerGposSomTextBlock' FontSize='12' TextWrapping='Wrap' IsVisible='False' Foreground='{DynamicResource SecondaryTextBrush}'
+                                       Text='As the Group Policy Inheritance tab of GPMC: the enforced links first, then those of the OU and of its parents until one blocks the inheritance. The security filtering and the WMI filters, which depend on each computer, are not taken into account.'/>
                             <TextBox Name='analyzerGposFilterTextBox' Watermark='Search a GPO...'/>
                             <ListBox Name='analyzerGposList' MaxHeight='220' SelectionMode='Multiple,Toggle'>
                                 <ListBox.ItemTemplate>
