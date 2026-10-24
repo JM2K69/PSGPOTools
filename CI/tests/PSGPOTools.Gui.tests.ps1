@@ -2978,6 +2978,12 @@ InModuleScope -ModuleName HGPM {
                     $Other.RequestedThemeVariant | Should -Be $Ui.Window.RequestedThemeVariant
                     $Other.RequestedThemeVariant | Should -Not -Be $Seen.Theme
                     $Other.Close()
+                    $Seen.Theme = $Ui.Window.RequestedThemeVariant
+                }
+                # The windows the consoles open too: the ADMX files to load.
+                $null = Show-PSGPOAdmxWindow -OnShown {
+                    param($Ui)
+                    $Ui.Window.RequestedThemeVariant | Should -Be $Seen.Theme
                 }
             } finally {
                 $script:PSGPOThemeDark = $null

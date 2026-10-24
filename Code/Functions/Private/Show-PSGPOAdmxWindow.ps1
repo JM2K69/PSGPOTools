@@ -52,6 +52,8 @@ function Show-PSGPOAdmxWindow {
 '@
     $window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse((ConvertTo-PSGPOLocalizedXaml -Xaml $xaml))
     Set-PSGPOWindowIcon -Window $window
+    # The theme of the session, followed while the window is open (PSGPOTheme.ps1).
+    Register-PSGPOThemeWindow -Window $window
     $controls = @{ Window = $window }
     foreach ($name in 'candidateComboBox', 'pathTextBox', 'browseButton', 'cultureComboBox', 'statusTextBlock', 'cancelButton', 'loadButton') {
         $controls[$name] = Get-PSGPOAvaloniaControl $window $name
