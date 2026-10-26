@@ -14,8 +14,9 @@ heures.
     [Service]
     Type=oneshot
     User=gpo-backup
-    # Un keytab donne au compte son ticket Kerberos sans mot de passe.
-    ExecStartPre=/usr/bin/kinit -k -t /etc/gpo-backup.keytab gpo-backup@HARDENBOX.LABO
+    # Un keytab donne au compte son ticket Kerberos sans mot de passe : un compte dédié du
+    # domaine, son keytab à gpo-backup, en mode 600 (install -o gpo-backup -m 600 ...).
+    ExecStartPre=/usr/bin/kinit -k -t /etc/hgpm/gpo-backup.keytab gpo-backup@HARDENBOX.LABO
     ExecStart=/usr/bin/pwsh -NoProfile -Command "Backup-PSGPO -Server dc.hardenbox.labo -Path /srv/gpo-backups"
 
     # /etc/systemd/system/psgpo-backup.timer
@@ -30,10 +31,15 @@ heures.
     ```powershell
     $Action = New-ScheduledTaskAction -Execute 'pwsh.exe' -Argument '-NoProfile -Command "Backup-PSGPO -Path D:\GPO_Backup"'
     $Trigger = New-ScheduledTaskTrigger -Once -At 00:00 -RepetitionInterval (New-TimeSpan -Hours 1)
-    Register-ScheduledTask -TaskName 'HGPM backup' -Action $Action -Trigger $Trigger -User 'CONTOSO\gpo-backup' -Password (Read-Host)
+    # Un gMSA (New-ADServiceAccount, Install-ADServiceAccount) : aucun mot de passe dans la tâche
+    $Principal = New-ScheduledTaskPrincipal -UserId 'CONTOSO\hgpm-backup$' -LogonType Password
+    Register-ScheduledTask -TaskName 'HGPM backup' -Action $Action -Trigger $Trigger -Principal $Principal
     ```
 
-Le compte doit pouvoir lire les GPO et leurs dossiers SYSVOL ; Authenticated Users le peut.
+Le compte doit pouvoir lire les GPO et leurs dossiers SYSVOL ; Authenticated Users le peut. Il n'a
+besoin d'aucun droit d'administrateur : pas Domain Admins. Avec les [sauvegardes centrales](../features/backup-history.md)
+du Tier 0 (`Backup.Path`), seul le Tier 0 écrit le partage : sauvegardez depuis une console du Tier
+0, ou dans un dossier de l'ordinateur comme ci-dessus.
 
 ## 2. Commenter un changement
 

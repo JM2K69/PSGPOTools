@@ -74,6 +74,7 @@ The share has a folder per tier, and the permissions of the roles:
 | `Tier1` | the groups of `Audit.Tiers.Tier1` | Tier 1, Tier 0, the readers |
 | `Tier2` | the groups of `Audit.Tiers.Tier2` | Tier 2, Tier 0, the readers |
 | `Unassigned` | a user of the domain in no tier (Domain Users, not the computers) | Tier 0, the readers |
+| `Archive` | the retention (`Audit.Purgers`) | Tier 0, the readers |
 | the share itself | nobody | listed by the groups of the tiers and the readers; any other account only goes through it, to `Unassigned` |
 
 - Each account adds its changes to **its own file**: `<tier>\<domain>-<yyyy-MM>-<account>-<computer>.jsonl`.
@@ -195,22 +196,43 @@ then deletes them; a month already archived gets the files written since. The fo
 the permissions of the share: Tier 0 and the readers read it. The retention is written to the log
 itself (`PurgeAuditLog`).
 
-Only the administrators delete files of the share: plan it as one of them.
+Only the administrators of the domain and the purgers delete files of the share. Plan it as a
+purger, not as an administrator: put a dedicated account in a group of `Audit.Purgers`, then run
+`Initialize-PSGPOAuditShare` again. The purgers read every tier, delete the files of the old
+months and write the archives, with no other right in the domain.
 
-=== "Windows"
+=== "Windows (a gMSA)"
+
+    A group managed service account: Windows keeps its password, the task stores none.
 
     ```powershell
+    # Once, as an administrator of the domain (the KDS root key exists already when gMSAs are used)
+    New-ADServiceAccount -Name hgpm-purge -DNSHostName hgpm-purge.contoso.com -PrincipalsAllowedToRetrieveManagedPassword 'ADMIN-SERVER$'
+    Add-ADGroupMember -Identity 'GPO-Audit-Purgers' -Members 'hgpm-purge$'   # Audit.Purgers = 'GPO-Audit-Purgers'
+    Install-ADServiceAccount hgpm-purge                                       # on ADMIN-SERVER
+
     Invoke-PSGPOAuditRetention -WhatIf
-    # Each month, as a scheduled task of an administrator of the domain
+    # Each month, as the gMSA: -LogonType Password with no password, Windows gets it
     $action = New-ScheduledTaskAction -Execute 'pwsh.exe' -Argument '-NoProfile -Command "Import-Module HGPM; Invoke-PSGPOAuditRetention"'
-    Register-ScheduledTask -TaskName 'HGPM audit retention' -Action $action -Trigger (New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Sunday -At 3am) -User 'CONTOSO\hgpm-admin' -Password (Read-Host 'Password')
+    $principal = New-ScheduledTaskPrincipal -UserId 'CONTOSO\hgpm-purge$' -LogonType Password
+    Register-ScheduledTask -TaskName 'HGPM audit retention' -Action $action -Principal $principal -Trigger (New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Sunday -At 3am)
     ```
 
-=== "Linux"
+=== "Linux (a keytab)"
+
+    A dedicated account of the domain, in a group of `Audit.Purgers`; its keytab readable by the
+    account that runs the retention only.
 
     ```bash
-    # Each month, with the ticket of an administrator (a keytab: kinit -k -t /etc/hgpm.keytab hgpm-admin)
-    echo '0 3 1 * * hgpm kinit -k -t /etc/hgpm.keytab hgpm-admin && pwsh -NoProfile -Command "Import-Module HGPM; Invoke-PSGPOAuditRetention -Server dc.contoso.com"' | sudo tee /etc/cron.d/hgpm-audit-retention
+    # Once, on a domain controller of Samba, as root
+    samba-tool user add hgpm-purge --random-password
+    samba-tool group addmembers GPO-Audit-Purgers hgpm-purge
+    samba-tool domain exportkeytab /root/hgpm-purge.keytab --principal=hgpm-purge
+    # Copied to the computer of the retention, for the account hgpm only
+    sudo install -o hgpm -g hgpm -m 600 hgpm-purge.keytab /etc/hgpm/hgpm-purge.keytab
+
+    # Each month
+    echo '0 3 1 * * hgpm kinit -k -t /etc/hgpm/hgpm-purge.keytab hgpm-purge && pwsh -NoProfile -Command "Import-Module HGPM; Invoke-PSGPOAuditRetention -Server dc.contoso.com"' | sudo tee /etc/cron.d/hgpm-audit-retention
     ```
 
 ## The log of the system, for a SIEM

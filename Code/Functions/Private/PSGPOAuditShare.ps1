@@ -20,8 +20,8 @@
 
 # Access masks ([MS-DTYP] 2.4.3): read and list (FILE_GENERIC_READ | FILE_GENERIC_EXECUTE), the
 # same and create files, the owner of a file (read and append, attributes; no write over it, no
-# delete).
-$script:PSGPOAuditShareRight = @{ Full = '0x1f01ff'; Read = '0x1200a9'; Create = '0x1200ab'; Owner = '0x12019d'; Traverse = '0x1000a0' }
+# delete), the retention (read, delete a file and the files of a folder), the archives (modify).
+$script:PSGPOAuditShareRight = @{ Full = '0x1f01ff'; Read = '0x1200a9'; Create = '0x1200ab'; Owner = '0x12019d'; Traverse = '0x1000a0'; Purge = '0x1300e9'; Modify = '0x1301bf' }
 
 # The folders of the share and the SDDL of each: Folder ('' for the share), Sddl. The groups are
 # lists of SIDs.
@@ -32,28 +32,38 @@ function Get-PSGPOAuditShareSddl {
         [AllowEmptyCollection()] [string[]]$Tier0 = @(),
         [AllowEmptyCollection()] [string[]]$Tier1 = @(),
         [AllowEmptyCollection()] [string[]]$Tier2 = @(),
-        [AllowEmptyCollection()] [string[]]$Readers = @()
+        [AllowEmptyCollection()] [string[]]$Readers = @(),
+        # The groups that run the retention (Audit.Purgers): they read every folder and delete
+        # its files, write the archives in Archive, and write their own changes in Unassigned.
+        [AllowEmptyCollection()] [string[]]$Purgers = @()
     )
 
     $right = $script:PSGPOAuditShareRight
     $admins = "(A;OICI;$($right.Full);;;SY)(A;OICI;$($right.Full);;;BA)(A;OICI;$($right.Full);;;$DomainAdminsSid)"
     $readAll = (@($Tier0) + @($Readers) | Where-Object { $_ } | Select-Object -Unique | ForEach-Object { "(A;OICI;$($right.Read);;;$_)" }) -join ''
+    $purgers = @($Purgers | Where-Object { $_ } | Select-Object -Unique)
+    $purge = ($purgers | ForEach-Object { "(A;OICI;$($right.Purge);;;$_)" }) -join ''
     # The owner of a file: CREATOR OWNER gives it its rights, OWNER RIGHTS takes away those an owner
     # has anyway (change the permissions).
     $owner = "(A;OIIO;$($right.Owner);;;CO)(A;OIIO;$($right.Owner);;;S-1-3-4)"
     $tier = {
         param([string[]]$Writers)
-        $admins + $readAll + ((@($Writers) | Where-Object { $_ } | Select-Object -Unique | ForEach-Object { "(A;;$($right.Create);;;$_)(A;OIIO;$($right.Read);;;$_)" }) -join '') + $owner
+        $admins + $readAll + $purge + ((@($Writers) | Where-Object { $_ } | Select-Object -Unique | ForEach-Object { "(A;;$($right.Create);;;$_)(A;OIIO;$($right.Read);;;$_)" }) -join '') + $owner
     }
     # Traverse: FILE_TRAVERSE | FILE_READ_ATTRIBUTES | SYNCHRONIZE, without listing.
     $listRoot = (@(@($Tier1) + @($Tier2)) | Where-Object { $_ } | Select-Object -Unique | ForEach-Object { "(A;;$($right.Read);;;$_)" }) -join ''
-    [pscustomobject]@{ Folder = ''; Sddl = "D:P$admins$readAll$listRoot(A;;$($right.Traverse);;;AU)" }
+    [pscustomobject]@{ Folder = ''; Sddl = "D:P$admins$readAll$purge$listRoot(A;;$($right.Traverse);;;AU)" }
     [pscustomobject]@{ Folder = 'Tier0'; Sddl = 'D:P' + (& $tier (@($Tier0) + $DomainAdminsSid)) }
     [pscustomobject]@{ Folder = 'Tier1'; Sddl = 'D:P' + (& $tier $Tier1) }
     [pscustomobject]@{ Folder = 'Tier2'; Sddl = 'D:P' + (& $tier $Tier2) }
     # Every user of the domain writes there, its own file only; not the computers (Authenticated Users).
     $domainUsers = $DomainAdminsSid -replace '-512$', '-513'
-    [pscustomobject]@{ Folder = 'Unassigned'; Sddl = "D:P$admins$readAll(A;;$($right.Create);;;$domainUsers)$owner" }
+    # The retention writes its own changes there (a gMSA is no user of the domain).
+    $purgersWrite = ($purgers | ForEach-Object { "(A;;$($right.Create);;;$_)" }) -join ''
+    [pscustomobject]@{ Folder = 'Unassigned'; Sddl = "D:P$admins$readAll$purge(A;;$($right.Create);;;$domainUsers)$purgersWrite$owner" }
+    # The archives of the old months (Invoke-PSGPOAuditRetention): written by the retention, read
+    # by Tier 0 and the readers.
+    [pscustomobject]@{ Folder = 'Archive'; Sddl = "D:P$admins$readAll" + (($purgers | ForEach-Object { "(A;OICI;$($right.Modify);;;$_)" }) -join '') }
 }
 
 # Linux: the folders made and their DACLs written with the SMB client of Samba (its Python
@@ -87,17 +97,22 @@ for index in range(0, len(pairs), 2):
     conn.set_acl(path, descriptor, security.SECINFO_DACL | security.SECINFO_PROTECTED_DACL)
     print(path)
 # Samba does not pass the permissions of a folder to the files it holds already: the owner of each
-# file written before 0.1.15 loses FILE_WRITE_DATA (0x12019f becomes 0x12019d), it only appends.
+# file written before 0.1.15 loses FILE_WRITE_DATA (0x12019f becomes 0x12019d), it only appends;
+# the purgers of the folder (its ACEs 0x1300e9) get their right on each file, to read and archive it.
 for index in range(0, len(pairs), 2):
-    path = pairs[index]
+    path, sddl = pairs[index], pairs[index + 1]
     if not path:
         continue
+    purgers = re.findall(r'\(A;OICI;0x1300e9;;;([^)]+)\)', sddl, flags=re.IGNORECASE)
     for item in conn.list(path):
         if item['attrib'] & 0x10:
             continue
         name = path + '\\' + item['name']
         current = conn.get_acl(name, security.SECINFO_DACL).as_sddl(domain)
         changed = re.sub(r';0x0*12019f;', ';0x12019d;', current, flags=re.IGNORECASE)
+        for sid in purgers:
+            if (';;;' + sid + ')').lower() not in changed.lower():
+                changed += '(A;ID;0x1300e9;;;' + sid + ')'
         if changed != current:
             conn.set_acl(name, security.descriptor.from_sddl(changed, domain), security.SECINFO_DACL)
             print('append-only: ' + name)

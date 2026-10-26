@@ -201,6 +201,9 @@ function Test-PSGPOConfiguration {
     foreach ($name in 'Tier1', 'Tier2') {
         if ("$($Configuration.Audit.Tiers[$name])" -match '[";|=+*?<>]') { "Audit.Tiers.$name holds names of groups separated by commas." }
     }
+    foreach ($name in 'Readers', 'Purgers') {
+        if ("$($Configuration.Audit[$name])" -match '[";|=+*?<>]') { "Audit.$name holds names of groups separated by commas." }
+    }
     $minimum = "$($Configuration.Console.MinimumVersion)".Trim()
     if ($minimum -and $minimum -notmatch '^\d+\.\d+(\.\d+)?$') { "Console.MinimumVersion must be a version of HGPM (0.1.14), not '$minimum'." }
     if ($groups.Container -and "$($groups.Container)" -notmatch '^(?:(?:OU|CN)=[^,]+)(?:,(?:OU|CN|DC)=[^,]+)*$') { "NewGpo.SecurityFilteringGroups.Container is not a distinguished name: '$($groups.Container)'." }

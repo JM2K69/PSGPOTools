@@ -77,6 +77,7 @@ Le partage a un dossier par tier, et les droits des rôles :
 | `Tier1` | les groupes de `Audit.Tiers.Tier1` | le Tier 1, le Tier 0, les lecteurs |
 | `Tier2` | les groupes de `Audit.Tiers.Tier2` | le Tier 2, le Tier 0, les lecteurs |
 | `Unassigned` | un utilisateur du domaine sans tier (Domain Users, pas les ordinateurs) | le Tier 0, les lecteurs |
+| `Archive` | la rétention (`Audit.Purgers`) | le Tier 0, les lecteurs |
 | le partage lui-même | personne | listé par les groupes des tiers et les lecteurs ; tout autre compte ne fait que le traverser, vers `Unassigned` |
 
 - Chaque compte ajoute ses modifications à **son propre fichier** :
@@ -205,22 +206,44 @@ puis les supprime ; un mois déjà archivé reçoit les fichiers écrits depuis.
 les droits du partage : le Tier 0 et les lecteurs le lisent. La rétention est écrite dans le
 journal lui-même (`PurgeAuditLog`).
 
-Seuls les administrateurs suppriment des fichiers du partage : planifiez-la avec l'un d'eux.
+Seuls les administrateurs du domaine et les purgeurs suppriment des fichiers du partage.
+Planifiez-la avec un purgeur, pas avec un administrateur : mettez un compte dédié dans un groupe de
+`Audit.Purgers`, puis relancez `Initialize-PSGPOAuditShare`. Les purgeurs lisent tous les tiers,
+suppriment les fichiers des anciens mois et écrivent les archives, sans aucun autre droit dans le
+domaine.
 
-=== "Windows"
+=== "Windows (un gMSA)"
+
+    Un compte de service géré de groupe : Windows garde son mot de passe, la tâche n'en stocke aucun.
 
     ```powershell
+    # Une fois, en administrateur du domaine (la clé racine KDS existe déjà quand des gMSA sont utilisés)
+    New-ADServiceAccount -Name hgpm-purge -DNSHostName hgpm-purge.contoso.com -PrincipalsAllowedToRetrieveManagedPassword 'ADMIN-SERVER$'
+    Add-ADGroupMember -Identity 'GPO-Audit-Purgers' -Members 'hgpm-purge$'   # Audit.Purgers = 'GPO-Audit-Purgers'
+    Install-ADServiceAccount hgpm-purge                                       # sur ADMIN-SERVER
+
     Invoke-PSGPOAuditRetention -WhatIf
-    # Chaque mois, en tâche planifiée d'un administrateur du domaine
+    # Chaque mois, en tant que gMSA : -LogonType Password sans mot de passe, Windows le récupère
     $action = New-ScheduledTaskAction -Execute 'pwsh.exe' -Argument '-NoProfile -Command "Import-Module HGPM; Invoke-PSGPOAuditRetention"'
-    Register-ScheduledTask -TaskName 'HGPM audit retention' -Action $action -Trigger (New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Sunday -At 3am) -User 'CONTOSO\hgpm-admin' -Password (Read-Host 'Mot de passe')
+    $principal = New-ScheduledTaskPrincipal -UserId 'CONTOSO\hgpm-purge$' -LogonType Password
+    Register-ScheduledTask -TaskName 'HGPM audit retention' -Action $action -Principal $principal -Trigger (New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Sunday -At 3am)
     ```
 
-=== "Linux"
+=== "Linux (un keytab)"
+
+    Un compte dédié du domaine, dans un groupe de `Audit.Purgers` ; son keytab lisible par le seul
+    compte qui lance la rétention.
 
     ```bash
-    # Chaque mois, avec le ticket d'un administrateur (un keytab : kinit -k -t /etc/hgpm.keytab hgpm-admin)
-    echo '0 3 1 * * hgpm kinit -k -t /etc/hgpm.keytab hgpm-admin && pwsh -NoProfile -Command "Import-Module HGPM; Invoke-PSGPOAuditRetention -Server dc.contoso.com"' | sudo tee /etc/cron.d/hgpm-audit-retention
+    # Une fois, sur un contrôleur de domaine Samba, en root
+    samba-tool user add hgpm-purge --random-password
+    samba-tool group addmembers GPO-Audit-Purgers hgpm-purge
+    samba-tool domain exportkeytab /root/hgpm-purge.keytab --principal=hgpm-purge
+    # Copié sur l'ordinateur de la rétention, pour le seul compte hgpm
+    sudo install -o hgpm -g hgpm -m 600 hgpm-purge.keytab /etc/hgpm/hgpm-purge.keytab
+
+    # Chaque mois
+    echo '0 3 1 * * hgpm kinit -k -t /etc/hgpm/hgpm-purge.keytab hgpm-purge && pwsh -NoProfile -Command "Import-Module HGPM; Invoke-PSGPOAuditRetention -Server dc.contoso.com"' | sudo tee /etc/cron.d/hgpm-audit-retention
     ```
 
 ## Le journal du système, pour un SIEM

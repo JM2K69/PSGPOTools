@@ -64,6 +64,8 @@ $package = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-publish-$([gu
 $null = New-Item -ItemType Directory -Path $package -Force
 Copy-Item -Path (Join-Path $source '*') -Destination $package -Recurse
 Remove-Item -LiteralPath (Join-Path $package 'Avalonia' 'bin') -Recurse -Force -ErrorAction SilentlyContinue
+# The license and its attribution go with every copy of the module (Apache License 2.0, section 4).
+foreach ($file in 'LICENSE', 'NOTICE') { Copy-Item -LiteralPath (Join-Path $PSScriptRoot '..' $file) -Destination $package }
 $files = @(Get-ChildItem -LiteralPath $package -Recurse -File)
 Write-Host "[PUBLISH] $moduleName $version : $($files.Count) files, $([math]::Round(($files | Measure-Object Length -Sum).Sum / 1MB, 1)) MB in $package"
 

@@ -20,6 +20,7 @@ nav = [
     "getting-started/installation.md",
     "getting-started/first-steps.md",
     "getting-started/lab.md",
+    "getting-started/production.md",
   ] },
   { "Fonctionnalités" = [
     "features/launcher.md",
@@ -59,6 +60,7 @@ nav = [
     "technical/ldap.md",
     "technical/sysvol.md",
     "technical/security-descriptors.md",
+    "technical/security-model.md",
     "technical/hardening.md",
     "technical/file-formats.md",
     "technical/user-interface.md",

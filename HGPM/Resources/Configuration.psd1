@@ -78,6 +78,10 @@
         }
         # Groups that read every tier without writing (auditors), separated by commas.
         Readers = ''
+        # Groups that run the retention of the central log (Invoke-PSGPOAuditRetention, planned):
+        # they read every tier, delete the files of the old months and write the archives,
+        # without being administrators of the domain. The group of a gMSA, separated by commas.
+        Purgers = ''
         # Months the central log keeps: Invoke-PSGPOAuditRetention puts the older months in a .zip
         # of the folder Archive, then deletes their files. 0: everything is kept.
         RetentionMonths = 13
