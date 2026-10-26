@@ -489,7 +489,8 @@ InModuleScope -ModuleName HGPM {
             Should -Invoke Invoke-PSGPOSambaTool -Times 1 -Exactly -ParameterFilter {
                 ($ArgumentList -join ' ') -eq "gpo del {8F4C1B2E-3D5A-4C7B-9E61-0A2B3C4D5E99} -H ldap://$($Directory.Server) --use-kerberos=required"
             }
-            Mock Invoke-PSGPOLdapSearch { [pscustomobject]@{ DistinguishedName = $Gpo.DistinguishedName } }
+            # Its folder read first (gPCFileSysPath, not redirected), then the GPO still there.
+            Mock Invoke-PSGPOLdapSearch { [pscustomobject]@{ DistinguishedName = $Gpo.DistinguishedName; Attributes = @{} } }
             { Remove-PSGPODomainGpo -Directory $Directory -Gpo $Gpo } | Should -Throw -ExpectedMessage "*'X' is still in the domain after its deletion*"
         }
     }
