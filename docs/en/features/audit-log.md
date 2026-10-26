@@ -23,6 +23,7 @@ Show-AuditLogAvalonia -Server dc.hardenbox.labo -Language fr-FR
 | **Account** | the account of the directory that made the change |
 | **Action** | what, by its name: *GPO created*, *Link changed*, *Settings of a GPO saved*, *GPO approved*... |
 | **GPO or object** | the GPO, else the OU, the domain or the configuration |
+| **Tier** | the folder of the central log it is in: Tier 0, 1, 2, Unassigned |
 | **Computer**, **Domain** | from where, on which domain |
 
 - **The period**: the last 24 hours, 7 days, 30 days (at first) or everything.
@@ -50,3 +51,99 @@ the changes still made. See [the audit log](backup-history.md#audit-log) for wha
 Get-PSGPOAuditLog -After (Get-Date).AddDays(-7) -Action SaveGpoFile, ApproveGpo |
     Export-Csv .\audit.csv -NoTypeInformation
 ```
+
+## The central log, a folder per tier
+
+A log the consoles share is on **a share of a file server**, `Audit.Path` of the configuration of
+the domain. Not SYSVOL: it is copied to every domain controller (DFSR), the log would grow on each
+of them, and two domain controllers adding to the same file would lose lines; Samba does not copy
+SYSVOL at all.
+
+The share has a folder per tier, and the permissions of the roles:
+
+| Folder | Writes there (its own file) | Reads it |
+|---|---|---|
+| `Tier0` | the approvers of the workflow (`Workflow.Approvers`), Domain Admins | Tier 0, the readers |
+| `Tier1` | the groups of `Audit.Tiers.Tier1` | Tier 1, Tier 0, the readers |
+| `Tier2` | the groups of `Audit.Tiers.Tier2` | Tier 2, Tier 0, the readers |
+| `Unassigned` | an account in no tier | Tier 0, the readers |
+
+- Each account adds its changes to **its own file**: `<tier>\<domain>-<yyyy-MM>-<account>-<computer>.jsonl`.
+  No two consoles write the same file; nobody but the administrators deletes a file or changes its
+  permissions.
+- **Tier 0 reads every tier**, an account of Tier 1 or Tier 2 the changes of its tier only, the
+  readers (`Audit.Readers`, the auditors) everything, without writing. The window shows what the
+  account can read, and the tier of each change.
+- The tier of an account is read in its groups when the domain is read: an administrator of the
+  domain or an approver is Tier 0, then the groups of `Audit.Tiers`.
+
+### 1. The share
+
+=== "Windows"
+
+    On a Windows file server, as an administrator:
+
+    [Download windows/New-PSGPOAuditShare.ps1](../assets/scripts/windows/New-PSGPOAuditShare.ps1){ download }
+
+    ```powershell
+    .\New-PSGPOAuditShare.ps1                                  # \\<server>\gpo-audit, D:\Shares\GPO-Audit
+    .\New-PSGPOAuditShare.ps1 -Name gpo-audit -Path E:\Shares\GPO-Audit -WhatIf
+    ```
+
+    ??? example "windows/New-PSGPOAuditShare.ps1"
+
+        ```powershell
+        --8<-- "docs/assets/scripts/windows/New-PSGPOAuditShare.ps1"
+        ```
+
+=== "Linux"
+
+    On a Samba server (a member server, or the domain controller of a lab), as root:
+
+    [Download linux/New-PSGPOAuditShare.sh](../assets/scripts/linux/New-PSGPOAuditShare.sh){ download }
+
+    ```bash
+    sudo ./New-PSGPOAuditShare.sh                             # //<server>/gpo-audit, /srv/gpo-audit
+    sudo ./New-PSGPOAuditShare.sh gpo-audit /srv/gpo-audit
+    ```
+
+    ??? example "linux/New-PSGPOAuditShare.sh"
+
+        ```bash
+        --8<-- "docs/assets/scripts/linux/New-PSGPOAuditShare.sh"
+        ```
+
+### 2. The roles, in the configuration of the domain
+
+In **Settings** of the console (an administrator of the domain), or `Configuration.psd1`:
+
+```powershell
+Audit = @{
+    Path = '\\files.contoso.com\gpo-audit'
+    Tiers = @{ Tier1 = 'GPO-Tier1-Admins'; Tier2 = 'GPO-Tier2-Admins' }
+    Readers = 'GPO-Auditors'
+}
+```
+
+### 3. The folders and their permissions
+
+`Initialize-PSGPOAuditShare` makes the folders of the tiers and writes their permissions from the
+roles. Again each time the groups of the tiers change: the files are kept.
+
+```powershell
+Initialize-PSGPOAuditShare -WhatIf
+Initialize-PSGPOAuditShare                                   # Audit.Path of the configuration
+Initialize-PSGPOAuditShare -Path //files.contoso.com/gpo-audit -Server dc.contoso.com    # Linux
+```
+
+### 4. The logs of the consoles, moved into it
+
+The changes the consoles wrote before, in the folder `Audit` of the backups of their account:
+
+```powershell
+Import-PSGPOAuditLog -Path "$HOME/PSGPOTools Backups/Audit" -WhatIf
+Import-PSGPOAuditLog -Path "$HOME/PSGPOTools Backups/Audit" -Remove
+```
+
+Each change goes to the file of its account, computer and month, in the folder of the tier of its
+account; a change already there is not written twice, and `-Remove` deletes the files read.

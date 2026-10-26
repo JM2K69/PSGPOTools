@@ -36,7 +36,10 @@ A label has at most 64 characters, without comma, tab or line break; the two lab
 | Setting | Default | |
 |---|---|---|
 | `Audit.Enabled` | `$true` | the changes are written to the [audit log](../features/audit-log.md); `$false`: they are not (the changes are still made) |
-| `Audit.Path` | empty | folder of the [audit log](../features/backup-history.md#audit-log), the same for every console: a share the administrators of the GPOs write (`\\server\gpo-audit`); empty: the folder `Audit` of the backups of the account |
+| `Audit.Path` | empty | the [central audit log](../features/audit-log.md#the-central-log-a-folder-per-tier), the same for every console: a share of a file server (`\\server\gpo-audit`), not SYSVOL, prepared by `Initialize-PSGPOAuditShare`; empty: the folder `Audit` of the backups of the account |
+| `Audit.Tiers.Tier1` | empty | groups of Tier 1, separated by commas: they write in the folder `Tier1` of the central log and read the changes of their tier |
+| `Audit.Tiers.Tier2` | empty | groups of Tier 2: the folder `Tier2` |
+| `Audit.Readers` | empty | groups that read every tier without writing (auditors) |
 
 ## View
 

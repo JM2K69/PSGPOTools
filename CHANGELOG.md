@@ -5,7 +5,14 @@
 ### Added
 
 * `Show-AuditLogAvalonia`, the **Audit Log** tool, a tile of the launcher: the changes of the audit log in a window, newest first, by their name in the language of the interface; filtered by period, domain, action and a search in every text of a change, its details included; the details of the selected change; the changes shown exported to CSV. The folder is `Audit.Path` of the configuration of the domain, else the folder `Audit` of the backups of the account
+* The central audit log on a share of a file server (`Audit.Path`), not SYSVOL, with a folder per tier: `Audit.Tiers.Tier1`, `Audit.Tiers.Tier2` and `Audit.Readers` in the configuration of the domain; each account adds its changes to its own file in the folder of its tier (read in its groups: an administrator of the domain or an approver is Tier 0), Tier 0 and the readers read every tier, an account of a tier its tier only; on Linux through smbclient. The Tier column in the Audit Log window
+* `Initialize-PSGPOAuditShare`: the folders of the tiers of the share and their permissions, from the roles of the configuration; the scripts `New-PSGPOAuditShare.ps1` (Windows) and `New-PSGPOAuditShare.sh` (Samba) of the documentation create the share
+* `Import-PSGPOAuditLog`: the logs the consoles wrote before moved into the central log, each change in the folder of the tier of its account, once
 * `Audit.Enabled` in the configuration of the domain, `$true` by default: the audit log is on unless an administrator of the domain turns it off in **Settings**
+
+### Fixed
+
+* The times of the audit log were read in the time zone of the computer, off by its offset: `ConvertFrom-Json` turns them into local dates itself
 
 ### Changed
 

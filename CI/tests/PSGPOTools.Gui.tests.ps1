@@ -732,8 +732,8 @@ InModuleScope -ModuleName HGPM {
                     $C.pathTextBlock.Text | Should -BeLike 'Configuration of the domain corp.contoso.com, for every console of the domain: SYSVOL\corp.contoso.com\PSGPOTools\Configuration.psd1*(not created yet)*'
                     $C.saveButton.IsEnabled | Should -BeTrue
                     $Rows = @($C.settingsList.ItemsSource)
-                    $Rows.Count | Should -Be 19
-                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 19
+                    $Rows.Count | Should -Be 22
+                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 22
                     ($Rows | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.ApplyPrefix').Default | Should -BeLike 'Default: APPLY_ - Names of the groups*'
 
                     # Create: a choice, a boolean, a text.
@@ -3176,7 +3176,7 @@ InModuleScope -ModuleName HGPM {
             Start-PSGPOAuditLogWindow -Directory $Directory -OnShown {
                 param($Ui)
                 $Ui.auditFolderTextBox.Text | Should -Be $Log
-                $Ui.subtitleTextBlock.Text | Should -Be "What the consoles and the commands changed in the domain - $($Directory.DomainName)"
+                $Ui.subtitleTextBlock.Text | Should -BeLike "What the consoles and the commands changed in the domain - $($Directory.DomainName) - Connected as *" -Because 'who reads the log'
                 @($Ui.auditGrid.ItemsSource).Count | Should -Be 3
             }
         }

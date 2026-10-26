@@ -39,6 +39,9 @@ function Invoke-PSGPOSmbClient {
         [switch]$AllowMissing,
         # NT_STATUS errors that are not failures (an existing folder for mkdir).
         [string[]]$IgnoreStatus = @(),
+        # The exit code of smbclient is not a failure when its only errors are those ignored (a
+        # folder it cannot read in a recursive copy).
+        [switch]$IgnoreExitCode,
         [int]$TimeoutSeconds = 120
     )
 
@@ -52,7 +55,7 @@ function Invoke-PSGPOSmbClient {
     $status = @($output | Select-String -Pattern 'NT_STATUS_[A-Z_]+' -AllMatches | ForEach-Object { $_.Matches.Value } | Where-Object { $_ -notin $IgnoreStatus })
     $missing = @($status | Where-Object { $_ -in 'NT_STATUS_OBJECT_NAME_NOT_FOUND', 'NT_STATUS_OBJECT_PATH_NOT_FOUND', 'NT_STATUS_NO_SUCH_FILE' })
     if ($AllowMissing -and $missing.Count) { return $null }
-    if ($status.Count -or $result.ExitCode -ne 0) {
+    if ($status.Count -or ($result.ExitCode -ne 0 -and -not $IgnoreExitCode)) {
         throw "smbclient //$Server/$Share failed: $(($output | Where-Object { $_ }) -join ' ')"
     }
     , $output

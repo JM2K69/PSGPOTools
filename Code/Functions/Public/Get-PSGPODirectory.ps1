@@ -105,9 +105,17 @@ function Get-PSGPODirectory {
     }
     # The configuration of HGPM for this domain, from its SYSVOL, and its approval workflow.
     Use-PSGPODomainConfiguration -Directory $directory
-    if ((Get-PSGPOWorkflowSetting).Enabled) {
+    # And the tier of the account in the central audit log.
+    $workflow = (Get-PSGPOWorkflowSetting).Enabled
+    $central = [bool]"$((Get-PSGPOConfigurationData).Audit.Path)".Trim()
+    if ($workflow -or $central) {
         $connection = New-PSGPODirectoryConnection -Directory $directory
-        try { Update-PSGPODomainWorkflow -Connection $connection -Directory $directory } finally { $connection.Dispose() }
+        try {
+            if ($workflow) { Update-PSGPODomainWorkflow -Connection $connection -Directory $directory }
+            if ($central) { Update-PSGPOAuditTier -Connection $connection -Directory $directory }
+        } finally {
+            $connection.Dispose()
+        }
     }
     $directory
 }

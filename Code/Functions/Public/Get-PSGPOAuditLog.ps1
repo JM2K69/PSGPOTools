@@ -20,7 +20,7 @@ function Get-PSGPOAuditLog {
         EditWmiFilter, RemoveWmiFilter, SetWmiFilterPermission, SetGpoPermission,
         SetGpoSecurityFiltering, ApproveGpo, PendingGpo, SaveGpoFile, RestoreGpo, ImportGpo, ImportPolicyRuleSet,
         NewFilteringGroups, SaveConfiguration, InstallAdmx, NewPasswordPolicy, SetPasswordPolicy,
-        RemovePasswordPolicy); * and ? make a pattern.
+        RemovePasswordPolicy, InitializeAuditShare); * and ? make a pattern.
     .PARAMETER Account
         Only the changes of this account (* and ? make a pattern).
     .PARAMETER After

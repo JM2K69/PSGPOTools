@@ -132,7 +132,12 @@ function Test-PSGPOConfiguration {
     if ("$($workflow.ApprovedOwner)" -match ',') { 'Workflow.ApprovedOwner is one group.' }
     if ($workflow.Enabled -and "$($workflow.Creators)".Trim() -eq '') { 'Workflow.Creators must name the groups of the creators when the workflow is enabled.' }
     $audit = "$($Configuration.Audit.Path)".Trim()
-    if ($audit -and -not [System.IO.Path]::IsPathRooted($audit)) { "Audit.Path must be a full path (a share: \\server\gpo-audit), not '$audit'." }
+    # A share (\\server\share, //server/share on Linux too) or a folder of the computer.
+    if ($audit -and $audit -notmatch '^(\\\\|//)[^\\/]+[\\/][^\\/]+' -and -not [System.IO.Path]::IsPathRooted($audit)) { "Audit.Path must be a full path (a share: \\server\gpo-audit), not '$audit'." }
+    if ($Configuration.Audit.Enabled -isnot [bool]) { 'Audit.Enabled must be $true or $false.' }
+    foreach ($name in 'Tier1', 'Tier2') {
+        if ("$($Configuration.Audit.Tiers[$name])" -match '[";|=+*?<>]') { "Audit.Tiers.$name holds names of groups separated by commas." }
+    }
     if ($groups.Container -and "$($groups.Container)" -notmatch '^(?:(?:OU|CN)=[^,]+)(?:,(?:OU|CN|DC)=[^,]+)*$') { "NewGpo.SecurityFilteringGroups.Container is not a distinguished name: '$($groups.Container)'." }
 }
 

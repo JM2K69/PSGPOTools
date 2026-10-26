@@ -927,6 +927,13 @@
     'Password policy deleted' = 'Stratégie de mot de passe supprimée'
     'Configuration saved' = 'Configuration enregistrée'
     'ADMX files installed' = 'Fichiers ADMX installés'
+    'Share of the audit log prepared' = 'Partage du journal d''audit préparé'
+    'Tier' = 'Tier'
+    'Tier0' = 'Tier 0'
+    'Tier1' = 'Tier 1'
+    'Tier2' = 'Tier 2'
+    'Unassigned' = 'Sans tier'
+    'the log of your account only: Audit.Path of the configuration sets no central log' = 'le journal de votre compte seulement : Audit.Path de la configuration ne donne pas de journal central'
     'Choose a console' = 'Choisissez une console'
     'The GPOs of the domain, their links, settings, delegation and backups' = 'Les GPO du domaine, leurs liens, paramètres, délégation et sauvegardes'
     'The fine-grained password policies (PSO) and the ones a user or a group gets' = "Les stratégies de mot de passe affinées (PSO) et celles qu'obtient un utilisateur ou un groupe"

@@ -64,6 +64,8 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | [`Get-PSGPODrift`](commands/get-psgpodrift.md) `-Path [-Name] [-Label]` | compares each GPO to its approved version: `InSync`, `Drifted`, `NotApproved` |
 | [`Get-PSGPOAuditLog`](commands/get-psgpoauditlog.md) `[-Path] [-Domain] [-Name] [-Action] [-Account] [-After] [-Before]` | what the consoles and the commands changed in the domain, newest first |
 | [`Show-AuditLogAvalonia`](commands/show-auditlogavalonia.md) `[-Path] [-Directory \| -Server] [-Language]` | opens the audit log in a window: filtered by period, domain, action and a search, the details of a change, the changes shown exported to CSV |
+| [`Initialize-PSGPOAuditShare`](commands/initialize-psgpoauditshare.md) `[-Path] [-Directory \| -Server]` | prepares the share of the central audit log: a folder per tier, the permissions of the roles |
+| [`Import-PSGPOAuditLog`](commands/import-psgpoauditlog.md) `-Path [-Destination] [-Remove]` | moves the log of a console into the central log, each change in the folder of the tier of its account |
 | [`Get-PSGPOGpmcBackup`](commands/get-psgpogpmcbackup.md) `-Path [-Name]` | the backups of GPMC (`Backup-GPO`) of a folder |
 | [`Import-PSGPO`](commands/import-psgpo.md) `-Path -TargetName [-SourceName] [-BackupId] [-MigrationTable] [-Exclusive] [-CreateIfNeeded] [-BackupPath] [-NoBackup]` | imports the settings of a backup (GPMC or HGPM) into a GPO, with a migration table |
 | [`Get-PSGPOMigrationEntry`](commands/get-psgpomigrationentry.md) `-Path [-Name] [-IncludePermission]` | the accounts and UNC paths the settings of backups reference |

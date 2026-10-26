@@ -56,10 +56,23 @@
     Audit = @{
         # Whether the changes are written to the audit log: yes by default.
         Enabled = $true
-        # Folder of the log, the same for every console of the domain: a share the administrators
-        # of the GPOs write (\\server\gpo-audit). Empty: the folder Audit of the backups of the
+        # Folder of the log, the same for every console of the domain: a share of a file server
+        # (\\server\gpo-audit), prepared once with Initialize-PSGPOAuditShare: a folder per tier,
+        # each account adds its changes to its own file in the folder of its tier. Not SYSVOL: it
+        # is copied to every domain controller. Empty: the folder Audit of the backups of the
         # account, which only its console sees.
         Path = ''
+        # The tiers of the central log (Audit.Path): Tier 0 is the approvers of the workflow and
+        # the administrators of the domain, who read every tier.
+        Tiers = @{
+            # Groups of Tier 1, separated by commas: they write in the folder Tier1 and read the
+            # changes of their tier.
+            Tier1 = ''
+            # Groups of Tier 2, separated by commas: the folder Tier2.
+            Tier2 = ''
+        }
+        # Groups that read every tier without writing (auditors), separated by commas.
+        Readers = ''
     }
 
     # The Group Policy Management view of the console.
