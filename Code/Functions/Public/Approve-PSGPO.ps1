@@ -103,14 +103,19 @@ function Approve-PSGPO {
                 $deny = $givenDeny
                 if (-not $CreateFilteringGroups -and -not $ApplyTo) {
                     $existing = Find-PSGPOFilteringGroup -Directory $Directory -Gpo $gpo
-                    $apply = if ($existing.Apply) { $existing.Apply } else { Resolve-PSGPOApplyTo -Directory $Directory -Name 'Authenticated Users' }
+                    # A group of its name someone else made: never Authenticated Users in its place.
+                    if ($existing.Problem) { Write-Error "The GPO '$($gpo.DisplayName)' is not approved: $($existing.Problem) Give -ApplyTo, or -CreateFilteringGroups once it is deleted."; continue }
+                    $apply =if ($existing.Apply) { $existing.Apply } else { Resolve-PSGPOApplyTo -Directory $Directory -Name 'Authenticated Users' }
                     if (-not $DenyTo -and $existing.Deny) { $deny = $existing.Deny }
                 }
+                # What is approved: the GPO as it is now, before the confirmation; refused if it changes.
+                try { $stamp = Get-PSGPOReviewStamp -Directory $Directory -Gpo $gpo }
+                catch { Write-Error "The GPO '$($gpo.DisplayName)' is not approved: it cannot be read ($($_.Exception.GetBaseException().Message))."; continue }
                 $who = if ($CreateFilteringGroups) { 'applied by its new groups APPLY_ and DENY_' } else { "applied by $($apply.Name)$(if ($deny) { ", denied to $($deny.Name)" })" }
                 if (-not $PSCmdlet.ShouldProcess("GPO '$($gpo.DisplayName)'", "Approve it: owned by $($Directory.Workflow.ApprovedOwner), the creators $(if ($CreatorRights -eq 'EditSettings') { 'edit its settings' } else { 'read it' }), $who")) { continue }
                 try {
                     Invoke-PSGPOApproval -Directory $Directory -Gpo $gpo -CreatorRights $CreatorRights -ApplyTo $apply -DenyTo $deny `
-                        -CreateFilteringGroups:$CreateFilteringGroups -GroupContainer $GroupContainer -BackupPath $BackupPath
+                        -CreateFilteringGroups:$CreateFilteringGroups -GroupContainer $GroupContainer -BackupPath $BackupPath -ReviewStamp $stamp
                 } catch {
                     Write-Error "The GPO '$($gpo.DisplayName)' is not approved: $($_.Exception.GetBaseException().Message)"
                 }

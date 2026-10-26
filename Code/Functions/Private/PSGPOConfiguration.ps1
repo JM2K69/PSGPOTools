@@ -178,6 +178,13 @@ function Test-PSGPOConfiguration {
     }
     if ("$($workflow.ApprovedOwner)" -match ',') { 'Workflow.ApprovedOwner is one group.' }
     if ($workflow.Enabled -and "$($workflow.Creators)".Trim() -eq '') { 'Workflow.Creators must name the groups of the creators when the workflow is enabled.' }
+    # The roles by their names; the workflow checks them again by their SIDs (Test-PSGPOWorkflowRole).
+    $names = { param($Text) @("$Text" -split ',' | ForEach-Object { ($_.Trim() -split '\\')[-1] } | Where-Object { $_ }) }
+    $approvers = & $names $workflow.Approvers
+    $creators = & $names $workflow.Creators
+    foreach ($name in @($creators | Where-Object { $approvers -contains $_ })) { "$name is in Workflow.Approvers and Workflow.Creators: keep the roles apart." }
+    $everyone = 'Everyone', 'Authenticated Users', 'Anonymous Logon', 'Users', 'Guests', 'Domain Users', 'Domain Guests', 'Domain Computers', 'S-1-1-0', 'S-1-5-7', 'S-1-5-11', 'S-1-5-32-545', 'S-1-5-32-546'
+    foreach ($name in @(@($approvers) + @($creators) | Where-Object { $everyone -contains $_ } | Select-Object -Unique)) { "Workflow.Approvers and Workflow.Creators name groups of the domain, not ${name}: a group of every account." }
     $audit = "$($Configuration.Audit.Path)".Trim()
     # A share (\\server\share, //server/share on Linux too) or a folder of the computer.
     if ($audit -and $audit -notmatch '^(\\\\|//)[^\\/]+[\\/][^\\/]+' -and -not [System.IO.Path]::IsPathRooted($audit)) { "Audit.Path must be a full path (a share: \\server\gpo-audit), not '$audit'." }

@@ -239,6 +239,23 @@ InModuleScope -ModuleName HGPM {
             $Directory.FindGpo('Pending GPO').ApprovalState | Should -BeNullOrEmpty
         }
 
+        It 'Stops the creation of GPOs when the roles are wrong: <Case>' -ForEach @(
+            @{ Case = 'an account in both roles'; Creators = @('GPO-Tier1-Admins'); Approvers = @('Domain Admins', 'GPO-Tier1-Admins'); Owner = 'Domain Admins'; Expected = '*GPO-Tier1-Admins is in Workflow.Approvers and Workflow.Creators*' }
+            @{ Case = 'Domain Users as creators'; Creators = @('Domain Users'); Approvers = @('Domain Admins'); Owner = 'Domain Admins'; Expected = '*Workflow.Creators names Domain Users, a group of every account*' }
+            @{ Case = 'Authenticated Users as approvers'; Creators = @('GPO-Tier1-Admins'); Approvers = @('S-1-5-11'); Owner = 'Domain Admins'; Expected = '*Workflow.Approvers names S-1-5-11, a group of every account*' }
+            @{ Case = 'the creators owning the approved GPOs'; Creators = @('GPO-Tier1-Admins'); Approvers = @('Domain Admins'); Owner = 'GPO-Tier1-Admins'; Expected = '*Workflow.ApprovedOwner (GPO-Tier1-Admins) is neither a group of the approvers nor of the administrators*' }
+        ) {
+            $script:Roles = @{ Creators = $Creators; Approvers = $Approvers; Owner = $Owner }
+            Mock Get-PSGPOWorkflowSetting { [pscustomobject]@{ Enabled = $true; Approvers = $script:Roles.Approvers; Creators = $script:Roles.Creators; ApprovedOwner = $script:Roles.Owner; CreatorRights = 'ReadOnly' } }
+            Mock Find-PSGPODomainAccount {
+                foreach ($N in $Name) { [pscustomobject]@{ Name = $N; Sid = $(if ($N -like 'S-1-*') { $N } else { @{ 'Domain Admins' = $Admins; 'GPO-Tier1-Admins' = $Tier1; 'Domain Users' = "$Domain-513" }[$N] }) } }
+            }
+            $null = @(Update-PSGPODomainWorkflow -Connection ([pscustomobject]@{}) -Directory $Directory 3>&1)
+            $Directory.CanCreateGpo | Should -BeFalse
+            $Directory.Workflow.IsApprover | Should -BeFalse -Because 'nobody approves with wrong roles'
+            $Directory.Workflow.Problem | Should -BeLike $Expected
+        }
+
         Context 'Without a configuration of the domain it can use' {
             BeforeEach {
                 Mock Get-PSGPOWorkflowSetting { [pscustomobject]@{ Enabled = $false } }
@@ -290,6 +307,39 @@ InModuleScope -ModuleName HGPM {
                 "$($Output | Where-Object { $_ -is [System.Management.Automation.WarningRecord] })" | Should -BeLike '*is not created: the domain delegates the creation of GPOs*Copy it to dc1.contoso.com*'
                 Should -Invoke Save-PSGPODomainConfiguration -Times 0
             }
+        }
+    }
+
+    Describe 'Security filtering groups proposed at the approval' {
+        BeforeEach {
+            $Directory = [GPOToolsLdapDirectory]::new('contoso.com', 'DC=contoso,DC=com', 'dc1.contoso.com', 'Samba AD')
+            $Directory.Workflow = New-Workflow -Approver $true
+            $Directory.Workflow | Add-Member -NotePropertyName DomainSid -NotePropertyValue $Domain
+            $Gpo = [GPOToolsGpo]@{ DisplayName = 'T1 - Proxy'; Id = [guid]::NewGuid(); DistinguishedName = 'CN={1},CN=Policies,CN=System,DC=contoso,DC=com' }
+            Mock New-PSGPODirectoryConnection { [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name Dispose -Value { } -PassThru }
+            Mock Resolve-PSGPODomainSid { @{ $Creator = 'tech1'; $Admins = 'Domain Admins' } }
+            # APPLY_T1 - Proxy exists, owned by $script:GroupOwner; no DENY_ group.
+            Mock Invoke-PSGPOLdapBinarySearch {
+                if ($Filter -notlike '*APPLY_*') { return }
+                $Descriptor = [GPOToolsSecurityDescriptor]::new()
+                $Descriptor.Owner = $script:GroupOwner
+                [pscustomobject]@{ DistinguishedName = 'CN=APPLY_T1 - Proxy,OU=Groups,DC=contoso,DC=com'; Values = @{ objectSid = @(, [GPOToolsSecurityDescriptor]::ConvertSidToBytes("$Domain-3000")); nTSecurityDescriptor = @(, $Descriptor.ToBytes()) } }
+            }
+        }
+
+        It 'Proposes a group an approver made' {
+            $script:GroupOwner = $Admins
+            $Found = Find-PSGPOFilteringGroup -Directory $Directory -Gpo $Gpo
+            $Found.Apply.Sid | Should -Be "$Domain-3000"
+            $Found.Deny | Should -BeNullOrEmpty
+            $Found.Problem | Should -BeNullOrEmpty
+        }
+
+        It 'Does not propose a group a technician made before the approval, and says so' {
+            $script:GroupOwner = $Creator
+            $Found = Find-PSGPOFilteringGroup -Directory $Directory -Gpo $Gpo
+            $Found.Apply | Should -BeNullOrEmpty -Because 'its members would choose where the approved GPO applies'
+            $Found.Problem | Should -BeLike 'The group APPLY_T1 - Proxy exists, owned by tech1, not by an approver or an administrator of the domain*It is not proposed*'
         }
     }
 

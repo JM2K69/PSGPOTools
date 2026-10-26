@@ -10,7 +10,9 @@ tests of the module (`CI/tests/PSGPOTools.Hardening.tests.ps1` and others) and o
 |---|---|
 | the `gPCFileSysPath` of its GPO (it owns it while it waits) | [uses the folder of the GPO only](#redirected-gpo), refuses a redirected GPO |
 | the permissions of its GPO, outside the console | the approval [rebuilds them](../workflows/approval.md#4-approve-it-tier-0) from what an approved GPO may hold |
-| what is in its GPO until the approval | the approval [backs up](../workflows/approval.md#4-approve-it-tier-0) the approved version; the drift shows any change since |
+| what is in its GPO until the approval | the approval [approves what was reviewed](#approval), or nothing; it backs up the approved version, and the drift shows any change since |
+| the groups it may create (`APPLY_<its GPO>`) | a group nobody of Tier 0 made is [not proposed](#approval) at the approval |
+| the configuration of the roles | [roles that overlap, or a group of every account](#approval), stop the workflow |
 | a backup on a share it can write | the [paths of the files](#other-guards) of a backup are checked |
 | an older console, a domain controller without the configuration | the [configuration fails closed](#configuration-fails-closed) |
 
@@ -146,6 +148,64 @@ On both labs, the configuration of the domain saved first and restored at the en
 | The administrator opens the console then | the configuration not created, a warning | the configuration not created, a warning |
 | Restored | workflow known, its GPO created waiting for approval | the same bytes, read without a warning |
 
+## The approval { #approval }
+
+### The threat
+
+- **What is approved is not what was reviewed**: the creator owns its pending GPO until the end of
+  the approval, and could change its settings, files or attributes between the review and the
+  click, so that Tier 0 approves what nobody saw.
+- **A group made in advance**: a technician who can create groups creates `APPLY_<its GPO>` before
+  the approval; the approval proposed it, and its members (the technician chooses them) would
+  decide where the approved GPO applies.
+- **Roles that overlap**: an account in both `Workflow.Creators` and `Workflow.Approvers` is an
+  approver, so the GPOs it creates are approved at once; a group of every account (Domain Users,
+  Authenticated Users) as creators or approvers; an owner of the approved GPOs that belongs to
+  Tier 1, which could then change the permissions of every approved GPO.
+
+### What the console does
+
+- **The content reviewed is the content approved**: the approval form takes a SHA-256 of the GPO
+  when it opens (`Get-PSGPOReviewStamp`): the attributes that make it apply (`versionNumber`,
+  `flags`, the client-side extensions, the WMI filter, `gPCFileSysPath`), read again from the
+  domain, and every file of its SYSVOL folder. `Approve-PSGPO` takes it before its confirmation.
+  The approval gives the SYSVOL folder to Tier 0 first, so that the creator cannot write it
+  anymore, then takes it again: if it differs, *the GPO changed since it was reviewed*, it is not
+  approved and stays pending, its folder given to Tier 0. The approver reviews it again.
+- **The groups proposed**: `APPLY_<GPO>` and `DENY_<GPO>` are proposed only when an approver or an
+  administrator of the domain owns them. Otherwise the form says who owns it, proposes nobody (not
+  Authenticated Users in its place) and does not create them; `Approve-PSGPO` refuses without
+  `-ApplyTo`.
+- **The roles**: the configuration refuses a group in both roles, and a group of every account
+  (by name); the workflow checks them again by SID once found in the domain, with the owner of the
+  approved GPOs, which must be an approver or an administrator of the domain. Wrong roles stop the
+  workflow: nobody approves, the accounts that are not administrators create no GPO.
+
+### Tested
+
+`PSGPOTools.Hardening.tests.ps1`, `PSGPOTools.Workflow.tests.ps1` and
+`PSGPOTools.Configuration.tests.ps1`:
+
+- a GPO that changed since it was reviewed is not approved, nothing written in the directory once
+  SYSVOL is given to Tier 0; the same content is approved;
+- the stamp changes with the version, the WMI filter, a file of the GPO;
+- a group an approver owns is proposed; a group a technician owns is not, and the form says why;
+- the workflow stops on: an account in both roles, Domain Users as creators, Authenticated Users as
+  approvers, the creators as owner of the approved GPOs; the configuration refuses a group in both
+  roles, and Domain Users as creators.
+
+On both labs, `tiers1` (creator) and the administrator (approver):
+
+| Step | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| `tiers1` creates a GPO, the administrator opens its approval (the stamp) | yes | yes |
+| `tiers1` changes it then (its Registry.pol) | allowed | allowed |
+| The administrator approves it with the stamp of its review | **refused**: *changed since it was reviewed*, still pending | **refused**: *changed since it was reviewed*, still pending |
+| A group `APPLY_<GPO>` owned by `tiers1` | not proposed, `Approve-PSGPO` refuses | not proposed, `Approve-PSGPO` refuses |
+| The group deleted, the GPO reviewed again and approved | approved, owned by Domain Admins | approved, owned by Domain Admins |
+| `GPO-Tier1-Admins` in both roles: `tiers1` | *the approval workflow is unknown*: no GPO created | *the approval workflow is unknown*: no GPO created |
+| The configuration restored | the same bytes | the same bytes |
+
 ## Other guards { #other-guards }
 
 `PSGPOTools.Hardening.tests.ps1` also tests:
@@ -171,9 +231,10 @@ pwsh -Command "& ./CI/Invoke-Tests.ps1 -Path CI/tests/PSGPOTools.Hardening.tests
 
 These were found by the same review, and are not fixed yet:
 
-- while an approver reviews a GPO, its creator can still change it: the approval approves what the
-  GPO holds then, which the approved backup records, and which may differ from what was reviewed;
-- an account in both `Workflow.Creators` and `Workflow.Approvers` is an approver: its GPOs do not
-  wait for an approval. Keep the groups apart;
+- while a GPO waits, its creator owns it, and can give "Apply Group Policy" back with another tool:
+  the console says so in red, and the approval removes it, but does not prevent it (an ACE for
+  OWNER RIGHTS would; the support of Samba is to check first);
+- the creators that keep editing an approved GPO (`EditSettings`) change it without a new approval:
+  the drift shows each change;
 - the owner of a file of the central audit log can rewrite it: the log of the system (SIEM) keeps a
   copy of each change.

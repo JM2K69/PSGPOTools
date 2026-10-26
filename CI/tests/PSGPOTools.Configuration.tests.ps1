@@ -56,6 +56,8 @@ InModuleScope -ModuleName HGPM {
         It 'Leaves out a configuration that <Case>, and says why' -ForEach @(
             @{ Case = 'needs a newer console'; Content = "@{ Console = @{ MinimumVersion = '99.0' } }"; Message = '*this console is HGPM *, the domain needs 99.0 at least (Console.MinimumVersion)*' }
             @{ Case = 'has a wrong minimum version'; Content = "@{ Console = @{ MinimumVersion = 'latest' } }"; Message = "*Console.MinimumVersion must be a version of HGPM (0.1.14), not 'latest'*" }
+            @{ Case = 'puts a group in both roles'; Content = "@{ Workflow = @{ Enabled = `$true; Approvers = 'Domain Admins, CORP\GPO-Tier1-Admins'; Creators = 'GPO-Tier1-Admins' } }"; Message = '*GPO-Tier1-Admins is in Workflow.Approvers and Workflow.Creators: keep the roles apart*' }
+            @{ Case = 'makes every account a creator'; Content = "@{ Workflow = @{ Enabled = `$true; Creators = 'Domain Users' } }"; Message = '*name groups of the domain, not Domain Users: a group of every account*' }
             @{ Case = 'has a table where a value is expected'; Content = "@{ NewGpo = @{ Status = @{ Value = 'Enabled' } } }"; Message = '*Status must be Enabled*' }
             @{ Case = 'has a wrong scope'; Content = "@{ NewGpo = @{ SecurityFilteringGroups = @{ Scope = 'Forest' } } }"; Message = "*Scope must be Global, DomainLocal or Universal, not 'Forest'*" }
             @{ Case = 'has a prefix a group name cannot hold'; Content = "@{ NewGpo = @{ SecurityFilteringGroups = @{ DenyPrefix = 'DENY:' } } }"; Message = '*DenyPrefix must not be empty, nor hold*' }

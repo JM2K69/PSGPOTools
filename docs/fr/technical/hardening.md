@@ -11,7 +11,9 @@ Directory](../getting-started/lab.md)).
 |---|---|
 | le `gPCFileSysPath` de sa GPO (il en est propriétaire pendant l'attente) | [n'utilise que le dossier de la GPO](#redirected-gpo), refuse une GPO redirigée |
 | les permissions de sa GPO, hors de la console | l'approbation [les reconstruit](../workflows/approval.md#4-lapprouver-tier-0) à partir de ce qu'une GPO approuvée peut avoir |
-| le contenu de sa GPO jusqu'à l'approbation | l'approbation [sauvegarde](../workflows/approval.md#4-lapprouver-tier-0) la version approuvée ; la dérive montre tout changement ensuite |
+| le contenu de sa GPO jusqu'à l'approbation | l'approbation [approuve ce qui a été examiné](#approval), ou rien ; elle sauvegarde la version approuvée, et la dérive montre tout changement ensuite |
+| les groupes qu'il peut créer (`APPLY_<sa GPO>`) | un groupe qu'aucun compte du Tier 0 n'a créé [n'est pas proposé](#approval) à l'approbation |
+| la configuration des rôles | [des rôles qui se chevauchent, ou un groupe de tous les comptes](#approval), arrêtent le circuit |
 | une sauvegarde sur un partage qu'il peut écrire | les [chemins des fichiers](#other-guards) d'une sauvegarde sont vérifiés |
 | une console plus ancienne, un contrôleur de domaine sans la configuration | la [configuration échoue en sécurité](#configuration-fails-closed) |
 
@@ -151,6 +153,68 @@ octet ; `tiers1`, un créateur, après chaque changement :
 | L'administrateur ouvre alors la console | la configuration pas créée, un avertissement | la configuration pas créée, un avertissement |
 | Restaurée | circuit connu, sa GPO créée en attente d'approbation | les mêmes octets, lus sans avertissement |
 
+## L'approbation { #approval }
+
+### La menace
+
+- **Ce qui est approuvé n'est pas ce qui a été examiné** : le créateur est propriétaire de sa GPO
+  en attente jusqu'à la fin de l'approbation, et pourrait changer ses paramètres, fichiers ou
+  attributs entre l'examen et le clic : le Tier 0 approuverait ce que personne n'a vu.
+- **Un groupe créé d'avance** : un technicien qui peut créer des groupes crée `APPLY_<sa GPO>`
+  avant l'approbation ; l'approbation le proposait, et ses membres (que le technicien choisit)
+  décideraient où la GPO approuvée s'applique.
+- **Des rôles qui se chevauchent** : un compte à la fois dans `Workflow.Creators` et
+  `Workflow.Approvers` est un approbateur, donc les GPO qu'il crée sont approuvées d'emblée ; un
+  groupe de tous les comptes (Domain Users, Authenticated Users) comme créateurs ou approbateurs ;
+  un propriétaire des GPO approuvées du Tier 1, qui pourrait alors changer les permissions de
+  toutes les GPO approuvées.
+
+### Ce que fait la console
+
+- **Le contenu examiné est le contenu approuvé** : le formulaire d'approbation prend un SHA-256 de
+  la GPO à son ouverture (`Get-PSGPOReviewStamp`) : les attributs qui la font appliquer
+  (`versionNumber`, `flags`, les extensions côté client, le filtre WMI, `gPCFileSysPath`), relus
+  dans le domaine, et chaque fichier de son dossier SYSVOL. `Approve-PSGPO` le prend avant sa
+  confirmation. L'approbation donne d'abord le dossier SYSVOL au Tier 0, pour que le créateur ne
+  puisse plus l'écrire, puis le reprend : s'il diffère, *la GPO a changé depuis son examen*, elle
+  n'est pas approuvée et reste en attente, son dossier donné au Tier 0. L'approbateur l'examine
+  à nouveau.
+- **Les groupes proposés** : `APPLY_<GPO>` et `DENY_<GPO>` ne sont proposés que si un approbateur
+  ou un administrateur du domaine en est propriétaire. Sinon le formulaire dit à qui il
+  appartient, ne propose personne (pas Authenticated Users à sa place) et ne les crée pas ;
+  `Approve-PSGPO` refuse sans `-ApplyTo`.
+- **Les rôles** : la configuration refuse un groupe dans les deux rôles, et un groupe de tous les
+  comptes (par son nom) ; le circuit les vérifie à nouveau par SID une fois trouvés dans le
+  domaine, avec le propriétaire des GPO approuvées, qui doit être un approbateur ou un
+  administrateur du domaine. Des rôles faux arrêtent le circuit : personne n'approuve, les comptes
+  qui ne sont pas administrateurs ne créent aucune GPO.
+
+### Testé
+
+`PSGPOTools.Hardening.tests.ps1`, `PSGPOTools.Workflow.tests.ps1` et
+`PSGPOTools.Configuration.tests.ps1` :
+
+- une GPO modifiée depuis son examen n'est pas approuvée, rien n'est écrit dans l'annuaire une fois
+  SYSVOL donné au Tier 0 ; le même contenu est approuvé ;
+- l'empreinte change avec la version, le filtre WMI, un fichier de la GPO ;
+- un groupe dont un approbateur est propriétaire est proposé ; un groupe d'un technicien ne l'est
+  pas, et le formulaire dit pourquoi ;
+- le circuit s'arrête sur : un compte dans les deux rôles, Domain Users comme créateurs,
+  Authenticated Users comme approbateurs, les créateurs comme propriétaire des GPO approuvées ; la
+  configuration refuse un groupe dans les deux rôles, et Domain Users comme créateurs.
+
+Sur les deux labs, `tiers1` (créateur) et l'administrateur (approbateur) :
+
+| Étape | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| `tiers1` crée une GPO, l'administrateur ouvre son approbation (l'empreinte) | oui | oui |
+| `tiers1` la modifie ensuite (son Registry.pol) | permis | permis |
+| L'administrateur l'approuve avec l'empreinte de son examen | **refusé** : *a changé depuis son examen*, toujours en attente | **refusé** : *a changé depuis son examen*, toujours en attente |
+| Un groupe `APPLY_<GPO>` dont `tiers1` est propriétaire | pas proposé, `Approve-PSGPO` refuse | pas proposé, `Approve-PSGPO` refuse |
+| Le groupe supprimé, la GPO examinée à nouveau et approuvée | approuvée, propriété de Domain Admins | approuvée, propriété de Domain Admins |
+| `GPO-Tier1-Admins` dans les deux rôles : `tiers1` | *le circuit d'approbation est inconnu* : aucune GPO créée | *le circuit d'approbation est inconnu* : aucune GPO créée |
+| La configuration restaurée | les mêmes octets | les mêmes octets |
+
 ## Autres protections { #other-guards }
 
 `PSGPOTools.Hardening.tests.ps1` teste aussi :
@@ -176,10 +240,10 @@ pwsh -Command "& ./CI/Invoke-Tests.ps1 -Path CI/tests/PSGPOTools.Hardening.tests
 
 La même revue les a trouvées, elles ne sont pas encore corrigées :
 
-- pendant qu'un approbateur examine une GPO, son créateur peut encore la modifier : l'approbation
-  approuve ce que la GPO contient à ce moment, que la sauvegarde approuvée enregistre, et qui peut
-  différer de ce qui a été examiné ;
-- un compte à la fois dans `Workflow.Creators` et `Workflow.Approvers` est un approbateur : ses
-  GPO n'attendent pas d'approbation. Gardez les groupes séparés ;
+- pendant l'attente, le créateur est propriétaire de sa GPO, et peut rendre « Apply Group Policy »
+  avec un autre outil : la console le dit en rouge, et l'approbation le retire, mais ne l'empêche
+  pas (une ACE pour OWNER RIGHTS le ferait ; le support de Samba est à vérifier d'abord) ;
+- les créateurs qui gardent la modification d'une GPO approuvée (`EditSettings`) la changent sans
+  nouvelle approbation : la dérive montre chaque changement ;
 - le propriétaire d'un fichier du journal d'audit central peut le réécrire : le journal du système
   (SIEM) garde une copie de chaque modification.

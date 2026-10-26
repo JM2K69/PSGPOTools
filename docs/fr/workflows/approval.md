@@ -158,7 +158,13 @@ Approve-PSGPO -Server dc.hardenbox.labo -Name 'T1 - Servers - Proxy' -ApplyTo 'G
 ```
 
 Sans `-ApplyTo` ni `-CreateFilteringGroups`, `Approve-PSGPO` utilise les groupes `APPLY_<GPO>` et
-`DENY_<GPO>` s'ils existent, sinon Authenticated Users.
+`DENY_<GPO>` s'ils existent et qu'un approbateur ou un administrateur du domaine en est
+propriétaire, sinon Authenticated Users ; un groupe de ce nom qui appartient à quelqu'un d'autre
+l'arrête ([durcissement](../technical/hardening.md#approval)).
+
+L'approbation approuve la GPO telle qu'elle était à l'ouverture du formulaire (ou avant la
+confirmation d'`Approve-PSGPO`) : si son créateur l'a modifiée depuis, elle n'est pas approuvée, et
+reste en attente jusqu'à un nouvel examen.
 
 L'approbation :
 
