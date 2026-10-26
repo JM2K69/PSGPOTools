@@ -140,8 +140,48 @@ the script stops before changing anything, and says what it read.
 
 ### 3. The console as a technician
 
-Log on as `tiers1` (Linux: `kinit tiers1`), then `Show-GPOManagerAvalonia`: the console shows
-the OUs of Tier 1, and the GPOs `tiers1` creates wait for an approval.
+Log on as `tiers1` or `tiers2` (Linux: `kinit tiers1`; Windows: a session of the account, or
+`runas /user:POWERSHELL\Tiers1`), then `Show-GPOManagerAvalonia`: the console shows the whole
+domain, greyed but the OUs of its tier, and the GPOs it creates wait for an approval. Settings is
+greyed, the History tab and the deleted GPOs are not there (the backups are for Tier 0), and the
+audit log shows the changes of its tier only: empty for an account that changed nothing yet.
+
+=== "hardenbox.labo (Samba AD)"
+
+    **Tier 1** (`tiers1`)
+
+    ![The console of tiers1](../assets/screenshots/14-tier1-view.png)
+
+    ![A GPO of tiers1: it waits for its approval](../assets/screenshots/15-tier1-new-gpo.png)
+
+    ![The audit log of tiers1: its tier only](../assets/screenshots/68-tier1-audit-log.png)
+
+    **Tier 2** (`tiers2`)
+
+    ![The console of tiers2](../assets/screenshots/69-tier2-view.png)
+
+    ![A GPO of tiers2: it waits for its approval](../assets/screenshots/70-tier2-new-gpo.png)
+
+    ![The audit log of tiers2: its tier only](../assets/screenshots/71-tier2-audit-log.png)
+
+=== "powershell.labo (Active Directory)"
+
+    **Tier 1** (`Tiers1`)
+
+    ![The console of Tiers1](../assets/screenshots/72-tier1-view-active-directory.png)
+
+    ![A GPO of Tiers1: it waits for its approval](../assets/screenshots/73-tier1-new-gpo-active-directory.png)
+
+    ![The audit log of Tiers1: its tier only](../assets/screenshots/74-tier1-audit-log-active-directory.png)
+
+    **Tier 2** (`Tiers2`)
+
+    ![The console of Tiers2](../assets/screenshots/75-tier2-view-active-directory.png)
+
+    ![A GPO of Tiers2: it waits for its approval](../assets/screenshots/76-tier2-new-gpo-active-directory.png)
+
+    ![The audit log of Tiers2: its tier only](../assets/screenshots/77-tier2-audit-log-active-directory.png)
+
 
 The integration tests of the module run against such a domain controller, these scripts included
 (on the domain of the CI): see [Tests](../technical/tests.md).

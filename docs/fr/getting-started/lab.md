@@ -142,8 +142,49 @@ le script s'arrête avant de rien changer, et dit ce qu'il a lu.
 
 ### 3. La console en technicien
 
-Connectez-vous en `tiers1` (Linux : `kinit tiers1`), puis `Show-GPOManagerAvalonia` : la console
-montre les OU de Tier 1, et les GPO que `tiers1` crée attendent une approbation.
+Connectez-vous en `tiers1` ou `tiers2` (Linux : `kinit tiers1` ; Windows : une session du compte, ou
+`runas /user:POWERSHELL\Tiers1`), puis `Show-GPOManagerAvalonia` : la console montre tout le
+domaine, grisé sauf les OU de son tier, et les GPO qu'il crée attendent une approbation.
+Paramètres est grisé, l'onglet Historique et les GPO supprimées n'y sont pas (les sauvegardes sont
+pour le Tier 0), et le journal d'audit ne montre que les modifications de son tier : vide pour un
+compte qui n'a encore rien modifié.
+
+=== "hardenbox.labo (Samba AD)"
+
+    **Tier 1** (`tiers1`)
+
+    ![La console de tiers1](../assets/screenshots/14-tier1-view.fr.png)
+
+    ![Une GPO de tiers1 : elle attend son approbation](../assets/screenshots/15-tier1-new-gpo.fr.png)
+
+    ![Le journal d'audit de tiers1 : son tier seulement](../assets/screenshots/68-tier1-audit-log.fr.png)
+
+    **Tier 2** (`tiers2`)
+
+    ![La console de tiers2](../assets/screenshots/69-tier2-view.fr.png)
+
+    ![Une GPO de tiers2 : elle attend son approbation](../assets/screenshots/70-tier2-new-gpo.fr.png)
+
+    ![Le journal d'audit de tiers2 : son tier seulement](../assets/screenshots/71-tier2-audit-log.fr.png)
+
+=== "powershell.labo (Active Directory)"
+
+    **Tier 1** (`Tiers1`)
+
+    ![La console de Tiers1](../assets/screenshots/72-tier1-view-active-directory.fr.png)
+
+    ![Une GPO de Tiers1 : elle attend son approbation](../assets/screenshots/73-tier1-new-gpo-active-directory.fr.png)
+
+    ![Le journal d'audit de Tiers1 : son tier seulement](../assets/screenshots/74-tier1-audit-log-active-directory.fr.png)
+
+    **Tier 2** (`Tiers2`)
+
+    ![La console de Tiers2](../assets/screenshots/75-tier2-view-active-directory.fr.png)
+
+    ![Une GPO de Tiers2 : elle attend son approbation](../assets/screenshots/76-tier2-new-gpo-active-directory.fr.png)
+
+    ![Le journal d'audit de Tiers2 : son tier seulement](../assets/screenshots/77-tier2-audit-log-active-directory.fr.png)
+
 
 Les tests d'intégration du module tournent sur un tel contrôleur de domaine, ces scripts compris
 (sur le domaine de la CI) : voir [Tests](../technical/tests.md).
