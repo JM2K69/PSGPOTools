@@ -17,6 +17,7 @@ InModuleScope -ModuleName HGPM {
             $Ou = $Directory.AddOrganizationalUnit($Directory.Domain, 'Servers')
             $Gpo = $Directory.AddGpo('C - Servers - Baseline', [guid]::Empty)
         }
+        AfterEach { Remove-Item -LiteralPath (Get-PSGPOAuditSpoolPath) -Force -ErrorAction SilentlyContinue }
 
         It 'Writes a change once the domain accepted it: when, who, from where, what, on what' {
             Mock Set-PSGPODomainBlockInheritance { $true }
@@ -50,8 +51,88 @@ InModuleScope -ModuleName HGPM {
             # A file where the folder should be.
             Set-Content -LiteralPath $script:Log -Value 'not a folder'
             $Warnings = @($Directory.SetBlockInheritance($Ou, $true) 3>&1)
-            "$Warnings" | Should -BeLike '*is done, but not written to the audit log*'
+            "$Warnings" | Should -BeLike '*is done, but not written to the audit log yet*1 change(s) wait in*audit-waiting.jsonl, written with the next change.'
             $Ou.BlockInheritance | Should -BeTrue
+            @(Read-PSGPOAuditSpool).Count | Should -Be 1 -Because 'it waits in the local file'
+
+            # The folder back: the change that waited is written before the next one, in their order.
+            Remove-Item -LiteralPath $script:Log -Force
+            $Warnings = @($Directory.SetBlockInheritance($Ou, $false) 3>&1)
+            $Warnings | Should -BeNullOrEmpty
+            @(Read-PSGPOAuditSpool) | Should -BeNullOrEmpty
+            @((Get-PSGPOAuditLog | Sort-Object Time).Details.Blocked) | Should -Be @($true, $false)
+        }
+
+        It 'Writes a change to the log of the system first, even when the audit log cannot be written' {
+            Mock Set-PSGPODomainBlockInheritance { $true }
+            Mock Write-PSGPOAuditSystemLog { }
+            Set-Content -LiteralPath $script:Log -Value 'not a folder'
+            $null = @($Directory.SetBlockInheritance($Ou, $true) 3>&1)
+            Should -Invoke Write-PSGPOAuditSystemLog -Times 1 -Exactly
+        }
+
+        It 'Chains each line to the previous one of its file, and finds a line changed in the middle' {
+            Mock Set-PSGPODomainBlockInheritance { $true }
+            foreach ($Blocked in $true, $false, $true) { $Directory.SetBlockInheritance($Ou, $Blocked) }
+            $File = (Get-ChildItem -LiteralPath $script:Log -File)[0].FullName
+            $Lines = [System.IO.File]::ReadAllLines($File)
+            $Lines[0] | Should -BeLike '{"Seq":1,"PrevHash":"",*'
+            $Lines[1] | Should -BeLike ('{"Seq":2,"PrevHash":"' + (Get-PSGPOAuditLineHash -Line $Lines[0]) + '",*')
+            @((Get-PSGPOAuditLog).Check | Sort-Object -Unique) | Should -Be @('Verified')
+
+            # The second line changed with another tool: the line after it says so.
+            [System.IO.File]::WriteAllLines($File, [string[]]@($Lines[0], ($Lines[1] -replace '"Blocked":false', '"Blocked":true'), $Lines[2]))
+            $Read = @(Get-PSGPOAuditLog | Sort-Object Time)
+            @($Read.Check) | Should -Be @('Verified', 'Verified', 'Altered')
+            # A line removed: the same.
+            [System.IO.File]::WriteAllLines($File, [string[]]@($Lines[0], $Lines[2]))
+            @((Get-PSGPOAuditLog | Sort-Object Time).Check) | Should -Be @('Verified', 'Altered')
+        }
+
+        It 'Checks the tier of an entry with the folder of its file, and its account with the owner of its file' {
+            $Folder = Join-Path $script:Log 'Tier1'
+            $null = New-Item -ItemType Directory -Path $Folder -Force
+            $Make = {
+                param([string]$Tier, [string]$Sid, [string]$ImportedBySid)
+                $Entry = [ordered]@{ Format = 'PSGPOTools.Audit/1'; Time = [datetime]::UtcNow.ToString('o'); Domain = 'contoso.com'; Account = 'CONTOSO\tiers1'; AccountSid = $Sid; Action = 'SetLink'; Target = 'OU=Servers'; Tier = $Tier; Details = @{} }
+                if ($ImportedBySid) { $Entry.ImportedBy = 'CONTOSO\admin1'; $Entry.ImportedBySid = $ImportedBySid }
+                Add-PSGPOAuditChain -Line (ConvertTo-Json -InputObject $Entry -Compress) -Previous $null
+            }
+            $Cases = [ordered]@{
+                'right.jsonl' = (& $Make 'Tier1' 'S-1-5-21-1-2-3-1105' $null)
+                'tier.jsonl' = (& $Make 'Tier0' 'S-1-5-21-1-2-3-1105' $null)
+                'owner.jsonl' = (& $Make 'Tier1' 'S-1-5-21-1-2-3-1106' $null)
+                'imported.jsonl' = (& $Make 'Tier1' 'S-1-5-21-1-2-3-1106' 'S-1-5-21-1-2-3-1105')
+                'old.jsonl' = '{"Format":"PSGPOTools.Audit/1","Time":"2026-10-01T10:00:00.0000000Z","Domain":"contoso.com","Account":"CONTOSO\\tiers1","Action":"SetLink","Target":"OU=Servers","Tier":"Tier1","Details":{}}'
+            }
+            $Owners = @{}
+            $Files = foreach ($Name in $Cases.Keys) {
+                $Path = Join-Path $Folder $Name
+                [System.IO.File]::WriteAllText($Path, $Cases[$Name] + "`n")
+                $Owners[$Path] = 'S-1-5-21-1-2-3-1105'
+                [System.IO.FileInfo]::new($Path)
+            }
+            $Read = @(Read-PSGPOAuditFile -File $Files -Owner $Owners)
+            $Check = @{}
+            foreach ($Entry in $Read) { $Check[$Entry.File] = $Entry.Check }
+            $Check['right.jsonl'] | Should -Be 'Verified'
+            $Check['tier.jsonl'] | Should -Be 'TierMismatch' -Because 'a line of Tier 0 in the folder of Tier 1'
+            $Check['owner.jsonl'] | Should -Be 'OwnerMismatch' -Because 'another account owns its file'
+            $Check['imported.jsonl'] | Should -Be 'Verified' -Because 'the account that imported it owns the file'
+            $Check['old.jsonl'] | Should -Be 'NotChained'
+
+            # A file an administrator made belongs to Administrators: right for a line of Tier 0 only.
+            $Admins = Join-Path $script:Log 'Tier0'
+            $null = New-Item -ItemType Directory -Path $Admins -Force
+            $Tier0 = Join-Path $Admins 'admin.jsonl'
+            [System.IO.File]::WriteAllText($Tier0, (& $Make 'Tier0' 'S-1-5-21-1-2-3-500' $null) + "`n")
+            $Tier1 = Join-Path $Folder 'not-admin.jsonl'
+            [System.IO.File]::WriteAllText($Tier1, (& $Make 'Tier1' 'S-1-5-21-1-2-3-1105' $null) + "`n")
+            $Read = @(Read-PSGPOAuditFile -File ([System.IO.FileInfo]::new($Tier0)), ([System.IO.FileInfo]::new($Tier1)) -Owner @{ $Tier0 = 'S-1-5-32-544'; $Tier1 = 'S-1-5-32-544' })
+            ($Read | Where-Object File -EQ 'admin.jsonl').Check | Should -Be 'Verified'
+            ($Read | Where-Object File -EQ 'not-admin.jsonl').Check | Should -Be 'OwnerMismatch'
+            Get-PSGPOAuditCheckText -Check 'Altered' | Should -Be 'Altered'
+            Get-PSGPOAuditCheckText -Check 'Altered' -Reason | Should -BeLike 'A line before it in its file was changed or removed*'
         }
 
         It 'Filters on the GPO, the action, the account and the dates, and skips a damaged line' {
@@ -189,25 +270,31 @@ InModuleScope -ModuleName HGPM {
             @(Get-PSGPOAuditLog -Domain 'contoso.com').Count | Should -Be 2
         }
 
-        It 'Writes a share with smbclient on Linux: the file of the account read, the line added, the folder of its tier made' {
-            $script:Commands = [System.Collections.Generic.List[string]]::new()
-            Mock Invoke-PSGPOSmbClient {
-                $script:Commands.Add("$Server/$Share $Command")
-                if ($Command -like 'get *') {
-                    $Local = [regex]::Match($Command, 'get "[^"]+" "([^"]+)"').Groups[1].Value
-                    [System.IO.File]::WriteAllText($Local, "{`"first`":1}`n")
-                    , @('getting file')
-                } elseif ($Command -like 'put *') {
-                    $Local = [regex]::Match($Command, 'put "([^"]+)"').Groups[1].Value
-                    $script:Written = [System.IO.File]::ReadAllText($Local)
-                    , @('putting file')
-                } else { , @() }
+        It 'Appends to a share on Linux with the Python bindings of Samba, to a file of a new name when its file is not the account''s' -Skip:$IsWindows {
+            $script:Calls = [System.Collections.Generic.List[object]]::new()
+            Mock Get-Command { [pscustomobject]@{ Source = '/usr/bin/python3' } } -ParameterFilter { $Name -eq 'python3' }
+            Mock Invoke-PSGPONativeCommand {
+                $script:Calls.Add(@($ArgumentList))
+                # The first file: made by someone else.
+                [pscustomobject]@{ ExitCode = $(if ($script:Calls.Count -eq 1) { 3 } else { 0 }); Output = ''; Error = '' }
             }
-            Add-PSGPOAuditShareLine -Share (Get-PSGPOAuditShare -Path '\\files\gpo-audit\logs') -Name 'Tier1\contoso.com-2026-10-CONTOSO_tiers1-PC1.jsonl' -Bytes ([System.Text.Encoding]::UTF8.GetBytes("{`"second`":2}`n"))
-            $script:Commands[0] | Should -BeLike 'files/gpo-audit get "logs\Tier1\contoso.com-2026-10-CONTOSO_tiers1-PC1.jsonl" *'
-            @($script:Commands | Where-Object { $_ -like '*mkdir*' }) | Should -Be @('files/gpo-audit mkdir "logs"', 'files/gpo-audit mkdir "logs\Tier1"')
-            $script:Commands[-1] | Should -BeLike 'files/gpo-audit put * "logs\Tier1\contoso.com-2026-10-CONTOSO_tiers1-PC1.jsonl"'
-            $script:Written | Should -Be "{`"first`":1}`n{`"second`":2}`n" -Because 'the lines already there are kept'
+            $Share = Get-PSGPOAuditShare -Path '\\files\gpo-audit\logs'
+            $Warnings = @(Add-PSGPOAuditLine -Folder '\\files\gpo-audit\logs' -Name 'Tier1\contoso.com-2026-10-CONTOSO_tiers1-PC1.jsonl' -Line '{"Format":"x"}', '{"Format":"y"}' 3>&1)
+            $script:Calls.Count | Should -Be 2
+            $First = $script:Calls[0]
+            $First[0] | Should -Be '-c'
+            $First[1] | Should -BeLike '*conn.create_ex(path, DesiredAccess=0x1 | 0x4 | 0x80 | 0x20000 | 0x100000*' -Because 'open to append, not to write'
+            @($First[2..4]) | Should -Be @('files', 'gpo-audit', 'logs\Tier1\contoso.com-2026-10-CONTOSO_tiers1-PC1.jsonl')
+            [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($First[6])) | Should -Be '{"Format":"y"}' -Because 'every line in one call'
+            $script:Calls[1][4] | Should -Match '^logs\\Tier1\\contoso\.com-2026-10-CONTOSO_tiers1-PC1-[0-9a-f]{8}\.jsonl$'
+            "$Warnings" | Should -BeLike '*is not the account''s (someone else made it)*'
+        }
+
+        It 'Appends to a file of the same name someone else made, a file of a new name next to it (Windows)' -Skip:(-not $IsWindows) {
+            Mock Add-PSGPOAuditFileLine { if ($File -notmatch '-[0-9a-f]{8}\.jsonl$') { throw [System.UnauthorizedAccessException]::new('denied') }; $script:Target = $File }
+            $Warnings = @(Add-PSGPOAuditLine -Folder $script:Log -Name 'Tier1\contoso.com-2026-10-CONTOSO_tiers1-PC1.jsonl' -Line '{"Format":"x"}' 3>&1)
+            $script:Target | Should -Match 'contoso\.com-2026-10-CONTOSO_tiers1-PC1-[0-9a-f]{8}\.jsonl$'
+            "$Warnings" | Should -BeLike '*is not the account''s*'
         }
     }
 
@@ -262,8 +349,8 @@ InModuleScope -ModuleName HGPM {
             $Tier1 = $Folders | Where-Object Folder -EQ 'Tier1'
             $Tier1.Sddl | Should -BeLike '*(A;;0x1200ab;;;S-1-5-21-1-2-3-2001)(A;OIIO;0x1200a9;;;S-1-5-21-1-2-3-2001)*' -Because 'Tier 1 creates its files and reads those of its tier'
             $Tier1.Sddl | Should -Not -BeLike '*S-1-5-21-1-2-3-2002*' -Because 'Tier 2 has nothing in the folder of Tier 1'
-            $Tier1.Sddl | Should -BeLike '*(A;OIIO;0x12019f;;;CO)(A;OIIO;0x12019f;;;S-1-3-4)' -Because 'the owner writes its file, without deleting it nor changing its permissions'
-            ($Folders | Where-Object Folder -EQ 'Unassigned').Sddl | Should -BeLike '*(A;;0x1200ab;;;AU)*'
+            $Tier1.Sddl | Should -BeLike '*(A;OIIO;0x12019d;;;CO)(A;OIIO;0x12019d;;;S-1-3-4)' -Because 'the owner appends to its file, without writing over it, deleting it nor changing its permissions'
+            ($Folders | Where-Object Folder -EQ 'Unassigned').Sddl | Should -BeLike '*(A;;0x1200ab;;;S-1-5-21-1-2-3-513)*' -Because 'the users of the domain, not the computers'
             $Root = ($Folders | Where-Object Folder -EQ '').Sddl
             $Root | Should -BeLike '*(A;;0x1200a9;;;S-1-5-21-1-2-3-2001)(A;;0x1200a9;;;S-1-5-21-1-2-3-2002)*' -Because 'the groups of the tiers list the share'
             $Root | Should -BeLike '*(A;;0x1000a0;;;AU)' -Because 'any other account only goes through it, to Unassigned'

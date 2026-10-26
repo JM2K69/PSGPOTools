@@ -202,6 +202,9 @@ class GPOToolsDirectory {
     # The tier of the account in the central audit log (Audit.Path, Audit.Tiers) and backups
     # (Backup.Path, Tier 0 only): Tier0, Tier1, Tier2 or Unassigned; empty without them
     [string]$AuditTier = ''
+    # The SID of the account, read with its tier: written in its entries of the audit log, which
+    # the reader compares with the owner of their file
+    [string]$AccountSid = ''
     # WMI filters of the domain
     [System.Collections.Generic.List[GPOToolsWmiFilter]]$WmiFilters
     # Approval workflow of the domain (Update-PSGPODomainWorkflow): Enabled, IsApprover,

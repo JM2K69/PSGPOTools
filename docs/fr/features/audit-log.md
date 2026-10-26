@@ -31,6 +31,7 @@ Show-AuditLogAvalonia -Server dc.hardenbox.labo -Language fr-FR
 | **Action** | quoi, par son nom : *GPO créée*, *Lien modifié*, *Paramètres d'une GPO enregistrés*, *GPO approuvée*... |
 | **GPO ou objet** | la GPO, sinon l'UO, le domaine ou la configuration |
 | **Tier** | le dossier du journal central où elle est : Tier 0, 1, 2, Sans tier |
+| **Vérification** | si la modification est celle que son compte a écrite : *Vérifiée*, *Altérée*, *Tier différent*, *Propriétaire différent*, *Non chaînée* ([plus bas](#un-journal-fiable)) |
 | **Ordinateur**, **Domaine** | d'où, sur quel domaine |
 
 - **La période** : les dernières 24 heures, 7 jours, 30 jours (au départ) ou tout.
@@ -75,12 +76,13 @@ Le partage a un dossier par tier, et les droits des rôles :
 | `Tier0` | les approbateurs du workflow (`Workflow.Approvers`), Admins du domaine | le Tier 0, les lecteurs |
 | `Tier1` | les groupes de `Audit.Tiers.Tier1` | le Tier 1, le Tier 0, les lecteurs |
 | `Tier2` | les groupes de `Audit.Tiers.Tier2` | le Tier 2, le Tier 0, les lecteurs |
-| `Unassigned` | un compte sans tier | le Tier 0, les lecteurs |
+| `Unassigned` | un utilisateur du domaine sans tier (Domain Users, pas les ordinateurs) | le Tier 0, les lecteurs |
 | le partage lui-même | personne | listé par les groupes des tiers et les lecteurs ; tout autre compte ne fait que le traverser, vers `Unassigned` |
 
 - Chaque compte ajoute ses modifications à **son propre fichier** :
   `<tier>\<domaine>-<aaaa-MM>-<compte>-<ordinateur>.jsonl`. Deux consoles n'écrivent jamais le même
-  fichier ; personne d'autre que les administrateurs ne supprime un fichier ni ne change ses droits.
+  fichier. Son propriétaire **ne fait qu'y ajouter** : il ne l'écrase pas, ne le supprime pas et ne
+  change pas ses droits ; personne d'autre que les administrateurs ne le fait.
 - **Le Tier 0 lit tous les tiers**, un compte du Tier 1 ou du Tier 2 les modifications de son tier
   seulement, les lecteurs (`Audit.Readers`, les auditeurs) tout, sans écrire. La fenêtre montre ce
   que le compte peut lire, et le tier de chaque modification.
@@ -159,6 +161,40 @@ Import-PSGPOAuditLog -Path "$HOME/PSGPOTools Backups/Audit" -Remove
 Chaque modification va dans le fichier de son compte, de son ordinateur et de son mois, dans le
 dossier du tier de son compte ; une modification déjà présente n'est pas écrite deux fois, et
 `-Remove` supprime les fichiers lus.
+
+## Un journal fiable { #un-journal-fiable }
+
+Le journal est une preuve : un technicien ne doit ni changer ce qu'il a fait, ni écrire au nom d'un
+autre.
+
+- **Ajout seul** : le propriétaire d'un fichier a `FILE_APPEND_DATA`, pas `FILE_WRITE_DATA`
+  (`0x12019d`). Windows ajoute à la fin du fichier quoi que demande l'écrivain ; Samba refuse de
+  l'ouvrir pour écrire (`smbclient put`, `del` : *accès refusé*), mais laisse un handle ouvert en
+  ajout écrire n'importe où. Sous Linux, la console ajoute avec les bindings Python de Samba, plus
+  avec `smbclient get` et `put` (le propriétaire ne peut pas écrire le fichier, et chaque ligne
+  copiait tout le fichier).
+- **Des lignes chaînées** : chaque ligne commence par `Seq` (1, 2...) et `PrevHash`, le SHA-256 de
+  la ligne précédente de son fichier. Une ligne modifiée ou retirée au milieu rompt la chaîne : la
+  ligne suivante est *Altérée*.
+- **Vérifié à la lecture** : la colonne **Vérification** dit *Vérifiée* quand la ligne suit la
+  précédente, que son tier est le dossier de son fichier (*Tier différent* sinon : une ligne du
+  Tier 0 écrite dans le dossier du Tier 1), et que son fichier appartient à son compte
+  (`AccountSid`, *Propriétaire différent* sinon), ou au compte qui l'a importée (`ImportedBy`). Les
+  lignes écrites avant 0.1.15 sont *Non chaînées*.
+- **Rien de perdu** : la modification part d'abord au [journal du système](#le-journal-du-systeme-pour-un-siem),
+  puis au partage. Un partage injoignable garde la modification dans `audit-waiting.jsonl`, dans le
+  dossier du [journal technique](#le-journal-technique), écrite avec la modification suivante (un
+  avertissement dit combien attendent).
+- **Un fichier de son nom créé par quelqu'un d'autre** (un technicien du même tier peut créer un
+  fichier dans son dossier) : la modification part dans un fichier d'un nouveau nom à côté, et un
+  avertissement le dit.
+- `Initialize-PSGPOAuditShare` passe aussi en ajout seul les fichiers déjà sur le partage (Samba ne
+  transmet pas les droits d'un dossier à ses fichiers ; Windows si).
+
+La chaîne montre une ligne modifiée, pas un fichier entier réécrit avec une nouvelle chaîne : la
+limite de Samba ci-dessus demande un outil délibéré. Le journal du système, envoyé à un SIEM, garde
+une copie de chaque modification hors de portée des techniciens. Le
+[durcissement](../technical/hardening.md#audit-log) dit ce qui a été testé.
 
 ## Rétention et archives
 

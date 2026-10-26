@@ -3178,7 +3178,7 @@ InModuleScope -ModuleName HGPM {
                 $Ui.auditDetailsBorder.IsVisible | Should -BeTrue
                 $Ui.auditDetailsTitleTextBlock.Text | Should -Be 'Settings of a GPO saved - C - Servers - Baseline'
                 $Ui.auditDetailsWhoTextBlock.Text | Should -BeLike '* by CONTOSO\tiers1 from ADMIN-PC, on dc1.contoso.com (contoso.com)'
-                $Ui.auditDetailsTargetTextBlock.Text | Should -BeLike 'GPO: C - Servers - Baseline {11111111-2222-3333-4444-555555555555}*Action: SaveGpoFile'
+                $Ui.auditDetailsTargetTextBlock.Text | Should -BeLike 'GPO: C - Servers - Baseline {11111111-2222-3333-4444-555555555555}*Action: SaveGpoFile*Check: Not chained. Written before HGPM 0.1.15*'
                 $Ui.auditDetailsTextBlock.Text | Should -Be "Path: Machine\Registry.pol$([Environment]::NewLine)Version: 4"
 
                 $Csv = Join-Path $TestDrive 'shown.csv'

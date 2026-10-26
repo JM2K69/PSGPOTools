@@ -118,6 +118,7 @@ function Start-PSGPOAuditLogWindow {
                 $row.Computer = $entry.Computer
                 $row.Domain = $entry.Domain
                 $row.Tier = Get-PSGPOAuditTierText -Tier "$($entry.Tier)"
+                $row.Check = Get-PSGPOAuditCheckText -Check "$($entry.Check)"
                 $row.Entry = $entry
                 $row.SearchText = (@($entry.Account, $entry.Computer, $entry.Server, $entry.Action, $row.Action, $entry.Target, $entry.GpoName, "$($entry.GpoId)", (Format-PSGPOAuditDetail -Details $entry.Details)) -join ' ').ToLowerInvariant()
                 $row
@@ -180,6 +181,8 @@ function Start-PSGPOAuditLogWindow {
             if ($entry.GpoName) { Get-PSGPOText 'GPO: {0} {1}' $entry.GpoName $(if ($entry.GpoId) { "{$($entry.GpoId.ToString().ToUpperInvariant())}" }) }
             if ($entry.Target) { Get-PSGPOText 'Target: {0}' $entry.Target }
             Get-PSGPOText 'Action: {0}' $entry.Action
+            if ($entry.Check) { Get-PSGPOText 'Check: {0}. {1}' $row.Check (Get-PSGPOAuditCheckText -Check $entry.Check -Reason) }
+            if ($entry.ImportedBy) { Get-PSGPOText 'Imported by {0}, from {1}' $entry.ImportedBy $entry.ImportedFrom }
         )
         $ui.auditDetailsTargetTextBlock.Text = $target -join [Environment]::NewLine
         $ui.auditDetailsTextBlock.Text = Format-PSGPOAuditDetail -Details $entry.Details

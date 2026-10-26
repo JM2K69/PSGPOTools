@@ -4,6 +4,11 @@
 
 ### Security
 
+* The central audit log is append-only: the owner of a file appends to it (`FILE_APPEND_DATA`, `0x12019d`), without writing over it; `Initialize-PSGPOAuditShare` makes the files already there append-only too. Each line is chained to the previous one of its file (`Seq`, `PrevHash`, SHA-256), and the Audit Log tool checks each entry (a new **Check** column, in the CSV too): *Verified*, *Altered* (a line before it changed or removed), *Tier differs* (its tier is not the folder of its file), *Owner differs* (its file belongs to another account), *Not chained* (written before)
+* A change of the audit log goes to the log of the system first, then to the share; a share that cannot be reached keeps it in `audit-waiting.jsonl` (the folder of the technical log), written with the next change. A file of its name someone else made: the change goes to a file of a new name
+* `Unassigned` of the audit share is for Domain Users, not every account of the domain (computers included); the lines `Import-PSGPOAuditLog` copies say who imported them (`ImportedBy`)
+* On Linux the audit log is appended with the Python bindings of Samba, the file opened to append, not copied and written back with `smbclient` for each line
+
 * The approval approves what the approver reviewed, or nothing: a SHA-256 of the GPO (the attributes that make it apply and every file of its SYSVOL folder) is taken when the approval form opens, or before the confirmation of `Approve-PSGPO`, and again once the creator cannot write the folder anymore; if the GPO changed, it is not approved and stays pending
 * A group `APPLY_<GPO>` or `DENY_<GPO>` that neither an approver nor an administrator of the domain owns is not proposed at the approval (a technician could make it before the approval to choose where the GPO applies), nor Authenticated Users in its place; `Approve-PSGPO` refuses without `-ApplyTo`
 * The roles of the workflow are checked: a group in both `Workflow.Creators` and `Workflow.Approvers`, a group of every account (Domain Users, Authenticated Users...), an owner of the approved GPOs that is neither an approver nor an administrator of the domain stop the workflow (nobody approves, the accounts that are not administrators create no GPO)

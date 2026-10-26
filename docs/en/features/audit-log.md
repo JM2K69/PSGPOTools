@@ -30,6 +30,7 @@ Show-AuditLogAvalonia -Server dc.hardenbox.labo -Language fr-FR
 | **Action** | what, by its name: *GPO created*, *Link changed*, *Settings of a GPO saved*, *GPO approved*... |
 | **GPO or object** | the GPO, else the OU, the domain or the configuration |
 | **Tier** | the folder of the central log it is in: Tier 0, 1, 2, Unassigned |
+| **Check** | whether the change is the one its account wrote: *Verified*, *Altered*, *Tier differs*, *Owner differs*, *Not chained* ([below](#a-log-you-can-trust)) |
 | **Computer**, **Domain** | from where, on which domain |
 
 - **The period**: the last 24 hours, 7 days, 30 days (at first) or everything.
@@ -72,12 +73,12 @@ The share has a folder per tier, and the permissions of the roles:
 | `Tier0` | the approvers of the workflow (`Workflow.Approvers`), Domain Admins | Tier 0, the readers |
 | `Tier1` | the groups of `Audit.Tiers.Tier1` | Tier 1, Tier 0, the readers |
 | `Tier2` | the groups of `Audit.Tiers.Tier2` | Tier 2, Tier 0, the readers |
-| `Unassigned` | an account in no tier | Tier 0, the readers |
+| `Unassigned` | a user of the domain in no tier (Domain Users, not the computers) | Tier 0, the readers |
 | the share itself | nobody | listed by the groups of the tiers and the readers; any other account only goes through it, to `Unassigned` |
 
 - Each account adds its changes to **its own file**: `<tier>\<domain>-<yyyy-MM>-<account>-<computer>.jsonl`.
-  No two consoles write the same file; nobody but the administrators deletes a file or changes its
-  permissions.
+  No two consoles write the same file. Its owner **only appends** to it: it neither writes over
+  it, deletes it nor changes its permissions; nobody but the administrators does.
 - **Tier 0 reads every tier**, an account of Tier 1 or Tier 2 the changes of its tier only, the
   readers (`Audit.Readers`, the auditors) everything, without writing. The window shows what the
   account can read, and the tier of each change.
@@ -154,6 +155,36 @@ Import-PSGPOAuditLog -Path "$HOME/PSGPOTools Backups/Audit" -Remove
 
 Each change goes to the file of its account, computer and month, in the folder of the tier of its
 account; a change already there is not written twice, and `-Remove` deletes the files read.
+
+## A log you can trust
+
+The log is evidence: a technician must not change what it did, nor write in the name of another.
+
+- **Append only**: the owner of a file has `FILE_APPEND_DATA`, not `FILE_WRITE_DATA`
+  (`0x12019d`). Windows appends at the end of the file whatever the writer asks; Samba refuses to
+  open it to write (`smbclient put`, `del`: *access denied*), but lets a handle opened to append
+  write anywhere in it. On Linux the console appends with the Python bindings of Samba, not
+  `smbclient get` and `put` (the owner cannot write the file, and each line copied the whole file).
+- **Chained lines**: each line starts with `Seq` (1, 2...) and `PrevHash`, the SHA-256 of the
+  previous line of its file. A line changed or removed in the middle breaks the chain: the next
+  line is *Altered*.
+- **Checked when read**: the **Check** column says *Verified* when the line follows the previous
+  one, its tier is the folder of its file (*Tier differs* otherwise: a line of Tier 0 written in
+  the folder of Tier 1), and its file belongs to its account (`AccountSid`, *Owner differs*
+  otherwise), or to the account that imported it (`ImportedBy`). The lines written before 0.1.15
+  are *Not chained*.
+- **Nothing lost**: the change goes to the [log of the system](#the-log-of-the-system-for-a-siem)
+  first, then to the share. A share that cannot be reached keeps the change in
+  `audit-waiting.jsonl`, in the folder of the [technical log](#the-technical-log), written with the
+  next change (a warning says how many wait).
+- **A file of its name someone else made** (a technician of the same tier can create a file in its
+  folder): the change goes to a file of a new name next to it, and a warning says so.
+- `Initialize-PSGPOAuditShare` makes the files already on the share append-only too (Samba does
+  not pass the permissions of a folder to its files; Windows does).
+
+The chain shows a line changed, not a whole file rewritten with a new chain: the Samba limit above
+needs a deliberate tool. The log of the system, sent to a SIEM, keeps a copy of each change out of
+reach of the technicians. [Hardening](../technical/hardening.md#audit-log) says what was tested.
 
 ## Retention and archives
 
