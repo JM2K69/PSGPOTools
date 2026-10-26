@@ -149,6 +149,12 @@ Paramètres est grisé, l'onglet Historique et les GPO supprimées n'y sont pas 
 pour le Tier 0), et le journal d'audit ne montre que les modifications de son tier : vide pour un
 compte qui n'a encore rien modifié.
 
+!!! tip "Seulement **Lier un objet de stratégie de groupe existant...** dans le menu de son UO"
+    Le technicien ne crée pas de GPO : les droits du workflow manquent (le script a été lancé
+    avant que `Workflow.Creators` soit réglé, ou avec `-WhatIf`). En administrateur du domaine,
+    `Initialize-PSGPOWorkflow` dit ce qui manque (`Missing`), `Initialize-PSGPOWorkflow -Apply`
+    l'ajoute ; le technicien rouvre sa console.
+
 === "hardenbox.labo (Samba AD)"
 
     **Tier 1** (`tiers1`)

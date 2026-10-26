@@ -146,6 +146,12 @@ domain, greyed but the OUs of its tier, and the GPOs it creates wait for an appr
 greyed, the History tab and the deleted GPOs are not there (the backups are for Tier 0), and the
 audit log shows the changes of its tier only: empty for an account that changed nothing yet.
 
+!!! tip "Only **Link an Existing GPO...** in the menu of its OU"
+    The technician does not create GPOs: the rights of the workflow are missing (the script ran
+    before `Workflow.Creators` was set, or with `-WhatIf`). As a domain administrator,
+    `Initialize-PSGPOWorkflow` says what is missing (`Missing`), `Initialize-PSGPOWorkflow -Apply`
+    adds it; the technician opens its console again.
+
 === "hardenbox.labo (Samba AD)"
 
     **Tier 1** (`tiers1`)
