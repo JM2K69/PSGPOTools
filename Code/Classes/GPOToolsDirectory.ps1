@@ -311,7 +311,7 @@ class GPOToolsDirectory {
         $Gpo.Id = if ($Id -eq [guid]::Empty) { [guid]::NewGuid() } else { $Id }
         $Gpo.DisplayName = $Name
         $Gpo.DistinguishedName = 'CN={{{0}}},CN=Policies,CN=System,{1}' -f $Gpo.Id.ToString().ToUpperInvariant(), $this.Domain.DistinguishedName
-        $Gpo.FileSysPath = '\\{0}\SysVol\{0}\Policies\{{{1}}}' -f $this.DomainName, $Gpo.Id.ToString().ToUpperInvariant()
+        $Gpo.FileSysPath = $this.GetCanonicalFileSysPath($Gpo)
         $this.Gpos.Add($Gpo)
         $this.Gpos.Sort([System.Comparison[GPOToolsGpo]] { param($a, $b) [string]::Compare($a.DisplayName, $b.DisplayName, $true) })
         return $Gpo
@@ -338,6 +338,27 @@ class GPOToolsDirectory {
             $Gpo.ApprovalState = 'Approved'
         }
         return $Gpo
+    }
+
+    # The folder of a GPO in SYSVOL, as the domain gives it: \\<domain>\SysVol\<domain>\Policies\{GUID}.
+    [string] GetCanonicalFileSysPath([GPOToolsGpo]$Gpo) {
+        return '\\{0}\SysVol\{0}\Policies\{{{1}}}' -f $this.DomainName, $Gpo.Id.ToString().ToUpperInvariant()
+    }
+
+    # A GPO whose gPCFileSysPath is not its folder in SYSVOL: whoever writes the GPO (its creator
+    # owns it while it waits) can point it at another share or folder, which the computers then
+    # read its settings from, and which an approver would give its permissions to. The console
+    # neither reads nor writes such a GPO, nor approves it. The case is not checked (Windows and
+    # Samba compare paths without it).
+    [bool] IsGpoRedirected([GPOToolsGpo]$Gpo) {
+        if ([string]::IsNullOrWhiteSpace($Gpo.FileSysPath)) { return $false }
+        return -not [string]::Equals($Gpo.FileSysPath.TrimEnd('\'), $this.GetCanonicalFileSysPath($Gpo), [System.StringComparison]::OrdinalIgnoreCase)
+    }
+
+    # Why the console does not use a redirected GPO, empty when it is not.
+    [string] GetRedirectedProblem([GPOToolsGpo]$Gpo) {
+        if (-not $this.IsGpoRedirected($Gpo)) { return '' }
+        return "The GPO '$($Gpo.DisplayName)' is redirected: its gPCFileSysPath is '$($Gpo.FileSysPath)', not its folder '$($this.GetCanonicalFileSysPath($Gpo))'. Someone who can write the GPO changed it, and the computers read its settings from there. The console neither reads, writes nor approves it: an administrator of the domain deletes it, or sets its gPCFileSysPath back."
     }
 
     # The account creates GPOs that wait for an approval: a creator of the workflow, not an approver.
@@ -367,6 +388,8 @@ class GPOToolsDirectory {
         if (-not $this.Workflow.IsApprover) { throw "The account $($this.Account) is not an approver of the GPOs (Workflow.Approvers)." }
         if ($CreatorRights -notin 'ReadOnly', 'EditSettings') { throw "Unknown rights of the creators: '$CreatorRights' (ReadOnly or EditSettings)." }
         if (-not $ApplyToSid) { throw 'The approved GPO applies to someone: give the group (or Authenticated Users).' }
+        $Redirected = $this.GetRedirectedProblem($Gpo)
+        if ($Redirected) { throw "$Redirected It is not approved." }
         $this.SaveApprovedGpo($Gpo, $CreatorRights, $ApplyToSid, $DenyToSid)
         $Gpo.ApprovalState = 'Approved'
         $Gpo.OwnerSid = $this.Workflow.ApprovedOwnerSid

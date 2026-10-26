@@ -698,6 +698,7 @@
     'Task definition (Task Scheduler XML: triggers, actions, settings)' = 'Définition de la tâche (XML du Planificateur de tâches : déclencheurs, actions, paramètres)'
     'TCP/IP Printer' = 'Imprimante TCP/IP'
     'The approval workflow is used.' = 'Le circuit d''approbation est utilisé.'
+    'Version of HGPM a console needs at least (0.1.14): an older console does not use the configuration, and the accounts that are not administrators of the domain create no GPO with it. Set it once every console is updated, after a setting a newer version added. Empty: every version.' = 'Version de HGPM dont une console a besoin au minimum (0.1.14) : une console plus ancienne n''utilise pas la configuration, et les comptes qui ne sont pas administrateurs du domaine n''y créent aucune GPO. À régler une fois toutes les consoles mises à jour, après un réglage ajouté par une version plus récente. Vide : toutes les versions.'
     'Every account sees the whole domain, as GPMC: what it does not manage (its delegations) is greyed, read only. $false: it sees only what it manages, and an account without delegation sees nothing.' = 'Chaque compte voit tout le domaine, comme GPMC : ce qu''il ne gère pas (ses délégations) est grisé, en lecture seule. $false : il ne voit que ce qu''il gère, et un compte sans délégation ne voit rien.'
     'This policy is disabled' = 'Cette stratégie est désactivée'
     'Ticket does not expire' = 'Le ticket n''expire pas'

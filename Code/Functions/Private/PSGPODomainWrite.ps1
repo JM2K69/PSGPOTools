@@ -107,6 +107,10 @@ function Remove-PSGPODomainGpo {
     if ($Directory.Credential) {
         throw "Deleting a GPO uses the identity of the session (Kerberos): $(if ($IsWindows) { 'read the domain' } else { "run kinit $($Directory.Credential.UserName), then read the domain" }) without -Credential."
     }
+    # samba-tool and Remove-GPO delete the folder gPCFileSysPath gives, with the rights of the
+    # account: read now (it may have changed since the domain was read), it is set back to the
+    # folder of the GPO first, so that a redirected GPO does not delete another folder.
+    Reset-PSGPODomainFileSysPath -Directory $Directory -Gpo $Gpo
     if ($IsWindows) {
         Remove-PSGPOWindowsGpo -Directory $Directory -Gpo $Gpo
     } else {
@@ -327,6 +331,52 @@ function Remove-PSGPODomainGpLink {
     $new = Update-PSGPODomainGpLink -Directory $Directory -Som $Som -Change { param($Current) Get-PSGPORemovedGpLink -Current $Current -Link $Link } -Action 'delete the links of'
     Set-PSGPOSomLinkFromDomain -Directory $Directory -Som $Som -GpLink $new
     Write-Verbose "Link of the GPO $($Link.GetDisplayName()) to $($Som.DistinguishedName) deleted."
+}
+
+# Sets the gPCFileSysPath of a GPO back to its folder in SYSVOL when it is another one (a
+# redirected GPO, IsGpoRedirected), as the domain has it now; the value read removed in the same
+# request, so that it fails if someone changes it meanwhile.
+function Reset-PSGPODomainFileSysPath {
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo
+    )
+
+    $connection = New-PSGPODirectoryConnection -Directory $Directory
+    try {
+        $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base -Attribute 'gPCFileSysPath' -AllowMissing
+        if (-not $entry) { return }
+        $Gpo.FileSysPath = Get-PSGPOLdapValue $entry 'gPCFileSysPath'
+        if (-not $Directory.IsGpoRedirected($Gpo)) { return }
+        $canonical = $Directory.GetCanonicalFileSysPath($Gpo)
+        if (-not $PSCmdlet.ShouldProcess($Gpo.DisplayName, "Set gPCFileSysPath back to $canonical")) { return }
+        $request = [System.DirectoryServices.Protocols.ModifyRequest]::new()
+        $request.DistinguishedName = $Gpo.DistinguishedName
+        $remove = [System.DirectoryServices.Protocols.DirectoryAttributeModification]::new()
+        $remove.Name = 'gPCFileSysPath'
+        $remove.Operation = [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Delete
+        [void]$remove.Add($Gpo.FileSysPath)
+        [void]$request.Modifications.Add($remove)
+        $add = [System.DirectoryServices.Protocols.DirectoryAttributeModification]::new()
+        $add.Name = 'gPCFileSysPath'
+        $add.Operation = [System.DirectoryServices.Protocols.DirectoryAttributeOperation]::Add
+        [void]$add.Add($canonical)
+        [void]$request.Modifications.Add($add)
+        try {
+            [void]$connection.SendRequest($request)
+        } catch {
+            $base = $_.Exception.GetBaseException()
+            $code = if ($base.PSObject.Properties['Response']) { "$($base.Response.ResultCode)" }
+            if ($code -in 'NoSuchAttribute', 'AttributeOrValueExists') { throw "The gPCFileSysPath of the GPO '$($Gpo.DisplayName)' changed in the domain meanwhile: read the domain again, then try again." }
+            if ($code -eq 'InsufficientAccessRights') { throw "The GPO '$($Gpo.DisplayName)' is redirected to '$($Gpo.FileSysPath)', and the account cannot set its gPCFileSysPath back: $($base.Message)" }
+            throw
+        }
+        Write-Warning "GPO '$($Gpo.DisplayName)': its gPCFileSysPath was '$($Gpo.FileSysPath)', set back to '$canonical'."
+        $Gpo.FileSysPath = $canonical
+    } finally {
+        $connection.Dispose()
+    }
 }
 
 # Renames a GPO in the domain: the displayName of its group policy container, the name read

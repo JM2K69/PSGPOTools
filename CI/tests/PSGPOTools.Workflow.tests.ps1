@@ -238,6 +238,59 @@ InModuleScope -ModuleName HGPM {
             $Directory.Workflow | Should -BeNullOrEmpty
             $Directory.FindGpo('Pending GPO').ApprovalState | Should -BeNullOrEmpty
         }
+
+        Context 'Without a configuration of the domain it can use' {
+            BeforeEach {
+                Mock Get-PSGPOWorkflowSetting { [pscustomobject]@{ Enabled = $false } }
+                $Directory.IsDomainAdministrator = $false
+                $script:Saved = $script:PSGPOConfigurationState
+                # CN=Policies as Initialize-PSGPOWorkflow leaves it: the creators create GPOs.
+                $script:Policies = [GPOToolsSecurityDescriptor]::new()
+                $script:Policies.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
+                $script:Policies.Dacl.Add([GPOToolsAce]::new(5, 0, 0x1, "$Domain-520", [guid]'f30e3bc2-9ff0-11d1-b603-0000f80367c1'))
+                $script:Policies.Dacl.Add([GPOToolsAce]::new(0, 2, 0xF01FF, $Admins, [guid]::Empty))
+                $script:Policies.Dacl.Add([GPOToolsAce]::new(5, 0, 0x1, $Tier1, [guid]'f30e3bc2-9ff0-11d1-b603-0000f80367c1'))
+                Mock Get-PSGPODomainSecurityDescriptor { $script:Policies }
+            }
+            AfterEach { $script:PSGPOConfigurationState = $script:Saved }
+
+            It 'Stops the creation of GPOs when the configuration is <Case>' -ForEach @(
+                @{ Case = 'not used'; Exists = $true; Problem = 'the domain needs 99.0 at least'; Expected = '*is not used (the domain needs 99.0 at least)*unknown*' }
+                @{ Case = 'missing while the domain delegates the creation of GPOs'; Exists = $false; Problem = $null; Expected = '*delegates the creation of GPOs*dc1.contoso.com has no configuration of the domain*' }
+            ) {
+                $script:PSGPOConfigurationState = @{ Directory = $Directory; Path = 'SYSVOL\contoso.com\PSGPOTools\Configuration.psd1'; Exists = $Exists; Override = @{}; Unknown = @{}; Problem = $Problem }
+                $Output = @(Update-PSGPODomainWorkflow -Connection ([pscustomobject]@{}) -Directory $Directory 3>&1)
+                "$Output" | Should -BeLike '*is unknown, no GPO can be created until it is fixed*'
+                $Directory.CanCreateGpo | Should -BeFalse -Because 'a GPO of a creator would apply at once'
+                $Directory.Workflow.Problem | Should -BeLike $Expected
+                $Directory.IsWorkflowCreator() | Should -BeFalse
+            }
+
+            It 'Lets an administrator of the domain work, and a domain that does not delegate the creation of GPOs' {
+                $script:PSGPOConfigurationState = @{ Directory = $Directory; Path = 'x'; Exists = $false; Override = @{}; Unknown = @{}; Problem = $null }
+                $Directory.IsDomainAdministrator = $true
+                Update-PSGPODomainWorkflow -Connection ([pscustomobject]@{}) -Directory $Directory
+                $Directory.Workflow | Should -BeNullOrEmpty
+                $Directory.CanCreateGpo | Should -BeTrue
+
+                $Directory.IsDomainAdministrator = $false
+                $script:Policies.Dacl.RemoveAt(2)
+                Update-PSGPODomainWorkflow -Connection ([pscustomobject]@{}) -Directory $Directory
+                $Directory.Workflow | Should -BeNullOrEmpty -Because 'Group Policy Creator Owners and the administrators are no delegation of the workflow'
+                $Directory.CanCreateGpo | Should -BeTrue
+            }
+
+            It 'Does not create an empty configuration on a domain controller without it, when the domain delegates the creation of GPOs' {
+                Mock Use-PSGPODomainConfiguration { $script:PSGPOConfigurationState = @{ Directory = $Directory; Path = 'SYSVOL\contoso.com\PSGPOTools\Configuration.psd1'; Exists = $false; Override = @{}; Unknown = @{}; Problem = $null } }
+                Mock New-PSGPODirectoryConnection { [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name Dispose -Value { } -PassThru }
+                Mock Save-PSGPODomainConfiguration { }
+                $Directory.IsDomainAdministrator = $true
+                $Output = @(Initialize-PSGPODomainConfiguration -Directory $Directory 3>&1)
+                $Output[-1] | Should -BeFalse
+                "$($Output | Where-Object { $_ -is [System.Management.Automation.WarningRecord] })" | Should -BeLike '*is not created: the domain delegates the creation of GPOs*Copy it to dc1.contoso.com*'
+                Should -Invoke Save-PSGPODomainConfiguration -Times 0
+            }
+        }
     }
 
     Describe 'Delegation of the creation of GPOs' {

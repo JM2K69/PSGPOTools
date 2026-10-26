@@ -120,6 +120,9 @@ function Get-PSGPODirectoryDetail {
             New-Row 'Computer version' $Gpo.GetComputerVersion()
             New-Row 'Distinguished name' $Gpo.DistinguishedName
             New-Row 'File system path' $Gpo.FileSysPath
+            if ($Directory.IsGpoRedirected($Gpo)) {
+                New-Row 'Redirected' (Get-PSGPOText 'The computers read its settings from {0}, not from its folder {1}: someone who can write the GPO changed its gPCFileSysPath. The console neither reads, writes nor approves it: an administrator of the domain deletes it, or sets its gPCFileSysPath back.' $Gpo.FileSysPath $Directory.GetCanonicalFileSysPath($Gpo))
+            }
         )
         if ($Directory.Account) {
             # A slice, not Select-Object: the pipeline wraps the rows in PSObject, which Avalonia cannot bind.

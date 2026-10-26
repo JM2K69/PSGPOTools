@@ -9,8 +9,12 @@
     the domain does.
 
     Both files are read as data (Import-PowerShellDataFile), never run. A configuration of the
-    domain that cannot be read or holds a wrong value is reported and left out: the defaults
-    apply. The configuration in use is the one of the last directory read (Get-PSGPODirectory,
+    domain that cannot be read, holds a wrong value or needs a newer console (Console.
+    MinimumVersion) is reported and left out: the defaults apply, and the approval workflow it
+    may set is unknown, so the accounts that are not administrators of the domain create no GPO
+    (Update-PSGPODomainWorkflow). A setting this console does not know (a newer console wrote it)
+    is left out with a warning, the others are used, and it is kept when the configuration is
+    saved again. The configuration in use is the one of the last directory read (Get-PSGPODirectory,
     Show-GPOManagerAvalonia, or a command given -Directory); without one, the defaults.
 #>
 
@@ -24,8 +28,9 @@ function Get-PSGPODefaultConfigurationPath {
 }
 
 # The configuration of the domain in use: Directory, Path, Exists, Override (the keys it sets,
-# checked) and Problem (why it is not used).
-$script:PSGPOConfigurationState = @{ Directory = $null; Path = $null; Exists = $false; Override = @{}; Problem = $null }
+# checked), Unknown (the keys this console does not know, by key with dots, left out) and
+# Problem (why it is not used).
+$script:PSGPOConfigurationState = @{ Directory = $null; Path = $null; Exists = $false; Override = @{}; Unknown = @{}; Problem = $null }
 
 # Reads the configuration of the domain of $Directory, used from now on; nothing again for the
 # same directory unless -Force. Without a directory: the defaults of the module.
@@ -37,17 +42,30 @@ function Use-PSGPODomainConfiguration {
     )
 
     if (-not $Force -and $Directory -and [object]::ReferenceEquals($script:PSGPOConfigurationState.Directory, $Directory)) { return }
-    $state = @{ Directory = $Directory; Path = $null; Exists = $false; Override = @{}; Problem = $null }
+    $state = @{ Directory = $Directory; Path = $null; Exists = $false; Override = @{}; Unknown = @{}; Problem = $null }
     if ($Directory) {
         $state.Path = $Directory.GetConfigurationPath()
         try {
             $bytes = $Directory.ReadConfigurationFile()
             if ($bytes) {
                 $state.Exists = $true
-                $override = ConvertFrom-PSGPOConfigurationByte -Bytes $bytes
-                $merged = Merge-PSGPOConfiguration -Base (Import-PowerShellDataFile -LiteralPath (Get-PSGPODefaultConfigurationPath)) -Override $override
+                $defaults = Import-PowerShellDataFile -LiteralPath (Get-PSGPODefaultConfigurationPath)
+                $split = Split-PSGPOUnknownSetting -Defaults $defaults -Override (ConvertFrom-PSGPOConfigurationByte -Bytes $bytes)
+                $state.Unknown = $split.Unknown
+                if ($split.Unknown.Count) {
+                    Write-Warning "The configuration of the domain $($state.Path) has settings this console does not know, left out (a newer version of HGPM wrote them): $(@($split.Unknown.Keys | Sort-Object) -join ', ')."
+                }
+                $override = $split.Known
+                $merged = Merge-PSGPOConfiguration -Base $defaults -Override $override
                 $problems = @(Test-PSGPOConfiguration -Configuration $merged)
                 if ($problems.Count) { throw ($problems -join ' ') }
+                $minimum = "$($merged.Console.MinimumVersion)".Trim()
+                if ($minimum) {
+                    $version = (Get-PSGPOModuleVersion).Version
+                    if ([version]"$($version.Major).$($version.Minor).$($version.Patch)" -lt [version]$minimum) {
+                        throw "this console is HGPM $version, the domain needs $minimum at least (Console.MinimumVersion): update it (Update-PSResource HGPM)."
+                    }
+                }
                 $state.Override = $override
             }
         } catch {
@@ -74,6 +92,35 @@ function ConvertFrom-PSGPOConfigurationByte {
     } finally {
         Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue
     }
+}
+
+# The keys of a configuration of the domain this console knows (Known, nested), and the others
+# (Unknown, by key with dots): a newer console wrote them. A key whose value is not of the kind of
+# its default (a value where a table is expected) is known: Merge-PSGPOConfiguration refuses it.
+function Split-PSGPOUnknownSetting {
+    [CmdletBinding()]
+    [OutputType([hashtable])]
+    param([Parameter(Mandatory)] [hashtable]$Defaults, [Parameter(Mandatory)] [hashtable]$Override)
+
+    $known = @{}
+    $unknown = @{}
+    foreach ($key in $Override.Keys) {
+        if (-not $Defaults.ContainsKey($key)) {
+            if ($Override[$key] -is [hashtable]) {
+                $flat = ConvertTo-PSGPOFlatConfiguration -Data $Override[$key] -Prefix "$key."
+                foreach ($name in $flat.Keys) { $unknown[$name] = $flat[$name] }
+            } else {
+                $unknown[$key] = $Override[$key]
+            }
+        } elseif ($Defaults[$key] -is [hashtable] -and $Override[$key] -is [hashtable]) {
+            $inner = Split-PSGPOUnknownSetting -Defaults $Defaults[$key] -Override $Override[$key]
+            $known[$key] = $inner.Known
+            foreach ($name in $inner.Unknown.Keys) { $unknown["$key.$name"] = $inner.Unknown[$name] }
+        } else {
+            $known[$key] = $Override[$key]
+        }
+    }
+    @{ Known = $known; Unknown = $unknown }
 }
 
 # The values of $Override over those of $Base, key by key, nested tables included.
@@ -147,6 +194,8 @@ function Test-PSGPOConfiguration {
     foreach ($name in 'Tier1', 'Tier2') {
         if ("$($Configuration.Audit.Tiers[$name])" -match '[";|=+*?<>]') { "Audit.Tiers.$name holds names of groups separated by commas." }
     }
+    $minimum = "$($Configuration.Console.MinimumVersion)".Trim()
+    if ($minimum -and $minimum -notmatch '^\d+\.\d+(\.\d+)?$') { "Console.MinimumVersion must be a version of HGPM (0.1.14), not '$minimum'." }
     if ($groups.Container -and "$($groups.Container)" -notmatch '^(?:(?:OU|CN)=[^,]+)(?:,(?:OU|CN|DC)=[^,]+)*$') { "NewGpo.SecurityFilteringGroups.Container is not a distinguished name: '$($groups.Container)'." }
 }
 
@@ -315,6 +364,14 @@ function Save-PSGPODomainConfiguration {
     $override = ConvertFrom-PSGPOFlatConfiguration -Flat $Values
     $problems = @(Test-PSGPOConfiguration -Configuration (Merge-PSGPOConfiguration -Base $defaults -Override $override))
     if ($problems.Count) { throw ($problems -join ' ') }
+    # The settings of a newer console this one does not know: kept as they are, not checked.
+    $state = $script:PSGPOConfigurationState
+    if ($state.Unknown.Count -and [object]::ReferenceEquals($state.Directory, $Directory)) {
+        $all = @{}
+        foreach ($key in $Values.Keys) { $all[$key] = $Values[$key] }
+        foreach ($key in $state.Unknown.Keys) { $all[$key] = $state.Unknown[$key] }
+        $override = ConvertFrom-PSGPOFlatConfiguration -Flat $all
+    }
     $path = $Directory.GetConfigurationPath()
     if (-not $PSCmdlet.ShouldProcess($path, 'Save the configuration of the domain')) { return }
     $by = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
@@ -347,6 +404,17 @@ function Initialize-PSGPODomainConfiguration {
     Use-PSGPODomainConfiguration -Directory $Directory
     $state = $script:PSGPOConfigurationState
     if ($state.Exists -or $state.Problem -or $Directory.IsReadOnly -or -not $Directory.IsDomainAdministrator) { return $false }
+    # A domain that delegates the creation of GPOs has its configuration already (the workflow is
+    # deployed): missing here, it is on another domain controller (Samba does not replicate
+    # SYSVOL). An empty one here would turn the workflow off for the consoles that read this one.
+    if ($Directory -is [GPOToolsLdapDirectory]) {
+        $connection = New-PSGPODirectoryConnection -Directory $Directory
+        try { $delegated = Test-PSGPODomainCreationDelegated -Connection $connection -DomainDistinguishedName $Directory.Domain.DistinguishedName } finally { $connection.Dispose() }
+        if ($delegated) {
+            Write-Warning "The configuration of the domain $($state.Path) is not created: the domain delegates the creation of GPOs (approval workflow), so its configuration is on another domain controller. Copy it to $($Directory.Server) (Samba does not replicate SYSVOL; on Windows, check the replication of SYSVOL)."
+            return $false
+        }
+    }
     try {
         Save-PSGPODomainConfiguration -Directory $Directory -Values @{} -Confirm:$false
     } catch {

@@ -18,6 +18,7 @@ Invoke-Pester -Configuration $Config
 | `PSGPOTools.AccessControl.tests.ps1` | descripteurs de sécurité, filtrage de sécurité, ACL SYSVOL |
 | `PSGPOTools.Backup.tests.ps1` | sauvegardes, comparaison, restauration, notes, écart, corbeille, modèles |
 | `PSGPOTools.Configuration.tests.ps1` | la configuration du domaine |
+| `PSGPOTools.Hardening.tests.ps1` | ce que pourrait faire un fichier, un attribut, un outil ou un domaine hostile ([durcissement](hardening.md)) |
 | `PSGPOTools.Workflow.tests.ps1` | le workflow d'approbation |
 | `PSGPOTools.Delegation.tests.ps1` | les droits lus dans l'annuaire |
 | `PSGPOTools.Ldap.tests.ps1` | LDAP, gPLink, samba-tool, RSAT (simulés), et face à un contrôleur de domaine |

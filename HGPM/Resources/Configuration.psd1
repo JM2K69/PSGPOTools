@@ -95,6 +95,15 @@
         SystemLog = $true
     }
 
+    # The consoles that use the configuration of the domain.
+    Console = @{
+        # Version of HGPM a console needs at least (0.1.14): an older console does not use the
+        # configuration, and the accounts that are not administrators of the domain create no
+        # GPO with it. Set it once every console is updated, after a setting a newer version
+        # added. Empty: every version.
+        MinimumVersion = ''
+    }
+
     # The Group Policy Management view of the console.
     View = @{
         # Every account sees the whole domain, as GPMC: what it does not manage (its
