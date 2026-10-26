@@ -12,7 +12,7 @@ function Get-PSGPOLauncherWindowXaml {
 <Window xmlns='https://github.com/avaloniaui'
         xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
         Title='HGPM'
-        Width='1000' Height='340'
+        Width='1240' Height='340'
         MinWidth='420' MinHeight='300'
         WindowStartupLocation='CenterScreen'
         Background='{DynamicResource BackgroundBrush}'

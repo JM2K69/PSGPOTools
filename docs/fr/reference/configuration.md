@@ -36,6 +36,7 @@ Une étiquette fait au plus 64 caractères, sans virgule, tabulation ni saut de 
 
 | Réglage | Défaut | |
 |---|---|---|
+| `Audit.Enabled` | `$true` | les modifications sont écrites dans le [journal d'audit](../features/audit-log.md) ; `$false` : elles ne le sont pas (les modifications sont toujours faites) |
 | `Audit.Path` | vide | dossier du [journal d'audit](../features/backup-history.md#journal-daudit), le même pour toutes les consoles : un partage où écrivent les administrateurs des GPO (`\\serveur\gpo-audit`) ; vide : le dossier `Audit` des sauvegardes du compte |
 
 ## View

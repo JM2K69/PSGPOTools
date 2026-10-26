@@ -59,6 +59,12 @@ Linux**, and manages the GPOs of **Samba AD** and **Windows Active Directory** d
     `.PolicyRules` files of the Security Compliance Toolkit; a baseline written in a GPO.
     [Policy Analyzer](features/policy-analyzer.md)
 
+- **Audit log**
+
+    What the consoles and the commands changed in the domain, on by default: who, when, from
+    where, on which GPO, filtered and exported to CSV.
+    [Audit log](features/audit-log.md)
+
 </div>
 
 ## At a glance

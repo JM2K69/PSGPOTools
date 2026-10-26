@@ -6,10 +6,78 @@
 
     The folder is Audit.Path of the configuration of the domain, the same for every console (a
     share the administrators write); by default the folder Audit of the backups of the account.
-    One file per domain and month: <domain>-<yyyy-MM>.jsonl.
+    One file per domain and month: <domain>-<yyyy-MM>.jsonl. On by default: Audit.Enabled = $false
+    in the configuration of the domain stops it.
 #>
 
 $script:PSGPOAuditFormat = 'PSGPOTools.Audit/1'
+
+# What each action is, as the audit log window shows it (translated by Get-PSGPOText).
+$script:PSGPOAuditActionText = [ordered]@{
+    NewGpo = 'GPO created'; RenameGpo = 'GPO renamed'; SetGpoStatus = 'GPO status changed'; RemoveGpo = 'GPO deleted'
+    RemoveDeletedGpoBackup = 'Deleted GPO removed for good'; RestoreGpo = 'GPO restored'; ImportGpo = 'GPO imported'
+    SaveGpoFile = 'Settings of a GPO saved'; ImportPolicyRuleSet = 'Rule set written in a GPO'
+    PendingGpo = 'GPO waiting for approval'; ApproveGpo = 'GPO approved'
+    NewLink = 'Link created'; SetLink = 'Link changed'; RemoveLink = 'Link deleted'; SetBlockInheritance = 'Inheritance blocked or unblocked'
+    SetGpoPermission = 'Permissions of a GPO changed'; SetGpoSecurityFiltering = 'Security filtering changed'; NewFilteringGroups = 'Security filtering groups created'
+    SetWmiFilter = 'WMI filter of a GPO changed'; NewWmiFilter = 'WMI filter created'; EditWmiFilter = 'WMI filter changed'
+    RemoveWmiFilter = 'WMI filter deleted'; SetWmiFilterPermission = 'Permissions of a WMI filter changed'
+    NewPasswordPolicy = 'Password policy created'; SetPasswordPolicy = 'Password policy changed'; RemovePasswordPolicy = 'Password policy deleted'
+    SaveConfiguration = 'Configuration saved'; InstallAdmx = 'ADMX files installed'
+}
+
+# What an action is, in the language of the interface; the action itself when unknown.
+function Get-PSGPOAuditActionText {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([Parameter(Mandatory)] [AllowEmptyString()] [string]$Action)
+
+    if ($script:PSGPOAuditActionText.Contains($Action)) { return Get-PSGPOText $script:PSGPOAuditActionText[$Action] }
+    $Action
+}
+
+# The details of an entry, one "name: value" per line (a list or a table as JSON).
+function Format-PSGPOAuditDetail {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([AllowNull()] [System.Collections.IDictionary]$Details)
+
+    if (-not $Details -or -not $Details.Count) { return '' }
+    @(foreach ($name in @($Details.Keys | Sort-Object)) {
+            $value = $Details[$name]
+            $text = if ($null -eq $value) { '' }
+            elseif ($value -is [string] -or $value -is [ValueType]) { "$value" }
+            else { ConvertTo-Json -InputObject $value -Depth 5 -Compress }
+            "${name}: $text"
+        }) -join [Environment]::NewLine
+}
+
+# Entries of the audit log as a CSV file (UTF-8, the time in UTC as ISO 8601, the details as JSON).
+function Export-PSGPOAuditLogCsv {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [object[]]$Entry,
+        [Parameter(Mandatory)] [string]$Path
+    )
+
+    $folder = [System.IO.Path]::GetDirectoryName($Path)
+    if ($folder) { $null = New-Item -ItemType Directory -Path $folder -Force -ErrorAction Stop }
+    @(foreach ($item in $Entry) {
+            [pscustomobject][ordered]@{
+                Time = $item.Time.ToUniversalTime().ToString('o')
+                Domain = $item.Domain
+                Server = $item.Server
+                Account = $item.Account
+                Computer = $item.Computer
+                Action = $item.Action
+                Target = $item.Target
+                GpoName = $item.GpoName
+                GpoId = if ($item.GpoId) { $item.GpoId.ToString() } else { '' }
+                Details = if ($item.Details -and $item.Details.Count) { ConvertTo-Json -InputObject $item.Details -Depth 5 -Compress } else { '' }
+            }
+        }) | Export-Csv -LiteralPath $Path -NoTypeInformation -Encoding utf8 -ErrorAction Stop
+    Get-Item -LiteralPath $Path
+}
 
 # The folder of the audit log.
 function Get-PSGPOAuditPath {
@@ -34,6 +102,7 @@ function Write-PSGPOAuditEntry {
         [System.Collections.IDictionary]$Details = @{}
     )
 
+    if ((Get-PSGPOConfigurationData).Audit.Enabled -eq $false) { return }
     $now = [datetime]::UtcNow
     $entry = [ordered]@{
         Format = $script:PSGPOAuditFormat

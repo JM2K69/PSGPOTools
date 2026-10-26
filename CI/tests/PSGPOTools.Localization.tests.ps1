@@ -47,7 +47,7 @@ InModuleScope -ModuleName HGPM {
 
         It 'Parses the windows once translated in <Language>' -ForEach $Languages {
             $null = Set-PSGPOLanguage -Language $Language
-            foreach ($Xaml in (Get-PSGPOManagerWindowXaml), (Get-PSGPOPasswordPolicyWindowXaml), (Get-PSGPOPasswordPolicyEditorXaml), (Get-PSGPOLauncherWindowXaml), (Get-PSGPOWmiFilterCreatorWindowXaml), (Get-PSGPOPolicyAnalyzerWindowXaml)) {
+            foreach ($Xaml in (Get-PSGPOManagerWindowXaml), (Get-PSGPOPasswordPolicyWindowXaml), (Get-PSGPOPasswordPolicyEditorXaml), (Get-PSGPOLauncherWindowXaml), (Get-PSGPOWmiFilterCreatorWindowXaml), (Get-PSGPOPolicyAnalyzerWindowXaml), (Get-PSGPOAuditLogWindowXaml)) {
                 { [xml](ConvertTo-PSGPOLocalizedXaml -Xaml $Xaml) } | Should -Not -Throw
             }
         }

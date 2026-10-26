@@ -62,6 +62,12 @@ Directory**.
     écrite dans une GPO.
     [Policy Analyzer](features/policy-analyzer.md)
 
+- **Journal d'audit**
+
+    Ce que les consoles et les commandes ont modifié dans le domaine, activé par défaut : qui,
+    quand, d'où, sur quelle GPO, filtré et exporté en CSV.
+    [Journal d'audit](features/audit-log.md)
+
 </div>
 
 ## En bref

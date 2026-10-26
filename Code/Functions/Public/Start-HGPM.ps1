@@ -5,8 +5,8 @@ function Start-HGPM {
     .DESCRIPTION
         A window with a tile for each console of HGPM: Group Policy Management
         (Show-GPOManagerAvalonia), the fine-grained password policies (Show-PSOManagerAvalonia) and
-        the WMI filter creator (Show-WmiFilterCreatorAvalonia) and Policy Analyzer
-        (Show-PolicyAnalyzerAvalonia).
+        the WMI filter creator (Show-WmiFilterCreatorAvalonia), Policy Analyzer
+        (Show-PolicyAnalyzerAvalonia) and the audit log (Show-AuditLogAvalonia).
         A click on a tile opens the console with its default parameters, in the language of the
         launcher, chosen in its list of languages and kept for the next time; several consoles can be open at once, and the tile of an open console is
         disabled until its window is closed. To give a console parameters (-Server, -Credential,
@@ -32,6 +32,8 @@ function Start-HGPM {
         Show-WmiFilterCreatorAvalonia
     .LINK
         Show-PolicyAnalyzerAvalonia
+    .LINK
+        Show-AuditLogAvalonia
     #>
     [CmdletBinding()]
     param(

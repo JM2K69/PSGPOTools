@@ -20,6 +20,7 @@ Start-HGPM -Language fr-FR      # the launcher and the tools in French
 | ![](../assets/screenshots/58-tile-password-settings.png){ width="150" } | [Password Settings](password-policies.md) | `Show-PSOManagerAvalonia` | The fine-grained password policies (PSO), and the one a user or a group gets |
 | ![](../assets/screenshots/59-tile-wmi-filter-creator.png){ width="150" } | [WMI Filter Creator](wmi-filter-creator.md) | `Show-WmiFilterCreatorAvalonia` | WMI filters built from ready-made queries, checked, tested, exported to `.mof` |
 | ![](../assets/screenshots/60-tile-policy-analyzer.png){ width="150" } | [Policy Analyzer](policy-analyzer.md) | `Show-PolicyAnalyzerAvalonia` | GPOs and the security baselines of Microsoft compared setting by setting |
+| ![](../assets/screenshots/62-tile-audit-log.png){ width="150" } | [Audit Log](audit-log.md) | `Show-AuditLogAvalonia` | What the consoles and the commands changed in the domain: who, when, from where, on which GPO |
 
 A tile opens its tool with its default parameters: the domain of the computer, the ADMX files last
 chosen. To give a tool parameters (`-Server`, `-Credential`, `-PolicyDefinitions`...), run its

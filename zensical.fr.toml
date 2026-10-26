@@ -41,6 +41,7 @@ nav = [
     { "Outils" = [
       "features/wmi-filter-creator.md",
       "features/policy-analyzer.md",
+      "features/audit-log.md",
     ] },
   ] },
   { "Workflows" = [
@@ -120,6 +121,7 @@ nav = [
       "reference/commands/set-psgpopermission.md",
       "reference/commands/set-psgpowmifilter.md",
       "reference/commands/set-psgpowmifilterpermission.md",
+      "reference/commands/show-auditlogavalonia.md",
       "reference/commands/show-gpomanageravalonia.md",
       "reference/commands/show-policyanalyzeravalonia.md",
       "reference/commands/show-psomanageravalonia.md",

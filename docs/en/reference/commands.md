@@ -63,6 +63,7 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | [`Set-PSGPOBackup`](commands/set-psgpobackup.md) `-Backup [-Comment] [-AddLabel] [-RemoveLabel] [-Approve] [-Unapprove]` | changes the notes of a backup |
 | [`Get-PSGPODrift`](commands/get-psgpodrift.md) `-Path [-Name] [-Label]` | compares each GPO to its approved version: `InSync`, `Drifted`, `NotApproved` |
 | [`Get-PSGPOAuditLog`](commands/get-psgpoauditlog.md) `[-Path] [-Domain] [-Name] [-Action] [-Account] [-After] [-Before]` | what the consoles and the commands changed in the domain, newest first |
+| [`Show-AuditLogAvalonia`](commands/show-auditlogavalonia.md) `[-Path] [-Directory \| -Server] [-Language]` | opens the audit log in a window: filtered by period, domain, action and a search, the details of a change, the changes shown exported to CSV |
 | [`Get-PSGPOGpmcBackup`](commands/get-psgpogpmcbackup.md) `-Path [-Name]` | the backups of GPMC (`Backup-GPO`) of a folder |
 | [`Import-PSGPO`](commands/import-psgpo.md) `-Path -TargetName [-SourceName] [-BackupId] [-MigrationTable] [-Exclusive] [-CreateIfNeeded] [-BackupPath] [-NoBackup]` | imports the settings of a backup (GPMC or HGPM) into a GPO, with a migration table |
 | [`Get-PSGPOMigrationEntry`](commands/get-psgpomigrationentry.md) `-Path [-Name] [-IncludePermission]` | the accounts and UNC paths the settings of backups reference |
@@ -110,7 +111,7 @@ Get-PSGPOPolicy -Scope Machine | Where-Object DisplayName -Like '*biometrics*' |
 
 | Command | Does |
 |---|---|
-| [`Start-HGPM`](commands/start-hgpm.md) `[-Language]` | opens the launcher: a tile for each console of HGPM |
+| [`Start-HGPM`](commands/start-hgpm.md) `[-Language]` | opens the launcher: a tile for each tool of HGPM |
 | [`Test-PSGPOUpdate`](commands/test-psgpoupdate.md) `[-Prerelease] [-Quiet] [-Repository]` | tells whether a newer version of HGPM is on the PowerShell Gallery, and the command that installs it |
 
 ## Password policies

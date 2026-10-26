@@ -2,7 +2,14 @@
 
 ## Unreleased
 
+### Added
+
+* `Show-AuditLogAvalonia`, the **Audit Log** tool, a tile of the launcher: the changes of the audit log in a window, newest first, by their name in the language of the interface; filtered by period, domain, action and a search in every text of a change, its details included; the details of the selected change; the changes shown exported to CSV. The folder is `Audit.Path` of the configuration of the domain, else the folder `Audit` of the backups of the account
+* `Audit.Enabled` in the configuration of the domain, `$true` by default: the audit log is on unless an administrator of the domain turns it off in **Settings**
+
 ### Changed
+
+* The actions of the audit log listed in the documentation are all those the module writes (`InstallAdmx` and the password policies added)
 
 * The screenshots of the approval workflow (the console of a Tier 1 technician, its new GPO, its approval, the GPO approved) taken again, in English and French: the header of the console without the Policy Analyzer button
 

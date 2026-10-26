@@ -212,4 +212,10 @@ function Get-PSGPOLauncherTool {
         Description = Get-PSGPOText 'GPOs and the security baselines of Microsoft compared setting by setting, as in the Security Compliance Toolkit'
         Icon        = 'table-search'
     }
+    @{
+        Command     = 'Show-AuditLogAvalonia'
+        Title       = Get-PSGPOText 'Audit Log'
+        Description = Get-PSGPOText 'What the consoles and the commands changed in the domain: who, when, from where, on which GPO'
+        Icon        = 'book'
+    }
 }

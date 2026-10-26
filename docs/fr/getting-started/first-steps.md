@@ -8,7 +8,8 @@ Start-HGPM
 ```
 
 [Le lanceur](../features/launcher.md) a une tuile pour chaque outil de HGPM : Gestion de stratégie
-de groupe, Paramètres de mot de passe, Créateur de filtres WMI et Policy Analyzer. Un clic ouvre
+de groupe, Paramètres de mot de passe, Créateur de filtres WMI, Policy Analyzer et Journal
+d'audit. Un clic ouvre
 l'outil sur le domaine de l'ordinateur, dans la langue choisie dans sa liste. Chaque outil est aussi
 une commande, qui prend les paramètres que la tuile ne donne pas, comme ci-dessous.
 
