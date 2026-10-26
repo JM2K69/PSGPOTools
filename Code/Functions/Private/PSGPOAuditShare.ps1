@@ -8,16 +8,20 @@
     - Tier0, Tier1, Tier2: the groups of the tier create their files there and read every file of
       their tier; Tier 0 (the approvers of the workflow, Domain Admins) and the readers (auditors)
       read every tier.
-    - Unassigned: an account in no tier writes there; Tier 0 and the readers read it.
-    - The file of an account: its owner reads and writes it, without deleting it nor changing its
-      permissions (CREATOR OWNER, OWNER RIGHTS).
+    - Unassigned: a user of the domain in no tier writes there (Domain Users: not the computers);
+      Tier 0 and the readers read it.
+    - The file of an account: its owner reads it and appends to it, without writing over it,
+      deleting it nor changing its permissions (CREATOR OWNER, OWNER RIGHTS: FILE_APPEND_DATA
+      without FILE_WRITE_DATA). Windows appends at its end; Samba refuses to open it to write,
+      but lets a handle opened to append write anywhere: the lines are chained (Write-PSGPOAuditEntry).
     - The share itself: the groups of the tiers and the readers list it; any other account only
       goes through it, to the folder Unassigned, without seeing what it holds.
 #>
 
 # Access masks ([MS-DTYP] 2.4.3): read and list (FILE_GENERIC_READ | FILE_GENERIC_EXECUTE), the
-# same and create files, the owner of a file (read, write and append, attributes, no delete).
-$script:PSGPOAuditShareRight = @{ Full = '0x1f01ff'; Read = '0x1200a9'; Create = '0x1200ab'; Owner = '0x12019f'; Traverse = '0x1000a0' }
+# same and create files, the owner of a file (read and append, attributes; no write over it, no
+# delete).
+$script:PSGPOAuditShareRight = @{ Full = '0x1f01ff'; Read = '0x1200a9'; Create = '0x1200ab'; Owner = '0x12019d'; Traverse = '0x1000a0' }
 
 # The folders of the share and the SDDL of each: Folder ('' for the share), Sddl. The groups are
 # lists of SIDs.
@@ -47,14 +51,15 @@ function Get-PSGPOAuditShareSddl {
     [pscustomobject]@{ Folder = 'Tier0'; Sddl = 'D:P' + (& $tier (@($Tier0) + $DomainAdminsSid)) }
     [pscustomobject]@{ Folder = 'Tier1'; Sddl = 'D:P' + (& $tier $Tier1) }
     [pscustomobject]@{ Folder = 'Tier2'; Sddl = 'D:P' + (& $tier $Tier2) }
-    # Every account writes there, its own file only.
-    [pscustomobject]@{ Folder = 'Unassigned'; Sddl = "D:P$admins$readAll(A;;$($right.Create);;;AU)$owner" }
+    # Every user of the domain writes there, its own file only; not the computers (Authenticated Users).
+    $domainUsers = $DomainAdminsSid -replace '-512$', '-513'
+    [pscustomobject]@{ Folder = 'Unassigned'; Sddl = "D:P$admins$readAll(A;;$($right.Create);;;$domainUsers)$owner" }
 }
 
 # Linux: the folders made and their DACLs written with the SMB client of Samba (its Python
 # bindings), Kerberos only. Arguments: server, share, then folder and SDDL pairs.
 $script:PSGPOAuditSharePython = @'
-import sys
+import re, sys
 from samba import param
 from samba.credentials import Credentials, MUST_USE_KERBEROS, SMB_SIGNING_REQUIRED
 from samba.dcerpc import security
@@ -81,6 +86,21 @@ for index in range(0, len(pairs), 2):
     descriptor = security.descriptor.from_sddl(sddl, domain)
     conn.set_acl(path, descriptor, security.SECINFO_DACL | security.SECINFO_PROTECTED_DACL)
     print(path)
+# Samba does not pass the permissions of a folder to the files it holds already: the owner of each
+# file written before 0.1.15 loses FILE_WRITE_DATA (0x12019f becomes 0x12019d), it only appends.
+for index in range(0, len(pairs), 2):
+    path = pairs[index]
+    if not path:
+        continue
+    for item in conn.list(path):
+        if item['attrib'] & 0x10:
+            continue
+        name = path + '\\' + item['name']
+        current = conn.get_acl(name, security.SECINFO_DACL).as_sddl(domain)
+        changed = re.sub(r';0x0*12019f;', ';0x12019d;', current, flags=re.IGNORECASE)
+        if changed != current:
+            conn.set_acl(name, security.descriptor.from_sddl(changed, domain), security.SECINFO_DACL)
+            print('append-only: ' + name)
 '@
 
 # The folders of the share made when needed, and their permissions written.

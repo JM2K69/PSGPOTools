@@ -15,6 +15,7 @@ tests of the module (`CI/tests/PSGPOTools.Hardening.tests.ps1` and others) and o
 | the configuration of the roles | [roles that overlap, or a group of every account](#approval), stop the workflow |
 | a backup on a share it can write | the [paths of the files](#other-guards) of a backup are checked |
 | an older console, a domain controller without the configuration | the [configuration fails closed](#configuration-fails-closed) |
+| its own file of the central audit log | [append only, chained, checked when read](#audit-log); nothing lost when the share is down |
 
 ## A GPO redirected to another folder { #redirected-gpo }
 
@@ -206,6 +207,69 @@ On both labs, `tiers1` (creator) and the administrator (approver):
 | `GPO-Tier1-Admins` in both roles: `tiers1` | *the approval workflow is unknown*: no GPO created | *the approval workflow is unknown*: no GPO created |
 | The configuration restored | the same bytes | the same bytes |
 
+## The audit log { #audit-log }
+
+### The threat
+
+The audit log is evidence, written by the accounts it watches. Up to 0.1.14:
+
+- the owner of a file could write over it (`FILE_WRITE_DATA`): a technician rewrote or emptied
+  its own lines;
+- `Account`, `Tier` and `Computer` are what the console wrote: a technician of Tier 2 could write
+  a line "Tier 0, Administrator" in its file, the reader showed it as such;
+- any account of the domain, computers included, created files in `Unassigned`;
+- a technician of the same tier could create the file of another account first (its name is
+  known): that account got *access denied*, and its changes were lost;
+- a share that could not be reached lost the change, for the central log and for the SIEM (the log
+  of the system was written after the share);
+- on Linux each line copied the whole file (`smbclient get`, then `put`).
+
+### What the console does
+
+[A log you can trust](../features/audit-log.md#a-log-you-can-trust) says it all: append only
+(`0x12019d`), chained lines (`Seq`, `PrevHash`), a **Check** of each entry when read (*Verified*,
+*Altered*, *Tier differs*, *Owner differs*, *Not chained*), the log of the system first, the
+changes that wait in `audit-waiting.jsonl`, a file of a new name when its name is taken,
+`Unassigned` for Domain Users only, and the imported lines marked `ImportedBy`.
+
+### Tested
+
+`PSGPOTools.Audit.tests.ps1`:
+
+- the change that cannot be written waits, and is written before the next one, in its order; a
+  line whose folder is gone does not stop the others;
+- the change goes to the log of the system even when the share cannot be written;
+- each line is chained; a line changed or removed in the middle makes the next one *Altered*;
+- a line of Tier 0 in the folder of Tier 1 is *Tier differs*; a file another account owns is
+  *Owner differs*, unless that account imported it; a file of Administrators is right for a line of
+  Tier 0 only;
+- on Linux, the lines go in one call to the Python bindings, opened to append; a file of its name
+  someone else made: a file of a new name (on Windows too);
+- the owner of a file appends only (`0x12019d`), `Unassigned` is for Domain Users.
+
+On both labs, after `Initialize-PSGPOAuditShare` (the files there made append-only too), `tiers1`
+on its own file of this month:
+
+| Step | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| A change (a GPO created then deleted): its 3 lines | chained, *Verified* | chained, *Verified* |
+| Its file written over (`smbclient put`; `WriteAllText`) | **refused** | **refused** |
+| Its file deleted | **refused** | **refused** |
+| One byte written in the middle with a handle opened to append | **written**: the next line is *Altered* | appended at the end of the file instead |
+| The file restored by the administrator | *Verified* again | (the byte removed) |
+| The lines written before 0.1.15 | *Not chained* | *Not chained* |
+
+Samba lets a handle opened with `FILE_APPEND_DATA` write anywhere in the file; Windows appends at
+its end whatever offset the writer gives. The chain shows what Samba allows.
+
+=== "hardenbox.labo (Samba AD)"
+
+    ![The audit log, its Check column](../assets/screenshots/63-audit-log.png)
+
+=== "powershell.labo (Active Directory)"
+
+    ![The audit log, its Check column](../assets/screenshots/66-audit-log-active-directory.png)
+
 ## Other guards { #other-guards }
 
 `PSGPOTools.Hardening.tests.ps1` also tests:
@@ -236,5 +300,6 @@ These were found by the same review, and are not fixed yet:
   OWNER RIGHTS would; the support of Samba is to check first);
 - the creators that keep editing an approved GPO (`EditSettings`) change it without a new approval:
   the drift shows each change;
-- the owner of a file of the central audit log can rewrite it: the log of the system (SIEM) keeps a
-  copy of each change.
+- on Samba, the owner of a file of the central audit log can still write in it with a tool that
+  opens it to append: the chain shows a line changed, not a whole file written again with a new
+  chain. The log of the system (SIEM) keeps a copy of each change.

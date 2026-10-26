@@ -99,7 +99,7 @@ function Initialize-PSGPOAuditShare {
     $folders = @(Get-PSGPOAuditShareSddl -DomainAdminsSid "$domainSid-512" -Tier0 @($roles.Tier0.Sid) -Tier1 @($roles.Tier1.Sid) -Tier2 @($roles.Tier2.Sid) -Readers @($roles.Readers.Sid))
     Set-PSGPOAuditShareAcl -Path $Path -Folder $folders
     if ($WhatIfPreference) { return }
-    $names = @{ Tier0 = @(@($roles.Tier0.Name) + 'Domain Admins' | Select-Object -Unique); Tier1 = @($roles.Tier1.Name); Tier2 = @($roles.Tier2.Name); Unassigned = @('Authenticated Users') }
+    $names = @{ Tier0 = @(@($roles.Tier0.Name) + 'Domain Admins' | Select-Object -Unique); Tier1 = @($roles.Tier1.Name); Tier2 = @($roles.Tier2.Name); Unassigned = @('Domain Users') }
     foreach ($item in $folders) {
         [pscustomobject]@{
             PSTypeName = 'PSGPOTools.AuditShareFolder'

@@ -85,13 +85,14 @@ $(Get-PSGPOWindowResourceXaml)
                     <DataGrid Name='auditGrid' IsReadOnly='True' CanUserSortColumns='True' CanUserResizeColumns='True'
                               GridLinesVisibility='Horizontal' HeadersVisibility='Column' SelectionMode='Single' RowHeight='28' FontSize='12'>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header='Time' Binding='{Binding Time}' Width='195'/>
-                            <DataGridTextColumn Header='Account' Binding='{Binding Account}' Width='240'/>
-                            <DataGridTextColumn Header='Action' Binding='{Binding Action}' Width='285'/>
+                            <DataGridTextColumn Header='Time' Binding='{Binding Time}' Width='185'/>
+                            <DataGridTextColumn Header='Account' Binding='{Binding Account}' Width='205'/>
+                            <DataGridTextColumn Header='Action' Binding='{Binding Action}' Width='250'/>
                             <DataGridTextColumn Header='GPO or object' Binding='{Binding Object}' Width='*'/>
-                            <DataGridTextColumn Header='Tier' Binding='{Binding Tier}' Width='95'/>
-                            <DataGridTextColumn Header='Computer' Binding='{Binding Computer}' Width='110'/>
-                            <DataGridTextColumn Header='Domain' Binding='{Binding Domain}' Width='140'/>
+                            <DataGridTextColumn Header='Tier' Binding='{Binding Tier}' Width='75'/>
+                            <DataGridTextColumn Header='Check' Binding='{Binding Check}' Width='140'/>
+                            <DataGridTextColumn Header='Computer' Binding='{Binding Computer}' Width='95'/>
+                            <DataGridTextColumn Header='Domain' Binding='{Binding Domain}' Width='135'/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>

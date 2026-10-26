@@ -131,24 +131,20 @@ function Import-PSGPOAuditLog {
             GpoName = $entry.GpoName
             Tier = $tier
             Details = if ($entry.Details) { $entry.Details } else { @{} }
+            # Who copied it, from which file: the file is the importer's, not the account's.
+            ImportedBy = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
+            ImportedBySid = if ($Directory.AccountSid) { $Directory.AccountSid }
+            ImportedFrom = $entry.File
         }
         $byFile[$name].Lines.Add((ConvertTo-Json -InputObject $line -Depth 5 -Compress))
     }
     if ($skipped) { Write-Verbose "$skipped change(s) already in $Destination." }
 
-    $share = if (-not $IsWindows) { Get-PSGPOAuditShare -Path $Destination }
     foreach ($name in $byFile.Keys) {
         $item = $byFile[$name]
         if (-not $PSCmdlet.ShouldProcess("$Destination\$name", "Add $($item.Lines.Count) change(s)")) { continue }
-        $bytes = [System.Text.Encoding]::UTF8.GetBytes((($item.Lines -join "`n") + "`n"))
-        if ($share) {
-            Add-PSGPOAuditShareLine -Share $share -Name $name -Bytes $bytes
-        } else {
-            $file = [System.IO.Path]::Combine([string[]](@($Destination) + @($name -split '\\')))
-            $null = New-Item -ItemType Directory -Path ([System.IO.Path]::GetDirectoryName($file)) -Force -ErrorAction Stop
-            $stream = [System.IO.FileStream]::new($file, [System.IO.FileMode]::Append, [System.IO.FileAccess]::Write, [System.IO.FileShare]::Read)
-            try { $stream.Write($bytes, 0, $bytes.Length) } finally { $stream.Dispose() }
-        }
+        # Chained as every line of the log (Add-PSGPOAuditLine).
+        Add-PSGPOAuditLine -Folder $Destination -Name $name -Line ([string[]]$item.Lines)
         [pscustomobject]@{ PSTypeName = 'PSGPOTools.AuditImport'; File = $name; Tier = $item.Tier; Account = $item.Account; Computer = $item.Computer; Changes = $item.Lines.Count }
     }
     if ($Remove -and -not $WhatIfPreference) {

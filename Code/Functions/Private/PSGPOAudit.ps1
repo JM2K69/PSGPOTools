@@ -1,6 +1,7 @@
 <#
     Audit log: what the consoles and the commands change in a domain, one JSON line per change,
-    never rewritten: when, who (the account of the directory), from which computer, on which
+    appended only and chained to the previous line of its file (Write-PSGPOAuditEntry), checked
+    when read (Read-PSGPOAuditFile): when, who (the account of the directory), from which computer, on which
     domain controller, what (Action), on what (Target: a GPO, a container, the configuration) and
     how (Details). Only the changes the domain accepted are written: they are logged once made.
 
@@ -54,6 +55,24 @@ function Get-PSGPOAuditTierText {
     ''
 }
 
+# What the check of an entry found (Read-PSGPOAuditFile), as the windows show it, and why.
+$script:PSGPOAuditCheckText = [ordered]@{
+    Verified = @('Verified', 'Its line follows the previous one of its file, its tier is the folder of its file, and its file belongs to its account.')
+    Altered = @('Altered', 'A line before it in its file was changed or removed: the chain of its file breaks here.')
+    NotChained = @('Not chained', 'Written before HGPM 0.1.15: its line is not chained, it is not checked.')
+    TierMismatch = @('Tier differs', 'Its tier is not the folder of its file: it was written elsewhere than in its tier.')
+    OwnerMismatch = @('Owner differs', 'Its file does not belong to its account (nor to the account that imported it): someone else wrote it.')
+}
+
+function Get-PSGPOAuditCheckText {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([AllowEmptyString()] [string]$Check, [switch]$Reason)
+
+    if (-not $script:PSGPOAuditCheckText.Contains($Check)) { return $Check }
+    Get-PSGPOText $script:PSGPOAuditCheckText[$Check][[int][bool]$Reason]
+}
+
 # The details of an entry, one "name: value" per line (a list or a table as JSON).
 function Format-PSGPOAuditDetail {
     [CmdletBinding()]
@@ -92,7 +111,9 @@ function Export-PSGPOAuditLogCsv {
                 Tier = $item.Tier
                 GpoName = $item.GpoName
                 GpoId = if ($item.GpoId) { $item.GpoId.ToString() } else { '' }
-                Details = if ($item.Details -and $item.Details.Count) { ConvertTo-Json -InputObject $item.Details -Depth 5 -Compress } else { '' }
+                Check = $item.Check
+                ImportedBy = $item.ImportedBy
+                Details =if ($item.Details -and $item.Details.Count) { ConvertTo-Json -InputObject $item.Details -Depth 5 -Compress } else { '' }
             }
         }) | Export-Csv -LiteralPath $Path -NoTypeInformation -Encoding utf8 -ErrorAction Stop
     Get-Item -LiteralPath $Path
@@ -167,6 +188,12 @@ function Update-PSGPOAuditTier {
     )
 
     $Directory.AuditTier = 'Unassigned'
+    try {
+        $token = Get-PSGPOAccountGroupSid -Connection $Connection -DomainDistinguishedName $Directory.Domain.DistinguishedName -Account $Directory.Account
+        if ($token.Count) { $Directory.AccountSid = $token[0] }
+    } catch {
+        Write-Verbose "The SID of $($Directory.Account) cannot be read: $($_.Exception.GetBaseException().Message)"
+    }
     if ($Directory.IsDomainAdministrator) { $Directory.AuditTier = 'Tier0'; return }
     try {
         $Directory.AuditTier = Get-PSGPOAuditAccountTier -Connection $Connection -Directory $Directory -Account $Directory.Account
@@ -212,7 +239,14 @@ function Get-PSGPOAuditAccountTier {
 }
 
 # Adds a change to the audit log of the domain of $Directory. A log that cannot be written does
-# not undo the change, which is made: it is said (a warning) and the change goes on.
+# not undo the change, which is made: the log of the system has it first (for a SIEM), and the
+# line waits in a local file (Get-PSGPOAuditSpoolPath), written before the next change.
+#
+# Each line is chained to the previous one of its file: Seq (1, 2...) and PrevHash (SHA-256 of the
+# previous line), first in the line, so that the reader finds a line changed or removed in the
+# middle of a file. The file of an account is append-only (FILE_APPEND_DATA without
+# FILE_WRITE_DATA): Windows appends at its end, Samba refuses to open it to write, but lets a
+# handle opened to append write anywhere: the chain shows it.
 function Write-PSGPOAuditEntry {
     [CmdletBinding()]
     param(
@@ -231,6 +265,7 @@ function Write-PSGPOAuditEntry {
         Domain = $Directory.DomainName
         Server = if ($Directory -is [GPOToolsLdapDirectory]) { $Directory.Server }
         Account = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
+        AccountSid = if ($Directory.AccountSid) { $Directory.AccountSid }
         Computer = [Environment]::MachineName
         Action = $Action
         Target = $Target
@@ -239,37 +274,177 @@ function Write-PSGPOAuditEntry {
         Tier = if ($Directory.AuditTier) { $Directory.AuditTier }
         Details = $Details
     }
-    $line = (ConvertTo-Json -InputObject $entry -Depth 5 -Compress) + "`n"
+    # The change for a SIEM first, whatever happens to the share.
+    try { Write-PSGPOAuditSystemLog -Entry $entry } catch { Write-Verbose "The log of the system: $($_.Exception.GetBaseException().Message)" }
+    $item = [ordered]@{ Folder = $null; Name = $null; Line = ConvertTo-Json -InputObject $entry -Depth 5 -Compress }
     try {
-        $folder = Get-PSGPOAuditPath
-        $name = Get-PSGPOAuditFileName -Directory $Directory -Time $now
-        $bytes = [System.Text.Encoding]::UTF8.GetBytes($line)
-        $share = if (-not $IsWindows) { Get-PSGPOAuditShare -Path $folder }
-        if ($share) {
-            Add-PSGPOAuditShareLine -Share $share -Name $name -Bytes $bytes
-            Write-PSGPOAuditSystemLog -Entry $entry
-            return
-        }
-        # Not Join-Path with the name: on Linux its \ would stay in the file name.
-        # [string[]]: an object[] makes .NET take another Combine, which joins with spaces.
-        $file = [System.IO.Path]::Combine([string[]](@($folder) + @($name -split '\\')))
-        $null = New-Item -ItemType Directory -Path ([System.IO.Path]::GetDirectoryName($file)) -Force -ErrorAction Stop
-        # Several consoles may write the same file: a few tries, each line in one write.
-        for ($try = 1; ; $try++) {
-            try {
-                $stream = [System.IO.FileStream]::new($file, [System.IO.FileMode]::Append, [System.IO.FileAccess]::Write, [System.IO.FileShare]::ReadWrite)
-                try { $stream.Write($bytes, 0, $bytes.Length) } finally { $stream.Dispose() }
-                break
-            } catch [System.IO.IOException] {
-                if ($try -ge 5) { throw }
-                Start-Sleep -Milliseconds (100 * $try)
-            }
-        }
-        # The change for a SIEM too, in the log of the system.
-        Write-PSGPOAuditSystemLog -Entry $entry
+        $item.Folder = Get-PSGPOAuditPath
+        $item.Name = Get-PSGPOAuditFileName -Directory $Directory -Time $now
     } catch {
-        Write-PSGPOLogEntry -Level Warning -Source 'Audit log' -Message "$Action of $Target is done, but not written to the audit log." -ErrorRecord $_
         Write-Warning "$Action of $Target is done, but not written to the audit log: $($_.Exception.GetBaseException().Message)"
+        return
+    }
+    # The lines that waited first, in their order, then this one.
+    # Each one on its own: one that cannot be written (its folder is gone) does not stop the others.
+    $waiting = @(Read-PSGPOAuditSpool)
+    $left = [System.Collections.Generic.List[object]]::new()
+    $failure = $null
+    foreach ($line in @($waiting) + @([pscustomobject]$item)) {
+        try {
+            Add-PSGPOAuditLine -Folder $line.Folder -Name $line.Name -Line $line.Line
+        } catch {
+            $left.Add($line)
+            if ([object]::ReferenceEquals($line.Line, $item.Line) -or -not $failure) { $failure = $_ }
+        }
+    }
+    if ($waiting.Count -or $left.Count) { Save-PSGPOAuditSpool -Item @($left) }
+    if (-not $left.Count) { return }
+    $done = if (@($left | Where-Object { [object]::ReferenceEquals($_.Line, $item.Line) }).Count) { "$Action of $Target is done, but not written to the audit log yet" } else { "$Action of $Target is written to the audit log, but older changes are not yet" }
+    Write-PSGPOLogEntry -Level Warning -Source 'Audit log' -Message "${done}: $($left.Count) change(s) wait in $(Get-PSGPOAuditSpoolPath)." -ErrorRecord $failure
+    Write-Warning "$done ($($failure.Exception.GetBaseException().Message)): $($left.Count) change(s) wait in $(Get-PSGPOAuditSpoolPath), written with the next change."
+}
+
+# The local file of the changes not written to the audit log yet (the share could not be
+# reached), one JSON line each: Folder, Name, Line.
+function Get-PSGPOAuditSpoolPath {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param()
+
+    Join-Path (Get-PSGPOLogPath) 'audit-waiting.jsonl'
+}
+
+function Read-PSGPOAuditSpool {
+    [CmdletBinding()]
+    param()
+
+    $path = Get-PSGPOAuditSpoolPath
+    if (-not (Test-Path -LiteralPath $path -PathType Leaf)) { return }
+    foreach ($text in [System.IO.File]::ReadAllLines($path)) {
+        if (-not $text.Trim()) { continue }
+        try { [pscustomobject](ConvertFrom-Json -InputObject $text -AsHashtable) } catch { Write-Warning "A line of $path is not a change of the audit log: left out." }
+    }
+}
+
+function Save-PSGPOAuditSpool {
+    [CmdletBinding(SupportsShouldProcess)]
+    param([Parameter(Mandatory)] [AllowEmptyCollection()] [object[]]$Item)
+
+    $path = Get-PSGPOAuditSpoolPath
+    if (-not $PSCmdlet.ShouldProcess($path, 'Keep the changes not written to the audit log')) { return }
+    if (-not $Item.Count) { Remove-Item -LiteralPath $path -Force -ErrorAction SilentlyContinue; return }
+    New-PSGPOFolder -Path ([System.IO.Path]::GetDirectoryName($path))
+    $lines = foreach ($one in $Item) { ConvertTo-Json -InputObject ([ordered]@{ Folder = $one.Folder; Name = $one.Name; Line = $one.Line }) -Compress }
+    [System.IO.File]::WriteAllLines($path, [string[]]$lines)
+}
+
+# A line chained to the last line of its file: {"Seq":<n>,"PrevHash":"<SHA-256>",...}. The first
+# line of a file, or after a line without Seq (written before 0.1.15), starts again at the Seq it
+# finds + 1.
+function Add-PSGPOAuditChain {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)] [string]$Line,
+        [AllowEmptyString()] [AllowNull()] [string]$Previous
+    )
+
+    $seq = 1
+    $hash = ''
+    if ($Previous) {
+        $hash = Get-PSGPOAuditLineHash -Line $Previous
+        if ($Previous -match '^\{"Seq":(\d+),') { $seq = [long]$Matches[1] + 1 }
+    }
+    '{"Seq":' + $seq + ',"PrevHash":"' + $hash + '",' + $Line.Substring(1)
+}
+
+function Get-PSGPOAuditLineHash {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([Parameter(Mandatory)] [AllowEmptyString()] [string]$Line)
+
+    [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($Line)))
+}
+
+# The last line of a file of the log (its last 64 KB read), $null when there is none.
+function Get-PSGPOAuditLastLine {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([Parameter(Mandatory)] [string]$File)
+
+    if (-not (Test-Path -LiteralPath $File -PathType Leaf)) { return $null }
+    $stream = [System.IO.FileStream]::new($File, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::ReadWrite)
+    try {
+        $size = [Math]::Min($stream.Length, 65536)
+        if (-not $size) { return $null }
+        $null = $stream.Seek(-$size, [System.IO.SeekOrigin]::End)
+        $buffer = [byte[]]::new($size)
+        $read = 0
+        while ($read -lt $size) { $count = $stream.Read($buffer, $read, $size - $read); if (-not $count) { break }; $read += $count }
+    } finally {
+        $stream.Dispose()
+    }
+    @([System.Text.Encoding]::UTF8.GetString($buffer, 0, $read) -split "`n" | Where-Object { $_.Trim() })[-1]
+}
+
+# Lines added to their file of the log, each chained to the previous one; on Linux to a share with
+# the Python bindings of Samba. A file of the same name someone else made (it cannot be opened):
+# the lines go to a file of a new name next to it.
+function Add-PSGPOAuditLine {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [string]$Folder,
+        [Parameter(Mandatory)] [string]$Name,
+        [Parameter(Mandatory)] [string[]]$Line
+    )
+
+    $share = if (-not $IsWindows) { Get-PSGPOAuditShare -Path $Folder }
+    foreach ($try in 1, 2) {
+        $target = if ($try -eq 1) { $Name } else { $Name -replace '\.jsonl$', "-$([guid]::NewGuid().ToString('N').Substring(0, 8)).jsonl" }
+        try {
+            if ($share) { Add-PSGPOAuditShareLine -Share $share -Name $target -Line $Line }
+            else {
+                $file = [System.IO.Path]::Combine([string[]](@($Folder) + @($target -split '\\')))
+                foreach ($one in $Line) { Add-PSGPOAuditFileLine -File $file -Line $one }
+            }
+            if ($try -eq 2) { Write-Warning "The file $Name of the audit log is not the account's (someone else made it): the change is in $target." }
+            return
+        } catch [System.UnauthorizedAccessException] {
+            if ($try -eq 2) { throw }
+        } catch {
+            if ($try -eq 2 -or "$($_.Exception.Message)" -notmatch 'ACCESS_DENIED') { throw }
+        }
+    }
+}
+
+# Windows, or a folder of the computer: the line appended to the file with FILE_APPEND_DATA only
+# (the owner of a file of the share has no more), the folder of the tier created when needed.
+function Add-PSGPOAuditFileLine {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [string]$File,
+        [Parameter(Mandatory)] [string]$Line
+    )
+
+    New-PSGPOFolder -Path ([System.IO.Path]::GetDirectoryName($File))
+    # Several consoles may write the same file: a few tries, each line in one write.
+    for ($try = 1; ; $try++) {
+        try {
+            $bytes = [System.Text.Encoding]::UTF8.GetBytes((Add-PSGPOAuditChain -Line $Line -Previous (Get-PSGPOAuditLastLine -File $File)) + "`n")
+            $stream = if ($IsWindows) {
+                [System.IO.FileSystemAclExtensions]::Create([System.IO.FileInfo]::new($File), [System.IO.FileMode]::Append,
+                    [System.Security.AccessControl.FileSystemRights]'AppendData, Synchronize', [System.IO.FileShare]::ReadWrite, 4096, [System.IO.FileOptions]::None, $null)
+            } else {
+                [System.IO.FileStream]::new($File, [System.IO.FileMode]::Append, [System.IO.FileAccess]::Write, [System.IO.FileShare]::ReadWrite)
+            }
+            try { $stream.Write($bytes, 0, $bytes.Length) } finally { $stream.Dispose() }
+            return
+        } catch [System.UnauthorizedAccessException] {
+            throw
+        } catch [System.IO.IOException] {
+            if ($try -ge 5) { throw }
+            Start-Sleep -Milliseconds (100 * $try)
+        }
     }
 }
 
@@ -286,32 +461,88 @@ function Write-PSGPOAuditSystemLog {
     Write-PSGPOSystemLog -Level Information -EventId $id -Message $text
 }
 
-# Linux: a line added to a file of the share of the log, with smbclient (Kerberos): the file of
-# the account read, the line added, the file written back, the folder of the tier created when
-# needed. The account is the only one to write its file.
+# Linux: a line appended to a file of the share of the log with the SMB client of Samba (Python
+# bindings, Kerberos): the file opened with FILE_APPEND_DATA (no more for its owner), its last
+# line read, the line chained to it and written at its end, the folder of the tier created when
+# needed. Not smbclient get and put: the owner cannot write the file, and each line would copy it.
+$script:PSGPOAuditAppendPython = @'
+import base64, hashlib, re, sys
+from samba import param, NTSTATUSError
+from samba.credentials import Credentials, MUST_USE_KERBEROS, SMB_SIGNING_REQUIRED
+from samba.samba3 import param as s3param
+from samba.samba3 import libsmb_samba_internal as libsmb
+
+server, share, path = sys.argv[1:4]
+new = [base64.b64decode(text).decode('utf-8') for text in sys.argv[4:]]
+lp = param.LoadParm()
+lp.load_default()
+creds = Credentials()
+creds.guess(lp)
+creds.set_kerberos_state(MUST_USE_KERBEROS)
+creds.set_smb_signing(SMB_SIGNING_REQUIRED)
+s3_lp = s3param.get_context()
+if lp.configfile:
+    s3_lp.load(lp.configfile)
+conn = libsmb.Conn(server, share, lp=s3_lp, creds=creds)
+parts = path.split('\\')
+for index in range(1, len(parts)):
+    folder = '\\'.join(parts[:index])
+    if not conn.chkpath(folder):
+        try:
+            conn.mkdir(folder)
+        except NTSTATUSError:
+            pass
+# FILE_READ_DATA | FILE_APPEND_DATA | FILE_READ_ATTRIBUTES | READ_CONTROL | SYNCHRONIZE, open or create.
+try:
+    fnum, created, _ = conn.create_ex(path, DesiredAccess=0x1 | 0x4 | 0x80 | 0x20000 | 0x100000, ShareAccess=7, CreateDisposition=3)
+except NTSTATUSError as error:
+    if error.args[0] == 0xC0000022:
+        print('ACCESS_DENIED: ' + path)
+        sys.exit(3)
+    raise
+try:
+    end = created['end_of_file']
+    previous = None
+    if end:
+        start = max(0, end - 65536)
+        tail = conn.read(fnum, start, end - start).decode('utf-8', 'replace')
+        lines = [text for text in tail.split('\n') if text.strip()]
+        previous = lines[-1] if lines else None
+    for line in new:
+        seq, digest = 1, ''
+        if previous is not None:
+            digest = hashlib.sha256(previous.encode('utf-8')).hexdigest().upper()
+            match = re.match(r'^\{"Seq":(\d+),', previous)
+            if match:
+                seq = int(match.group(1)) + 1
+        chained = '{"Seq":%d,"PrevHash":"%s",%s' % (seq, digest, line[1:])
+        data = (chained + '\n').encode('utf-8')
+        conn.write(fnum, data, end)
+        end += len(data)
+        previous = chained
+finally:
+    conn.close(fnum)
+print(path)
+'@
+
 function Add-PSGPOAuditShareLine {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] [pscustomobject]$Share,
         [Parameter(Mandatory)] [string]$Name,
-        [Parameter(Mandatory)] [byte[]]$Bytes
+        [Parameter(Mandatory)] [string[]]$Line
     )
 
+    $python = Get-Command -Name 'python3' -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+    if (-not $python) { throw 'The audit log on a share needs python3 and the Samba Python bindings (Debian/Ubuntu: apt install python3-samba).' }
     $remote = (@($Share.Folder, $Name) | Where-Object { $_ }) -join '\'
-    $local = [System.IO.Path]::GetTempFileName()
-    try {
-        $read = Invoke-PSGPOSmbClient -Server $Share.Server -Share $Share.Share -AllowMissing -Command ('get "{0}" "{1}"' -f $remote, $local)
-        if ($null -eq $read) { [System.IO.File]::WriteAllBytes($local, [byte[]]@()) }
-        $stream = [System.IO.FileStream]::new($local, [System.IO.FileMode]::Append, [System.IO.FileAccess]::Write)
-        try { $stream.Write($Bytes, 0, $Bytes.Length) } finally { $stream.Dispose() }
-        $level = ''
-        foreach ($part in @($remote -split '\\' | Select-Object -SkipLast 1)) {
-            $level = if ($level) { "$level\$part" } else { $part }
-            $null = Invoke-PSGPOSmbClient -Server $Share.Server -Share $Share.Share -IgnoreStatus 'NT_STATUS_OBJECT_NAME_COLLISION', 'NT_STATUS_ACCESS_DENIED' -Command ('mkdir "{0}"' -f $level)
-        }
-        $null = Invoke-PSGPOSmbClient -Server $Share.Server -Share $Share.Share -Command ('put "{0}" "{1}"' -f $local, $remote)
-    } finally {
-        Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue
+    $encoded = foreach ($one in $Line) { [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($one)) }
+    $result = Invoke-PSGPONativeCommand -FilePath $python.Source -ArgumentList (@('-c', $script:PSGPOAuditAppendPython, $Share.Server, $Share.Share, $remote) + @($encoded))
+    if ($result.ExitCode -eq 3) { throw "ACCESS_DENIED: the file $remote of the audit log cannot be opened." }
+    if ($result.ExitCode -ne 0) {
+        $lines = @("$($result.Error)" -split '\r?\n' | Where-Object { $_ })
+        $message = if ($lines -match 'ModuleNotFoundError') { 'the Samba Python bindings are missing (Debian/Ubuntu: apt install python3-samba)' } elseif ($lines) { $lines[-1] } else { "exit code $($result.ExitCode)" }
+        throw "The line is not added to $remote of the audit log: $message"
     }
 }
 
@@ -328,7 +559,8 @@ function Test-PSGPOAuditFolder {
 }
 
 # The entries of the audit log, newest first: every file of the folder and of its folders the
-# account can read (a central log: the tiers it may read).
+# account can read (a central log: the tiers it may read), each checked (Read-PSGPOAuditFile) with
+# the owner of its file.
 function Read-PSGPOAuditEntry {
     [CmdletBinding()]
     param(
@@ -338,14 +570,20 @@ function Read-PSGPOAuditEntry {
 
     $share = if (-not $IsWindows) { Get-PSGPOAuditShare -Path $Path }
     $local = $null
+    $owners = @{}
     if ($share) {
         # Linux: the files of the share the account can read, copied first (the folders of the
-        # other tiers are refused: not a failure).
+        # other tiers are refused: not a failure), and the owners of the files.
         $local = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-audit-$([guid]::NewGuid())"
         $null = New-Item -ItemType Directory -Path $local
         $command = 'prompt OFF; recurse ON; lcd "{0}"; {1}mget *' -f $local, $(if ($share.Folder) { 'cd "{0}"; ' -f $share.Folder })
         $copied = Invoke-PSGPOSmbClient -Server $share.Server -Share $share.Share -TimeoutSeconds 600 -AllowMissing -IgnoreExitCode -IgnoreStatus 'NT_STATUS_ACCESS_DENIED', 'NT_STATUS_NO_SUCH_FILE' -Command $command
         if ($null -eq $copied) { Remove-Item -LiteralPath $local -Recurse -Force; return }
+        try {
+            foreach ($pair in (Get-PSGPOAuditShareOwner -Share $share).GetEnumerator()) { $owners[(Join-Path $local ($pair.Key -replace '\\', [System.IO.Path]::DirectorySeparatorChar))] = $pair.Value }
+        } catch {
+            Write-Verbose "The owners of the files of the audit log cannot be read: $($_.Exception.GetBaseException().Message)"
+        }
         $Path = $local
     }
     try {
@@ -353,24 +591,104 @@ function Read-PSGPOAuditEntry {
         $filter = if ($Domain) { "$($Domain -replace '[^\w.-]', '_')-*.jsonl" } else { '*.jsonl' }
         # The folders the account cannot read (the other tiers) are left out.
         $files = @(Get-ChildItem -LiteralPath $Path -File -Recurse -Filter $filter -ErrorAction SilentlyContinue | Sort-Object FullName)
-        Read-PSGPOAuditFile -File $files
+        if (-not $share -and $IsWindows) {
+            foreach ($file in $files) {
+                try { $owners[$file.FullName] = ([System.IO.FileSystemAclExtensions]::GetAccessControl($file)).GetOwner([System.Security.Principal.SecurityIdentifier]).Value } catch { Write-Verbose "The owner of $($file.FullName) cannot be read." }
+            }
+        }
+        Read-PSGPOAuditFile -File $files -Owner $owners
     } finally {
         if ($local) { Remove-Item -LiteralPath $local -Recurse -Force -ErrorAction SilentlyContinue }
     }
 }
 
-# The entries of files of the log, newest first.
+# Linux: the owner (SID) of each file of the log on its share, by path in the share folder.
+$script:PSGPOAuditOwnerPython = @'
+import sys
+from samba import param, NTSTATUSError
+from samba.credentials import Credentials, MUST_USE_KERBEROS, SMB_SIGNING_REQUIRED
+from samba.dcerpc import security
+from samba.samba3 import param as s3param
+from samba.samba3 import libsmb_samba_internal as libsmb
+
+server, share, root = sys.argv[1:4]
+lp = param.LoadParm()
+lp.load_default()
+creds = Credentials()
+creds.guess(lp)
+creds.set_kerberos_state(MUST_USE_KERBEROS)
+creds.set_smb_signing(SMB_SIGNING_REQUIRED)
+s3_lp = s3param.get_context()
+if lp.configfile:
+    s3_lp.load(lp.configfile)
+conn = libsmb.Conn(server, share, lp=s3_lp, creds=creds)
+
+def walk(folder, relative):
+    try:
+        items = conn.list(folder)
+    except NTSTATUSError:
+        return
+    for item in items:
+        name = item['name']
+        if name in ('.', '..'):
+            continue
+        path = folder + '\\' + name if folder else name
+        rel = relative + '\\' + name if relative else name
+        if item['attrib'] & 0x10:
+            walk(path, rel)
+        elif name.endswith('.jsonl'):
+            try:
+                owner = conn.get_acl(path, security.SECINFO_OWNER).owner_sid
+                print('%s\t%s' % (rel, owner))
+            except NTSTATUSError:
+                pass
+
+walk(root, '')
+'@
+
+function Get-PSGPOAuditShareOwner {
+    [CmdletBinding()]
+    [OutputType([hashtable])]
+    param([Parameter(Mandatory)] [pscustomobject]$Share)
+
+    $owners = @{}
+    $python = Get-Command -Name 'python3' -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+    if (-not $python) { return $owners }
+    $result = Invoke-PSGPONativeCommand -FilePath $python.Source -ArgumentList '-c', $script:PSGPOAuditOwnerPython, $Share.Server, $Share.Share, "$($Share.Folder)" -TimeoutSeconds 600
+    if ($result.ExitCode -ne 0) { throw "The owners of the files of the audit log cannot be read: $(@("$($result.Error)" -split '\r?\n' | Where-Object { $_ })[-1])" }
+    # The output is a line each, or one text: both split into lines.
+    foreach ($text in @(@($result.Output) | ForEach-Object { "$_" -split '\r?\n' } | Where-Object { $_ -match "`t" })) {
+        $path, $sid = $text -split "`t", 2
+        $owners[$path] = $sid.Trim()
+    }
+    $owners
+}
+
+# The entries of files of the log, newest first, each checked: Check is Verified (its line is
+# chained to the previous one of its file, its tier is the folder of its file, the owner of its
+# file is its account, or the account that imported it), Altered (the chain breaks: a line
+# before it was changed or removed), TierMismatch, OwnerMismatch, or NotChained (written before
+# 0.1.15). $Owner: the owner (SID) of each file, by its full path.
 function Read-PSGPOAuditFile {
     [CmdletBinding()]
-    param([Parameter(Mandatory)] [AllowEmptyCollection()] [System.IO.FileInfo[]]$File)
+    param(
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [System.IO.FileInfo[]]$File,
+        [hashtable]$Owner = @{}
+    )
 
+    $tiers = 'Tier0', 'Tier1', 'Tier2', 'Unassigned'
     # The order of the lines breaks the ties: two changes of the same instant.
     $order = 0
     $entries = foreach ($file in $File) {
         $number = 0
+        $previous = $null
+        $folder = Split-Path -Leaf (Split-Path -Parent $file.FullName)
+        $fileOwner = $Owner[$file.FullName]
         foreach ($line in [System.IO.File]::ReadLines($file.FullName)) {
             $number++
             if (-not $line.Trim()) { continue }
+            $before = $previous
+            $previous = $line
             try {
                 $read = ConvertFrom-Json -InputObject $line -AsHashtable
             } catch {
@@ -378,6 +696,20 @@ function Read-PSGPOAuditFile {
                 continue
             }
             if ($read.Format -ne $script:PSGPOAuditFormat) { continue }
+            $check = 'Verified'
+            if ($null -eq $read.Seq) {
+                $check = 'NotChained'
+            } else {
+                $expected = if ($null -ne $before -and $before -match '^\{"Seq":(\d+),') { [long]$Matches[1] + 1 } else { 1 }
+                $hash = if ($null -ne $before) { Get-PSGPOAuditLineHash -Line $before } else { '' }
+                if ([long]$read.Seq -ne $expected -or "$($read.PrevHash)" -ne $hash) { $check = 'Altered' }
+            }
+            if ($check -in 'Verified', 'NotChained' -and $read.Tier -and $tiers -contains $folder -and $read.Tier -ne $folder) { $check = 'TierMismatch' }
+            $writer = if ($read.ImportedBySid) { $read.ImportedBySid } else { $read.AccountSid }
+            # A file a member of Administrators made belongs to Administrators (Windows and Samba):
+            # only an administrator has such a file, the owner of a line of Tier 0.
+            $owned = $writer -eq $fileOwner -or ($fileOwner -eq 'S-1-5-32-544' -and $read.Tier -eq 'Tier0')
+            if ($check -in 'Verified', 'NotChained' -and $writer -and $fileOwner -and -not $owned) { $check = 'OwnerMismatch' }
             [pscustomobject]@{
                 PSTypeName = 'PSGPOTools.AuditEntry'
                 # ConvertFrom-Json turns the time into a date of the local time zone itself: back to UTC.
@@ -392,6 +724,10 @@ function Read-PSGPOAuditFile {
                 GpoName = $read.GpoName
                 Tier = $read.Tier
                 Details = $read.Details
+                Check = $check
+                ImportedBy = $read.ImportedBy
+                ImportedFrom = $read.ImportedFrom
+                File = $file.Name
                 Order = $order++
             }
         }

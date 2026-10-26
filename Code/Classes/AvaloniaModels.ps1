@@ -242,6 +242,8 @@ class AvaloniaAuditRow {
     [string]$Domain
     # Tier0, Tier1, Tier2, Unassigned in the central log; empty in the folder of an account
     [string]$Tier
+    # What the check of the entry found (Verified, Altered...), as the window shows it
+    [string]$Check
     # The entry of Get-PSGPOAuditLog (PSGPOTools.AuditEntry)
     [object]$Entry
     # What the search reads, in lower case

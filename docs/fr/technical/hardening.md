@@ -16,6 +16,7 @@ Directory](../getting-started/lab.md)).
 | la configuration des rôles | [des rôles qui se chevauchent, ou un groupe de tous les comptes](#approval), arrêtent le circuit |
 | une sauvegarde sur un partage qu'il peut écrire | les [chemins des fichiers](#other-guards) d'une sauvegarde sont vérifiés |
 | une console plus ancienne, un contrôleur de domaine sans la configuration | la [configuration échoue en sécurité](#configuration-fails-closed) |
+| son propre fichier du journal d'audit central | [ajout seul, chaîné, vérifié à la lecture](#audit-log) ; rien de perdu quand le partage est injoignable |
 
 ## Une GPO redirigée vers un autre dossier { #redirected-gpo }
 
@@ -215,6 +216,70 @@ Sur les deux labs, `tiers1` (créateur) et l'administrateur (approbateur) :
 | `GPO-Tier1-Admins` dans les deux rôles : `tiers1` | *le circuit d'approbation est inconnu* : aucune GPO créée | *le circuit d'approbation est inconnu* : aucune GPO créée |
 | La configuration restaurée | les mêmes octets | les mêmes octets |
 
+## Le journal d'audit { #audit-log }
+
+### La menace
+
+Le journal d'audit est une preuve, écrite par les comptes qu'il surveille. Jusqu'à 0.1.14 :
+
+- le propriétaire d'un fichier pouvait l'écraser (`FILE_WRITE_DATA`) : un technicien réécrivait ou
+  vidait ses propres lignes ;
+- `Account`, `Tier` et `Computer` sont ce que la console a écrit : un technicien du Tier 2 pouvait
+  écrire dans son fichier une ligne « Tier 0, Administrator », que le lecteur montrait telle quelle ;
+- n'importe quel compte du domaine, ordinateurs compris, créait des fichiers dans `Unassigned` ;
+- un technicien du même tier pouvait créer d'avance le fichier d'un autre compte (son nom est
+  connu) : ce compte recevait *accès refusé*, et ses modifications étaient perdues ;
+- un partage injoignable perdait la modification, pour le journal central comme pour le SIEM (le
+  journal du système était écrit après le partage) ;
+- sous Linux, chaque ligne copiait tout le fichier (`smbclient get`, puis `put`).
+
+### Ce que fait la console
+
+[Un journal fiable](../features/audit-log.md#un-journal-fiable) dit tout : ajout seul
+(`0x12019d`), des lignes chaînées (`Seq`, `PrevHash`), une **Vérification** de chaque entrée à la
+lecture (*Vérifiée*, *Altérée*, *Tier différent*, *Propriétaire différent*, *Non chaînée*), le
+journal du système d'abord, les modifications qui attendent dans `audit-waiting.jsonl`, un fichier
+d'un nouveau nom quand son nom est pris, `Unassigned` pour Domain Users seulement, et les lignes
+importées marquées `ImportedBy`.
+
+### Testé
+
+`PSGPOTools.Audit.tests.ps1` :
+
+- la modification qui ne peut pas être écrite attend, et elle est écrite avant la suivante, dans
+  son ordre ; une ligne dont le dossier a disparu n'arrête pas les autres ;
+- la modification part au journal du système même quand le partage ne peut pas être écrit ;
+- chaque ligne est chaînée ; une ligne modifiée ou retirée au milieu rend la suivante *Altérée* ;
+- une ligne du Tier 0 dans le dossier du Tier 1 est *Tier différent* ; un fichier qui appartient à
+  un autre compte est *Propriétaire différent*, sauf si ce compte l'a importée ; un fichier
+  d'Administrators ne convient qu'à une ligne du Tier 0 ;
+- sous Linux, les lignes partent en un appel aux bindings Python, le fichier ouvert en ajout ; un
+  fichier de son nom créé par quelqu'un d'autre : un fichier d'un nouveau nom (sous Windows aussi) ;
+- le propriétaire d'un fichier ne fait qu'ajouter (`0x12019d`), `Unassigned` est pour Domain Users.
+
+Sur les deux labs, après `Initialize-PSGPOAuditShare` (les fichiers déjà là passés en ajout seul
+aussi), `tiers1` sur son propre fichier du mois :
+
+| Étape | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| Une modification (une GPO créée puis supprimée) : ses 3 lignes | chaînées, *Vérifiées* | chaînées, *Vérifiées* |
+| Son fichier écrasé (`smbclient put` ; `WriteAllText`) | **refusé** | **refusé** |
+| Son fichier supprimé | **refusé** | **refusé** |
+| Un octet écrit au milieu avec un handle ouvert en ajout | **écrit** : la ligne suivante est *Altérée* | ajouté à la fin du fichier à la place |
+| Le fichier restauré par l'administrateur | à nouveau *Vérifiée* | (l'octet retiré) |
+| Les lignes écrites avant 0.1.15 | *Non chaînées* | *Non chaînées* |
+
+Samba laisse un handle ouvert avec `FILE_APPEND_DATA` écrire n'importe où dans le fichier ; Windows
+ajoute à la fin quel que soit l'offset donné. La chaîne montre ce que Samba permet.
+
+=== "hardenbox.labo (Samba AD)"
+
+    ![Le journal d'audit, sa colonne Vérification](../assets/screenshots/63-audit-log.fr.png)
+
+=== "powershell.labo (Active Directory)"
+
+    ![Le journal d'audit, sa colonne Vérification](../assets/screenshots/66-audit-log-active-directory.fr.png)
+
 ## Autres protections { #other-guards }
 
 `PSGPOTools.Hardening.tests.ps1` teste aussi :
@@ -245,5 +310,6 @@ La même revue les a trouvées, elles ne sont pas encore corrigées :
   pas (une ACE pour OWNER RIGHTS le ferait ; le support de Samba est à vérifier d'abord) ;
 - les créateurs qui gardent la modification d'une GPO approuvée (`EditSettings`) la changent sans
   nouvelle approbation : la dérive montre chaque changement ;
-- le propriétaire d'un fichier du journal d'audit central peut le réécrire : le journal du système
-  (SIEM) garde une copie de chaque modification.
+- sous Samba, le propriétaire d'un fichier du journal d'audit central peut encore y écrire avec un
+  outil qui l'ouvre en ajout : la chaîne montre une ligne modifiée, pas un fichier entier réécrit
+  avec une nouvelle chaîne. Le journal du système (SIEM) garde une copie de chaque modification.

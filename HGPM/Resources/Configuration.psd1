@@ -56,8 +56,8 @@
     }
 
     # Audit log: each change the consoles and the commands make in the domain, one line (when, who,
-    # from which computer, what, on which GPO or container), never rewritten; Get-PSGPOAuditLog
-    # reads it.
+    # from which computer, what, on which GPO or container), appended only and chained to the
+    # previous one; Get-PSGPOAuditLog reads and checks it.
     Audit = @{
         # Whether the changes are written to the audit log: yes by default.
         Enabled = $true
