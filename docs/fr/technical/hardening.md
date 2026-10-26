@@ -139,22 +139,17 @@ avant. Mettez-les à jour d'abord.
 - aucune configuration vide n'est créée sur un contrôleur de domaine qui ne l'a pas quand le
   domaine délègue la création de GPO.
 
-Sur hardenbox.labo (Samba AD), la configuration du domaine sauvegardée d'abord et restaurée à la
-fin, octet pour octet ; `tiers1`, un créateur, après chaque changement :
+Sur les deux labs, la configuration du domaine sauvegardée d'abord et restaurée à la fin, octet pour
+octet ; `tiers1`, un créateur, après chaque changement :
 
-| La configuration du domaine | `tiers1` |
-|---|---|
-| Telle quelle | circuit connu, sa GPO créée en attente d'approbation |
-| Avec `Console.MinimumVersion = '99.0'` | *le circuit d'approbation est inconnu* : aucune GPO créée |
-| Avec un réglage qu'aucune console ne connaît (`Future.Mode`) | un avertissement ; circuit connu, sa GPO créée en attente d'approbation |
-| Retirée du contrôleur de domaine | *le domaine délègue la création de GPO, mais dc.hardenbox.labo n'a pas de configuration* : aucune GPO créée |
-| L'administrateur ouvre alors la console | la configuration pas créée, un avertissement |
-| Restaurée | circuit connu, sa GPO créée en attente d'approbation |
-
-Sur powershell.labo (Active Directory), de la même façon : avec `Console.MinimumVersion = '99.0'`,
-`Tiers1` obtient *le circuit d'approbation est inconnu* et ne crée aucune GPO ; sans la
-configuration, l'administrateur qui ouvre la console n'en crée pas de vide ; la configuration
-restaurée octet pour octet.
+| La configuration du domaine | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| Telle quelle | circuit connu, sa GPO créée en attente d'approbation | circuit connu, sa GPO créée en attente d'approbation |
+| Avec `Console.MinimumVersion = '99.0'` | *le circuit d'approbation est inconnu* : aucune GPO créée | *le circuit d'approbation est inconnu* : aucune GPO créée |
+| Avec un réglage qu'aucune console ne connaît (`Future.Mode`) | un avertissement ; circuit connu, sa GPO créée en attente d'approbation | un avertissement ; circuit connu, sa GPO créée en attente d'approbation |
+| Retirée du contrôleur de domaine | *le domaine délègue la création de GPO, mais dc.hardenbox.labo n'a pas de configuration* : aucune GPO créée | *le domaine délègue la création de GPO, mais ADDS.powershell.labo n'a pas de configuration* : aucune GPO créée |
+| L'administrateur ouvre alors la console | la configuration pas créée, un avertissement | la configuration pas créée, un avertissement |
+| Restaurée | circuit connu, sa GPO créée en attente d'approbation | les mêmes octets, lus sans avertissement |
 
 ## Autres protections { #other-guards }
 

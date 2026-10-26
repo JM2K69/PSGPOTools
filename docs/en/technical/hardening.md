@@ -134,22 +134,17 @@ it: they leave out the whole configuration, as before. Update them first.
 - no empty configuration is created on a domain controller without it when the domain delegates
   the creation of GPOs.
 
-On hardenbox.labo (Samba AD), the configuration of the domain saved first and restored at the end,
-byte for byte; `tiers1`, a creator, after each change:
+On both labs, the configuration of the domain saved first and restored at the end, byte for byte;
+`tiers1`, a creator, after each change:
 
-| The configuration of the domain | `tiers1` |
-|---|---|
-| As it is | workflow known, its GPO created waiting for approval |
-| With `Console.MinimumVersion = '99.0'` | *the approval workflow is unknown*: no GPO created |
-| With a setting no console knows (`Future.Mode`) | a warning; workflow known, its GPO created waiting for approval |
-| Removed from the domain controller | *the domain delegates the creation of GPOs, but dc.hardenbox.labo has no configuration*: no GPO created |
-| The administrator opens the console then | the configuration not created, a warning |
-| Restored | workflow known, its GPO created waiting for approval |
-
-On powershell.labo (Active Directory), the same way: with `Console.MinimumVersion = '99.0'`,
-`Tiers1` gets *the approval workflow is unknown* and creates no GPO; without the configuration,
-the administrator opening the console does not create an empty one; the configuration restored
-byte for byte.
+| The configuration of the domain | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| As it is | workflow known, its GPO created waiting for approval | workflow known, its GPO created waiting for approval |
+| With `Console.MinimumVersion = '99.0'` | *the approval workflow is unknown*: no GPO created | *the approval workflow is unknown*: no GPO created |
+| With a setting no console knows (`Future.Mode`) | a warning; workflow known, its GPO created waiting for approval | a warning; workflow known, its GPO created waiting for approval |
+| Removed from the domain controller | *the domain delegates the creation of GPOs, but dc.hardenbox.labo has no configuration*: no GPO created | *the domain delegates the creation of GPOs, but ADDS.powershell.labo has no configuration*: no GPO created |
+| The administrator opens the console then | the configuration not created, a warning | the configuration not created, a warning |
+| Restored | workflow known, its GPO created waiting for approval | the same bytes, read without a warning |
 
 ## Other guards { #other-guards }
 
