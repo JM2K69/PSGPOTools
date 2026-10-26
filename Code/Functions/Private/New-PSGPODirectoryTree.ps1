@@ -2,6 +2,10 @@
     Builds the Group Policy Management tree of Show-GPOManagerAvalonia, as GPMC shows it:
     domain > GPO links (by link order) and OUs, then the "Group Policy Objects" container, and
     "Deleted GPOs": the recycle bin, the newest backup of each GPO deleted from the domain.
+
+    With the approval workflow, the GPOs waiting for their approval are found without expanding
+    the tree: a "Waiting for approval" node lists them (expanded when the console opens), and an
+    OU says how many are linked below it.
     Kept free of any Avalonia type so it can be tested without a UI.
 
     Every OU, link and GPO is shown, as GPMC shows them to any account of the domain; what the
@@ -21,6 +25,7 @@ function Get-PSGPODirectoryNodeKey {
     elseif ($Node.Tag -eq 'GroupPolicyObjects') { 'GPOS:' + $Node.Parent.Tag.DistinguishedName }
     elseif ($Node.Tag -eq 'DeletedGpos') { 'DELETED:' + $Node.Parent.Tag.DistinguishedName }
     elseif ($Node.Tag -eq 'WmiFilters') { 'WMI:' + $Node.Parent.Tag.DistinguishedName }
+    elseif ($Node.Tag -eq 'PendingGpos') { 'PENDING:' + $Node.Parent.Tag.DistinguishedName }
 }
 
 function New-PSGPODirectoryTree {
@@ -43,6 +48,23 @@ function New-PSGPODirectoryTree {
     )
 
     if ($null -eq $ShowUnmanaged) { $ShowUnmanaged = Test-PSGPOUnmanagedShown }
+    $VisibleGpos = @(if ($ShowUnmanaged) { $Directory.Gpos } else { $Directory.GetVisibleGpos() })
+    $Pending = @($VisibleGpos | Where-Object { $_.ApprovalState -eq 'Pending' })
+
+    # The GPOs waiting for approval linked to an OU or below it, each once.
+    function Get-PendingBelow {
+        param([GPOToolsSom]$Som)
+        @($Som.Links | Where-Object { $_.Gpo -and $_.Gpo.ApprovalState -eq 'Pending' } | ForEach-Object { $_.Gpo.Id })
+        foreach ($Child in $Som.Children) { Get-PendingBelow $Child }
+    }
+
+    # A GPO waiting for approval: orange, red when it applies already.
+    function Add-PendingGpo {
+        param([GPOToolsGpo]$Gpo, [AvaloniaTreeNode]$Parent)
+        $Label = $Gpo.DisplayName + $(if ($Gpo.AppliesWhilePending()) { Get-PSGPOText ' (waiting for approval, but it applies)' } else { Get-PSGPOText ' (waiting for approval)' })
+        $Node = New-Node $Label 'document-settings' $Gpo $Parent
+        $Node.IconBrush = if ($Gpo.AppliesWhilePending()) { '#C50F1F' } else { '#CA5010' }
+    }
 
     function New-Node {
         param([string]$Header, [string]$Icon, $Tag, [AvaloniaTreeNode]$Parent)
@@ -59,6 +81,12 @@ function New-PSGPODirectoryTree {
     function Add-Som {
         param([GPOToolsSom]$Som, [AvaloniaTreeNode]$Parent)
         $Header = if ($Som.BlockInheritance) { Get-PSGPOText '{0} (blocks inheritance)' $Som.Name } else { $Som.Name }
+        # An OU with GPOs waiting for approval below it: said, so that they are found without
+        # expanding every OU.
+        if ($Pending.Count -and $Som.Kind -ne [GPOToolsSomKind]::Domain) {
+            $Count = @(Get-PendingBelow $Som | Select-Object -Unique).Count
+            if ($Count) { $Header += Get-PSGPOText ' ({0} waiting for approval)' $Count }
+        }
         $Icon = if ($Som.Kind -eq [GPOToolsSomKind]::Domain) { 'globe' } elseif ($Som.BlockInheritance) { 'folder-prohibited' } else { 'folder' }
         $Node = New-Node $Header $Icon $Som $Parent
         # An OU where the account does not link GPOs: greyed, as its links; without what the account
@@ -84,16 +112,22 @@ function New-PSGPODirectoryTree {
     $DomainNode.IsExpanded = $true
 
     $GposNode = New-Node (Get-PSGPOText 'Group Policy Objects') 'library' 'GroupPolicyObjects' $DomainNode
-    foreach ($Gpo in $(if ($ShowUnmanaged) { $Directory.Gpos } else { $Directory.GetVisibleGpos() })) {
+    foreach ($Gpo in $VisibleGpos) {
         if ($Gpo.ApprovalState -eq 'Pending') {
-            $Label = $Gpo.DisplayName + $(if ($Gpo.AppliesWhilePending()) { Get-PSGPOText ' (waiting for approval, but it applies)' } else { Get-PSGPOText ' (waiting for approval)' })
-            $Node = New-Node $Label 'document-settings' $Gpo $GposNode
-            $Node.IconBrush = if ($Gpo.AppliesWhilePending()) { '#C50F1F' } else { '#CA5010' }
+            Add-PendingGpo $Gpo $GposNode
         } else {
             $Node = New-Node $Gpo.DisplayName 'document-settings' $Gpo $GposNode
             # A GPO the account does not edit: greyed, it reads it only.
             if (-not $Gpo.CanEdit) { $Node.IconBrush = '#8A8886' }
         }
+    }
+    # The GPOs waiting for approval, when there are: expanded when the console opens (no node
+    # expanded yet), then as the account leaves it.
+    if ($Pending.Count) {
+        $PendingNode = New-Node (Get-PSGPOText 'Waiting for approval ({0})' $Pending.Count) 'shield' 'PendingGpos' $DomainNode
+        $PendingNode.IconBrush = '#CA5010'
+        if (-not $Expanded -or -not $Expanded.Count) { $PendingNode.IsExpanded = $true }
+        foreach ($Gpo in $Pending) { Add-PendingGpo $Gpo $PendingNode }
     }
     # WMI Filters, as GPMC: every filter of the domain.
     $WmiNode = New-Node (Get-PSGPOText 'WMI Filters') 'filter' 'WmiFilters' $DomainNode

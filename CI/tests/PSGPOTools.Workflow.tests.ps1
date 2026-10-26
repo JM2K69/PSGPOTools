@@ -388,4 +388,45 @@ InModuleScope -ModuleName HGPM {
             { $Directory.NewApprovalGroups($Gpo, '') } | Should -Throw '*is not an approver*'
         }
     }
+    Describe 'GPOs waiting for approval in the tree' {
+        It 'Lists them in a node of their own, expanded when the console opens, and says how many are below an OU' {
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            # The first link of a GPO to an OU (not to the domain).
+            $Soms = [System.Collections.Generic.List[object]]::new()
+            $Queue = [System.Collections.Generic.Queue[object]]::new(@($Directory.Domain))
+            while ($Queue.Count) { $Som = $Queue.Dequeue(); $Soms.Add($Som); foreach ($Child in $Som.Children) { $Queue.Enqueue($Child) } }
+            $Pair = @(foreach ($Som in $Soms) { foreach ($Link in $Som.Links) { if ($Som.Parent -and $Link.Gpo) { [pscustomobject]@{ Som = $Som; Gpo = $Link.Gpo } } } })[0]
+            $Pair | Should -Not -BeNullOrEmpty -Because 'the sample links a GPO to an OU'
+            $Roots = New-PSGPODirectoryTree -Directory $Directory -ShowUnmanaged $true
+            @($Roots[0].Children.Tag) | Should -Not -Contain 'PendingGpos' -Because 'no node without a GPO waiting'
+
+            $Pair.Gpo.ApprovalState = 'Pending'
+            $Roots = New-PSGPODirectoryTree -Directory $Directory -ShowUnmanaged $true
+            $Node = @($Roots[0].Children) | Where-Object Tag -EQ 'PendingGpos'
+            $Node.Header | Should -Be 'Waiting for approval (1)'
+            $Node.IsExpanded | Should -BeTrue -Because 'found at once when the console opens'
+            @($Node.Children.Tag) | Should -Be @($Pair.Gpo)
+            # Every OU on the way to its link says it, the domain does not.
+            $Ou = $Pair.Som
+            while ($Ou.Parent) {
+                $Found = $null
+                $Stack = [System.Collections.Generic.Stack[object]]::new(@($Roots[0]))
+                while ($Stack.Count) { $Item = $Stack.Pop(); if ([object]::ReferenceEquals($Item.Tag, $Ou)) { $Found = $Item; break }; foreach ($Child in $Item.Children) { $Stack.Push($Child) } }
+                $Found.Header | Should -BeLike '* (1 waiting for approval)'
+                $Ou = $Ou.Parent
+            }
+            $Roots[0].Header | Should -Not -BeLike '*waiting for approval*'
+
+            # Collapsed by the account: kept so when the tree is built again.
+            $Keys = [System.Collections.Generic.HashSet[string]]::new()
+            $null = $Keys.Add((Get-PSGPODirectoryNodeKey $Roots[0]))
+            $Again = New-PSGPODirectoryTree -Directory $Directory -ShowUnmanaged $true -Expanded $Keys
+            (@($Again[0].Children) | Where-Object Tag -EQ 'PendingGpos').IsExpanded | Should -BeFalse
+
+            $Detail = Get-PSGPODirectoryDetail -Directory $Directory -Item 'PendingGpos'
+            $Detail.Title | Should -Be "GPOs waiting for approval in $($Directory.DomainName)"
+            @($Detail.Properties).Count | Should -Be 1
+            $Detail.Properties[0].Value | Should -BeLike 'Linked to *'
+        }
+    }
 }
