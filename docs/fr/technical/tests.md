@@ -55,9 +55,30 @@ bon : le job `test-samba` de la CI le définit, sur son domaine jetable seulemen
 
 Les écritures d'une approbation (`PSGPOTools.Hardening.tests.ps1`) sont testées avec des mocks :
 leur ordre (SYSVOL, les objets que contient la GPO, puis la GPO), la GPO laissée en attente quand
-SYSVOL échoue, les permissions retirées et signalées. Le workflow complet, qui demande deux comptes
-(Tier 0 et Tier 1), a été testé pas à pas dans le labo, `kinit` changeant de compte entre les
-étapes ([approbation](../workflows/approval.md)).
+SYSVOL échoue, les permissions retirées et signalées. Le circuit complet, avec ses deux comptes,
+tourne aussi contre le contrôleur de domaine (*Approval written to a domain controller*), après les
+scripts du lab :
+
+- `tiers1`, dans un processus à lui avec son ticket Kerberos, crée une GPO : elle attend, personne
+  ne l'applique ; `tiers1` y ajoute une permission à lui (Domain Users, contrôle total) ;
+- l'administrateur l'approuve : Domain Admins est propriétaire de la GPO et de son dossier SYSVOL,
+  la permission ajoutée par `tiers1` et ses propres droits ont disparu (et sont signalés),
+  Authenticated Users l'applique ;
+- `tiers1` ne peut plus l'écrire ;
+- une GPO que `tiers1` modifie après son examen n'est pas approuvée, et reste en attente.
+
+La configuration du domaine est gardée et réécrite octet pour octet. Sur un lab à vous,
+`PSGPOTOOLS_TEST_TIER1_CCACHE` donne le ticket d'un créateur (`FILE:/tmp/krb5cc_tiers1`) à la place
+du mot de passe du lab.
+
+### Ce qu'un job doit lancer
+
+`CI/Invoke-Tests.ps1 -RequireRun` nomme les blocs (`Describe`, `Context`, jokers) pour lesquels un
+lancement existe : un de leurs tests sauté avec son bloc (un runtime d'Avalonia manquant, une
+variable du domaine mal nommée) ou non lancé, ou aucun de leurs tests, fait échouer le lancement. Un
+test qui se saute lui-même pour une autre plateforme (`-Skip:$IsWindows`) non. Chaque lancement écrit
+un tableau de ses fichiers (réussis, échoués, sautés, non lancés) dans le résumé de son job sur
+GitHub (`GITHUB_STEP_SUMMARY`).
 
 ## CI
 
@@ -65,9 +86,9 @@ SYSVOL échoue, les permissions retirées et signalées. Le workflow complet, qu
 
 | Job | Lance |
 |---|---|
-| `test` | PSScriptAnalyzer sur `Code/` (`PSScriptAnalyzerSettings.psd1` : aucune erreur, aucun avertissement), puis tous les tests sur `windows-latest`, la fenêtre comprise |
-| `test-linux` | tous les tests sur `ubuntu-latest`, la fenêtre comprise (Avalonia sur Xvfb) |
-| `test-samba` | les tests qui écrivent dans un domaine, contre un contrôleur Samba AD provisionné sur la machine de la CI (`CI.TEST`), avec un ticket Kerberos de son administrateur |
+| `test` | PSScriptAnalyzer sur `Code/` (`PSScriptAnalyzerSettings.psd1` : aucune erreur, aucun avertissement), puis tous les tests sur `windows-latest` ; les fenêtres doivent tourner (`-RequireRun`) |
+| `test-linux` | tous les tests sur `ubuntu-latest` (Avalonia sur Xvfb) ; les fenêtres doivent tourner |
+| `test-samba` | les tests qui écrivent dans un domaine, contre un contrôleur Samba AD provisionné sur la machine de la CI (`CI.TEST`), avec un ticket Kerberos de son administrateur ; la lecture du domaine, les scripts du lab, l'approbation, les modifications et les stratégies de mot de passe doivent tourner |
 
 La page de chaque commande publique (`docs/<langue>/reference/commands/`, et son entrée dans le menu) est
 écrite à partir de son aide par `CI/Update-CommandReference.ps1`, après `CI/03_Build.ps1` ; le premier

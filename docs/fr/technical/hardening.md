@@ -204,7 +204,9 @@ octet ; `tiers1`, un créateur, après chaque changement :
   Authenticated Users comme approbateurs, les créateurs comme propriétaire des GPO approuvées ; la
   configuration refuse un groupe dans les deux rôles, et Domain Users comme créateurs.
 
-Sur les deux labs, `tiers1` (créateur) et l'administrateur (approbateur) :
+La CI lance l'approbation avec les deux comptes à chaque modification, contre son contrôleur Samba
+(*Approval written to a domain controller*, [tests](tests.md#face-a-un-controleur-de-domaine)). Sur
+les deux labs, `tiers1` (créateur) et l'administrateur (approbateur) :
 
 | Étape | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
 |---|---|---|

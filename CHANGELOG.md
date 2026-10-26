@@ -1,5 +1,12 @@
 # HGPM Release History
 
+## Unreleased
+
+### Tests
+
+* The approval workflow with two accounts against the Samba domain controller of the CI: a GPO of `tiers1` waits, applies to nobody, then its approval gives it and its SYSVOL folder to Domain Admins, removes the permission `tiers1` added, and `tiers1` cannot write it anymore; a GPO changed after its review is not approved. `PSGPOTOOLS_TEST_TIER1_CCACHE` runs it on a lab of your own, its configuration kept byte for byte
+* `CI/Invoke-Tests.ps1 -RequireRun`: the blocks a run is there for; a test of them skipped with its block, or not run, fails it (the windows of the GUI on Windows and Linux, the tests against the domain on Samba). Each job writes a table of its tests to its summary on GitHub
+
 ## 0.1.15 - alpha
 
 ### Security
