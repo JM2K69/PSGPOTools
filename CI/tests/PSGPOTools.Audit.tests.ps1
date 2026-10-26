@@ -121,9 +121,186 @@ InModuleScope -ModuleName HGPM {
     }
 
     Describe 'Audit.Path of the configuration' {
-        It 'Refuses a relative path' {
-            $Errors = @(Test-PSGPOConfiguration -Configuration (Merge-PSGPOConfiguration -Base (Import-PowerShellDataFile (Get-PSGPODefaultConfigurationPath)) -Override @{ Audit = @{ Path = 'audit' } }))
+        It 'Refuses a relative path, takes a share written as on Windows or on Linux' {
+            $Base = Import-PowerShellDataFile (Get-PSGPODefaultConfigurationPath)
+            $Errors = @(Test-PSGPOConfiguration -Configuration (Merge-PSGPOConfiguration -Base $Base -Override @{ Audit = @{ Path = 'audit' } }))
             "$Errors" | Should -BeLike '*Audit.Path must be a full path*'
+            foreach ($Share in '\\files\gpo-audit', '//files/gpo-audit/logs') {
+                @(Test-PSGPOConfiguration -Configuration (Merge-PSGPOConfiguration -Base $Base -Override @{ Audit = @{ Path = $Share } })) | Should -BeNullOrEmpty
+            }
+            Get-PSGPOAuditShare -Path '//files/gpo-audit/logs/2026' | Should -BeLike '*Server=files; Share=gpo-audit; Folder=logs\2026*'
+            Get-PSGPOAuditShare -Path '\\files\gpo-audit' | Should -BeLike '*Folder=}'
+            Get-PSGPOAuditShare -Path '/srv/gpo-audit' | Should -BeNullOrEmpty
+        }
+    }
+
+    Describe 'Central audit log, a folder per tier' {
+        BeforeEach {
+            $script:Central = Join-Path $TestDrive "central-$([guid]::NewGuid())"
+            $script:Before = $script:PSGPOConfigurationState.Override
+            $script:PSGPOConfigurationState.Override = @{ Audit = @{ Path = $script:Central; Tiers = @{ Tier1 = 'GPO-Tier1-Admins'; Tier2 = 'GPO-Tier2-Admins' }; Readers = 'GPO-Auditors' } }
+            $Directory = [GPOToolsLdapDirectory]::new('contoso.com', 'DC=contoso,DC=com', 'dc1.contoso.com', 'Samba AD')
+            $Directory.Account = 'CONTOSO\tiers1'
+            $Directory.IsDomainAdministrator = $false
+            $Ou = $Directory.AddOrganizationalUnit($Directory.Domain, 'Servers')
+        }
+        AfterEach { $script:PSGPOConfigurationState.Override = $script:Before }
+
+        It 'Finds the tier of the account in its groups: Tier 0 the administrators and the approvers, then Audit.Tiers' {
+            Mock Get-PSGPOAccountGroupSid { , [string[]]@('S-1-5-21-1-2-3-1105', 'S-1-5-21-1-2-3-2001') }
+            Mock Find-PSGPODomainAccount {
+                switch ($Name) {
+                    'Domain Admins' { [pscustomobject]@{ Name = $Name; Sid = 'S-1-5-21-1-2-3-512' } }
+                    'GPO-Tier1-Admins' { [pscustomobject]@{ Name = $Name; Sid = 'S-1-5-21-1-2-3-2001' } }
+                    'GPO-Tier2-Admins' { [pscustomobject]@{ Name = $Name; Sid = 'S-1-5-21-1-2-3-2002' } }
+                    default { throw "No account named '$Name' in the domain." }
+                }
+            }
+            $Connection = [pscustomobject]@{}
+            Update-PSGPOAuditTier -Connection $Connection -Directory $Directory
+            $Directory.AuditTier | Should -Be 'Tier1'
+            $Directory.IsDomainAdministrator = $true
+            Update-PSGPOAuditTier -Connection $Connection -Directory $Directory
+            $Directory.AuditTier | Should -Be 'Tier0'
+            $Directory.IsDomainAdministrator = $false
+            Mock Get-PSGPOAccountGroupSid { , [string[]]@('S-1-5-21-1-2-3-1106') }
+            $script:PSGPOConfigurationState.Override.Audit.Tiers.Tier2 = 'GPO-Missing, GPO-Tier2-Admins'
+            $Warnings = @(Update-PSGPOAuditTier -Connection $Connection -Directory $Directory 3>&1)
+            $Directory.AuditTier | Should -Be 'Unassigned' -Because 'an account in no tier'
+            "$Warnings" | Should -BeLike "*No account named 'GPO-Missing'*"
+        }
+
+        It 'Writes each account in its own file of the folder of its tier, and reads every tier it can' {
+            Mock Set-PSGPODomainBlockInheritance { $true }
+            $Directory.AuditTier = 'Tier1'
+            $Directory.SetBlockInheritance($Ou, $true)
+            $Other = [GPOToolsLdapDirectory]::new('contoso.com', 'DC=contoso,DC=com', 'dc1.contoso.com', 'Samba AD')
+            $Other.Account = 'CONTOSO\tiers2'
+            $Other.AuditTier = 'Tier2'
+            $OtherOu = $Other.AddOrganizationalUnit($Other.Domain, 'Workstations')
+            $Other.SetBlockInheritance($OtherOu, $true)
+
+            $Month = [datetime]::UtcNow.ToString('yyyy-MM')
+            $Computer = [Environment]::MachineName -replace '[^\w.-]', '_'
+            @(Get-ChildItem -LiteralPath $script:Central -Recurse -File | ForEach-Object { $_.FullName.Substring($script:Central.Length + 1) -replace '\\', '/' } | Sort-Object) |
+                Should -Be @("Tier1/contoso.com-$Month-CONTOSO_tiers1-$Computer.jsonl", "Tier2/contoso.com-$Month-CONTOSO_tiers2-$Computer.jsonl")
+            $Entries = @(Get-PSGPOAuditLog)
+            @($Entries.Tier | Sort-Object) | Should -Be @('Tier1', 'Tier2')
+            @(Get-PSGPOAuditLog -Domain 'contoso.com').Count | Should -Be 2
+        }
+
+        It 'Writes a share with smbclient on Linux: the file of the account read, the line added, the folder of its tier made' {
+            $script:Commands = [System.Collections.Generic.List[string]]::new()
+            Mock Invoke-PSGPOSmbClient {
+                $script:Commands.Add("$Server/$Share $Command")
+                if ($Command -like 'get *') {
+                    $Local = [regex]::Match($Command, 'get "[^"]+" "([^"]+)"').Groups[1].Value
+                    [System.IO.File]::WriteAllText($Local, "{`"first`":1}`n")
+                    , @('getting file')
+                } elseif ($Command -like 'put *') {
+                    $Local = [regex]::Match($Command, 'put "([^"]+)"').Groups[1].Value
+                    $script:Written = [System.IO.File]::ReadAllText($Local)
+                    , @('putting file')
+                } else { , @() }
+            }
+            Add-PSGPOAuditShareLine -Share (Get-PSGPOAuditShare -Path '\\files\gpo-audit\logs') -Name 'Tier1\contoso.com-2026-10-CONTOSO_tiers1-PC1.jsonl' -Bytes ([System.Text.Encoding]::UTF8.GetBytes("{`"second`":2}`n"))
+            $script:Commands[0] | Should -BeLike 'files/gpo-audit get "logs\Tier1\contoso.com-2026-10-CONTOSO_tiers1-PC1.jsonl" *'
+            @($script:Commands | Where-Object { $_ -like '*mkdir*' }) | Should -Be @('files/gpo-audit mkdir "logs"', 'files/gpo-audit mkdir "logs\Tier1"')
+            $script:Commands[-1] | Should -BeLike 'files/gpo-audit put * "logs\Tier1\contoso.com-2026-10-CONTOSO_tiers1-PC1.jsonl"'
+            $script:Written | Should -Be "{`"first`":1}`n{`"second`":2}`n" -Because 'the lines already there are kept'
+        }
+    }
+
+    Describe 'Import of the log of a console into the central log' {
+        It 'Puts each change in the file of its account, computer and month, in the folder of its tier, once' {
+            $Old = Join-Path $TestDrive "old-$([guid]::NewGuid())"
+            $Central = Join-Path $TestDrive "central-$([guid]::NewGuid())"
+            $null = New-Item -ItemType Directory -Path $Old
+            $Line = {
+                param($Time, $Account, $Action)
+                [ordered]@{ Format = 'PSGPOTools.Audit/1'; Time = $Time; Domain = 'contoso.com'; Server = 'dc1.contoso.com'; Account = $Account; Computer = 'dc'; Action = $Action; Target = 'OU=Servers'; GpoId = $null; GpoName = $null; Details = @{ Blocked = $true } } | ConvertTo-Json -Compress
+            }
+            Set-Content -LiteralPath (Join-Path $Old 'contoso.com-2026-10.jsonl') -Encoding utf8 -Value @(
+                (& $Line '2026-10-11T10:00:00.0000000Z' 'CONTOSO\Administrator' 'NewLink')
+                (& $Line '2026-10-12T10:00:00.0000000Z' 'CONTOSO\tiers1' 'SetLink')
+                (& $Line '2026-10-13T10:00:00.0000000Z' 'local-user' 'SetBlockInheritance')
+            )
+            Set-Content -LiteralPath (Join-Path $Old 'contoso.com-2026-09.jsonl') -Encoding utf8 -Value (& $Line '2026-09-30T10:00:00.0000000Z' 'CONTOSO\Administrator' 'NewGpo')
+            $Directory = [GPOToolsLdapDirectory]::new('contoso.com', 'DC=contoso,DC=com', 'dc1.contoso.com', 'Samba AD')
+            Mock Use-PSGPODomainConfiguration { }
+            Mock New-PSGPODirectoryConnection { [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name Dispose -Value { } -PassThru }
+            Mock Get-PSGPOAuditAccountTier { switch ($Account) { 'CONTOSO\Administrator' { 'Tier0' } 'CONTOSO\tiers1' { 'Tier1' } default { 'Unassigned' } } }
+
+            $Result = @(Import-PSGPOAuditLog -Path $Old -Destination $Central -Directory $Directory -Confirm:$false)
+            @($Result.File | Sort-Object) | Should -Be @('Tier0\contoso.com-2026-09-CONTOSO_Administrator-dc-imported.jsonl', 'Tier0\contoso.com-2026-10-CONTOSO_Administrator-dc-imported.jsonl', 'Tier1\contoso.com-2026-10-CONTOSO_tiers1-dc-imported.jsonl', 'Unassigned\contoso.com-2026-10-local-user-dc-imported.jsonl') -Because 'the files the importer owns, apart from those the accounts write'
+            $Entries = @(Get-PSGPOAuditLog -Path $Central)
+            $Entries.Count | Should -Be 4
+            ($Entries | Where-Object Account -EQ 'CONTOSO\tiers1').Tier | Should -Be 'Tier1'
+            # In UTC, as written: ConvertFrom-Json gives a date of the local time zone.
+            $Time = ($Entries | Where-Object Account -EQ 'CONTOSO\tiers1').Time
+            $Time.Kind | Should -Be 'Utc'
+            $Time | Should -Be ([datetime]::new(2026, 10, 12, 10, 0, 0, [System.DateTimeKind]::Utc))
+            ($Entries | Where-Object Account -EQ 'CONTOSO\tiers1').Details.Blocked | Should -BeTrue
+            Test-Path -LiteralPath (Join-Path $Old 'contoso.com-2026-10.jsonl') | Should -BeTrue -Because 'kept without -Remove'
+
+            # Again: nothing twice; -Remove deletes what was read.
+            @(Import-PSGPOAuditLog -Path $Old -Destination $Central -Directory $Directory -Remove -Confirm:$false) | Should -BeNullOrEmpty
+            @(Get-PSGPOAuditLog -Path $Central).Count | Should -Be 4
+            @(Get-ChildItem -LiteralPath $Old -File) | Should -BeNullOrEmpty
+        }
+    }
+
+    Describe 'Share of the central audit log' {
+        It 'Gives each tier its folder: its groups create their files and read their tier, Tier 0 and the readers read everything' {
+            $Folders = @(Get-PSGPOAuditShareSddl -DomainAdminsSid 'S-1-5-21-1-2-3-512' -Tier0 'S-1-5-21-1-2-3-512', 'S-1-5-21-1-2-3-3000' -Tier1 'S-1-5-21-1-2-3-2001' -Tier2 'S-1-5-21-1-2-3-2002' -Readers 'S-1-5-21-1-2-3-4000')
+            @($Folders.Folder) | Should -Be @('', 'Tier0', 'Tier1', 'Tier2', 'Unassigned')
+            foreach ($Item in $Folders) {
+                $Item.Sddl | Should -BeLike 'D:P(A;OICI;0x1f01ff;;;SY)(A;OICI;0x1f01ff;;;BA)(A;OICI;0x1f01ff;;;S-1-5-21-1-2-3-512)*' -Because 'protected, the administrators in full control'
+                $Item.Sddl | Should -BeLike '*(A;OICI;0x1200a9;;;S-1-5-21-1-2-3-3000)*' -Because 'Tier 0 reads every folder'
+                $Item.Sddl | Should -BeLike '*(A;OICI;0x1200a9;;;S-1-5-21-1-2-3-4000)*' -Because 'the readers too'
+            }
+            $Tier1 = $Folders | Where-Object Folder -EQ 'Tier1'
+            $Tier1.Sddl | Should -BeLike '*(A;;0x1200ab;;;S-1-5-21-1-2-3-2001)(A;OIIO;0x1200a9;;;S-1-5-21-1-2-3-2001)*' -Because 'Tier 1 creates its files and reads those of its tier'
+            $Tier1.Sddl | Should -Not -BeLike '*S-1-5-21-1-2-3-2002*' -Because 'Tier 2 has nothing in the folder of Tier 1'
+            $Tier1.Sddl | Should -BeLike '*(A;OIIO;0x12019f;;;CO)(A;OIIO;0x12019f;;;S-1-3-4)' -Because 'the owner writes its file, without deleting it nor changing its permissions'
+            ($Folders | Where-Object Folder -EQ 'Unassigned').Sddl | Should -BeLike '*(A;;0x1200ab;;;AU)*'
+            ($Folders | Where-Object Folder -EQ '').Sddl | Should -BeLike '*(A;;0x1200a9;;;AU)' -Because 'every account lists the share, to reach its folder'
+            # A role the configuration leaves empty (no readers, no Tier 2): no ACE without a SID.
+            $Empty = @(Get-PSGPOAuditShareSddl -DomainAdminsSid 'S-1-5-21-1-2-3-512' -Tier0 @($null) -Tier2 @($null) -Readers @($null))
+            @($Empty.Sddl | Where-Object { $_ -like '*;;;)*' }) | Should -BeNullOrEmpty
+        }
+
+        It 'Writes the permissions of the folders on Windows' -Skip:(-not $IsWindows) {
+            $Share = Join-Path $TestDrive 'share'
+            # The account of the test as Domain Admins: it keeps its rights on the folders it makes.
+            $Folders = @(Get-PSGPOAuditShareSddl -DomainAdminsSid ([System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value) -Tier1 'S-1-5-21-1-2-3-2001')
+            Set-PSGPOAuditShareAcl -Path $Share -Folder $Folders -Confirm:$false
+            $Acl = [System.IO.FileSystemAclExtensions]::GetAccessControl([System.IO.DirectoryInfo](Get-Item (Join-Path $Share 'Tier1')))
+            $Acl.AreAccessRulesProtected | Should -BeTrue
+            @($Acl.GetAccessRules($true, $true, [System.Security.Principal.SecurityIdentifier]) | Where-Object { $_.IdentityReference.Value -eq 'S-1-5-21-1-2-3-2001' }).Count | Should -Be 2
+        }
+
+        It 'Reads the groups of the roles in the domain, then prepares the share' {
+            $script:Before = $script:PSGPOConfigurationState.Override
+            try {
+                $script:PSGPOConfigurationState.Override = @{ Audit = @{ Path = '\\files\gpo-audit'; Tiers = @{ Tier1 = 'GPO-Tier1-Admins'; Tier2 = '' }; Readers = 'GPO-Auditors' } }
+                $Directory = [GPOToolsLdapDirectory]::new('contoso.com', 'DC=contoso,DC=com', 'dc1.contoso.com', 'Samba AD')
+                Mock Use-PSGPODomainConfiguration { }
+                Mock New-PSGPODirectoryConnection { [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name Dispose -Value { } -PassThru }
+                Mock Invoke-PSGPOLdapBinarySearch { [pscustomobject]@{ Values = @{ objectSid = @(, [GPOToolsSecurityDescriptor]::ConvertSidToBytes('S-1-5-21-1-2-3')) } } }
+                Mock Find-PSGPODomainAccount { foreach ($Item in $Name) { [pscustomobject]@{ Name = $Item; Sid = "S-1-5-21-1-2-3-$($Item.Length)" } } }
+                Mock Set-PSGPOAuditShareAcl { $script:Prepared = @{ Path = $Path; Folder = $Folder } }
+                Mock Write-PSGPOAuditEntry { }
+                $Result = @(Initialize-PSGPOAuditShare -Directory $Directory -Confirm:$false)
+                $script:Prepared.Path | Should -Be '\\files\gpo-audit'
+                ($script:Prepared.Folder | Where-Object Folder -EQ 'Tier1').Sddl | Should -BeLike '*(A;;0x1200ab;;;S-1-5-21-1-2-3-16)*' -Because 'GPO-Tier1-Admins'
+                $Result.Count | Should -Be 5
+                ($Result | Where-Object Path -EQ '\\files\gpo-audit\Tier1').Writers | Should -Be @('GPO-Tier1-Admins')
+                ($Result | Where-Object Path -EQ '\\files\gpo-audit\Tier2').Writers | Should -BeNullOrEmpty
+                Should -Invoke Write-PSGPOAuditEntry -Times 1 -Exactly -ParameterFilter { $Action -eq 'InitializeAuditShare' }
+            } finally {
+                $script:PSGPOConfigurationState.Override = $script:Before
+            }
         }
     }
 }

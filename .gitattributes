@@ -5,3 +5,5 @@ CI/tests/Fixtures/**/*.mof binary
 # The rule sets of Policy Analyzer and the GPMC backups they are made from, kept byte for byte
 CI/tests/Fixtures/PolicyRules/*.PolicyRules binary
 CI/tests/Fixtures/PolicyRules/GPOs/** binary
+# Shell scripts run on Linux: LF line endings on every platform
+*.sh text eol=lf

@@ -37,7 +37,10 @@ Une étiquette fait au plus 64 caractères, sans virgule, tabulation ni saut de 
 | Réglage | Défaut | |
 |---|---|---|
 | `Audit.Enabled` | `$true` | les modifications sont écrites dans le [journal d'audit](../features/audit-log.md) ; `$false` : elles ne le sont pas (les modifications sont toujours faites) |
-| `Audit.Path` | vide | dossier du [journal d'audit](../features/backup-history.md#journal-daudit), le même pour toutes les consoles : un partage où écrivent les administrateurs des GPO (`\\serveur\gpo-audit`) ; vide : le dossier `Audit` des sauvegardes du compte |
+| `Audit.Path` | vide | le [journal d'audit central](../features/audit-log.md#le-journal-central-un-dossier-par-tier), le même pour toutes les consoles : un partage d'un serveur de fichiers (`\\serveur\gpo-audit`), pas SYSVOL, préparé par `Initialize-PSGPOAuditShare` ; vide : le dossier `Audit` des sauvegardes du compte |
+| `Audit.Tiers.Tier1` | vide | groupes du Tier 1, séparés par des virgules : ils écrivent dans le dossier `Tier1` du journal central et lisent les modifications de leur tier |
+| `Audit.Tiers.Tier2` | vide | groupes du Tier 2 : le dossier `Tier2` |
+| `Audit.Readers` | vide | groupes qui lisent tous les tiers sans écrire (auditeurs) |
 
 ## View
 

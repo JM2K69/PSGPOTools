@@ -89,6 +89,7 @@ $(Get-PSGPOWindowResourceXaml)
                             <DataGridTextColumn Header='Account' Binding='{Binding Account}' Width='240'/>
                             <DataGridTextColumn Header='Action' Binding='{Binding Action}' Width='285'/>
                             <DataGridTextColumn Header='GPO or object' Binding='{Binding Object}' Width='*'/>
+                            <DataGridTextColumn Header='Tier' Binding='{Binding Tier}' Width='95'/>
                             <DataGridTextColumn Header='Computer' Binding='{Binding Computer}' Width='110'/>
                             <DataGridTextColumn Header='Domain' Binding='{Binding Domain}' Width='140'/>
                         </DataGrid.Columns>

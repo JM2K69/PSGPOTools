@@ -69,20 +69,42 @@ function Start-PSGPOAuditLogWindow {
         Get-PSGPOAuditPath
     }
 
+    # What the subtitle says of the domain: who reads the log (the account of the directory, its
+    # tier in the central log), or that the log is the one of the account only.
+    function Get-AuditDomainText {
+        $text = Get-PSGPOText 'What the consoles and the commands changed in the domain - {0}' $audit.Directory.DomainName
+        $account = if ($audit.Directory.Account) { $audit.Directory.Account } else { [Environment]::UserName }
+        $text += ' - ' + (Get-PSGPOText 'Connected as {0}' $account)
+        if ("$((Get-PSGPOConfigurationData).Audit.Path)".Trim()) {
+            if ($audit.Directory.AuditTier) { $text += " ($(Get-PSGPOText $audit.Directory.AuditTier))" }
+            return $text
+        }
+        $text + ' - ' + (Get-PSGPOText 'the log of your account only: Audit.Path of the configuration sets no central log')
+    }
+
     # The log read again from the folder of the text box: its domains and actions in the lists.
     function Read-AuditLog {
         $folder = "$($ui.auditFolderTextBox.Text)".Trim()
         $audit.Entries = @()
         Set-AuditStatus ''
+        $exists = $false
+        if ($folder) {
+            try { $exists = Test-PSGPOAuditFolder -Path $folder } catch { Set-AuditStatus (Get-PSGPOText 'The audit log is not read: {0}' $_.Exception.GetBaseException().Message) }
+        }
         if (-not $folder) {
             Set-AuditStatus (Get-PSGPOText 'Choose the folder of the audit log.')
-        } elseif (-not (Test-Path -LiteralPath $folder -PathType Container)) {
+        } elseif ($ui.auditStatusTextBlock.Text) {
+            # The folder could not be reached: said above.
+        } elseif (-not $exists) {
             Set-AuditStatus (Get-PSGPOText 'No audit log in {0}: the folder does not exist yet, nothing was changed or written there.' $folder)
         } else {
             try {
-                $warnings = $null
-                $audit.Entries = @(Read-PSGPOAuditEntry -Path $folder -WarningVariable warnings -WarningAction SilentlyContinue)
-                if ($warnings) { Set-AuditStatus (Get-PSGPOText '{0} line(s) of the log are not entries of the audit log: left out.' @($warnings).Count) }
+                # The warnings of the lines that are not entries, with the entries (-WarningVariable
+                # does not get those of the functions it calls).
+                $read = @(Read-PSGPOAuditEntry -Path $folder 3>&1)
+                $warnings = @($read | Where-Object { $_ -is [System.Management.Automation.WarningRecord] })
+                $audit.Entries = @($read | Where-Object { $_ -isnot [System.Management.Automation.WarningRecord] })
+                if ($warnings.Count) { Set-AuditStatus (Get-PSGPOText '{0} line(s) of the log are not entries of the audit log: left out.' @($warnings).Count) }
             } catch {
                 Set-AuditStatus (Get-PSGPOText 'The audit log is not read: {0}' $_.Exception.GetBaseException().Message)
             }
@@ -95,6 +117,7 @@ function Start-PSGPOAuditLogWindow {
                 $row.Object = if ($entry.GpoName) { $entry.GpoName } else { $entry.Target }
                 $row.Computer = $entry.Computer
                 $row.Domain = $entry.Domain
+                $row.Tier = Get-PSGPOText "$($entry.Tier)"
                 $row.Entry = $entry
                 $row.SearchText = (@($entry.Account, $entry.Computer, $entry.Server, $entry.Action, $row.Action, $entry.Target, $entry.GpoName, "$($entry.GpoId)", (Format-PSGPOAuditDetail -Details $entry.Details)) -join ' ').ToLowerInvariant()
                 $row
@@ -230,7 +253,7 @@ function Start-PSGPOAuditLogWindow {
         Read-AuditLog
     } elseif ($Directory) {
         $ui.auditFolderTextBox.Text = Get-AuditDefaultFolder
-        $ui.subtitleTextBlock.Text = Get-PSGPOText 'What the consoles and the commands changed in the domain - {0}' $Directory.DomainName
+        $ui.subtitleTextBlock.Text = Get-AuditDomainText
         Read-AuditLog
     } else {
         $ui.auditEmptyTextBlock.Text = Get-PSGPOText 'Reading the configuration of the domain...'
@@ -240,7 +263,8 @@ function Start-PSGPOAuditLogWindow {
                 if ($read.Server -or (Get-PSGPOPlatform).DomainName) {
                     try {
                         $audit.Directory = Get-PSGPODirectory @read -ErrorAction Stop -WarningAction SilentlyContinue
-                        $ui.subtitleTextBlock.Text = Get-PSGPOText 'What the consoles and the commands changed in the domain - {0}' $audit.Directory.DomainName
+                        $ui.auditFolderTextBox.Text = Get-AuditDefaultFolder
+                        $ui.subtitleTextBlock.Text = Get-AuditDomainText
                     } catch {
                         $ui.subtitleTextBlock.Text = Get-PSGPOText 'The domain could not be read ({0}): the folder Audit of your backups.' $_.Exception.GetBaseException().Message
                     }
