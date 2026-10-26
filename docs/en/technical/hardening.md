@@ -195,7 +195,9 @@ On both labs, the configuration of the domain saved first and restored at the en
   approvers, the creators as owner of the approved GPOs; the configuration refuses a group in both
   roles, and Domain Users as creators.
 
-On both labs, `tiers1` (creator) and the administrator (approver):
+The CI runs the approval with both accounts at each change, against its Samba domain controller
+(*Approval written to a domain controller*, [tests](tests.md#against-a-domain-controller)). On
+both labs, `tiers1` (creator) and the administrator (approver):
 
 | Step | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
 |---|---|---|

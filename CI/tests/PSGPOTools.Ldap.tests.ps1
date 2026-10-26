@@ -19,6 +19,9 @@ InModuleScope -ModuleName HGPM {
     # The scripts of the lab (docs/assets/scripts) create OUs, groups and accounts, and change
     # the configuration of the domain (its workflow, for a moment): only on the throwaway domain of the CI.
     $LabScripts = $LdapWrite -and -not $IsWindows -and $env:PSGPOTOOLS_TEST_LAB_SCRIPTS -eq '1'
+    # The approval with two accounts: after the scripts of the lab (tiers1 gets a ticket with the
+    # password of the lab), or on a lab whose ticket of tiers1 is given (PSGPOTOOLS_TEST_TIER1_CCACHE).
+    $ApprovalTest = $LabScripts -or ($LdapWrite -and -not $IsWindows -and $env:PSGPOTOOLS_TEST_TIER1_CCACHE)
 
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Fixtures' 'LdapDirectory.ps1')
@@ -716,6 +719,118 @@ InModuleScope -ModuleName HGPM {
                 # The configuration of the domain back to the defaults, for the other tests.
                 Save-PSGPODomainConfiguration -Directory $Directory -Values @{} -Confirm:$false
             }
+        }
+    }
+
+    # The approval workflow with two accounts of the domain, after the scripts of the lab (its OUs,
+    # groups, technicians and delegations): tiers1 (Tier 1, a creator) in a process of its own with
+    # its Kerberos ticket, the administrator of the CI as the approver.
+    Describe 'Approval written to a domain controller' -Skip:(-not $ApprovalTest) {
+        BeforeAll {
+            $Server = $env:PSGPOTOOLS_TEST_LDAP_SERVER
+            $Module = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
+            $Directory = Get-PSGPODirectory -Server $Server
+            # The configuration of the domain kept as it is, its workflow on for the test, every
+            # other setting kept; written back byte for byte at the end.
+            $Original = $Directory.ReadConfigurationFile()
+            $Values = @{}
+            foreach ($Setting in @(Get-PSGPOConfigurationSetting | Where-Object IsSet)) { $Values[$Setting.Key] = $Setting.Value }
+            $Values['Workflow.Enabled'] = $true
+            $Values['Workflow.Creators'] = 'GPO-Tier1-Admins, GPO-Tier2-Admins'
+            Save-PSGPODomainConfiguration -Directory $Directory -Values $Values -Confirm:$false
+            $Tier1Cache = $env:PSGPOTOOLS_TEST_TIER1_CCACHE
+            if (-not $Tier1Cache) {
+                $Tier1Cache = "FILE:$(Join-Path $TestDrive 'tiers1.ccache')"
+                $Cache = $env:KRB5CCNAME
+                try {
+                    $env:KRB5CCNAME = $Tier1Cache
+                    $null = 'H@rdenB0x!' | kinit "tiers1@$($Directory.DomainName.ToUpperInvariant())" 2>&1
+                } finally { $env:KRB5CCNAME = $Cache }
+            }
+            # A script run as tiers1, in the scope of the module, with $d its directory; returns
+            # what the script outputs last, as JSON, and every line it wrote.
+            function Invoke-AsTier1 {
+                param([string]$Script)
+                $Code = "Import-Module '$Module' 3>`$null; & (Get-Module HGPM) { `$d = Get-PSGPODirectory -Server '$Server' 3>`$null; $Script } | ConvertTo-Json -Compress -Depth 4"
+                $Saved = $env:KRB5CCNAME
+                try {
+                    $env:KRB5CCNAME = $Tier1Cache
+                    $Lines = @(pwsh -NoProfile -NonInteractive -Command $Code 2>&1 | ForEach-Object { "$_" })
+                } finally { $env:KRB5CCNAME = $Saved }
+                [pscustomobject]@{ ExitCode = $LASTEXITCODE; Output = $Lines -join "`n"; Result = $(try { $Lines[-1] | ConvertFrom-Json } catch { $null }) }
+            }
+            function Get-GpoDescriptor {
+                param([string]$DistinguishedName)
+                $Connection = New-PSGPODirectoryConnection -Directory $Directory
+                try { Get-PSGPODomainSecurityDescriptor -Connection $Connection -DistinguishedName $DistinguishedName } finally { $Connection.Dispose() }
+            }
+            $DomainSid = (Get-PSGPOAccountGroupSid -Connection (New-PSGPODirectoryConnection -Directory $Directory) -DomainDistinguishedName $Directory.Domain.DistinguishedName -Account $Directory.Account)[0] -replace '-\d+$'
+        }
+        AfterAll {
+            $Read = Get-PSGPODirectory -Server $Server
+            foreach ($Name in 'CI - Approval', 'CI - Approval changed') {
+                if ($Read.FindGpo($Name)) { Remove-PSGPO -Directory $Read -Name $Name -NoBackup -Confirm:$false 3>$null | Out-Null }
+            }
+            if ($Original) { $Directory.WriteConfigurationFile($Original) } else { $Directory.WriteConfigurationFile($null) }
+        }
+
+        It 'Makes the GPO of a creator wait, then gives it to Tier 0 at its approval, the permissions the creator added removed' {
+            # tiers1 creates it: pending, nobody applies it; then it adds a permission of its own.
+            $Created = Invoke-AsTier1 @'
+$gpo = $d.NewGpo('CI - Approval')
+$c = New-PSGPODirectoryConnection -Directory $d
+try {
+    $sd = Get-PSGPODomainSecurityDescriptor -Connection $c -DistinguishedName $gpo.DistinguishedName
+    $sd.AddAce([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, [GPOToolsAce]::ContainerInherit, 0x000F00FF, ($d.Workflow.DomainSid + '-513'), [guid]::Empty))
+    Set-PSGPODomainDacl -Connection $c -DistinguishedName $gpo.DistinguishedName -Descriptor (Get-PSGPOExplicitDescriptor -Descriptor $sd) -Name $gpo.DisplayName
+} finally { $c.Dispose() }
+[pscustomobject]@{ State = $gpo.ApprovalState; Creator = $d.IsWorkflowCreator(); Dn = $gpo.DistinguishedName; Id = $gpo.Id.ToString() }
+'@
+            $Created.ExitCode | Should -Be 0 -Because $Created.Output
+            $Created.Result.State | Should -Be 'Pending'
+            $Created.Result.Creator | Should -BeTrue
+            $Pending = Get-GpoDescriptor $Created.Result.Dn
+            @($Pending.Dacl | Where-Object { Test-PSGPOApplyAce -Ace $_ }) | Should -BeNullOrEmpty -Because 'a pending GPO applies to nobody'
+            $Pending.Owner | Should -Not -Be "$DomainSid-512" -Because 'its creator owns it'
+
+            # The administrator approves it: Tier 0 owns it, the permissions the creator added are gone.
+            $Read = Get-PSGPODirectory -Server $Server
+            $Result = Approve-PSGPO -Directory $Read -Name 'CI - Approval' -CreatorRights ReadOnly -ApplyTo 'Authenticated Users' -BackupPath (Join-Path $TestDrive 'backups') -Confirm:$false 3>$null
+            $Result.Problem | Should -BeNullOrEmpty
+            @($Result.RemovedPermissions | Where-Object { $_ -match "$DomainSid-513" }).Count | Should -BeGreaterThan 0 -Because 'the approver is told'
+            $Approved = Get-GpoDescriptor $Created.Result.Dn
+            $Approved.Owner | Should -Be "$DomainSid-512"
+            @($Approved.Dacl | Where-Object { $_.Sid -in "$DomainSid-513", $Pending.Owner -and -not ($_.Flags -band [GPOToolsAce]::Inherited) }) | Should -BeNullOrEmpty -Because 'nor the creator nor what it added keep a right'
+            @($Approved.Dacl | Where-Object { $_.Sid -eq 'S-1-5-11' -and (Test-PSGPOApplyAce -Ace $_) }).Count | Should -Be 1
+            $Folder = Get-PSGPOSysvolItemAcl -Directory $Read -Share 'SYSVOL' -Path "$($Read.DomainName)\Policies\{$($Created.Result.Id.ToUpperInvariant())}"
+            $Folder.Owner | Should -Be "$DomainSid-512" -Because 'its SYSVOL folder too'
+            @($Folder.Dacl | Where-Object { $_.Sid -in "$DomainSid-513", $Pending.Owner }) | Should -BeNullOrEmpty
+
+            # tiers1 cannot change it anymore (ReadOnly).
+            $Write = Invoke-AsTier1 @'
+$gpo = $d.FindGpo('CI - Approval')
+$written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 0x67, 1, 0, 0, 0)); $true } catch { $false }
+[pscustomobject]@{ State = $gpo.ApprovalState; CanEdit = $gpo.CanEdit; Written = $written }
+'@
+            $Write.ExitCode | Should -Be 0 -Because $Write.Output
+            $Write.Result.State | Should -Be 'Approved'
+            $Write.Result.CanEdit | Should -BeFalse
+            $Write.Result.Written | Should -BeFalse -Because 'the creator reads an approved GPO only'
+        }
+
+        It 'Does not approve a GPO its creator changed after the review' {
+            $Created = Invoke-AsTier1 "`$gpo = `$d.NewGpo('CI - Approval changed'); [pscustomobject]@{ State = `$gpo.ApprovalState }"
+            $Created.Result.State | Should -Be 'Pending' -Because $Created.Output
+            $Read = Get-PSGPODirectory -Server $Server
+            $Gpo = $Read.FindGpo('CI - Approval changed')
+            $Stamp = Get-PSGPOReviewStamp -Directory $Read -Gpo $Gpo
+
+            $Changed = Invoke-AsTier1 "`$gpo = `$d.FindGpo('CI - Approval changed'); `$d.WritePolicyFile(`$gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 0x67, 1, 0, 0, 0)); [pscustomobject]@{ Version = `$gpo.Version }"
+            $Changed.ExitCode | Should -Be 0 -Because $Changed.Output
+
+            { Invoke-PSGPOApproval -Directory $Read -Gpo $Gpo -CreatorRights ReadOnly -ApplyTo (Resolve-PSGPOApplyTo -Directory $Read -Name 'Authenticated Users') -BackupPath (Join-Path $TestDrive 'backups') -ReviewStamp $Stamp } |
+                Should -Throw -ExpectedMessage '*changed since it was reviewed*'
+            (Get-PSGPODirectory -Server $Server).FindGpo('CI - Approval changed').ApprovalState | Should -Be 'Pending'
         }
     }
 

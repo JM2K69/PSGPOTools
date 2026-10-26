@@ -53,9 +53,27 @@ good: the job `test-samba` of the CI sets it, on its throwaway domain only.
 
 The writes of an approval (`PSGPOTools.Hardening.tests.ps1`) are tested with mocks: their order
 (SYSVOL, the objects the GPO holds, then the GPO), the GPO left pending when SYSVOL fails, the
-permissions removed and reported. The whole workflow, which needs two accounts (Tier 0 and
-Tier 1), was tested step by step in the lab, `kinit` changing the account between the steps
-([approval](../workflows/approval.md)).
+permissions removed and reported. The whole workflow, with its two accounts, runs against the domain
+controller too (*Approval written to a domain controller*), after the scripts of the lab:
+
+- `tiers1`, in a process of its own with its Kerberos ticket, creates a GPO: it waits, nobody
+  applies it; `tiers1` adds a permission of its own (Domain Users, full control);
+- the administrator approves it: Domain Admins owns the GPO and its SYSVOL folder, the permission
+  `tiers1` added and its own rights are gone (and reported), Authenticated Users applies it;
+- `tiers1` cannot write it anymore;
+- a GPO `tiers1` changes after its review is not approved, and stays pending.
+
+The configuration of the domain is kept and written back byte for byte. On a lab of your own,
+`PSGPOTOOLS_TEST_TIER1_CCACHE` gives the ticket of a creator (`FILE:/tmp/krb5cc_tiers1`) instead of
+the password of the lab.
+
+### What a job must run
+
+`CI/Invoke-Tests.ps1 -RequireRun` names the blocks (`Describe`, `Context`, wildcards) a run is
+there for: a test of them skipped with its block (a runtime of Avalonia missing, a variable of the
+domain misnamed) or not run, or no test of them at all, fails the run. A test that skips itself for
+another platform (`-Skip:$IsWindows`) does not. Each run writes a table of its files (passed,
+failed, skipped, not run) to the summary of its job on GitHub (`GITHUB_STEP_SUMMARY`).
 
 ## CI
 
@@ -63,9 +81,9 @@ Tier 1), was tested step by step in the lab, `kinit` changing the account betwee
 
 | Job | Runs |
 |---|---|
-| `test` | PSScriptAnalyzer on `Code/` (`PSScriptAnalyzerSettings.psd1`: no error, no warning), then every test on `windows-latest`, the window included |
-| `test-linux` | every test on `ubuntu-latest`, the window included (Avalonia on Xvfb) |
-| `test-samba` | the tests that write to a domain, against a Samba AD DC provisioned on the runner (`CI.TEST`), with a Kerberos ticket of its administrator |
+| `test` | PSScriptAnalyzer on `Code/` (`PSScriptAnalyzerSettings.psd1`: no error, no warning), then every test on `windows-latest`; the windows must run (`-RequireRun`) |
+| `test-linux` | every test on `ubuntu-latest` (Avalonia on Xvfb); the windows must run |
+| `test-samba` | the tests that write to a domain, against a Samba AD DC provisioned on the runner (`CI.TEST`), with a Kerberos ticket of its administrator; the reading of the domain, the scripts of the lab, the approval, the changes and the password policies must run |
 
 The page of each public command (`docs/<language>/reference/commands/`, and its entry in the menu) is
 written from its help by `CI/Update-CommandReference.ps1`, after `CI/03_Build.ps1`; the first `.LINK` of

@@ -48,8 +48,9 @@ jobs:
         run: ./HGPM/Avalonia/Get-AvaloniaBinaries.ps1 -Rid win-x64
 
       - name: Build and test
+        # The windows of the GUI must run here: an Avalonia runtime missing fails the job.
         shell: pwsh
-        run: ./CI/Invoke-Tests.ps1 -OutputPath TestResults.xml
+        run: ./CI/Invoke-Tests.ps1 -OutputPath TestResults.xml -RequireRun '* window', 'Policy setting form', 'Group Policy Management view'
 
       - name: Upload test results
         if: always()
@@ -90,7 +91,8 @@ jobs:
 
       - name: Build and test
         # 1920x1080 screen: the default Xvfb screen (640x480) is smaller than the tested windows.
-        run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" pwsh -NoProfile -File ./CI/Invoke-Tests.ps1 -OutputPath TestResults-linux.xml
+        # The windows of the GUI must run here too (one text: -File passes it as one argument).
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" pwsh -NoProfile -File ./CI/Invoke-Tests.ps1 -OutputPath TestResults-linux.xml -RequireRun "* window,Policy setting form,Group Policy Management view"
 
       - name: Upload test results
         if: always()
@@ -193,7 +195,8 @@ jobs:
 
       - name: Build and test against the domain
         # -Command, not -File: -File passes the list of test files as separate arguments.
-        run: pwsh -NoProfile -Command "./CI/Invoke-Tests.ps1 -Path ./CI/tests/PSGPOTools.Ldap.tests.ps1, ./CI/tests/PSGPOTools.RegistryPol.tests.ps1 -OutputPath TestResults-samba.xml"
+        # What this job is for must run: a variable misnamed would skip it, green.
+        run: pwsh -NoProfile -Command "./CI/Invoke-Tests.ps1 -Path ./CI/tests/PSGPOTools.Ldap.tests.ps1, ./CI/tests/PSGPOTools.RegistryPol.tests.ps1 -OutputPath TestResults-samba.xml -RequireRun 'Get-PSGPODirectory against a domain controller', 'Scripts of the lab', 'Approval written to a domain controller', 'Changes written to a domain controller', 'Fine-grained password policies written to a domain controller'"
 
       - name: Upload test results
         if: always()

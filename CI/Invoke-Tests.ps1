@@ -7,12 +7,20 @@
     Optional NUnit XML result file, used by the CI to publish the results.
 .PARAMETER Path
     Test files to run; every file of CI/tests by default.
+.PARAMETER RequireRun
+    Blocks (names of Describe or Context, wildcards allowed; a list, or one text separated by
+    commas for pwsh -File) whose tests must run here: a test of them skipped or not run, or no test
+    of them at all, fails the run. A CI job gives what it is there to test (the windows of the
+    GUI, the tests against a domain controller): a runtime or a variable missing does not turn it
+    into a green run that tested nothing.
 #>
 [CmdletBinding()]
 param(
     [string]$OutputPath,
 
-    [string[]]$Path = @(Join-Path $PSScriptRoot 'tests')
+    [string[]]$Path = @(Join-Path $PSScriptRoot 'tests'),
+
+    [string[]]$RequireRun = @()
 )
 
 $ErrorActionPreference = 'Stop'
@@ -31,7 +39,7 @@ Import-Module Pester -MinimumVersion 5.5.0
 
 $Configuration = New-PesterConfiguration
 $Configuration.Run.Path = $Path
-$Configuration.Run.Exit = $true
+$Configuration.Run.PassThru = $true
 $Configuration.Output.Verbosity = 'Detailed'
 if ($OutputPath) {
     $Configuration.TestResult.Enabled = $true
@@ -39,4 +47,36 @@ if ($OutputPath) {
     $Configuration.TestResult.OutputPath = $OutputPath
 }
 
-Invoke-Pester -Configuration $Configuration
+$Result = Invoke-Pester -Configuration $Configuration
+
+# What each file did, in the summary of the job on GitHub.
+$Lines = [System.Collections.Generic.List[string]]::new()
+$Lines.Add('| Tests | Passed | Failed | Skipped | Not run |')
+$Lines.Add('|---|---:|---:|---:|---:|')
+foreach ($Container in $Result.Containers) {
+    $Lines.Add(('| {0} | {1} | {2} | {3} | {4} |' -f (Split-Path -Leaf "$($Container.Item)"), $Container.PassedCount, $Container.FailedCount, $Container.SkippedCount, $Container.NotRunCount))
+}
+$Lines.Add(('| **All** | **{0}** | **{1}** | **{2}** | **{3}** |' -f $Result.PassedCount, $Result.FailedCount, $Result.SkippedCount, $Result.NotRunCount))
+
+# The blocks this run must test.
+$Problems = [System.Collections.Generic.List[string]]::new()
+if ($Result.FailedCount -or $Result.FailedContainersCount) { $Problems.Add("$($Result.FailedCount) test(s) failed, $($Result.FailedContainersCount) file(s) failed.") }
+foreach ($Pattern in @($RequireRun | ForEach-Object { "$_" -split ',' } | ForEach-Object Trim | Where-Object { $_ })) {
+    # The blocks of a test, from its Describe to its Context: Path ends with the name of the test.
+    $Tests = @($Result.Tests | Where-Object { @($_.Path | Select-Object -SkipLast 1 | Where-Object { $_ -like $Pattern }).Count })
+    # Not run, or skipped with its block (a runtime or a variable missing); a test that skips
+    # itself (-Skip:$IsWindows: it is for another platform) is not.
+    $NotRun = @($Tests | Where-Object {
+            if ($_.Result -eq 'NotRun') { return $true }
+            if ($_.Result -ne 'Skipped') { return $false }
+            for ($Block = $_.Block; $Block; $Block = $Block.Parent) { if ($Block.Skip) { return $true } }
+            $false
+        })
+    if (-not $Tests.Count) { $Problems.Add("No test of '$Pattern' was found: it must run here.") }
+    elseif ($NotRun.Count) { $Problems.Add("$($NotRun.Count) of the $($Tests.Count) test(s) of '$Pattern' did not run here: $(@($NotRun | Select-Object -First 3 | ForEach-Object ExpandedName) -join '; ')") }
+    else { $Lines.Add(""); $Lines.Add("Ran here, as required: ``$Pattern`` ($($Tests.Count) test(s))") }
+}
+foreach ($Problem in $Problems) { $Lines.Add(''); $Lines.Add("**$Problem**") }
+if ($env:GITHUB_STEP_SUMMARY) { $Lines -join "`n" | Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY }
+foreach ($Problem in $Problems) { Write-Host $Problem -ForegroundColor Red }
+exit $(if ($Problems.Count) { 1 } else { 0 })
