@@ -935,6 +935,7 @@
     'ADMX files installed' = 'Fichiers ADMX installés'
     'Share of the audit log prepared' = 'Partage du journal d''audit préparé'
     'Share of the backups prepared' = 'Partage des sauvegardes préparé'
+    'Old months of the audit log archived' = 'Anciens mois du journal d''audit archivés'
     'Tier' = 'Tier'
     'Tier0' = 'Tier 0'
     'Tier1' = 'Tier 1'

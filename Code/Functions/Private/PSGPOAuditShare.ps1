@@ -11,12 +11,13 @@
     - Unassigned: an account in no tier writes there; Tier 0 and the readers read it.
     - The file of an account: its owner reads and writes it, without deleting it nor changing its
       permissions (CREATOR OWNER, OWNER RIGHTS).
-    - The share itself: every account lists it, to reach the folder of its tier.
+    - The share itself: the groups of the tiers and the readers list it; any other account only
+      goes through it, to the folder Unassigned, without seeing what it holds.
 #>
 
 # Access masks ([MS-DTYP] 2.4.3): read and list (FILE_GENERIC_READ | FILE_GENERIC_EXECUTE), the
 # same and create files, the owner of a file (read, write and append, attributes, no delete).
-$script:PSGPOAuditShareRight = @{ Full = '0x1f01ff'; Read = '0x1200a9'; Create = '0x1200ab'; Owner = '0x12019f' }
+$script:PSGPOAuditShareRight = @{ Full = '0x1f01ff'; Read = '0x1200a9'; Create = '0x1200ab'; Owner = '0x12019f'; Traverse = '0x1000a0' }
 
 # The folders of the share and the SDDL of each: Folder ('' for the share), Sddl. The groups are
 # lists of SIDs.
@@ -40,7 +41,9 @@ function Get-PSGPOAuditShareSddl {
         param([string[]]$Writers)
         $admins + $readAll + ((@($Writers) | Where-Object { $_ } | Select-Object -Unique | ForEach-Object { "(A;;$($right.Create);;;$_)(A;OIIO;$($right.Read);;;$_)" }) -join '') + $owner
     }
-    [pscustomobject]@{ Folder = ''; Sddl = "D:P$admins$readAll(A;;$($right.Read);;;AU)" }
+    # Traverse: FILE_TRAVERSE | FILE_READ_ATTRIBUTES | SYNCHRONIZE, without listing.
+    $listRoot = (@(@($Tier1) + @($Tier2)) | Where-Object { $_ } | Select-Object -Unique | ForEach-Object { "(A;;$($right.Read);;;$_)" }) -join ''
+    [pscustomobject]@{ Folder = ''; Sddl = "D:P$admins$readAll$listRoot(A;;$($right.Traverse);;;AU)" }
     [pscustomobject]@{ Folder = 'Tier0'; Sddl = 'D:P' + (& $tier (@($Tier0) + $DomainAdminsSid)) }
     [pscustomobject]@{ Folder = 'Tier1'; Sddl = 'D:P' + (& $tier $Tier1) }
     [pscustomobject]@{ Folder = 'Tier2'; Sddl = 'D:P' + (& $tier $Tier2) }
@@ -105,7 +108,8 @@ function Set-PSGPOAuditShareAcl {
     if (-not $PSCmdlet.ShouldProcess($Path, "Create the folders $(@($Folder.Folder | Where-Object { $_ }) -join ', ') and write their permissions")) { return }
     foreach ($item in $Folder) {
         $full = if ($item.Folder) { Join-Path $Path $item.Folder } else { $Path }
-        $directory = New-Item -ItemType Directory -Path $full -Force -ErrorAction Stop
+        # The root of a share exists: New-Item would try to make \\server itself.
+        $directory = if (Test-Path -LiteralPath $full -PathType Container) { Get-Item -LiteralPath $full -Force } else { New-Item -ItemType Directory -Path $full -Force -ErrorAction Stop }
         $security = [System.Security.AccessControl.DirectorySecurity]::new()
         $security.SetSecurityDescriptorSddlForm($item.Sddl, [System.Security.AccessControl.AccessControlSections]::Access)
         [System.IO.FileSystemAclExtensions]::SetAccessControl([System.IO.DirectoryInfo]$directory, $security)

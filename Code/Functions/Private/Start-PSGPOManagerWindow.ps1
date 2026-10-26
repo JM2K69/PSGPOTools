@@ -1428,6 +1428,8 @@ function Start-PSGPOManagerWindow {
     function Show-DirectoryResult {
         param([string]$Text, [switch]$Problem)
         $directoryResultTextBlock.Text = $Text
+        # A problem shown is kept in the technical log, to find its cause afterwards.
+        if ($Problem) { Write-PSGPOLogEntry -Level Error -Source 'GPO console' -Message $Text }
         if ($Problem) {
             $directoryResultTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
         } else {
@@ -1907,6 +1909,7 @@ function Start-PSGPOManagerWindow {
     function Set-HistoryStatus {
         param([string]$Text, [switch]$Problem)
         $historyStatusTextBlock.Text = $Text
+        if ($Problem) { Write-PSGPOLogEntry -Level Error -Source 'History tab' -Message $Text }
         if ($Problem) { $historyStatusTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438')) }
         else { $historyStatusTextBlock.ClearValue([Avalonia.Controls.TextBlock]::ForegroundProperty) }
     }

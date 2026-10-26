@@ -105,6 +105,7 @@ function Start-PSGPOLauncherWindow {
         try {
             & $tool.Command -Language $launch.Language
         } catch {
+            Write-PSGPOLogEntry -Level Error -Source 'Launcher' -Message "$($tool.Command) did not open." -ErrorRecord $_
             $ui.statusTextBlock.Text = Get-PSGPOText '{0} did not open: {1}' $tool.Command $_.Exception.GetBaseException().Message
             $ui.statusTextBlock.IsVisible = $true
         } finally {

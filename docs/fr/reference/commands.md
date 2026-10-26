@@ -72,6 +72,8 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | [`Initialize-PSGPOAuditShare`](commands/initialize-psgpoauditshare.md) `[-Path] [-Directory \| -Server]` | prépare le partage du journal d'audit central : un dossier par tier, les droits des rôles |
 | [`Initialize-PSGPOBackupShare`](commands/initialize-psgpobackupshare.md) `[-Path] [-Directory \| -Server]` | prépare le partage des sauvegardes centrales : pour le Tier 0 seulement |
 | [`Import-PSGPOAuditLog`](commands/import-psgpoauditlog.md) `-Path [-Destination] [-Remove]` | déplace le journal d'une console dans le journal central, chaque modification dans le dossier du tier de son compte |
+| [`Invoke-PSGPOAuditRetention`](commands/invoke-psgpoauditretention.md) `[-Path] [-RetentionMonths] [-Directory \| -Server]` | archive les mois du journal d'audit plus anciens que sa rétention, puis supprime leurs fichiers |
+| [`Register-PSGPOEventSource`](commands/register-psgpoeventsource.md) | enregistre la source d'événements HGPM du journal des événements Windows, une fois par ordinateur |
 
 ```powershell
 Backup-PSGPO -Path /srv/gpo-backups -Comment 'Chaque nuit'

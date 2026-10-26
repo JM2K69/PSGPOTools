@@ -30,7 +30,7 @@ $script:PSGPOAuditActionText = [ordered]@{
     SetWmiFilter = 'WMI filter of a GPO changed'; NewWmiFilter = 'WMI filter created'; EditWmiFilter = 'WMI filter changed'
     RemoveWmiFilter = 'WMI filter deleted'; SetWmiFilterPermission = 'Permissions of a WMI filter changed'
     NewPasswordPolicy = 'Password policy created'; SetPasswordPolicy = 'Password policy changed'; RemovePasswordPolicy = 'Password policy deleted'
-    SaveConfiguration = 'Configuration saved'; InstallAdmx = 'ADMX files installed'; InitializeAuditShare = 'Share of the audit log prepared'; InitializeBackupShare = 'Share of the backups prepared'
+    SaveConfiguration = 'Configuration saved'; InstallAdmx = 'ADMX files installed'; InitializeAuditShare = 'Share of the audit log prepared'; InitializeBackupShare = 'Share of the backups prepared'; PurgeAuditLog = 'Old months of the audit log archived'
 }
 
 # What an action is, in the language of the interface; the action itself when unknown.
@@ -236,6 +236,7 @@ function Write-PSGPOAuditEntry {
         $share = if (-not $IsWindows) { Get-PSGPOAuditShare -Path $folder }
         if ($share) {
             Add-PSGPOAuditShareLine -Share $share -Name $name -Bytes $bytes
+            Write-PSGPOAuditSystemLog -Entry $entry
             return
         }
         # Not Join-Path with the name: on Linux its \ would stay in the file name.
@@ -253,9 +254,25 @@ function Write-PSGPOAuditEntry {
                 Start-Sleep -Milliseconds (100 * $try)
             }
         }
+        # The change for a SIEM too, in the log of the system.
+        Write-PSGPOAuditSystemLog -Entry $entry
     } catch {
+        Write-PSGPOLogEntry -Level Warning -Source 'Audit log' -Message "$Action of $Target is done, but not written to the audit log." -ErrorRecord $_
         Write-Warning "$Action of $Target is done, but not written to the audit log: $($_.Exception.GetBaseException().Message)"
     }
+}
+
+# A change of the audit log in the log of the system: what, by whom, from where, on what, and the
+# entry itself as JSON, with the event ID of its action.
+function Write-PSGPOAuditSystemLog {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [System.Collections.IDictionary]$Entry)
+
+    $id = $script:PSGPOAuditEventId["$($Entry.Action)"]
+    if (-not $id) { $id = 1000 }
+    $on = @($Entry.GpoName, $Entry.Target | Where-Object { $_ }) -join ' - '
+    $text = "HGPM audit: $($Entry.Action) by $($Entry.Account) from $($Entry.Computer) on $($Entry.Domain): $on" + [Environment]::NewLine + (ConvertTo-Json -InputObject $Entry -Depth 5 -Compress)
+    Write-PSGPOSystemLog -Level Information -EventId $id -Message $text
 }
 
 # Linux: a line added to a file of the share of the log, with smbclient (Kerberos): the file of

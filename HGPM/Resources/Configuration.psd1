@@ -78,6 +78,21 @@
         }
         # Groups that read every tier without writing (auditors), separated by commas.
         Readers = ''
+        # Months the central log keeps: Invoke-PSGPOAuditRetention puts the older months in a .zip
+        # of the folder Archive, then deletes their files. 0: everything is kept.
+        RetentionMonths = 13
+    }
+    # The technical log of each console (the errors of LDAP, SYSVOL, samba-tool, smbclient, with
+    # the command and its output), in the data of the user, and the log of the system.
+    Log = @{
+        # What the technical log keeps: Error, Warning, Information (the commands that fail) or
+        # Verbose (every command).
+        Level = 'Warning'
+        # Days the files of the technical log are kept.
+        RetentionDays = 30
+        # The changes of the audit log and the errors sent to the log of the system: the Windows
+        # event log (source HGPM, Register-PSGPOEventSource) or syslog/journald.
+        SystemLog = $true
     }
 
     # The Group Policy Management view of the console.

@@ -73,6 +73,7 @@ function Start-PSGPOWmiFilterCreatorWindow {
 
     function Show-Result {
         param([string]$Text, [switch]$Problem)
+        if ($Problem) { Write-PSGPOLogEntry -Level Error -Source 'WMI creator' -Message $Text }
         $ui.resultTextBlock.Text = $Text
         $ui.resultTextBlock.IsVisible = [bool]$Text
         $ui.resultTextBlock.Foreground = if ($Problem) { $red } else { $green }

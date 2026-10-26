@@ -13,7 +13,7 @@ Import-PSGPOAuditLog -Path <string> -Directory <GPOToolsLdapDirectory> [-Destina
 
 ## Description
 
-Before the central log (Audit.Path), each console wrote its changes in the folder Audit of the backups of its account. Import-PSGPOAuditLog adds them to the central log as the consoles write it now: each change in a file of its account, of its computer and of its month, in the folder of the tier of the account (read in its groups, as for a change made now; an account the domain does not know goes to Unassigned). The file is named ...-imported.jsonl: the account that runs the import owns it, and each account writes only the files it made.
+Before the central log (Audit.Path), each console wrote its changes in the folder Audit of the backups of its account. Import-PSGPOAuditLog adds them to the central log as the consoles write it now: each change in a file of its account, of its computer and of its month, in the folder of the tier of the account (read in its groups, as for a change made now; an account the domain does not know goes to Unassigned). The file is named ...-imported.jsonl: the account that runs the import owns it, and each account writes only the files it made. Only the changes of the domain of the directory are imported: those of other domains are left out, with a warning, and -Remove keeps the files that hold them.
 
 It can run again: a change already in the central log (same time, account, action and target) is not written twice. With -Remove, the files read are deleted once their changes are written. Run it with an account that writes every tier (an administrator of the domain), as the files go in the folders of the accounts that made the changes.
 

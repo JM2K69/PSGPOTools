@@ -92,6 +92,9 @@ function Get-PSGPODirectory {
         } catch {
             Write-Warning "The WMI filters of the domain cannot be read: $($_.Exception.GetBaseException().Message)"
         }
+    } catch {
+        Write-PSGPOLogEntry -Level Error -Source 'LDAP' -Message "The domain cannot be read from ${Server}." -ErrorRecord $_
+        throw
     } finally {
         $connection.Dispose()
     }

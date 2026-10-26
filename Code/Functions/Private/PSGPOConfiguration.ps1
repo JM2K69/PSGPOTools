@@ -136,6 +136,13 @@ function Test-PSGPOConfiguration {
     if ($audit -and $audit -notmatch '^(\\\\|//)[^\\/]+[\\/][^\\/]+' -and -not [System.IO.Path]::IsPathRooted($audit)) { "Audit.Path must be a full path (a share: \\server\gpo-audit), not '$audit'." }
     $backup = "$($Configuration.Backup.Path)".Trim()
     if ($backup -and $backup -notmatch '^(\\\\|//)[^\\/]+[\\/][^\\/]+' -and -not [System.IO.Path]::IsPathRooted($backup)) { "Backup.Path must be a full path (a share: \\server\gpo-backups), not '$backup'." }
+    if ($Configuration.Log.Level -notin 'Error', 'Warning', 'Information', 'Verbose') { "Log.Level must be Error, Warning, Information or Verbose, not '$($Configuration.Log.Level)'." }
+    if ($Configuration.Log.SystemLog -isnot [bool]) { 'Log.SystemLog must be $true or $false.' }
+    foreach ($name in 'Log.RetentionDays', 'Audit.RetentionMonths') {
+        $parts = $name -split '\.'
+        $number = 0
+        if (-not [int]::TryParse("$($Configuration[$parts[0]][$parts[1]])", [ref]$number) -or $number -lt 0) { "$name must be a number of 0 or more." }
+    }
     if ($Configuration.Audit.Enabled -isnot [bool]) { 'Audit.Enabled must be $true or $false.' }
     foreach ($name in 'Tier1', 'Tier2') {
         if ("$($Configuration.Audit.Tiers[$name])" -match '[";|=+*?<>]') { "Audit.Tiers.$name holds names of groups separated by commas." }
@@ -182,6 +189,7 @@ $script:PSGPOConfigurationChoices = @{
     'NewGpo.Status' = @('Enabled', 'ComputerOnly', 'UserOnly')
     'NewGpo.SecurityFilteringGroups.Scope' = @('Global', 'DomainLocal', 'Universal')
     'Workflow.CreatorRights' = @('ReadOnly', 'EditSettings')
+    'Log.Level' = @('Error', 'Warning', 'Information', 'Verbose')
 }
 
 # The settings one by one (NewGpo.SecurityFilteringGroups.Scope...): their default, their value

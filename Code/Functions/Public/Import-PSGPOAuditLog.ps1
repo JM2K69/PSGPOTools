@@ -9,7 +9,8 @@ function Import-PSGPOAuditLog {
         month, in the folder of the tier of the account (read in its groups, as for a change made
         now; an account the domain does not know goes to Unassigned). The file is named
         ...-imported.jsonl: the account that runs the import owns it, and each account writes only
-        the files it made.
+        the files it made. Only the changes of the domain of the directory are imported: those of
+        other domains are left out, with a warning, and -Remove keeps the files that hold them.
 
         It can run again: a change already in the central log (same time, account, action and
         target) is not written twice. With -Remove, the files read are deleted once their changes
@@ -74,7 +75,19 @@ function Import-PSGPOAuditLog {
     if (-not $Destination) { throw 'No central audit log: give -Destination, or set Audit.Path in the configuration of the domain.' }
 
     $files = @(Get-ChildItem -LiteralPath $source -File -Recurse -Filter '*.jsonl')
-    $entries = @(Read-PSGPOAuditFile -File $files)
+    # The changes of this domain only: the log of a console may hold those of other domains (its
+    # file kept by -Remove, for the import of its domain).
+    $entries = [System.Collections.Generic.List[object]]::new()
+    $kept = [System.Collections.Generic.HashSet[string]]::new()
+    $others = [System.Collections.Generic.List[object]]::new()
+    foreach ($file in $files) {
+        foreach ($entry in @(Read-PSGPOAuditFile -File @($file))) {
+            if ("$($entry.Domain)" -eq $Directory.DomainName) { $entries.Add($entry) }
+            else { $others.Add($entry); $null = $kept.Add($file.FullName) }
+        }
+    }
+    $entries = @($entries)
+    if ($others.Count) { Write-Warning "$($others.Count) change(s) of other domains left out ($(@($others.Domain | Sort-Object -Unique) -join ', ')): import them with the directory of their domain." }
     # What the central log has already: the same change is not written twice.
     $key = { param($Entry) '{0}|{1}|{2}|{3}' -f $Entry.Time.ToUniversalTime().ToString('o'), $Entry.Account, $Entry.Action, $Entry.Target }
     $known = [System.Collections.Generic.HashSet[string]]::new()
@@ -140,6 +153,7 @@ function Import-PSGPOAuditLog {
     }
     if ($Remove -and -not $WhatIfPreference) {
         foreach ($file in $files) {
+            if ($kept.Contains($file.FullName)) { continue }
             if ($PSCmdlet.ShouldProcess($file.FullName, 'Delete the file, its changes are in the central log')) { Remove-Item -LiteralPath $file.FullName -Force }
         }
     }
