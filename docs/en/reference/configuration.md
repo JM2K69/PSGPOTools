@@ -51,6 +51,17 @@ A label has at most 64 characters, without comma, tab or line break; the two lab
 | `Log.RetentionDays` | `30` | days the files of the technical log are kept |
 | `Log.SystemLog` | `$true` | the changes of the audit log and the errors sent to the [log of the system](../features/audit-log.md#the-log-of-the-system-for-a-siem): the Windows event log (source HGPM) or syslog/journald |
 
+## Console
+
+| Setting | Default | |
+|---|---|---|
+| `Console.MinimumVersion` | empty | version of HGPM a console needs at least (`0.1.14`): an older console does not use the configuration, and the accounts that are not administrators of the domain create no GPO with it ([hardening](../technical/hardening.md#configuration-fails-closed)); empty: every version |
+
+A setting a console does not know (a newer version of HGPM added it) is left out with a warning,
+the others are used, and the console keeps it when it saves the configuration. Update every console
+first, then set `Console.MinimumVersion`: the consoles older than 0.1.14 do not know it, and leave
+out the whole configuration.
+
 ## View
 
 | Setting | Default | |

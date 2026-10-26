@@ -12,7 +12,10 @@
     gPCUserExtensionNames): without them the computers would not apply the change, as with GPMC.
 #>
 
-# Share and path of the GPO folder, from its gPCFileSysPath (\\<domain>\SysVol\<domain>\Policies\{GUID}).
+# Share and path of the GPO folder: SysVol and <domain>\Policies\{GUID}, as its gPCFileSysPath
+# writes them. Never another share or folder: whoever writes the GPO writes its gPCFileSysPath
+# (IsGpoRedirected), and the console would read and write there with the rights of its account,
+# an approver giving that folder the permissions of the GPO. A redirected GPO throws.
 function Get-PSGPOSysvolLocation {
     [CmdletBinding()]
     param(
@@ -20,6 +23,9 @@ function Get-PSGPOSysvolLocation {
         [Parameter(Mandatory)] [GPOToolsGpo]$Gpo
     )
 
+    $redirected = $Directory.GetRedirectedProblem($Gpo)
+    if ($redirected) { throw $redirected }
+    # Not redirected: the canonical path, in the case the domain wrote it (Samba writes sysvol).
     $match = [regex]::Match("$($Gpo.FileSysPath)", '^\\\\[^\\]+\\([^\\]+)\\(.+?)\\?$')
     if ($match.Success) {
         [pscustomobject]@{ Share = $match.Groups[1].Value; Path = $match.Groups[2].Value }

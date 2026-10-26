@@ -63,8 +63,14 @@ function New-PSGPODirectoryTree {
     function Add-PendingGpo {
         param([GPOToolsGpo]$Gpo, [AvaloniaTreeNode]$Parent)
         $Label = $Gpo.DisplayName + $(if ($Gpo.AppliesWhilePending()) { Get-PSGPOText ' (waiting for approval, but it applies)' } else { Get-PSGPOText ' (waiting for approval)' })
-        $Node = New-Node $Label 'document-settings' $Gpo $Parent
-        $Node.IconBrush = if ($Gpo.AppliesWhilePending()) { '#C50F1F' } else { '#CA5010' }
+        $Node = New-Node ($Label + (Get-RedirectedText $Gpo)) 'document-settings' $Gpo $Parent
+        $Node.IconBrush = if ($Gpo.AppliesWhilePending() -or $Directory.IsGpoRedirected($Gpo)) { '#C50F1F' } else { '#CA5010' }
+    }
+
+    # A GPO whose gPCFileSysPath is another folder (IsGpoRedirected): said, in red.
+    function Get-RedirectedText {
+        param([GPOToolsGpo]$Gpo)
+        if ($Gpo -and $Directory.IsGpoRedirected($Gpo)) { Get-PSGPOText ' (redirected to another folder)' } else { '' }
     }
 
     function New-Node {
@@ -100,9 +106,11 @@ function New-PSGPODirectoryTree {
             elseif ($Link.Gpo -and $Link.Gpo.ApprovalState -eq 'Pending') { $LinkHeader += Get-PSGPOText ' (waiting for approval)' }
             if ($Link.Enforced) { $LinkHeader += Get-PSGPOText ' (enforced)' }
             if (-not $Link.Enabled) { $LinkHeader += Get-PSGPOText ' (link disabled)' }
+            $LinkHeader += Get-RedirectedText $Link.Gpo
             $LinkIcon = if (-not $Link.Enabled) { 'link-dismiss' } elseif ($Link.Enforced) { 'lock-closed' } else { 'link' }
             $LinkNode = New-Node $LinkHeader $LinkIcon $Link $Node
             if (-not $Som.CanLink) { $LinkNode.IconBrush = '#8A8886' }
+            if ($Link.Gpo -and $Directory.IsGpoRedirected($Link.Gpo)) { $LinkNode.IconBrush = '#C50F1F' }
         }
         foreach ($Child in $Som.Children) { if ($ShowUnmanaged -or $Directory.IsSomVisible($Child)) { [void](Add-Som $Child $Node) } }
         $Node
@@ -117,9 +125,10 @@ function New-PSGPODirectoryTree {
         if ($Gpo.ApprovalState -eq 'Pending') {
             Add-PendingGpo $Gpo $GposNode
         } else {
-            $Node = New-Node $Gpo.DisplayName 'document-settings' $Gpo $GposNode
-            # A GPO the account does not edit: greyed, it reads it only.
+            $Node = New-Node ($Gpo.DisplayName + (Get-RedirectedText $Gpo)) 'document-settings' $Gpo $GposNode
+            # A GPO the account does not edit: greyed, it reads it only; redirected: red.
             if (-not $Gpo.CanEdit) { $Node.IconBrush = '#8A8886' }
+            if ($Directory.IsGpoRedirected($Gpo)) { $Node.IconBrush = '#C50F1F' }
         }
     }
     # The GPOs waiting for approval, when there are: expanded when the console opens (no node

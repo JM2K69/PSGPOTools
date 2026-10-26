@@ -110,6 +110,10 @@ function Get-PSGPODirectory {
     Use-PSGPODomainConfiguration -Directory $directory
     # And the tier of the account in the central audit log and backups.
     $workflow = (Get-PSGPOWorkflowSetting).Enabled
+    # Without a configuration of the domain it can use, the workflow may be unknown: checked for
+    # the accounts that are not administrators (Get-PSGPOUnknownWorkflowProblem).
+    $state = $script:PSGPOConfigurationState
+    if (-not $directory.IsDomainAdministrator -and ($state.Problem -or -not $state.Exists)) { $workflow = $true }
     $configuration = Get-PSGPOConfigurationData
     $central = [bool]("$($configuration.Audit.Path)".Trim() -or "$($configuration.Backup.Path)".Trim())
     if ($workflow -or $central) {

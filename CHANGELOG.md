@@ -1,5 +1,18 @@
 # HGPM Release History
 
+## Unreleased
+
+### Security
+
+* A GPO whose `gPCFileSysPath` is not its folder in SYSVOL is *redirected*: the console neither reads, writes nor approves it, and shows it in red. Its creator owns it while it waits and could point it at another folder (the configuration of the console, another GPO, `C$`), which the approval gave the permissions of an approved GPO with the rights of the approver; the deletion sets the attribute back first, so that `samba-tool gpo del` and `Remove-GPO` do not delete that folder. The creators that keep editing an approved GPO (`EditSettings`) are denied writing its `gPCFileSysPath`
+* The configuration of the domain fails closed: when it cannot be read, holds a wrong value or needs a newer console, and when it is missing on the domain controller while the domain delegates the creation of GPOs, the accounts that are not administrators of the domain create no GPO, instead of the defaults (approval workflow off). An administrator does not create an empty configuration on a domain controller without it when the domain delegates the creation of GPOs
+
+### Added
+
+* `Console.MinimumVersion` in the configuration of the domain: an older console does not use it
+* A setting a console does not know (a newer version wrote it) is left out with a warning, the others are used, and it is kept when the configuration is saved; before, the whole configuration was left out
+* The page [Hardening](https://jm2k69.github.io/PSGPOTools/en/technical/hardening/) of the documentation: what HGPM does not trust, and what was tested, by the tests and on both labs
+
 ## 0.1.13 - alpha
 
 ### Fixed

@@ -29,6 +29,11 @@ $script:PSGPOGroupPolicyContainerClass = [guid]'f30e3bc2-9ff0-11d1-b603-0000f803
 # create and delete child objects: RP WP CC DC LC LO RC).
 $script:PSGPOCreateChildMask = [uint32]0x00000001
 $script:PSGPOEditSettingsMask = [uint32]0x000200B7
+# gPCFileSysPath (schemaIDGUID) and the right to write a property: the groups of creators that
+# keep editing an approved GPO are denied writing it, or they would redirect the GPO to a folder
+# they own (IsGpoRedirected).
+$script:PSGPOFileSysPathAttribute = [guid]'f30e3bc1-9ff0-11d1-b603-0000f80367c1'
+$script:PSGPOWritePropertyMask = [uint32]0x00000020
 # Rights of the files: read and execute with create folders (this folder only), full control.
 $script:PSGPOCreateFolderMask = [uint32]0x001200AD
 $script:PSGPOFullFileMask = [uint32]0x001F01FF
@@ -162,6 +167,60 @@ function Get-PSGPOApprovedOwnerSid {
 
 # The workflow of the directory (GPOToolsDirectory.Workflow) and the approval state of its GPOs,
 # from the configuration of the domain, the groups of the account and the owners of the GPOs.
+# The domain delegates the creation of GPOs to groups that are not its administrators (Initialize-
+# PSGPOWorkflow gives the creators the right to create groupPolicyContainer objects in
+# CN=Policies): the approval workflow is deployed. Group Policy Creator Owners, which the domain
+# gives this right, does not count. $false when the permissions of CN=Policies cannot be read.
+function Test-PSGPODomainCreationDelegated {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [Parameter(Mandatory)] $Connection,
+        [Parameter(Mandatory)] [string]$DomainDistinguishedName
+    )
+
+    try {
+        $descriptor = Get-PSGPODomainSecurityDescriptor -Connection $Connection -DistinguishedName "CN=Policies,CN=System,$DomainDistinguishedName"
+    } catch {
+        Write-Verbose "The permissions of CN=Policies cannot be read: $($_.Exception.Message)"
+        return $false
+    }
+    # Domain Admins, Enterprise Admins, Group Policy Creator Owners, Administrators, SYSTEM.
+    $admins = '-512$', '-519$', '-520$', '^S-1-5-32-544$', '^S-1-5-18$'
+    foreach ($ace in @($descriptor.Dacl)) {
+        if (-not $ace.IsKnown() -or $ace.IsDeny() -or -not ($ace.Mask -band $script:PSGPOCreateChildMask)) { continue }
+        if ($ace.IsObjectAce() -and $ace.ObjectType -ne [guid]::Empty -and $ace.ObjectType -ne $script:PSGPOGroupPolicyContainerClass) { continue }
+        if (@($admins | Where-Object { $ace.Sid -match $_ }).Count) { continue }
+        return $true
+    }
+    $false
+}
+
+# Why the approval workflow of the domain is unknown, for an account that is not an administrator
+# of the domain; $null when it is known. The configuration of the domain is not used (it cannot be
+# read, holds a wrong value, or needs a newer console): the workflow it sets is unknown. It is
+# missing on the domain controller read, while the domain delegates the creation of GPOs (a domain
+# controller of Samba, which does not replicate SYSVOL, without it): the workflow was deployed. In
+# both cases the defaults would let a creator make GPOs that apply at once.
+function Get-PSGPOUnknownWorkflowProblem {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)] $Connection,
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory
+    )
+
+    if ($Directory.IsDomainAdministrator) { return $null }
+    $state = $script:PSGPOConfigurationState
+    if ($state.Problem) {
+        return "the configuration of the domain $($state.Path) is not used ($("$($state.Problem)".TrimEnd('.'))), and the approval workflow it sets is unknown."
+    }
+    if (-not $state.Exists -and (Test-PSGPODomainCreationDelegated -Connection $Connection -DomainDistinguishedName $Directory.Domain.DistinguishedName)) {
+        return "the domain delegates the creation of GPOs (approval workflow), but $($Directory.Server) has no configuration of the domain ($($state.Path)): copy it there (Samba does not replicate SYSVOL; on Windows, check the replication of SYSVOL)."
+    }
+    $null
+}
+
 # A workflow that cannot be read stops the creation of GPOs: a GPO of a creator would apply
 # before its approval.
 function Update-PSGPODomainWorkflow {
@@ -172,12 +231,21 @@ function Update-PSGPODomainWorkflow {
     )
 
     $setting = Get-PSGPOWorkflowSetting
+    $domainDN = $Directory.Domain.DistinguishedName
     if (-not $setting.Enabled) {
+        # The workflow the domain sets may be unknown: the configuration is not used, or missing
+        # here while the domain delegates the creation of GPOs.
+        $unknown = Get-PSGPOUnknownWorkflowProblem -Connection $Connection -Directory $Directory
+        if ($unknown) {
+            $Directory.Workflow = [pscustomobject]@{ Enabled = $true; Problem = $unknown; IsApprover = $false; IsCreator = $false }
+            $Directory.CanCreateGpo = $false
+            Write-Warning "The approval workflow of $($Directory.DomainName) is unknown, no GPO can be created until it is fixed: $unknown"
+            return
+        }
         $Directory.Workflow = $null
         foreach ($gpo in $Directory.Gpos) { $gpo.ApprovalState = $null }
         return
     }
-    $domainDN = $Directory.Domain.DistinguishedName
     try {
         $approvers = @(Find-PSGPODomainAccount -Connection $Connection -DomainDistinguishedName $domainDN -Name $setting.Approvers)
         $creators = @(Find-PSGPODomainAccount -Connection $Connection -DomainDistinguishedName $domainDN -Name $setting.Creators)
@@ -272,6 +340,24 @@ function Remove-PSGPOApplyRight {
     }
 }
 
+# The ACE that denies writing the gPCFileSysPath of a GPO, as the approval writes it.
+function Test-PSGPOFileSysPathDenyAce {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param([Parameter(Mandatory)] [GPOToolsAce]$Ace)
+
+    $Ace.IsKnown() -and $Ace.Type -eq [GPOToolsAce]::AccessDeniedObject -and $Ace.ObjectType -eq $script:PSGPOFileSysPathAttribute -and
+        $Ace.Mask -eq $script:PSGPOWritePropertyMask -and -not ($Ace.Flags -band [GPOToolsAce]::Inherited)
+}
+
+function Add-PSGPOFileSysPathDenyAce {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [GPOToolsSecurityDescriptor]$Descriptor, [Parameter(Mandatory)] [string]$Sid)
+
+    $present = @($Descriptor.Dacl | Where-Object { $_.Sid -eq $Sid -and (Test-PSGPOFileSysPathDenyAce -Ace $_) }).Count
+    if (-not $present) { $Descriptor.AddAce([GPOToolsAce]::new([GPOToolsAce]::AccessDeniedObject, 0, $script:PSGPOWritePropertyMask, $Sid, $script:PSGPOFileSysPathAttribute)) }
+}
+
 function Add-PSGPOEditSettingsAce {
     [CmdletBinding()]
     param([Parameter(Mandatory)] [GPOToolsSecurityDescriptor]$Descriptor, [Parameter(Mandatory)] [string]$Sid)
@@ -337,7 +423,11 @@ function ConvertTo-PSGPOApprovedDescriptor {
         if (-not $read) {
             $approved.AddAce([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, [GPOToolsAce]::ContainerInherit, [GPOToolsSecurityDescriptor]::ReadMask, [GPOToolsSecurityDescriptor]::AuthenticatedUsers, [guid]::Empty))
         }
-        foreach ($sid in $EditSids) { Add-PSGPOEditSettingsAce -Descriptor $approved -Sid $sid }
+        # The groups of creators edit its settings, never its folder (gPCFileSysPath).
+        foreach ($sid in $EditSids) {
+            Add-PSGPOEditSettingsAce -Descriptor $approved -Sid $sid
+            Add-PSGPOFileSysPathDenyAce -Descriptor $approved -Sid $sid
+        }
         if ($ApplySid) {
             $inherit = [GPOToolsAce]::ContainerInherit
             # Authenticated Users read every GPO already.

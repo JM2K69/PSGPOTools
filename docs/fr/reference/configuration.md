@@ -52,6 +52,17 @@ Une étiquette fait au plus 64 caractères, sans virgule, tabulation ni saut de 
 | `Log.RetentionDays` | `30` | jours pendant lesquels les fichiers du journal technique sont gardés |
 | `Log.SystemLog` | `$true` | les modifications du journal d'audit et les erreurs envoyées au [journal du système](../features/audit-log.md#le-journal-du-systeme-pour-un-siem) : le journal des événements Windows (source HGPM) ou syslog/journald |
 
+## Console
+
+| Réglage | Par défaut | |
+|---|---|---|
+| `Console.MinimumVersion` | vide | version de HGPM dont une console a besoin au minimum (`0.1.14`) : une console plus ancienne n'utilise pas la configuration, et les comptes qui ne sont pas administrateurs du domaine n'y créent aucune GPO ([durcissement](../technical/hardening.md#configuration-fails-closed)) ; vide : toutes les versions |
+
+Un réglage qu'une console ne connaît pas (ajouté par une version plus récente de HGPM) est ignoré
+avec un avertissement, les autres sont utilisés, et la console le garde quand elle enregistre la
+configuration. Mettez d'abord toutes les consoles à jour, puis réglez `Console.MinimumVersion` : les
+consoles antérieures à 0.1.14 ne le connaissent pas, et ignorent toute la configuration.
+
 ## View
 
 | Réglage | Par défaut | |

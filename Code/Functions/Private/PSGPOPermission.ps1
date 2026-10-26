@@ -71,6 +71,8 @@ function Get-PSGPOPermissionFromDescriptor {
         $account = $accounts[$key]
         $apply = ($ace.Mask -band [GPOToolsSecurityDescriptor]::ControlAccess) -and
             (-not $ace.IsObjectAce() -or $ace.ObjectType -eq [guid]::Empty -or $ace.ObjectType -eq [GPOToolsSecurityDescriptor]::ApplyGroupPolicy)
+        # The deny of gPCFileSysPath the approval gives the creators is not a level of GPMC.
+        if (Test-PSGPOFileSysPathDenyAce -Ace $ace) { continue }
         if ($ace.IsDeny()) { $account.Denied = $true; continue }
         if ($apply) { $account.Applies = $true }
         # An object ACE gives its right on one property or extended right only.
@@ -96,7 +98,9 @@ function Remove-PSGPOAccountAce {
 
     for ($i = $Descriptor.Dacl.Count - 1; $i -ge 0; $i--) {
         $ace = $Descriptor.Dacl[$i]
-        if ($ace.IsKnown() -and $ace.Sid -eq $Sid -and -not ($ace.Flags -band ([GPOToolsAce]::Inherited -bor [GPOToolsAce]::InheritOnly))) { $Descriptor.Dacl.RemoveAt($i) }
+        # The deny of gPCFileSysPath stays: whatever the level, the account never redirects the GPO.
+        if ($ace.IsKnown() -and $ace.Sid -eq $Sid -and -not ($ace.Flags -band ([GPOToolsAce]::Inherited -bor [GPOToolsAce]::InheritOnly)) -and
+            -not (Test-PSGPOFileSysPathDenyAce -Ace $ace)) { $Descriptor.Dacl.RemoveAt($i) }
     }
 }
 

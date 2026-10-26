@@ -54,7 +54,9 @@ InModuleScope -ModuleName HGPM {
         }
 
         It 'Leaves out a configuration that <Case>, and says why' -ForEach @(
-            @{ Case = 'has an unknown setting'; Content = "@{ NewGpo = @{ Colour = 'blue' } }"; Message = '*Unknown setting NewGpo.Colour*' }
+            @{ Case = 'needs a newer console'; Content = "@{ Console = @{ MinimumVersion = '99.0' } }"; Message = '*this console is HGPM *, the domain needs 99.0 at least (Console.MinimumVersion)*' }
+            @{ Case = 'has a wrong minimum version'; Content = "@{ Console = @{ MinimumVersion = 'latest' } }"; Message = "*Console.MinimumVersion must be a version of HGPM (0.1.14), not 'latest'*" }
+            @{ Case = 'has a table where a value is expected'; Content = "@{ NewGpo = @{ Status = @{ Value = 'Enabled' } } }"; Message = '*Status must be Enabled*' }
             @{ Case = 'has a wrong scope'; Content = "@{ NewGpo = @{ SecurityFilteringGroups = @{ Scope = 'Forest' } } }"; Message = "*Scope must be Global, DomainLocal or Universal, not 'Forest'*" }
             @{ Case = 'has a prefix a group name cannot hold'; Content = "@{ NewGpo = @{ SecurityFilteringGroups = @{ DenyPrefix = 'DENY:' } } }"; Message = '*DenyPrefix must not be empty, nor hold*' }
             @{ Case = 'shows what is not managed with a text'; Content = "@{ View = @{ ShowUnmanaged = 'no' } }"; Message = '*View.ShowUnmanaged must be $true or $false*' }
@@ -65,6 +67,22 @@ InModuleScope -ModuleName HGPM {
             "$($Output | Where-Object { $_ -is [System.Management.Automation.WarningRecord] })" | Should -BeLike "The configuration of the domain SYSVOL\corp.contoso.com\PSGPOTools\Configuration.psd1*is not used:$Message"
             (Get-PSGPOConfiguration).Problem | Should -Not -BeNullOrEmpty
             (Get-PSGPOConfigurationData).NewGpo.SecurityFilteringGroups.Scope | Should -Be 'Global' -Because 'the defaults apply'
+        }
+
+        It 'Leaves out the settings a newer console wrote, uses the others, and keeps them when it saves' {
+            $Output = @(Set-DomainConfiguration "@{ NewGpo = @{ Status = 'UserOnly'; Colour = 'blue' }; Future = @{ Mode = 'Strict'; Level = 3 } }" 3>&1)
+            "$($Output | Where-Object { $_ -is [System.Management.Automation.WarningRecord] })" | Should -BeLike '*has settings this console does not know, left out*Future.Level, Future.Mode, NewGpo.Colour.'
+            (Get-PSGPOConfiguration).Problem | Should -BeNullOrEmpty
+            (Get-PSGPOConfigurationData).NewGpo.Status | Should -Be 'UserOnly' -Because 'the settings it knows are used'
+            $script:PSGPOConfigurationState.Unknown['Future.Mode'] | Should -Be 'Strict'
+
+            Save-PSGPODomainConfiguration -Directory $script:Domain -Values @{ 'NewGpo.Status' = 'ComputerOnly' } 3>$null
+            $Saved = ConvertFrom-PSGPOConfigurationByte -Bytes $script:Domain.ReadConfigurationFile()
+            $Saved.NewGpo.Status | Should -Be 'ComputerOnly'
+            $Saved.NewGpo.Colour | Should -Be 'blue' -Because 'the settings of the newer console are kept'
+            $Saved.Future.Mode | Should -Be 'Strict'
+            $Saved.Future.Level | Should -Be 3
+            { Save-PSGPODomainConfiguration -Directory $script:Domain -Values @{ 'Future.Mode' = 'Loose' } } | Should -Throw '*Unknown setting Future.Mode*' -Because 'this console does not set them'
         }
 
         It 'Saves the configuration of the domain, checked first, and reads it again' {

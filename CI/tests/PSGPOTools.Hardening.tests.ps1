@@ -165,6 +165,101 @@ InModuleScope -ModuleName HGPM {
         }
     }
 
+    Describe 'A GPO redirected to another folder (gPCFileSysPath)' {
+        BeforeAll {
+            $Id = [guid]'6AC1786C-016F-11D2-945F-00C04FB984F9'
+        }
+
+        It 'Uses the folder of the GPO, whatever the case: <Path>' -ForEach @(
+            @{ Path = '\\contoso.com\SysVol\contoso.com\Policies\{6AC1786C-016F-11D2-945F-00C04FB984F9}' }
+            @{ Path = '\\CONTOSO.COM\sysvol\contoso.com\Policies\{6ac1786c-016f-11d2-945f-00c04fb984f9}\' }
+        ) {
+            $Directory = [GPOToolsDirectory]::new('contoso.com')
+            $Gpo = [GPOToolsGpo]@{ DisplayName = 'Servers'; Id = $Id; FileSysPath = $Path }
+            $Directory.IsGpoRedirected($Gpo) | Should -BeFalse
+            $Location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
+            $Location.Share | Should -BeIn 'SysVol', 'sysvol'
+            $Location.Path | Should -BeLike 'contoso.com\Policies\{6AC1786C-016F-11D2-945F-00C04FB984F9}'
+        }
+
+        It 'Neither reads nor writes a GPO whose gPCFileSysPath is another folder: <Path>' -ForEach @(
+            # The configuration of the console, another GPO, another share, another server.
+            @{ Path = '\\contoso.com\SysVol\contoso.com\PSGPOTools' }
+            @{ Path = '\\contoso.com\SysVol\contoso.com\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}' }
+            @{ Path = '\\contoso.com\SysVol\contoso.com\Policies\{6AC1786C-016F-11D2-945F-00C04FB984F9}\..\..\PSGPOTools' }
+            @{ Path = '\\contoso.com\NETLOGON\contoso.com\Policies\{6AC1786C-016F-11D2-945F-00C04FB984F9}' }
+            @{ Path = '\\dc1.contoso.com\C$\Windows\System32' }
+            @{ Path = '\\evil.contoso.com\SysVol\contoso.com\Policies\{6AC1786C-016F-11D2-945F-00C04FB984F9}' }
+            @{ Path = '\\contoso.com\SysVol\contoso.com\Policies\{6AC1786C-016F-11D2-945F-00C04FB984F9}"; rm x' }
+        ) {
+            $Directory = [GPOToolsDirectory]::new('contoso.com')
+            $Gpo = [GPOToolsGpo]@{ DisplayName = 'Servers'; Id = $Id; FileSysPath = $Path }
+            $Directory.IsGpoRedirected($Gpo) | Should -BeTrue
+            { Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo } | Should -Throw -ExpectedMessage "*'Servers' is redirected*"
+        }
+
+        It 'Does not approve a redirected GPO, and says it in the tree and in its details' {
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            $Directory.Workflow = [pscustomobject]@{ Enabled = $true; IsApprover = $true; IsCreator = $false; ApprovedOwner = 'Domain Admins'; ApprovedOwnerSid = 'S-1-5-21-1-2-3-512' }
+            $Gpo = $Directory.Gpos[0]
+            $Gpo.ApprovalState = 'Pending'
+            $Gpo.FileSysPath = '\\{0}\SysVol\{0}\PSGPOTools' -f $Directory.DomainName
+            { $Directory.ApproveGpo($Gpo, 'ReadOnly', 'S-1-5-11', 'Authenticated Users') } | Should -Throw -ExpectedMessage '*is redirected*It is not approved.'
+            $Gpo.ApprovalState | Should -Be 'Pending'
+
+            $Roots = New-PSGPODirectoryTree -Directory $Directory -ShowUnmanaged $true
+            $Node = @($Roots[0].Children | Where-Object Tag -EQ 'GroupPolicyObjects').Children | Where-Object { [object]::ReferenceEquals($_.Tag, $Gpo) }
+            $Node.Header | Should -BeLike '*(redirected to another folder)'
+            $Node.IconBrush | Should -Be '#C50F1F'
+            $Detail = Get-PSGPODirectoryDetail -Directory $Directory -Item $Gpo
+            ($Detail.Properties | Where-Object Key -EQ 'Redirected').Value | Should -BeLike "The computers read its settings from *PSGPOTools, not from its folder *"
+        }
+
+        It 'Denies the creators that keep editing an approved GPO writing its gPCFileSysPath, and still shows them as Edit settings' {
+            $Domain = 'S-1-5-21-1-2-3'
+            $Tier1 = "$Domain-1123"
+            $Pending = [GPOToolsSecurityDescriptor]::new()
+            $Pending.Owner = "$Domain-1125"
+            $Pending.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
+            $Pending.Dacl.Add([GPOToolsAce]::new(0, 0, 0x000F00FF, "$Domain-1125", [guid]::Empty))
+            $Pending.Dacl.Add([GPOToolsAce]::new(0, 2, 0x000200B7, $Tier1, [guid]::Empty))
+            $Approved = ConvertTo-PSGPOApprovedDescriptor -Descriptor $Pending -OwnerSid "$Domain-512" -TrustedSids @("$Domain-512") -RemoveSids @("$Domain-1125", $Tier1) `
+                -EditSids @($Tier1) -ApplySid 'S-1-5-11' -Container
+            $Deny = @($Approved.Dacl | Where-Object { $_.Sid -eq $Tier1 -and (Test-PSGPOFileSysPathDenyAce -Ace $_) })
+            $Deny.Count | Should -Be 1
+            $Approved.Dacl[0].IsDeny() | Should -BeTrue -Because 'a deny ACE comes first'
+            (Get-PSGPOPermissionFromDescriptor -Descriptor $Approved | Where-Object Sid -EQ $Tier1).Permission | Should -Be 'GpoEdit'
+            # Another level for the group: the deny stays.
+            Remove-PSGPOAccountAce -Descriptor $Approved -Sid $Tier1
+            @($Approved.Dacl | Where-Object { $_.Sid -eq $Tier1 -and (Test-PSGPOFileSysPathDenyAce -Ace $_) }).Count | Should -Be 1
+
+            $ReadOnly = ConvertTo-PSGPOApprovedDescriptor -Descriptor $Pending -OwnerSid "$Domain-512" -TrustedSids @("$Domain-512") -RemoveSids @("$Domain-1125", $Tier1) -ApplySid 'S-1-5-11' -Container
+            @($ReadOnly.Dacl | Where-Object { Test-PSGPOFileSysPathDenyAce -Ace $_ }).Count | Should -Be 0 -Because 'without their rights, nothing to deny'
+        }
+
+        It 'Sets gPCFileSysPath back to the folder of the GPO before deleting it, so that another folder is not deleted' {
+            $Directory = [GPOToolsLdapDirectory]::new('contoso.com', 'DC=contoso,DC=com', 'dc1.contoso.com', 'Samba AD')
+            $Gpo = [GPOToolsGpo]@{ DisplayName = 'Servers'; Id = $Id; DistinguishedName = 'CN={6AC1786C-016F-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=contoso,DC=com' }
+            $script:Order = [System.Collections.Generic.List[string]]::new()
+            $script:Searches = 0
+            Mock New-PSGPODirectoryConnection {
+                [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name Dispose -Value { } -PassThru |
+                    Add-Member -MemberType ScriptMethod -Name SendRequest -Value { param($Request) $script:Order.Add("modify $(@($Request.Modifications | ForEach-Object { "$($_.Operation) $($_[0])" }) -join ' | ')") } -PassThru
+            }
+            Mock Invoke-PSGPOLdapSearch {
+                $script:Searches++
+                # Redirected when read before the deletion; gone after it.
+                if ($script:Searches -eq 1) { [pscustomobject]@{ Attributes = @{ gPCFileSysPath = @('\\contoso.com\SysVol\contoso.com\PSGPOTools') } } }
+            }
+            Mock Invoke-PSGPOSambaTool { $script:Order.Add('samba-tool gpo del') }
+            Mock Remove-PSGPOWindowsGpo { $script:Order.Add('Remove-GPO') }
+            Remove-PSGPODomainGpo -Directory $Directory -Gpo $Gpo 3>$null
+            $script:Order.Count | Should -Be 2
+            $script:Order[0] | Should -Be 'modify Delete \\contoso.com\SysVol\contoso.com\PSGPOTools | Add \\contoso.com\SysVol\contoso.com\Policies\{6AC1786C-016F-11D2-945F-00C04FB984F9}'
+            $script:Order[1] | Should -BeIn 'samba-tool gpo del', 'Remove-GPO'
+        }
+    }
+
     Describe 'SYSVOL with -Credential on Windows' -Skip:(-not $IsWindows) {
         BeforeEach {
             $script:PSGPOSysvolConnections.Clear()
