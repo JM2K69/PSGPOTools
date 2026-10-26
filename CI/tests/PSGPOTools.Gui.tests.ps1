@@ -1721,7 +1721,9 @@ InModuleScope -ModuleName HGPM {
                     $Gpo = $Ui.Directory.FindGpo('T1 - Lyon - Proxy')
                     $Gpo.ApprovalState | Should -Be 'Pending'
                     $Ui.directoryResultTextBlock.Text | Should -BeLike '*It waits for the approval of Domain Admins: it applies to nobody until then.*'
-                    (Get-DomainNode $Ui 'Sites', 'Lyon', 'Users').Children.Header | Should -Contain 'T1 - Lyon - Proxy (waiting for approval)'
+                    # Found without expanding: the OUs on the way say it, and a node lists it.
+                    (Get-DomainNode $Ui 'Sites (1 waiting for approval)', 'Lyon (1 waiting for approval)', 'Users (1 waiting for approval)').Children.Header | Should -Contain 'T1 - Lyon - Proxy (waiting for approval)'
+                    (Get-DomainNode $Ui 'Waiting for approval (1)').Children.Header | Should -Be @('T1 - Lyon - Proxy (waiting for approval)')
                     $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'T1 - Lyon - Proxy (waiting for approval)'
                     ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Approval').Value | Should -BeLike 'Waiting for approval: it applies to nobody*(created by CORP\tech1).'
                     $Ui.approveGpoMenuItem.IsVisible | Should -BeFalse -Because 'a creator does not approve'

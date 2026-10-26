@@ -116,6 +116,12 @@ give the creators no right to link GPOs (`gPLink`) where they should not apply.
 
 ## 4. Approve it (Tier 0)
 
+The GPOs waiting for approval are found without expanding the tree: **Waiting for approval (N)**,
+below **Group Policy Objects**, lists them, expanded when the console opens, and an OU says how many
+are linked below it (**Tier 1 (1 waiting for approval)**).
+
+![The GPOs waiting for approval](../assets/screenshots/64-pending-gpos.png)
+
 Right click the GPO > **Approve...**:
 
 ![Approve a GPO, with its security filtering groups](../assets/screenshots/17-approve-gpo.png)

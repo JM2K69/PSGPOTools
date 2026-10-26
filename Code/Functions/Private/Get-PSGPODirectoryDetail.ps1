@@ -147,6 +147,14 @@ function Get-PSGPODirectoryDetail {
         # Not "= if (...) { @(...) }": the output of if unrolls a list of one row.
         $Detail.Properties = @(foreach ($Backup in $DeletedGpo) { New-Row $Backup.DisplayName (Get-PSGPOText 'Last backup: {0}' (& $Date $Backup.BackedUp)) -Name })
         if (-not $DeletedGpo.Count) { $Detail.Properties = @(New-Row 'None' (Get-PSGPOText 'No GPO deleted from the domain has a backup in the folder of the History tab.')) }
+    } elseif ($Item -eq 'PendingGpos') {
+        $Detail.Title = Get-PSGPOText 'GPOs waiting for approval in {0}' $Directory.DomainName
+        $Pending = @($(if ($ShowUnmanaged) { $Directory.Gpos } else { $Directory.GetVisibleGpos() }) | Where-Object { $_.ApprovalState -eq 'Pending' })
+        $Detail.Properties = @(foreach ($Gpo in $Pending) {
+                $Containers = @($Directory.GetLinksOf($Gpo) | ForEach-Object { $_.Som.Name })
+                New-Row $Gpo.DisplayName $(if ($Containers.Count) { Get-PSGPOText 'Linked to {0}' ($Containers -join ', ') } else { Get-PSGPOText 'Not linked' }) -Name
+            })
+        if (-not $Pending.Count) { $Detail.Properties = @(New-Row 'None' (Get-PSGPOText 'No GPO waits for its approval.')) }
     } elseif ($Item -eq 'WmiFilters') {
         $Detail.Title = Get-PSGPOText 'WMI Filters in {0}' $Directory.DomainName
         $Detail.Properties = @(foreach ($Filter in $Directory.WmiFilters) { New-Row $Filter.Name $Filter.GetQueryText() -Name })

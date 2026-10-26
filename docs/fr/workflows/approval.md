@@ -118,6 +118,12 @@ donnez pas le droit de lier des GPO (`gPLink`) là où elles ne doivent pas s'ap
 
 ## 4. L'approuver (Tier 0)
 
+Les GPO en attente d'approbation se trouvent sans déplier l'arbre : **En attente d'approbation (N)**,
+sous **Objets de stratégie de groupe**, les liste, déplié à l'ouverture de la console, et une UO dit
+combien sont liées en dessous (**Tier 1 (1 en attente d'approbation)**).
+
+![Les GPO en attente d'approbation](../assets/screenshots/64-pending-gpos.fr.png)
+
 Clic droit sur la GPO > **Approve...** :
 
 ![Approuver une GPO, avec ses groupes de filtrage](../assets/screenshots/17-approve-gpo.fr.png)
