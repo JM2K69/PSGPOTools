@@ -264,7 +264,9 @@ InModuleScope -ModuleName HGPM {
             $Tier1.Sddl | Should -Not -BeLike '*S-1-5-21-1-2-3-2002*' -Because 'Tier 2 has nothing in the folder of Tier 1'
             $Tier1.Sddl | Should -BeLike '*(A;OIIO;0x12019f;;;CO)(A;OIIO;0x12019f;;;S-1-3-4)' -Because 'the owner writes its file, without deleting it nor changing its permissions'
             ($Folders | Where-Object Folder -EQ 'Unassigned').Sddl | Should -BeLike '*(A;;0x1200ab;;;AU)*'
-            ($Folders | Where-Object Folder -EQ '').Sddl | Should -BeLike '*(A;;0x1200a9;;;AU)' -Because 'every account lists the share, to reach its folder'
+            $Root = ($Folders | Where-Object Folder -EQ '').Sddl
+            $Root | Should -BeLike '*(A;;0x1200a9;;;S-1-5-21-1-2-3-2001)(A;;0x1200a9;;;S-1-5-21-1-2-3-2002)*' -Because 'the groups of the tiers list the share'
+            $Root | Should -BeLike '*(A;;0x1000a0;;;AU)' -Because 'any other account only goes through it, to Unassigned'
             # A role the configuration leaves empty (no readers, no Tier 2): no ACE without a SID.
             $Empty = @(Get-PSGPOAuditShareSddl -DomainAdminsSid 'S-1-5-21-1-2-3-512' -Tier0 @($null) -Tier2 @($null) -Readers @($null))
             @($Empty.Sddl | Where-Object { $_ -like '*;;;)*' }) | Should -BeNullOrEmpty

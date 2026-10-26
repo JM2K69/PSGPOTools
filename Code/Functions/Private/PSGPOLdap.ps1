@@ -82,7 +82,9 @@ function New-PSGPOLdapConnection {
         $connection.Bind()
     } catch {
         $connection.Dispose()
-        throw (Get-PSGPOLdapErrorMessage -Exception $_.Exception -Server $Server -Port $Port -UseSsl:$UseSsl -WithCredential:([bool]$Credential))
+        $message = Get-PSGPOLdapErrorMessage -Exception $_.Exception -Server $Server -Port $Port -UseSsl:$UseSsl -WithCredential:([bool]$Credential)
+        Write-PSGPOLogEntry -Level Error -Source 'LDAP' -Message $message -ErrorRecord $_
+        throw $message
     }
     $connection
 }

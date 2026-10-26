@@ -109,5 +109,5 @@ function Initialize-PSGPOAuditShare {
             Sddl = $item.Sddl
         }
     }
-    Write-PSGPOAuditEntry -Directory $Directory -Action 'InitializeAuditShare' -Target $Path -Details @{ Tier1 = @($roles.Tier1.Name); Tier2 = @($roles.Tier2.Name); Readers = @($roles.Readers.Name) }
+    Write-PSGPOAuditEntry -Directory $Directory -Action 'InitializeAuditShare' -Target $Path -Details @{ Tier1 = @($roles.Tier1.Name | Where-Object { $_ }); Tier2 = @($roles.Tier2.Name | Where-Object { $_ }); Readers = @($roles.Readers.Name | Where-Object { $_ }) }
 }

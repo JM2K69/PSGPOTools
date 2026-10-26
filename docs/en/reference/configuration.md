@@ -41,6 +41,15 @@ A label has at most 64 characters, without comma, tab or line break; the two lab
 | `Audit.Tiers.Tier1` | empty | groups of Tier 1, separated by commas: they write in the folder `Tier1` of the central log and read the changes of their tier |
 | `Audit.Tiers.Tier2` | empty | groups of Tier 2: the folder `Tier2` |
 | `Audit.Readers` | empty | groups that read every tier without writing (auditors) |
+| `Audit.RetentionMonths` | `13` | months the central log keeps: `Invoke-PSGPOAuditRetention` archives the older ones in `Archive`, then deletes their files; `0` keeps everything |
+
+## Log
+
+| Setting | Default | |
+|---|---|---|
+| `Log.Level` | `Warning` | what the [technical log](../features/audit-log.md#the-technical-log) of each console keeps: `Error`, `Warning`, `Information` (the commands that fail), `Verbose` (every command) |
+| `Log.RetentionDays` | `30` | days the files of the technical log are kept |
+| `Log.SystemLog` | `$true` | the changes of the audit log and the errors sent to the [log of the system](../features/audit-log.md#the-log-of-the-system-for-a-siem): the Windows event log (source HGPM) or syslog/journald |
 
 ## View
 

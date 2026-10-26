@@ -42,6 +42,15 @@ Une étiquette fait au plus 64 caractères, sans virgule, tabulation ni saut de 
 | `Audit.Tiers.Tier1` | vide | groupes du Tier 1, séparés par des virgules : ils écrivent dans le dossier `Tier1` du journal central et lisent les modifications de leur tier |
 | `Audit.Tiers.Tier2` | vide | groupes du Tier 2 : le dossier `Tier2` |
 | `Audit.Readers` | vide | groupes qui lisent tous les tiers sans écrire (auditeurs) |
+| `Audit.RetentionMonths` | `13` | mois que garde le journal central : `Invoke-PSGPOAuditRetention` archive les plus anciens dans `Archive`, puis supprime leurs fichiers ; `0` garde tout |
+
+## Log
+
+| Réglage | Par défaut | |
+|---|---|---|
+| `Log.Level` | `Warning` | ce que garde le [journal technique](../features/audit-log.md#le-journal-technique) de chaque console : `Error`, `Warning`, `Information` (les commandes qui échouent), `Verbose` (chaque commande) |
+| `Log.RetentionDays` | `30` | jours pendant lesquels les fichiers du journal technique sont gardés |
+| `Log.SystemLog` | `$true` | les modifications du journal d'audit et les erreurs envoyées au [journal du système](../features/audit-log.md#le-journal-du-systeme-pour-un-siem) : le journal des événements Windows (source HGPM) ou syslog/journald |
 
 ## View
 

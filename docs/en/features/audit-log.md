@@ -147,3 +147,102 @@ Import-PSGPOAuditLog -Path "$HOME/PSGPOTools Backups/Audit" -Remove
 
 Each change goes to the file of its account, computer and month, in the folder of the tier of its
 account; a change already there is not written twice, and `-Remove` deletes the files read.
+
+## Retention and archives
+
+The central log keeps `Audit.RetentionMonths` months (13 by default; `0` keeps everything): this
+month and the ones before it. `Invoke-PSGPOAuditRetention` puts the files of an older month, from
+every tier, in `Archive\audit-<yyyy-MM>.zip` (their folder in it), checks the archive holds them,
+then deletes them; a month already archived gets the files written since. The folder `Archive` has
+the permissions of the share: Tier 0 and the readers read it. The retention is written to the log
+itself (`PurgeAuditLog`).
+
+Only the administrators delete files of the share: plan it as one of them.
+
+=== "Windows"
+
+    ```powershell
+    Invoke-PSGPOAuditRetention -WhatIf
+    # Each month, as a scheduled task of an administrator of the domain
+    $action = New-ScheduledTaskAction -Execute 'pwsh.exe' -Argument '-NoProfile -Command "Import-Module HGPM; Invoke-PSGPOAuditRetention"'
+    Register-ScheduledTask -TaskName 'HGPM audit retention' -Action $action -Trigger (New-ScheduledTaskTrigger -Weekly -WeeksInterval 4 -DaysOfWeek Sunday -At 3am) -User 'CONTOSO\hgpm-admin' -Password (Read-Host 'Password')
+    ```
+
+=== "Linux"
+
+    ```bash
+    # Each month, with the ticket of an administrator (a keytab: kinit -k -t /etc/hgpm.keytab hgpm-admin)
+    echo '0 3 1 * * hgpm kinit -k -t /etc/hgpm.keytab hgpm-admin && pwsh -NoProfile -Command "Import-Module HGPM; Invoke-PSGPOAuditRetention -Server dc.contoso.com"' | sudo tee /etc/cron.d/hgpm-audit-retention
+    ```
+
+## The log of the system, for a SIEM
+
+With `Log.SystemLog` (on by default), each change of the audit log and each error of the technical
+log also goes to the log of the system, where a SIEM collects it:
+
+| | Windows | Linux |
+|---|---|---|
+| Where | the event log **Application**, source **HGPM** | syslog / journald, tag **hgpm** (`logger`) |
+| A change | Information, the event ID of its action | `user.notice`, `[<event ID>]` |
+| A warning, an error | Warning 2000, Error 3000 | `user.warning`, `user.err` |
+| Once per computer | `Register-PSGPOEventSource`, as an administrator | nothing |
+
+The message says what, by whom, from where and on what, then the entry of the audit log as JSON:
+
+```text
+HGPM audit: ApproveGpo by HARDENBOX\Administrator from dc on hardenbox.labo: T1 - Servers - Proxy - CN={AFE8...}
+{"Format":"PSGPOTools.Audit/1","Time":"2026-10-24T15:44:02Z","Domain":"hardenbox.labo",...}
+```
+
+| Event ID | Action | Event ID | Action |
+|---|---|---|---|
+| 1001 | NewGpo | 1023 | SetBlockInheritance |
+| 1002 | RenameGpo | 1030 | SetGpoPermission |
+| 1003 | SetGpoStatus | 1031 | SetGpoSecurityFiltering |
+| 1004 | RemoveGpo | 1032 | NewFilteringGroups |
+| 1005 | RemoveDeletedGpoBackup | 1040 | SetWmiFilter |
+| 1006 | RestoreGpo | 1041 | NewWmiFilter |
+| 1007 | ImportGpo | 1042 | EditWmiFilter |
+| 1008 | SaveGpoFile | 1043 | RemoveWmiFilter |
+| 1009 | ImportPolicyRuleSet | 1044 | SetWmiFilterPermission |
+| 1010 | PendingGpo | 1050 | NewPasswordPolicy |
+| 1011 | ApproveGpo | 1051 | SetPasswordPolicy |
+| 1020 | NewLink | 1052 | RemovePasswordPolicy |
+| 1021 | SetLink | 1060 | SaveConfiguration |
+| 1022 | RemoveLink | 1061 | InstallAdmx |
+| 1062 | InitializeAuditShare | 1063 | InitializeBackupShare |
+| 1064 | PurgeAuditLog | 2000, 3000 | a warning, an error |
+
+```powershell
+Register-PSGPOEventSource                                                # Windows, once, as an administrator
+Get-WinEvent -FilterHashtable @{ LogName = 'Application'; ProviderName = 'HGPM' } -MaxEvents 20
+```
+
+```bash
+journalctl -t hgpm --since today                                         # Linux
+```
+
+## The technical log
+
+What goes wrong where a console runs, to find the cause afterwards: the errors of LDAP, of
+SYSVOL, of the windows, and the commands of the system (`samba-tool`, `smbclient`, `python3`,
+`secedit`, `auditpol`) that fail, with the command, its exit code and what it wrote. It is the log
+of the computer and of its user, not of the domain:
+
+| | |
+|---|---|
+| Where | `%LOCALAPPDATA%\PSGPOTools\Logs` (Windows), `~/.local/share/PSGPOTools/Logs` (Linux) |
+| Files | `hgpm-<yyyy-MM-dd>.log`, an entry per line, its details indented below it |
+| What | `Log.Level`: `Error`, `Warning` (by default), `Information` (the commands that fail), `Verbose` (every command) |
+| How long | `Log.RetentionDays` days (30), deleted when the console first writes there |
+
+```text
+2026-10-26T09:14:03.512Z ERROR       LDAP         LDAP connection to dc.hardenbox.labo:389 failed: ...
+    Exception: System.DirectoryServices.Protocols.LdapException: The LDAP server is unavailable.
+2026-10-26T09:15:40.077Z INFORMATION smbclient    Exit code 1.
+    Command: smbclient //dc.hardenbox.labo/gpo-audit --use-kerberos=required -c 'ls'
+    Error: NT_STATUS_ACCESS_DENIED listing \*
+```
+
+To find a problem: `Log.Level = 'Verbose'` in **Settings**, the problem again, then the file of
+the day.

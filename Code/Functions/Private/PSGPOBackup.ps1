@@ -550,6 +550,8 @@ function Get-PSGPOLocalBackupPath {
 
     $saved = (Get-PSGPOUserSetting).BackupPath
     if ($saved) { return $saved }
+    # The tests (CI/Invoke-Tests.ps1): a folder of their own, not the documents of the user.
+    if ($env:PSGPOTOOLS_BACKUP_PATH) { return $env:PSGPOTOOLS_BACKUP_PATH }
     $documents = [Environment]::GetFolderPath([Environment+SpecialFolder]::MyDocuments)
     if (-not $documents) { $documents = $HOME }
     Join-Path $documents 'PSGPOTools Backups'

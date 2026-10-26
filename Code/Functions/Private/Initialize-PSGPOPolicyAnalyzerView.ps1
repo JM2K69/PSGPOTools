@@ -299,7 +299,11 @@ function Initialize-PSGPOPolicyAnalyzerView {
         switch ($Mode) {
             'Gpmc' {
                 $analyzerFileTitleTextBlock.Text = Get-PSGPOText 'A rule set of backups: a folder of GPMC backups (the GPOs folder of a security baseline of Microsoft), the folder of the backups of HGPM, or one backup'
-                $analyzerFilePathTextBox.Text = ''
+                # The backups of HGPM at first: the central ones for Tier 0 (Backup.Path), else those
+                # of the account; nothing when the share is not reached (not mounted on Linux).
+                $analyzerFilePathTextBox.Text = try {
+                    if (Test-PSGPOBackupAllowed -Directory $analyzer.Directory) { Get-PSGPODefaultBackupPath } else { Get-PSGPOLocalBackupPath }
+                } catch { '' }
                 $analyzerFileConfirmButton.Content = Get-PSGPOText 'Add'
             }
             'Save' {

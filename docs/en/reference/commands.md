@@ -67,6 +67,8 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | [`Initialize-PSGPOAuditShare`](commands/initialize-psgpoauditshare.md) `[-Path] [-Directory \| -Server]` | prepares the share of the central audit log: a folder per tier, the permissions of the roles |
 | [`Initialize-PSGPOBackupShare`](commands/initialize-psgpobackupshare.md) `[-Path] [-Directory \| -Server]` | prepares the share of the central backups: for Tier 0 only |
 | [`Import-PSGPOAuditLog`](commands/import-psgpoauditlog.md) `-Path [-Destination] [-Remove]` | moves the log of a console into the central log, each change in the folder of the tier of its account |
+| [`Invoke-PSGPOAuditRetention`](commands/invoke-psgpoauditretention.md) `[-Path] [-RetentionMonths] [-Directory \| -Server]` | archives the months of the audit log older than its retention, then deletes their files |
+| [`Register-PSGPOEventSource`](commands/register-psgpoeventsource.md) | registers the event source HGPM of the Windows event log, once per computer |
 | [`Get-PSGPOGpmcBackup`](commands/get-psgpogpmcbackup.md) `-Path [-Name]` | the backups of GPMC (`Backup-GPO`) of a folder |
 | [`Import-PSGPO`](commands/import-psgpo.md) `-Path -TargetName [-SourceName] [-BackupId] [-MigrationTable] [-Exclusive] [-CreateIfNeeded] [-BackupPath] [-NoBackup]` | imports the settings of a backup (GPMC or HGPM) into a GPO, with a migration table |
 | [`Get-PSGPOMigrationEntry`](commands/get-psgpomigrationentry.md) `-Path [-Name] [-IncludePermission]` | the accounts and UNC paths the settings of backups reference |

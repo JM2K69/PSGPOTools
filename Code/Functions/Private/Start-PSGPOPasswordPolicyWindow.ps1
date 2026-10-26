@@ -62,6 +62,7 @@ function Start-PSGPOPasswordPolicyWindow {
 
     function Show-PolicyResult {
         param([string]$Text, [switch]$Problem)
+        if ($Problem) { Write-PSGPOLogEntry -Level Error -Source 'PSO console' -Message $Text }
         $ui.policyResultTextBlock.Text = $Text
         $ui.policyResultTextBlock.IsVisible = [bool]$Text
         $ui.policyResultTextBlock.Foreground = if ($Problem) { $red } else { $green }
