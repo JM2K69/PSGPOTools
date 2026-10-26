@@ -579,6 +579,38 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Opens without the central backups: Tier 0 is told why, the other tiers see no History tab nor Deleted GPOs' {
+            $Before = $script:PSGPOConfigurationState.Override
+            $TierBefore = $Directory.AuditTier
+            try {
+                $script:PSGPOConfigurationState.Override = @{ Backup = @{ Path = '\\files\gpo-backups' } }
+                # The configuration of the domain as given, not read again from the sample.
+                Mock Use-PSGPODomainConfiguration { }
+                # The share not mounted on Linux.
+                Mock Get-PSGPODefaultBackupPath { throw 'The share //files/gpo-backups is not mounted on this computer: mount it first.' }
+                $Directory.AuditTier = 'Tier0'
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    $Ui.historyPathTextBox.IsReadOnly | Should -BeTrue -Because 'the central backups, not another folder'
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'C - Servers - Security Baseline'
+                    $Ui.historyTab.IsVisible | Should -BeTrue
+                    $Ui.directoryTabs.SelectedItem = $Ui.historyTab
+                    $Ui.historyStatusTextBlock.Text | Should -BeLike '*is not mounted on this computer*'
+                }
+                $Directory.AuditTier = 'Tier1'
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    @(@($Ui.domainTreeView.ItemsSource)[0].Children.Tag) | Should -Not -Contain 'DeletedGpos'
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'C - Servers - Security Baseline'
+                    $Ui.historyTab.IsVisible | Should -BeFalse -Because 'the backups are for Tier 0'
+                }
+                Should -Invoke Get-PSGPODefaultBackupPath -ParameterFilter { $true } -Times 1 -Because 'Tier 1 never reaches for the share'
+            } finally {
+                $script:PSGPOConfigurationState.Override = $Before
+                $Directory.AuditTier = $TierBefore
+            }
+        }
+
         It 'Shows the backups of a GPO as a timeline, what changed at each one, and backs it up' {
             $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
             $Root = Join-Path $TestDrive "history-$([guid]::NewGuid())"
@@ -732,8 +764,8 @@ InModuleScope -ModuleName HGPM {
                     $C.pathTextBlock.Text | Should -BeLike 'Configuration of the domain corp.contoso.com, for every console of the domain: SYSVOL\corp.contoso.com\PSGPOTools\Configuration.psd1*(not created yet)*'
                     $C.saveButton.IsEnabled | Should -BeTrue
                     $Rows = @($C.settingsList.ItemsSource)
-                    $Rows.Count | Should -Be 22
-                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 22
+                    $Rows.Count | Should -Be 23
+                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 23
                     ($Rows | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.ApplyPrefix').Default | Should -BeLike 'Default: APPLY_ - Names of the groups*'
 
                     # Create: a choice, a boolean, a text.

@@ -30,7 +30,7 @@ $script:PSGPOAuditActionText = [ordered]@{
     SetWmiFilter = 'WMI filter of a GPO changed'; NewWmiFilter = 'WMI filter created'; EditWmiFilter = 'WMI filter changed'
     RemoveWmiFilter = 'WMI filter deleted'; SetWmiFilterPermission = 'Permissions of a WMI filter changed'
     NewPasswordPolicy = 'Password policy created'; SetPasswordPolicy = 'Password policy changed'; RemovePasswordPolicy = 'Password policy deleted'
-    SaveConfiguration = 'Configuration saved'; InstallAdmx = 'ADMX files installed'; InitializeAuditShare = 'Share of the audit log prepared'
+    SaveConfiguration = 'Configuration saved'; InstallAdmx = 'ADMX files installed'; InitializeAuditShare = 'Share of the audit log prepared'; InitializeBackupShare = 'Share of the backups prepared'
 }
 
 # What an action is, in the language of the interface; the action itself when unknown.
@@ -95,7 +95,8 @@ function Get-PSGPOAuditPath {
 
     $path = "$((Get-PSGPOConfigurationData).Audit.Path)".Trim()
     if ($path) { return $path }
-    Join-Path (Get-PSGPODefaultBackupPath) 'Audit'
+    # The folder of the account, not the central backups (Tier 0 only).
+    Join-Path (Get-PSGPOLocalBackupPath) 'Audit'
 }
 
 # A share of the audit log: Server, Share and Folder (below the share, with \); $null for a folder

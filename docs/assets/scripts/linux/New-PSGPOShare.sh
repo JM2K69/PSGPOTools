@@ -1,23 +1,25 @@
 #!/usr/bin/env bash
-# Creates the share of the central audit log of HGPM on a Samba server (an AD domain controller
-# or a member server): a folder, and a section of smb.conf whose permissions are the NT ACLs that
-# Initialize-PSGPOAuditShare writes (acl_xattr), not those of the file system.
+# Creates a share of HGPM on a Samba server (an AD domain controller or a member server): the
+# central audit log (gpo-audit) or the central backups of the GPOs (gpo-backups). A folder, and a
+# section of smb.conf whose permissions are the NT ACLs that Initialize-PSGPOAuditShare or
+# Initialize-PSGPOBackupShare write (acl_xattr), not those of the file system.
 #
-#   sudo ./New-PSGPOAuditShare.sh                       # share gpo-audit, folder /srv/gpo-audit
-#   sudo ./New-PSGPOAuditShare.sh gpo-audit /srv/gpo-audit
+#   sudo ./New-PSGPOShare.sh                                  # gpo-audit, /srv/gpo-audit
+#   sudo ./New-PSGPOShare.sh gpo-backups /srv/gpo-backups
 #
 # Then, from a console with the Kerberos ticket of a domain administrator (kinit administrator):
 #
 #   Initialize-PSGPOAuditShare -Path //<server>/gpo-audit -Server <domain controller>
+#   Initialize-PSGPOBackupShare -Path //<server>/gpo-backups -Server <domain controller>
 #
-# and Audit.Path = \\<server>\gpo-audit in the Settings of the console (the configuration of the
-# domain). What is there is kept: the script can run again.
+# and Audit.Path or Backup.Path in the Settings of the console (the configuration of the domain).
+# What is there is kept: the script can run again.
 #
 # https://jm2k69.github.io/PSGPOTools/en/features/audit-log/
 set -euo pipefail
 
 share="${1:-gpo-audit}"
-folder="${2:-/srv/gpo-audit}"
+folder="${2:-/srv/$share}"
 config="$(smbd -b | awk '/CONFIGFILE:/ { print $2 }')"
 config="${config:-/etc/samba/smb.conf}"
 
@@ -45,7 +47,7 @@ else
 	acl_xattr:ignore system acls = yes
 	map acl inherit = yes
 	store dos attributes = yes
-	comment = Central audit log of HGPM
+	comment = HGPM: $share
 EOF
     echo "[$share] added to $config."
 fi
@@ -53,4 +55,3 @@ fi
 testparm -s "$config" > /dev/null
 smbcontrol all reload-config
 echo "Share //$(hostname -f)/$share ready: $folder"
-echo "Next: Initialize-PSGPOAuditShare -Path //$(hostname -f)/$share"

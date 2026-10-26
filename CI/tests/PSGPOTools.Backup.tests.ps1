@@ -9,6 +9,68 @@ BeforeDiscovery {
 }
 
 InModuleScope -ModuleName HGPM {
+    Describe 'Central backups of the domain, for Tier 0' {
+        BeforeEach {
+            $script:Before = $script:PSGPOConfigurationState.Override
+        }
+        AfterEach { $script:PSGPOConfigurationState.Override = $script:Before }
+
+        It 'Finds where the share is mounted on Linux, the path itself elsewhere' {
+            $Mounts = @(
+                '//dc.hardenbox.labo/sysvol /mnt/sysvol cifs rw,relatime 0 0'
+                '//dc/gpo-backups /mnt/GPO\040Backups cifs rw,sec=krb5,multiuser 0 0'
+                '//files.contoso.com/data/hgpm /srv/hgpm cifs rw 0 0'
+                '/dev/sda2 / ext4 rw 0 0'
+                '# //old/gpo-backups /mnt/old cifs sec=krb5 0 0'
+                '//files.contoso.com/gpo-backups  /mnt/gpo-backups  cifs  sec=krb5,multiuser,x-systemd.automount  0  0'
+            )
+            if ($IsWindows) {
+                Resolve-PSGPOSharePath -Path '\\dc.hardenbox.labo\gpo-backups' -Mounts $Mounts | Should -Be '\\dc.hardenbox.labo\gpo-backups'
+            } else {
+                Resolve-PSGPOSharePath -Path '\\dc.hardenbox.labo\gpo-backups' -Mounts $Mounts | Should -Be '/mnt/GPO Backups' -Because 'the server by its short name, \040 a space'
+                Resolve-PSGPOSharePath -Path '//files/data/hgpm/backups' -Mounts $Mounts | Should -Be '/srv/hgpm/backups' -Because 'a folder of the share is mounted'
+                Resolve-PSGPOSharePath -Path '\\files.contoso.com\gpo-backups' -Mounts $Mounts | Should -Be '/mnt/gpo-backups' -Because 'a line of /etc/fstab: it mounts itself when it is reached'
+                { Resolve-PSGPOSharePath -Path '\\files\other' -Mounts $Mounts } | Should -Throw '*is not mounted on this computer*New-PSGPOShareMount.sh //files/other --fstab*'
+            }
+            Resolve-PSGPOSharePath -Path '/srv/backups' -Mounts $Mounts | Should -Be '/srv/backups'
+        }
+
+        It 'Uses the central backups for Tier 0 only, and the folder of the account for the audit log' {
+            $Directory = Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json')
+            Test-PSGPOBackupAllowed -Directory $Directory | Should -BeTrue -Because 'no central backups'
+            $Central = Join-Path $TestDrive 'central-backups'
+            $script:PSGPOConfigurationState.Override = @{ Backup = @{ Path = $Central } }
+            Get-PSGPODefaultBackupPath | Should -Be $Central
+            Get-PSGPOAuditPath | Should -Not -BeLike "$Central*" -Because 'a Tier 1 account writes its log, not in the backups of Tier 0'
+            Test-PSGPOBackupAllowed -Directory $Directory | Should -BeTrue -Because 'a directory whose tier is not read'
+            $Directory.AuditTier = 'Tier1'
+            Test-PSGPOBackupAllowed -Directory $Directory | Should -BeFalse
+            $Directory.AuditTier = 'Tier0'
+            Test-PSGPOBackupAllowed -Directory $Directory | Should -BeTrue
+
+            # A Tier 1 account deletes a GPO it may delete: not backed up first, and said.
+            $Directory.AuditTier = 'Tier1'
+            Mock Save-PSGPOBackup { throw 'no backup for Tier 1' }
+            $Gpo = $Directory.Gpos[0]
+            $Removed = Remove-PSGPOWithBackup -Directory $Directory -Gpo $Gpo -Path $Central 3>&1
+            "$(@($Removed | Where-Object { $_ -is [System.Management.Automation.WarningRecord] }))" | Should -BeLike '*are for Tier 0*not backed up before it is deleted*'
+            @($Removed | Where-Object { $_ -isnot [System.Management.Automation.WarningRecord] })[0].Backup | Should -BeNullOrEmpty
+            Should -Invoke Save-PSGPOBackup -Times 0 -Exactly
+        }
+
+        It 'Gives the share to Tier 0 only' {
+            $Sddl = Get-PSGPOBackupShareSddl -DomainAdminsSid 'S-1-5-21-1-2-3-512' -Tier0 'S-1-5-21-1-2-3-512', 'S-1-5-21-1-2-3-3000', $null
+            $Sddl | Should -Be 'D:P(A;OICI;0x1f01ff;;;SY)(A;OICI;0x1f01ff;;;BA)(A;OICI;0x1f01ff;;;S-1-5-21-1-2-3-512)(A;OICI;0x1301bf;;;S-1-5-21-1-2-3-3000)'
+            $Sddl | Should -Not -BeLike '*;AU)*' -Because 'the other accounts reach nothing'
+        }
+
+        It 'Refuses a relative Backup.Path, takes a share' {
+            $Base = Import-PowerShellDataFile (Get-PSGPODefaultConfigurationPath)
+            "$(@(Test-PSGPOConfiguration -Configuration (Merge-PSGPOConfiguration -Base $Base -Override @{ Backup = @{ Path = 'backups' } })))" | Should -BeLike '*Backup.Path must be a full path*'
+            @(Test-PSGPOConfiguration -Configuration (Merge-PSGPOConfiguration -Base $Base -Override @{ Backup = @{ Path = '\\files\gpo-backups' } })) | Should -BeNullOrEmpty
+        }
+    }
+
     BeforeAll {
         $PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
         Initialize-PSGPOAdmx -Path $PolicyDefinitions -UICulture 'en-US' 3>$null

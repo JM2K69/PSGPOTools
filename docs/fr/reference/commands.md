@@ -70,6 +70,7 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | [`Get-PSGPOAuditLog`](commands/get-psgpoauditlog.md) `[-Path] [-Domain] [-Name] [-Action] [-Account] [-After] [-Before]` | ce que les consoles et les commandes ont modifié dans le domaine, le plus récent d'abord |
 | [`Show-AuditLogAvalonia`](commands/show-auditlogavalonia.md) `[-Path] [-Directory \| -Server] [-Language]` | ouvre le journal d'audit dans une fenêtre : filtré par période, domaine, action et une recherche, les détails d'une modification, les modifications affichées exportées en CSV |
 | [`Initialize-PSGPOAuditShare`](commands/initialize-psgpoauditshare.md) `[-Path] [-Directory \| -Server]` | prépare le partage du journal d'audit central : un dossier par tier, les droits des rôles |
+| [`Initialize-PSGPOBackupShare`](commands/initialize-psgpobackupshare.md) `[-Path] [-Directory \| -Server]` | prépare le partage des sauvegardes centrales : pour le Tier 0 seulement |
 | [`Import-PSGPOAuditLog`](commands/import-psgpoauditlog.md) `-Path [-Destination] [-Remove]` | déplace le journal d'une console dans le journal central, chaque modification dans le dossier du tier de son compte |
 
 ```powershell

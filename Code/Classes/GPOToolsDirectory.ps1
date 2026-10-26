@@ -196,8 +196,8 @@ class GPOToolsDirectory {
     # Administrators): it changes the configuration of HGPM for the domain. In memory, the
     # directory is the one of its user.
     [bool]$IsDomainAdministrator = $true
-    # The tier of the account in the central audit log (Audit.Path, Audit.Tiers): Tier0, Tier1,
-    # Tier2 or Unassigned; empty without a central log
+    # The tier of the account in the central audit log (Audit.Path, Audit.Tiers) and backups
+    # (Backup.Path, Tier 0 only): Tier0, Tier1, Tier2 or Unassigned; empty without them
     [string]$AuditTier = ''
     # WMI filters of the domain
     [System.Collections.Generic.List[GPOToolsWmiFilter]]$WmiFilters

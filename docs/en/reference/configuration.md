@@ -26,6 +26,7 @@ nor be the same.
 
 | Setting | Default | |
 |---|---|---|
+| `Backup.Path` | empty | the [central backups](../features/backup-history.md#central-backups-for-tier-0), the same for every console: a share of a file server (`\\server\gpo-backups`), not SYSVOL, prepared by `Initialize-PSGPOBackupShare`, for Tier 0 only; empty: the folder of the History tab of each account |
 | `Backup.ApprovedLabel` | `Approved` | label of the approved versions: the newest backup with it is the reference of the drift |
 | `Backup.TemplateLabel` | `Template` | label of the templates of new GPOs |
 
