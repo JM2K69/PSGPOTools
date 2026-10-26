@@ -673,7 +673,7 @@ function Invoke-PSGPOApproval {
     $backup = $null
     $problem = $null
     try {
-        $null = New-Item -ItemType Directory -Path $BackupPath -Force -ErrorAction Stop
+        New-PSGPOFolder -Path $BackupPath
         $backup = Save-PSGPOBackup -Directory $Directory -Gpo $Gpo -Path $BackupPath -Label (Get-PSGPOApprovedLabel) `
             -Comment "Approved by $by$(if ($creator) { ", created by $creator" }): the creators $rights; applied by $($ApplyTo.Name)$(if ($DenyTo) { ", denied to $($DenyTo.Name)" }).$(if ($Gpo.RemovedAtApproval.Count) { " Permissions added while it was pending, removed: $($Gpo.RemovedAtApproval -join ' ')." })"
     } catch {

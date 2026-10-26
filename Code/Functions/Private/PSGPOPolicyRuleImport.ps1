@@ -184,7 +184,7 @@ function Invoke-PSGPOPolicyRuleImport {
     }
     if (-not $NoBackup) {
         if (-not $BackupPath) { $BackupPath = Get-PSGPODefaultBackupPath }
-        $null = New-Item -ItemType Directory -Path $BackupPath -Force -ErrorAction Stop
+        New-PSGPOFolder -Path $BackupPath
         $before = Save-PSGPOBackup -Directory $Directory -Gpo $gpo -Path $BackupPath -Comment "Before the settings of the rule set '$($RuleSet.Name)' were written$(if ($Replace) { ' in place of its own' })."
     }
     $Directory.RefreshGpo($gpo)

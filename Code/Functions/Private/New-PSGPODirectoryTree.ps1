@@ -49,12 +49,13 @@ function New-PSGPODirectoryTree {
 
     if ($null -eq $ShowUnmanaged) { $ShowUnmanaged = Test-PSGPOUnmanagedShown }
     $VisibleGpos = @(if ($ShowUnmanaged) { $Directory.Gpos } else { $Directory.GetVisibleGpos() })
-    $Pending = @($VisibleGpos | Where-Object { $_.ApprovalState -eq 'Pending' })
+    # A creator follows its own GPOs only, an approver every one (IsPendingFollowed).
+    $Pending = @($VisibleGpos | Where-Object { $Directory.IsPendingFollowed($_) })
 
     # The GPOs waiting for approval linked to an OU or below it, each once.
     function Get-PendingBelow {
         param([GPOToolsSom]$Som)
-        @($Som.Links | Where-Object { $_.Gpo -and $_.Gpo.ApprovalState -eq 'Pending' } | ForEach-Object { $_.Gpo.Id })
+        @($Som.Links | Where-Object { $_.Gpo -and $Directory.IsPendingFollowed($_.Gpo) } | ForEach-Object { $_.Gpo.Id })
         foreach ($Child in $Som.Children) { Get-PendingBelow $Child }
     }
 

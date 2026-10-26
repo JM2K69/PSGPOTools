@@ -1,5 +1,12 @@
 # HGPM Release History
 
+## Unreleased
+
+### Fixed
+
+* A creator saw in **Waiting for approval (N)** and in the counters of the OUs the GPOs waiting of the other tiers: it sees its own only, the ones it edits; an approver still sees every one
+* **Back up now** (History tab), `Backup-PSGPO`, the approval, the deletion, the import and the rule sets failed on the root of a share (`Backup.Path` = `\\server\share`) in a session of Windows: "The folder of the backups cannot be created: The specified path is invalid". The folder is created only when it is not there
+
 ## 0.1.12 - alpha
 
 ### Added

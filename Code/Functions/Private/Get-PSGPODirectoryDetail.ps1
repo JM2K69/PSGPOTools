@@ -149,7 +149,7 @@ function Get-PSGPODirectoryDetail {
         if (-not $DeletedGpo.Count) { $Detail.Properties = @(New-Row 'None' (Get-PSGPOText 'No GPO deleted from the domain has a backup in the folder of the History tab.')) }
     } elseif ($Item -eq 'PendingGpos') {
         $Detail.Title = Get-PSGPOText 'GPOs waiting for approval in {0}' $Directory.DomainName
-        $Pending = @($(if ($ShowUnmanaged) { $Directory.Gpos } else { $Directory.GetVisibleGpos() }) | Where-Object { $_.ApprovalState -eq 'Pending' })
+        $Pending = @($(if ($ShowUnmanaged) { $Directory.Gpos } else { $Directory.GetVisibleGpos() }) | Where-Object { $Directory.IsPendingFollowed($_) })
         $Detail.Properties = @(foreach ($Gpo in $Pending) {
                 $Containers = @($Directory.GetLinksOf($Gpo) | ForEach-Object { $_.Som.Name })
                 New-Row $Gpo.DisplayName $(if ($Containers.Count) { Get-PSGPOText 'Linked to {0}' ($Containers -join ', ') } else { Get-PSGPOText 'Not linked' }) -Name

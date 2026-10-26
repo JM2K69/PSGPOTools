@@ -12,6 +12,18 @@
     found in /etc/fstab while it is not mounted yet.
 #>
 
+# A folder and its parents, created when they are not there. Not New-Item -Force: in a session of
+# Windows, on the root of a share (\\server\share) that is there, it tries to create \\server and
+# fails ("The specified path is invalid").
+function New-PSGPOFolder {
+    [CmdletBinding(SupportsShouldProcess)]
+    param([Parameter(Mandatory)] [string]$Path)
+
+    $full = $PSCmdlet.GetUnresolvedProviderPathFromPSPath($Path)
+    if ([System.IO.Directory]::Exists($full)) { return }
+    if ($PSCmdlet.ShouldProcess($full, 'Create the folder')) { $null = [System.IO.Directory]::CreateDirectory($full) }
+}
+
 # The folder of the computer where a share is: the path itself on Windows or when it is not a
 # share; on Linux the folder where //server/share is mounted, with the rest of the path.
 function Resolve-PSGPOSharePath {
