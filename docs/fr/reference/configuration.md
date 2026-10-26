@@ -42,6 +42,7 @@ Une étiquette fait au plus 64 caractères, sans virgule, tabulation ni saut de 
 | `Audit.Tiers.Tier1` | vide | groupes du Tier 1, séparés par des virgules : ils écrivent dans le dossier `Tier1` du journal central et lisent les modifications de leur tier |
 | `Audit.Tiers.Tier2` | vide | groupes du Tier 2 : le dossier `Tier2` |
 | `Audit.Readers` | vide | groupes qui lisent tous les tiers sans écrire (auditeurs) |
+| `Audit.Purgers` | vide | groupes qui lancent la rétention (`Invoke-PSGPOAuditRetention`) : ils lisent tous les tiers, suppriment les fichiers des anciens mois et écrivent les archives, sans être administrateurs du domaine (le groupe d'un gMSA) |
 | `Audit.RetentionMonths` | `13` | mois que garde le journal central : `Invoke-PSGPOAuditRetention` archive les plus anciens dans `Archive`, puis supprime leurs fichiers ; `0` garde tout |
 
 ## Log

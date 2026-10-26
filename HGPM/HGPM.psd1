@@ -27,7 +27,7 @@ Author = 'JM2K69, NicolasBn'
 CompanyName = 'JM2K69'
 
 # Copyright statement for this module
-Copyright = '(c) 2019-2026 JM2K69, NicolasBn. MIT License.'
+Copyright = '(c) 2019-2026 JM2K69, NicolasBn. Apache License 2.0, see NOTICE.'
 
 # Description of the functionality provided by this module
 Description = 'A console like GPMC for Samba AD and Windows AD, on Windows and Linux (PowerShell 7 and Avalonia): the GPOs of a domain, their links, settings (administrative templates, security settings, preferences), security filtering, backups, recycle bin, templates, drift from their approved version, and an approval workflow built on the rights of the domain.'

@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+### Changed
+
+* The license is the Apache License 2.0 from this version, with a NOTICE file: a redistribution of HGPM, or a work derived from it (a fork included), keeps the NOTICE and its credit, and says what it changed. The versions up to 0.1.15-alpha were released under the MIT License; the code of the original PSGPOTools of NicolasB keeps its MIT notice, in NOTICE. LICENSE and NOTICE go with the module on the PowerShell Gallery
+* SECURITY.md: the supported version (the latest on the Gallery), an answer within 7 days, a fix or an advisory within 90 days, the vulnerable versions unlisted; the code of conduct gives an address to write to
+
+### Added
+
+* `Audit.Purgers` in the configuration of the domain: the groups that run the retention of the audit log (the group of a gMSA) read every tier, delete the files of the old months and write the archives, without being administrators of the domain; `Initialize-PSGPOAuditShare` gives them their rights and makes the folder `Archive`
+* The pages Production (the order of a deployment: each step, who runs it, how to check it, the acceptance test, the rollback) and Security model (the tiers, the assets, what HGPM protects and what the administrators protect, what is not covered) of the documentation; the planned tasks of the documentation run as a gMSA or with the keytab of a dedicated account, not with the password of an administrator
+
 ### Tests
 
 * The approval workflow with two accounts against the Samba domain controller of the CI: a GPO of `tiers1` waits, applies to nobody, then its approval gives it and its SYSVOL folder to Domain Admins, removes the permission `tiers1` added, and `tiers1` cannot write it anymore; a GPO changed after its review is not approved. `PSGPOTOOLS_TEST_TIER1_CCACHE` runs it on a lab of your own, its configuration kept byte for byte

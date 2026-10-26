@@ -41,6 +41,7 @@ A label has at most 64 characters, without comma, tab or line break; the two lab
 | `Audit.Tiers.Tier1` | empty | groups of Tier 1, separated by commas: they write in the folder `Tier1` of the central log and read the changes of their tier |
 | `Audit.Tiers.Tier2` | empty | groups of Tier 2: the folder `Tier2` |
 | `Audit.Readers` | empty | groups that read every tier without writing (auditors) |
+| `Audit.Purgers` | empty | groups that run the retention (`Invoke-PSGPOAuditRetention`): they read every tier, delete the files of the old months and write the archives, without being administrators of the domain (the group of a gMSA) |
 | `Audit.RetentionMonths` | `13` | months the central log keeps: `Invoke-PSGPOAuditRetention` archives the older ones in `Archive`, then deletes their files; `0` keeps everything |
 
 ## Log

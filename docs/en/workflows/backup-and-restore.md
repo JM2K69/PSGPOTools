@@ -13,8 +13,9 @@ A backup is written only when the GPO changed, so the same command can run every
     [Service]
     Type=oneshot
     User=gpo-backup
-    # A keytab gives the account its Kerberos ticket without a password.
-    ExecStartPre=/usr/bin/kinit -k -t /etc/gpo-backup.keytab gpo-backup@HARDENBOX.LABO
+    # A keytab gives the account its Kerberos ticket without a password: a dedicated account of
+    # the domain, its keytab owned by gpo-backup, mode 600 (install -o gpo-backup -m 600 ...).
+    ExecStartPre=/usr/bin/kinit -k -t /etc/hgpm/gpo-backup.keytab gpo-backup@HARDENBOX.LABO
     ExecStart=/usr/bin/pwsh -NoProfile -Command "Backup-PSGPO -Server dc.hardenbox.labo -Path /srv/gpo-backups"
 
     # /etc/systemd/system/psgpo-backup.timer
@@ -29,10 +30,15 @@ A backup is written only when the GPO changed, so the same command can run every
     ```powershell
     $Action = New-ScheduledTaskAction -Execute 'pwsh.exe' -Argument '-NoProfile -Command "Backup-PSGPO -Path D:\GPO_Backup"'
     $Trigger = New-ScheduledTaskTrigger -Once -At 00:00 -RepetitionInterval (New-TimeSpan -Hours 1)
-    Register-ScheduledTask -TaskName 'HGPM backup' -Action $Action -Trigger $Trigger -User 'CONTOSO\gpo-backup' -Password (Read-Host)
+    # A gMSA (New-ADServiceAccount, Install-ADServiceAccount): no password stored in the task
+    $Principal = New-ScheduledTaskPrincipal -UserId 'CONTOSO\hgpm-backup$' -LogonType Password
+    Register-ScheduledTask -TaskName 'HGPM backup' -Action $Action -Trigger $Trigger -Principal $Principal
     ```
 
-The account needs to read the GPOs and their SYSVOL folders; Authenticated Users can.
+The account needs to read the GPOs and their SYSVOL folders; Authenticated Users can. It needs
+no right of an administrator: not Domain Admins. With the [central backups](../features/backup-history.md)
+of Tier 0 (`Backup.Path`), only Tier 0 writes the share: back up from a console of Tier 0, or to a
+folder of the computer as above.
 
 ## 2. Comment a change
 

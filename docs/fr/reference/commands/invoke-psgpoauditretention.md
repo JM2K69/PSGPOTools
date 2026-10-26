@@ -15,7 +15,7 @@ Invoke-PSGPOAuditRetention -Directory <GPOToolsDirectory> [-Path <string>] [-Ret
 
 The audit log keeps Audit.RetentionMonths months (13 by default; 0 keeps everything): this month and the ones before it. The files of an older month, in every folder of the log (the tiers of the central log), go to a .zip of the folder Archive of the log, Archive\audit-<yyyy-MM>.zip, with their folder in it; once the archive holds them, they are deleted. A month already archived gets the files written since added to its archive. The archives are kept: delete them, or copy them away, as the policy of the company says.
 
-Run it as an account that deletes files of the log (an administrator of the domain: the accounts of the tiers do not delete), by hand or planned (a scheduled task on Windows, a systemd timer or cron on Linux). The folder Archive gets the permissions of the share: Tier 0 and the readers read it. On Linux a share is reached with smbclient (Kerberos). The retention is written to the audit log itself (PurgeAuditLog).
+Run it as an account that deletes files of the log: a member of Audit.Purgers (the group of a gMSA, which Initialize-PSGPOAuditShare gives the deletion of the files and the archives), or an administrator of the domain; the accounts of the tiers do not delete. By hand or planned: a scheduled task of the gMSA on Windows (no password stored), a systemd timer or cron with the keytab of a dedicated account on Linux. The folder Archive is read by Tier 0 and the readers. On Linux a share is reached with smbclient (Kerberos). The retention is written to the audit log itself (PurgeAuditLog).
 
 ## Paramètres
 

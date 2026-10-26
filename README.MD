@@ -78,5 +78,8 @@ vulnerability.
 
 ## License
 
-[MIT](LICENSE). Started by NicolasBn as a reader of ADMX and ADML files, the console is developed
-by JM2K69.
+[Apache License 2.0](LICENSE), with its [NOTICE](NOTICE): a redistribution of HGPM, or a work
+derived from it (a fork included), keeps the NOTICE and its credit, and says what it changed.
+Started by NicolasBn as a reader of ADMX and ADML files (MIT License, its notice kept in
+[NOTICE](NOTICE)), the console is developed by JM2K69. The versions up to 0.1.15-alpha were
+released under the MIT License.

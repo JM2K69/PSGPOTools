@@ -340,7 +340,7 @@ InModuleScope -ModuleName HGPM {
     Describe 'Share of the central audit log' {
         It 'Gives each tier its folder: its groups create their files and read their tier, Tier 0 and the readers read everything' {
             $Folders = @(Get-PSGPOAuditShareSddl -DomainAdminsSid 'S-1-5-21-1-2-3-512' -Tier0 'S-1-5-21-1-2-3-512', 'S-1-5-21-1-2-3-3000' -Tier1 'S-1-5-21-1-2-3-2001' -Tier2 'S-1-5-21-1-2-3-2002' -Readers 'S-1-5-21-1-2-3-4000')
-            @($Folders.Folder) | Should -Be @('', 'Tier0', 'Tier1', 'Tier2', 'Unassigned')
+            @($Folders.Folder) | Should -Be @('', 'Tier0', 'Tier1', 'Tier2', 'Unassigned', 'Archive')
             foreach ($Item in $Folders) {
                 $Item.Sddl | Should -BeLike 'D:P(A;OICI;0x1f01ff;;;SY)(A;OICI;0x1f01ff;;;BA)(A;OICI;0x1f01ff;;;S-1-5-21-1-2-3-512)*' -Because 'protected, the administrators in full control'
                 $Item.Sddl | Should -BeLike '*(A;OICI;0x1200a9;;;S-1-5-21-1-2-3-3000)*' -Because 'Tier 0 reads every folder'
@@ -354,6 +354,15 @@ InModuleScope -ModuleName HGPM {
             $Root = ($Folders | Where-Object Folder -EQ '').Sddl
             $Root | Should -BeLike '*(A;;0x1200a9;;;S-1-5-21-1-2-3-2001)(A;;0x1200a9;;;S-1-5-21-1-2-3-2002)*' -Because 'the groups of the tiers list the share'
             $Root | Should -BeLike '*(A;;0x1000a0;;;AU)' -Because 'any other account only goes through it, to Unassigned'
+            ($Folders | Where-Object Folder -EQ 'Archive').Sddl | Should -Not -BeLike '*0x1301bf*' -Because 'without purgers, only the administrators write the archives'
+
+            # The purgers (Audit.Purgers): they read and delete everywhere, write the archives, and their own changes in Unassigned.
+            $Purged = @(Get-PSGPOAuditShareSddl -DomainAdminsSid 'S-1-5-21-1-2-3-512' -Tier1 'S-1-5-21-1-2-3-2001' -Purgers 'S-1-5-21-1-2-3-5000')
+            foreach ($Item in $Purged | Where-Object Folder -NE 'Archive') { $Item.Sddl | Should -BeLike '*(A;OICI;0x1300e9;;;S-1-5-21-1-2-3-5000)*' -Because "the purgers read and delete in '$($Item.Folder)'" }
+            ($Purged | Where-Object Folder -EQ 'Archive').Sddl | Should -BeLike '*(A;OICI;0x1301bf;;;S-1-5-21-1-2-3-5000)'
+            ($Purged | Where-Object Folder -EQ 'Unassigned').Sddl | Should -BeLike '*(A;;0x1200ab;;;S-1-5-21-1-2-3-5000)*' -Because 'the retention writes its own change'
+            ($Purged | Where-Object Folder -EQ 'Tier1').Sddl | Should -Not -BeLike '*(A;;0x1200ab;;;S-1-5-21-1-2-3-5000)*' -Because 'they write nothing in the folders of the tiers'
+
             # A role the configuration leaves empty (no readers, no Tier 2): no ACE without a SID.
             $Empty = @(Get-PSGPOAuditShareSddl -DomainAdminsSid 'S-1-5-21-1-2-3-512' -Tier0 @($null) -Tier2 @($null) -Readers @($null))
             @($Empty.Sddl | Where-Object { $_ -like '*;;;)*' }) | Should -BeNullOrEmpty
@@ -383,7 +392,7 @@ InModuleScope -ModuleName HGPM {
                 $Result = @(Initialize-PSGPOAuditShare -Directory $Directory -Confirm:$false)
                 $script:Prepared.Path | Should -Be '\\files\gpo-audit'
                 ($script:Prepared.Folder | Where-Object Folder -EQ 'Tier1').Sddl | Should -BeLike '*(A;;0x1200ab;;;S-1-5-21-1-2-3-16)*' -Because 'GPO-Tier1-Admins'
-                $Result.Count | Should -Be 5
+                $Result.Count | Should -Be 6
                 ($Result | Where-Object Path -EQ '\\files\gpo-audit\Tier1').Writers | Should -Be @('GPO-Tier1-Admins')
                 ($Result | Where-Object Path -EQ '\\files\gpo-audit\Tier2').Writers | Should -BeNullOrEmpty
                 Should -Invoke Write-PSGPOAuditEntry -Times 1 -Exactly -ParameterFilter { $Action -eq 'InitializeAuditShare' }
