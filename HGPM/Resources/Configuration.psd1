@@ -41,6 +41,11 @@
 
     # Backups of the GPOs (History tab, Backup-PSGPO).
     Backup = @{
+        # Folder of the backups, the same for every console of the domain: a share of a file server
+        # (\\server\gpo-backups), prepared once with Initialize-PSGPOBackupShare, for Tier 0 only
+        # (the approvers of the workflow and the administrators of the domain). Empty: the folder
+        # of the History tab of each account.
+        Path = ''
         # Label of the approved versions: the newest backup with it is the reference the GPO is
         # compared to, to find what changed since (Get-PSGPODrift, History tab).
         ApprovedLabel = 'Approved'

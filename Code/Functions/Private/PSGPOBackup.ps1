@@ -528,9 +528,22 @@ function Compare-PSGPOSettingReport {
     @($changes | Sort-Object { $order[$_.Scope] }, Path, Name)
 }
 
-# Folder of the backups of the console: the one chosen last, else "PSGPOTools Backups" in the
+# Folder of the backups of the console: the central backups of the domain (Backup.Path, where
+# the share is mounted on Linux), else the one chosen last, else "PSGPOTools Backups" in the
 # documents of the user.
 function Get-PSGPODefaultBackupPath {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param()
+
+    $central = "$((Get-PSGPOConfigurationData).Backup.Path)".Trim()
+    if ($central) { return Resolve-PSGPOSharePath -Path $central }
+    Get-PSGPOLocalBackupPath
+}
+
+# The folder of the account: the one chosen last in the History tab, else "PSGPOTools Backups"
+# in the documents of the user.
+function Get-PSGPOLocalBackupPath {
     [CmdletBinding()]
     [OutputType([string])]
     param()
@@ -677,6 +690,10 @@ function Remove-PSGPOWithBackup {
 
     $links = @($Directory.GetLinksOf($Gpo) | ForEach-Object { $_.Som.DistinguishedName })
     $backup = $null
+    if (-not $NoBackup -and -not (Test-PSGPOBackupAllowed -Directory $Directory)) {
+        Write-Warning "The backups of $($Directory.DomainName) are for Tier 0: '$($Gpo.DisplayName)' is not backed up before it is deleted."
+        $NoBackup = $true
+    }
     if (-not $NoBackup) {
         $null = New-Item -ItemType Directory -Path $Path -Force -ErrorAction Stop
         $backup = Save-PSGPOBackup -Directory $Directory -Gpo $Gpo -Path $Path

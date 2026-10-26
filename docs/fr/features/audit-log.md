@@ -86,34 +86,34 @@ Le partage a un dossier par tier, et les droits des rôles :
 
     Sur un serveur de fichiers Windows, en administrateur :
 
-    [Télécharger windows/New-PSGPOAuditShare.ps1](../assets/scripts/windows/New-PSGPOAuditShare.ps1){ download }
+    [Télécharger windows/New-PSGPOShare.ps1](../assets/scripts/windows/New-PSGPOShare.ps1){ download }
 
     ```powershell
-    .\New-PSGPOAuditShare.ps1                                  # \\<serveur>\gpo-audit, D:\Shares\GPO-Audit
-    .\New-PSGPOAuditShare.ps1 -Name gpo-audit -Path E:\Shares\GPO-Audit -WhatIf
+    .\New-PSGPOShare.ps1 -Name gpo-audit                     # \\<serveur>\gpo-audit, D:\Shares\gpo-audit
+    .\New-PSGPOShare.ps1 -Name gpo-audit -Path E:\Shares\GPO-Audit -WhatIf
     ```
 
-    ??? example "windows/New-PSGPOAuditShare.ps1"
+    ??? example "windows/New-PSGPOShare.ps1"
 
         ```powershell
-        --8<-- "docs/assets/scripts/windows/New-PSGPOAuditShare.ps1"
+        --8<-- "docs/assets/scripts/windows/New-PSGPOShare.ps1"
         ```
 
 === "Linux"
 
     Sur un serveur Samba (un serveur membre, ou le contrôleur de domaine d'un lab), en root :
 
-    [Télécharger linux/New-PSGPOAuditShare.sh](../assets/scripts/linux/New-PSGPOAuditShare.sh){ download }
+    [Télécharger linux/New-PSGPOShare.sh](../assets/scripts/linux/New-PSGPOShare.sh){ download }
 
     ```bash
-    sudo ./New-PSGPOAuditShare.sh                             # //<serveur>/gpo-audit, /srv/gpo-audit
-    sudo ./New-PSGPOAuditShare.sh gpo-audit /srv/gpo-audit
+    sudo ./New-PSGPOShare.sh                             # //<serveur>/gpo-audit, /srv/gpo-audit
+    sudo ./New-PSGPOShare.sh gpo-audit /srv/gpo-audit
     ```
 
-    ??? example "linux/New-PSGPOAuditShare.sh"
+    ??? example "linux/New-PSGPOShare.sh"
 
         ```bash
-        --8<-- "docs/assets/scripts/linux/New-PSGPOAuditShare.sh"
+        --8<-- "docs/assets/scripts/linux/New-PSGPOShare.sh"
         ```
 
 ### 2. Les rôles, dans la configuration du domaine

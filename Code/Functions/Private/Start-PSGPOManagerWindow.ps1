@@ -1245,12 +1245,24 @@ function Start-PSGPOManagerWindow {
 
     # The recycle bin and the templates: from the backups of the folder of the History tab, read
     # again when that folder changes or with -Force (after a deletion, a restore, new notes).
-    $backupLists = @{ Root = $null; Deleted = @(); Templates = @() }
+    $backupLists = @{ Root = $null; Deleted = @(); Templates = @(); RootProblem = $null }
     function Update-BackupList {
         param([switch]$Force)
+        # Central backups, for Tier 0 only: no Deleted GPOs for the others, nor where the share is
+        # not reached (not mounted on Linux).
+        if (-not (Test-PSGPOBackupAllowed -Directory $Directory)) {
+            $backupLists.Deleted = $null
+            $backupLists.Templates = @()
+            return
+        }
         $root = Get-HistoryRoot
         if (-not $Force -and $backupLists.Root -eq $root) { return }
         $backupLists.Root = $root
+        if (-not $root) {
+            $backupLists.Deleted = $null
+            $backupLists.Templates = @()
+            return
+        }
         try {
             $backupLists.Deleted = @(Get-PSGPODeletedGpoBackup -Directory $Directory -Path $root)
             $backupLists.Templates = @(Get-PSGPOTemplateBackup -Path $root)
@@ -1872,11 +1884,23 @@ function Start-PSGPOManagerWindow {
     # Reports of the backups read once (by folder), and of the current state of each GPO (by its
     # version and last change); the GPO compared to its approved version (Get-PSGPODriftState).
     $history = @{ Reports = @{}; Current = @{}; Drift = $null }
-    $historyPathTextBox.Text = Get-PSGPODefaultBackupPath
+    # The central backups of the domain: their folder, not another one.
+    $historyPathTextBox.IsReadOnly = [bool]"$((Get-PSGPOConfigurationData).Backup.Path)".Trim()
 
+    # The folder of the backups; empty when the central backups are not reached (the share not
+    # mounted on Linux): $backupLists.RootProblem says why.
     function Get-HistoryRoot {
         $path = "$($historyPathTextBox.Text)".Trim()
-        if (-not $path) { $path = Get-PSGPODefaultBackupPath; $historyPathTextBox.Text = $path }
+        if (-not $path) {
+            try {
+                $path = Get-PSGPODefaultBackupPath
+                $backupLists.RootProblem = $null
+            } catch {
+                $backupLists.RootProblem = $_.Exception.Message
+                return ''
+            }
+            $historyPathTextBox.Text = $path
+        }
         $path
     }
 
@@ -1904,14 +1928,20 @@ function Start-PSGPOManagerWindow {
     function Update-HistoryTab {
         param([string]$SelectPath)
         $gpo = Get-SelectedGpo
-        $historyTab.IsVisible = [bool]$gpo
-        if (-not $gpo) {
+        # Central backups, for Tier 0 only.
+        $historyTab.IsVisible = [bool]$gpo -and (Test-PSGPOBackupAllowed -Directory $Directory)
+        if (-not $historyTab.IsVisible) {
             if ($directoryTabs.SelectedItem -eq $historyTab) { $directoryTabs.SelectedIndex = 0 }
             return
         }
         if ($directoryTabs.SelectedItem -ne $historyTab) { return }
 
         $root = Get-HistoryRoot
+        if (-not $root) {
+            $historyTimelineList.ItemsSource = @()
+            Set-HistoryStatus $backupLists.RootProblem -Problem
+            return
+        }
         $nodes = [System.Collections.Generic.List[AvaloniaHistoryNode]]::new()
         $problem = $null
         $history.Drift = $null
@@ -2108,7 +2138,8 @@ function Start-PSGPOManagerWindow {
         $errors = [System.Collections.Generic.List[string]]::new()
         try { $null = New-Item -ItemType Directory -Path $root -Force -ErrorAction Stop }
         catch { Set-HistoryStatus (Get-PSGPOText 'The folder of the backups cannot be created: {0}' $_.Exception.GetBaseException().Message) -Problem; return }
-        Set-PSGPOUserSetting -Values @{ BackupPath = $root }
+        # The folder of the account, kept for the next time; not the central backups of the domain.
+        if (-not "$((Get-PSGPOConfigurationData).Backup.Path)".Trim()) { Set-PSGPOUserSetting -Values @{ BackupPath = $root } }
         foreach ($gpo in $Gpos) {
             try {
                 $result = Save-PSGPOBackup -Directory $Directory -Gpo $gpo -Path $root -Comment $comment
@@ -2176,7 +2207,7 @@ function Start-PSGPOManagerWindow {
     $historyPathTextBox.add_KeyDown({
         param($control, $e)
         if ($e.Key -eq [Avalonia.Input.Key]::Enter) {
-            Set-PSGPOUserSetting -Values @{ BackupPath = (Get-HistoryRoot) }
+            if (-not $historyPathTextBox.IsReadOnly) { Set-PSGPOUserSetting -Values @{ BackupPath = (Get-HistoryRoot) } }
             Update-HistoryTab
             # Its deleted GPOs in the tree.
             Update-BackupList -Force
@@ -2671,7 +2702,8 @@ function Start-PSGPOManagerWindow {
         $exportWmiFilter.Filter = $filter
         $exportWmiFilter.Replace = $null
         $exportWmiFilterTitleTextBlock.Text = Get-PSGPOText "Export the WMI filter '{0}'" $filter.Name
-        $exportWmiFilterPathTextBox.Text = Join-Path (Join-Path (Get-HistoryRoot) 'WMI filters') (Get-PSGPOWmiFilterFileName -Name $filter.Name)
+        # The folder of the account: the central backups are for Tier 0.
+        $exportWmiFilterPathTextBox.Text = Join-Path (Join-Path (Get-PSGPOLocalBackupPath) 'WMI filters') (Get-PSGPOWmiFilterFileName -Name $filter.Name)
         $exportWmiFilterErrorTextBlock.Text = ''
         $exportWmiFilterConfirmButton.Content = Get-PSGPOText 'Export'
         Hide-DirectoryForm

@@ -105,6 +105,74 @@ Get-PSGPODrift -Path /srv/gpo-backups | Where-Object State -EQ 'Drifted'
 
 See [the drift workflow](../workflows/drift.md) and the [approval workflow](../workflows/approval.md).
 
+## Central backups, for Tier 0
+
+The backups of a domain are central on **a share of a file server**, `Backup.Path` of the
+configuration of the domain: the same History tab, approved versions and deleted GPOs for every
+console of Tier 0. Not SYSVOL: it is copied to every domain controller.
+
+They are **for Tier 0 only**, the approvers of the workflow (`Workflow.Approvers`) and the
+administrators of the domain:
+
+| | Tier 0 | Tier 1, Tier 2 |
+|---|---|---|
+| History tab, drift, restore | yes | no tab |
+| Deleted GPOs | yes | no node |
+| Backup before a change (import, delete) | yes | none, said: the approval backs up the approved version |
+
+### 1. The share
+
+=== "Windows"
+
+    On a Windows file server, as an administrator:
+
+    ```powershell
+    .\New-PSGPOShare.ps1 -Name gpo-backups                     # \\<server>\gpo-backups, D:\Shares\gpo-backups
+    ```
+
+    [Download windows/New-PSGPOShare.ps1](../assets/scripts/windows/New-PSGPOShare.ps1){ download }
+
+=== "Linux"
+
+    On a Samba server, as root; then once on each Linux console of Tier 0, `--fstab` adds the share
+    to `/etc/fstab` with `x-systemd.automount`: only root mounts a share, and from then on it mounts
+    itself when the console of an account of Tier 0 reaches it (Kerberos: each account with its own
+    ticket). HGPM finds it in `/proc/mounts`, else in `/etc/fstab`:
+
+    ```bash
+    sudo ./New-PSGPOShare.sh gpo-backups /srv/gpo-backups                               # the server
+    sudo ./New-PSGPOShareMount.sh //files.contoso.com/gpo-backups --fstab                # each console
+    ```
+
+    [Download linux/New-PSGPOShare.sh](../assets/scripts/linux/New-PSGPOShare.sh){ download }
+    [Download linux/New-PSGPOShareMount.sh](../assets/scripts/linux/New-PSGPOShareMount.sh){ download }
+
+    ??? example "linux/New-PSGPOShareMount.sh"
+
+        ```bash
+        --8<-- "docs/assets/scripts/linux/New-PSGPOShareMount.sh"
+        ```
+
+### 2. Backup.Path, and the permissions of Tier 0
+
+`Backup.Path = '\\files.contoso.com\gpo-backups'` in **Settings** of the console, then:
+
+```powershell
+Initialize-PSGPOBackupShare -WhatIf
+Initialize-PSGPOBackupShare                                   # Backup.Path of the configuration
+```
+
+It gives the share to SYSTEM, Administrators and Domain Admins (full control) and to the groups of
+the approvers (change); nobody else. Again when the approvers change: the backups are kept.
+
+### 3. The backups of the consoles, copied into it
+
+```powershell
+$central = '\\files.contoso.com\gpo-backups'                  # Linux: where it is mounted
+Get-ChildItem "$HOME\Documents\PSGPOTools Backups" -Directory -Exclude Audit |
+    Copy-Item -Destination $central -Recurse
+```
+
 ## Audit log
 
 Each change the domain accepted, from the console or a command, is a line of the audit log:

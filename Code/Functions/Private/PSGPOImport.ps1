@@ -584,6 +584,10 @@ function Invoke-PSGPOImport {
     if (-not $machine) { $machine = Get-PSGPOFileExtensionName -Files $migrated -Scope Machine }
     if (-not $user) { $user = Get-PSGPOFileExtensionName -Files $migrated -Scope User }
     $before = $null
+    if (-not $NoBackup -and -not $BackupPath -and -not (Test-PSGPOBackupAllowed -Directory $Directory)) {
+        Write-Warning "The backups of $($Directory.DomainName) are for Tier 0: '$($Gpo.DisplayName)' is not backed up before the import."
+        $NoBackup = $true
+    }
     if (-not $NoBackup) {
         if (-not $BackupPath) { $BackupPath = Get-PSGPODefaultBackupPath }
         $null = New-Item -ItemType Directory -Path $BackupPath -Force -ErrorAction Stop

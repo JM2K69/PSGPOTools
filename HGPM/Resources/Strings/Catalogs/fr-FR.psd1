@@ -305,6 +305,7 @@
     'Groups of Tier 1, separated by commas: they write in the folder Tier1 and read the changes of their tier.' = 'Groupes du Tier 1, séparés par des virgules : ils écrivent dans le dossier Tier1 et lisent les modifications de leur tier.'
     'Groups of Tier 2, separated by commas: the folder Tier2.' = 'Groupes du Tier 2, séparés par des virgules : le dossier Tier2.'
     'Groups that read every tier without writing (auditors), separated by commas.' = 'Groupes qui lisent tous les tiers sans écrire (auditeurs), séparés par des virgules.'
+    'Folder of the backups, the same for every console of the domain: a share of a file server (\\server\gpo-backups), prepared once with Initialize-PSGPOBackupShare, for Tier 0 only (the approvers of the workflow and the administrators of the domain). Empty: the folder of the History tab of each account.' = 'Dossier des sauvegardes, le même pour toutes les consoles du domaine : un partage d''un serveur de fichiers (\\serveur\gpo-backups), préparé une fois avec Initialize-PSGPOBackupShare, pour le Tier 0 seulement (les approbateurs du workflow et les administrateurs du domaine). Vide : le dossier de l''onglet Historique de chaque compte.'
     'Whether the changes are written to the audit log: yes by default.' = 'Si les modifications sont écrites dans le journal d''audit : oui par défaut.'
     'Folder Options' = 'Options des dossiers'
     'Folder Options (Windows Vista and later)' = 'Options des dossiers (Windows Vista et versions ultérieures)'

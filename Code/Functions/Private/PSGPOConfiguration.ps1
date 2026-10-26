@@ -134,6 +134,8 @@ function Test-PSGPOConfiguration {
     $audit = "$($Configuration.Audit.Path)".Trim()
     # A share (\\server\share, //server/share on Linux too) or a folder of the computer.
     if ($audit -and $audit -notmatch '^(\\\\|//)[^\\/]+[\\/][^\\/]+' -and -not [System.IO.Path]::IsPathRooted($audit)) { "Audit.Path must be a full path (a share: \\server\gpo-audit), not '$audit'." }
+    $backup = "$($Configuration.Backup.Path)".Trim()
+    if ($backup -and $backup -notmatch '^(\\\\|//)[^\\/]+[\\/][^\\/]+' -and -not [System.IO.Path]::IsPathRooted($backup)) { "Backup.Path must be a full path (a share: \\server\gpo-backups), not '$backup'." }
     if ($Configuration.Audit.Enabled -isnot [bool]) { 'Audit.Enabled must be $true or $false.' }
     foreach ($name in 'Tier1', 'Tier2') {
         if ("$($Configuration.Audit.Tiers[$name])" -match '[";|=+*?<>]') { "Audit.Tiers.$name holds names of groups separated by commas." }

@@ -19,9 +19,10 @@ function Initialize-PSGPOAuditShare {
 
         Run it once by an account that can change the permissions of the share (an administrator of
         the file server), and again when the groups of the tiers change: the permissions of the
-        folders are written again, the files kept. The share itself is made first (New-SmbShare on
-        Windows; a [gpo-audit] section of smb.conf on Samba), with share permissions that let the
-        accounts of the domain change files: the NTFS or NT permissions written here decide.
+        folders are written again, the files kept. The share itself is made first (the scripts
+        New-PSGPOShare.ps1 on Windows and New-PSGPOShare.sh on Samba of the documentation), with share
+        permissions that let the accounts of the domain change files: the NTFS or NT permissions
+        written here decide.
         On Linux: smbclient's Python bindings (python3-samba) and a Kerberos ticket.
     .PARAMETER Path
         The share: \\server\share (//server/share on Linux too), or a folder in it. Audit.Path of

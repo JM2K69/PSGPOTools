@@ -934,6 +934,7 @@
     'Configuration saved' = 'Configuration enregistrée'
     'ADMX files installed' = 'Fichiers ADMX installés'
     'Share of the audit log prepared' = 'Partage du journal d''audit préparé'
+    'Share of the backups prepared' = 'Partage des sauvegardes préparé'
     'Tier' = 'Tier'
     'Tier0' = 'Tier 0'
     'Tier1' = 'Tier 1'

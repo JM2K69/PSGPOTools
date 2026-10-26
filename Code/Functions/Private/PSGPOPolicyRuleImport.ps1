@@ -178,6 +178,10 @@ function Invoke-PSGPOPolicyRuleImport {
         $gpo = $Directory.NewGpo($TargetName)
     }
     $before = $null
+    if (-not $NoBackup -and -not $BackupPath -and -not (Test-PSGPOBackupAllowed -Directory $Directory)) {
+        Write-Warning "The backups of $($Directory.DomainName) are for Tier 0: '$($gpo.DisplayName)' is not backed up before the rule set is written."
+        $NoBackup = $true
+    }
     if (-not $NoBackup) {
         if (-not $BackupPath) { $BackupPath = Get-PSGPODefaultBackupPath }
         $null = New-Item -ItemType Directory -Path $BackupPath -Force -ErrorAction Stop

@@ -26,6 +26,7 @@ Les préfixes ne peuvent être ni vides, ni contenir un caractère interdit dans
 
 | Réglage | Par défaut | |
 |---|---|---|
+| `Backup.Path` | vide | les [sauvegardes centrales](../features/backup-history.md#les-sauvegardes-centrales-pour-le-tier-0), les mêmes pour toutes les consoles : un partage d'un serveur de fichiers (`\\serveur\gpo-backups`), pas SYSVOL, préparé par `Initialize-PSGPOBackupShare`, pour le Tier 0 seulement ; vide : le dossier de l'onglet Historique de chaque compte |
 | `Backup.ApprovedLabel` | `Approved` | étiquette des versions approuvées : la sauvegarde la plus récente qui la porte est la référence de l'écart |
 | `Backup.TemplateLabel` | `Template` | étiquette des modèles de nouvelles GPO |
 
