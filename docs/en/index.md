@@ -4,7 +4,13 @@
 PowerShell 7 with an [Avalonia](https://avaloniaui.net/) interface. It runs on **Windows and
 Linux**, and manages the GPOs of **Samba AD** and **Windows Active Directory** domains alike.
 
-![The Group Policy Management view on a Samba AD domain](assets/screenshots/01-console-domain.png)
+=== "Samba AD (Linux)"
+
+    ![The Group Policy Management view on a Samba AD domain](assets/screenshots/01-console-domain.png)
+
+=== "Active Directory (Windows)"
+
+    ![The Group Policy Management view on an Active Directory domain](assets/screenshots/65-console-active-directory.png)
 
 ## What it does
 

@@ -21,6 +21,7 @@
 
 ### Changed
 
+* The documentation shows the lab of Windows as the one of Samba: the page of the lab compares both domains (tiers, groups, delegation, workflow, central shares, log of the system), with screenshots of the console and of the audit log on Active Directory and of the events of HGPM in the Event Viewer; the screenshots of the Settings window and of the audit log taken again
 * The actions of the audit log listed in the documentation are all those the module writes (`InstallAdmx` and the password policies added)
 
 * The screenshots of the approval workflow (the console of a Tier 1 technician, its new GPO, its approval, the GPO approved) taken again, in English and French: the header of the console without the Policy Analyzer button

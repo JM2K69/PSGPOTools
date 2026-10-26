@@ -26,8 +26,9 @@ Show-PolicyAnalyzerAvalonia -Server dc.contoso.com -Path '.\Windows 11 v25H2 Sec
 On the left, the rule sets: the `.PolicyRules` files of the folder
 *Policy Rule sets in* (`Documents\PolicyAnalyzer` by default, as Policy Analyzer: copy there the
 files of the security baselines of Microsoft), and the sets added with **GPOs of the domain...**
-(the GPOs chosen, as they are now) or **GPMC backups...** (the `GPOs` folder of a baseline).
-Check the sets to compare, then **View / Compare**.
+(the GPOs chosen, as they are now) or **Backups...** (the `GPOs` folder of a baseline, or the
+backups of HGPM: the central ones of Tier 0 at first). Check the sets to compare, then
+**View / Compare**.
 
 ![GPOs of the domain as a rule set](../assets/screenshots/54-policy-analyzer-gpos.png)
 

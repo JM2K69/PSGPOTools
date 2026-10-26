@@ -14,7 +14,13 @@ Show-AuditLogAvalonia -Path \\fichiers\gpo-audit              # un autre dossier
 Show-AuditLogAvalonia -Server dc.hardenbox.labo -Language fr-FR
 ```
 
-![Le journal d'audit](../assets/screenshots/63-audit-log.fr.png)
+=== "Samba AD (Linux)"
+
+    ![Le journal d'audit](../assets/screenshots/63-audit-log.fr.png)
+
+=== "Active Directory (Windows)"
+
+    ![Le journal d'audit sous Windows, le partage central](../assets/screenshots/66-audit-log-active-directory.fr.png)
 
 ## Les modifications
 
@@ -70,6 +76,7 @@ Le partage a un dossier par tier, et les droits des rôles :
 | `Tier1` | les groupes de `Audit.Tiers.Tier1` | le Tier 1, le Tier 0, les lecteurs |
 | `Tier2` | les groupes de `Audit.Tiers.Tier2` | le Tier 2, le Tier 0, les lecteurs |
 | `Unassigned` | un compte sans tier | le Tier 0, les lecteurs |
+| le partage lui-même | personne | listé par les groupes des tiers et les lecteurs ; tout autre compte ne fait que le traverser, vers `Unassigned` |
 
 - Chaque compte ajoute ses modifications à **son propre fichier** :
   `<tier>\<domaine>-<aaaa-MM>-<compte>-<ordinateur>.jsonl`. Deux consoles n'écrivent jamais le même
@@ -191,6 +198,8 @@ du journal technique partent aussi dans le journal du système, où un SIEM les 
 | Une modification | Information, l'ID d'événement de son action | `user.notice`, `[<ID d'événement>]` |
 | Un avertissement, une erreur | Warning 2000, Error 3000 | `user.warning`, `user.err` |
 | Une fois par ordinateur | `Register-PSGPOEventSource`, en administrateur | rien |
+
+![Les événements de HGPM dans l'Observateur d'événements](../assets/screenshots/67-event-viewer.png)
 
 Le message dit quoi, par qui, d'où et sur quoi, puis l'entrée du journal d'audit en JSON :
 

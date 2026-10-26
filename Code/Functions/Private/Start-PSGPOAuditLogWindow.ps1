@@ -76,7 +76,7 @@ function Start-PSGPOAuditLogWindow {
         $account = if ($audit.Directory.Account) { $audit.Directory.Account } else { [Environment]::UserName }
         $text += ' - ' + (Get-PSGPOText 'Connected as {0}' $account)
         if ("$((Get-PSGPOConfigurationData).Audit.Path)".Trim()) {
-            if ($audit.Directory.AuditTier) { $text += " ($(Get-PSGPOText $audit.Directory.AuditTier))" }
+            if ($audit.Directory.AuditTier) { $text += " ($(Get-PSGPOAuditTierText -Tier $audit.Directory.AuditTier))" }
             return $text
         }
         $text + ' - ' + (Get-PSGPOText 'the log of your account only: Audit.Path of the configuration sets no central log')
@@ -117,7 +117,7 @@ function Start-PSGPOAuditLogWindow {
                 $row.Object = if ($entry.GpoName) { $entry.GpoName } else { $entry.Target }
                 $row.Computer = $entry.Computer
                 $row.Domain = $entry.Domain
-                $row.Tier = Get-PSGPOText "$($entry.Tier)"
+                $row.Tier = Get-PSGPOAuditTierText -Tier "$($entry.Tier)"
                 $row.Entry = $entry
                 $row.SearchText = (@($entry.Account, $entry.Computer, $entry.Server, $entry.Action, $row.Action, $entry.Target, $entry.GpoName, "$($entry.GpoId)", (Format-PSGPOAuditDetail -Details $entry.Details)) -join ' ').ToLowerInvariant()
                 $row

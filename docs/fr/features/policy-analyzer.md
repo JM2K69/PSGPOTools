@@ -26,8 +26,9 @@ Show-PolicyAnalyzerAvalonia -Server dc.contoso.com -Path '.\Windows 11 v25H2 Sec
 À gauche, les jeux de règles : les fichiers `.PolicyRules` du dossier
 *Jeux de règles dans* (`Documents\PolicyAnalyzer` par défaut, comme Policy Analyzer : copiez-y les
 fichiers des baselines de sécurité de Microsoft), et les jeux ajoutés avec **GPO du domaine...**
-(les GPO choisies, telles qu'elles sont) ou **Sauvegardes GPMC...** (le dossier `GPOs` d'une
-baseline). Cochez les jeux à comparer, puis **Afficher / Comparer**.
+(les GPO choisies, telles qu'elles sont) ou **Sauvegardes...** (le dossier `GPOs` d'une
+baseline, ou les sauvegardes de HGPM : les centrales du Tier 0 d'abord). Cochez les jeux à
+comparer, puis **Afficher / Comparer**.
 
 ![Des GPO du domaine comme jeu de règles](../assets/screenshots/54-policy-analyzer-gpos.fr.png)
 
