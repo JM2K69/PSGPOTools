@@ -2139,7 +2139,7 @@ function Start-PSGPOManagerWindow {
         $comment = "$($historyCommentTextBox.Text)".Trim()
         $counts = @{ Created = 0; Unchanged = 0 }
         $errors = [System.Collections.Generic.List[string]]::new()
-        try { $null = New-Item -ItemType Directory -Path $root -Force -ErrorAction Stop }
+        try { New-PSGPOFolder -Path $root }
         catch { Set-HistoryStatus (Get-PSGPOText 'The folder of the backups cannot be created: {0}' $_.Exception.GetBaseException().Message) -Problem; return }
         # The folder of the account, kept for the next time; not the central backups of the domain.
         if (-not "$((Get-PSGPOConfigurationData).Backup.Path)".Trim()) { Set-PSGPOUserSetting -Values @{ BackupPath = $root } }

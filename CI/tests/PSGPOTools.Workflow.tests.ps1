@@ -428,5 +428,32 @@ InModuleScope -ModuleName HGPM {
             @($Detail.Properties).Count | Should -Be 1
             $Detail.Properties[0].Value | Should -BeLike 'Linked to *'
         }
+
+        It 'Shows a creator its own GPOs waiting, not the ones of another tier; an approver every one' {
+            $Directory = Import-PSGPODirectory -Path $SamplePath
+            $Soms = [System.Collections.Generic.List[object]]::new()
+            $Queue = [System.Collections.Generic.Queue[object]]::new(@($Directory.Domain))
+            while ($Queue.Count) { $Som = $Queue.Dequeue(); $Soms.Add($Som); foreach ($Child in $Som.Children) { $Queue.Enqueue($Child) } }
+            $Pair = @(foreach ($Som in $Soms) { foreach ($Link in $Som.Links) { if ($Som.Parent -and $Link.Gpo) { [pscustomobject]@{ Som = $Som; Gpo = $Link.Gpo } } } })[0]
+            $Mine = $Directory.NewGpo('T1 - Proxy')
+            $Mine.ApprovalState = 'Pending'
+            # A GPO of another tier: waiting, the creator does not edit it.
+            $Pair.Gpo.ApprovalState = 'Pending'
+            $Pair.Gpo.CanEdit = $false
+
+            $Directory.Workflow = New-Workflow -Creator $true
+            $Roots = New-PSGPODirectoryTree -Directory $Directory -ShowUnmanaged $true
+            $Node = @($Roots[0].Children) | Where-Object Tag -EQ 'PendingGpos'
+            $Node.Header | Should -Be 'Waiting for approval (1)'
+            @($Node.Children.Tag) | Should -Be @($Mine)
+            $Stack = [System.Collections.Generic.Stack[object]]::new(@($Roots[0]))
+            $Headers = while ($Stack.Count) { $Item = $Stack.Pop(); $Item.Header; foreach ($Child in $Item.Children) { $Stack.Push($Child) } }
+            @($Headers | Where-Object { $_ -like '* waiting for approval)' -and $_ -notlike '*(waiting for approval)' }) | Should -BeNullOrEmpty -Because 'no OU counts the GPO of another tier'
+            @((Get-PSGPODirectoryDetail -Directory $Directory -Item 'PendingGpos').Properties.Key) | Should -Be @('T1 - Proxy')
+
+            $Directory.Workflow = New-Workflow -Approver $true
+            $Roots = New-PSGPODirectoryTree -Directory $Directory -ShowUnmanaged $true
+            (@($Roots[0].Children) | Where-Object Tag -EQ 'PendingGpos').Header | Should -Be 'Waiting for approval (2)'
+        }
     }
 }

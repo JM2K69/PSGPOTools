@@ -331,10 +331,10 @@ function Save-PSGPOBackup {
     $destination = Join-Path $gpoFolder $name
     for ($i = 2; Test-Path -LiteralPath $destination; $i++) { $destination = Join-Path $gpoFolder "$name-$i" }
 
-    $null = New-Item -ItemType Directory -Path (Join-Path $destination 'Files') -Force
+    New-PSGPOFolder -Path (Join-Path $destination 'Files')
     foreach ($file in $files.Keys) {
         $target = Join-Path $destination 'Files' ($file -split '\\')
-        $null = New-Item -ItemType Directory -Path (Split-Path -Parent $target) -Force
+        New-PSGPOFolder -Path (Split-Path -Parent $target)
         [System.IO.File]::WriteAllBytes($target, [byte[]]$files[$file])
     }
     $gpoManifest = [ordered]@{
@@ -697,7 +697,7 @@ function Remove-PSGPOWithBackup {
         $NoBackup = $true
     }
     if (-not $NoBackup) {
-        $null = New-Item -ItemType Directory -Path $Path -Force -ErrorAction Stop
+        New-PSGPOFolder -Path $Path
         $backup = Save-PSGPOBackup -Directory $Directory -Gpo $Gpo -Path $Path
     }
     $Directory.RemoveGpo($Gpo)

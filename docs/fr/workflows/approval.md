@@ -120,13 +120,26 @@ donnez pas le droit de lier des GPO (`gPLink`) là où elles ne doivent pas s'ap
 
 Les GPO en attente d'approbation se trouvent sans déplier l'arbre : **En attente d'approbation (N)**,
 sous **Objets de stratégie de groupe**, les liste, déplié à l'ouverture de la console, et une UO dit
-combien sont liées en dessous (**Tier 1 (1 en attente d'approbation)**).
+combien sont liées en dessous (**Tier 1 (1 en attente d'approbation)**). Un approbateur les voit
+toutes ; un créateur seulement les siennes, celles qu'il modifie, pas celles des autres tiers.
 
-![Les GPO en attente d'approbation](../assets/screenshots/64-pending-gpos.fr.png)
+=== "hardenbox.labo (Samba AD)"
+
+    ![Les GPO en attente d'approbation](../assets/screenshots/64-pending-gpos.fr.png)
+
+=== "powershell.labo (Active Directory)"
+
+    ![Les GPO en attente d'approbation, de Tier 1 et de Tier 2](../assets/screenshots/64-pending-gpos-active-directory.fr.png)
 
 Clic droit sur la GPO > **Approve...** :
 
-![Approuver une GPO, avec ses groupes de filtrage](../assets/screenshots/17-approve-gpo.fr.png)
+=== "hardenbox.labo (Samba AD)"
+
+    ![Approuver une GPO, avec ses groupes de filtrage](../assets/screenshots/17-approve-gpo.fr.png)
+
+=== "powershell.labo (Active Directory)"
+
+    ![Approuver une GPO, avec ses groupes de filtrage](../assets/screenshots/17-approve-gpo-active-directory.fr.png)
 
 - **The creators** : *la lire seulement* (ils ne peuvent plus la modifier), ou *continuer à modifier
   ses paramètres* (chaque modification la fait alors s'écarter de sa version approuvée) ;
@@ -174,7 +187,13 @@ c'est son propriétaire qui la rend approuvée. Si l'une de ces écritures écho
 en attente, la console le dit, et elle peut être approuvée de nouveau une fois le problème corrigé ;
 elle n'est jamais approuvée avec un dossier SYSVOL que son créateur possède encore.
 
-![Une GPO approuvée](../assets/screenshots/18-approved-gpo.fr.png)
+=== "hardenbox.labo (Samba AD)"
+
+    ![Une GPO approuvée](../assets/screenshots/18-approved-gpo.fr.png)
+
+=== "powershell.labo (Active Directory)"
+
+    ![Une GPO approuvée](../assets/screenshots/18-approved-gpo-active-directory.fr.png)
 
 Dans le labo, l'approbation de `T1 - Servers - Proxy` avec ses groupes a donné :
 

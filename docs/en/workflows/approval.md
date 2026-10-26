@@ -118,13 +118,26 @@ give the creators no right to link GPOs (`gPLink`) where they should not apply.
 
 The GPOs waiting for approval are found without expanding the tree: **Waiting for approval (N)**,
 below **Group Policy Objects**, lists them, expanded when the console opens, and an OU says how many
-are linked below it (**Tier 1 (1 waiting for approval)**).
+are linked below it (**Tier 1 (1 waiting for approval)**). An approver sees every one; a creator
+only its own, the GPOs it edits, not the ones of the other tiers.
 
-![The GPOs waiting for approval](../assets/screenshots/64-pending-gpos.png)
+=== "hardenbox.labo (Samba AD)"
+
+    ![The GPOs waiting for approval](../assets/screenshots/64-pending-gpos.png)
+
+=== "powershell.labo (Active Directory)"
+
+    ![The GPOs waiting for approval, of Tier 1 and Tier 2](../assets/screenshots/64-pending-gpos-active-directory.png)
 
 Right click the GPO > **Approve...**:
 
-![Approve a GPO, with its security filtering groups](../assets/screenshots/17-approve-gpo.png)
+=== "hardenbox.labo (Samba AD)"
+
+    ![Approve a GPO, with its security filtering groups](../assets/screenshots/17-approve-gpo.png)
+
+=== "powershell.labo (Active Directory)"
+
+    ![Approve a GPO, with its security filtering groups](../assets/screenshots/17-approve-gpo-active-directory.png)
 
 - **The creators**: *read it only* (they cannot change it anymore), or *keep editing its
   settings* (each change then differs from its approved version);
@@ -170,7 +183,13 @@ It writes SYSVOL first, then the containers the GPO holds, then **the GPO last**
 what makes it approved. If one of these writes fails, the GPO is still pending, says so, and can
 be approved again once fixed; it is never approved with a SYSVOL folder its creator still owns.
 
-![An approved GPO](../assets/screenshots/18-approved-gpo.png)
+=== "hardenbox.labo (Samba AD)"
+
+    ![An approved GPO](../assets/screenshots/18-approved-gpo.png)
+
+=== "powershell.labo (Active Directory)"
+
+    ![An approved GPO](../assets/screenshots/18-approved-gpo-active-directory.png)
 
 In the lab, the approval of `T1 - Servers - Proxy` with its groups gave:
 

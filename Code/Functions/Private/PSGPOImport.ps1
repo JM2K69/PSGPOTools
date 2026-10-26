@@ -590,7 +590,7 @@ function Invoke-PSGPOImport {
     }
     if (-not $NoBackup) {
         if (-not $BackupPath) { $BackupPath = Get-PSGPODefaultBackupPath }
-        $null = New-Item -ItemType Directory -Path $BackupPath -Force -ErrorAction Stop
+        New-PSGPOFolder -Path $BackupPath
         $before = Save-PSGPOBackup -Directory $Directory -Gpo $Gpo -Path $BackupPath -Comment "Before the import of the settings of '$($Source.DisplayName)' ($($Source.Kind) backup of $(if ($Source.BackedUp) { $Source.BackedUp.ToString('u') }))."
     }
     $Directory.RestoreGpo($Gpo, $migrated, $Gpo.Flags, $machine, $user)

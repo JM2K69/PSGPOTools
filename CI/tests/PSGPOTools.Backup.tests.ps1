@@ -35,6 +35,15 @@ InModuleScope -ModuleName HGPM {
             Resolve-PSGPOSharePath -Path '/srv/backups' -Mounts $Mounts | Should -Be '/srv/backups'
         }
 
+        It 'Creates the folder of the backups only when it is not there: New-Item fails on the root of a share' {
+            $Folder = Join-Path $TestDrive 'new-backups'
+            New-PSGPOFolder -Path $Folder
+            Test-Path -LiteralPath $Folder -PathType Container | Should -BeTrue
+            Mock New-Item { throw "The specified path is invalid. : '\\files'" }
+            { New-PSGPOFolder -Path $Folder } | Should -Not -Throw
+            Should -Invoke New-Item -Times 0
+        }
+
         It 'Uses the central backups for Tier 0 only, and the folder of the account for the audit log' {
             $Directory = Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json')
             Test-PSGPOBackupAllowed -Directory $Directory | Should -BeTrue -Because 'no central backups'

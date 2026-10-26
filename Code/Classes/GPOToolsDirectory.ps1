@@ -345,6 +345,14 @@ class GPOToolsDirectory {
         return $this.Workflow -and $this.Workflow.Enabled -and $this.Workflow.IsCreator -and -not $this.Workflow.IsApprover
     }
 
+    # A GPO waiting for its approval, as the account follows it: every one for an approver (it
+    # approves them) or any other account; only its own for a creator, the ones it edits, not the
+    # ones of the other tiers.
+    [bool] IsPendingFollowed([GPOToolsGpo]$Gpo) {
+        if ($Gpo.ApprovalState -ne 'Pending') { return $false }
+        return $Gpo.CanEdit -or -not $this.IsWorkflowCreator()
+    }
+
     # Approves a GPO waiting for its approval: its owner becomes the owner of the approved GPOs,
     # in the directory and in SYSVOL; the creators keep reading it (ReadOnly) or editing its
     # settings (EditSettings); it applies to $ApplyToSid (with its name $ApplyToName).
