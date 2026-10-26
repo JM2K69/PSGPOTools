@@ -155,6 +155,37 @@ function Get-PSGPOAccountGroupSid {
     , [string[]]$sids
 }
 
+# What is wrong with the roles of the workflow, by their SIDs (the names of the configuration
+# found in the domain): a group of every account (Everyone, Authenticated Users, Domain Users...)
+# as approvers or creators, an account in both roles (it would approve its own GPOs: an approver
+# creates GPOs approved at once), an owner of the approved GPOs that is neither an approver nor an
+# administrator of the domain (it could change the permissions of every approved GPO).
+function Test-PSGPOWorkflowRole {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [object[]]$Approvers,
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [object[]]$Creators,
+        [Parameter(Mandatory)] [object]$Owner,
+        [Parameter(Mandatory)] [string]$DomainSid
+    )
+
+    # Everyone, Anonymous, Authenticated Users, Users, Guests; Domain Users, Domain Guests, Domain Computers.
+    $everyone = @('S-1-1-0', 'S-1-5-7', 'S-1-5-11', 'S-1-5-32-545', 'S-1-5-32-546', "$DomainSid-513", "$DomainSid-514", "$DomainSid-515")
+    foreach ($role in @(@{ Name = 'Approvers'; Accounts = $Approvers }, @{ Name = 'Creators'; Accounts = $Creators })) {
+        foreach ($account in @($role.Accounts | Where-Object { $everyone -contains $_.Sid })) {
+            "Workflow.$($role.Name) names $($account.Name), a group of every account."
+        }
+    }
+    foreach ($account in @($Creators | Where-Object { @($Approvers.Sid) -contains $_.Sid })) {
+        "$($account.Name) is in Workflow.Approvers and Workflow.Creators: an approver's GPOs are approved at once, so its creators would approve their own GPOs."
+    }
+    $admins = @("$DomainSid-512", "$DomainSid-519", 'S-1-5-32-544')
+    if ($Owner -and @($Approvers.Sid) -notcontains $Owner.Sid -and $admins -notcontains $Owner.Sid) {
+        "Workflow.ApprovedOwner ($($Owner.Name)) is neither a group of the approvers nor of the administrators of the domain: it would own, and could change, every approved GPO."
+    }
+}
+
 # The owners an approved GPO may have: the owner of the approved GPOs, the approvers, Domain
 # Admins, Enterprise Admins, Administrators, SYSTEM.
 function Get-PSGPOApprovedOwnerSid {
@@ -254,6 +285,8 @@ function Update-PSGPODomainWorkflow {
         $domain = @(Invoke-PSGPOLdapBinarySearch -Connection $Connection -SearchBase $domainDN -Scope Base -Attribute 'objectSid') | Select-Object -First 1
         if (-not $domain -or -not $domain.Values['objectSid']) { throw "the SID of the domain $domainDN cannot be read." }
         $domainSid = ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$domain.Values['objectSid'][0])
+        $roles = @(Test-PSGPOWorkflowRole -Approvers $approvers -Creators $creators -Owner $owner -DomainSid $domainSid)
+        if ($roles.Count) { throw ($roles -join ' ') }
         # The role of the account is read in its groups: an account that is not found would be
         # neither a creator nor an approver, and the GPOs it creates would be approved at once.
         if (-not $Directory.Account -or $Directory.Account -eq 'Anonymous') { throw 'the server does not say which account the console is connected with (LDAP "Who am I?").' }
@@ -567,6 +600,10 @@ function Approve-PSGPODomainGpo {
         } catch {
             throw "The GPO '$($Gpo.DisplayName)' is not approved, its SYSVOL folder cannot be given to $($workflow.ApprovedOwner): $($_.Exception.Message) It is still pending; approve it again once fixed."
         }
+        # What the approver reviewed, compared now that its creator cannot write the folder.
+        if ($Gpo.ReviewStamp -and (Get-PSGPOReviewStamp -Directory $Directory -Gpo $Gpo) -ne $Gpo.ReviewStamp) {
+            throw "The GPO '$($Gpo.DisplayName)' is not approved: it changed since it was reviewed (its files or its attributes). It is still pending, its SYSVOL folder given to $($workflow.ApprovedOwner): review it again, then approve it."
+        }
         # The containers it holds (User, Machine...), then the GPO.
         try {
             foreach ($item in $inner) {
@@ -696,8 +733,41 @@ function Resolve-PSGPOApplyTo {
     }
 }
 
+# The content of a GPO as an approver reviews it, in one SHA-256 (hexadecimal): the attributes of
+# its container that make it apply (version, status, client-side extensions, WMI filter, folder),
+# read again from the domain, and every file of its SYSVOL folder (path and SHA-256 of its bytes).
+# Its creator owns a pending GPO, and could change it between the review and the approval: the
+# approval compares it again once the creator cannot write the folder anymore (Approve-PSGPODomainGpo).
+function Get-PSGPOReviewStamp {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo
+    )
+
+    $names = 'versionNumber', 'flags', 'gPCMachineExtensionNames', 'gPCUserExtensionNames', 'gPCWQLFilter', 'gPCFileSysPath'
+    $lines = [System.Collections.Generic.List[string]]::new()
+    if ($Directory -is [GPOToolsLdapDirectory]) {
+        $connection = New-PSGPODirectoryConnection -Directory $Directory
+        try { $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base -Attribute $names } finally { $connection.Dispose() }
+        foreach ($name in $names) { $lines.Add("$name=$(Get-PSGPOLdapValue $entry $name)") }
+    } else {
+        $values = $Gpo.Version, $Gpo.Flags, $Gpo.MachineExtensionNames, $Gpo.UserExtensionNames, $Gpo.WmiFilterId, $Gpo.FileSysPath
+        for ($i = 0; $i -lt $names.Count; $i++) { $lines.Add("$($names[$i])=$($values[$i])") }
+    }
+    $files = $Directory.ReadGpoFolder($Gpo)
+    foreach ($path in @($files.Keys | Sort-Object { "$_".ToUpperInvariant() })) {
+        $lines.Add("$path=$([System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([byte[]]$files[$path])))")
+    }
+    [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($lines -join "`n")))
+}
+
 # The security filtering groups a GPO already has (APPLY_<GPO> and DENY_<GPO>, the prefixes of the
 # configuration), to propose them at its approval: Apply and Deny, each Name and Sid, or $null.
+# A group an approver or an administrator of the domain does not own is not proposed, and Problem
+# says why: a technician who can create groups may have made APPLY_<its GPO> before the approval,
+# to choose where the GPO applies once approved (its members).
 function Find-PSGPOFilteringGroup {
     [CmdletBinding()]
     param(
@@ -705,7 +775,7 @@ function Find-PSGPOFilteringGroup {
         [Parameter(Mandatory)] [GPOToolsGpo]$Gpo
     )
 
-    $found = [ordered]@{ Apply = $null; Deny = $null }
+    $found = [ordered]@{ Apply = $null; Deny = $null; Problem = $null }
     $connection = if ($Directory -is [GPOToolsLdapDirectory]) { New-PSGPODirectoryConnection -Directory $Directory }
     try {
         foreach ($role in 'Apply', 'Deny') {
@@ -713,8 +783,20 @@ function Find-PSGPOFilteringGroup {
             if ($connection) {
                 # Only a missing group is no group: any other error stops, rather than the GPO
                 # being approved for Authenticated Users.
-                try { $found[$role] = @(Find-PSGPODomainAccount -Connection $connection -DomainDistinguishedName $Directory.Domain.DistinguishedName -Name $name)[0] }
-                catch { if ($_.Exception.Message -notlike 'No account named *') { throw } }
+                $domainDN = $Directory.Domain.DistinguishedName
+                $entry = @(Invoke-PSGPOLdapBinarySearch -Connection $connection -SearchBase $domainDN -Filter "(sAMAccountName=$(ConvertTo-PSGPOLdapFilterValue $name))" `
+                        -Attribute 'objectSid', 'nTSecurityDescriptor' -SecurityMasks Owner) | Select-Object -First 1
+                if (-not $entry -or -not $entry.Values['objectSid']) { continue }
+                $group = [pscustomobject]@{ Name = $name; Sid = ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$entry.Values['objectSid'][0]) }
+                $owner = if ($entry.Values['nTSecurityDescriptor']) { [GPOToolsSecurityDescriptor]::Parse([byte[]]$entry.Values['nTSecurityDescriptor'][0]).Owner }
+                $trusted = if ($Directory.Workflow -and $Directory.Workflow.DomainSid) { Get-PSGPOApprovedOwnerSid -Workflow $Directory.Workflow -DomainSid $Directory.Workflow.DomainSid }
+                if ($trusted -and $trusted -notcontains $owner) {
+                    $ownerName = if ($owner) { (Resolve-PSGPODomainSid -Connection $connection -DomainDistinguishedName $domainDN -Sid $owner)[$owner] } else { 'nobody known' }
+                    $text = Get-PSGPOText 'The group {0} exists, owned by {1}, not by an approver or an administrator of the domain: someone else may have made it to choose where the GPO applies. It is not proposed; check its members and its owner, or delete it.' $name $ownerName
+                    $found.Problem = (@(@($found.Problem) + $text) | Where-Object { $_ }) -join ' '
+                    continue
+                }
+                $found[$role] = $group
             } else {
                 $group = @($Directory.Groups.Values | Where-Object Name -EQ $name)[0]
                 if ($group) { $found[$role] = [pscustomobject]@{ Name = $group.Name; Sid = $(if ($group.Sid) { $group.Sid } else { $group.Name }) } }
@@ -741,7 +823,9 @@ function Invoke-PSGPOApproval {
         [pscustomobject]$DenyTo,
         [switch]$CreateFilteringGroups,
         [string]$GroupContainer,
-        [Parameter(Mandatory)] [string]$BackupPath
+        [Parameter(Mandatory)] [string]$BackupPath,
+        # What the approver reviewed (Get-PSGPOReviewStamp): the approval is refused if the GPO changed since.
+        [string]$ReviewStamp
     )
 
     $created = @()
@@ -757,7 +841,12 @@ function Invoke-PSGPOApproval {
     if (-not $ApplyTo) { throw 'The approved GPO applies to someone: give the group (or Authenticated Users).' }
     $creator = $Gpo.Owner
     $Gpo.RemovedAtApproval = @()
-    $Directory.ApproveGpo($Gpo, $CreatorRights, $ApplyTo.Sid, $ApplyTo.Name, $(if ($DenyTo) { $DenyTo.Sid }), $(if ($DenyTo) { $DenyTo.Name }))
+    $Gpo.ReviewStamp = $ReviewStamp
+    try {
+        $Directory.ApproveGpo($Gpo, $CreatorRights, $ApplyTo.Sid, $ApplyTo.Name, $(if ($DenyTo) { $DenyTo.Sid }), $(if ($DenyTo) { $DenyTo.Name }))
+    } finally {
+        $Gpo.ReviewStamp = $null
+    }
     $by = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
     $rights = if ($CreatorRights -eq 'EditSettings') { 'edit its settings' } else { 'read it' }
     $backup = $null

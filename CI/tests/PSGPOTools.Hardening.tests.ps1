@@ -156,6 +156,40 @@ InModuleScope -ModuleName HGPM {
             Should -Invoke Set-PSGPODomainOwnerAndDacl -Times 0
         }
 
+        It 'Does not approve a GPO that changed since it was reviewed, and writes nothing in the directory' {
+            $Gpo.ReviewStamp = 'REVIEWED'
+            Mock Get-PSGPOReviewStamp { 'CHANGED' }
+            { Approve-PSGPODomainGpo -Directory $Directory -Gpo $Gpo -CreatorRights ReadOnly -ApplyToSid 'S-1-5-11' } | Should -Throw -ExpectedMessage '*is not approved: it changed since it was reviewed*still pending*review it again*'
+            $script:Writes | Should -Be @("SYSVOL $Admins") -Because 'compared once the creator cannot write the folder anymore'
+            Should -Invoke Set-PSGPODomainOwnerAndDacl -Times 0
+
+            Mock Get-PSGPOReviewStamp { 'REVIEWED' }
+            $script:Writes.Clear()
+            $null = Approve-PSGPODomainGpo -Directory $Directory -Gpo $Gpo -CreatorRights ReadOnly -ApplyToSid 'S-1-5-11' 3>$null
+            $script:Writes.Count | Should -Be 3 -Because 'the same content: approved'
+        }
+
+        It 'Stamps what an approver reviews: the files of the GPO and the attributes that make it apply' {
+            $Memory = Import-PSGPODirectory -Path $SamplePath
+            $Reviewed = $Memory.Gpos[0]
+            $First = Get-PSGPOReviewStamp -Directory $Memory -Gpo $Reviewed
+            $First | Should -Match '^[0-9A-F]{64}$'
+            Get-PSGPOReviewStamp -Directory $Memory -Gpo $Reviewed | Should -Be $First -Because 'nothing changed'
+            $Reviewed.Version++
+            Get-PSGPOReviewStamp -Directory $Memory -Gpo $Reviewed | Should -Not -Be $First -Because 'its version changed'
+            $Reviewed.Version--
+            $Reviewed.WmiFilterId = [guid]::NewGuid()
+            Get-PSGPOReviewStamp -Directory $Memory -Gpo $Reviewed | Should -Not -Be $First -Because 'its WMI filter changed'
+            $Reviewed.WmiFilterId = $null
+            # A file changed, its version and extensions as they were (another tool than the console).
+            $Version = $Reviewed.Version
+            $Extensions = $Reviewed.MachineExtensionNames
+            $Memory.WritePolicyFile($Reviewed, 'Machine', [byte[]](0x50, 0x52, 0x65, 0x67, 1, 0, 0, 0))
+            $Reviewed.Version = $Version
+            $Reviewed.MachineExtensionNames = $Extensions
+            Get-PSGPOReviewStamp -Directory $Memory -Gpo $Reviewed | Should -Not -Be $First -Because 'a file changed'
+        }
+
         It 'Tells the approval a GPO applies while pending' {
             $Gpo.ApprovalState = 'Pending'
             $Gpo.SecurityFiltering = @()

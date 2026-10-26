@@ -47,6 +47,9 @@ class GPOToolsGpo {
     # The permissions its approval removed that neither its creator nor the creators had (SDDL):
     # someone added them while it was pending
     [string[]]$RemovedAtApproval = @()
+    # The content the approver reviewed (Get-PSGPOReviewStamp), for its approval: refused when the
+    # GPO changed since; $null when not given
+    [string]$ReviewStamp
     # WMI filter of the GPO (gPCWQLFilter): the Id of a msWMI-Som object; $null without one
     [Nullable[guid]]$WmiFilterId
 

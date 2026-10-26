@@ -1458,7 +1458,7 @@ function Start-PSGPOManagerWindow {
 
     # Approval of the selected GPO (approval workflow): what the creators may still do, who
     # applies it; backed up with the approved label in the folder of the History tab.
-    $approveGpo = @{ Gpo = $null; Groups = $null }
+    $approveGpo = @{ Gpo = $null; Groups = $null; Stamp = $null }
     function Open-ApproveGpoForm {
         $gpo = Get-SelectedGpo
         if (-not $gpo -or $gpo.ApprovalState -ne 'Pending') { return }
@@ -1474,15 +1474,20 @@ function Start-PSGPOManagerWindow {
         # Its own groups when they exist; else the approver may create them, as the New GPO form.
         $existing = Find-PSGPOFilteringGroup -Directory $Directory -Gpo $gpo
         $approveGpo.Groups = (Get-PSGPOConfigurationData).NewGpo.SecurityFilteringGroups
-        $approveGpoApplyToTextBox.Text = if ($existing.Apply) { $existing.Apply.Name } else { 'Authenticated Users' }
+        # A group of its name someone else made: not proposed, nor Authenticated Users in its place.
+        $approveGpoApplyToTextBox.Text = if ($existing.Apply) { $existing.Apply.Name } elseif ($existing.Problem) { '' } else { 'Authenticated Users' }
         $approveGpoDenyToTextBox.Text = if ($existing.Deny) { $existing.Deny.Name } else { '' }
-        $approveGpoGroupsCheckBox.IsVisible = -not ($existing.Apply -or $existing.Deny)
+        $approveGpoGroupsCheckBox.IsVisible = -not ($existing.Apply -or $existing.Deny -or $existing.Problem)
         $approveGpoGroupsCheckBox.IsChecked = $approveGpoGroupsCheckBox.IsVisible -and [bool]$approveGpo.Groups.Create
         $approveGpoGroupsTextBlock.Text = if ($approveGpoGroupsCheckBox.IsVisible) {
             Get-PSGPOText '{0} applies it, {1} is denied it; created in {2} ({3}).' (Get-PSGPOFilteringGroupName -Role Apply -GpoName $gpo.DisplayName -Settings $approveGpo.Groups) (Get-PSGPOFilteringGroupName -Role Deny -GpoName $gpo.DisplayName -Settings $approveGpo.Groups) (Resolve-PSGPOGroupContainer -Directory $Directory -Container $approveGpo.Groups.Container) $approveGpo.Groups.Scope
         } else { Get-PSGPOText 'Its groups exist: {0}.' (@($existing.Apply, $existing.Deny | Where-Object { $_ } | ForEach-Object Name) -join ', ') }
         Update-ApproveGpoGroupState
-        $approveGpoErrorTextBlock.Text = ''
+        $approveGpoErrorTextBlock.Text = if ($existing.Problem) { $existing.Problem } else { '' }
+        # What the approver reviews: the GPO as it is now; its approval is refused if it changes.
+        $approveGpo.Stamp = $null
+        try { $approveGpo.Stamp = Get-PSGPOReviewStamp -Directory $Directory -Gpo $gpo }
+        catch { $approveGpoErrorTextBlock.Text = Get-PSGPOText 'The GPO cannot be read: {0}' $_.Exception.GetBaseException().Message }
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
         $approveGpoPanel.IsVisible = $true
@@ -1500,8 +1505,9 @@ function Start-PSGPOManagerWindow {
         if (-not $gpo) { return }
         $rights = "$($approveGpoRightsComboBox.SelectedItem.Tag)"
         $create = [bool]($approveGpoGroupsCheckBox.IsVisible -and $approveGpoGroupsCheckBox.IsChecked)
+        if (-not $approveGpo.Stamp) { $approveGpoErrorTextBlock.Text = Get-PSGPOText 'The GPO could not be read when the form opened: open the form again.'; return }
         try {
-            $approval = @{ Directory = $Directory; Gpo = $gpo; CreatorRights = $rights; BackupPath = (Get-HistoryRoot) }
+            $approval = @{ Directory = $Directory; Gpo = $gpo; CreatorRights = $rights; BackupPath = (Get-HistoryRoot); ReviewStamp = $approveGpo.Stamp }
             if ($create) {
                 $approval.CreateFilteringGroups = $true
             } else {

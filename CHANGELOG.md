@@ -1,5 +1,13 @@
 # HGPM Release History
 
+## Unreleased
+
+### Security
+
+* The approval approves what the approver reviewed, or nothing: a SHA-256 of the GPO (the attributes that make it apply and every file of its SYSVOL folder) is taken when the approval form opens, or before the confirmation of `Approve-PSGPO`, and again once the creator cannot write the folder anymore; if the GPO changed, it is not approved and stays pending
+* A group `APPLY_<GPO>` or `DENY_<GPO>` that neither an approver nor an administrator of the domain owns is not proposed at the approval (a technician could make it before the approval to choose where the GPO applies), nor Authenticated Users in its place; `Approve-PSGPO` refuses without `-ApplyTo`
+* The roles of the workflow are checked: a group in both `Workflow.Creators` and `Workflow.Approvers`, a group of every account (Domain Users, Authenticated Users...), an owner of the approved GPOs that is neither an approver nor an administrator of the domain stop the workflow (nobody approves, the accounts that are not administrators create no GPO)
+
 ## 0.1.14 - alpha
 
 ### Security
