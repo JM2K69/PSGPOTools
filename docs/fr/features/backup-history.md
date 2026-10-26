@@ -117,7 +117,7 @@ journal d'audit :
 |---|---|
 | `Time` | quand (UTC) |
 | `Account`, `Computer`, `Server` | qui, depuis quel ordinateur, sur quel contrôleur de domaine |
-| `Action` | `NewGpo`, `RenameGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SetWmiFilter`, `NewWmiFilter`, `EditWmiFilter`, `RemoveWmiFilter`, `SetWmiFilterPermission`, `SetGpoPermission`, `SetGpoSecurityFiltering`, `SaveGpoFile`, `RestoreGpo`, `ImportGpo`, `ImportPolicyRuleSet`, `RemoveGpo`, `RemoveDeletedGpoBackup`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration` |
+| `Action` | `NewGpo`, `RenameGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SetWmiFilter`, `NewWmiFilter`, `EditWmiFilter`, `RemoveWmiFilter`, `SetWmiFilterPermission`, `SetGpoPermission`, `SetGpoSecurityFiltering`, `SaveGpoFile`, `RestoreGpo`, `ImportGpo`, `ImportPolicyRuleSet`, `RemoveGpo`, `RemoveDeletedGpoBackup`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration`, `InstallAdmx`, `NewPasswordPolicy`, `SetPasswordPolicy`, `RemovePasswordPolicy` |
 | `Target`, `GpoName`, `GpoId` | sur quoi : la GPO, le domaine ou l'OU, la configuration |
 | `Details` | comment : les options de lien changées, le fichier enregistré avec son SHA-256 et la nouvelle version, les droits des créateurs et les permissions retirées à une approbation… |
 
@@ -126,6 +126,10 @@ Les lignes sont seulement ajoutées, jamais réécrites : un fichier par domaine
 où écrivent les administrateurs des GPO, le même pour toutes les consoles) ; par défaut dans le
 dossier `Audit` des sauvegardes du compte, que seule sa console voit. Un journal qui ne peut pas
 être écrit n'annule pas la modification, qui est faite : la console le dit.
+
+Le journal est activé par défaut (`Audit.Enabled`). L'outil [Journal d'audit](audit-log.md) le
+montre dans une fenêtre, filtré par période, domaine, action et une recherche ;
+`Get-PSGPOAuditLog` le lit dans un script :
 
 ```powershell
 Get-PSGPOAuditLog -After (Get-Date).AddDays(-7) | Format-Table Time, Account, Action, GpoName, Target

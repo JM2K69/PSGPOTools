@@ -54,6 +54,8 @@
     # from which computer, what, on which GPO or container), never rewritten; Get-PSGPOAuditLog
     # reads it.
     Audit = @{
+        # Whether the changes are written to the audit log: yes by default.
+        Enabled = $true
         # Folder of the log, the same for every console of the domain: a share the administrators
         # of the GPOs write (\\server\gpo-audit). Empty: the folder Audit of the backups of the
         # account, which only its console sees.

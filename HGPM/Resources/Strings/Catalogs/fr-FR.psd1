@@ -301,6 +301,7 @@
     'First failure' = 'Première défaillance'
     'Folder' = 'Dossier'
     'Folder contents info tip' = 'Afficher le contenu des dossiers dans les info-bulles'
+    'Whether the changes are written to the audit log: yes by default.' = 'Si les modifications sont écrites dans le journal d''audit : oui par défaut.'
     'Folder of the log, the same for every console of the domain: a share the administrators of the GPOs write (\\server\gpo-audit). Empty: the folder Audit of the backups of the account, which only its console sees.' = 'Dossier du journal, le même pour toutes les consoles du domaine : un partage où écrivent les administrateurs des GPO (\\serveur\gpo-audit). Vide : le dossier Audit des sauvegardes du compte, que seule sa console voit.'
     'Folder Options' = 'Options des dossiers'
     'Folder Options (Windows Vista and later)' = 'Options des dossiers (Windows Vista et versions ultérieures)'

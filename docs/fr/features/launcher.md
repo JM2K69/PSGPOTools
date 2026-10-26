@@ -20,6 +20,7 @@ Start-HGPM -Language en-US      # le lanceur et les outils en anglais
 | ![](../assets/screenshots/58-tile-password-settings.fr.png){ width="150" } | [Paramètres de mot de passe](password-policies.md) | `Show-PSOManagerAvalonia` | Les stratégies de mot de passe affinées (PSO), et celle que reçoit un utilisateur ou un groupe |
 | ![](../assets/screenshots/59-tile-wmi-filter-creator.fr.png){ width="150" } | [Créateur de filtres WMI](wmi-filter-creator.md) | `Show-WmiFilterCreatorAvalonia` | Des filtres WMI construits à partir de requêtes prêtes à l'emploi, vérifiés, testés, exportés en `.mof` |
 | ![](../assets/screenshots/60-tile-policy-analyzer.fr.png){ width="150" } | [Policy Analyzer](policy-analyzer.md) | `Show-PolicyAnalyzerAvalonia` | Les GPO et les baselines de sécurité de Microsoft comparées paramètre par paramètre |
+| ![](../assets/screenshots/62-tile-audit-log.fr.png){ width="150" } | [Journal d'audit](audit-log.md) | `Show-AuditLogAvalonia` | Ce que les consoles et les commandes ont modifié dans le domaine : qui, quand, d'où, sur quelle GPO |
 
 Une tuile ouvre son outil avec ses paramètres par défaut : le domaine de l'ordinateur, les fichiers
 ADMX choisis la dernière fois. Pour donner des paramètres à un outil (`-Server`, `-Credential`,

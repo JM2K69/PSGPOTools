@@ -113,7 +113,7 @@ Each change the domain accepted, from the console or a command, is a line of the
 |---|---|
 | `Time` | when (UTC) |
 | `Account`, `Computer`, `Server` | who, from which computer, on which domain controller |
-| `Action` | `NewGpo`, `RenameGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SetWmiFilter`, `NewWmiFilter`, `EditWmiFilter`, `RemoveWmiFilter`, `SetWmiFilterPermission`, `SetGpoPermission`, `SetGpoSecurityFiltering`, `SaveGpoFile`, `RestoreGpo`, `ImportGpo`, `ImportPolicyRuleSet`, `RemoveGpo`, `RemoveDeletedGpoBackup`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration` |
+| `Action` | `NewGpo`, `RenameGpo`, `NewLink`, `SetLink`, `RemoveLink`, `SetBlockInheritance`, `SetGpoStatus`, `SetWmiFilter`, `NewWmiFilter`, `EditWmiFilter`, `RemoveWmiFilter`, `SetWmiFilterPermission`, `SetGpoPermission`, `SetGpoSecurityFiltering`, `SaveGpoFile`, `RestoreGpo`, `ImportGpo`, `ImportPolicyRuleSet`, `RemoveGpo`, `RemoveDeletedGpoBackup`, `PendingGpo`, `ApproveGpo`, `NewFilteringGroups`, `SaveConfiguration`, `InstallAdmx`, `NewPasswordPolicy`, `SetPasswordPolicy`, `RemovePasswordPolicy` |
 | `Target`, `GpoName`, `GpoId` | on what: the GPO, the domain or OU, the configuration |
 | `Details` | how: the link options changed, the file saved with its SHA-256 and the new version, the rights of the creators and the permissions removed at an approval... |
 
@@ -122,6 +122,9 @@ The lines are only added, never rewritten: one file per domain and month,
 administrators of the GPOs write, the same for every console); by default in the folder `Audit` of
 the backups of the account, which only its console sees. A log that cannot be written does not
 undo the change, which is made: the console says so.
+
+The log is on by default (`Audit.Enabled`). The [Audit Log](audit-log.md) tool shows it in a
+window, filtered by period, domain, action and a search; `Get-PSGPOAuditLog` reads it in a script:
 
 ```powershell
 Get-PSGPOAuditLog -After (Get-Date).AddDays(-7) | Format-Table Time, Account, Action, GpoName, Target

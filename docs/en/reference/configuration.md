@@ -35,6 +35,7 @@ A label has at most 64 characters, without comma, tab or line break; the two lab
 
 | Setting | Default | |
 |---|---|---|
+| `Audit.Enabled` | `$true` | the changes are written to the [audit log](../features/audit-log.md); `$false`: they are not (the changes are still made) |
 | `Audit.Path` | empty | folder of the [audit log](../features/backup-history.md#audit-log), the same for every console: a share the administrators of the GPOs write (`\\server\gpo-audit`); empty: the folder `Audit` of the backups of the account |
 
 ## View

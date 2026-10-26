@@ -8,7 +8,7 @@ Start-HGPM
 ```
 
 [The launcher](../features/launcher.md) has a tile for each tool of HGPM: Group Policy Management,
-Password Settings, WMI Filter Creator and Policy Analyzer. A click opens the tool on the domain of
+Password Settings, WMI Filter Creator, Policy Analyzer and Audit Log. A click opens the tool on the domain of
 the computer, in the language chosen in its list. Each tool is also a command, which takes the
 parameters the tile does not give, as below.
 

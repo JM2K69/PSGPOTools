@@ -68,6 +68,7 @@ Approve-PSGPO -Directory $Directory -Name 'T1 - Servers - Proxy' -ApplyTo 'APPLY
 | [`New-PSGPOMigrationTable`](commands/new-psgpomigrationtable.md) `-Path -BackupPath [-Name] [-IncludePermission] [-MapByRelativeName] [-Force]` | écrit une table de migration (`.migtable`) pour des sauvegardes, comme GPMC l'écrit |
 | [`Get-PSGPOMigrationTable`](commands/get-psgpomigrationtable.md) `-Path` | lit une table de migration de GPMC, vérifiée |
 | [`Get-PSGPOAuditLog`](commands/get-psgpoauditlog.md) `[-Path] [-Domain] [-Name] [-Action] [-Account] [-After] [-Before]` | ce que les consoles et les commandes ont modifié dans le domaine, le plus récent d'abord |
+| [`Show-AuditLogAvalonia`](commands/show-auditlogavalonia.md) `[-Path] [-Directory \| -Server] [-Language]` | ouvre le journal d'audit dans une fenêtre : filtré par période, domaine, action et une recherche, les détails d'une modification, les modifications affichées exportées en CSV |
 
 ```powershell
 Backup-PSGPO -Path /srv/gpo-backups -Comment 'Chaque nuit'
@@ -110,7 +111,7 @@ Get-PSGPOPolicy -Scope Machine | Where-Object DisplayName -Like '*biom*' | Selec
 
 | Commande | Fait |
 |---|---|
-| [`Start-HGPM`](commands/start-hgpm.md) `[-Language]` | ouvre le lanceur : une tuile par console de HGPM |
+| [`Start-HGPM`](commands/start-hgpm.md) `[-Language]` | ouvre le lanceur : une tuile par outil de HGPM |
 | [`Test-PSGPOUpdate`](commands/test-psgpoupdate.md) `[-Prerelease] [-Quiet] [-Repository]` | dit si une version plus récente de HGPM est sur la PowerShell Gallery, et la commande qui l'installe |
 
 ## Stratégies de mot de passe

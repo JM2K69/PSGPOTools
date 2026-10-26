@@ -732,8 +732,8 @@ InModuleScope -ModuleName HGPM {
                     $C.pathTextBlock.Text | Should -BeLike 'Configuration of the domain corp.contoso.com, for every console of the domain: SYSVOL\corp.contoso.com\PSGPOTools\Configuration.psd1*(not created yet)*'
                     $C.saveButton.IsEnabled | Should -BeTrue
                     $Rows = @($C.settingsList.ItemsSource)
-                    $Rows.Count | Should -Be 18
-                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 18
+                    $Rows.Count | Should -Be 19
+                    @($Rows | Where-Object Source -EQ 'Default').Count | Should -Be 19
                     ($Rows | Where-Object Key -EQ 'NewGpo.SecurityFilteringGroups.ApplyPrefix').Default | Should -BeLike 'Default: APPLY_ - Names of the groups*'
 
                     # Create: a choice, a boolean, a text.
@@ -2986,7 +2986,7 @@ InModuleScope -ModuleName HGPM {
             Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -OnShown {
                 param($Ui)
                 $Ui.Window.Icon | Should -Not -BeNullOrEmpty
-                @($Ui.Tiles.Tag.Command) | Should -Be @('Show-GPOManagerAvalonia', 'Show-PSOManagerAvalonia', 'Show-WmiFilterCreatorAvalonia', 'Show-PolicyAnalyzerAvalonia')
+                @($Ui.Tiles.Tag.Command) | Should -Be @('Show-GPOManagerAvalonia', 'Show-PSOManagerAvalonia', 'Show-WmiFilterCreatorAvalonia', 'Show-PolicyAnalyzerAvalonia', 'Show-AuditLogAvalonia')
                 $Ui.Tiles[1].Content.Children[1].Text | Should -Be 'Password Settings'
                 Invoke-Click $Ui.Tiles[1]
                 # The console runs once the click is over: the tile does not keep the pointer.
@@ -3083,6 +3083,101 @@ InModuleScope -ModuleName HGPM {
             } finally {
                 $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
                 $null = Set-PSGPOLanguage -Language 'en-US'
+            }
+        }
+    }
+
+    Describe 'Audit log window' -Skip:$AvaloniaMissing {
+        BeforeAll {
+            # A log of two domains: changes of now, of ten days ago and of a year ago.
+            $Log = Join-Path $TestDrive 'AuditLog'
+            $null = New-Item -ItemType Directory -Path $Log -Force
+            function New-TestEntry {
+                param([datetime]$Time, [string]$Domain, [string]$Account, [string]$Action, [string]$Target, [string]$GpoName, [hashtable]$Details = @{})
+                [ordered]@{
+                    Format = 'PSGPOTools.Audit/1'; Time = $Time.ToUniversalTime().ToString('o'); Domain = $Domain; Server = "dc1.$Domain"
+                    Account = $Account; Computer = 'ADMIN-PC'; Action = $Action; Target = $Target
+                    GpoId = if ($GpoName) { '11111111-2222-3333-4444-555555555555' }; GpoName = $GpoName; Details = $Details
+                } | ConvertTo-Json -Compress -Depth 5
+            }
+            $Now = [datetime]::UtcNow
+            Set-Content -LiteralPath (Join-Path $Log 'contoso.com-2026-10.jsonl') -Encoding utf8 -Value @(
+                (New-TestEntry -Time $Now.AddDays(-10) -Domain 'contoso.com' -Account 'CONTOSO\admin1' -Action 'NewGpo' -Target 'CN=Policies' -GpoName 'C - Servers - Baseline')
+                (New-TestEntry -Time $Now.AddMinutes(-5) -Domain 'contoso.com' -Account 'CONTOSO\tiers1' -Action 'SaveGpoFile' -Target 'CN=Policies' -GpoName 'C - Servers - Baseline' -Details @{ Path = 'Machine\Registry.pol'; Version = 4 })
+                (New-TestEntry -Time $Now.AddDays(-400) -Domain 'contoso.com' -Account 'CONTOSO\admin1' -Action 'SaveConfiguration' -Target 'Configuration')
+            )
+            Set-Content -LiteralPath (Join-Path $Log 'fabrikam.com-2026-10.jsonl') -Encoding utf8 -Value @(
+                (New-TestEntry -Time $Now.AddHours(-2) -Domain 'fabrikam.com' -Account 'FABRIKAM\admin' -Action 'NewLink' -Target 'OU=Servers,DC=fabrikam,DC=com' -GpoName 'F - Servers')
+            )
+        }
+
+        It 'Shows the changes, newest first, filtered by period, domain, action and a search, their details, and exports them' {
+            Start-PSGPOAuditLogWindow -Path $Log -OnShown {
+                param($Ui)
+                $Ui.Window.Title | Should -Be 'Audit Log'
+                $Ui.auditFolderTextBox.Text | Should -Be $Log
+                $Ui.auditPeriodComboBox.SelectedIndex | Should -Be 2 -Because 'the last 30 days at first'
+                @($Ui.auditGrid.ItemsSource).Count | Should -Be 3
+                @($Ui.auditGrid.ItemsSource)[0].Action | Should -Be 'Settings of a GPO saved' -Because 'the newest first, the action by its name'
+                @($Ui.auditGrid.ItemsSource)[0].Object | Should -Be 'C - Servers - Baseline'
+                $Ui.auditSummaryTextBlock.Text | Should -Be '3 change(s) shown, 4 in the log'
+                @($Ui.auditDomainComboBox.ItemsSource) | Should -Be @('All the domains', 'contoso.com', 'fabrikam.com')
+                @($Ui.auditActionComboBox.ItemsSource) | Should -Be @('All the actions', 'Configuration saved', 'GPO created', 'Link created', 'Settings of a GPO saved')
+
+                $Ui.auditPeriodComboBox.SelectedIndex = 3
+                @($Ui.auditGrid.ItemsSource).Count | Should -Be 4
+                $Ui.auditPeriodComboBox.SelectedIndex = 0
+                @($Ui.auditGrid.ItemsSource).Count | Should -Be 2
+                $Ui.auditPeriodComboBox.SelectedIndex = 3
+                $Ui.auditDomainComboBox.SelectedIndex = 2
+                @($Ui.auditGrid.ItemsSource).Account | Should -Be @('FABRIKAM\admin')
+                $Ui.auditDomainComboBox.SelectedIndex = 0
+                $Ui.auditActionComboBox.SelectedIndex = 2
+                @($Ui.auditGrid.ItemsSource).Account | Should -Be @('CONTOSO\admin1')
+                $Ui.auditActionComboBox.SelectedIndex = 0
+                $Ui.auditSearchTextBox.Text = 'registry.pol tiers1'
+                @($Ui.auditGrid.ItemsSource).Count | Should -Be 1 -Because 'the search reads the details too, every word'
+
+                # The rows laid out before one is selected.
+                Invoke-UiLoop -TimeoutMilliseconds 300
+                $Ui.auditGrid.SelectedIndex = 0
+                $Ui.auditDetailsBorder.IsVisible | Should -BeTrue
+                $Ui.auditDetailsTitleTextBlock.Text | Should -Be 'Settings of a GPO saved - C - Servers - Baseline'
+                $Ui.auditDetailsWhoTextBlock.Text | Should -BeLike '* by CONTOSO\tiers1 from ADMIN-PC, on dc1.contoso.com (contoso.com)'
+                $Ui.auditDetailsTargetTextBlock.Text | Should -BeLike 'GPO: C - Servers - Baseline {11111111-2222-3333-4444-555555555555}*Action: SaveGpoFile'
+                $Ui.auditDetailsTextBlock.Text | Should -Be "Path: Machine\Registry.pol$([Environment]::NewLine)Version: 4"
+
+                $Csv = Join-Path $TestDrive 'shown.csv'
+                & $Ui.Export -File $Csv
+                @(Import-Csv -LiteralPath $Csv).Action | Should -Be @('SaveGpoFile')
+                $Ui.auditStatusTextBlock.Text | Should -Be "1 change(s) exported to $Csv."
+
+                $Ui.auditSearchTextBox.Text = 'nothing like this'
+                $Ui.auditGrid.IsVisible | Should -BeFalse
+                $Ui.auditEmptyTextBlock.Text | Should -Be 'No change matches the filters.'
+                $Ui.auditExportButton.IsEnabled | Should -BeFalse
+            }
+        }
+
+        It 'Says when the folder holds no log yet, and speaks French' {
+            try {
+                Start-PSGPOAuditLogWindow -Path (Join-Path $TestDrive 'none') -Language 'fr-FR' -OnShown {
+                    param($Ui)
+                    $Ui.Window.Title | Should -Be "Journal d'audit"
+                    $Ui.auditStatusTextBlock.Text | Should -BeLike "Pas de journal d'audit dans *"
+                    $Ui.auditEmptyTextBlock.Text | Should -Be "Aucune modification dans ce journal d'audit pour l'instant."
+                }
+            } finally { $null = Set-PSGPOLanguage -Language 'en-US' }
+        }
+
+        It 'Reads the folder of the configuration of the domain it is given' {
+            $Directory = Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json')
+            Mock Get-PSGPOAuditPath { $Log }
+            Start-PSGPOAuditLogWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.auditFolderTextBox.Text | Should -Be $Log
+                $Ui.subtitleTextBlock.Text | Should -Be "What the consoles and the commands changed in the domain - $($Directory.DomainName)"
+                @($Ui.auditGrid.ItemsSource).Count | Should -Be 3
             }
         }
     }

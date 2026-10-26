@@ -230,6 +230,22 @@ class AvaloniaWmiTestRow {
     [string]$Error
 }
 
+# One change of the audit log window, its texts in the language of the interface
+class AvaloniaAuditRow {
+    # Local time, yyyy-MM-dd HH:mm:ss: sorted as text
+    [string]$Time
+    [string]$Account
+    [string]$Action
+    # The GPO when there is one, else the target (a container, the configuration...)
+    [string]$Object
+    [string]$Computer
+    [string]$Domain
+    # The entry of Get-PSGPOAuditLog (PSGPOTools.AuditEntry)
+    [object]$Entry
+    # What the search reads, in lower case
+    [string]$SearchText
+}
+
 # The value of a setting in one set, in the details of the Policy Analyzer view
 class AvaloniaPolicyRuleValueItem {
     [string]$Set
