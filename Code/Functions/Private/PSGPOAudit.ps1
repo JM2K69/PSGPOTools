@@ -43,6 +43,17 @@ function Get-PSGPOAuditActionText {
     $Action
 }
 
+# A tier as the windows show it: Tier 0, Tier 1, Tier 2, Unassigned, in the language of the interface.
+function Get-PSGPOAuditTierText {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([AllowEmptyString()] [string]$Tier)
+
+    if ($Tier -match '^Tier(\d)$') { return Get-PSGPOText 'Tier {0}' $Matches[1] }
+    if ($Tier) { return Get-PSGPOText $Tier }
+    ''
+}
+
 # The details of an entry, one "name: value" per line (a list or a table as JSON).
 function Format-PSGPOAuditDetail {
     [CmdletBinding()]

@@ -13,7 +13,13 @@ Show-AuditLogAvalonia -Path \\files\gpo-audit                # another folder
 Show-AuditLogAvalonia -Server dc.hardenbox.labo -Language fr-FR
 ```
 
-![The audit log](../assets/screenshots/63-audit-log.png)
+=== "Samba AD (Linux)"
+
+    ![The audit log](../assets/screenshots/63-audit-log.png)
+
+=== "Active Directory (Windows)"
+
+    ![The audit log on Windows, the central share](../assets/screenshots/66-audit-log-active-directory.png)
 
 ## The changes
 
@@ -67,6 +73,7 @@ The share has a folder per tier, and the permissions of the roles:
 | `Tier1` | the groups of `Audit.Tiers.Tier1` | Tier 1, Tier 0, the readers |
 | `Tier2` | the groups of `Audit.Tiers.Tier2` | Tier 2, Tier 0, the readers |
 | `Unassigned` | an account in no tier | Tier 0, the readers |
+| the share itself | nobody | listed by the groups of the tiers and the readers; any other account only goes through it, to `Unassigned` |
 
 - Each account adds its changes to **its own file**: `<tier>\<domain>-<yyyy-MM>-<account>-<computer>.jsonl`.
   No two consoles write the same file; nobody but the administrators deletes a file or changes its
@@ -186,6 +193,8 @@ log also goes to the log of the system, where a SIEM collects it:
 | A change | Information, the event ID of its action | `user.notice`, `[<event ID>]` |
 | A warning, an error | Warning 2000, Error 3000 | `user.warning`, `user.err` |
 | Once per computer | `Register-PSGPOEventSource`, as an administrator | nothing |
+
+![The events of HGPM in the Event Viewer](../assets/screenshots/67-event-viewer.png)
 
 The message says what, by whom, from where and on what, then the entry of the audit log as JSON:
 

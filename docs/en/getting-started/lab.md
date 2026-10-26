@@ -1,27 +1,36 @@
 # The lab
 
-The screenshots and the tests of this documentation come from two domains.
+The screenshots and the tests of this documentation come from two domains built the same way, one
+on Linux with Samba AD, one on Windows with Active Directory: the same tiers, groups, delegation,
+approval workflow and central shares.
 
-## hardenbox.labo (Samba AD)
+| | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| Domain controller | `dc.hardenbox.labo`, Debian 13, Samba 4.22 | `ADDS.powershell.labo`, Windows Server |
+| Console | on the domain controller itself, Linux, PowerShell 7 | `CLI`, Windows 11 member of the domain, PowerShell 7, RSAT Group Policy Management tools |
+| Account of the console | a Kerberos ticket of `administrator` (Tier 0) or of `tiers1` (Tier 1): `kinit` changes it | the session of `Administrator` (Tier 0), or of `tiers1` |
+| OUs | `Tier 1` (`Servers`, `Groups`), `Tier 2` (`Workstations`, `Users`, `Groups`), `Test`, `Groupes`, `Domain Controllers` | `Tier 1` (`Servers`, `Groups`), `Tier 2` (`Workstations`, `Users`, `Groups`), `azertyuiop`, `Domain Controllers` |
+| Groups | `GPO-Tier1-Admins` (member `tiers1`), `GPO-Tier2-Admins` (member `tiers2`) | `GPO-Tier1-Admins` (member `Tiers1`), `GPO-Tier2-Admins` (member `Tiers2`) |
+| Delegation | each group links GPOs to its own OU (write `gPLink` and `gPOptions`) | the same |
+| GPOs | Default Domain Policy, Default Domain Controllers Policy, `T1 - Servers - Baseline`, `T2 - Workstations - Baseline`... | Default Domain Policy, Default Domain Controllers Policy, `TEST` |
+| Approval workflow | enabled: approvers `Domain Admins`, creators `GPO-Tier1-Admins`, `GPO-Tier2-Admins` | the same |
+| Central audit log | `\\dc.hardenbox.labo\gpo-audit` (Samba share on the domain controller) | `\\CLI.powershell.labo\gpo-audit` (`C:\Shares\gpo-audit`) |
+| Central backups | `\\dc.hardenbox.labo\gpo-backups`, mounted on `/mnt/gpo-backups` | `\\CLI.powershell.labo\gpo-backups` (`C:\Shares\gpo-backups`) |
+| Log of the system | journald (`journalctl -t hgpm`) | the event log Application, source HGPM |
 
-| | |
-|---|---|
-| Domain controller | `dc.hardenbox.labo`, Debian 13, Samba 4.22 |
-| OUs | `Tier 1` (`Servers`, `Groups`), `Tier 2` (`Workstations`, `Users`, `Groups`), `Test`, `Groupes`, `Domain Controllers` |
-| Groups | `GPO-Tier1-Admins` (member `tiers1`), `GPO-Tier2-Admins` (member `tiers2`) |
-| Delegation | each group links GPOs to its own OU (write `gPLink` and `gPOptions`) |
-| GPOs | Default Domain Policy, Default Domain Controllers Policy, `T1 - Servers - Baseline`, `T2 - Workstations - Baseline`... |
-| Approval workflow | enabled: approvers `Domain Admins`, creators `GPO-Tier1-Admins`, `GPO-Tier2-Admins` |
+=== "hardenbox.labo (Samba AD)"
 
-The console runs on the domain controller itself, with a Kerberos ticket of `administrator`
-(Tier 0) or of `tiers1` (Tier 1): `kinit` changes the account the console uses.
+    ![The console on hardenbox.labo](../assets/screenshots/01-console-domain.png)
 
-## powershell.labo (Active Directory)
+    ![The audit log of hardenbox.labo](../assets/screenshots/63-audit-log.png)
 
-| | |
-|---|---|
-| Domain controller | `ADDS.powershell.labo`, Windows Server |
-| Client | Windows 11 member of the domain, RSAT Group Policy Management tools |
+=== "powershell.labo (Active Directory)"
+
+    ![The console on powershell.labo](../assets/screenshots/65-console-active-directory.png)
+
+    ![The audit log of powershell.labo](../assets/screenshots/66-audit-log-active-directory.png)
+
+    ![The events of HGPM in the Event Viewer](../assets/screenshots/67-event-viewer.png)
 
 ## Make your own
 
