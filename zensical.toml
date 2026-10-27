@@ -147,6 +147,13 @@ nav = [
   { "Changelog" = "changelog.md" },
 ]
 
+# A click on a Mermaid diagram opens it in full screen, with zoom and pan (docs/assets).
+extra_javascript = ["assets/javascripts/mermaid-zoom.js"]
+extra_css = ["assets/stylesheets/mermaid-zoom.css"]
+
+# A click on a screenshot opens it in full screen (GLightbox, built into Zensical).
+[project.plugins.glightbox]
+
 [project.extra]
 alternate = [
   { name = "English", link = "https://jm2k69.github.io/PSGPOTools/en/", lang = "en" },
