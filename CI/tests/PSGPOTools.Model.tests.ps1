@@ -11,14 +11,13 @@ BeforeDiscovery {
 InModuleScope -ModuleName HGPM {
     BeforeAll {
         $PolicyDefinitions = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions')).Path
-        $Target = [AdmxNamespace]::new([pscustomobject]@{ prefix = 'test'; namespace = 'Test.Policies' })
-
         # Parses an XML fragment in the PolicyDefinitions namespace and returns its root element.
         function ConvertTo-AdmxNode {
             param([string]$Xml)
             $Document = [xml]"<root xmlns='http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions'>$Xml</root>"
             $Document.DocumentElement.FirstChild
         }
+        $Target = [AdmxNamespace]::new((ConvertTo-AdmxNode "<target prefix='test' namespace='Test.Policies' />"))
 
         function New-TestElement {
             param([string]$Xml)

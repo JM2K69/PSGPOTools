@@ -25,8 +25,13 @@ function Show-GPOManagerAvalonia {
         policies) with their setting form and details. When no ADMX file is loaded, a window asks
         for the PolicyDefinitions folder and the language of its ADML files (detected from the
         names of its language folders), remembering the choice for the next time; the console does
-        not open without them. -PolicyDefinitions loads a folder without asking. Editing a GPO, each setting is read from
-        the GPO (Registry.pol, GptTmpl.inf) and Apply saves it there.
+        not open without them. The central store of the domain shown (as GPMC), or the folder chosen
+        instead in that window, is not asked for again: the console opens at once and reads them
+        the first time it needs them (the policy editor, the Settings and History tabs, a report).
+        The window asks again at the next start when that load fails. -PolicyDefinitions loads a
+        folder without asking, before the console opens.
+        Editing a GPO, each setting is read from the GPO (Registry.pol, GptTmpl.inf) and Apply saves
+        it there.
 
         Hosted on Avalonia UI under PowerShell 7+; the call blocks until the window is closed.
         The Avalonia assemblies are not bundled with the module: the first time a window opens,
@@ -102,15 +107,12 @@ function Show-GPOManagerAvalonia {
     # The language of the interface, for the ADMX window too.
     $Language = Set-PSGPOLanguage -Language $Language
 
-    # The ADMX files first: asked for in a window when none is loaded.
+    # The ADMX files given: loaded before the console opens.
     if ($PolicyDefinitions -or $UICulture) {
         $admx = @{}
         if ($PolicyDefinitions) { $admx.Path = $PolicyDefinitions }
         if ($UICulture) { $admx.UICulture = $UICulture }
         Initialize-PSGPOAdmx @admx -WarningAction SilentlyContinue
-    } elseif ([GPOToolsUtility]::Policies.Count -eq 0 -and -not (Show-PSGPOAdmxWindow)) {
-        Write-Warning 'No ADMX file loaded: the console is not opened. Choose a PolicyDefinitions folder, give -PolicyDefinitions, or download the ADMX files of HGPM with Install-PSGPOAdmx.'
-        return
     }
 
     $directoryError = $null
@@ -141,9 +143,39 @@ function Show-GPOManagerAvalonia {
         }
     }
 
+    # Else, when none is loaded: the folder chosen last, else the central store of the domain
+    # shown, read the first time the console needs them (the editor, the Settings and History
+    # tabs, a report); a console that only links or approves never waits for them. Asked for in
+    # a window when there is none, or when the last load of the console failed.
+    $admxSource = $null
+    if ([GPOToolsUtility]::Policies.Count -eq 0) {
+        # The store of the domain read, through its domain controller too; of the computer for a
+        # description (Import-PSGPODirectory).
+        $start = @{}
+        if ($Directory -is [GPOToolsLdapDirectory]) { $start.DomainName = $Directory.DomainName; $start.Server = $Directory.Server }
+        $source = Get-PSGPOAdmxStartSource @start
+        if ($source.Path) {
+            $admxSource = @{ Path = $source.Path; UICulture = $source.UICulture }
+            # The editor alone shows them at once: loaded now.
+            if ($NoDirectory) {
+                try { Initialize-PSGPOAdmx @admxSource -WarningAction SilentlyContinue -ErrorAction Stop }
+                catch { Write-Warning "The ADMX files of $($source.Path) are not loaded: $($_.Exception.Message)" }
+                $admxSource = $null
+            }
+        }
+        if (-not $admxSource -and [GPOToolsUtility]::Policies.Count -eq 0) {
+            $window = @{}
+            if ($null -ne $source.CentralStore) { $window.CentralStore = $source.CentralStore }
+            if (-not (Show-PSGPOAdmxWindow @window)) {
+                Write-Warning 'No ADMX file loaded: the console is not opened. Choose a PolicyDefinitions folder, give -PolicyDefinitions, or download the ADMX files of HGPM with Install-PSGPOAdmx.'
+                return
+            }
+        }
+    }
+
     # The first start of the console by an administrator creates the configuration of the domain.
     if ($Directory -and -not $Directory.IsDemonstration) { $null = Initialize-PSGPODomainConfiguration -Directory $Directory }
 
     $startView = if ($NoDirectory) { 'Editor' } else { 'Management' }
-    Start-PSGPOManagerWindow -Directory $Directory -DirectoryError $directoryError -StartView $startView -Language $Language
+    Start-PSGPOManagerWindow -Directory $Directory -DirectoryError $directoryError -StartView $startView -Language $Language -AdmxSource $admxSource
 }

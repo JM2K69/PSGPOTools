@@ -313,8 +313,9 @@ InModuleScope -ModuleName HGPM {
             $script:Opened = $null
             Mock Start-PSGPOManagerWindow { $script:Opened = @{ Directory = $Directory; DirectoryError = $DirectoryError; StartView = $StartView } }
             Mock Get-PSGPODirectory { New-TestLdapDirectory }
-            # The ADMX files as loaded: no window asking for them.
+            # The ADMX files as loaded: no window asking for them, no central store looked for.
             Mock Show-PSGPOAdmxWindow { $true }
+            Mock Get-PSGPOAdmxStartSource { @{ Path = $null; UICulture = $null; CentralStore = @() } }
             Mock Initialize-PSGPODomainConfiguration { $true }
         }
         AfterAll { $script:PSGPOPlatform = $null }
@@ -623,6 +624,7 @@ InModuleScope -ModuleName HGPM {
         It 'Is read by Show-GPOManagerAvalonia at launch' {
             Mock Start-PSGPOManagerWindow { $script:Launched = $Directory }
             Mock Show-PSGPOAdmxWindow { $true }
+            Mock Get-PSGPOAdmxStartSource { @{ Path = $null; UICulture = $null; CentralStore = @() } }
             # Not the configuration of the domain of the lab.
             Mock Initialize-PSGPODomainConfiguration { $false }
             Show-GPOManagerAvalonia -Server $env:PSGPOTOOLS_TEST_LDAP_SERVER

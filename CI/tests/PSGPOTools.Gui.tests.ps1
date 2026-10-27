@@ -2140,6 +2140,107 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Opens at once and loads the ADMX files chosen before the first time it needs them' {
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            $Pol = [GPOToolsRegistryPol]::new()
+            Set-PSGPOPolicyState -Policy ([GPOToolsUtility]::Policies | Where-Object { $_.ID -eq 'Biometrics_EnableBio' } | Select-Object -First 1) -Pol $Pol -State Disabled
+            $Directory.WritePolicyFile($Gpo, 'Machine', $Pol.ToBytes())
+            [GPOToolsUtility]::RemoveAll()
+            try {
+                Start-PSGPOManagerWindow -Directory $Directory -AdmxSource @{ Path = $PolicyDefinitions; UICulture = 'en-US' } -WarningVariable Warn 3>$null -OnShown {
+                    param($Ui)
+                    [GPOToolsUtility]::Policies.Count | Should -Be 0 -Because 'the console opens before the ADMX files are read'
+                    $Ui.breadcrumbTextBlock.Text | Should -Not -BeLike 'No ADMX policy loaded*'
+                    # The links and the details do not wait for them.
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                    $Ui.directoryTitleTextBlock.Text | Should -Be 'C - Servers - Security Baseline'
+                    $Ui.admxLoadingBanner.IsVisible | Should -BeFalse
+
+                    # The Settings tab names the policies: it waits for them, a banner says so.
+                    $Ui.directoryTabs.SelectedItem = $Ui.settingsTab
+                    $Ui.admxLoadingBanner.IsVisible | Should -BeTrue
+                    $Ui.admxLoadingTextBlock.Text | Should -BeLike "Loading the administrative templates (ADMX) of $PolicyDefinitions*"
+                    $Ui.settingsStatusTextBlock.Text | Should -Be 'Loading the administrative templates (ADMX)...'
+                    # A report and the editor asked for meanwhile wait too, and the files are read once.
+                    $Generation = [GPOToolsUtility]::Generation
+                    $Report = Join-Path $TestDrive 'deferred-report.html'
+                    $Ui.GpoReport.Gpo = $Ui.Directory.FindGpo('C - Servers - Security Baseline')
+                    $Ui.GpoReport.FromMenu = $false
+                    & $Ui.SaveGpoReport -Path $Report
+                    Test-Path -LiteralPath $Report | Should -BeFalse
+                    Invoke-Click $Ui.editGpoMenuItem
+                    $Ui.editorView.IsVisible | Should -BeFalse
+
+                    Invoke-UiLoop -Until { -not $Ui.admxLoadingBanner.IsVisible } -TimeoutMilliseconds 120000
+                    $Ui.admxLoadingBanner.IsVisible | Should -BeFalse
+                    [GPOToolsUtility]::Policies.Count | Should -BeGreaterThan 0
+                    [GPOToolsUtility]::Generation | Should -Be ($Generation + 1) -Because 'one load for the three of them'
+                    Get-Content -LiteralPath $Report -Raw | Should -Match 'Allow the use of biometrics'
+                    @($Ui.computerSettingsList.ItemsSource)[0].Name | Should -Be 'Allow the use of biometrics'
+                    $Ui.editorView.IsVisible | Should -BeTrue
+                    $Ui.Editing.Gpo.DisplayName | Should -Be 'C - Servers - Security Baseline'
+                    @(@($Ui.treeView.ItemsSource)[0].Children[0].Children.Header) | Should -Contain 'Administrative Templates'
+                }
+                $Warn | Should -BeNullOrEmpty
+            } finally {
+                if (-not [GPOToolsUtility]::Policies.Count) { Initialize-PSGPOAdmx -Path $PolicyDefinitions -UICulture 'en-US' 3>$null }
+            }
+        }
+
+        It 'Says when the ADMX files chosen before cannot be loaded, and goes on without them' {
+            [GPOToolsUtility]::RemoveAll()
+            $Missing = Join-Path $TestDrive 'NoPolicyDefinitions'
+            $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
+            $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
+            try {
+                Start-PSGPOManagerWindow -Directory $Directory -AdmxSource @{ Path = $Missing; UICulture = 'en-US' } 3>$null -OnShown {
+                    param($Ui)
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                    Invoke-Click $Ui.editGpoMenuItem
+                    Invoke-UiLoop -Until { $Ui.editorView.IsVisible }
+                    $Ui.editorView.IsVisible | Should -BeTrue -Because 'the security settings do not need the ADMX files'
+                    $Ui.admxLoadingBanner.IsVisible | Should -BeTrue
+                    $Ui.admxLoadingTextBlock.Text | Should -BeLike "The administrative templates of $Missing are not loaded: *"
+                    $Ui.breadcrumbTextBlock.Text | Should -Be $Ui.admxLoadingTextBlock.Text
+                    # Asked for once: the next views do not try again.
+                    Invoke-Click $Ui.managementButton
+                    $Ui.directoryTabs.SelectedItem = $Ui.settingsTab
+                    $Ui.settingsStatusTextBlock.Text | Should -BeLike 'No ADMX loaded*'
+                    [GPOToolsUtility]::Policies.Count | Should -Be 0
+                }
+                (Get-PSGPOUserSetting).AdmxFailed | Should -BeTrue -Because 'the next start asks for them'
+            } finally {
+                $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
+                Initialize-PSGPOAdmx -Path $PolicyDefinitions -UICulture 'en-US' 3>$null
+            }
+        }
+
+        It 'Says which ADMX files it leaves out when they cannot be read' {
+            [GPOToolsUtility]::RemoveAll()
+            $Store = Join-Path $TestDrive 'StoreWithBrokenFile'
+            $null = New-Item -ItemType Directory -Path (Join-Path $Store 'en-US') -Force
+            foreach ($Name in 'Windows', 'Biometrics') {
+                Copy-Item -LiteralPath (Join-Path $PolicyDefinitions "$Name.admx") -Destination $Store
+                Copy-Item -LiteralPath (Join-Path $PolicyDefinitions 'en-US' "$Name.adml") -Destination (Join-Path $Store 'en-US')
+            }
+            Set-Content -LiteralPath (Join-Path $Store 'Broken.admx') -Value '<policyDefinitions><policies>'
+            try {
+                Start-PSGPOManagerWindow -Directory $Directory -AdmxSource @{ Path = $Store; UICulture = 'en-US' } 3>$null -OnShown {
+                    param($Ui)
+                    $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                    $Ui.directoryTabs.SelectedItem = $Ui.settingsTab
+                    Invoke-UiLoop -Until { $Ui.admxLoadingTextBlock.Text -like '*cannot be read*' } -TimeoutMilliseconds 60000
+                    $Ui.admxLoadingBanner.IsVisible | Should -BeTrue
+                    $Ui.admxLoadingTextBlock.Text | Should -BeLike "The administrative templates of $Store are loaded without the files that cannot be read: Broken.admx: *"
+                    @([GPOToolsUtility]::Policies | Where-Object FileName -EQ 'Biometrics.admx').Count | Should -BeGreaterThan 0
+                    # In their categories: the malformed file does not hide windows.admx.
+                    @([GPOToolsUtility]::Policies | Where-Object FileName -EQ 'Biometrics.admx')[0].Path | Should -BeLike 'Machine\Windows Components\Biometrics\'
+                }
+            } finally {
+                Initialize-PSGPOAdmx -Path $PolicyDefinitions -UICulture 'en-US' 3>$null
+            }
+        }
+
         It 'Edits the security settings of a GPO in GptTmpl.inf, as the Group Policy editor' {
             $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
@@ -2922,7 +3023,9 @@ InModuleScope -ModuleName HGPM {
             $Loaded | Should -BeTrue
             [GPOToolsUtility]::Policies.Count | Should -BeGreaterThan 1000
             $Settings = Get-PSGPOUserSetting
-            $Settings.PolicyDefinitions | Should -Be $PolicyDefinitions
+            # No central store proposed (none reached): a fallback, tried after the stores.
+            $Settings.AdmxFallback | Should -Be $PolicyDefinitions
+            $Settings.PolicyDefinitions | Should -BeNullOrEmpty
             $Settings.UICulture | Should -Be 'fr-FR'
 
             # Next time: the folder and the language chosen are selected.
@@ -2960,6 +3063,103 @@ InModuleScope -ModuleName HGPM {
             Show-GPOManagerAvalonia -NoDirectory -WarningVariable Warn 3>$null
             Should -Invoke Start-PSGPOManagerWindow -Times 0 -Exactly
             $Warn | Should -BeLike '*console is not opened*'
+        }
+
+        It 'Opens the console at once on the folder chosen before, and asks only when there is none' {
+            Mock Show-PSGPOAdmxWindow { $true }
+            Mock Start-PSGPOManagerWindow { $script:AdmxSource = $AdmxSource }
+            Mock Initialize-PSGPODomainConfiguration { $false }
+            $Sample = Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json')
+            [GPOToolsUtility]::RemoveAll()
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $PolicyDefinitions; UICulture = 'fr-FR' }
+            Show-GPOManagerAvalonia -Directory $Sample -Language 'en-US'
+            Should -Invoke Show-PSGPOAdmxWindow -Times 0 -Exactly
+            $script:AdmxSource.Path | Should -Be $PolicyDefinitions
+            $script:AdmxSource.UICulture | Should -Be 'fr-FR'
+            [GPOToolsUtility]::Policies.Count | Should -Be 0 -Because 'the console loads them the first time it needs them'
+
+            # A folder no longer there: asked for.
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = (Join-Path $TestDrive 'Gone') }
+            Show-GPOManagerAvalonia -Directory $Sample -Language 'en-US'
+            Should -Invoke Show-PSGPOAdmxWindow -Times 1 -Exactly
+            $script:AdmxSource | Should -BeNullOrEmpty
+
+            # Browsing the policies only (-NoDirectory): loaded before, as the editor shows them at once.
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $PolicyDefinitions; UICulture = 'en-US' }
+            Show-GPOManagerAvalonia -NoDirectory -Language 'en-US' 3>$null
+            Should -Invoke Show-PSGPOAdmxWindow -Times 1 -Exactly
+            $script:AdmxSource | Should -BeNullOrEmpty
+            [GPOToolsUtility]::Policies.Count | Should -BeGreaterThan 0
+        }
+
+        It 'Opens the console on the folder chosen last, else on the central store of the domain shown, as GPMC' {
+            Mock Show-PSGPOAdmxWindow { $true }
+            Mock Start-PSGPOManagerWindow { $script:AdmxSource = $AdmxSource }
+            Mock Initialize-PSGPODomainConfiguration { $false }
+            $Store = Join-Path $TestDrive 'CentralStore'
+            $null = New-Item -ItemType Directory -Path (Join-Path $Store 'en-US') -Force
+            Set-Content -LiteralPath (Join-Path $Store 'test.admx') -Value '<policyDefinitions/>'
+            Set-Content -LiteralPath (Join-Path $Store 'en-US' 'test.adml') -Value '<policyDefinitionResources/>'
+            $Store = [System.IO.Path]::GetFullPath($Store)
+            Mock Get-PSGPOAdmxCentralStore { $Store }
+            $Sample = Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json')
+            [GPOToolsUtility]::RemoveAll()
+
+            # The folder chosen in the ADMX window: the choice of the user.
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $PolicyDefinitions; UICulture = 'fr-FR' }
+            Show-GPOManagerAvalonia -Directory $Sample -Language 'en-US'
+            $script:AdmxSource.Path | Should -Be $PolicyDefinitions
+            Should -Invoke Get-PSGPOAdmxCentralStore -Times 0 -Exactly -Because 'the store is not looked for when a folder is chosen'
+
+            # None chosen: the central store, of the computer for a description of a domain, of the
+            # domain read otherwise.
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $null; UICulture = $null }
+            Show-GPOManagerAvalonia -Directory $Sample -Language 'en-US'
+            Should -Invoke Show-PSGPOAdmxWindow -Times 0 -Exactly
+            $script:AdmxSource.Path | Should -Be $Store
+            $script:AdmxSource.UICulture | Should -Be 'en-US' -Because 'the only language of the store'
+            Should -Invoke Get-PSGPOAdmxCentralStore -Times 1 -Exactly -ParameterFilter { -not $DomainName }
+            . (Join-Path $PSScriptRoot 'Fixtures' 'LdapDirectory.ps1')
+            Show-GPOManagerAvalonia -Directory (New-TestLdapDirectory) -Language 'en-US'
+            Should -Invoke Get-PSGPOAdmxCentralStore -Times 1 -Exactly -ParameterFilter { $DomainName -eq 'hardenbox.labo' -and $Server -eq 'dc.hardenbox.labo' }
+
+            # The central store of another domain saved by 0.1.17: the store of the domain shown.
+            $Other = Join-Path $TestDrive 'sysvol' 'other.labo' 'Policies' 'PolicyDefinitions'
+            $null = New-Item -ItemType Directory -Path (Join-Path $Other 'en-US') -Force
+            Set-Content -LiteralPath (Join-Path $Other 'test.admx') -Value '<policyDefinitions/>'
+            Set-Content -LiteralPath (Join-Path $Other 'en-US' 'test.adml') -Value '<policyDefinitionResources/>'
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $Other; UICulture = 'en-US' }
+            Show-GPOManagerAvalonia -Directory $Sample -Language 'en-US'
+            $script:AdmxSource.Path | Should -Be $Store
+
+            # The last load of the console failed: the window asks, with the store found already.
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $PolicyDefinitions; UICulture = 'en-US'; AdmxFailed = $true }
+            Show-GPOManagerAvalonia -Directory $Sample -Language 'en-US'
+            Should -Invoke Show-PSGPOAdmxWindow -Times 1 -Exactly -ParameterFilter { $CentralStore -contains $Store }
+            $script:AdmxSource | Should -BeNullOrEmpty
+        }
+
+        It 'Remembers the language, not the central store it proposed: the console takes the store of the domain it shows' {
+            $Store = Join-Path $TestDrive 'ProposedStore'
+            $null = New-Item -ItemType Directory -Path (Join-Path $Store 'en-US') -Force
+            foreach ($Name in 'Windows', 'Biometrics') {
+                Copy-Item -LiteralPath (Join-Path $PolicyDefinitions "$Name.admx") -Destination $Store
+                Copy-Item -LiteralPath (Join-Path $PolicyDefinitions 'en-US' "$Name.adml") -Destination (Join-Path $Store 'en-US')
+            }
+            $Store = [System.IO.Path]::GetFullPath($Store)
+            Mock Get-PSGPOAdmxCentralStore { $Store }
+            Set-PSGPOUserSetting -Values @{ AdmxFailed = $true }
+            $Loaded = Show-PSGPOAdmxWindow -OnShown {
+                param($Ui)
+                $Ui.pathTextBox.Text | Should -Be $Store
+                Invoke-Click $Ui.loadButton
+                Invoke-UiLoop -Until { -not $Ui.Window.IsVisible } -TimeoutMilliseconds 60000
+            }
+            $Loaded | Should -BeTrue
+            $Settings = Get-PSGPOUserSetting
+            $Settings.PolicyDefinitions | Should -BeNullOrEmpty
+            $Settings.UICulture | Should -Be 'en-US'
+            $Settings.AdmxFailed | Should -BeNullOrEmpty -Because 'the load worked'
         }
 
         It 'Says what is wrong with a folder, and loads nothing when cancelled' {

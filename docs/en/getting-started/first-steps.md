@@ -37,10 +37,19 @@ says why. When no domain is found at all, it shows a sample directory under a
 
 ## The administrative templates
 
-The policy editor needs the ADMX and ADML files. The first time, a window asks for the
-`PolicyDefinitions` folder (the local one on Windows, a copy or the central store of SYSVOL on
-Linux) and the language of its ADML files, detected from the names of its language folders; the
-choice is remembered. You can also load them beforehand:
+The policy editor needs the ADMX and ADML files. The first time, when no central store of the
+domain is found, a window asks for the `PolicyDefinitions` folder (the local one on Windows, a copy
+or the central store of SYSVOL on Linux) and the language of its ADML files, detected from the
+names of its language folders; the choice is remembered, and asked for again after a load that
+failed. After that, the console opens at once and reads them the first time it needs them (the
+editor, the **Settings** and **History** tabs, a report), under a banner: a few seconds once, then
+about a second from the cache of the files read before. A template without an ADML in the language
+takes the one of en-US, as the Group Policy editor, and a file that cannot be read is left out:
+the banner names it.
+
+![The console reading the administrative templates the first time it needs them](../assets/screenshots/82-admx-loading.png)
+
+You can also load them beforehand:
 
 ```powershell
 Initialize-PSGPOAdmx -Path \\hardenbox.labo\SYSVOL\hardenbox.labo\Policies\PolicyDefinitions -UICulture en-US

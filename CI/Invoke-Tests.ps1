@@ -29,9 +29,10 @@ $env:PSGPOTOOLS_SKIP_UPDATE_CHECK = '1'
 # The errors the tests make on purpose: in a technical log of their own, not in the log of the system.
 $env:PSGPOTOOLS_LOG_PATH = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-tests-log-$PID"
 $env:PSGPOTOOLS_SKIP_SYSTEM_LOG = '1'
-# Their settings, backups and audit log too: not those of the user.
+# Their settings, backups, cache of the ADMX files and audit log too: not those of the user.
 $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-tests-settings-$PID.json"
 $env:PSGPOTOOLS_BACKUP_PATH = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-tests-backups-$PID"
+$env:PSGPOTOOLS_CACHE_PATH = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-tests-cache-$PID"
 
 & (Join-Path $PSScriptRoot '03_Build.ps1')
 
@@ -48,6 +49,8 @@ if ($OutputPath) {
 }
 
 $Result = Invoke-Pester -Configuration $Configuration
+# The cache of the ADMX files of this run: some ten megabytes.
+Remove-Item -LiteralPath $env:PSGPOTOOLS_CACHE_PATH -Recurse -Force -ErrorAction SilentlyContinue
 
 # What each file did, in the summary of the job on GitHub.
 $Lines = [System.Collections.Generic.List[string]]::new()

@@ -31,6 +31,56 @@ InModuleScope -ModuleName HGPM {
     }
     AfterAll { $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore }
 
+    Describe 'ADMX files of the console at start' {
+        BeforeEach {
+            $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
+            Mock Get-PSGPOAdmxCentralStore { }
+        }
+
+        It 'Takes the folder chosen last in its language, without looking for the central store' {
+            $Path = [System.IO.Path]::GetFullPath((New-PolicyDefinitions 'Chosen' 'en-US', 'fr-FR'))
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $Path; UICulture = 'fr-FR' }
+            $Source = Get-PSGPOAdmxStartSource
+            $Source.Path | Should -Be $Path
+            $Source.UICulture | Should -Be 'fr-FR'
+            Should -Invoke Get-PSGPOAdmxCentralStore -Times 0 -Exactly
+        }
+
+        It 'Takes en-US when the language found by its folder has no .adml' {
+            $Path = [System.IO.Path]::GetFullPath((New-PolicyDefinitions 'EmptyLanguage' 'en-US'))
+            $null = New-Item -ItemType Directory -Path (Join-Path $Path 'fr-FR') -Force
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $Path; UICulture = 'fr-FR' }
+            (Get-PSGPOAdmxStartSource).UICulture | Should -Be 'en-US'
+        }
+
+        It 'Takes the folder chosen while no store was reached after the central store, as a fallback' {
+            $Fallback = [System.IO.Path]::GetFullPath((New-PolicyDefinitions 'Fallback' 'en-US'))
+            Set-PSGPOUserSetting -Values @{ AdmxFallback = $Fallback; UICulture = 'en-US' }
+            (Get-PSGPOAdmxStartSource).Path | Should -Be $Fallback
+            # The store reached again: the store.
+            $Store = [System.IO.Path]::GetFullPath((New-PolicyDefinitions 'StoreBack' 'en-US'))
+            Mock Get-PSGPOAdmxCentralStore { $Store }
+            (Get-PSGPOAdmxStartSource).Path | Should -Be $Store
+        }
+
+        It 'Gives no folder, and the central stores found, when the last load failed' {
+            $Store = [System.IO.Path]::GetFullPath((New-PolicyDefinitions 'FailedStore' 'en-US'))
+            Mock Get-PSGPOAdmxCentralStore { $Store } -ParameterFilter { $DomainName -eq 'hardenbox.labo' }
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $Store; UICulture = 'en-US'; AdmxFailed = $true }
+            $Source = Get-PSGPOAdmxStartSource -DomainName 'hardenbox.labo'
+            $Source.Path | Should -BeNullOrEmpty
+            @($Source.CentralStore) | Should -Be @($Store)
+        }
+    }
+
+    Describe 'Central store of the domain shown' {
+        It 'Is looked for through the domain controller read, then the domain' -Skip:(-not $IsWindows) {
+            Mock Select-PSGPOAdmxFolder { $Path }
+            @(Get-PSGPOAdmxCentralStore -DomainName 'hardenbox.labo' -Server 'dc.hardenbox.labo') |
+                Should -Be @('\\dc.hardenbox.labo\SYSVOL\hardenbox.labo\Policies\PolicyDefinitions', '\\hardenbox.labo\SYSVOL\hardenbox.labo\Policies\PolicyDefinitions')
+        }
+    }
+
     Describe 'Languages of a PolicyDefinitions folder' {
         It 'Are the names of the folders holding .adml files' {
             $Path = New-PolicyDefinitions 'Languages' 'en-US', 'fr-FR'

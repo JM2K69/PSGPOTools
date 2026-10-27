@@ -49,10 +49,10 @@ function Get-PSGPOPolicyFootprint {
     [CmdletBinding()]
     param([Parameter(Mandatory)] [GPOToolsPolicy]$Policy)
 
-    $source = [GPOToolsUtility]::Policies
-    if (-not $script:PSGPOPolicyFootprints -or -not [object]::ReferenceEquals($script:PSGPOPolicyFootprintSource, $source)) {
+    # The ADMX files loaded again (RemoveAll): those of the former policies are let go.
+    if (-not $script:PSGPOPolicyFootprints -or $script:PSGPOPolicyFootprintGeneration -ne [GPOToolsUtility]::Generation) {
         $script:PSGPOPolicyFootprints = [System.Collections.Generic.Dictionary[object, object]]::new([System.Collections.Generic.ReferenceEqualityComparer]::Instance)
-        $script:PSGPOPolicyFootprintSource = $source
+        $script:PSGPOPolicyFootprintGeneration = [GPOToolsUtility]::Generation
     }
     $known = $null
     if ($script:PSGPOPolicyFootprints.TryGetValue($Policy, [ref]$known)) { return $known }

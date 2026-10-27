@@ -91,8 +91,17 @@ $(Get-PSGPOWindowResourceXaml)
         <!-- Group Policy Management view: domain tree | Splitter | details of the selection -->
         <Grid Grid.Row='1' Name='managementView' ColumnDefinitions='2*,Auto,3*' RowDefinitions='Auto,*' IsVisible='False'>
 
+            <StackPanel Grid.Row='0' Grid.ColumnSpan='3'>
+            <!-- While the ADMX files load, the first time the console needs them -->
+            <Border Name='admxLoadingBanner' IsVisible='False' Margin='16,16,16,0' Padding='12,8'
+                    CornerRadius='6' Background='{DynamicResource SecondaryBackgroundBrush}' BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'>
+                <StackPanel Orientation='Horizontal' Spacing='8'>
+                    <PathIcon Data='{StaticResource Icon.book}' Foreground='{DynamicResource PrimaryBrush}'/>
+                    <TextBlock Name='admxLoadingTextBlock' TextWrapping='Wrap' VerticalAlignment='Center' Foreground='{DynamicResource TextBrush}'/>
+                </StackPanel>
+            </Border>
             <!-- Shown when no domain was discovered and the sample directory is displayed -->
-            <Border Grid.Row='0' Grid.ColumnSpan='3' Name='demoBanner' IsVisible='False' Margin='16,16,16,0' Padding='12,8'
+            <Border Name='demoBanner' IsVisible='False' Margin='16,16,16,0' Padding='12,8'
                     CornerRadius='6' Background='#FFF4CE' BorderThickness='1' BorderBrush='#F2C94C'>
                 <StackPanel Orientation='Horizontal' Spacing='8'>
                     <PathIcon Data='{StaticResource Icon.info}' Foreground='#8A6100'/>
@@ -104,6 +113,7 @@ $(Get-PSGPOWindowResourceXaml)
                     </StackPanel>
                 </StackPanel>
             </Border>
+            </StackPanel>
 
 
             <Border Grid.Row='1' Grid.Column='0'

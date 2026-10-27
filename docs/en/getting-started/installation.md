@@ -53,8 +53,12 @@ The commands that do not open a window (backups, drift, approval...) never need 
 The module does not ship ADMX files: the console reads those of the central store of the domain
 (`\domain\SYSVOL\domain\Policies\PolicyDefinitions`), of Windows (`%windir%\PolicyDefinitions`)
 or of the SYSVOL of a Samba domain controller, else asks for a folder. As GPMC, it takes the
-central store when it holds ADMX files, before the folder chosen last; so does
-`Initialize-PSGPOAdmx` without `-Path`. Where there are none (a
+central store of the domain it shows when it holds ADMX files, unless another folder was chosen
+in its window, which proposes the central store first; `Initialize-PSGPOAdmx` without `-Path`
+takes the central store too. The files of a folder are parsed once, then read
+from a cache of the user while they keep their names, sizes and dates (`%LOCALAPPDATA%\PSGPOTools\Admx`
+on Windows; `$XDG_CACHE_HOME/PSGPOTools/Admx`, else `~/.cache/PSGPOTools/Admx` elsewhere;
+`-NoCache` parses them). Where there are none (a
 Linux computer, a domain without a central store), `Install-PSGPOAdmx` downloads the copy of the
 repository from GitHub (`sources/PolicyDefinitions`: 236 `.admx` files, their `.adml` files in 22
 languages), at the tag of the version of the module. Each set of files (the `.admx` files, each

@@ -1,5 +1,20 @@
 # HGPM Release History
 
+## Unreleased
+
+### Changed
+
+* The GPO console opens at once: the ADMX files, of the central store of the domain shown as in GPMC (not of the domain of the computer), or of the folder chosen instead in the window of the ADMX files (a folder chosen while no store was reached is taken after the stores), are read the first time it needs them (the policy editor, the **Settings** and **History** tabs, a report), under a banner, and what was asked for meanwhile runs once they are loaded; a console that only links, delegates or approves never reads them. The window of the ADMX files opens only when there are none, or at the next start after a load that failed: it opened at each start, and the console waited for the files before it showed. With `-NoDirectory`, they are loaded before the editor shows
+* The ADMX files of a folder are parsed once, then read from a cache of the user (`%LOCALAPPDATA%\PSGPOTools\Admx` on Windows; `$XDG_CACHE_HOME/PSGPOTools/Admx`, else `~/.cache/PSGPOTools/Admx` elsewhere) while they keep their names, sizes and dates, for the same `HGPM.psm1`: about a second instead of five to thirteen on Windows, where each console opens in a process of its own. A load with an error, or with a file left out for a reason that may pass (the network, the rights), is not cached, and `Initialize-PSGPOAdmx -NoCache` parses the files. The cache gives the objects the files give, to the last property, and shows the warnings of the files again
+* As the Group Policy editor, an ADMX file without an ADML in the language takes the one of en-US (a template shipped in English only, as LAPS), and a file that cannot be read is left out with a warning, named in the banner of the console: either failed the whole load. A load where no file can be read fails
+* The ADMX parser reads the XML elements directly rather than through the adapter of PowerShell
+
+### Fixed
+
+* The explanation of a policy written in a CDATA section of the ADML (*Require special characters* of Windows Hello for Business) was empty
+* The ADMX files loaded again in the same session (another language, another folder): the Settings tab, the configured settings and the reports named the settings with the policies of the former load when there were as many
+* A load of the ADMX files that failed left the policies read before the failure: it now loads nothing (`Initialize-PSGPOAdmx`), and the console says that it runs without them
+
 ## 0.1.17 - alpha
 
 ### Security

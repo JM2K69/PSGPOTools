@@ -1263,4 +1263,8 @@
     'Denied to: {0}' = 'Refusé à : {0}'
     'Interpreted by HGPM' = 'Interprété par HGPM'
     'Waiting for approval' = 'En attente d''approbation'
+    'Loading the administrative templates (ADMX) of {0}, once for this console...' = 'Chargement des modèles d''administration (ADMX) de {0}, une seule fois pour cette console...'
+    'The administrative templates of {0} are not loaded: {1} The next start of the console asks for them.' = 'Les modèles d''administration de {0} ne sont pas chargés : {1} Le prochain démarrage de la console les demande.'
+    'The administrative templates of {0} are loaded without the files that cannot be read: {1}' = 'Les modèles d''administration de {0} sont chargés, sans les fichiers illisibles : {1}'
+    'Loading the administrative templates (ADMX)...' = 'Chargement des modèles d''administration (ADMX)...'
 }

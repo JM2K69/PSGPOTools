@@ -25,6 +25,10 @@ function Start-PSGPOManagerWindow {
         # not depend on the language of the computer: Show-GPOManagerAvalonia gives the one of the session.
         [string]$Language = 'en-US',
 
+        # The ADMX files to load the first time the console needs them (Path, UICulture), instead
+        # of before it opens.
+        [hashtable]$AdmxSource,
+
         [scriptblock]$OnShown
     )
 
@@ -227,6 +231,8 @@ function Start-PSGPOManagerWindow {
     $applyPanel = Get-PSGPOAvaloniaControl $window 'applyPanel'
     $directoryTabs = Get-PSGPOAvaloniaControl $window 'directoryTabs'
     $directoryDetailsScrollViewer = Get-PSGPOAvaloniaControl $window 'directoryDetailsScrollViewer'
+    $admxLoadingBanner = Get-PSGPOAvaloniaControl $window 'admxLoadingBanner'
+    $admxLoadingTextBlock = Get-PSGPOAvaloniaControl $window 'admxLoadingTextBlock'
     $settingsTab = Get-PSGPOAvaloniaControl $window 'settingsTab'
     $historyTab = Get-PSGPOAvaloniaControl $window 'historyTab'
     $delegationTab = Get-PSGPOAvaloniaControl $window 'delegationTab'
@@ -1411,6 +1417,57 @@ function Start-PSGPOManagerWindow {
         Update-RegistryPreview
     })
 
+    # The ADMX files chosen last ($AdmxSource), loaded the first time the console needs them: it
+    # opens at once, and its views without policies (links, delegation, approval) never wait.
+    # Pending: what waits for them, run once they are loaded.
+    $admx = @{ Source = $AdmxSource; Loading = $false; Pending = [System.Collections.Generic.List[hashtable]]::new() }
+    function Wait-ConsoleAdmx {
+        param([Parameter(Mandatory)] [scriptblock]$Then, [object[]]$ArgumentList = @())
+        if (-not $admx.Source) { return $false }
+        $admx.Pending.Add(@{ Then = $Then; Arguments = $ArgumentList })
+        if ($admx.Loading) { return $true }
+        $admx.Loading = $true
+        $admxLoadingTextBlock.Text = Get-PSGPOText 'Loading the administrative templates (ADMX) of {0}, once for this console...' $admx.Source.Path
+        $admxLoadingBanner.IsVisible = $true
+        # Posted: the banner shows before the window waits for the files.
+        [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
+                $load = @{ Path = $admx.Source.Path }
+                if ($admx.Source.UICulture) { $load.UICulture = $admx.Source.UICulture }
+                $failed = $false
+                try {
+                    Initialize-PSGPOAdmx @load -WarningAction SilentlyContinue -ErrorAction Stop
+                    $admxLoadingBanner.IsVisible = $false
+                    # The files that cannot be read are left out: the banner says which.
+                    $skipped = @([GPOToolsUtility]::SkippedFiles)
+                    if ($skipped.Count) {
+                        $admxLoadingTextBlock.Text = Get-PSGPOText 'The administrative templates of {0} are loaded without the files that cannot be read: {1}' $admx.Source.Path ($skipped -join '; ')
+                        $admxLoadingBanner.IsVisible = $true
+                        Write-PSGPOLogEntry -Level Warning -Source 'GPO console' -Message $admxLoadingTextBlock.Text
+                    }
+                } catch {
+                    $failed = $true
+                    # The console goes on without them (the values are Extra Registry Settings), and
+                    # the next start asks for them in the ADMX window.
+                    [GPOToolsUtility]::RemoveAll()
+                    Set-PSGPOUserSetting -Values @{ AdmxFailed = $true }
+                    $admxLoadingTextBlock.Text = Get-PSGPOText 'The administrative templates of {0} are not loaded: {1} The next start of the console asks for them.' $admx.Source.Path $_.Exception.GetBaseException().Message
+                    Write-PSGPOLogEntry -Level Error -Source 'GPO console' -Message $admxLoadingTextBlock.Text -ErrorRecord $_
+                }
+                $admx.Source = $null
+                $admx.Loading = $false
+                $settingsCache.Clear()
+                $history.Reports = @{}
+                $history.Current = @{}
+                Update-PolicyTree
+                $pending = @($admx.Pending)
+                $admx.Pending.Clear()
+                foreach ($item in $pending) { $arguments = $item.Arguments; & $item.Then @arguments }
+                # The editor shown meanwhile says it too.
+                if ($failed) { $breadcrumbTextBlock.Text = $admxLoadingTextBlock.Text }
+            }, [Avalonia.Threading.DispatcherPriority]::Background)
+        $true
+    }
+
     # The tree of the policies matching the search; editing a GPO with "Configured settings
     # only", the policies its Registry.pol files configure and the security settings its
     # GptTmpl.inf defines.
@@ -1454,7 +1511,7 @@ function Start-PSGPOManagerWindow {
 
     # The security settings do not come from the ADMX files: the tree always has them.
     Update-PolicyTree
-    if ([GPOToolsUtility]::Policies.Count -eq 0) {
+    if ([GPOToolsUtility]::Policies.Count -eq 0 -and -not $AdmxSource) {
         Write-Warning 'No ADMX policy loaded: run Initialize-PSGPOAdmx before Show-GPOManagerAvalonia for the Administrative Templates.'
         $breadcrumbTextBlock.Text = Get-PSGPOText 'No ADMX policy loaded (Initialize-PSGPOAdmx): only the security settings are shown'
     }
@@ -1493,6 +1550,7 @@ function Start-PSGPOManagerWindow {
     # Opens the policy editor on a GPO ($null: browse the ADMX policies, outside any GPO).
     function Open-GpoEditor {
         param([GPOToolsGpo]$Gpo)
+        if (Wait-ConsoleAdmx -Then ${function:Open-GpoEditor} -ArgumentList @(, $Gpo)) { return }
         $editing.Gpo = $Gpo
         # The settings of the GPO: its Registry.pol for each scope (empty when it has none).
         $editing.Pol = @{}
@@ -2154,6 +2212,11 @@ function Start-PSGPOManagerWindow {
             return
         }
         if ($directoryTabs.SelectedItem -ne $settingsTab) { return }
+        # The policies named by the ADMX files: the tab once they are loaded.
+        if (Wait-ConsoleAdmx -Then ${function:Update-SettingsTab}) {
+            $settingsStatusTextBlock.Text = Get-PSGPOText 'Loading the administrative templates (ADMX)...'
+            return
+        }
 
         $cached = $settingsCache["$($gpo.Id)"]
         if (-not $cached -or $cached.Version -ne $gpo.Version) {
@@ -2191,6 +2254,7 @@ function Start-PSGPOManagerWindow {
         param([Parameter(Mandatory)] [string]$Path)
         $gpo = $gpoReport.Gpo
         if (-not $gpo) { return }
+        if (Wait-ConsoleAdmx -Then ${function:Save-GpoReport} -ArgumentList $Path) { return }
         $problem = $null
         try {
             $html = ConvertTo-PSGPOReportHtml -Report @(Get-PSGPOReportData -Directory $Directory -Gpo $gpo)
@@ -2307,6 +2371,11 @@ function Start-PSGPOManagerWindow {
             return
         }
         if ($directoryTabs.SelectedItem -ne $historyTab) { return }
+        # The settings of the backups are named by the ADMX files: the tab once they are loaded.
+        if (Wait-ConsoleAdmx -Then ${function:Update-HistoryTab} -ArgumentList $SelectPath) {
+            Set-HistoryStatus (Get-PSGPOText 'Loading the administrative templates (ADMX)...')
+            return
+        }
 
         $root = Get-HistoryRoot
         if (-not $root) {
@@ -3454,7 +3523,8 @@ function Start-PSGPOManagerWindow {
         $directoryBreadcrumbTextBlock.Text = Get-PSGPOText 'Domain not read'
     }
     if ($Directory) { Update-DirectoryTree }
-    Show-View $StartView
+    # The editor at once: through the gate of the ADMX files, so that they are read.
+    if ($StartView -eq 'Editor' -and $AdmxSource) { Open-GpoEditor -Gpo $null } else { Show-View $StartView }
 
     # Then the version of HGPM, and whether a newer one is on the PowerShell Gallery.
     $statusBarList.ItemsSource = @(Get-PSGPOStatusBarItem -Platform (Get-PSGPOPlatform) -Directory $Directory -DirectoryError $DirectoryError) + @(Get-PSGPOVersionStatusItem)
@@ -3470,7 +3540,7 @@ function Start-PSGPOManagerWindow {
             'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
             'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewList',
             'themeToggleIcon', 'themeToggleText', 'subtitleTextBlock', 'managementButton', 'browseAdmxButton', 'searchPanel', 'managementView', 'editorView',
-            'editingBanner', 'editingGpoTextBlock', 'applyPanel', 'applySettingButton', 'applyStatusTextBlock', 'previewHeaderTextBlock', 'directoryTabs', 'settingsTab', 'settingsStatusTextBlock', 'computerSettingsHeader', 'computerSettingsList', 'userSettingsHeader', 'userSettingsList', 'uninterpretedSettingsBorder', 'uninterpretedSettingsHeader', 'uninterpretedSettingsList', 'settingsReportButton', 'settingsReportStatusTextBlock', 'demoBanner', 'demoBannerTextBlock', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
+            'editingBanner', 'editingGpoTextBlock', 'applyPanel', 'applySettingButton', 'applyStatusTextBlock', 'previewHeaderTextBlock', 'directoryTabs', 'settingsTab', 'settingsStatusTextBlock', 'computerSettingsHeader', 'computerSettingsList', 'userSettingsHeader', 'userSettingsList', 'uninterpretedSettingsBorder', 'uninterpretedSettingsHeader', 'uninterpretedSettingsList', 'settingsReportButton', 'settingsReportStatusTextBlock', 'demoBanner', 'demoBannerTextBlock', 'admxLoadingBanner', 'admxLoadingTextBlock', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
             'directoryTitleTextBlock', 'directoryPropertiesList', 'linksHeaderTextBlock', 'linksList', 'createLinkedGpoMenuItem',
             'newGpoMenuItem', 'editGpoMenuItem', 'editGpoButton', 'newGpoPanel', 'newGpoTitleTextBlock', 'newGpoNameTextBox',
             'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton', 'newGpoStatusComboBox', 'newGpoGroupsCheckBox', 'newGpoGroupsPanel',

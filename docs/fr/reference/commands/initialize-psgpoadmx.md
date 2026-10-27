@@ -7,12 +7,16 @@ _L'aide de la commande, telle que `Get-Help Initialize-PSGPOAdmx -Full` la donne
 ## Syntaxe
 
 ```powershell
-Initialize-PSGPOAdmx [[-Path] <string>] [[-UICulture] <string>] [<CommonParameters>]
+Initialize-PSGPOAdmx [[-Path] <string>] [[-UICulture] <string>] [-NoCache] [<CommonParameters>]
 ```
 
 ## Description
 
 The language is detected from the names of the language folders of PolicyDefinitions (en-US, fr-FR...): the language of the session, else the same language in another country, else en-US, else the only one there is. When several languages remain, give -UICulture.
+
+An .admx file without an .adml in the language takes the one of en-US, as the Group Policy editor; a file that cannot be read is left out with a warning, and the others are loaded. A load that fails, or where no file can be read, loads nothing.
+
+The files of a folder are parsed once: what is loaded is kept in a cache of the user (%LOCALAPPDATA%\PSGPOTools\Admx on Windows; $XDG_CACHE_HOME/PSGPOTools/Admx, else ~/.cache/PSGPOTools/Admx elsewhere), read instead of the files while they keep their names, sizes and dates. A load with an error, or with a file left out for a reason that may pass (the network, the rights), is not cached. -NoCache parses the files.
 
 ## Paramètres
 
@@ -31,6 +35,14 @@ Culture of the ADML files to load (sub-folder name, for example en-US or fr-FR);
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|
 | `String` | Non | 2 | Aucune | Non |
+
+### -NoCache
+
+Parses the files, neither reading nor writing the cache.
+
+| Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
+|---|---|---|---|---|
+| `SwitchParameter` | Non | Nommé | Aucune | Non |
 
 ## Exemples
 
