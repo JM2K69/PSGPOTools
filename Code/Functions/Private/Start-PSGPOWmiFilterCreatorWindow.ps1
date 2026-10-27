@@ -652,10 +652,9 @@ function Start-PSGPOWmiFilterCreatorWindow {
 
     Set-Filter -Value $Filter
 
-    $cts = [System.Threading.CancellationTokenSource]::new()
+    # The test of a query still running stops with the window.
     $window.Add_Closed({
         if ($test.PowerShell) { $test.Timer.Stop(); $test.PowerShell.Stop(); $test.PowerShell.Dispose(); $test.PowerShell = $null }
-        [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { $cts.Cancel() }, [Avalonia.Threading.DispatcherPriority]::Background)
     })
     Show-PSGPOWindow -Window $window
 
@@ -667,11 +666,7 @@ function Start-PSGPOWmiFilterCreatorWindow {
             })
     }
 
-    try {
-        [Avalonia.Threading.Dispatcher]::UIThread.MainLoop($cts.Token)
-    } catch [System.OperationCanceledException] {
-        Write-Verbose 'The window is closed.'
-    }
+    Invoke-PSGPOWindowLoop -Window $window
 
     if ($onShownState.Error) { throw $onShownState.Error }
 }

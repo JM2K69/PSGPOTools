@@ -1,8 +1,10 @@
 # Le lanceur
 
 `Start-HGPM` ouvre le lanceur de HGPM : une tuile pour chacun de ses outils. Un clic sur une tuile
-ouvre l'outil, dans la langue du lanceur ; plusieurs outils peuvent être ouverts à la fois, et la
-tuile d'un outil ouvert est désactivée jusqu'à la fermeture de sa fenêtre.
+ouvre l'outil, dans la langue du lanceur, dans un processus PowerShell à lui : plusieurs outils
+peuvent être ouverts à la fois, un outil en erreur ne ferme pas les autres, et ils restent ouverts
+une fois le lanceur fermé. La tuile d'un outil ouvert est désactivée jusqu'à la fermeture de sa
+fenêtre.
 
 ```powershell
 Import-Module HGPM
@@ -34,4 +36,6 @@ pourquoi sous ses tuiles.
   démarre dessus la fois suivante ; `Start-HGPM -Language` en choisit toujours une autre.
 - **Mode sombre / Mode clair** change le thème de toutes les fenêtres de HGPM : le lanceur, les
   outils ouverts et ceux ouverts ensuite, et les fenêtres qu'ils ouvrent (fichiers ADMX,
-  configuration...).
+  configuration...). Le choix est aussi gardé dans les paramètres de l'utilisateur : les outils
+  ouverts dans leurs propres processus le suivent en une seconde, et le démarrage suivant part de
+  lui.

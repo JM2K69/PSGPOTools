@@ -1,8 +1,9 @@
 # The launcher
 
 `Start-HGPM` opens the launcher of HGPM: a tile for each of its tools. A click on a tile opens the
-tool, in the language of the launcher; several tools can be open at once, and the tile of an open
-tool is disabled until its window is closed.
+tool, in the language of the launcher, in a PowerShell process of its own: several tools can be
+open at once, a tool that fails does not close the others, and they stay open once the launcher is
+closed. The tile of an open tool is disabled until its window is closed.
 
 ```powershell
 Import-Module HGPM
@@ -32,4 +33,6 @@ command instead. When a tool cannot open, the launcher says why under its tiles.
   of the tools opened after. The choice is kept in the settings of the user: `Start-HGPM` starts on
   it the next time; `Start-HGPM -Language` still chooses another one.
 - **Dark mode / Light mode** changes the theme of every window of HGPM: the launcher, the tools open
-  and those opened after, and the windows they open (ADMX files, configuration...).
+  and those opened after, and the windows they open (ADMX files, configuration...). The choice is
+  kept in the settings of the user too: the tools open in their own processes follow it within a
+  second, and the next start begins on it.

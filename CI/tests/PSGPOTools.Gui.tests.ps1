@@ -1766,7 +1766,10 @@ InModuleScope -ModuleName HGPM {
                     $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
                     $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'T1 - Lyon - Proxy (waiting for approval)'
                     $Ui.approveGpoMenuItem.IsVisible | Should -BeTrue
+                    # Opened from another tab: its form is in the Details tab, which is shown.
+                    $Ui.directoryTabs.SelectedItem = $Ui.settingsTab
                     Invoke-Click $Ui.approveGpoMenuItem
+                    $Ui.directoryTabs.SelectedIndex | Should -Be 0 -Because 'the form of Approve... is in the Details tab'
                     $Ui.approveGpoPanel.IsVisible | Should -BeTrue
                     $Ui.approveGpoTextBlock.Text | Should -BeLike "Approve the GPO 'T1 - Lyon - Proxy', created by CORP\tech1? Its owner becomes Domain Admins*"
                     $Ui.approveGpoRightsComboBox.SelectedItem.Tag | Should -Be 'EditSettings' -Because 'the configuration proposes it'
@@ -3015,21 +3018,40 @@ InModuleScope -ModuleName HGPM {
         }
     }
     Describe 'Launcher window' -Skip:$AvaloniaMissing {
-        It 'Shows a tile for each console, and a click opens it in the language of the launcher' {
-            Mock Show-PSOManagerAvalonia { }
+        It 'Shows a tile for each console, and a click opens it in a process of its own, in the language of the launcher' {
+            $script:LauncherProcess = [pscustomobject]@{ HasExited = $false; ExitCode = 0 }
+            Mock Start-PSGPOToolProcess { [pscustomobject]@{ Process = $script:LauncherProcess; ProblemPath = $null } }
             Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -OnShown {
                 param($Ui)
                 $Ui.Window.Icon | Should -Not -BeNullOrEmpty
                 @($Ui.Tiles.Tag.Command) | Should -Be @('Show-GPOManagerAvalonia', 'Show-PSOManagerAvalonia', 'Show-WmiFilterCreatorAvalonia', 'Show-PolicyAnalyzerAvalonia', 'Show-AuditLogAvalonia')
                 $Ui.Tiles[1].Content.Children[1].Text | Should -Be 'Password Settings'
                 Invoke-Click $Ui.Tiles[1]
-                # The console runs once the click is over: the tile does not keep the pointer.
-                $Ui.Tiles[1].IsEnabled | Should -BeFalse
+                $Ui.Tiles[1].IsEnabled | Should -BeFalse -Because 'its console runs'
+                $Ui.Tiles[0].IsEnabled | Should -BeTrue -Because 'the other consoles open beside it'
+                Invoke-UiLoop -TimeoutMilliseconds 700
+                $Ui.Tiles[1].IsEnabled | Should -BeFalse -Because 'its process still runs'
+                $script:LauncherProcess.HasExited = $true
                 Invoke-UiLoop -Until { $Ui.Tiles[1].IsEnabled }
                 $Ui.Tiles[1].IsEnabled | Should -BeTrue -Because 'the tile comes back once the console is closed'
                 $Ui.statusTextBlock.IsVisible | Should -BeFalse
             }
-            Should -Invoke Show-PSOManagerAvalonia -Times 1 -Exactly -ParameterFilter { $Language -eq 'en-US' }
+            Should -Invoke Start-PSGPOToolProcess -Times 1 -Exactly -ParameterFilter { $Command -eq 'Show-PSOManagerAvalonia' -and $Language -eq 'en-US' }
+        }
+
+        It 'Starts a console in a PowerShell process of its own, which says why it did not open' {
+            # A command without -Language: the console process stops on its error, and writes it.
+            $Started = Start-PSGPOToolProcess -Command 'Get-Date' -Language 'en-US'
+            try {
+                $Started.Process.StartInfo.ArgumentList | Should -Contain '-NoProfile'
+                ($Started.Process.StartInfo.ArgumentList | Select-Object -Last 1) | Should -BeLike "Import-Module -Name '*HGPM.psd1'; & (Get-Module -Name 'HGPM') { Invoke-PSGPOLauncherTool @args } 'Get-Date' 'en-US' '*'"
+                $Started.Process.WaitForExit(120000) | Should -BeTrue
+                $Started.Process.ExitCode | Should -Be 1
+                Read-PSGPOToolProblem -Path $Started.ProblemPath | Should -BeLike "*parameter*'Language'*"
+                Test-Path -LiteralPath $Started.ProblemPath | Should -BeFalse -Because 'the launcher reads it once'
+            } finally {
+                if (-not $Started.Process.HasExited) { $Started.Process.Kill() }
+            }
         }
 
         It 'Gives its theme to every window: those open, and those opened after' {
@@ -3042,6 +3064,8 @@ InModuleScope -ModuleName HGPM {
                     $Ui.Window.RequestedThemeVariant | Should -Not -Be $Before
                     $Seen.Theme = $Ui.Window.RequestedThemeVariant
                     $Seen.Text = $Ui.themeToggleText.Text
+                    # Kept for the consoles the launcher starts in their own processes.
+                    (Get-PSGPOUserSetting).Theme | Should -Be "$($Seen.Theme)"
                 }
                 Start-PSGPOManagerWindow -OnShown {
                     param($Ui)
@@ -3064,11 +3088,36 @@ InModuleScope -ModuleName HGPM {
                 }
             } finally {
                 $script:PSGPOThemeDark = $null
+                Set-PSGPOUserSetting -Values @{ Theme = $null } -Confirm:$false
+            }
+        }
+
+        It 'Follows the theme chosen in the console of another process' {
+            try {
+                Set-PSGPOUserSetting -Values @{ Theme = 'Light' } -Confirm:$false
+                $script:PSGPOThemeDark = $null
+                Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -OnShown {
+                    param($Ui)
+                    "$($Ui.Window.RequestedThemeVariant)" | Should -Be 'Light' -Because 'it starts on the theme of the settings'
+                    # Another process writes its choice in the settings of the user.
+                    Start-Sleep -Milliseconds 50
+                    $Settings = Get-PSGPOUserSetting
+                    $Settings.Theme = 'Dark'
+                    $Settings | ConvertTo-Json | Set-Content -LiteralPath (Get-PSGPOUserSettingPath) -Encoding utf8
+                    Invoke-UiLoop -Until { "$($Ui.Window.RequestedThemeVariant)" -eq 'Dark' } -TimeoutMilliseconds 4000
+                    "$($Ui.Window.RequestedThemeVariant)" | Should -Be 'Dark'
+                    $Ui.themeToggleText.Text | Should -Be 'Light mode'
+                }
+            } finally {
+                $script:PSGPOThemeDark = $null
+                Set-PSGPOUserSetting -Values @{ Theme = $null } -Confirm:$false
             }
         }
 
         It 'Says why a console did not open' {
-            Mock Show-PSOManagerAvalonia { throw 'no display' }
+            $script:LauncherProblem = Join-Path $TestDrive "problem-$([guid]::NewGuid()).txt"
+            Set-Content -LiteralPath $script:LauncherProblem -Value 'no display'
+            Mock Start-PSGPOToolProcess { [pscustomobject]@{ Process = [pscustomobject]@{ HasExited = $true; ExitCode = 1 }; ProblemPath = $script:LauncherProblem } }
             Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -OnShown {
                 param($Ui)
                 Invoke-Click $Ui.Tiles[1]
@@ -3076,6 +3125,56 @@ InModuleScope -ModuleName HGPM {
                 $Ui.statusTextBlock.IsVisible | Should -BeTrue
                 $Ui.statusTextBlock.Text | Should -Be 'Show-PSOManagerAvalonia did not open: no display'
                 $Ui.Tiles[1].IsEnabled | Should -BeTrue
+            }
+            Test-Path -LiteralPath $script:LauncherProblem | Should -BeFalse
+        }
+
+        It 'Stops the loop of its own window only: another window opened from its loop keeps running' {
+            Initialize-PSGPOAvaloniaRuntime
+            $A = [Avalonia.Controls.Window]::new()
+            $B = [Avalonia.Controls.Window]::new()
+            $State = @{ OpenWhenItsLoopStopped = $null; Guarded = $false }
+            # The handlers find $A, $B and $State here (no closure): this block runs both loops.
+            # B is closed half a second after it is shown; never a hang: after 10 seconds both
+            # windows are closed, and the test fails.
+            $Later = [Avalonia.Threading.DispatcherTimer]::new()
+            $Later.Interval = [TimeSpan]::FromMilliseconds(500)
+            $Later.Add_Tick({ $Later.Stop(); $B.Close() })
+            $Guard = [Avalonia.Threading.DispatcherTimer]::new()
+            $Guard.Interval = [TimeSpan]::FromSeconds(10)
+            $Guard.Add_Tick({ $Guard.Stop(); $State.Guarded = $true; $B.Close(); $A.Close() })
+            try {
+                $A.Show()
+                $Guard.Start()
+                # B runs its loop inside the loop of A, as the consoles ran inside the launcher; A
+                # (the launcher) is closed meanwhile.
+                [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
+                        $B.Show()
+                        $Later.Start()
+                        [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { $A.Close() })
+                        Invoke-PSGPOWindowLoop -Window $B
+                        $State.OpenWhenItsLoopStopped = $B.IsVisible
+                        if ($B.IsVisible) { $B.Close() }
+                    })
+                Invoke-PSGPOWindowLoop -Window $A
+            } finally {
+                $Later.Stop()
+                $Guard.Stop()
+                if ($B.IsVisible) { $B.Close() }
+                if ($A.IsVisible) { $A.Close() }
+            }
+            $State.Guarded | Should -BeFalse -Because 'both loops stopped once their windows were closed'
+            $State.OpenWhenItsLoopStopped | Should -BeFalse -Because 'closing A stopped the loop of A only: B ran until it was closed'
+        }
+
+        It 'Says why a console was not started' {
+            Mock Start-PSGPOToolProcess { throw 'pwsh is not found: /opt/pwsh' }
+            Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -OnShown {
+                param($Ui)
+                Invoke-Click $Ui.Tiles[2]
+                $Ui.statusTextBlock.IsVisible | Should -BeTrue
+                $Ui.statusTextBlock.Text | Should -Be 'Show-WmiFilterCreatorAvalonia did not open: pwsh is not found: /opt/pwsh'
+                $Ui.Tiles[2].IsEnabled | Should -BeTrue
             }
         }
 
@@ -3094,7 +3193,7 @@ InModuleScope -ModuleName HGPM {
             $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
             try {
                 $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
-                Mock Show-PSOManagerAvalonia { }
+                Mock Start-PSGPOToolProcess { [pscustomobject]@{ Process = [pscustomobject]@{ HasExited = $true; ExitCode = 0 }; ProblemPath = $null } }
                 Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -Language 'en-US' -OnShown {
                     param($Ui)
                     @($Ui.languageComboBox.Items.Tag) | Should -Be @('en-US', 'fr-FR')
@@ -3107,7 +3206,7 @@ InModuleScope -ModuleName HGPM {
                     Invoke-Click $Ui.toolsPanel.Children[1]
                     Invoke-UiLoop -Until { $Ui.toolsPanel.Children[1].IsEnabled }
                 }
-                Should -Invoke Show-PSOManagerAvalonia -Times 1 -Exactly -ParameterFilter { $Language -eq 'fr-FR' }
+                Should -Invoke Start-PSGPOToolProcess -Times 1 -Exactly -ParameterFilter { $Command -eq 'Show-PSOManagerAvalonia' -and $Language -eq 'fr-FR' }
                 (Get-PSGPOUserSetting).Language | Should -Be 'fr-FR'
                 Mock Start-PSGPOLauncherWindow { }
                 Start-HGPM

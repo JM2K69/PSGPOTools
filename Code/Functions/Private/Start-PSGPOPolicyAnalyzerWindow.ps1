@@ -51,10 +51,6 @@ function Start-PSGPOPolicyAnalyzerWindow {
     }
     Open-AnalyzerView -Folder $Path
 
-    $cts = [System.Threading.CancellationTokenSource]::new()
-    $window.Add_Closed({
-            [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { $cts.Cancel() }, [Avalonia.Threading.DispatcherPriority]::Background)
-        })
     Show-PSGPOWindow -Window $window
 
     $onShownState = @{ Error = $null }
@@ -66,11 +62,7 @@ function Start-PSGPOPolicyAnalyzerWindow {
             })
     }
 
-    try {
-        [Avalonia.Threading.Dispatcher]::UIThread.MainLoop($cts.Token)
-    } catch [System.OperationCanceledException] {
-        Write-Verbose 'The window is closed.'
-    }
+    Invoke-PSGPOWindowLoop -Window $window
 
     if ($onShownState.Error) { throw $onShownState.Error }
 }

@@ -169,10 +169,6 @@ function Show-PSGPOAdmxWindow {
         }, [Avalonia.Threading.DispatcherPriority]::Background)
     })
 
-    $cts = [System.Threading.CancellationTokenSource]::new()
-    $window.Add_Closed({
-        [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { $cts.Cancel() }, [Avalonia.Threading.DispatcherPriority]::Background)
-    })
     Show-PSGPOWindow -Window $window
 
     $onShownState = @{ Error = $null }
@@ -181,12 +177,7 @@ function Show-PSGPOAdmxWindow {
             try { & $OnShown $controls } catch { $onShownState.Error = $_ } finally { if ($window.IsVisible) { $window.Close() } }
         })
     }
-    try {
-        [Avalonia.Threading.Dispatcher]::UIThread.MainLoop($cts.Token)
-    } catch [System.OperationCanceledException] {
-        # Expected: the loop exits by cancellation once the window is closed.
-        Write-Verbose 'The window is closed.'
-    }
+    Invoke-PSGPOWindowLoop -Window $window
     if ($onShownState.Error) { throw $onShownState.Error }
     $state.Loaded
 }
