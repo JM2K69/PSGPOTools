@@ -50,7 +50,7 @@ function Export-PSGPOPolicyRuleComparison {
     end {
         $file = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Path)
         if ((Test-Path -LiteralPath $file) -and -not $Force) { throw "$file exists (-Force replaces it)." }
-        $sets = if ($rows.Count) { @($rows[0].Cells | ForEach-Object Set) } else { @() }
+        $sets = if ($rows.Count) { @($rows[0].Cells | ForEach-Object { $_.Set }) } else { @() }
 
         $columns = @('Scope', 'Path', 'Name', 'Option') + $sets + @('Policy type', 'Registry key or group', 'Setting')
         $widths = @(10, 50, 45, 30) + @($sets | ForEach-Object { 28 }) + @(16, 50, 30)

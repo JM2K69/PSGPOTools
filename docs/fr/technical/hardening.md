@@ -12,6 +12,7 @@ Directory](../getting-started/lab.md)).
 | le `gPCFileSysPath` de sa GPO (il en est propriétaire pendant l'attente) | [n'utilise que le dossier de la GPO](#redirected-gpo), refuse une GPO redirigée |
 | les permissions de sa GPO, hors de la console | l'approbation [les reconstruit](../workflows/approval.md#4-lapprouver-tier-0) à partir de ce qu'une GPO approuvée peut avoir |
 | le contenu de sa GPO jusqu'à l'approbation | l'approbation [approuve ce qui a été examiné](#approval), ou rien ; elle sauvegarde la version approuvée, et la dérive montre tout changement ensuite |
+| des paramètres que la console ne peut pas montrer (une extension côté client qu'elle ne lit pas, un fichier, un script de démarrage) | [listés là où la GPO est examinée](#what-the-approver-sees), et vérifiés avant son approbation |
 | les groupes qu'il peut créer (`APPLY_<sa GPO>`) | un groupe qu'aucun compte du Tier 0 n'a créé [n'est pas proposé](#approval) à l'approbation |
 | la configuration des rôles | [des rôles qui se chevauchent, ou un groupe de tous les comptes](#approval), arrêtent le circuit |
 | une sauvegarde sur un partage qu'il peut écrire | les [chemins des fichiers](#other-guards) d'une sauvegarde sont vérifiés |
@@ -217,6 +218,65 @@ les deux labs, `tiers1` (créateur) et l'administrateur (approbateur) :
 | Le groupe supprimé, la GPO examinée à nouveau et approuvée | approuvée, propriété de Domain Admins | approuvée, propriété de Domain Admins |
 | `GPO-Tier1-Admins` dans les deux rôles : `tiers1` | *le circuit d'approbation est inconnu* : aucune GPO créée | *le circuit d'approbation est inconnu* : aucune GPO créée |
 | La configuration restaurée | les mêmes octets | les mêmes octets |
+
+## Ce que voit l'approbateur { #what-the-approver-sees }
+
+### La menace
+
+- **Un paramètre que la console ne montre pas** : les ordinateurs appliquent chaque extension côté
+  client qu'une GPO déclare, chacune avec ses propres fichiers ou objets (Redirection de dossiers,
+  Installation de logiciels, Sécurité IP, une extension d'un éditeur...). Un technicien en ajoute
+  une à sa GPO en attente ; l'approbateur examine les paramètres que la console liste, et approuve
+  les autres sans les avoir vus.
+- **Un script de démarrage** : il s'exécute en tant que SYSTEM sur chaque ordinateur auquel la GPO
+  s'applique. Sa liste (`scripts.ini`, `psscripts.ini`) n'était pas lue, et son fichier pouvait
+  changer entre deux versions sans qu'aucun changement n'apparaisse.
+
+### Ce que fait la console
+
+- **Ce qu'elle n'interprète pas est listé** : une extension côté client dont elle ne lit pas les
+  paramètres (par son nom quand elle la connaît, par son GUID sinon), et chaque fichier du dossier
+  de la GPO qu'aucun de ses lecteurs ne lit (par sa taille et son SHA-256 ; ni ses commentaires ni
+  les modèles ADM copiés là, qui n'appliquent rien). Dans l'onglet **Paramètres**, dans un cadre à
+  part ; dans les détails de la GPO (*Non interprété*, d'après ses extensions, sans lire SYSVOL) ;
+  dans son rapport (`Get-PSGPOReport`, *Enregistrer le rapport...*) ; dans une comparaison de deux
+  sauvegardes, pour les extensions.
+- **L'approbation le demande** : le formulaire d'approbation les liste, et n'approuve qu'une fois
+  *J'ai vérifié ces paramètres avec GPMC, ou dans les fichiers de la GPO* cochée ; `Approve-PSGPO`
+  les cite dans un avertissement et dans sa confirmation. Ils viennent de la même lecture du
+  dossier que l'empreinte de l'examen ([l'approbation](#approval)).
+- **Les scripts sont lus** : chaque script de démarrage, d'arrêt, d'ouverture et de fermeture de
+  session avec ses paramètres, si les scripts PowerShell s'exécutent en premier, et le fichier
+  qu'il exécute dans la GPO avec sa taille et son SHA-256 : un changement de son contenu apparaît
+  quand deux sauvegardes sont comparées, et l'éditeur montre son contenu avant qu'il soit approuvé.
+  Un fichier des dossiers des scripts qu'aucun script n'exécute est listé aussi.
+
+### Testé
+
+`PSGPOTools.Report.tests.ps1` et `PSGPOTools.Gui.tests.ps1` : `scripts.ini` et `psscripts.ini`
+lus et écrits comme l'éditeur de stratégie de groupe les écrit (UTF-16, numérotés depuis 0, les
+autres clés gardées) ; un script hors de la GPO (`\\serveur\partage`, un lecteur, `%`, `..`)
+n'y est pas cherché ; un changement du fichier d'un script apparaît dans une comparaison ; les
+extensions et fichiers non interprétés listés dans leur ordre, les fichiers qui n'appliquent rien
+laissés de côté ; le formulaire d'approbation refuse tant que la case n'est pas cochée ; le
+rapport en objet, XML et HTML.
+
+Sur les deux labs, l'administrateur écrit une GPO avec des scripts, `tiers1` ajoute la
+Redirection de dossiers à sa GPO en attente, l'administrateur l'approuve :
+
+| Étape | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| Un script de démarrage, un script PowerShell de démarrage exécuté en premier, un script d'ouverture de session hors de la GPO | écrits dans SYSVOL en UTF-16, une seule hausse de version par configuration, l'extension des scripts déclarée | de même |
+| Relus depuis le domaine, le rapport (objet, HTML, XML) | les 4 scripts, leurs fichiers et SHA-256 | de même |
+| `gpupdate` sur l'ordinateur membre | (pas de membre Windows) | l'ordinateur enregistre les deux scripts de démarrage, le PowerShell en premier (`PSScriptOrder=2`) |
+| `Get-GPOReport` de GPMC | | l'extension *Scripts* des deux configurations, les 3 scripts, `RunPSFirst` |
+| Le fichier d'un script changé entre deux sauvegardes | `Compare-PSGPOBackup` : *Changed*, sa taille et son SHA-256 | de même |
+| `tiers1` ajoute la Redirection de dossiers (`fdeploy1.ini`) à sa GPO en attente | listés : l'extension et le fichier | de même |
+| `Approve-PSGPO -WhatIf`, puis l'approbation | l'avertissement et la confirmation citent les deux ; approuvée | de même |
+| Nettoyé | les deux GPO supprimées | les deux GPO supprimées, `gpupdate` : plus aucun script de démarrage |
+
+`Approve-PSGPO -WhatIf` sous Linux ne lisait pas la GPO avant (le dossier temporaire de sa copie
+n'était pas créé sous `-WhatIf`) : corrigé, avec un test.
 
 ## Le journal d'audit { #audit-log }
 

@@ -24,17 +24,32 @@ The details of a node depend on what it is:
 |---|---|
 | Domain | distinguished name, domain controller and directory service, the account connected, its delegation, its role in the approval workflow, the GPOs linked |
 | OU | distinguished name, block inheritance, your rights there, the GPOs linked |
-| GPO, link | unique ID, status, approval state and owner, your rights, security filtering, WMI filter, versions, distinguished name, SYSVOL path, every link of the GPO |
+| GPO, link | unique ID, status, approval state and owner, your rights, security filtering, WMI filter, the client-side extensions the console does not interpret, versions, distinguished name, SYSVOL path, every link of the GPO |
 | WMI filter | description, queries, the GPOs using it, unique ID, distinguished name |
 | Deleted GPO | its last backup, by whom, its comment, status, security filtering, where it was linked |
 
 A GPO also has two tabs:
 
-- **Settings**: its configured settings, as the GPMC report: the policies by category path, the
-  security settings, the preferences, the extra registry values no ADMX explains.
+- **Settings**: its configured settings, as the GPMC report: the scripts, the security settings,
+  the policies by category path, the preferences, the extra registry values no ADMX explains. Below
+  them, in a box of their own, **the settings the console does not interpret**: a client-side
+  extension whose settings it does not read (Folder Redirection, Software Installation...), a file
+  of the GPO none of its readers reads. The computers apply them all the same: review them with
+  GPMC, or in the files of the GPO, before approving it ([hardening](../technical/hardening.md#what-the-approver-sees)).
+  **Save report...**, in this tab or in the context menu of a GPO, writes the report of the GPO as
+  an HTML page, in the language of the interface, as GPMC saves one (`Get-PSGPOReport`).
 - **History**: its backups as a timeline ([backups and history](backup-history.md)).
 
 ![The Settings tab](../assets/screenshots/03-gpo-settings.png)
+
+A pending GPO of Tier 1 with a startup script, and Folder Redirection, which the console does not
+interpret:
+
+![The Settings tab: the scripts, and the settings the console does not interpret](../assets/screenshots/78-settings-not-interpreted.png)
+
+The report saved by **Save report...** (or `Get-PSGPOReport -ReportType Html`):
+
+![The HTML report of a GPO](../assets/screenshots/81-report.png){ width="640" }
 
 **Refresh** (or F5) reads the domain again, from the same domain controller with the same account,
 as GPMC does: the changes of the other consoles and of GPMC show, the tree keeping what is

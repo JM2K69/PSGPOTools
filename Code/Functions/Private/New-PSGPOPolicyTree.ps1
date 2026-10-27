@@ -4,6 +4,7 @@
 
       Computer Configuration (User Configuration)
         Policies
+          Windows Settings > Scripts (Startup/Shutdown or Logon/Logoff) > kinds   (scripts.ini)
           Windows Settings > Security Settings > ...   (GptTmpl.inf, the computer only)
           Administrative Templates > categories > policies   (the ADMX loaded)
         Preferences > Windows Settings, Control Panel Settings > types
@@ -109,20 +110,40 @@ function New-PSGPOPolicyTree {
         $restricted = $machine -and (& $isMatch 'Restricted Groups') -and (-not $expand -or $Only.Contains('RestrictedGroups'))
         # Public Key Policies: the certificate stores of the scope (Certificates:<scope>|<store> in -Only).
         $stores = @(Get-PSGPOCertificateStore -Scope "$scope" | Where-Object { ((& $isMatch $_.Name) -or (& $isMatch 'Public Key Policies')) -and (-not $expand -or $Only.Contains("Certificates:$scope|$($_.Store)")) })
-        if ($security.Count -or $restricted -or $stores.Count) {
+        # Scripts: a node per kind (Scripts:<scope>|<kind> in -Only), first as in the Group Policy editor.
+        $scriptsName = $script:PSGPOScriptNodeName["$scope"]
+        $kinds = @($script:PSGPOScriptKind["$scope"] | Where-Object { ((& $isMatch $_) -or (& $isMatch $scriptsName)) -and (-not $expand -or $Only.Contains("Scripts:$scope|$_")) })
+        if ($security.Count -or $restricted -or $stores.Count -or $kinds.Count) {
             $windowsNode = [AvaloniaTreeNode]::new()
             $windowsNode.Header = Get-PSGPOText 'Windows Settings'
             Set-PSGPOTreeNodeIcon -Node $windowsNode -Name 'folder'
             $windowsNode.Tag = 'WindowsSettings'
             $windowsNode.IsExpanded = $expand
             $windowsNode.Parent = $policiesNode
+            if ($kinds.Count) {
+                $scriptsNode = [AvaloniaTreeNode]::new()
+                $scriptsNode.Header = Get-PSGPOText $scriptsName
+                Set-PSGPOTreeNodeIcon -Node $scriptsNode -Name 'folder'
+                $scriptsNode.Tag = "Scripts:$scope"
+                $scriptsNode.IsExpanded = $expand
+                $scriptsNode.Parent = $windowsNode
+                foreach ($kind in $kinds) {
+                    $node = [AvaloniaTreeNode]::new()
+                    $node.Header = Get-PSGPOText $kind
+                    Set-PSGPOTreeNodeIcon -Node $node -Name 'code'
+                    $node.Tag = "Scripts:$scope|$kind"
+                    $node.Parent = $scriptsNode
+                    $scriptsNode.Children.Add($node)
+                }
+                $windowsNode.Children.Add($scriptsNode)
+            }
             $securityNode = [AvaloniaTreeNode]::new()
             $securityNode.Header = Get-PSGPOText 'Security Settings'
             Set-PSGPOTreeNodeIcon -Node $securityNode -Name 'shield'
             $securityNode.Tag = 'SecuritySettings'
             $securityNode.IsExpanded = $expand
             $securityNode.Parent = $windowsNode
-            $windowsNode.Children.Add($securityNode)
+            if ($security.Count -or $restricted -or $stores.Count) { $windowsNode.Children.Add($securityNode) }
             $folders = @{}
             foreach ($setting in $security) {
                 $parent = $securityNode

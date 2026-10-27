@@ -42,6 +42,50 @@ Unicode=yes` and `[Version] signature="$CHICAGO$"`, then its sections (`[System 
 `*SID`. A file written by `samba-tool gpo manage security` (without `[Unicode]` nor `[Version]`)
 is read too.
 
+## scripts.ini and psscripts.ini
+
+`GPOToolsScriptsFile` ([MS-GPSCR] 2.2.2): `Machine\Scripts\scripts.ini` (startup, shutdown) and
+`User\Scripts\scripts.ini` (logon, logoff), `psscripts.ini` beside them for the Windows PowerShell
+scripts; INI files in UTF-16LE with a byte order mark, an empty line first, as the Group Policy
+editor writes them:
+
+```ini
+[Startup]
+0CmdLine=Install-Agent.cmd
+0Parameters=/quiet
+```
+
+A script is `<n>CmdLine` and `<n>Parameters`, numbered from 0 in the order it runs; a command line
+without a root is a file of `Machine\Scripts\Startup` (`Shutdown`, `User\Scripts\Logon`,
+`Logoff`). `[ScriptsConfig]` of `psscripts.ini` says whether the PowerShell scripts run first:
+`StartExecutePSFirst` (startup, logon), `EndExecutePSFirst` (shutdown, logoff), `true` or `false`.
+The other sections and keys are kept. The extension of the scripts is
+`{42B5FAAE-6536-11D2-AE5A-0000F87571E3}`, with the tool `{40B6664F-4972-11D1-A7CA-0000F87571E3}`
+for the computer and `{40B66650-4972-11D1-A7CA-0000F87571E3}` for the user.
+
+## The report of a GPO
+
+`Get-PSGPOReport -ReportType Xml` writes an XML document of HGPM, in English (not the schema of the
+reports of GPMC), in the namespace `https://jm2k69.github.io/PSGPOTools/schemas/gpo-report/1`:
+
+```xml
+<GpoReports generated="..." generatedBy="HGPM 0.1.16-alpha">
+  <Gpo id="{...}" name="T1 - Servers - Proxy" domain="contoso.com">
+    <Details owner="..." status="Enabled" approval="Pending" computerVersion="3" userVersion="0"/>
+    <Links><Link name="Servers" container="OU=Servers,..." enabled="true" enforced="false" order="1"/></Links>
+    <SecurityFiltering><Trustee>Authenticated Users</Trustee></SecurityFiltering>
+    <Permissions><Permission trustee="..." permission="GpoEdit" inherited="false" denied="false"/></Permissions>
+    <Extensions><Extension scope="Machine" guid="{...}" name="Scripts" interpreted="true"/></Extensions>
+    <Computer><Setting path="Policies > ..." name="..." state="...">options</Setting></Computer>
+    <User/>
+    <NotInterpreted><Setting path="Client-side extensions" name="Folder Redirection" state="User">...</Setting></NotInterpreted>
+  </Gpo>
+</GpoReports>
+```
+
+`-ReportType Html` writes a page in one file, in the language of the interface, readable in any
+browser; `-ReportType Object` gives `PSGPOTools.GpoReport` objects with the same parts.
+
 ## Group Policy Preferences
 
 `GPOToolsPreferenceFile`: the XML of a preference type, read and written with `System.Xml`.

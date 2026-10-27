@@ -24,18 +24,34 @@ Les détails d'un nœud dépendent de ce qu'il est :
 |---|---|
 | Domaine | nom distinctif, contrôleur de domaine et service d'annuaire, le compte connecté, sa délégation, son rôle dans le workflow d'approbation, les GPO liées |
 | OU | nom distinctif, blocage de l'héritage, vos droits à cet endroit, les GPO liées |
-| GPO, lien | identifiant unique, statut, état d'approbation et propriétaire, vos droits, filtrage de sécurité, filtre WMI, versions, nom distinctif, chemin SYSVOL, tous les liens de la GPO |
+| GPO, lien | identifiant unique, statut, état d'approbation et propriétaire, vos droits, filtrage de sécurité, filtre WMI, les extensions côté client que la console n'interprète pas, versions, nom distinctif, chemin SYSVOL, tous les liens de la GPO |
 | Filtre WMI | description, requêtes, les GPO qui l'utilisent, identifiant unique, nom distinctif |
 | GPO supprimée | sa dernière sauvegarde, par qui, son commentaire, statut, filtrage de sécurité, où elle était liée |
 
 Une GPO a aussi deux onglets :
 
-- **Settings** : ses paramètres configurés, comme le rapport de GPMC : les stratégies par chemin de
-  catégorie, les paramètres de sécurité, les préférences, les valeurs de registre qu'aucun ADMX
-  n'explique.
+- **Settings** : ses paramètres configurés, comme le rapport de GPMC : les scripts, les paramètres
+  de sécurité, les stratégies par chemin de catégorie, les préférences, les valeurs de registre
+  qu'aucun ADMX n'explique. En dessous, dans un cadre à part, **les paramètres que la console
+  n'interprète pas** : une extension côté client dont elle ne lit pas les paramètres (Redirection de
+  dossiers, Installation de logiciels...), un fichier de la GPO qu'aucun de ses lecteurs ne lit.
+  Les ordinateurs les appliquent quand même : vérifiez-les avec GPMC, ou dans les fichiers de la
+  GPO, avant de l'approuver ([durcissement](../technical/hardening.md#what-the-approver-sees)).
+  **Enregistrer le rapport...**, dans cet onglet ou dans le menu contextuel d'une GPO, écrit le
+  rapport de la GPO en page HTML, dans la langue de l'interface, comme GPMC en enregistre un
+  (`Get-PSGPOReport`).
 - **History** : ses sauvegardes en frise ([sauvegardes et historique](backup-history.md)).
 
 ![L'onglet Settings](../assets/screenshots/03-gpo-settings.fr.png)
+
+Une GPO du Tier 1 en attente, avec un script de démarrage, et la Redirection de dossiers, que la
+console n'interprète pas :
+
+![L'onglet Paramètres : les scripts, et les paramètres que la console n'interprète pas](../assets/screenshots/78-settings-not-interpreted.fr.png)
+
+Le rapport enregistré par **Enregistrer le rapport...** (ou `Get-PSGPOReport -ReportType Html`) :
+
+![Le rapport HTML d'une GPO](../assets/screenshots/81-report.fr.png){ width="640" }
 
 **Actualiser** (ou F5) relit le domaine, sur le même contrôleur de domaine avec le même compte, comme
 GPMC : les modifications des autres consoles et de GPMC apparaissent, l'arbre gardant ce qui est

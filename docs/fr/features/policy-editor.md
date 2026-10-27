@@ -145,6 +145,34 @@ avancée (Audit Policy Configuration) : Windows l'applique à l'actualisation su
 Ne la mélangez pas avec **Stratégies locales > Stratégie d'audit** dans le même domaine : comme
 Microsoft le documente, un ordinateur applique alors l'une ou l'autre.
 
+## Scripts
+
+**Paramètres Windows > Scripts (démarrage/arrêt)** de l'ordinateur et **Scripts
+(ouverture/fermeture de session)** de l'utilisateur, en premier comme dans l'éditeur de stratégie
+de groupe : un nœud par type, ses scripts dans leur ordre, ceux de `scripts.ini` (fichiers de
+commandes, programmes, VBScript) puis les scripts Windows PowerShell de `psscripts.ini`
+([MS-GPSCR]). Un script de démarrage ou d'arrêt s'exécute en tant que SYSTEM sur chaque ordinateur
+auquel la GPO s'applique ; un script d'ouverture ou de fermeture de session avec les droits de
+l'utilisateur.
+
+- **Ajouter un script** / **Modifier** : son type, son nom et ses paramètres. Un nom seul est un
+  fichier du dossier des scripts de la GPO (`Machine\Scripts\Startup`) ; un chemin
+  (`\\serveur\partage\script.cmd`, `C:\...`) s'exécute depuis là. **Copier un fichier de cet
+  ordinateur dans la GPO** y dépose le fichier, sous le nom du script.
+- **Monter** / **Descendre** : l'ordre des scripts d'un type ; **Scripts PowerShell : exécutés en
+  premier / en dernier** l'ordre des deux types (`[ScriptsConfig]` de `psscripts.ini`).
+- Le script sélectionné montre son fichier dans la GPO, sa taille, son SHA-256 et son contenu : ce
+  que les ordinateurs exécuteront.
+- **Supprimer** : les ordinateurs ne l'exécutent plus ; son fichier reste dans le dossier de la GPO
+  (l'onglet Paramètres le liste, *Non exécuté*).
+
+![Les scripts de démarrage d'une GPO, le contenu de celui sélectionné](../assets/screenshots/79-editor-scripts.fr.png)
+
+Chaque modification écrit `scripts.ini`, `psscripts.ini` et le fichier copié comme l'éditeur de
+stratégie de groupe les écrit (UTF-16), avec une seule hausse de version, et déclare l'extension
+des scripts. Vérifié sur les deux labs : le membre Windows enregistre les scripts de démarrage dans
+leur ordre, et GPMC les lit ([durcissement](../technical/hardening.md#what-the-approver-sees)).
+
 ## Recherche et copie
 
 Le champ de recherche trouve les stratégies dont le nom contient le texte saisi (avec

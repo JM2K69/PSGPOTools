@@ -203,6 +203,10 @@ $(Get-PSGPOWindowResourceXaml)
                                 <MenuItem Name='importGpoMenuItem' Header='Import Settings...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.document-copy}'/></MenuItem.Icon>
                                 </MenuItem>
+                                <!-- As GPMC: the report of the GPO as an HTML page (Get-PSGPOReport) -->
+                                <MenuItem Name='saveReportGpoMenuItem' Header='Save report...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.save}'/></MenuItem.Icon>
+                                </MenuItem>
                                 <MenuItem Name='deleteGpoMenuItem' Header='Delete GPO...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.delete}'/></MenuItem.Icon>
                                 </MenuItem>
@@ -322,6 +326,11 @@ $(Get-PSGPOWindowResourceXaml)
                                                            Foreground='{DynamicResource SecondaryTextBrush}'/>
                                                 <TextBox Grid.Row='1' Grid.Column='1' Name='approveGpoDenyToTextBox' Watermark='A group of the domain (optional)'/>
                                             </Grid>
+                                            <!-- What the console does not interpret: reviewed elsewhere, and said so, before the approval -->
+                                            <StackPanel Name='approveGpoUninterpretedPanel' Spacing='4' IsVisible='False'>
+                                                <TextBlock Name='approveGpoUninterpretedTextBlock' TextWrapping='Wrap' Foreground='#CA5010'/>
+                                                <CheckBox Name='approveGpoUninterpretedCheckBox' Content='I reviewed these settings with GPMC, or in the files of the GPO'/>
+                                            </StackPanel>
                                             <TextBlock Name='approveGpoErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
                                             <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
                                                 <Button Name='approveGpoConfirmButton' Content='Approve' Width='110'/>
@@ -610,7 +619,18 @@ $(Get-PSGPOWindowResourceXaml)
                         <TabItem Name='settingsTab' Header='Settings' IsVisible='False'>
                             <ScrollViewer>
                                 <StackPanel Margin='16,8' Spacing='4'>
-                                    <TextBlock Name='settingsStatusTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                    <Grid ColumnDefinitions='*,Auto'>
+                                        <TextBlock Name='settingsStatusTextBlock' TextWrapping='Wrap' VerticalAlignment='Center' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                        <!-- The report of the GPO, as GPMC saves it: an HTML page (Get-PSGPOReport) -->
+                                        <Button Grid.Column='1' Name='settingsReportButton' Margin='12,0,0,0' ToolTip.Tip='An HTML page of the GPO: its details, links, delegation and settings (Get-PSGPOReport)'>
+                                            <StackPanel Orientation='Horizontal' Spacing='6'>
+                                                <PathIcon Data='{StaticResource Icon.save}' Width='14' Height='14'/>
+                                                <TextBlock Text='Save report...' VerticalAlignment='Center'/>
+                                            </StackPanel>
+                                        </Button>
+                                    </Grid>
+                                    <TextBlock Name='settingsReportStatusTextBlock' TextWrapping='Wrap'
+                                               IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
                                     <TextBlock Name='computerSettingsHeader' FontSize='14' FontWeight='SemiBold' Margin='0,8,0,0' Foreground='{DynamicResource TextBrush}'/>
                                     <ItemsControl Name='computerSettingsList'>
                                         <ItemsControl.ItemTemplate>
@@ -647,6 +667,32 @@ $(Get-PSGPOWindowResourceXaml)
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
+                                    <!-- What the computers apply but the console does not read: extensions, files -->
+                                    <Border Name='uninterpretedSettingsBorder' IsVisible='False' Margin='0,16,0,0' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='#CA5010' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='4'>
+                                            <TextBlock Name='uninterpretedSettingsHeader' FontSize='14' FontWeight='SemiBold' Foreground='#CA5010' TextWrapping='Wrap'/>
+                                            <TextBlock FontSize='12' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'
+                                                       Text='The computers apply them, but the console does not show what they do: review them with GPMC, or in the files of the GPO, before approving it.'/>
+                                            <ItemsControl Name='uninterpretedSettingsList'>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Border BorderThickness='0,0,0,1' BorderBrush='{DynamicResource BorderBrush}' Padding='0,6'>
+                                                            <StackPanel Spacing='2'>
+                                                                <TextBlock Text='{Binding Path}' FontSize='11' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                                <Grid ColumnDefinitions='*,Auto'>
+                                                                    <SelectableTextBlock Grid.Column='0' Text='{Binding Name}' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                                                    <TextBlock Grid.Column='1' Text='{Binding State}' Margin='12,0,0,0'/>
+                                                                </Grid>
+                                                                <SelectableTextBlock Text='{Binding Options}' TextWrapping='Wrap' Margin='12,2,0,0'
+                                                                                     IsVisible='{Binding Options, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </Border>
                                 </StackPanel>
                             </ScrollViewer>
                         </TabItem>
@@ -1117,6 +1163,98 @@ $(Get-PSGPOWindowResourceXaml)
                                                 </StackPanel>
                                             </Button>
                                             <Button Name='restrictedGroupsCancelButton' Content='Cancel' Width='100'/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+
+                    <!-- Scripts of a kind (Startup, Shutdown, Logon, Logoff): scripts.ini and psscripts.ini -->
+                    <Grid Grid.Row='1' Name='scriptsPanel' IsVisible='False' Margin='16,8' RowDefinitions='Auto,Auto,Auto,*'>
+                        <StackPanel Grid.Row='0' Spacing='2'>
+                            <TextBlock Name='scriptsTitleTextBlock' FontSize='16' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                            <TextBlock Name='scriptsInfoTextBlock' FontSize='12' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                        </StackPanel>
+                        <WrapPanel Grid.Row='1' Orientation='Horizontal' Margin='0,8,0,0'>
+                            <Button Name='scriptsAddButton' Margin='0,0,8,4'>
+                                <StackPanel Orientation='Horizontal' Spacing='6'>
+                                    <PathIcon Data='{StaticResource Icon.add}' Width='14' Height='14'/>
+                                    <TextBlock Text='Add script' VerticalAlignment='Center'/>
+                                </StackPanel>
+                            </Button>
+                            <Button Name='scriptsEditButton' Content='Edit' Margin='0,0,8,4'/>
+                            <Button Name='scriptsDeleteButton' Content='Delete' Margin='0,0,8,4'/>
+                            <Button Name='scriptsUpButton' Content='Move up' Margin='0,0,8,4' ToolTip.Tip='The scripts of a type run in their order'/>
+                            <Button Name='scriptsDownButton' Content='Move down' Margin='0,0,8,4'/>
+                            <ComboBox Name='scriptsOrderComboBox' MinWidth='260' Margin='0,0,8,4' ToolTip.Tip='psscripts.ini, [ScriptsConfig]'>
+                                <ComboBoxItem Content='PowerShell scripts: as the computer decides' Tag=''/>
+                                <ComboBoxItem Content='PowerShell scripts: run first' Tag='First'/>
+                                <ComboBoxItem Content='PowerShell scripts: run last' Tag='Last'/>
+                            </ComboBox>
+                        </WrapPanel>
+                        <TextBlock Grid.Row='2' Name='scriptsStatusTextBlock' TextWrapping='Wrap' Margin='0,4,0,0'
+                                   IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                        <ScrollViewer Grid.Row='3' Margin='0,8,0,0'>
+                            <StackPanel Spacing='8' Margin='0,0,12,0'>
+                                <TextBlock Name='scriptsEmptyTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                <ListBox Name='scriptsList' MaxHeight='280'>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Spacing='2' Margin='0,2'>
+                                                <TextBlock Text='{Binding Name}' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                                <TextBlock Text='{Binding Summary}' FontSize='12' TextWrapping='Wrap'/>
+                                                <TextBlock Text='{Binding Flags}' FontSize='11' Foreground='#CA5010' TextWrapping='Wrap'
+                                                           IsVisible='{Binding Flags, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <!-- The content of the selected script, when its file is in the GPO -->
+                                <StackPanel Name='scriptsContentPanel' Spacing='4' IsVisible='False'>
+                                    <TextBlock Name='scriptsContentTitleTextBlock' FontSize='12' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                    <TextBox Name='scriptsContentTextBox' IsReadOnly='True' AcceptsReturn='True' TextWrapping='NoWrap' MaxHeight='260'
+                                             FontFamily='Cascadia Mono, Consolas, DejaVu Sans Mono, monospace' FontSize='12'/>
+                                </StackPanel>
+                                <!-- Confirmation of a deletion -->
+                                <Border Name='scriptsDeletePanel' IsVisible='False' Padding='12' CornerRadius='4'
+                                        BorderThickness='1' BorderBrush='#D13438' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                    <StackPanel Spacing='8'>
+                                        <TextBlock Name='scriptsDeleteTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                        <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                            <Button Name='scriptsDeleteConfirmButton' Content='Delete' Width='100'/>
+                                            <Button Name='scriptsDeleteCancelButton' Content='Cancel' Width='100'/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                                <!-- The script added or edited -->
+                                <Border Name='scriptsFormBorder' IsVisible='False' Padding='12' CornerRadius='4'
+                                        BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                    <StackPanel Spacing='6'>
+                                        <TextBlock Name='scriptsFormTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                        <ComboBox Name='scriptsTypeComboBox' HorizontalAlignment='Stretch'>
+                                            <ComboBoxItem Content='Script (scripts.ini)' Tag='Script'/>
+                                            <ComboBoxItem Content='Windows PowerShell script (psscripts.ini)' Tag='PowerShell'/>
+                                        </ComboBox>
+                                        <TextBlock Text='Script name' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                        <TextBox Name='scriptsNameTextBox' Watermark='A file of the folder of the scripts of the GPO (Set-Baseline.ps1), or a path: \\server\share\script.cmd'/>
+                                        <TextBlock Text='Script parameters' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                        <TextBox Name='scriptsParametersTextBox'/>
+                                        <TextBlock Text='Copy a file of this computer into the GPO, under the script name (optional)' FontSize='12' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                        <Grid ColumnDefinitions='*,Auto'>
+                                            <TextBox Grid.Column='0' Name='scriptsCopyPathTextBox' Watermark='C:\Scripts\Set-Baseline.ps1'/>
+                                            <Button Grid.Column='1' Name='scriptsCopyBrowseButton' Content='Browse...' Margin='8,0,0,0'/>
+                                        </Grid>
+                                        <TextBlock Name='scriptsFormErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap'
+                                                   IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                        <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                            <Button Name='scriptsSaveButton' Width='100'>
+                                                <StackPanel Orientation='Horizontal' Spacing='6'>
+                                                    <PathIcon Data='{StaticResource Icon.save}' Width='14' Height='14'/>
+                                                    <TextBlock Text='Save' VerticalAlignment='Center'/>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button Name='scriptsCancelButton' Content='Cancel' Width='100'/>
                                         </StackPanel>
                                     </StackPanel>
                                 </Border>

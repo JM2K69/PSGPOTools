@@ -147,6 +147,13 @@ Right click the GPO > **Approve...**:
   approved** and stays pending;
 - or **Applies to** / **Denied to**: groups of the domain (Authenticated Users to apply it to
   everyone). When the groups `APPLY_<GPO>` and `DENY_<GPO>` exist already, they are proposed.
+- **The settings the console does not interpret**, when the GPO has some (a client-side extension
+  whose settings it does not read, a file of the GPO no reader reads): listed, and the GPO is
+  approved only once *I reviewed these settings with GPMC, or in the files of the GPO* is checked.
+  `Approve-PSGPO` says them in a warning and in its confirmation
+  ([hardening](../technical/hardening.md#what-the-approver-sees)).
+
+![The approval of a GPO with settings the console does not interpret](../assets/screenshots/80-approve-not-interpreted.png)
 
 ```powershell
 # Its groups created in the Groups OU of Tier 1

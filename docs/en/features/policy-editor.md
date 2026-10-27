@@ -136,6 +136,32 @@ edit (audit options, global object access auditing) are kept as they are.
 Do not mix it with **Local Policies > Audit Policy** in the same domain: as Microsoft documents
 it, a computer then applies one or the other.
 
+## Scripts
+
+**Windows Settings > Scripts (Startup/Shutdown)** of the computer and **Scripts (Logon/Logoff)** of
+the user, first as in the Group Policy editor: a node per kind, its scripts in their order, those of
+`scripts.ini` (batch files, programs, VBScript) then the Windows PowerShell scripts of
+`psscripts.ini` ([MS-GPSCR]). A startup or shutdown script runs as SYSTEM on each computer the GPO
+applies to; a logon or logoff script with the rights of the user.
+
+- **Add script** / **Edit**: its type, its name and its parameters. A name alone is a file of the
+  folder of the scripts of the GPO (`Machine\Scripts\Startup`); a path (`\\server\share\script.cmd`,
+  `C:\...`) runs from there. **Copy a file of this computer into the GPO** puts the file there,
+  under the name of the script.
+- **Move up** / **Move down**: the order of the scripts of a type; **PowerShell scripts: run first /
+  run last** the order of the two types (`[ScriptsConfig]` of `psscripts.ini`).
+- The selected script shows its file in the GPO, its size, its SHA-256 and its content: what the
+  computers will run.
+- **Delete**: the computers stop running it; its file stays in the folder of the GPO (the Settings
+  tab lists it, *Not run*).
+
+![The startup scripts of a GPO, the content of the selected one](../assets/screenshots/79-editor-scripts.png)
+
+Each change writes `scripts.ini`, `psscripts.ini` and the file copied as the Group Policy editor
+writes them (UTF-16), with one increase of the version, and declares the extension of the scripts.
+Checked on both labs: the Windows member registers the startup scripts in their order, and GPMC
+reads them ([hardening](../technical/hardening.md#what-the-approver-sees)).
+
 ## Search and copy
 
 The search box finds the policies whose name holds the text typed (with **Configured settings

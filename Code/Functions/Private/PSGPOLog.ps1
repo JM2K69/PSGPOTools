@@ -68,7 +68,7 @@ function Write-PSGPOLogEntry {
                 foreach ($text in @("$($ErrorRecord.ScriptStackTrace)" -split '\r?\n' | Where-Object { $_ })) { $lines.Add("    at $text") }
             }
             $folder = Get-PSGPOLogPath
-            $null = New-Item -ItemType Directory -Path $folder -Force -ErrorAction Stop
+            $null = New-Item -ItemType Directory -Path $folder -Force -ErrorAction Stop -WhatIf:$false
             if (-not $script:PSGPOLogState.Purged) {
                 $script:PSGPOLogState.Purged = $true
                 $days = 30

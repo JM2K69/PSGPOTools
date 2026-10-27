@@ -44,8 +44,11 @@ class AvaloniaSettingRow {
     [string]$State
     # One 'Label: value' line per option
     [string]$Options
-    # A registry value no policy of the loaded ADMX explains
+    # A registry value no policy of the loaded ADMX explains, or a setting the console does not interpret
     [bool]$IsExtra
+    # What tells it apart when two reports are compared (Compare-PSGPOSettingReport); empty: its
+    # path and name
+    [string]$Key
 }
 
 # One item of the status bar of the window: an icon (path data), a text and its tooltip

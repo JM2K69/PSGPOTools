@@ -415,9 +415,68 @@ function Read-PSGPOBackupFile {
     , $files
 }
 
+# The settings of a GPO from the files of its folder, as the Settings tab lists them: Machine and
+# User, rows (AvaloniaSettingRow) in the order of the Group Policy editor (scripts, security
+# settings, advanced audit, the policies of Registry.pol, the preferences); Uninterpreted, what the
+# console does not read (Get-PSGPOUninterpretedSetting); Known, the files read.
+function Get-PSGPOFolderSetting {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [System.Collections.IDictionary]$Files,
+        [AllowEmptyString()] [AllowNull()] [string]$MachineExtensionNames,
+        [AllowEmptyString()] [AllowNull()] [string]$UserExtensionNames
+    )
+
+    $known = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    $result = [ordered]@{ Machine = @(); User = @(); Uninterpreted = @(); Known = $known }
+    foreach ($scope in 'Machine', 'User') {
+        # Not through the pipeline: it wraps the rows in PSObjects, which Avalonia cannot bind.
+        $rows = [System.Collections.Generic.List[object]]::new()
+        foreach ($row in @(Get-PSGPOConfiguredScript -Files $Files -Scope $scope)) { $rows.Add($row.psobject.BaseObject) }
+        foreach ($name in @($Files.Keys)) { if ($name.StartsWith("$scope\Scripts\", [System.StringComparison]::OrdinalIgnoreCase)) { [void]$known.Add($name) } }
+        if ($scope -eq 'Machine') {
+            $template = [GPOToolsDirectory]::SecurityTemplatePath
+            [void]$known.Add($template)
+            if ($Files.Contains($template)) {
+                foreach ($row in @(Get-PSGPOConfiguredSecuritySetting -Template ([GPOToolsSecurityTemplate]::Parse([byte[]]$Files[$template])))) { $rows.Add($row.psobject.BaseObject) }
+            }
+            # The advanced audit policy (GPMC writes the folders in lower case: Machine\microsoft\windows nt).
+            $audit = @($Files.Keys | Where-Object { $_ -ieq [GPOToolsDirectory]::AuditPolicyPath }) | Select-Object -First 1
+            if ($audit) {
+                [void]$known.Add($audit)
+                foreach ($row in @(Get-PSGPOConfiguredAuditSetting -AuditFile ([GPOToolsAuditPolicyFile]::Parse([byte[]]$Files[$audit])))) { $rows.Add($row.psobject.BaseObject) }
+            }
+        }
+        $polPath = "$scope\Registry.pol"
+        [void]$known.Add($polPath)
+        if ($Files.Contains($polPath)) {
+            foreach ($row in @(Get-PSGPOConfiguredSetting -Pol ([GPOToolsRegistryPol]::Parse([byte[]]$Files[$polPath])) -Scope $scope)) { $rows.Add($row.psobject.BaseObject) }
+        }
+        # The preference items, told apart by their uid.
+        $label = if ($scope -eq 'Machine') { 'Computer' } else { 'User' }
+        foreach ($extension in @(Get-PSGPOPreferenceExtension -Scope $scope)) { [void]$known.Add((Get-PSGPOPreferencePath -Extension $extension -Scope $scope)) }
+        foreach ($preference in @(Get-PSGPOConfiguredPreference -Files $Files -Scope $scope)) {
+            $row = $preference.Row
+            if (-not $row) {
+                $row = [AvaloniaSettingRow]::new()
+                $row.Path = "Policies > $($preference.Path)"
+                $row.Name = $preference.Name
+                $row.State = $preference.State
+                $row.IsExtra = $true
+            }
+            $row.Key = $preference.Key.Substring($label.Length + 1)
+            $rows.Add($row)
+        }
+        $result[$scope] = $rows.ToArray()
+    }
+    $result.Uninterpreted = @(Get-PSGPOUninterpretedSetting -Files $Files -Known $known -MachineExtensionNames $MachineExtensionNames -UserExtensionNames $UserExtensionNames | ForEach-Object { $_.psobject.BaseObject })
+    [pscustomobject]$result
+}
+
 # Settings of a GPO from its files and properties, as rows Scope / Path / Name / State / Options
-# with a Key to compare them: the Settings tab (policies of the loaded ADMX, security settings,
-# extra registry values), the other files by their hash, and the properties of the GPO.
+# with a Key to compare them: the Settings tab (Get-PSGPOFolderSetting), the client-side extensions
+# whose settings the console does not interpret, the other files by their hash, and the properties
+# of the GPO.
 function Get-PSGPOSettingReport {
     [CmdletBinding()]
     param(
@@ -443,44 +502,31 @@ function Get-PSGPOSettingReport {
     foreach ($link in @($Property.Links)) {
         New-ReportRow 'GPO' 'Links' $link.Container ('{0}, {1}' -f $(if ($link.Enabled) { 'Link enabled' } else { 'Link disabled' }), $(if ($link.Enforced) { 'enforced' } else { 'not enforced' }))
     }
+    # The client-side extensions whose settings the console does not read: one added applies what
+    # the comparison cannot show (those it reads come with their settings).
+    $unread = @(Get-PSGPODeclaredExtension -MachineExtensionNames $Property.MachineExtensionNames -UserExtensionNames $Property.UserExtensionNames | Where-Object Storage -NotIn 'Read', 'Registry')
+    foreach ($group in @($unread | Group-Object Guid)) {
+        $scopes = (@($group.Group | ForEach-Object { if ($_.Scope -eq 'Machine') { 'Computer' } else { 'User' } }) | Select-Object -Unique) -join ', '
+        New-ReportRow 'GPO' 'Client-side extensions' $group.Group[0].Name "$scopes, not interpreted by HGPM" '' $group.Name
+    }
 
-    $known = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    $settings = Get-PSGPOFolderSetting -Files $Files -MachineExtensionNames $Property.MachineExtensionNames -UserExtensionNames $Property.UserExtensionNames
     foreach ($scope in 'Machine', 'User') {
-        $polPath = "$scope\Registry.pol"
-        [void]$known.Add($polPath)
         $label = if ($scope -eq 'Machine') { 'Computer' } else { 'User' }
-        $rows = @()
-        if ($Files.Contains($polPath)) {
-            $rows += @(Get-PSGPOConfiguredSetting -Pol ([GPOToolsRegistryPol]::Parse([byte[]]$Files[$polPath])) -Scope $scope)
-        }
-        if ($scope -eq 'Machine') {
-            $template = [GPOToolsDirectory]::SecurityTemplatePath
-            [void]$known.Add($template)
-            if ($Files.Contains($template)) {
-                $rows = @(Get-PSGPOConfiguredSecuritySetting -Template ([GPOToolsSecurityTemplate]::Parse([byte[]]$Files[$template]))) + $rows
+        foreach ($row in $settings.$scope) {
+            if ($row.Key) {
+                [pscustomobject]@{ Key = "$label|$($row.Key)"; Scope = $label; Path = $row.Path; Name = $row.Name; State = $row.State; Options = $row.Options }
+                continue
             }
-            # The advanced audit policy (GPMC writes the folders in lower case: Machine\microsoft\windows nt).
-            $audit = @($Files.Keys | Where-Object { $_ -ieq [GPOToolsDirectory]::AuditPolicyPath }) | Select-Object -First 1
-            if ($audit) {
-                [void]$known.Add($audit)
-                $rows = @(Get-PSGPOConfiguredAuditSetting -AuditFile ([GPOToolsAuditPolicyFile]::Parse([byte[]]$Files[$audit]))) + $rows
-            }
-        }
-        foreach ($row in $rows) {
             # Extra registry values share their key: the value name tells them apart.
             $detail = if ($row.IsExtra -and $row.Options) { ($row.Options -split ' = ', 2)[0] }
             New-ReportRow $label $row.Path $row.Name $row.State $row.Options $detail
-        }
-        # The preference items, by their uid.
-        foreach ($extension in @(Get-PSGPOPreferenceExtension -Scope $scope)) { [void]$known.Add((Get-PSGPOPreferencePath -Extension $extension -Scope $scope)) }
-        foreach ($row in @(Get-PSGPOConfiguredPreference -Files $Files -Scope $scope)) {
-            [pscustomobject]@{ Key = $row.Key; Scope = $row.Scope; Path = $row.Path; Name = $row.Name; State = $row.State; Options = $row.Options }
         }
     }
 
     # The other files: changed when their content changed. GPT.INI only holds the version.
     foreach ($name in $Files.Keys) {
-        if ($known.Contains($name) -or $name -eq 'GPT.INI') { continue }
+        if ($settings.Known.Contains($name) -or $name -eq 'GPT.INI') { continue }
         $hash = Get-PSGPOFileHash -Bytes ([byte[]]$Files[$name])
         New-ReportRow 'Files' 'Other files of the GPO' $name "$($Files[$name].Length) bytes, SHA-256 $($hash.Substring(0, 12))"
     }
@@ -491,11 +537,14 @@ function Get-PSGPOBackupSetting {
     [CmdletBinding()]
     param([Parameter(Mandatory)] $Backup)
 
+    $files = Read-PSGPOBackupFile -Backup $Backup
+    $extensions = Get-PSGPOBackupExtensionName -Backup $Backup -Files $files
     $property = @{
         DisplayName = $Backup.DisplayName; Status = $Backup.Status; SecurityFiltering = $Backup.SecurityFiltering
         DeniedTo = $Backup.DeniedTo; Links = $Backup.Links; WmiFilter = $Backup.WmiFilter
+        MachineExtensionNames = $extensions.Machine; UserExtensionNames = $extensions.User
     }
-    Get-PSGPOSettingReport -Files (Read-PSGPOBackupFile -Backup $Backup) -Property $property
+    Get-PSGPOSettingReport -Files $files -Property $property
 }
 
 # What changed from $Reference (older) to $Difference (newer), setting by setting: Added,

@@ -2,7 +2,18 @@
 
 ## Unreleased
 
+### Security
+
+* What the console does not interpret is shown where a GPO is reviewed: a client-side extension whose settings it does not read (Folder Redirection, Software Installation, IP Security, an extension it does not know...) and a file of the folder of the GPO none of its readers reads, in a box of the **Settings** tab, in the details of the GPO (*Not interpreted*), in its report and in the comparison of two backups. The approval form lists them and approves only once *I reviewed these settings* is checked; `Approve-PSGPO` says them in a warning and in its confirmation. The computers apply them all the same: an approver approved them unseen before
+
+### Added
+
+* The scripts of a GPO ([MS-GPSCR]): startup and shutdown scripts of the computer, logon and logoff scripts of the user (`scripts.ini`, `psscripts.ini`). The **Settings** tab and the comparison of two backups list each one with its parameters, whether the PowerShell scripts run first, and the file it runs in the GPO with its size and SHA-256 (a change of its content shows); the files no script runs are listed too. The editor has **Scripts (Startup/Shutdown)** and **Scripts (Logon/Logoff)**: add, edit, delete and move a script, a file of this computer copied into the GPO, the order of the PowerShell scripts, the content of the selected script; each change is one increase of the version, the extension of the scripts declared. Checked on Windows: the member registers the startup scripts in their order, and GPMC reads them
+* `Get-PSGPOReport`, as `Get-GPOReport` of GPMC: the report of GPOs (`-Name`, `-All`) as `PSGPOTools.GpoReport` objects, an XML document of HGPM or an HTML page in one file (`-ReportType Object|Xml|Html`, `-Path`, `-Language`): details, links, security filtering, delegation, client-side extensions, the settings of both configurations, and what HGPM does not interpret. **Save report...**, in the Settings tab and in the context menu of a GPO, writes the HTML page
+
 ### Fixed
+
+* `Approve-PSGPO -WhatIf` on Linux read the GPO to approve: the temporary folder of its copy, and of the audit log read by `Invoke-PSGPOAuditRetention -WhatIf`, were not made under `-WhatIf`. `ForEach-Object <property>` gives nothing under `-WhatIf` (it asks ShouldProcess): the workflow read again under `-WhatIf` lost the groups of creators of the account
 
 * The launcher opens each console in a PowerShell process of its own (the same pwsh and HGPM, without the profile). Run in the process of the launcher, a console ran inside its loop, and the code of one window found the variables of another: the Audit Log opened beside the GPO console gave it no domain (*Approve...* failed with "Cannot bind argument to parameter 'Directory' because it is null"), and closing the launcher stopped the GPO console, whose window stayed open without its code (*Create the security filtering groups* then failed with "The term 'Update-ApproveGpoGroupState' is not recognized"). Several consoles can be open at once, one that fails does not close the others, and they stay open once the launcher is closed
 * Each window stops its own loop only (`Invoke-PSGPOWindowLoop`, the token held by the handler), and a window whose code fails is closed with it rather than left open with buttons that do nothing
@@ -11,6 +22,8 @@
 ### Changed
 
 * The theme (*Dark mode* / *Light mode*) is kept in the settings of the user: the consoles open in their own processes follow it within a second, and the next start begins on it
+* The CI installs Pester and PSScriptAnalyzer from the PowerShell Gallery with three attempts (`CI/Install-CIModule.ps1`): a download the Gallery refused failed the job
+* The ADMX files are read once each, their namespace from their first lines, and as XML documents (not line by line): a central store of SYSVOL was read three times through the network
 
 ## 0.1.16 - alpha
 

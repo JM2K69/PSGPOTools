@@ -17,41 +17,19 @@ $script:PSGPOPolicyRuleTypeName = @{
     DWordBigEndian = 'REG_DWORD_BIG_ENDIAN'; Link = 'REG_LINK'; MultiString = 'REG_MULTI_SZ'; QWord = 'REG_QWORD'
 }
 
-# Names of the client-side extensions, as Policy Analyzer writes them (the preferences come from
-# their catalog).
-$script:PSGPOPolicyRuleExtensionName = @{
-    '{35378EAC-683F-11D2-A89A-00C04FBBCFA2}' = 'Registry Policy'
-    '{827D319E-6EAC-11D2-A4EA-00C04F79F83A}' = 'Security'
-    '{F3CCC681-B74C-4060-9F26-CD84525DCA2A}' = 'Audit Policy Configuration'
-    '{42B5FAAE-6536-11D2-AE5A-0000F87571E3}' = 'Scripts'
-    '{25537BA6-77A8-11D2-9B6C-0000F8080861}' = 'Folder Redirection'
-    '{C6DC5466-785A-11D2-84D0-00C04FB169F7}' = 'Software Installation'
-    '{B1BE8D72-6EAC-11D2-A4EA-00C04F79F83A}' = 'EFS Recovery'
-    '{E437BC1C-AA7D-11D2-A382-00C04F991E27}' = 'IP Security'
-    '{0ACDD40C-75AC-47AB-BAA0-BF6DE7E7FE63}' = 'Wireless Group Policy'
-    '{2A8FDC61-2347-4C87-92F6-B05EB91A201A}' = 'Group Policy Mitigation Options'
-    '{7933F41E-56F8-41D6-A31C-4148A711EE93}' = 'Windows Search Group Policy Extension'
-    '{D76B9641-3288-4F75-942D-087DE603E3EA}' = 'Local Administrator Password Solution (LAPS)'
-    '{F312195E-3D9D-447A-A3F5-08DFFA24735E}' = 'Device Guard'
-    '{4CFB60C1-FAA6-47F1-89AA-0B18730C9FD3}' = 'Internet Explorer Zonemapping'
-    '{FB2CA36D-0B40-4307-821B-A13B252DE56C}' = 'Enterprise QoS'
-    '{3060E8D0-7020-11D2-842D-00C04FA372D4}' = 'Remote Installation Services'
-}
-
 # The nodes of the editor of the sections "name",mode,"SDDL", and what their mode means.
 $script:PSGPOPolicyRuleListPath = @{ 'Service General Setting' = 'System Services'; 'Registry Keys' = 'Registry'; 'File Security' = 'File System' }
 $script:PSGPOPolicyRuleServiceMode = @{ '2' = 'Automatic'; '3' = 'Manual'; '4' = 'Disabled' }
 $script:PSGPOPolicyRulePermissionMode = @{ '0' = 'Propagate inheritable permissions'; '1' = 'Do not allow permissions to be replaced'; '2' = 'Replace existing permissions' }
 
-# Name of a client-side extension: the one of the table, of a preference type, else its GUID.
+# Name of a client-side extension, as Policy Analyzer writes it: the one of the extensions the
+# console knows (PSGPOExtension.ps1), of a preference type, else its GUID.
 function Get-PSGPOPolicyRuleExtensionName {
     [CmdletBinding()]
     [OutputType([string])]
     param([Parameter(Mandatory)] [string]$Guid)
 
-    foreach ($known in $script:PSGPOPolicyRuleExtensionName.Keys) {
-        if ([string]::Equals($known, $Guid, [System.StringComparison]::OrdinalIgnoreCase)) { return $script:PSGPOPolicyRuleExtensionName[$known] }
-    }
+    if ($script:PSGPOExtension.ContainsKey($Guid)) { return $script:PSGPOExtension[$Guid].Name }
     foreach ($extension in @(Get-PSGPOPreferenceExtension)) {
         if ([string]::Equals($extension.Cse, $Guid, [System.StringComparison]::OrdinalIgnoreCase)) { return "Group Policy $($extension.Name)" }
     }

@@ -575,10 +575,11 @@ function Read-PSGPOAuditEntry {
         # Linux: the files of the share the account can read, copied first (the folders of the
         # other tiers are refused: not a failure), and the owners of the files.
         $local = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-audit-$([guid]::NewGuid())"
-        $null = New-Item -ItemType Directory -Path $local
+        # Even under -WhatIf (Invoke-PSGPOAuditRetention -WhatIf reads the log): a copy to read.
+        $null = New-Item -ItemType Directory -Path $local -WhatIf:$false
         $command = 'prompt OFF; recurse ON; lcd "{0}"; {1}mget *' -f $local, $(if ($share.Folder) { 'cd "{0}"; ' -f $share.Folder })
         $copied = Invoke-PSGPOSmbClient -Server $share.Server -Share $share.Share -TimeoutSeconds 600 -AllowMissing -IgnoreExitCode -IgnoreStatus 'NT_STATUS_ACCESS_DENIED', 'NT_STATUS_NO_SUCH_FILE' -Command $command
-        if ($null -eq $copied) { Remove-Item -LiteralPath $local -Recurse -Force; return }
+        if ($null -eq $copied) { Remove-Item -LiteralPath $local -Recurse -Force -WhatIf:$false; return }
         try {
             foreach ($pair in (Get-PSGPOAuditShareOwner -Share $share).GetEnumerator()) { $owners[(Join-Path $local ($pair.Key -replace '\\', [System.IO.Path]::DirectorySeparatorChar))] = $pair.Value }
         } catch {
@@ -598,7 +599,7 @@ function Read-PSGPOAuditEntry {
         }
         Read-PSGPOAuditFile -File $files -Owner $owners
     } finally {
-        if ($local) { Remove-Item -LiteralPath $local -Recurse -Force -ErrorAction SilentlyContinue }
+        if ($local) { Remove-Item -LiteralPath $local -Recurse -Force -ErrorAction SilentlyContinue -WhatIf:$false }
     }
 }
 

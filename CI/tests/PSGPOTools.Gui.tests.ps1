@@ -1797,6 +1797,58 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Shows the settings the console does not interpret, and has them reviewed before the approval' {
+            $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
+            $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path $TestDrive "settings-$([guid]::NewGuid()).json"
+            Set-PSGPOUserSetting -Values @{ BackupPath = (Join-Path $TestDrive "unseen-$([guid]::NewGuid())") }
+            try {
+                $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+                $Gpo.ApprovalState = 'Pending'
+                $Gpo.Owner = 'CORP\tech1'
+                $Gpo.UserExtensionNames = '[{25537BA6-77A8-11D2-9B6C-0000F8080861}{88E729D6-BDC1-11D1-BD2A-00C04FB9603F}]'
+                $Directory.GpoFiles["$($Gpo.Id)\User\Documents & Settings\fdeploy1.ini"] = [byte[]](65, 66)
+                $Directory.Account = 'CORP\admin'
+                $Directory.Workflow = [pscustomobject]@{
+                    Enabled = $true; Problem = $null; IsApprover = $true; IsCreator = $false
+                    Approvers = @('Domain Admins'); ApproverSids = @('S-1-5-21-1-2-3-512'); Creators = @('GPO-Tier1-Admins'); CreatorSids = @('S-1-5-21-1-2-3-1123')
+                    AccountCreatorSids = @(); ApprovedOwner = 'Domain Admins'; ApprovedOwnerSid = 'S-1-5-21-1-2-3-512'; CreatorRights = 'ReadOnly'
+                }
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    $Ui.domainTreeView.SelectedItem = @((Get-DomainNode $Ui 'Group Policy Objects').Children | Where-Object { [object]::ReferenceEquals($_.Tag, $Gpo) })[0]
+                    ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'Not interpreted').Value | Should -BeLike 'Folder Redirection: *'
+                    $Ui.directoryTabs.SelectedItem = $Ui.settingsTab
+                    $Ui.uninterpretedSettingsBorder.IsVisible | Should -BeTrue
+                    $Ui.uninterpretedSettingsHeader.Text | Should -Be 'Settings the console does not interpret (2)'
+                    @($Ui.uninterpretedSettingsList.ItemsSource).Name | Should -Be @('Folder Redirection', 'User\Documents & Settings\fdeploy1.ini')
+                    $Ui.settingsReportButton.IsVisible | Should -BeTrue
+
+                    # Save report... of the context menu: its result in the Details tab.
+                    $Ui.saveReportGpoMenuItem.IsVisible | Should -BeTrue
+                    $Report = Join-Path $TestDrive "report-$([guid]::NewGuid()).html"
+                    $Ui.GpoReport.Gpo = $Gpo
+                    $Ui.GpoReport.FromMenu = $true
+                    & $Ui.SaveGpoReport -Path $Report
+                    $Ui.directoryTabs.SelectedIndex | Should -Be 0
+                    $Ui.directoryResultTextBlock.Text | Should -Be "Report saved: $Report"
+                    Get-Content -LiteralPath $Report -Raw | Should -BeLike '*Settings the console does not interpret (2)*fdeploy1.ini*'
+
+                    Invoke-Click $Ui.approveGpoMenuItem
+                    $Ui.approveGpoUninterpretedPanel.IsVisible | Should -BeTrue
+                    $Ui.approveGpoUninterpretedTextBlock.Text | Should -Be 'The console does not interpret 2 setting(s) of this GPO, which the computers apply: Folder Redirection, User\Documents & Settings\fdeploy1.ini. See them in the Settings tab.'
+                    $Ui.approveGpoUninterpretedCheckBox.IsChecked | Should -BeFalse
+                    Invoke-Click $Ui.approveGpoConfirmButton
+                    $Ui.approveGpoErrorTextBlock.Text | Should -BeLike 'Review the settings the console does not interpret*'
+                    $Gpo.ApprovalState | Should -Be 'Pending'
+                    $Ui.approveGpoUninterpretedCheckBox.IsChecked = $true
+                    Invoke-Click $Ui.approveGpoConfirmButton
+                    $Gpo.ApprovalState | Should -Be 'Approved'
+                }
+            } finally {
+                $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
+            }
+        }
+
         It 'Does not link a GPO whose security filtering failed, and says why' {
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                 param($Ui)
@@ -2231,6 +2283,77 @@ InModuleScope -ModuleName HGPM {
                 @($Ui.restrictedGroupsList.ItemsSource).Count | Should -Be 0
             }
             [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo)).GetSectionNames() | Should -Not -Contain 'Group Membership'
+        }
+
+        It 'Edits the startup scripts of a GPO, a file copied into it, as the Group Policy editor' {
+            $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
+            $Local = Join-Path $TestDrive 'Set-Baseline.ps1'
+            Set-Content -LiteralPath $Local -Value 'Set-ItemProperty -Path HKLM:\Software\Contoso -Name Baseline -Value 1' -Encoding utf8
+            $Version = $Gpo.GetComputerVersion()
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+                # Windows Settings > Scripts (Startup/Shutdown) > Startup, before Security Settings.
+                $Node = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -eq 'Scripts:Machine|Startup' }
+                $Node.Parent.Header | Should -Be 'Scripts (Startup/Shutdown)'
+                @($Node.Parent.Children.Header) | Should -Be @('Startup', 'Shutdown')
+                @($Node.Parent.Parent.Children.Header)[0..1] | Should -Be @('Scripts (Startup/Shutdown)', 'Security Settings')
+                (Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -eq 'Scripts:User|Logon' }).Parent.Header | Should -Be 'Scripts (Logon/Logoff)'
+                $Ui.treeView.SelectedItem = $Node
+                $Ui.scriptsPanel.IsVisible | Should -BeTrue
+                $Ui.detailsTabs.IsVisible | Should -BeFalse
+                $Ui.scriptsTitleTextBlock.Text | Should -Be 'Startup (Computer Configuration)'
+                $Ui.scriptsEmptyTextBlock.Text | Should -Be 'This GPO has no script of this kind.'
+
+                # A PowerShell script, its file copied from this computer.
+                Invoke-Click $Ui.scriptsAddButton
+                $Ui.scriptsTypeComboBox.SelectedItem.Tag | Should -Be 'PowerShell'
+                $Ui.scriptsCopyPathTextBox.Text = $Local
+                $Ui.scriptsParametersTextBox.Text = '-Quiet'
+                Invoke-Click $Ui.scriptsSaveButton
+                $Ui.scriptsFormErrorTextBlock.Text | Should -BeNullOrEmpty
+                $Ui.scriptsStatusTextBlock.Text | Should -BeLike "Script 'Set-Baseline.ps1' saved in Machine\Scripts\Startup\Set-Baseline.ps1, Machine\Scripts\psscripts.ini (version *)."
+                $Row = @($Ui.scriptsList.ItemsSource)[0]
+                $Row.Name | Should -Be 'Set-Baseline.ps1'
+                $Row.Summary | Should -Be 'Windows PowerShell script - Parameters: -Quiet'
+                $Ui.scriptsList.SelectedItem | Should -Be $Row
+                $Ui.scriptsContentPanel.IsVisible | Should -BeTrue
+                $Ui.scriptsContentTitleTextBlock.Text | Should -BeLike 'Machine\Scripts\Startup\Set-Baseline.ps1: * bytes, SHA-256 *'
+                $Ui.scriptsContentTextBox.Text | Should -BeLike 'Set-ItemProperty -Path HKLM:\Software\Contoso*'
+
+                # A script outside the GPO: the scripts of scripts.ini come before the PowerShell scripts.
+                Invoke-Click $Ui.scriptsAddButton
+                $Ui.scriptsTypeComboBox.SelectedIndex = 0
+                $Ui.scriptsNameTextBox.Text = '\\corp\netlogon\inventory.cmd'
+                Invoke-Click $Ui.scriptsSaveButton
+                @($Ui.scriptsList.ItemsSource).Name | Should -Be @('\\corp\netlogon\inventory.cmd', 'Set-Baseline.ps1')
+                @($Ui.scriptsList.ItemsSource)[0].Flags | Should -Be 'Outside the GPO: the computers run it from there'
+                $Ui.scriptsUpButton.IsEnabled | Should -BeFalse -Because 'it is the first of the scripts of scripts.ini'
+
+                # The PowerShell scripts run first.
+                $Ui.scriptsOrderComboBox.SelectedIndex = 1
+                $Ui.scriptsStatusTextBlock.Text | Should -BeLike 'Order of the PowerShell scripts saved in Machine\Scripts\psscripts.ini (version *).'
+
+                # "Configured settings only" keeps the node.
+                $Ui.configuredOnlyCheckBox.IsChecked = $true
+                Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -eq 'Scripts:Machine|Startup' } | Should -Not -BeNullOrEmpty
+                $Ui.configuredOnlyCheckBox.IsChecked = $false
+
+                # Deleted: its file stays in the GPO.
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -eq 'Scripts:Machine|Startup' }
+                $Ui.scriptsList.SelectedItem = @($Ui.scriptsList.ItemsSource)[0]
+                Invoke-Click $Ui.scriptsDeleteButton
+                $Ui.scriptsDeletePanel.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.scriptsDeleteConfirmButton
+                @($Ui.scriptsList.ItemsSource).Name | Should -Be @('Set-Baseline.ps1')
+            }
+            $Gpo.GetComputerVersion() | Should -Be ($Version + 4) -Because 'each change is one increase of the version'
+            $Gpo.MachineExtensionNames | Should -BeLike '*42B5FAAE-6536-11D2-AE5A-0000F87571E3*40B6664F-4972-11D1-A7CA-0000F87571E3*'
+            [System.Text.Encoding]::UTF8.GetString($Directory.ReadGpoFile($Gpo, 'Machine\Scripts\Startup\Set-Baseline.ps1')) | Should -BeLike 'Set-ItemProperty*'
+            $List = [GPOToolsScriptsFile]::Parse($Directory.ReadGpoFile($Gpo, 'Machine\Scripts\psscripts.ini'))
+            $List.GetScripts('Startup').CmdLine | Should -Be 'Set-Baseline.ps1'
+            $List.GetConfig('StartExecutePSFirst') | Should -Be 'true'
         }
 
         It 'Imports and deletes the certificates of the public key policies of a GPO' {

@@ -309,7 +309,7 @@ function Update-PSGPODomainWorkflow {
         Creators = [string[]]@($creators.Name)
         CreatorSids = [string[]]@($creators.Sid)
         # The groups of creators the account is in: they edit the GPOs it creates
-        AccountCreatorSids = [string[]]@($creators | Where-Object { $token -contains $_.Sid } | ForEach-Object Sid)
+        AccountCreatorSids = [string[]]@($creators | Where-Object { $token -contains $_.Sid } | ForEach-Object { $_.Sid })
         ApprovedOwner = $owner.Name
         ApprovedOwnerSid = $owner.Sid
         CreatorRights = $setting.CreatorRights
@@ -743,24 +743,50 @@ function Get-PSGPOReviewStamp {
     [OutputType([string])]
     param(
         [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
+        # What the approver reviews, read once (Read-PSGPOReviewContent); read here when not given.
+        $Content
+    )
+
+    if (-not $Content) { $Content = Read-PSGPOReviewContent -Directory $Directory -Gpo $Gpo }
+    $lines = [System.Collections.Generic.List[string]]::new()
+    foreach ($name in $Content.Attributes.Keys) { $lines.Add("$name=$($Content.Attributes[$name])") }
+    foreach ($path in @($Content.Files.Keys | Sort-Object { "$_".ToUpperInvariant() })) {
+        $lines.Add("$path=$([System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([byte[]]$Content.Files[$path])))")
+    }
+    [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($lines -join "`n")))
+}
+
+# What an approver reviews of a GPO, as the domain has it now: Attributes, those of its container
+# that make it apply (read again from the domain), and Files, every file of its SYSVOL folder.
+function Read-PSGPOReviewContent {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
         [Parameter(Mandatory)] [GPOToolsGpo]$Gpo
     )
 
     $names = 'versionNumber', 'flags', 'gPCMachineExtensionNames', 'gPCUserExtensionNames', 'gPCWQLFilter', 'gPCFileSysPath'
-    $lines = [System.Collections.Generic.List[string]]::new()
+    $attributes = [ordered]@{}
     if ($Directory -is [GPOToolsLdapDirectory]) {
         $connection = New-PSGPODirectoryConnection -Directory $Directory
         try { $entry = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Gpo.DistinguishedName -Scope Base -Attribute $names } finally { $connection.Dispose() }
-        foreach ($name in $names) { $lines.Add("$name=$(Get-PSGPOLdapValue $entry $name)") }
+        foreach ($name in $names) { $attributes[$name] = "$(Get-PSGPOLdapValue $entry $name)" }
     } else {
         $values = $Gpo.Version, $Gpo.Flags, $Gpo.MachineExtensionNames, $Gpo.UserExtensionNames, $Gpo.WmiFilterId, $Gpo.FileSysPath
-        for ($i = 0; $i -lt $names.Count; $i++) { $lines.Add("$($names[$i])=$($values[$i])") }
+        for ($i = 0; $i -lt $names.Count; $i++) { $attributes[$names[$i]] = "$($values[$i])" }
     }
-    $files = $Directory.ReadGpoFolder($Gpo)
-    foreach ($path in @($files.Keys | Sort-Object { "$_".ToUpperInvariant() })) {
-        $lines.Add("$path=$([System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([byte[]]$files[$path])))")
-    }
-    [System.Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData([System.Text.Encoding]::UTF8.GetBytes($lines -join "`n")))
+    [pscustomobject]@{ Attributes = $attributes; Files = $Directory.ReadGpoFolder($Gpo) }
+}
+
+# What the console does not interpret in what an approver reviews (Read-PSGPOReviewContent): the
+# rows of Get-PSGPOUninterpretedSetting, in English.
+function Get-PSGPOReviewUninterpreted {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] $Content)
+
+    $settings = Get-PSGPOFolderSetting -Files $Content.Files -MachineExtensionNames $Content.Attributes['gPCMachineExtensionNames'] -UserExtensionNames $Content.Attributes['gPCUserExtensionNames']
+    $settings.Uninterpreted
 }
 
 # The security filtering groups a GPO already has (APPLY_<GPO> and DENY_<GPO>, the prefixes of the
@@ -866,7 +892,7 @@ function Invoke-PSGPOApproval {
         CreatorRights = $CreatorRights
         AppliedBy = $ApplyTo.Name
         DeniedTo = if ($DenyTo) { $DenyTo.Name }
-        GroupsCreated = [string[]]@($created | ForEach-Object DistinguishedName)
+        GroupsCreated = [string[]]@($created | ForEach-Object { $_.DistinguishedName })
         # Permissions someone added while it was pending (SDDL), removed by the approval
         RemovedPermissions = [string[]]@($Gpo.RemovedAtApproval)
         Backup = if ($backup) { $backup.Path }
