@@ -208,6 +208,15 @@ function Start-PSGPOManagerWindow {
     $changeDcErrorTextBlock = Get-PSGPOAvaloniaControl $window 'changeDcErrorTextBlock'
     $changeDcConfirmButton = Get-PSGPOAvaloniaControl $window 'changeDcConfirmButton'
     $changeDcCancelButton = Get-PSGPOAvaloniaControl $window 'changeDcCancelButton'
+    $statusTab = Get-PSGPOAvaloniaControl $window 'statusTab'
+    $statusBaselineTextBlock = Get-PSGPOAvaloniaControl $window 'statusBaselineTextBlock'
+    $statusCollectedTextBlock = Get-PSGPOAvaloniaControl $window 'statusCollectedTextBlock'
+    $statusDetectButton = Get-PSGPOAvaloniaControl $window 'statusDetectButton'
+    $statusResultTextBlock = Get-PSGPOAvaloniaControl $window 'statusResultTextBlock'
+    $statusDataPanel = Get-PSGPOAvaloniaControl $window 'statusDataPanel'
+    $statusControllerList = Get-PSGPOAvaloniaControl $window 'statusControllerList'
+    $statusFindingsTextBlock = Get-PSGPOAvaloniaControl $window 'statusFindingsTextBlock'
+    $statusFindingList = Get-PSGPOAvaloniaControl $window 'statusFindingList'
     $useWmiFilterTitleTextBlock = Get-PSGPOAvaloniaControl $window 'useWmiFilterTitleTextBlock'
     $useWmiFilterSearchTextBox = Get-PSGPOAvaloniaControl $window 'useWmiFilterSearchTextBox'
     $useWmiFilterList = Get-PSGPOAvaloniaControl $window 'useWmiFilterList'
@@ -2878,7 +2887,7 @@ function Start-PSGPOManagerWindow {
     $directoryTabs.add_SelectionChanged({
         param($control, $e)
         # Only the selection of a tab, not of a control inside one.
-        if ([object]::ReferenceEquals($e.Source, $directoryTabs)) { Update-SettingsTab; Update-DelegationTab; Update-WmiDelegationTab; Update-HistoryTab }
+        if ([object]::ReferenceEquals($e.Source, $directoryTabs)) { Update-SettingsTab; Update-DelegationTab; Update-WmiDelegationTab; Update-HistoryTab; Update-StatusTab }
     })
 
     function Get-SelectedGpo {
@@ -2962,6 +2971,7 @@ function Start-PSGPOManagerWindow {
         Update-DelegationTab
         Update-WmiDelegationTab
         Update-HistoryTab
+        Update-StatusTab
     })
     # Nothing to offer on this node: do not open an empty menu.
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
@@ -3564,6 +3574,83 @@ function Start-PSGPOManagerWindow {
         if ($e.Key -eq [Avalonia.Input.Key]::F5 -and $managementView.IsVisible) { Invoke-DirectoryRefresh; $e.Handled = $true }
     })
 
+    # --- Status of the domain, as the Status tab of GPMC: the GPOs of each domain controller
+    # compared to the baseline (the domain controller read), and their problems. Read on Detect
+    # Now only: it reads every domain controller. -------------------------------------------------
+    $healthStatus = @{ Data = $null; Running = $false }
+    function Update-StatusTab {
+        $item = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
+        $statusTab.IsVisible = $Directory -is [GPOToolsLdapDirectory] -and [object]::ReferenceEquals($item, $Directory.Domain)
+        if (-not $statusTab.IsVisible) {
+            if ($directoryTabs.SelectedItem -eq $statusTab) { $directoryTabs.SelectedIndex = 0 }
+            return
+        }
+        $role = if (-not $Directory.PdcEmulator) { '' } elseif ($Directory.IsPdcEmulator()) { Get-PSGPOText ', PDC emulator' } else { Get-PSGPOText ', not the PDC emulator ({0})' $Directory.PdcEmulator }
+        $statusBaselineTextBlock.Text = Get-PSGPOText 'Baseline domain controller: {0}{1}' $Directory.Server $role
+        # Collected on another domain controller (Change Domain Controller...): read again.
+        $data = $healthStatus.Data
+        if ($data -and -not [string]::Equals($data.Baseline, $Directory.Server, [System.StringComparison]::OrdinalIgnoreCase)) { $data = $null; $healthStatus.Data = $null }
+        $statusDataPanel.IsVisible = $null -ne $data
+        if (-not $data) {
+            $statusCollectedTextBlock.Text = Get-PSGPOText 'No data collected yet: Detect Now reads the GPOs of each domain controller of the domain.'
+            return
+        }
+        $statusCollectedTextBlock.Text = Get-PSGPOText 'Data collected on {0}' $data.Collected.ToString('g')
+        $statusControllerList.ItemsSource = @(foreach ($controller in $data.Controllers) {
+                $row = [AvaloniaControllerStatusRow]::new()
+                $roles = @(if ($controller.IsPdcEmulator) { Get-PSGPOText 'PDC emulator' }) + @(if ($controller.IsBaseline) { Get-PSGPOText 'baseline' })
+                $row.Name = if ($roles.Count) { '{0} ({1})' -f $controller.Name, ($roles -join ', ') } else { $controller.Name }
+                if ($controller.Problem) {
+                    $row.StateText = Get-PSGPOText 'Cannot be read: {0}' $controller.Problem
+                    $row.Brush = '#D13438'
+                } elseif ($controller.IsBaseline) {
+                    $row.StateText = if ($controller.Differences) { Get-PSGPOText '{0} GPOs; {1} differences between its directory and its SYSVOL (below)' $controller.GpoCount $controller.Differences } else { Get-PSGPOText '{0} GPOs; its directory and its SYSVOL agree' $controller.GpoCount }
+                    $row.Brush = if ($controller.Differences) { '#CA5010' } else { '#107C10' }
+                } else {
+                    $row.StateText = if ($controller.Differences) { Get-PSGPOText 'Replication in progress: {0} differences with the baseline (below)' $controller.Differences } else { Get-PSGPOText 'Replication in sync: {0} GPOs' $controller.GpoCount }
+                    $row.Brush = if ($controller.Differences) { '#CA5010' } else { '#107C10' }
+                }
+                $row
+            })
+        $findings = @($data.Findings)
+        $statusFindingsTextBlock.Text = if ($findings.Count) { Get-PSGPOText 'Problems found: {0}' $findings.Count } else { Get-PSGPOText 'No problem found: each GPO has its folder and its version in SYSVOL, and the domain controllers agree.' }
+        $statusFindingList.IsVisible = $findings.Count -gt 0
+        $checks = @{ Redirected = 'Redirected GPO'; Folder = 'Folder in SYSVOL'; Version = 'Versions'; Extension = 'Client-side extension'; OrphanFolder = 'Folder without a GPO'; Link = 'Link'; Replication = 'Replication'; DomainController = 'Domain controller' }
+        $statusFindingList.ItemsSource = @(foreach ($finding in $findings) {
+                $row = [AvaloniaHealthRow]::new()
+                $row.SeverityText = Get-PSGPOText $finding.Severity
+                $row.Brush = if ($finding.Severity -eq 'Error') { '#D13438' } else { '#CA5010' }
+                $check = if ($checks[$finding.Check]) { Get-PSGPOText $checks[$finding.Check] } else { $finding.Check }
+                $row.Title = Get-PSGPOText '{0}: {1}' $check $finding.Target
+                $row.DomainController = $finding.DomainController
+                $row.Detail = $finding.Detail
+                $row
+            })
+    }
+
+    function Invoke-StatusDetection {
+        if ($healthStatus.Running -or $Directory -isnot [GPOToolsLdapDirectory]) { return }
+        $healthStatus.Running = $true
+        $statusDetectButton.IsEnabled = $false
+        $statusResultTextBlock.ClearValue([Avalonia.Controls.TextBlock]::ForegroundProperty)
+        $statusResultTextBlock.Text = Get-PSGPOText 'Reading the GPOs of each domain controller of {0}...' $Directory.DomainName
+        # Posted: the text shows before the window waits for the domain controllers.
+        [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
+                try {
+                    $healthStatus.Data = Get-PSGPOHealthData -Directory $Directory
+                    $statusResultTextBlock.Text = ''
+                } catch {
+                    $statusResultTextBlock.Text = Get-PSGPOText 'The status of the domain is not read: {0}' $_.Exception.GetBaseException().Message
+                    $statusResultTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
+                    Write-PSGPOLogEntry -Level Error -Source 'GPO console' -Message $statusResultTextBlock.Text -ErrorRecord $_
+                }
+                $healthStatus.Running = $false
+                $statusDetectButton.IsEnabled = $true
+                Update-StatusTab
+            }, [Avalonia.Threading.DispatcherPriority]::Background)
+    }
+    $statusDetectButton.Add_Click({ Invoke-StatusDetection })
+
     $directoryHint = if ($Directory.IsReadOnly) { Get-PSGPOText 'Read-only: {0}' $Directory.Source } else { Get-PSGPOText 'Right-click a domain or an OU to create a GPO' }
     $directoryBreadcrumbTextBlock.Text = $directoryHint
     $directoryEmptyTextBlock.IsVisible = -not $Directory
@@ -3594,7 +3681,7 @@ function Start-PSGPOManagerWindow {
             'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
             'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewList',
             'themeToggleIcon', 'themeToggleText', 'subtitleTextBlock', 'managementButton', 'browseAdmxButton', 'searchPanel', 'managementView', 'editorView',
-            'editingBanner', 'editingGpoTextBlock', 'applyPanel', 'applySettingButton', 'applyStatusTextBlock', 'previewHeaderTextBlock', 'directoryTabs', 'settingsTab', 'settingsStatusTextBlock', 'computerSettingsHeader', 'computerSettingsList', 'userSettingsHeader', 'userSettingsList', 'uninterpretedSettingsBorder', 'uninterpretedSettingsHeader', 'uninterpretedSettingsList', 'settingsReportButton', 'settingsReportStatusTextBlock', 'demoBanner', 'demoBannerTextBlock', 'admxLoadingBanner', 'admxLoadingTextBlock', 'changeDcMenuItem', 'changeDcPanel', 'changeDcTitleTextBlock', 'changeDcList', 'changeDcErrorTextBlock', 'changeDcConfirmButton', 'changeDcCancelButton', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
+            'editingBanner', 'editingGpoTextBlock', 'applyPanel', 'applySettingButton', 'applyStatusTextBlock', 'previewHeaderTextBlock', 'directoryTabs', 'settingsTab', 'settingsStatusTextBlock', 'computerSettingsHeader', 'computerSettingsList', 'userSettingsHeader', 'userSettingsList', 'uninterpretedSettingsBorder', 'uninterpretedSettingsHeader', 'uninterpretedSettingsList', 'settingsReportButton', 'settingsReportStatusTextBlock', 'demoBanner', 'demoBannerTextBlock', 'admxLoadingBanner', 'admxLoadingTextBlock', 'changeDcMenuItem', 'changeDcPanel', 'changeDcTitleTextBlock', 'changeDcList', 'changeDcErrorTextBlock', 'changeDcConfirmButton', 'changeDcCancelButton', 'statusTab', 'statusBaselineTextBlock', 'statusCollectedTextBlock', 'statusDetectButton', 'statusResultTextBlock', 'statusDataPanel', 'statusControllerList', 'statusFindingsTextBlock', 'statusFindingList', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
             'directoryTitleTextBlock', 'directoryPropertiesList', 'linksHeaderTextBlock', 'linksList', 'createLinkedGpoMenuItem',
             'newGpoMenuItem', 'editGpoMenuItem', 'editGpoButton', 'newGpoPanel', 'newGpoTitleTextBlock', 'newGpoNameTextBox',
             'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton', 'newGpoStatusComboBox', 'newGpoGroupsCheckBox', 'newGpoGroupsPanel',

@@ -65,6 +65,18 @@ not the PDC emulator. The details of a GPO show its versions in the directory an
 
 ![Change Domain Controller...](../assets/screenshots/83-change-dc.png){ width="640" }
 
+The **Status** tab of the domain shows, as the one of GPMC (*Group Policy Infrastructure Status*),
+whether the domain controllers agree: **Detect Now** reads the GPOs of each domain controller, in
+its directory and in its SYSVOL, and compares them to the baseline, the domain controller the
+console reads (its PDC emulator). It lists the domain controllers, *in sync* or with a
+*replication in progress*, and the problems of the GPOs: a GPO without its folder or its
+`GPT.INI`, versions that differ between the directory and SYSVOL, a file of settings whose
+client-side extension the GPO does not declare, a folder of SYSVOL without a GPO, a link to a GPO
+that does not exist. `Test-PSGPOHealth` and `Get-PSGPOReplicationStatus` give the same in
+PowerShell ([hardening](../technical/hardening.md#health)).
+
+![The Status tab of the domain](../assets/screenshots/84-status.png){ width="640" }
+
 ## Policy editor
 
 **Edit** (right click, or double click on a GPO) opens the GPO in the

@@ -950,6 +950,63 @@ $(Get-PSGPOWindowResourceXaml)
                                 </ScrollViewer>
                             </Grid>
                         </TabItem>
+                        <!-- Status of the domain, as the Status tab of GPMC (Group Policy Infrastructure Status):
+                             the GPOs of each domain controller compared to the baseline, and their problems -->
+                        <TabItem Name='statusTab' Header='Status' IsVisible='False'>
+                            <ScrollViewer>
+                                <StackPanel Margin='16,8' Spacing='6'>
+                                    <TextBlock Text='Group Policy infrastructure status' FontSize='14' FontWeight='SemiBold' Foreground='{DynamicResource TextBrush}'/>
+                                    <TextBlock Text='This page shows the status of Active Directory and SYSVOL replication for this domain as it relates to Group Policy, and the problems of its GPOs.'
+                                               TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                    <Grid ColumnDefinitions='*,Auto' Margin='0,4,0,0'>
+                                        <StackPanel Grid.Column='0' Spacing='2'>
+                                            <TextBlock Name='statusBaselineTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBlock Name='statusCollectedTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                        </StackPanel>
+                                        <Button Grid.Column='1' Name='statusDetectButton' Content='Detect Now' VerticalAlignment='Top' Margin='8,0,0,0'/>
+                                    </Grid>
+                                    <TextBlock Name='statusResultTextBlock' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                    <StackPanel Name='statusDataPanel' Spacing='6' IsVisible='False'>
+                                        <TextBlock Text='Domain controllers' FontWeight='SemiBold' Margin='0,8,0,0' Foreground='{DynamicResource TextBrush}'/>
+                                        <ListBox Name='statusControllerList' MaxHeight='180'>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid ColumnDefinitions='Auto,*'>
+                                                        <Ellipse Grid.Column='0' Width='10' Height='10' Fill='{Binding Brush}' Margin='0,0,10,0' VerticalAlignment='Center'/>
+                                                        <StackPanel Grid.Column='1'>
+                                                            <TextBlock Text='{Binding Name}' FontWeight='SemiBold'/>
+                                                            <TextBlock Text='{Binding StateText}' TextWrapping='Wrap' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                        <TextBlock Name='statusFindingsTextBlock' FontWeight='SemiBold' Margin='0,8,0,0' Foreground='{DynamicResource TextBrush}'/>
+                                        <!-- The severities in a column as wide as the widest of them (Avertissement) -->
+                                        <ListBox Name='statusFindingList' MaxHeight='380' Grid.IsSharedSizeScope='True'>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width='Auto' SharedSizeGroup='Severity'/>
+                                                            <ColumnDefinition Width='*'/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Border Grid.Column='0' Background='{Binding Brush}' CornerRadius='8' Padding='7,1' Margin='0,2,10,0' MinWidth='76' VerticalAlignment='Top'>
+                                                            <TextBlock Text='{Binding SeverityText}' FontSize='11' Foreground='White' HorizontalAlignment='Center'/>
+                                                        </Border>
+                                                        <StackPanel Grid.Column='1' Spacing='1'>
+                                                            <TextBlock Text='{Binding Title}' FontWeight='SemiBold' TextWrapping='Wrap'/>
+                                                            <TextBlock Text='{Binding DomainController}' FontSize='11' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                            <SelectableTextBlock Text='{Binding Detail}' TextWrapping='Wrap'/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </TabItem>
                     </TabControl>
                 </Grid>
             </Border>

@@ -82,6 +82,36 @@ les consoles du domaine les lisent alors. Les fichiers ADMX déjà présents son
 nom remplacés ; s'il y en a déjà, ajoutez `-Force`. Avant la première publication d'une version
 (pas encore de tag), donnez la branche : `-Ref master`.
 
+### Le cache des fichiers ADMX { #admx-cache }
+
+Analyser un dossier `PolicyDefinitions` prend quelques secondes, et chaque console du lanceur
+s'ouvre dans un processus à elle : ce qu'un chargement lit est gardé dans un cache de
+l'utilisateur, un fichier par dossier et par langue (`%LOCALAPPDATA%\PSGPOTools\Admx` sous
+Windows ; `$XDG_CACHE_HOME/PSGPOTools/Admx`, sinon `~/.cache/PSGPOTools/Admx` ailleurs).
+
+- **Quand il est écrit** : la première fois qu'un dossier est chargé dans une langue, par ce qui le
+  charge : la console des GPO la première fois qu'elle a besoin des stratégies (l'éditeur, les
+  onglets **Paramètres** et **Historique**, un rapport ; jamais pour les liaisons, la délégation ou
+  l'approbation), ou avant de s'ouvrir avec `-PolicyDefinitions` ; l'éditeur seul (`-NoDirectory`)
+  et Policy Analyzer à leur démarrage ; **Charger** dans la fenêtre des ADMX ;
+  `Initialize-PSGPOAdmx`. Il est écrit à côté, puis renommé : une console qui s'ouvre pendant ce
+  temps lit l'ancien fichier ou le nouveau, jamais la moitié d'un.
+- **Quand il est lu** : tant que les fichiers `.admx`, et les fichiers `.adml` de la langue et
+  d'en-US, gardent leurs noms, tailles et dates, avec la même version de HGPM. Un fichier ajouté,
+  modifié ou supprimé (un nouveau modèle dans le magasin central), ou une mise à jour de HGPM, et le
+  chargement suivant analyse de nouveau les fichiers et réécrit le cache : quelques secondes encore
+  une fois.
+- **Quand il n'est pas écrit** : avec `-NoCache`, après une erreur, ou quand un fichier a été
+  écarté pour une raison qui peut passer (le réseau, les droits) : le chargement suivant analyse de
+  nouveau les fichiers plutôt que de garder un chargement auquel il en manque. Un cache qui ne peut
+  pas être écrit ne fait que ralentir le chargement suivant.
+- **Le vider** : supprimez son dossier, rien d'autre n'est perdu ; le chargement suivant le réécrit.
+
+```powershell
+Remove-Item -Recurse -Force "$env:LOCALAPPDATA\PSGPOTools\Admx"   # Windows
+Remove-Item -Recurse -Force ~/.cache/PSGPOTools/Admx              # Linux, sans XDG_CACHE_HOME
+```
+
 ## Windows
 
 | Besoin | Pourquoi | Comment |
