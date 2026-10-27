@@ -1,5 +1,17 @@
 # HGPM Release History
 
+## Unreleased
+
+### Fixed
+
+* The launcher opens each console in a PowerShell process of its own (the same pwsh and HGPM, without the profile). Run in the process of the launcher, a console ran inside its loop, and the code of one window found the variables of another: the Audit Log opened beside the GPO console gave it no domain (*Approve...* failed with "Cannot bind argument to parameter 'Directory' because it is null"), and closing the launcher stopped the GPO console, whose window stayed open without its code (*Create the security filtering groups* then failed with "The term 'Update-ApproveGpoGroupState' is not recognized"). Several consoles can be open at once, one that fails does not close the others, and they stay open once the launcher is closed
+* Each window stops its own loop only (`Invoke-PSGPOWindowLoop`, the token held by the handler), and a window whose code fails is closed with it rather than left open with buttons that do nothing
+* The forms of the context menu of the GPO console (*Approve...*, *Delete*, *Rename...*, *Import Settings...*, *Link an Existing GPO...*, the WMI filters...) and the result of its actions show the Details tab: opened from the History tab, *Approve...* opened its form in the hidden Details tab and seemed to do nothing
+
+### Changed
+
+* The theme (*Dark mode* / *Light mode*) is kept in the settings of the user: the consoles open in their own processes follow it within a second, and the next start begins on it
+
 ## 0.1.16 - alpha
 
 ### Changed

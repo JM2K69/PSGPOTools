@@ -1,8 +1,8 @@
 <#
     Private implementation of Start-HGPM: a tile for each console, a click on a tile runs its
-    command. The command of a console runs its own Avalonia loop inside the click handler (a nested
-    frame of the dispatcher, as a dialog), so the launcher stays responsive and several consoles can
-    be open at once; the tile of an open console is disabled until it is closed.
+    command in a PowerShell process of its own (Start-PSGPOToolProcess), so several consoles can be
+    open at once, each with its own windows and loop, and they stay open once the launcher is
+    closed; the tile of an open console is disabled until its process ends.
 
     The language of the launcher can be changed in its window: its texts change at once, the consoles
     opened after are in it, and Start-HGPM starts on it the next time (the settings of the user).
@@ -95,24 +95,27 @@ function Start-PSGPOLauncherWindow {
         }
     }
 
-    # A click on a tile runs its console, until the window of the console is closed. Once the click
-    # is over: the tile keeps the pointer during its click, and every click in the console would go
-    # to the launcher (which comes back in front) until the console is closed.
-    $launch = @{ Tile = $null; Tool = $null; Language = $Language }
-    function Invoke-LauncherTool {
-        $tile = $launch.Tile
-        $tool = $launch.Tool
-        try {
-            & $tool.Command -Language $launch.Language
-        } catch {
-            Write-PSGPOLogEntry -Level Error -Source 'Launcher' -Message "$($tool.Command) did not open." -ErrorRecord $_
-            $ui.statusTextBlock.Text = Get-PSGPOText '{0} did not open: {1}' $tool.Command $_.Exception.GetBaseException().Message
-            $ui.statusTextBlock.IsVisible = $true
-        } finally {
-            $tile.IsEnabled = $true
-            # The consoles share the language of the session: the launcher keeps its own.
-            $null = Set-PSGPOLanguage -Language $launch.Language
+    # A click on a tile starts its console in a PowerShell process of its own (Start-PSGPOToolProcess):
+    # its tile stays disabled while that process runs, and says why it stopped when it did not open.
+    # Running: the consoles started, each @{ Tile; Tool; Started }.
+    $launch = @{ Language = $Language; Running = [System.Collections.Generic.List[hashtable]]::new(); Timer = $null }
+    function Show-LauncherProblem {
+        param([string]$Text)
+        $ui.statusTextBlock.Text = $Text
+        $ui.statusTextBlock.IsVisible = $true
+    }
+    function Update-LauncherProcess {
+        foreach ($entry in @($launch.Running)) {
+            if (-not $entry.Started.Process.HasExited) { continue }
+            [void]$launch.Running.Remove($entry)
+            $entry.Tile.IsEnabled = $true
+            $code = $entry.Started.Process.ExitCode
+            if ($code) {
+                $problem = Read-PSGPOToolProblem -Path $entry.Started.ProblemPath
+                Show-LauncherProblem (Get-PSGPOText '{0} did not open: {1}' $entry.Tool.Command $(if ($problem) { $problem } else { Get-PSGPOText 'its process stopped with the code {0}' $code }))
+            }
         }
+        if (-not $launch.Running.Count -and $launch.Timer) { $launch.Timer.Stop() }
     }
     $ui.toolsPanel.AddHandler([Avalonia.Controls.Button]::ClickEvent, [EventHandler[Avalonia.Interactivity.RoutedEventArgs]] {
             param($source, $e)
@@ -121,10 +124,21 @@ function Start-PSGPOLauncherWindow {
             if ($tool -isnot [hashtable]) { return }
             $e.Handled = $true
             $ui.statusTextBlock.IsVisible = $false
+            try {
+                $started = Start-PSGPOToolProcess -Command $tool.Command -Language $launch.Language
+            } catch {
+                Write-PSGPOLogEntry -Level Error -Source 'Launcher' -Message "$($tool.Command) did not open." -ErrorRecord $_
+                Show-LauncherProblem (Get-PSGPOText '{0} did not open: {1}' $tool.Command $_.Exception.GetBaseException().Message)
+                return
+            }
             $tile.IsEnabled = $false
-            $launch.Tile = $tile
-            $launch.Tool = $tool
-            [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { Invoke-LauncherTool }, [Avalonia.Threading.DispatcherPriority]::Background)
+            $launch.Running.Add(@{ Tile = $tile; Tool = $tool; Started = $started })
+            if (-not $launch.Timer) {
+                $launch.Timer = [Avalonia.Threading.DispatcherTimer]::new()
+                $launch.Timer.Interval = [TimeSpan]::FromMilliseconds(500)
+                $launch.Timer.Add_Tick({ Update-LauncherProcess })
+            }
+            $launch.Timer.Start()
         })
 
     # The language: an item for each one of the module, in its own language. The texts of the window
@@ -159,10 +173,8 @@ function Start-PSGPOLauncherWindow {
             try { Set-PSGPOUserSetting -Values @{ Language = $launch.Language } -Confirm:$false } catch { Write-Verbose "Language not saved: $($_.Exception.Message)" }
         })
 
-    $cts = [System.Threading.CancellationTokenSource]::new()
-    $window.Add_Closed({
-        [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { $cts.Cancel() }, [Avalonia.Threading.DispatcherPriority]::Background)
-    })
+    # The consoles keep running once the launcher is closed; it stops looking at them.
+    $window.Add_Closed({ if ($launch.Timer) { $launch.Timer.Stop() } })
     Show-PSGPOWindow -Window $window
 
     $onShownState = @{ Error = $null }
@@ -173,13 +185,77 @@ function Start-PSGPOLauncherWindow {
             })
     }
 
-    try {
-        [Avalonia.Threading.Dispatcher]::UIThread.MainLoop($cts.Token)
-    } catch [System.OperationCanceledException] {
-        Write-Verbose 'The window is closed.'
-    }
+    Invoke-PSGPOWindowLoop -Window $window
 
     if ($onShownState.Error) { throw $onShownState.Error }
+}
+
+# Starts a console of the launcher in a new PowerShell process: the same pwsh and the same HGPM,
+# without the profile, in the language given. Run in the process of the launcher, a console ran in
+# its loop, and the handlers of one window found the variables of another: the audit log opened
+# beside the GPO console gave it no domain; the launcher closed stopped the GPO console, whose
+# window stayed open without its code. Returns Process and ProblemPath, the file where the console
+# writes why it did not open.
+function Start-PSGPOToolProcess {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [string]$Command,
+        [Parameter(Mandatory)] [string]$Language
+    )
+
+    $module = $MyInvocation.MyCommand.Module
+    $manifest = Join-Path $module.ModuleBase "$($module.Name).psd1"
+    # The pwsh of this session; pwsh from the Microsoft Store runs from its alias (the files of a
+    # package cannot be started from their folder).
+    $pwsh = Join-Path $PSHOME $(if ($IsWindows) { 'pwsh.exe' } else { 'pwsh' })
+    if (-not (Test-Path -LiteralPath $pwsh -PathType Leaf) -or $PSHOME -match '[\\/]WindowsApps[\\/]') {
+        $found = Get-Command -Name 'pwsh' -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+        if (-not $found) { throw "pwsh is not found: $pwsh" }
+        $pwsh = $found.Source
+    }
+    $problemPath = Join-Path ([System.IO.Path]::GetTempPath()) "HGPM-launcher-$([guid]::NewGuid().ToString('N')).txt"
+    $quote = { param([string]$Text) "'" + $Text.Replace("'", "''") + "'" }
+    # A command that can be read in the list of the processes (no encoded command).
+    $script = 'Import-Module -Name {0}; & (Get-Module -Name {1}) {{ Invoke-PSGPOLauncherTool @args }} {2} {3} {4}' -f (& $quote $manifest), (& $quote $module.Name), (& $quote $Command), (& $quote $Language), (& $quote $problemPath)
+
+    $info = [System.Diagnostics.ProcessStartInfo]::new($pwsh)
+    foreach ($argument in '-NoProfile', '-NoLogo', '-Command', $script) { $info.ArgumentList.Add($argument) }
+    $info.UseShellExecute = $false
+    # Windows: a console of its own, hidden, so that closing the terminal of the launcher does not
+    # close the consoles.
+    $info.CreateNoWindow = $true
+    $process = [System.Diagnostics.Process]::Start($info)
+    Write-Verbose "$Command started in the process $($process.Id)."
+    [pscustomobject]@{ Process = $process; ProblemPath = $problemPath }
+}
+
+# In the process of a console the launcher started: its command; why it did not open in the
+# technical log, and in the file the launcher reads (it then stops with the code 1).
+function Invoke-PSGPOLauncherTool {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [string]$Command,
+        [Parameter(Mandatory)] [string]$Language,
+        [Parameter(Mandatory)] [string]$ProblemPath
+    )
+
+    try {
+        & $Command -Language $Language
+    } catch {
+        Write-PSGPOLogEntry -Level Error -Source 'Launcher' -Message "$Command did not open." -ErrorRecord $_
+        try { [System.IO.File]::WriteAllText($ProblemPath, $_.Exception.GetBaseException().Message) } catch { Write-Verbose "Not written in ${ProblemPath}: $($_.Exception.Message)" }
+        exit 1
+    }
+}
+
+# Why a console did not open, as its process wrote it (the file is then deleted); $null without it.
+function Read-PSGPOToolProblem {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([AllowEmptyString()] [string]$Path)
+
+    if (-not $Path -or -not (Test-Path -LiteralPath $Path -PathType Leaf)) { return $null }
+    try { "$(Get-Content -LiteralPath $Path -Raw)".Trim() } finally { Remove-Item -LiteralPath $Path -Force -ErrorAction SilentlyContinue }
 }
 
 # The consoles of the launcher, their texts in the language of the interface. A new console is one

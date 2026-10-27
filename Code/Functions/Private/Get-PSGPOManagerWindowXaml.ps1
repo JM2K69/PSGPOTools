@@ -237,7 +237,7 @@ $(Get-PSGPOWindowResourceXaml)
                     <!-- Details of the selection; Settings: the configured settings of a GPO, as GPMC -->
                     <TabControl Grid.Row='1' Name='directoryTabs' Margin='8,0,8,8'>
                         <TabItem Header='Details'>
-                            <ScrollViewer>
+                            <ScrollViewer Name='directoryDetailsScrollViewer'>
                                 <StackPanel Margin='16,8'>
                                     <!-- New GPO form, opened from the context menu -->
                                     <Border Name='newGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'

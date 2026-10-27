@@ -963,6 +963,7 @@
     'The GPOs of the domain, their links, settings, delegation and backups' = 'Les GPO du domaine, leurs liens, paramètres, délégation et sauvegardes'
     'The fine-grained password policies (PSO) and the ones a user or a group gets' = "Les stratégies de mot de passe affinées (PSO) et celles qu'obtient un utilisateur ou un groupe"
     '{0} did not open: {1}' = "{0} ne s'est pas ouvert : {1}"
+    'its process stopped with the code {0}' = 'son processus s''est arrêté avec le code {0}'
 
     # --- Policy Analyzer view -------------------------------------------------------------------
     'Policy Analyzer' = 'Policy Analyzer'

@@ -280,10 +280,6 @@ function Start-PSGPOPasswordPolicyWindow {
     $statusItems.Add((Get-PSGPOVersionStatusItem).PSObject.BaseObject)
     $ui.statusBarList.ItemsSource = @($statusItems)
 
-    $cts = [System.Threading.CancellationTokenSource]::new()
-    $window.Add_Closed({
-        [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] { $cts.Cancel() }, [Avalonia.Threading.DispatcherPriority]::Background)
-    })
     Show-PSGPOWindow -Window $window
 
     $onShownState = @{ Error = $null }
@@ -297,11 +293,7 @@ function Start-PSGPOPasswordPolicyWindow {
             })
     }
 
-    try {
-        [Avalonia.Threading.Dispatcher]::UIThread.MainLoop($cts.Token)
-    } catch [System.OperationCanceledException] {
-        Write-Verbose 'The window is closed.'
-    }
+    Invoke-PSGPOWindowLoop -Window $window
 
     if ($onShownState.Error) { throw $onShownState.Error }
 }

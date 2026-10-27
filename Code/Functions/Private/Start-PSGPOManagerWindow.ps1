@@ -222,6 +222,7 @@ function Start-PSGPOManagerWindow {
 
     $applyPanel = Get-PSGPOAvaloniaControl $window 'applyPanel'
     $directoryTabs = Get-PSGPOAvaloniaControl $window 'directoryTabs'
+    $directoryDetailsScrollViewer = Get-PSGPOAvaloniaControl $window 'directoryDetailsScrollViewer'
     $settingsTab = Get-PSGPOAvaloniaControl $window 'settingsTab'
     $historyTab = Get-PSGPOAvaloniaControl $window 'historyTab'
     $delegationTab = Get-PSGPOAvaloniaControl $window 'delegationTab'
@@ -1344,7 +1345,7 @@ function Start-PSGPOManagerWindow {
         $newGpoGroupsContainerComboBox.ItemsSource = $containers
         $newGpoGroupsContainerComboBox.SelectedIndex = 0
         Update-NewGpoGroupText
-        $newGpoPanel.IsVisible = $true
+        Show-DirectoryForm $newGpoPanel
         [void]$newGpoNameTextBox.Focus()
         $newGpoNameTextBox.SelectAll()
     }
@@ -1424,6 +1425,20 @@ function Start-PSGPOManagerWindow {
         Show-DirectoryResult -Text ((@($done) + @($problems)) -join [Environment]::NewLine) -Problem:($problems.Count -gt 0)
     }
 
+    # A form of the context menu: in the Details tab, shown whatever tab is open (from the History
+    # tab, Approve... opened its form in the hidden Details tab, and seemed to do nothing).
+    function Show-DirectoryForm {
+        param([Parameter(Mandatory)] $Panel)
+        Show-DirectoryDetailsTab
+        $Panel.IsVisible = $true
+    }
+
+    # The Details tab, at its top: where the forms of the context menu and their results are.
+    function Show-DirectoryDetailsTab {
+        $directoryTabs.SelectedIndex = 0
+        $directoryDetailsScrollViewer.ScrollToHome()
+    }
+
     # What a change of the directory did, under the details; in red when something failed.
     function Show-DirectoryResult {
         param([string]$Text, [switch]$Problem)
@@ -1447,7 +1462,7 @@ function Start-PSGPOManagerWindow {
         $deleteLinkTextBlock.Text = Get-PSGPOText "Delete the link of the GPO '{0}' to {1}? The GPO itself is not deleted: it stays in Group Policy Objects, with its other links." $node.Tag.GetDisplayName() $node.Parent.Tag.Name
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
-        $deleteLinkPanel.IsVisible = $true
+        Show-DirectoryForm $deleteLinkPanel
     }
 
     # The forms of the details, one at a time.
@@ -1490,7 +1505,7 @@ function Start-PSGPOManagerWindow {
         catch { $approveGpoErrorTextBlock.Text = Get-PSGPOText 'The GPO cannot be read: {0}' $_.Exception.GetBaseException().Message }
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
-        $approveGpoPanel.IsVisible = $true
+        Show-DirectoryForm $approveGpoPanel
     }
 
     # The groups to create replace who applies it and who is denied it.
@@ -1546,7 +1561,7 @@ function Start-PSGPOManagerWindow {
         $importGpoErrorTextBlock.Text = ''
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
-        $importGpoPanel.IsVisible = $true
+        Show-DirectoryForm $importGpoPanel
         Read-ImportSource
     }
 
@@ -1608,7 +1623,7 @@ function Start-PSGPOManagerWindow {
             (Get-PSGPOText 'It is backed up first in {0}: Deleted GPOs keeps it, to restore it.' (Get-HistoryRoot))
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
-        $deleteGpoPanel.IsVisible = $true
+        Show-DirectoryForm $deleteGpoPanel
     }
 
     function Submit-DeleteGpo {
@@ -1649,7 +1664,7 @@ function Start-PSGPOManagerWindow {
             else { Get-PSGPOText 'Not linked again: its security filtering was {0}, set it first' (@($backup.SecurityFiltering) -join ', ') }
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
-        $restoreGpoPanel.IsVisible = $true
+        Show-DirectoryForm $restoreGpoPanel
     }
 
     function Submit-RestoreGpo {
@@ -1685,7 +1700,7 @@ function Start-PSGPOManagerWindow {
             $(if ($templates) { ' ' + (Get-PSGPOText 'Templates of new GPOs made from it: {0}, deleted too.' $templates) })
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
-        $purgeDeletedGpoPanel.IsVisible = $true
+        Show-DirectoryForm $purgeDeletedGpoPanel
     }
 
     function Submit-PurgeDeletedGpo {
@@ -1719,7 +1734,7 @@ function Start-PSGPOManagerWindow {
         $renameErrorTextBlock.Text = ''
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
-        $renamePanel.IsVisible = $true
+        Show-DirectoryForm $renamePanel
         $renameTextBox.Focus()
         $renameTextBox.SelectAll()
     }
@@ -1770,7 +1785,7 @@ function Start-PSGPOManagerWindow {
         Hide-DirectoryForm
         $linkGpoFilterTextBox.Text = ''
         Update-LinkGpoList
-        $linkGpoPanel.IsVisible = $true
+        Show-DirectoryForm $linkGpoPanel
         [void]$linkGpoFilterTextBox.Focus()
     }
 
@@ -2557,10 +2572,13 @@ function Start-PSGPOManagerWindow {
             & $Change
         } catch {
             Update-DirectoryTree -Select $Select
+            Show-DirectoryDetailsTab
             Show-DirectoryResult -Text $_.Exception.GetBaseException().Message -Problem
             return
         }
         Update-DirectoryTree -Select $Select
+        # The result in the Details tab, whatever tab the context menu was opened on.
+        Show-DirectoryDetailsTab
         Show-DirectoryResult -Text $Done
     }
     # The items of WMI Filter: none, then each filter of the domain, the one of the GPO checked.
@@ -2606,7 +2624,7 @@ function Start-PSGPOManagerWindow {
         $newWmiFilterErrorTextBlock.Text = ''
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
-        $newWmiFilterPanel.IsVisible = $true
+        Show-DirectoryForm $newWmiFilterPanel
         $newWmiFilterNameTextBox.Focus()
     }
     function Submit-NewWmiFilter {
@@ -2648,7 +2666,7 @@ function Start-PSGPOManagerWindow {
             $(if ($users.Count) { Get-PSGPOText 'It is used by {0}: unlink them first (WMI Filter > (none)), it is not deleted otherwise.' ($users -join ', ') } else { Get-PSGPOText 'No GPO uses it.' })
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
-        $deleteWmiFilterPanel.IsVisible = $true
+        Show-DirectoryForm $deleteWmiFilterPanel
     }
     function Submit-DeleteWmiFilter {
         $filter = $deleteWmiFilter.Filter
@@ -2717,7 +2735,7 @@ function Start-PSGPOManagerWindow {
         $exportWmiFilterConfirmButton.Content = Get-PSGPOText 'Export'
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
-        $exportWmiFilterPanel.IsVisible = $true
+        Show-DirectoryForm $exportWmiFilterPanel
     }
     function Submit-ExportWmiFilter {
         $filter = $exportWmiFilter.Filter
@@ -2765,7 +2783,7 @@ function Start-PSGPOManagerWindow {
         $importWmiFilterConfirmButton.IsEnabled = $false
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
-        $importWmiFilterPanel.IsVisible = $true
+        Show-DirectoryForm $importWmiFilterPanel
         [void]$importWmiFilterPathTextBox.Focus()
     }
     function Read-ImportWmiFilterFile {
@@ -2822,7 +2840,7 @@ function Start-PSGPOManagerWindow {
         $directoryResultTextBlock.Text = ''
         $useWmiFilterSearchTextBox.Text = ''
         Update-UseWmiFilterList
-        $useWmiFilterPanel.IsVisible = $true
+        Show-DirectoryForm $useWmiFilterPanel
         [void]$useWmiFilterSearchTextBox.Focus()
     }
     function Update-UseWmiFilterList {
@@ -3085,16 +3103,6 @@ function Start-PSGPOManagerWindow {
     # Then the version of HGPM, and whether a newer one is on the PowerShell Gallery.
     $statusBarList.ItemsSource = @(Get-PSGPOStatusBarItem -Platform (Get-PSGPOPlatform) -Directory $Directory -DirectoryError $DirectoryError) + @(Get-PSGPOVersionStatusItem)
 
-    # Avalonia's SetupWithoutStarting() does not run a message loop by itself; drive one
-    # manually and stop it when the window closes so the call blocks until then.
-    $cts = [System.Threading.CancellationTokenSource]::new()
-    $window.Add_Closed({
-        [Avalonia.Threading.Dispatcher]::UIThread.Post(
-            [System.Action] { $cts.Cancel() },
-            [Avalonia.Threading.DispatcherPriority]::Background
-        )
-    })
-
     Show-PSGPOWindow -Window $window
 
     # A hashtable, because assigning a variable inside the posted action would only set a child-scope copy.
@@ -3146,12 +3154,8 @@ function Start-PSGPOManagerWindow {
         })
     }
 
-    try {
-        [Avalonia.Threading.Dispatcher]::UIThread.MainLoop($cts.Token)
-    } catch [System.OperationCanceledException] {
-        # Expected: the loop exits by cancellation once the window is closed.
-        Write-Verbose 'The window is closed.'
-    }
+    # Until the window is closed (Invoke-PSGPOWindowLoop).
+    Invoke-PSGPOWindowLoop -Window $window
 
     if ($onShownState.Error) { throw $onShownState.Error }
 }
