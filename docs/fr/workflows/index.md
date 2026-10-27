@@ -13,7 +13,7 @@ dans le [labo](../getting-started/lab.md).
 | [Stratégies de mot de passe des tiers](password-policies.md) | administrateurs | des stratégies de mot de passe affinées (PSO) pour les tiers, et celle qui s'applique à chaque compte |
 
 ```mermaid
-flowchart LR
+flowchart TB
     create[Créer une GPO] --> edit[Modifier ses paramètres]
     edit --> backup[Sauvegarder]
     backup --> approve[Approuver]
