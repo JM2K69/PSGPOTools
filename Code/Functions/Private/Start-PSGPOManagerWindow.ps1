@@ -201,6 +201,13 @@ function Start-PSGPOManagerWindow {
     $importWmiFilterConfirmButton = Get-PSGPOAvaloniaControl $window 'importWmiFilterConfirmButton'
     $importWmiFilterCancelButton = Get-PSGPOAvaloniaControl $window 'importWmiFilterCancelButton'
     $useWmiFilterPanel = Get-PSGPOAvaloniaControl $window 'useWmiFilterPanel'
+    $changeDcMenuItem = Get-PSGPOAvaloniaControl $window 'changeDcMenuItem'
+    $changeDcPanel = Get-PSGPOAvaloniaControl $window 'changeDcPanel'
+    $changeDcTitleTextBlock = Get-PSGPOAvaloniaControl $window 'changeDcTitleTextBlock'
+    $changeDcList = Get-PSGPOAvaloniaControl $window 'changeDcList'
+    $changeDcErrorTextBlock = Get-PSGPOAvaloniaControl $window 'changeDcErrorTextBlock'
+    $changeDcConfirmButton = Get-PSGPOAvaloniaControl $window 'changeDcConfirmButton'
+    $changeDcCancelButton = Get-PSGPOAvaloniaControl $window 'changeDcCancelButton'
     $useWmiFilterTitleTextBlock = Get-PSGPOAvaloniaControl $window 'useWmiFilterTitleTextBlock'
     $useWmiFilterSearchTextBox = Get-PSGPOAvaloniaControl $window 'useWmiFilterSearchTextBox'
     $useWmiFilterList = Get-PSGPOAvaloniaControl $window 'useWmiFilterList'
@@ -1833,7 +1840,7 @@ function Start-PSGPOManagerWindow {
     # The forms of the details, one at a time.
     function Hide-DirectoryForm {
         foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel, $purgeDeletedGpoPanel, $renamePanel, $approveGpoPanel, $newWmiFilterPanel, $deleteWmiFilterPanel,
-            $exportWmiFilterPanel, $importWmiFilterPanel, $useWmiFilterPanel, $importGpoPanel) { $panel.IsVisible = $false }
+            $exportWmiFilterPanel, $importWmiFilterPanel, $useWmiFilterPanel, $importGpoPanel, $changeDcPanel) { $panel.IsVisible = $false }
     }
 
     # Approval of the selected GPO (approval workflow): what the creators may still do, who
@@ -2918,6 +2925,8 @@ function Start-PSGPOManagerWindow {
         $moveLinkDownMenuItem.IsVisible = $onLink -and $item.Order -lt $selected.Parent.Tag.Links.Count
         $blockInheritanceMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly -and $item.CanLink
         $blockInheritanceMenuItem.IsChecked = $item -is [GPOToolsSom] -and $item.BlockInheritance
+        # The domain read from another domain controller, as GPMC.
+        $changeDcMenuItem.IsVisible = $Directory -is [GPOToolsLdapDirectory] -and [object]::ReferenceEquals($item, $Directory.Domain)
         $gpoStatusMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit -and -not $Directory.IsReadOnly
         foreach ($statusItem in $gpoStatusEnabledMenuItem, $gpoStatusUserDisabledMenuItem, $gpoStatusComputerDisabledMenuItem, $gpoStatusAllDisabledMenuItem) {
             $statusItem.IsChecked = $null -ne $detail.Gpo -and [int]$statusItem.Tag -eq ($detail.Gpo.Flags -band 3)
@@ -2959,7 +2968,7 @@ function Start-PSGPOManagerWindow {
         param($control, $e)
         if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $renameMenuItem.IsVisible -or $purgeDeletedGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
                 $exportWmiFilterMenuItem.IsVisible -or $importWmiFilterMenuItem.IsVisible -or $useWmiFilterMenuItem.IsVisible -or
-                $blockInheritanceMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible -or $wmiFilterMenuItem.IsVisible -or $newWmiFilterMenuItem.IsVisible -or $editWmiFilterMenuItem.IsVisible -or $deleteWmiFilterMenuItem.IsVisible -or
+                $blockInheritanceMenuItem.IsVisible -or $changeDcMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible -or $wmiFilterMenuItem.IsVisible -or $newWmiFilterMenuItem.IsVisible -or $editWmiFilterMenuItem.IsVisible -or $deleteWmiFilterMenuItem.IsVisible -or
                 $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible -or $approveGpoMenuItem.IsVisible -or $importGpoMenuItem.IsVisible -or
                 $saveReportGpoMenuItem.IsVisible) -or
             -not $domainTreeView.SelectedItem) { $e.Cancel = $true }
@@ -3481,18 +3490,21 @@ function Start-PSGPOManagerWindow {
     # selected. The changes of the other consoles and of GPMC show, and a GPO read again can be
     # saved again (its version is the one of the domain).
     # What was selected: the posted block runs once this function returned.
-    $refresh = @{ Item = $null; LinkSom = $null }
+    $refresh = @{ Item = $null; LinkSom = $null; Server = $null }
+    # -Server: from another domain controller (Change Domain Controller...).
     function Invoke-DirectoryRefresh {
+        param([string]$Server)
         if ($Directory -isnot [GPOToolsLdapDirectory] -or -not $refreshButton.IsEnabled) { return }
         $selected = $domainTreeView.SelectedItem
         $refresh.Item = if ($selected) { $selected.Tag }
         $refresh.LinkSom = if ($refresh.Item -is [GPOToolsGpoLink] -and $selected.Parent.Tag -is [GPOToolsSom]) { $selected.Parent.Tag.DistinguishedName }
+        $refresh.Server = $Server
         $refreshButton.IsEnabled = $false
-        Show-DirectoryResult -Text (Get-PSGPOText 'Reading the domain again from {0}...' $Directory.Server)
+        Show-DirectoryResult -Text $(if ($Server) { Get-PSGPOText 'Reading the domain from {0}...' $Server } else { Get-PSGPOText 'Reading the domain again from {0}...' $Directory.Server })
         # Posted: the text shows before the window waits for the domain.
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
                 try {
-                    Update-PSGPODirectoryFromDomain -Directory $Directory
+                    Update-PSGPODirectoryFromDomain -Directory $Directory -Server $refresh.Server
                 } catch {
                     $refreshButton.IsEnabled = $true
                     Show-DirectoryResult -Text (Get-PSGPOText 'The domain is not read again: {0}' $_.Exception.GetBaseException().Message) -Problem
@@ -3502,10 +3514,50 @@ function Start-PSGPOManagerWindow {
                 $history.Current = @{}
                 $backupLists.Root = $null
                 Update-DirectoryTree -Select (Find-PSGPODirectoryItem -Directory $Directory -Item $refresh.Item -LinkSom $refresh.LinkSom)
+                # The domain controller and its role in the status bar.
+                $statusBarList.ItemsSource = @(Get-PSGPOStatusBarItem -Platform (Get-PSGPOPlatform) -Directory $Directory) + $versionStatusItems
                 $refreshButton.IsEnabled = $true
-                Show-DirectoryResult -Text (Get-PSGPOText 'The domain is read again from {0}, at {1}.' $Directory.Server (Get-Date).ToString('T'))
+                Show-DirectoryResult -Text $(if ($refresh.Server) { Get-PSGPOText 'The domain is read from {0}, at {1}.' $Directory.Server (Get-Date).ToString('T') } else { Get-PSGPOText 'The domain is read again from {0}, at {1}.' $Directory.Server (Get-Date).ToString('T') })
             }, [Avalonia.Threading.DispatcherPriority]::Background)
     }
+
+    # Change Domain Controller..., as GPMC: the domain controllers of the domain, the PDC emulator
+    # first; the domain read again from the one chosen, where its changes go from then on.
+    $changeDc = @{ Names = @() }
+    function Open-ChangeDcForm {
+        if ($Directory -isnot [GPOToolsLdapDirectory]) { return }
+        Hide-DirectoryForm
+        $directoryResultTextBlock.Text = ''
+        $changeDcErrorTextBlock.Text = ''
+        $changeDcTitleTextBlock.Text = Get-PSGPOText 'Domain controller of {0}: {1} now' $Directory.DomainName $Directory.Server
+        try {
+            $changeDc.Names = @(Get-PSGPODomainController -Directory $Directory)
+        } catch {
+            $changeDc.Names = @()
+            $changeDcErrorTextBlock.Text = Get-PSGPOText 'The domain controllers of the domain cannot be read: {0}' $_.Exception.GetBaseException().Message
+        }
+        $changeDcList.ItemsSource = @(foreach ($name in $changeDc.Names) {
+                $roles = @()
+                if ([string]::Equals($name, $Directory.PdcEmulator, [System.StringComparison]::OrdinalIgnoreCase)) { $roles += Get-PSGPOText 'PDC emulator' }
+                if ([string]::Equals($name, $Directory.Server, [System.StringComparison]::OrdinalIgnoreCase)) { $roles += Get-PSGPOText 'current' }
+                if ($roles.Count) { '{0} ({1})' -f $name, ($roles -join ', ') } else { $name }
+            })
+        $changeDcList.SelectedIndex = -1
+        $changeDcConfirmButton.IsEnabled = $false
+        Show-DirectoryForm $changeDcPanel
+    }
+    $changeDcList.add_SelectionChanged({
+        $index = $changeDcList.SelectedIndex
+        $changeDcConfirmButton.IsEnabled = $index -ge 0 -and $index -lt $changeDc.Names.Count -and
+            -not [string]::Equals($changeDc.Names[$index], $Directory.Server, [System.StringComparison]::OrdinalIgnoreCase)
+    })
+    $changeDcConfirmButton.Add_Click({
+        $server = $changeDc.Names[$changeDcList.SelectedIndex]
+        $changeDcPanel.IsVisible = $false
+        Invoke-DirectoryRefresh -Server $server
+    })
+    $changeDcCancelButton.Add_Click({ $changeDcPanel.IsVisible = $false })
+    $changeDcMenuItem.Add_Click({ Open-ChangeDcForm })
     $refreshButton.Add_Click({ Invoke-DirectoryRefresh })
     $window.add_KeyDown({
         param($control, $e)
@@ -3527,7 +3579,9 @@ function Start-PSGPOManagerWindow {
     if ($StartView -eq 'Editor' -and $AdmxSource) { Open-GpoEditor -Gpo $null } else { Show-View $StartView }
 
     # Then the version of HGPM, and whether a newer one is on the PowerShell Gallery.
-    $statusBarList.ItemsSource = @(Get-PSGPOStatusBarItem -Platform (Get-PSGPOPlatform) -Directory $Directory -DirectoryError $DirectoryError) + @(Get-PSGPOVersionStatusItem)
+    # The version of HGPM read once (the Gallery), kept when the domain is read again.
+    $versionStatusItems = @(Get-PSGPOVersionStatusItem)
+    $statusBarList.ItemsSource = @(Get-PSGPOStatusBarItem -Platform (Get-PSGPOPlatform) -Directory $Directory -DirectoryError $DirectoryError) + $versionStatusItems
 
     Show-PSGPOWindow -Window $window
 
@@ -3540,7 +3594,7 @@ function Start-PSGPOManagerWindow {
             'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
             'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewList',
             'themeToggleIcon', 'themeToggleText', 'subtitleTextBlock', 'managementButton', 'browseAdmxButton', 'searchPanel', 'managementView', 'editorView',
-            'editingBanner', 'editingGpoTextBlock', 'applyPanel', 'applySettingButton', 'applyStatusTextBlock', 'previewHeaderTextBlock', 'directoryTabs', 'settingsTab', 'settingsStatusTextBlock', 'computerSettingsHeader', 'computerSettingsList', 'userSettingsHeader', 'userSettingsList', 'uninterpretedSettingsBorder', 'uninterpretedSettingsHeader', 'uninterpretedSettingsList', 'settingsReportButton', 'settingsReportStatusTextBlock', 'demoBanner', 'demoBannerTextBlock', 'admxLoadingBanner', 'admxLoadingTextBlock', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
+            'editingBanner', 'editingGpoTextBlock', 'applyPanel', 'applySettingButton', 'applyStatusTextBlock', 'previewHeaderTextBlock', 'directoryTabs', 'settingsTab', 'settingsStatusTextBlock', 'computerSettingsHeader', 'computerSettingsList', 'userSettingsHeader', 'userSettingsList', 'uninterpretedSettingsBorder', 'uninterpretedSettingsHeader', 'uninterpretedSettingsList', 'settingsReportButton', 'settingsReportStatusTextBlock', 'demoBanner', 'demoBannerTextBlock', 'admxLoadingBanner', 'admxLoadingTextBlock', 'changeDcMenuItem', 'changeDcPanel', 'changeDcTitleTextBlock', 'changeDcList', 'changeDcErrorTextBlock', 'changeDcConfirmButton', 'changeDcCancelButton', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
             'directoryTitleTextBlock', 'directoryPropertiesList', 'linksHeaderTextBlock', 'linksList', 'createLinkedGpoMenuItem',
             'newGpoMenuItem', 'editGpoMenuItem', 'editGpoButton', 'newGpoPanel', 'newGpoTitleTextBlock', 'newGpoNameTextBox',
             'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton', 'newGpoStatusComboBox', 'newGpoGroupsCheckBox', 'newGpoGroupsPanel',

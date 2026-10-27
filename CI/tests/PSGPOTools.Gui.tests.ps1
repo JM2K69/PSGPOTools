@@ -1967,6 +1967,36 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Changes the domain controller from the context menu of the domain, as GPMC' {
+            $Ldap = New-TestLdapDirectory
+            $Ldap.PdcEmulator = 'dc.hardenbox.labo'
+            Mock Get-PSGPODomainController { 'dc.hardenbox.labo', 'dc2.hardenbox.labo' }
+            Mock Update-PSGPODirectoryFromDomain { $Directory.Server = $Server }
+            Start-PSGPOManagerWindow -Directory $Ldap -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = @($Ui.domainTreeView.ItemsSource)[0]
+                $Ui.changeDcMenuItem.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.changeDcMenuItem
+                $Ui.changeDcPanel.IsVisible | Should -BeTrue
+                $Ui.changeDcTitleTextBlock.Text | Should -Be 'Domain controller of hardenbox.labo: dc.hardenbox.labo now'
+                @($Ui.changeDcList.ItemsSource) | Should -Be @('dc.hardenbox.labo (PDC emulator, current)', 'dc2.hardenbox.labo')
+                $Ui.changeDcConfirmButton.IsEnabled | Should -BeFalse
+                $Ui.changeDcList.SelectedIndex = 0
+                $Ui.changeDcConfirmButton.IsEnabled | Should -BeFalse -Because 'the domain is read from it now'
+                $Ui.changeDcList.SelectedIndex = 1
+                $Ui.changeDcConfirmButton.IsEnabled | Should -BeTrue
+                Invoke-Click $Ui.changeDcConfirmButton
+                $Ui.changeDcPanel.IsVisible | Should -BeFalse
+                Invoke-UiLoop -Until { $Ui.directoryResultTextBlock.Text -like 'The domain is read from*' }
+                $Ui.directoryResultTextBlock.Text | Should -BeLike 'The domain is read from dc2.hardenbox.labo, at *'
+                @($Ui.statusBarList.ItemsSource.Text) | Should -Contain 'DC dc2.hardenbox.labo (Samba AD, not the PDC emulator (dc.hardenbox.labo))'
+                # The domain only.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Lyon'
+                $Ui.changeDcMenuItem.IsVisible | Should -BeFalse
+            }
+            Should -Invoke Update-PSGPODirectoryFromDomain -Times 1 -Exactly -ParameterFilter { $Server -eq 'dc2.hardenbox.labo' }
+        }
+
         It 'Shows a directory read over LDAP: GPO creation offered, links to missing GPOs shown' {
             Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
                 param($Ui)

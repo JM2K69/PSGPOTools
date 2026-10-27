@@ -30,6 +30,46 @@ function Resolve-PSGPODomainServer {
     $Server
 }
 
+# The DNS name of the PDC emulator of the domain: the server whose NTDS Settings are the
+# fSMORoleOwner of the domain object; $null when it cannot be read.
+function Get-PSGPOPdcEmulator {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)] $Connection,
+        [AllowNull()] $DomainEntry
+    )
+
+    $owner = Get-PSGPOLdapValue $DomainEntry 'fSMORoleOwner'
+    if (-not $owner -or $owner -notmatch '^CN=NTDS Settings,(.+)$') { return $null }
+    try {
+        $serverEntry = Invoke-PSGPOLdapSearch -Connection $Connection -SearchBase $Matches[1] -Scope Base -Attribute 'dNSHostName' -AllowMissing
+        if ($serverEntry) { Get-PSGPOLdapValue $serverEntry 'dNSHostName' }
+    } catch {
+        Write-Verbose "The PDC emulator of the domain is not read: $($_.Exception.GetBaseException().Message)"
+        $null
+    }
+}
+
+# The domain controllers of the domain of a directory, by DNS name, the PDC emulator first.
+function Get-PSGPODomainController {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory)
+
+    $connection = New-PSGPOLdapConnection -Server $Directory.Server -Credential $Directory.Credential -UseSsl:$Directory.UseSsl -Port $Directory.Port
+    try {
+        # SERVER_TRUST_ACCOUNT (8192) in userAccountControl: a domain controller.
+        $entries = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $Directory.Domain.DistinguishedName -Scope Subtree `
+                -Filter '(&(objectCategory=computer)(userAccountControl:1.2.840.113556.1.4.803:=8192))' -Attribute 'dNSHostName')
+    } finally {
+        $connection.Dispose()
+    }
+    $names = @($entries | ForEach-Object { Get-PSGPOLdapValue $_ 'dNSHostName' } | Where-Object { $_ } | Sort-Object -Unique)
+    @($names | Where-Object { [string]::Equals($_, $Directory.PdcEmulator, [System.StringComparison]::OrdinalIgnoreCase) }) +
+        @($names | Where-Object { -not [string]::Equals($_, $Directory.PdcEmulator, [System.StringComparison]::OrdinalIgnoreCase) })
+}
+
 # Opens and binds an LDAP connection.
 function New-PSGPOLdapConnection {
     [CmdletBinding()]

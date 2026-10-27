@@ -1115,10 +1115,18 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
     [string]$Server
     # Directory service of the domain controller: 'Samba AD' or 'Active Directory' (Windows)
     [string]$ServerType
+    # The PDC emulator of the domain (DNS name), where GPMC changes the GPOs; empty when unknown
+    [string]$PdcEmulator
     # How the directory was read, to connect again for the changes
     hidden [pscredential]$Credential
     hidden [bool]$UseSsl
     hidden [int]$Port
+
+    # The directory is read from the PDC emulator, or from a domain controller of a domain whose
+    # PDC emulator is not known.
+    [bool] IsPdcEmulator() {
+        return -not $this.PdcEmulator -or [string]::Equals($this.Server, $this.PdcEmulator, [System.StringComparison]::OrdinalIgnoreCase)
+    }
 
     GPOToolsLdapDirectory([string]$DomainName, [string]$DomainDistinguishedName, [string]$Server, [string]$ServerType) : base($DomainName) {
         $this.Domain.DistinguishedName = $DomainDistinguishedName

@@ -107,6 +107,86 @@ InModuleScope -ModuleName HGPM {
         }
     }
 
+    Describe 'A change of a GPO the domain refuses' {
+        BeforeEach {
+            $Directory = [GPOToolsLdapDirectory]::new('contoso.com', 'DC=contoso,DC=com', 'dc1.contoso.com', 'Samba AD')
+            $Gpo = [GPOToolsGpo]@{ DisplayName = 'Servers'; Id = [guid]::NewGuid(); DistinguishedName = 'CN={1},CN=Policies,CN=System,DC=contoso,DC=com'; Version = 3 }
+            # The directory refuses the new version (rights, a server that goes away...).
+            Mock New-PSGPODirectoryConnection {
+                [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name Dispose -Value { } -PassThru |
+                    Add-Member -MemberType ScriptMethod -Name SendRequest -Value { throw [System.InvalidOperationException]::new('The server is unavailable.') } -PassThru
+            }
+            Mock Invoke-PSGPOLdapSearch { [pscustomobject]@{ DistinguishedName = $SearchBase; Attributes = @{ versionNumber = @('3') } } }
+            $script:Old = @{ 'GPT.INI' = [System.Text.Encoding]::ASCII.GetBytes("[General]`r`nVersion=3`r`n"); 'Machine\Registry.pol' = [byte[]]@(1, 2, 3) }
+            Mock Read-PSGPOSysvolFile { $script:Old[$Path] }
+            Mock Read-PSGPOSysvolFolder { $Folder = [ordered]@{}; foreach ($Name in $script:Old.Keys) { $Folder[$Name] = $script:Old[$Name] }; , $Folder }
+            $script:Writes = [System.Collections.Generic.List[string]]::new()
+            Mock Write-PSGPOSysvolFile { $script:Writes.Add("write $Path $($Bytes -join ',')") }
+            Mock Remove-PSGPOSysvolFile { $script:Writes.Add("remove $Path") }
+        }
+
+        It 'Puts the files written back as they were, the newest first, and says it' {
+            { Save-PSGPODomainGpoFile -Directory $Directory -Gpo $Gpo -Path 'Machine\Registry.pol' -Bytes ([byte[]]@(9)) -Folder Machine `
+                    -Extension '{35378EAC-683F-11D2-A89A-00C04FBBCFA2}' -Tool '{D02B1F72-3407-48AE-BA88-E8213C6761F1}' } |
+                Should -Throw -ExpectedMessage '*Machine\Registry.pol of the GPO Servers is not saved: The server is unavailable.*were put back as they were.'
+            $script:Writes.Count | Should -Be 4
+            $script:Writes[0] | Should -Be 'write Machine\Registry.pol 9'
+            $script:Writes[1] | Should -BeLike 'write GPT.INI *'
+            $script:Writes[2] | Should -Be "write GPT.INI $($script:Old['GPT.INI'] -join ',')"
+            $script:Writes[3] | Should -Be 'write Machine\Registry.pol 1,2,3'
+            $Gpo.Version | Should -Be 3
+        }
+
+        It 'Deletes a file the GPO did not have, and says what it could not put back' {
+            $script:Old.Remove('Machine\Registry.pol')
+            Mock Write-PSGPOSysvolFile { $script:Writes.Add("write $Path"); if ($Path -eq 'GPT.INI' -and $script:Writes.Count -gt 2) { throw 'NT_STATUS_ACCESS_DENIED' } }
+            { Save-PSGPODomainGpoFile -Directory $Directory -Gpo $Gpo -Path 'Machine\Registry.pol' -Bytes ([byte[]]@(9)) -Folder Machine `
+                    -Extension '{35378EAC-683F-11D2-A89A-00C04FBBCFA2}' -Tool '{D02B1F72-3407-48AE-BA88-E8213C6761F1}' } |
+                Should -Throw -ExpectedMessage '*could not all be put back*GPT.INI: NT_STATUS_ACCESS_DENIED*may differ*'
+            $script:Writes[-1] | Should -Be 'remove Machine\Registry.pol'
+        }
+
+        It 'Puts the folder of a GPO restored back as it was' {
+            $Files = [ordered]@{ 'GPT.INI' = $script:Old['GPT.INI']; 'User\Registry.pol' = [byte[]]@(7) }
+            { Restore-PSGPODomainGpo -Directory $Directory -Gpo $Gpo -Files $Files -Flags 0 } | Should -Throw -ExpectedMessage '*is not restored: The server is unavailable.*were put back as they were.'
+            # The backup written (User\Registry.pol, Machine\Registry.pol deleted, GPT.INI), then put back the other way.
+            @($script:Writes) | Should -Be @(
+                'write User\Registry.pol 7', 'remove Machine\Registry.pol', "write GPT.INI $((Set-PSGPOGptIniVersion -Bytes $script:Old['GPT.INI'] -Version ((1 -shl 16) -bor 4)) -join ',')",
+                "write GPT.INI $($script:Old['GPT.INI'] -join ',')", 'write Machine\Registry.pol 1,2,3', 'remove User\Registry.pol')
+        }
+    }
+
+    Describe 'SYSVOL written from Linux' -Skip:$IsWindows {
+        BeforeEach {
+            $Directory = [GPOToolsLdapDirectory]::new('contoso.com', 'DC=contoso,DC=com', 'dc1.contoso.com', 'Samba AD')
+            $script:PSGPOKerberosChecked = [datetime]::UtcNow
+            $script:Commands = [System.Collections.Generic.List[string]]::new()
+        }
+
+        It 'Writes a file aside, then renames it over the former one' {
+            Mock Invoke-PSGPOSmbClient { $script:Commands.Add($Command) }
+            Write-PSGPOSysvolItem -Directory $Directory -Share 'SysVol' -Base 'contoso.com\Policies\{1}' -Path 'Machine\Registry.pol' -Bytes ([byte[]]@(1))
+            $script:Commands[-1] | Should -Match '^put ".+" "contoso\.com\\Policies\\\{1\}\\Machine\\Registry\.pol\.[0-9a-f]{8}\.tmp"; rename "contoso\.com\\Policies\\\{1\}\\Machine\\Registry\.pol\.[0-9a-f]{8}\.tmp" "contoso\.com\\Policies\\\{1\}\\Machine\\Registry\.pol" -f$'
+        }
+
+        It 'Writes the file over the former one with an smbclient that does not rename over a file' {
+            Mock Invoke-PSGPOSmbClient { $script:Commands.Add($Command); if ($Command -match 'rename') { throw 'smbclient failed: NT_STATUS_OBJECT_NAME_COLLISION' } }
+            Write-PSGPOSysvolItem -Directory $Directory -Share 'SysVol' -Base 'contoso.com\Policies\{1}' -Path 'GPT.INI' -Bytes ([byte[]]@(1))
+            $script:Commands[-2] | Should -Match '^del ".+GPT\.INI\.[0-9a-f]{8}\.tmp"$'
+            $script:Commands[-1] | Should -Match '^put ".+" "contoso\.com\\Policies\\\{1\}\\GPT\.INI"$'
+        }
+
+        It 'Refuses to change anything with a Kerberos ticket that expired' {
+            $script:PSGPOKerberosChecked = [datetime]::MinValue
+            Mock Get-Command { [pscustomobject]@{ Source = '/usr/bin/klist' } } -ParameterFilter { $Name -eq 'klist' }
+            Mock Invoke-PSGPONativeCommand { [pscustomobject]@{ ExitCode = 1; Output = @(); Error = '' } }
+            Mock Invoke-PSGPOSmbClient { $script:Commands.Add($Command) }
+            { Write-PSGPOSysvolItem -Directory $Directory -Share 'SysVol' -Base 'contoso.com\Policies\{1}' -Path 'GPT.INI' -Bytes ([byte[]]@(1)) } |
+                Should -Throw -ExpectedMessage '*Kerberos ticket of this session*expired*kinit*Nothing was changed.'
+            $script:Commands.Count | Should -Be 0
+        }
+    }
+
     Describe 'Approval of a GPO of the domain' {
         BeforeEach {
             $Domain = 'S-1-5-21-1-2-3'

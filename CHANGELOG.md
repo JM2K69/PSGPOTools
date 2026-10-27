@@ -1,5 +1,17 @@
 # HGPM Release History
 
+## Unreleased
+
+### Security
+
+* A change of a GPO no longer stops halfway: its files are written aside then renamed over the former ones (a computer reads the former file or the new one), and put back as they were when a file cannot be written or the directory refuses the new version (the GPO changed meanwhile, a right, the server gone), the restore of a backup included; SYSVOL kept the new files with a version ahead of the directory, and the computers applied a change the console said was not saved
+* Linux: the Kerberos ticket of the session is checked (`klist -s`) before SYSVOL or the directory is reached: an expired ticket says *run kinit*, nothing changed, instead of errors that did not say it after part of the change
+
+### Added
+
+* As GPMC, the domain is read from its PDC emulator (the `fSMORoleOwner` of the domain), found by the domain controller the computer reaches, and the changes go there; `Get-PSGPODirectory -Server` another domain controller warns, the status bar says *not the PDC emulator*, and **Change Domain Controller...** (right click on the domain) lists the domain controllers, the PDC emulator first, and reads the domain again from the one chosen
+* The details of a GPO show its versions in the directory and in SYSVOL, as GPMC (*User version: 2 (AD), 2 (SYSVOL)*), and say when they differ: the computers apply SYSVOL
+
 ## 0.1.18 - alpha
 
 ### Changed

@@ -56,6 +56,15 @@ as GPMC does: the changes of the other consoles and of GPMC show, the tree keepi
 expanded and selected. The console reads the domain once otherwise; a GPO changed since it was
 read is not written over ([policy editor](policy-editor.md)): refresh, then make the change again.
 
+As GPMC, the domain is read from its PDC emulator, where the changes go. **Change Domain
+Controller...** (right click on the domain) lists the domain controllers of the domain, the PDC
+emulator first, and reads the domain again from the one chosen; the status bar says when it is
+not the PDC emulator. The details of a GPO show its versions in the directory and in SYSVOL
+(*User version: 2 (AD), 2 (SYSVOL)*), and say when they differ: the computers apply SYSVOL
+([hardening](../technical/hardening.md#domain-controller)).
+
+![Change Domain Controller...](../assets/screenshots/83-change-dc.png){ width="640" }
+
 ## Policy editor
 
 **Edit** (right click, or double click on a GPO) opens the GPO in the
@@ -73,8 +82,8 @@ registry path or the `Get-ItemProperty` command that reads it.
 ## The status bar
 
 At the bottom: this computer (name, system, addresses), its domain, the domain controller the
-directory was read from and its directory service (`Samba AD` or `Active Directory`), the
-account connected, and the version of HGPM with a dot:
+directory was read from, its directory service (`Samba AD` or `Active Directory`) and whether it is
+the PDC emulator, the account connected, and the version of HGPM with a dot:
 
 - **green**: the latest version of the PowerShell Gallery;
 - **orange**: a newer version is on the Gallery (`HGPM 0.1.6-alpha: 0.1.7-alpha available`); its

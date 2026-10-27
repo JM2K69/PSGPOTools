@@ -1,11 +1,15 @@
-# Reads the domain of a directory again, from the same domain controller, with the same account
-# and transport (-Credential, LDAPS, port), and puts it in place in the directory object: what
-# holds it keeps it. The configuration of the domain is read again too.
+# Reads the domain of a directory again, from the same domain controller or from -Server (Change
+# Domain Controller... of GPMC), with the same account and transport (-Credential, LDAPS, port),
+# and puts it in place in the directory object: what holds it keeps it. The configuration of the
+# domain is read again too.
 function Update-PSGPODirectoryFromDomain {
     [CmdletBinding()]
-    param([Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory)
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [string]$Server
+    )
 
-    $read = @{ Server = $Directory.Server; ErrorAction = 'Stop' }
+    $read = @{ Server = $(if ($Server) { $Server } else { $Directory.Server }); ErrorAction = 'Stop'; WarningAction = 'SilentlyContinue' }
     if ($Directory.Credential) { $read.Credential = $Directory.Credential }
     if ($Directory.UseSsl) { $read.UseSsl = $true }
     if ($Directory.Port) { $read.Port = $Directory.Port }

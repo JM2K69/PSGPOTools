@@ -329,6 +329,64 @@ its end whatever offset the writer gives. The chain shows what Samba allows.
 
     ![The audit log, its Check column](../assets/screenshots/66-audit-log-active-directory.png)
 
+## The domain controller and the versions { #domain-controller }
+
+### The threat
+
+- **Two domain controllers, two versions**: a GPO is a container in the directory and a folder in
+  SYSVOL, each with its version (`versionNumber`, `Version=` of `GPT.INI`). A change made on a
+  domain controller other than the PDC emulator, which GPMC uses, races with the changes made
+  there; with Samba, which does not replicate SYSVOL, the files stay on the domain controller
+  written.
+- **A change cut halfway**: the files were written first, then the version in the directory. When
+  the directory refused it (the GPO changed meanwhile, a right, the server gone), SYSVOL kept the
+  new files and a version ahead of the directory: the computers applied a change the console said
+  was not saved. A computer could also read a file while it was being written.
+- **A Kerberos ticket that expired** (Linux): SYSVOL and the directory refuse with errors that do
+  not say it, after part of the change.
+
+### What the console does
+
+- **The PDC emulator**: the domain is read from the PDC emulator (the `fSMORoleOwner` of the
+  domain), found by the domain controller the computer reaches; the changes go there. `-Server`
+  another domain controller warns, and the status bar says *not the PDC emulator*;
+  **Change Domain Controller...** (right click on the domain) lists the domain controllers, the PDC
+  emulator first, and reads the domain again from the one chosen.
+- **A file written aside, then renamed** over the former one (the UNC path on Windows, `put` then
+  `rename -f` with `smbclient`): a computer reads the former file or the new one.
+- **Put back as they were**: the files of the GPO are read before the change; when a file cannot
+  be written, or the directory refuses the new version, the files written are put back (or
+  deleted when there were none), and the error says it. A restore from a backup does the same.
+- **The versions of both** are shown in the details of a GPO, as GPMC (*User version: 2 (AD), 2
+  (SYSVOL)*), and a row says when they differ.
+- **The ticket** is checked (`klist -s`) before SYSVOL or the directory is reached from Linux:
+  *run kinit*, nothing changed.
+
+### Tested
+
+`PSGPOTools.Hardening.tests.ps1` and `PSGPOTools.Ldap.tests.ps1`: the files put back in the order
+they were written, a file that did not exist deleted, what could not be put back said; a restore
+put back; the `put` and `rename -f` of `smbclient`, and the write over the file with an
+`smbclient` that does not rename over a file; an expired ticket refused before any command; the
+domain read from its PDC emulator found by another domain controller, `-Server` another one
+warned, the domain controller found used when the PDC emulator cannot be reached; the domain
+controllers listed, the PDC emulator first; the versions of both in the details, read once for a
+version of the GPO. `PSGPOTools.Gui.tests.ps1`: **Change Domain Controller...** on the domain
+only, the domain read again from the one chosen, the status bar updated.
+
+On both labs (one domain controller each, so the PDC emulator), the administrator writes a
+`Registry.pol` in a new GPO, then the directory refuses the next version (a former value that is
+not the one in the directory):
+
+| Step | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| The domain read without `-Server` | from `dc.hardenbox.labo`, the PDC emulator; the status bar says it | from `ADDS.powershell.labo`, the PDC emulator; the same |
+| A `Registry.pol` saved | no file left aside (`smbclient`), versions 1 (AD) and 1 (SYSVOL) | no file left aside (UNC), the same versions |
+| The details of the GPO | *0 (AD), 0 (SYSVOL)*, *1 (AD), 1 (SYSVOL)* | the same |
+| The directory refuses the next version | *not saved... the files of the GPO were put back as they were*; `Registry.pol` and `GPT.INI` the same bytes as before, version 1 in both | the same |
+| A ticket cache without ticket | *The Kerberos ticket of this session... has expired*: nothing written | (Windows: the session) |
+| Cleaned up | the GPO deleted | the GPO deleted |
+
 ## Other guards { #other-guards }
 
 `PSGPOTools.Hardening.tests.ps1` also tests:
