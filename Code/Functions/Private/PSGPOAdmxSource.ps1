@@ -9,14 +9,20 @@
 function Get-PSGPOAdmxCulture {
     [CmdletBinding()]
     [OutputType([string])]
-    param([Parameter(Mandatory)] [string]$Path)
+    param(
+        [Parameter(Mandatory)] [string]$Path,
+
+        # The folders named after a culture, without looking for .adml files in each one: one
+        # listing, for a central store read through the network.
+        [switch]$NameOnly
+    )
 
     if (-not (Test-Path -LiteralPath $Path -PathType Container)) { return }
     foreach ($folder in @(Get-ChildItem -LiteralPath $Path -Directory -ErrorAction SilentlyContinue | Sort-Object Name)) {
         $culture = $null
         try { $culture = [cultureinfo]::GetCultureInfo($folder.Name) } catch { continue }
         if (-not $culture.Name) { continue }
-        if (Get-ChildItem -LiteralPath $folder.FullName -File -Filter '*.adml' -ErrorAction SilentlyContinue | Select-Object -First 1) {
+        if ($NameOnly -or (Get-ChildItem -LiteralPath $folder.FullName -File -Filter '*.adml' -ErrorAction SilentlyContinue | Select-Object -First 1)) {
             $folder.Name
         }
     }
@@ -30,10 +36,12 @@ function Resolve-PSGPOAdmxCulture {
     param(
         [Parameter(Mandatory)] [string]$Path,
         [string]$Requested,
-        [cultureinfo]$Current = [cultureinfo]::CurrentUICulture
+        [cultureinfo]$Current = [cultureinfo]::CurrentUICulture,
+        # See Get-PSGPOAdmxCulture.
+        [switch]$NameOnly
     )
 
-    $available = @(Get-PSGPOAdmxCulture -Path $Path)
+    $available = @(Get-PSGPOAdmxCulture -Path $Path -NameOnly:$NameOnly)
     if (-not $available.Count) { throw "No language folder with .adml files in '$Path' (en-US, fr-FR...): is it a PolicyDefinitions folder?" }
     $pick = {
         param([string]$Name)
@@ -80,16 +88,25 @@ function Get-PSGPOAdmxCentralStore {
     [CmdletBinding()]
     [OutputType([string])]
     param(
+        # The domain of the store (the domain the console shows); that of the computer by default.
+        [string]$DomainName,
+
+        # The domain controller the domain is read from: its SYSVOL first, when the name of the
+        # domain does not resolve (Windows).
+        [string]$Server,
+
         # The SYSVOL of Samba (a parameter for the tests).
         [string]$SambaSysvol = '/var/lib/samba/sysvol'
     )
 
     $paths = [System.Collections.Generic.List[string]]::new()
     if ($IsWindows) {
-        $domain = (Get-PSGPOPlatform).DomainName
+        $domain = if ($DomainName) { $DomainName } else { (Get-PSGPOPlatform).DomainName }
+        if ($domain -and $Server) { $paths.Add("\\$Server\SYSVOL\$domain\Policies\PolicyDefinitions") }
         if ($domain) { $paths.Add("\\$domain\SYSVOL\$domain\Policies\PolicyDefinitions") }
     } else {
         foreach ($sysvol in @(Get-ChildItem -LiteralPath $SambaSysvol -Directory -ErrorAction SilentlyContinue)) {
+            if ($DomainName -and $sysvol.Name -ne $DomainName) { continue }
             $paths.Add((Join-Path $sysvol.FullName 'Policies' 'PolicyDefinitions'))
         }
     }
@@ -110,8 +127,8 @@ function Get-PSGPOAdmxCandidate {
     $paths = [System.Collections.Generic.List[string]]::new()
     if (-not $PSBoundParameters.ContainsKey('CentralStore')) { $CentralStore = @(Get-PSGPOAdmxCentralStore) }
     foreach ($store in $CentralStore) { $paths.Add($store) }
-    $last = (Get-PSGPOUserSetting).PolicyDefinitions
-    if ($last) { $paths.Add($last) }
+    $settings = Get-PSGPOUserSetting
+    foreach ($last in $settings.PolicyDefinitions, $settings.AdmxFallback) { if ($last) { $paths.Add($last) } }
     if ($IsWindows -and $env:windir) { $paths.Add((Join-Path $env:windir 'PolicyDefinitions')) }
     foreach ($base in $PSScriptRoot, (Split-Path -Parent $PSScriptRoot)) {
         $paths.Add((Join-Path $base 'sources' 'PolicyDefinitions'))
@@ -119,6 +136,58 @@ function Get-PSGPOAdmxCandidate {
     # Those of Install-PSGPOAdmx in the data folder of the user.
     $paths.Add(@(Get-PSGPOAdmxInstallFolder)[-1])
     Select-PSGPOAdmxFolder -Path $paths
+}
+
+# The ADMX files the console loads without asking, the first time it needs them: a folder chosen
+# in the ADMX window instead of a central store, while it holds .admx files; else, as GPMC, the
+# central store of the domain shown; else the central store chosen in the window (of another
+# domain); else the folder chosen while no store was reached (AdmxFallback). In the language chosen last when the folder has it, else in the one of the session
+# (Resolve-PSGPOAdmxCulture: else the same language, else en-US...), else en-US. Path is $null when
+# there is none, or when the last load of the console failed (AdmxFailed): the ADMX window asks
+# then, with the central stores found (CentralStore, $null when not looked for).
+function Get-PSGPOAdmxStartSource {
+    [CmdletBinding()]
+    [OutputType([hashtable])]
+    param(
+        # The domain shown, for its central store; that of the computer by default.
+        [string]$DomainName,
+
+        # The domain controller it is read from (Get-PSGPOAdmxCentralStore).
+        [string]$Server
+    )
+
+    $source = @{ Path = $null; UICulture = $null; CentralStore = $null }
+    $settings = Get-PSGPOUserSetting
+    # The language of a folder by the names of its language folders (one listing through the
+    # network), then one listing of the folder chosen: the .adml files are read by the load.
+    $languageOf = {
+        param([string]$Path)
+        $names = @(Get-PSGPOAdmxCulture -Path $Path -NameOnly)
+        $culture = $null
+        if ($settings.UICulture) { $culture = @($names | Where-Object { $_ -eq "$($settings.UICulture)" })[0] }
+        if (-not $culture) { $culture = try { (Resolve-PSGPOAdmxCulture -Path $Path -NameOnly).Culture } catch { $null } }
+        $hasAdml = { param($Name) [bool](Get-ChildItem -LiteralPath (Join-Path $Path $Name) -File -Filter '*.adml' -ErrorAction SilentlyContinue | Select-Object -First 1) }
+        if ($culture -and -not (& $hasAdml $culture)) { $culture = @($names | Where-Object { $_ -eq 'en-US' -and (& $hasAdml $_) })[0] }
+        $culture
+    }
+
+    # A central store saved by the window (0.1.17 saved the one it proposed): the store of the domain shown first.
+    $saved = if ($settings.PolicyDefinitions) { @(Select-PSGPOAdmxFolder -Path "$($settings.PolicyDefinitions)")[0] }
+    $savedStore = $saved -and ($saved -match '^\\\\[^\\]+\\SYSVOL\\[^\\]+\\Policies\\PolicyDefinitions$' -or $saved -match '[\\/]sysvol[\\/][^\\/]+[\\/]Policies[\\/]PolicyDefinitions$')
+    $take = {
+        param([string]$Path)
+        $culture = & $languageOf $Path
+        if ($culture) { $source.Path = $Path; $source.UICulture = $culture }
+        [bool]$culture
+    }
+    if (-not $settings.AdmxFailed -and $saved -and -not $savedStore -and (& $take $saved)) { return $source }
+    $source.CentralStore = @(Get-PSGPOAdmxCentralStore -DomainName $DomainName -Server $Server)
+    if ($settings.AdmxFailed) { return $source }
+    foreach ($store in $source.CentralStore) { if (& $take $store) { return $source } }
+    if ($savedStore -and (& $take $saved)) { return $source }
+    $fallback = if ($settings.AdmxFallback) { @(Select-PSGPOAdmxFolder -Path "$($settings.AdmxFallback)")[0] }
+    if ($fallback -and (& $take $fallback)) { return $source }
+    $source
 }
 
 # Settings of the user kept between sessions: <config>/PSGPOTools/settings.json (~/.config on

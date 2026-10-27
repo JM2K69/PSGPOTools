@@ -20,6 +20,18 @@ class GPOToolsUtility {
     static hidden [hashtable]$NamespaceIndex = @{}
     # Namespace of each admx file read (its path): read once, its target only
     static hidden [hashtable]$NamespaceByFile = @{}
+    # One more at each RemoveAll: what is built from the policies loaded (Get-PSGPOPolicyKeyIndex)
+    # is built again, the lists staying the same objects with as many policies once reloaded.
+    static hidden [int]$Generation = 0
+    # The admx files of the folder left out by the last load, with why ("<name>: <reason>").
+    static hidden [System.Collections.Generic.List[string]]$SkippedFiles = @()
+    # A file of the last load could not be read for a reason that may pass (the network, the
+    # rights): that load is not cached. A file malformed or without ADML stays so while it does
+    # not change, and the stamp of the cache sees its change.
+    static hidden [bool]$Incomplete = $false
+    # The namespaces of the files that failed (namespace -> why): not read again for the files
+    # that need them, which fail with them.
+    static hidden [hashtable]$FailedTargets = @{}
 
     static [void]InitiateAdmxAdml(
         [System.IO.DirectoryInfo]$Folder,
@@ -37,7 +49,16 @@ class GPOToolsUtility {
             Write-Verbose "Initialization of ADMX file in $Folder"
             $AdmxFiles = [GPOToolsUtility]::GetAdmxFiles($Folder.FullName)
             foreach ($File in $AdmxFiles) {
-                [GPOToolsUtility]::InitiateAdmxAdml($File,$UICulture)
+                # A file that cannot be read (malformed, without any ADML, unreachable) is left
+                # out with a warning, as the Group Policy editor goes on with the others.
+                try {
+                    [GPOToolsUtility]::InitiateAdmxAdml($File,$UICulture)
+                } catch {
+                    if ([GPOToolsUtility]::IsTransient($_.Exception)){ [GPOToolsUtility]::Incomplete = $true }
+                    $Reason = $_.Exception.GetBaseException().Message
+                    [GPOToolsUtility]::SkippedFiles.Add(('{0}: {1}' -f $File.Name,$Reason))
+                    Write-Warning ('{0} is not loaded: {1}' -f $File.Name,$Reason)
+                }
             }
         }Else{
             Write-Error "Foler $Folder not found"
@@ -49,50 +70,90 @@ class GPOToolsUtility {
         [System.IO.FileInfo]$File,
         [cultureinfo]$UICulture
     ){
-        if((Test-Path -Path $File.FullName) -and ($File.Name -Like '*.admx')){
-            #On verifie que le fichier AMDX n'a pas deja ete charge.
-            If (![GPOToolsUtility]::TargetLoad.Contains([GPOToolsUtility]::GetNamespaceAdmx($File))){
-                Write-Verbose "Initialization of $File"
-                #Creation de l'objet ADMX
-                $ADMX = [GpoToolsAdmx]::New($File.FullName)
-
-                #On verifie si il a besoin de dependance et on les charges
-                [GPOToolsUtility]::CheckAndInitiateDependancy($ADMX,$UICulture)
-
-                #On determine le fichier ADML correspondant
-                $ADMLPath = [GPOToolsUtility]::GetADMLPathFromADMX($File,$UICulture)
-
-                #On charge le fichier ADML correspondant
-                $ADML = [GpoToolsAdml]::New($ADMLPath)
-
-                #On cree les objets SupportedOn
-                #et on les incremente dans la propriete statique
-                foreach ($SupportedOn in $ADMX.SupportedOnDefinition){
-                    [GPOToolsutility]::SupportOnTable.Add([GPOToolsSupportedOn]::New($SupportedOn,$ADML))
-                }
-
-                #On initialise les objets Category
-                [GPOToolsCategory]::LoadAdmxAdml($Admx,$Adml)
-
-                #On cree les objet Policy et on les incremente dans la propriete statique
-                #Une policy de classe Both existe cote Machine et cote User, comme dans la GPMC
-                foreach ($Policy in $ADMX.Policies){
-                    if ($Policy.Class -eq 'Both'){
-                        [GPOToolsutility]::Policies.Add([GPOToolsPolicy]::New($Policy,$ADML,[ScopePolicy]::Machine))
-                        [GPOToolsutility]::Policies.Add([GPOToolsPolicy]::New($Policy,$ADML,[ScopePolicy]::User))
-                    }Else{
-                        [GPOToolsutility]::Policies.Add([GPOToolsPolicy]::New($Policy,$ADML))
-                    }
-                }
-
-                [GPOToolsutility]::TargetLoad.Add($ADMX.Target.namespace)
-
-            }Else{
-                Write-Verbose "$File is already Initiate"
-            }
-        }Else{
-            Write-Error "File $File not found"
+        # Not reached, or no longer there: an error that may pass (the load is not cached).
+        if (-not (Test-Path -LiteralPath $File.FullName)){
+            throw [System.IO.FileNotFoundException]::new("File $File not found",$File.FullName)
         }
+        if ($File.Name -NotLike '*.admx'){
+            Write-Error "File $File is not an admx file"
+            return
+        }
+        $Namespace = [GPOToolsUtility]::GetNamespaceAdmx($File)
+        #On verifie que le fichier AMDX n'a pas deja ete charge.
+        if ([GPOToolsUtility]::TargetLoad.Contains($Namespace)){
+            Write-Verbose "$File is already Initiate"
+            return
+        }
+        if ([GPOToolsUtility]::FailedTargets.ContainsKey($Namespace)){
+            throw [GPOToolsUtility]::FailedTargets[$Namespace]
+        }
+        Write-Verbose "Initialization of $File"
+        try {
+            #Creation de l'objet ADMX
+            $ADMX = [GpoToolsAdmx]::New($File.FullName)
+
+            #On verifie si il a besoin de dependance et on les charges
+            [GPOToolsUtility]::CheckAndInitiateDependancy($ADMX,$UICulture)
+        } catch {
+            if ($Namespace){ [GPOToolsUtility]::FailedTargets[$Namespace] = $_.Exception.GetBaseException().Message }
+            throw
+        }
+
+        # What this file adds, undone when it fails part of the way: nothing of it stays loaded.
+        $SupportedOnCount = [GPOToolsUtility]::SupportOnTable.Count
+        $CategoryCount = [GPOToolsUtility]::Categories.Count
+        $PolicyCount = [GPOToolsUtility]::Policies.Count
+        try {
+            #On determine le fichier ADML correspondant
+            $ADMLPath = [GPOToolsUtility]::GetADMLPathFromADMX($File,$UICulture)
+
+            #On charge le fichier ADML correspondant
+            $ADML = [GpoToolsAdml]::New($ADMLPath)
+
+            #On cree les objets SupportedOn
+            #et on les incremente dans la propriete statique
+            foreach ($SupportedOn in $ADMX.SupportedOnDefinition){
+                [GPOToolsutility]::SupportOnTable.Add([GPOToolsSupportedOn]::New($SupportedOn,$ADML))
+            }
+
+            #On initialise les objets Category
+            [GPOToolsCategory]::LoadAdmxAdml($Admx,$Adml)
+
+            #On cree les objet Policy et on les incremente dans la propriete statique
+            #Une policy de classe Both existe cote Machine et cote User, comme dans la GPMC
+            foreach ($Policy in $ADMX.Policies){
+                if ($Policy.Class -eq 'Both'){
+                    [GPOToolsutility]::Policies.Add([GPOToolsPolicy]::New($Policy,$ADML,[ScopePolicy]::Machine))
+                    [GPOToolsutility]::Policies.Add([GPOToolsPolicy]::New($Policy,$ADML,[ScopePolicy]::User))
+                }Else{
+                    [GPOToolsutility]::Policies.Add([GPOToolsPolicy]::New($Policy,$ADML))
+                }
+            }
+
+            [GPOToolsutility]::TargetLoad.Add($ADMX.Target.namespace)
+        } catch {
+            [GPOToolsUtility]::RemoveFrom($SupportedOnCount,$CategoryCount,$PolicyCount)
+            if ($Namespace){ [GPOToolsUtility]::FailedTargets[$Namespace] = $_.Exception.GetBaseException().Message }
+            throw
+        }
+    }
+
+    # Undoes what a file that failed added to the lists: what comes after these counts.
+    static hidden [void]RemoveFrom(
+        [int]$SupportedOnCount,
+        [int]$CategoryCount,
+        [int]$PolicyCount
+    ){
+        # Not named as the lists: a class does not let a variable take the name of its properties.
+        $SupportedOnList = [GPOToolsUtility]::SupportOnTable
+        if ($SupportedOnList.Count -gt $SupportedOnCount){ $SupportedOnList.RemoveRange($SupportedOnCount,$SupportedOnList.Count - $SupportedOnCount) }
+        $CategoryList = [GPOToolsUtility]::Categories
+        for ($Index = $CategoryList.Count - 1; $Index -ge $CategoryCount; $Index--){
+            $null = [GPOToolsUtility]::CategoryIndex[$CategoryList[$Index].Name].Remove($CategoryList[$Index])
+            $CategoryList.RemoveAt($Index)
+        }
+        $PolicyList = [GPOToolsUtility]::Policies
+        if ($PolicyList.Count -gt $PolicyCount){ $PolicyList.RemoveRange($PolicyCount,$PolicyList.Count - $PolicyCount) }
     }
 
     # Namespace of an admx file: its first target element, read once per file. The file was read
@@ -128,29 +189,108 @@ class GPOToolsUtility {
         $Xml.Load($Path)
         return $Xml
     }
+
+    # What the XML adapter of PowerShell finds ($Node.name, $Node.child), without it: it costs a few
+    # microseconds per property, some fifty per policy, and was most of the time of the loading.
+    # A child element by its name in any case, as the adapter; $null without one.
+    static [System.Xml.XmlElement]ChildElement([System.Xml.XmlNode]$Node,[string]$Name){
+        if ($null -eq $Node){
+            return $null
+        }
+        foreach ($Child in $Node.ChildNodes){
+            if ($Child.NodeType -eq [System.Xml.XmlNodeType]::Element -and $Child.LocalName -eq $Name){
+                return $Child
+            }
+        }
+        return $null
+    }
+
+    # The child elements of that name, in any case.
+    static [System.Xml.XmlElement[]]ChildElements([System.Xml.XmlNode]$Node,[string]$Name){
+        $Found = [System.Collections.Generic.List[System.Xml.XmlElement]]::new()
+        if ($null -ne $Node){
+            foreach ($Child in $Node.ChildNodes){
+                if ($Child.NodeType -eq [System.Xml.XmlNodeType]::Element -and $Child.LocalName -eq $Name){
+                    $Found.Add($Child)
+                }
+            }
+        }
+        return $Found.ToArray()
+    }
+
+    # An attribute by its name in any case, as the adapter; $null without it (not an empty text).
+    static [object]Attribute([System.Xml.XmlNode]$Node,[string]$Name){
+        if ($Node -isnot [System.Xml.XmlElement]){
+            return $null
+        }
+        if ($Node.HasAttribute($Name)){
+            return $Node.GetAttribute($Name)
+        }
+        foreach ($Attribute in $Node.Attributes){
+            if ($Attribute.LocalName -eq $Name){
+                return $Attribute.Value
+            }
+        }
+        return $null
+    }
     static [string]GetADMLPathFromADMX(
         [System.IO.FileInfo]$AdmxFile,
         [cultureinfo]$UICulture
     ){
         $ParentPath = Split-Path -Path $AdmxFile.FullName
         $ADMLName = $AdmxFile.Name -replace '\.admx$','.adml'
-        $ADMLPath  = [System.IO.Path]::Combine($ParentPath,$UICulture.Name,$ADMLName)
+        $ADMLPath = [GPOToolsUtility]::FindADMLFile($ParentPath,$UICulture.Name,$ADMLName)
+        if ($ADMLPath){
+            return $ADMLPath
+        }
+        # No ADML in this language (a template shipped in English only): the one of en-US, as
+        # the Group Policy editor uses it.
+        if ($UICulture.Name -ne 'en-US'){
+            $ADMLPath = [GPOToolsUtility]::FindADMLFile($ParentPath,'en-US',$ADMLName)
+            if ($ADMLPath){
+                Write-Warning ('{0} has no ADML in {1}: the one of en-US is used.' -f $AdmxFile.Name,$UICulture.Name)
+                return $ADMLPath
+            }
+        }
+        Throw "The ADML File $([System.IO.Path]::Combine($ParentPath,$UICulture.Name,$ADMLName)) doesn't exist."
+    }
+
+    # An error that may pass: the file was not reached or not read (the network, the rights, a
+    # file or a folder gone meanwhile), whatever the -ErrorAction of the caller made of it.
+    static [bool]IsTransient([System.Exception]$Exception){
+        for ($Current = $Exception; $null -ne $Current; $Current = $Current.InnerException){
+            if ($Current -is [System.IO.IOException] -or $Current -is [System.UnauthorizedAccessException] -or
+                $Current -is [System.Management.Automation.ItemNotFoundException] -or $Current -is [System.Management.Automation.ActionPreferenceStopException]){
+                return $true
+            }
+        }
+        return $false
+    }
+
+    # The ADML file of a language folder, $null when there is none.
+    static [string]FindADMLFile(
+        [string]$ParentPath,
+        [string]$Culture,
+        [string]$ADMLName
+    ){
+        $ADMLPath = [System.IO.Path]::Combine($ParentPath,$Culture,$ADMLName)
         if (Test-Path -LiteralPath $ADMLPath){
             return $ADMLPath
         }
         # Les fichiers Microsoft n'ont pas toujours la meme casse (inetres.admx / InetRes.adml,
         # kdc.admx / KDC.adml) : sur un systeme de fichiers sensible a la casse (Linux, SYSVOL
         # Samba en acces local), on cherche le dossier de langue et le fichier sans tenir compte de la casse.
-        $CultureFolder = Get-ChildItem -LiteralPath $ParentPath -Directory -ErrorAction SilentlyContinue |
-            Where-Object { $_.Name -eq $UICulture.Name } | Select-Object -First 1
+        # A folder that cannot be listed throws (an error that may pass), rather than seem empty.
+        $CultureFolder = Get-ChildItem -LiteralPath $ParentPath -Directory -ErrorAction Stop |
+            Where-Object { $_.Name -eq $Culture } | Select-Object -First 1
         if ($null -ne $CultureFolder){
-            $ADMLFile = Get-ChildItem -LiteralPath $CultureFolder.FullName -File -ErrorAction SilentlyContinue |
+            $ADMLFile = Get-ChildItem -LiteralPath $CultureFolder.FullName -File -ErrorAction Stop |
                 Where-Object { $_.Name -eq $ADMLName } | Select-Object -First 1
             if ($null -ne $ADMLFile){
                 return $ADMLFile.FullName
             }
         }
-        Throw "The ADML File $ADMLPath doesn't exist."
+        return $null
     }
 
     # Fichiers .admx d'un dossier, extension comparee sans tenir compte de la casse
@@ -172,6 +312,8 @@ class GPOToolsUtility {
                     $DepFile = [GPOToolsUtility]::FindDependancyFile($ADMX.FilePath,$_.namespace)
                 }
                 Catch {
+                    # The folder not listed: the dependency may be there (the load is not cached).
+                    if ([GPOToolsUtility]::IsTransient($_.Exception)){ [GPOToolsUtility]::Incomplete = $true }
                     Write-Warning $_.Exception.message
                     $DepFile = $null
                 }
@@ -199,7 +341,15 @@ class GPOToolsUtility {
         if ($null -eq $Index){
             $Index = @{}
             foreach ($AdmxFile in [GPOToolsUtility]::GetAdmxFiles($FolderPath)){
-                $Ns = [GPOToolsUtility]::GetNamespaceAdmx($AdmxFile)
+                # A file that cannot be read is left out of the index, not the index: the folder
+                # loop reads it again and says why it is not loaded.
+                try {
+                    $Ns = [GPOToolsUtility]::GetNamespaceAdmx($AdmxFile)
+                } catch {
+                    if ([GPOToolsUtility]::IsTransient($_.Exception.GetBaseException())){ [GPOToolsUtility]::Incomplete = $true }
+                    Write-Verbose ('{0} is left out of the index of the dependencies: {1}' -f $AdmxFile.Name,$_.Exception.GetBaseException().Message)
+                    continue
+                }
                 if ($null -eq $Index[$Ns]){
                     $Index[$Ns] = [System.Collections.Generic.List[System.IO.FileInfo]]::new()
                 }
@@ -316,12 +466,16 @@ class GPOToolsUtility {
                 [GPOToolsUtility]::TargetLoad,
                 [GPOToolsUtility]::CategoryIndex,
                 [GPOToolsUtility]::NamespaceIndex,
-                [GPOToolsUtility]::NamespaceByFile
+                [GPOToolsUtility]::NamespaceByFile,
+                [GPOToolsUtility]::SkippedFiles,
+                [GPOToolsUtility]::FailedTargets
                 #[GPOToolsCategory]::AllParentCategory
             )
         ){
             $Property.Clear()
         }
+        [GPOToolsUtility]::Generation += 1
+        [GPOToolsUtility]::Incomplete = $false
     }
 
 }# End GPOToolsUtility
@@ -330,6 +484,9 @@ class GPOToolsUtility {
 class GPOToolsSupportedOn {
     [string]$Name
     [string]$DisplayName
+
+    # Filled by the cache of the ADMX files (Import-PSGPOAdmxCache).
+    Hidden GPOToolsSupportedOn(){}
 
     GPOToolsSupportedOn(
         [AdmxSupportedOn]$Support,
@@ -368,6 +525,9 @@ class GPOToolsCategory {
     [GPOToolsCategory]$ParentCategory
     # A retirer pour ne laisser qu'une liste de categories
     #static hidden [System.Collections.Generic.List[GpoToolsCategory]]$AllParentCategory = @()
+
+    # Filled by the cache of the ADMX files (Import-PSGPOAdmxCache).
+    Hidden GPOToolsCategory(){}
 
     <#
         Constructeur de la classe GPOToolsCategory.
@@ -497,6 +657,9 @@ class GPOToolsPolicy {
     Hidden [GpoToolscategory]$Category
     Hidden [GPOToolsSupportedOn]$SupportedOn
 
+    # Filled by the cache of the ADMX files (Import-PSGPOAdmxCache).
+    Hidden GPOToolsPolicy(){}
+
     # Scope deduit de la classe ADMX (Both : User). Prefere le constructeur avec Scope.
     GPOToolsPolicy([AdmxPolicy]$Policy,[GpoToolsAdml]$ADMLPol){
         $DefaultScope = if ($Policy.Class -eq 'Machine') { [ScopePolicy]::Machine } else { [ScopePolicy]::User }
@@ -598,6 +761,9 @@ class GPOToolsRegistry {
     $Value #Active/Desactive
     $DefaultValue
 
+    # Filled by the cache of the ADMX files (Import-PSGPOAdmxCache).
+    Hidden GPOToolsRegistry(){}
+
     GPOToolsRegistry([AdmxPolicy]$Pol) {
         $DefaultScope = if ($Pol.Class -eq 'Machine') { [ScopePolicy]::Machine } else { [ScopePolicy]::User }
         $this.Init($Pol,$DefaultScope)
@@ -635,36 +801,30 @@ class GpoToolsAdmx {
         $File = Get-Item -Path $AdmxPath
         $Xml = [GPOToolsUtility]::ReadXml($File.FullName)
 
-        $PolicyDefinitions = $xml.policyDefinitions
-        $trgt = [AdmxNamespace]::New($PolicyDefinitions.policyNamespaces.target)
+        $PolicyDefinitions = [GPOToolsUtility]::ChildElement($Xml,'policyDefinitions')
+        $PolicyNamespaces = [GPOToolsUtility]::ChildElement($PolicyDefinitions,'policyNamespaces')
+        $trgt = [AdmxNamespace]::New([GPOToolsUtility]::ChildElement($PolicyNamespaces,'target'))
 
 
         $This.FilePath = $File.FullName
         $This.BaseName = $File.BaseName
         $This.Target = $trgt
 
-        if ($null -ne $PolicyDefinitions.policyNamespaces.using){
-            $PolicyDefinitions.policyNamespaces.using | Foreach-Object {
-                $This.Using.Add([AdmxNamespace]::New($_))
-            }
+        foreach ($Node in [GPOToolsUtility]::ChildElements($PolicyNamespaces,'using')){
+            $null = $This.Using.Add([AdmxNamespace]::New($Node))
         }
 
-        if ($null -ne $PolicyDefinitions.supportedOn.definitions){
-            $PolicyDefinitions.supportedOn.definitions.definition | Foreach-Object {
-                $This.SupportedOnDefinition.Add([AdmxSupportedOn]::New($_))
-            }
+        $Definitions = [GPOToolsUtility]::ChildElement([GPOToolsUtility]::ChildElement($PolicyDefinitions,'supportedOn'),'definitions')
+        foreach ($Node in [GPOToolsUtility]::ChildElements($Definitions,'definition')){
+            $null = $This.SupportedOnDefinition.Add([AdmxSupportedOn]::New($Node))
         }
 
-        if ($null -ne $PolicyDefinitions.categories){
-            $PolicyDefinitions.categories.Category | Foreach-Object {
-                $this.Categories.Add($([AdmxCategory]::New($_,$trgt)))
-            }
+        foreach ($Node in [GPOToolsUtility]::ChildElements([GPOToolsUtility]::ChildElement($PolicyDefinitions,'categories'),'category')){
+            $null = $this.Categories.Add([AdmxCategory]::New($Node,$trgt))
         }
 
-        if ($null -ne $PolicyDefinitions.Policies){
-            $PolicyDefinitions.Policies.policy | Foreach-Object {
-                $this.Policies.Add($([AdmxPolicy]::New($_,$trgt)))
-            }
+        foreach ($Node in [GPOToolsUtility]::ChildElements([GPOToolsUtility]::ChildElement($PolicyDefinitions,'policies'),'policy')){
+            $null = $this.Policies.Add([AdmxPolicy]::New($Node,$trgt))
         }
 
         # Les prefix des references parentCategory sont des alias locaux au fichier
@@ -698,18 +858,19 @@ class AdmxPolicy {
     [GPOToolsRegistryValue[]]$DisabledValues = @()
     [GPOToolsPolicyElement[]]$Elements = @()
 
-    AdmxPolicy ($Policy,[AdmxNamespace]$target){
-        $this.Name = $policy.Name
-        $this.Class = $policy.Class
-        $this.DisplayName = $policy.DisplayName -replace '\$\(string\.(.*)\)', '$1'
-        $this.explainText = $policy.explainText -replace '\$\(string\.(.*)\)', '$1'
-        $this.RegKey = $policy.Key
-        $this.ValueName = $policy.ValueName
-        $this.SupportedOn = $policy.SupportedOn
-        $this.enableValue = $policy.enabledValue.decimal.Value
-        $this.disableValue = $policy.disabledValue.decimal.Value
-        if ($null -ne $policy.ParentCategory.ref){
-            $SplitResult = $policy.ParentCategory.ref -split ':'
+    AdmxPolicy ([System.Xml.XmlElement]$Policy,[AdmxNamespace]$target){
+        $this.Name = [GPOToolsUtility]::Attribute($Policy,'name')
+        $this.Class = [GPOToolsUtility]::Attribute($Policy,'class')
+        $this.DisplayName = [GPOToolsUtility]::Attribute($Policy,'displayName') -replace '\$\(string\.(.*)\)', '$1'
+        $this.explainText = [GPOToolsUtility]::Attribute($Policy,'explainText') -replace '\$\(string\.(.*)\)', '$1'
+        $this.RegKey = [GPOToolsUtility]::Attribute($Policy,'key')
+        $this.ValueName = [GPOToolsUtility]::Attribute($Policy,'valueName')
+        $this.SupportedOn = [GPOToolsUtility]::ChildElement($Policy,'supportedOn')
+        $this.enableValue = [GPOToolsUtility]::Attribute([GPOToolsUtility]::ChildElement([GPOToolsUtility]::ChildElement($Policy,'enabledValue'),'decimal'),'value')
+        $this.disableValue = [GPOToolsUtility]::Attribute([GPOToolsUtility]::ChildElement([GPOToolsUtility]::ChildElement($Policy,'disabledValue'),'decimal'),'value')
+        $ParentRef = [GPOToolsUtility]::Attribute([GPOToolsUtility]::ChildElement($Policy,'parentCategory'),'ref')
+        if ($null -ne $ParentRef){
+            $SplitResult = $ParentRef -split ':'
             if ($SplitResult.count -eq 1){
                 $this.ParentCategory = @{
                     prefix = $target.prefix
@@ -722,7 +883,7 @@ class AdmxPolicy {
                 }
             }
         }Else{
-            Write-Verbose ("[AdmxPolicy] No parent category found for {0} policy" -f $policy.Name)
+            Write-Verbose ("[AdmxPolicy] No parent category found for {0} policy" -f $this.Name)
         }
         $this.Presentation = $policy.GetAttribute('presentation') -replace '^\$\(presentation\.(.*)\)$', '$1'
 
@@ -769,13 +930,14 @@ class AdmxCategory {
     [string]$explainText
     [hashtable]$ParentCategory
 
-    AdmxCategory ($Category,[AdmxNamespace]$target){
-        $this.Name = $Category.Name
-        $this.DisplayName = $Category.DisplayName -replace '\$\(string\.(.*)\)', '$1'
+    AdmxCategory ([System.Xml.XmlElement]$Category,[AdmxNamespace]$target){
+        $this.Name = [GPOToolsUtility]::Attribute($Category,'name')
+        $this.DisplayName = [GPOToolsUtility]::Attribute($Category,'displayName') -replace '\$\(string\.(.*)\)', '$1'
         $this.target = $target
-        $this.explainText = $Category.explainText -replace '\$\(string\.(.*)\)', '$1'
-        if ($null -ne $Category.parentcategory.ref){
-            $SplitResult = $Category.parentcategory.ref -split ':'
+        $this.explainText = [GPOToolsUtility]::Attribute($Category,'explainText') -replace '\$\(string\.(.*)\)', '$1'
+        $ParentRef = [GPOToolsUtility]::Attribute([GPOToolsUtility]::ChildElement($Category,'parentCategory'),'ref')
+        if ($null -ne $ParentRef){
+            $SplitResult = $ParentRef -split ':'
             if ($SplitResult.count -eq 1){
                 $this.ParentCategory = @{
                     prefix = $target.prefix
@@ -788,7 +950,7 @@ class AdmxCategory {
                 }
             }
         }Else{
-            Write-Verbose ("[AdmxCategory] No parent category found for {0} category" -f $Category.Name)
+            Write-Verbose ("[AdmxCategory] No parent category found for {0} category" -f $this.Name)
         }
     }
 }
@@ -797,9 +959,9 @@ class AdmxSupportedOn {
     [string]$Name
     [string]$DisplayName
 
-    AdmxSupportedOn ($SupportedOn) {
-        $This.Name = $SupportedOn.Name
-        $THis.DisplayName = $SupportedOn.DisplayName -replace '\$\(string\.(.*)\)', '$1'
+    AdmxSupportedOn ([System.Xml.XmlElement]$SupportedOn) {
+        $This.Name = [GPOToolsUtility]::Attribute($SupportedOn,'name')
+        $THis.DisplayName = [GPOToolsUtility]::Attribute($SupportedOn,'displayName') -replace '\$\(string\.(.*)\)', '$1'
     }
 }
 
@@ -807,9 +969,12 @@ class AdmxNamespace {
     [string]$prefix
     [string]$namespace
 
-    AdmxNamespace($namesp) {
-        $this.prefix = $namesp.prefix
-        $this.namespace = $namesp.namespace
+    # Filled by the cache of the ADMX files (Import-PSGPOAdmxCache).
+    Hidden AdmxNamespace(){}
+
+    AdmxNamespace([System.Xml.XmlElement]$namesp) {
+        $this.prefix = [GPOToolsUtility]::Attribute($namesp,'prefix')
+        $this.namespace = [GPOToolsUtility]::Attribute($namesp,'namespace')
     }
 }
 
@@ -831,8 +996,10 @@ class GpoToolsAdml {
         $this.StringTable = @{}
 
         Write-Verbose ('Chargement de la table StringTable pour le fichier {0}' -f $File.BaseName)
-        foreach ($String in $xml.policyDefinitionResources.resources.stringTable.string){
-            $this.StringTable.Add($String.id,$String.'#Text')
+        $Resources = [GPOToolsUtility]::ChildElement([GPOToolsUtility]::ChildElement($Xml,'policyDefinitionResources'),'resources')
+        foreach ($String in [GPOToolsUtility]::ChildElements([GPOToolsUtility]::ChildElement($Resources,'stringTable'),'string')){
+            # Its text, $null for an empty string, as the adapter gave it ('#text').
+            $this.StringTable.Add([GPOToolsUtility]::Attribute($String,'id'),$(if ($String.HasChildNodes) { $String.InnerText } else { $null }))
         }
         $this.LoadPresentations($Xml)
     }
@@ -860,7 +1027,8 @@ class GpoToolsAdml {
     Hidden [void]LoadPresentations([xml]$Xml){
         $this.Presentations = @{}
         $this.PresentationLayouts = @{}
-        foreach ($Presentation in $Xml.policyDefinitionResources.resources.presentationTable.presentation){
+        $Resources = [GPOToolsUtility]::ChildElement([GPOToolsUtility]::ChildElement($Xml,'policyDefinitionResources'),'resources')
+        foreach ($Presentation in [GPOToolsUtility]::ChildElements([GPOToolsUtility]::ChildElement($Resources,'presentationTable'),'presentation')){
             $Controls = @{}
             $Layout = [System.Collections.Generic.List[object]]::new()
             foreach ($Node in $Presentation.ChildNodes){
@@ -891,8 +1059,9 @@ class GpoToolsAdml {
                     SpinStep = [GPOToolsPolicyElement]::GetUInt($Node,'spinStep',1)
                 }
             }
-            $this.Presentations[$Presentation.id] = $Controls
-            $this.PresentationLayouts[$Presentation.id] = $Layout.ToArray()
+            $Id = [GPOToolsUtility]::Attribute($Presentation,'id')
+            $this.Presentations[$Id] = $Controls
+            $this.PresentationLayouts[$Id] = $Layout.ToArray()
         }
     }
 

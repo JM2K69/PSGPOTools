@@ -14,7 +14,8 @@ function Get-PSGPOPolicyKeyIndex {
     param()
 
     $policies = [GPOToolsUtility]::Policies
-    if ($script:PSGPOPolicyKeyIndex -and [object]::ReferenceEquals($script:PSGPOPolicyKeyIndexSource, $policies) -and $script:PSGPOPolicyKeyIndexCount -eq $policies.Count) {
+    # The ADMX files loaded again (RemoveAll): the same list with other policies, as many maybe.
+    if ($script:PSGPOPolicyKeyIndex -and $script:PSGPOPolicyKeyIndexGeneration -eq [GPOToolsUtility]::Generation -and $script:PSGPOPolicyKeyIndexCount -eq $policies.Count) {
         return $script:PSGPOPolicyKeyIndex
     }
     $index = [System.Collections.Generic.Dictionary[string, System.Collections.Generic.List[object]]]::new([System.StringComparer]::OrdinalIgnoreCase)
@@ -30,7 +31,7 @@ function Get-PSGPOPolicyKeyIndex {
         }
     }
     $script:PSGPOPolicyKeyIndex = $index
-    $script:PSGPOPolicyKeyIndexSource = $policies
+    $script:PSGPOPolicyKeyIndexGeneration = [GPOToolsUtility]::Generation
     $script:PSGPOPolicyKeyIndexCount = $policies.Count
     $index
 }

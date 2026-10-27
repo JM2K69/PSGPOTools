@@ -31,6 +31,9 @@ class GPOToolsRegistryValue {
     # l'editeur de strategie (valueName sans enabledValue...). A confirmer avec la GPMC.
     [bool]$Implicit
 
+    # Filled by the cache of the ADMX files (Import-PSGPOAdmxCache).
+    Hidden GPOToolsRegistryValue(){}
+
     GPOToolsRegistryValue(
         [string]$Key,
         [string]$ValueName,
@@ -164,6 +167,9 @@ class GPOToolsPolicyElement {
     [bool]$NoSort
     [uint64]$SpinStep = 1
 
+    # Filled by the cache of the ADMX files (Import-PSGPOAdmxCache).
+    Hidden GPOToolsPolicyElement(){}
+
     GPOToolsPolicyElement(
         [System.Xml.XmlElement]$Node,
         [string]$PolicyKey
@@ -238,7 +244,8 @@ class GPOToolsPolicyElement {
                     $EnumItems.Add($EnumItem)
                 }
                 $this.Items = $EnumItems.ToArray()
-                $First = $this.Items | Where-Object { $null -ne $_.Value } | Select-Object -First 1
+                $First = $null
+                foreach ($EnumItem in $this.Items){ if ($null -ne $EnumItem.Value){ $First = $EnumItem; break } }
                 $this.ValueType = if ($First) { $First.Value.Type } else { [GPOToolsRegistryValueType]::DWord }
             }
             'list' {

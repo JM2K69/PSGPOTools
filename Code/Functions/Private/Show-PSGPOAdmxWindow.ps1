@@ -14,6 +14,10 @@ function Show-PSGPOAdmxWindow {
     [CmdletBinding()]
     [OutputType([bool])]
     param(
+        # The central stores of the domain found already (Get-PSGPOAdmxStartSource), not looked
+        # for again: a domain controller out of reach makes one wait once.
+        [AllowEmptyCollection()] [string[]]$CentralStore,
+
         [scriptblock]$OnShown
     )
 
@@ -92,8 +96,8 @@ function Show-PSGPOAdmxWindow {
         }
         $cultureComboBox.ItemsSource = $language.Available
         $chosen = $language.Culture
-        if ($settings.UICulture -and $language.Available -contains $settings.UICulture -and
-            [string]::Equals("$($settings.PolicyDefinitions)", $path, [System.StringComparison]::OrdinalIgnoreCase)) { $chosen = $settings.UICulture }
+        # The language chosen last, as the console takes it for any folder (Get-PSGPOAdmxStartSource).
+        if ($settings.UICulture -and $language.Available -contains $settings.UICulture) { $chosen = $settings.UICulture }
         if ($chosen) { $cultureComboBox.SelectedItem = $chosen }
         $count = "$admx ADMX files, $($language.Available.Count) language$(if ($language.Available.Count -gt 1) { 's' })"
         $full = try { [System.IO.Path]::GetFullPath($path).TrimEnd('\', '/') } catch { $path }
@@ -102,7 +106,7 @@ function Show-PSGPOAdmxWindow {
         $loadButton.IsEnabled = [bool]$chosen
     }
 
-    $central = @(Get-PSGPOAdmxCentralStore)
+    $central = @(if ($PSBoundParameters.ContainsKey('CentralStore')) { $CentralStore } else { Get-PSGPOAdmxCentralStore })
     $candidates = @(Get-PSGPOAdmxCandidate -CentralStore $central)
     $candidateComboBox.ItemsSource = $candidates
     $candidateComboBox.IsEnabled = $candidates.Count -gt 0
@@ -117,6 +121,7 @@ function Show-PSGPOAdmxWindow {
     # The central store of the domain, as GPMC; else the folder chosen last, else the first one found.
     $initial = if ($central.Count) { $central[0] }
         elseif ($settings.PolicyDefinitions -and (Test-Path -LiteralPath $settings.PolicyDefinitions -PathType Container)) { $settings.PolicyDefinitions }
+        elseif ($settings.AdmxFallback -and (Test-Path -LiteralPath $settings.AdmxFallback -PathType Container)) { $settings.AdmxFallback }
         elseif ($candidates.Count) { $candidates[0] }
     if ($initial -and $candidates -contains $initial) { $candidateComboBox.SelectedItem = $initial }
     elseif ($initial) { $pathTextBox.Text = $initial }
@@ -157,7 +162,16 @@ function Show-PSGPOAdmxWindow {
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
             try {
                 Initialize-PSGPOAdmx -Path $state.Path -UICulture $state.Culture -WarningAction SilentlyContinue
-                Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $state.Path; UICulture = $state.Culture }
+                # The folder as the next start finds it (~ and a relative path resolved). A central
+                # store proposed is not a folder chosen: the console takes the store of the domain
+                # it shows (Get-PSGPOAdmxStartSource). A folder chosen while no store was proposed
+                # (out of reach) is a fallback, tried after the stores. The language is kept.
+                $full = try { $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($state.Path).TrimEnd('\', '/') } catch { $state.Path }
+                $values = @{ UICulture = $state.Culture; AdmxFailed = $null }
+                if (-not $central.Count) { $values.AdmxFallback = $full }
+                elseif (@($central | Where-Object { [string]::Equals($_, $full, [System.StringComparison]::OrdinalIgnoreCase) }).Count) { $values.PolicyDefinitions = $null }
+                else { $values.PolicyDefinitions = $full }
+                Set-PSGPOUserSetting -Values $values
                 $state.Loaded = $true
                 $window.Close()
             } catch {

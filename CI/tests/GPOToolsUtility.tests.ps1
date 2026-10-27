@@ -268,7 +268,18 @@ InModuleScope -ModuleName HGPM {
             $Culture = New-Item -ItemType Directory -Path (Join-Path $Folder 'en-us')
             $Adml = New-Item -ItemType File -Path (Join-Path $Culture 'KDC.adml')
             [GPOToolsUtility]::GetADMLPathFromADMX($Admx, [cultureinfo]'en-US') | Should -Be $Adml.FullName
-            { [GPOToolsUtility]::GetADMLPathFromADMX($Admx, [cultureinfo]'fr-FR') } | Should -Throw "*doesn't exist*"
+        }
+
+        It 'GetADMLPathFromADMX takes the ADML of en-US when the language has none, as the Group Policy editor' {
+            $Folder = New-Item -ItemType Directory -Path (Join-Path $TestDrive 'FallbackStore')
+            $Admx = New-Item -ItemType File -Path (Join-Path $Folder 'AdmPwd.admx')
+            $null = New-Item -ItemType Directory -Path (Join-Path $Folder 'fr-FR')
+            $English = New-Item -ItemType Directory -Path (Join-Path $Folder 'en-US')
+            $Adml = New-Item -ItemType File -Path (Join-Path $English 'AdmPwd.adml')
+            @([GPOToolsUtility]::GetADMLPathFromADMX($Admx, [cultureinfo]'fr-FR') 3>&1 | ForEach-Object { "$_" }) | Should -Be @('AdmPwd.admx has no ADML in fr-FR: the one of en-US is used.', $Adml.FullName)
+            # Neither the language nor en-US.
+            $Alone = New-Item -ItemType File -Path (Join-Path $Folder 'Alone.admx')
+            { [GPOToolsUtility]::GetADMLPathFromADMX($Alone, [cultureinfo]'fr-FR') } | Should -Throw "*doesn't exist*"
         }
 
         It 'Loads the ADMX whose ADML name differs in case (<File>)' -ForEach @(

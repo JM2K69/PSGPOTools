@@ -38,10 +38,19 @@ sous un bandeau **environnement de démonstration**, pour découvrir la console 
 
 ## Les modèles d'administration
 
-L'éditeur de stratégies a besoin des fichiers ADMX et ADML. La première fois, une fenêtre demande
-le dossier `PolicyDefinitions` (le dossier local sous Windows, une copie ou le magasin central de
-SYSVOL sous Linux) et la langue de ses ADML, détectée d'après le nom de ses dossiers de langue ; le
-choix est mémorisé. Vous pouvez aussi les charger à l'avance :
+L'éditeur de stratégies a besoin des fichiers ADMX et ADML. La première fois, quand aucun magasin
+central du domaine n'est trouvé, une fenêtre demande le dossier `PolicyDefinitions` (le dossier local sous
+Windows, une copie ou le magasin central de SYSVOL sous Linux) et la langue de ses ADML, détectée
+d'après le nom de ses dossiers de langue ; le choix est mémorisé, et redemandé après un chargement
+qui a échoué. Ensuite, la console s'ouvre aussitôt et les lit la première fois qu'elle en a besoin
+(l'éditeur, les onglets **Paramètres** et **Historique**, un rapport), sous un bandeau : quelques
+secondes une fois, puis une seconde environ depuis le cache des fichiers déjà lus. Un modèle sans
+ADML dans la langue prend celui d'en-US, comme l'éditeur de stratégie de groupe, et un fichier
+illisible est laissé de côté : le bandeau le nomme.
+
+![La console lit les modèles d'administration la première fois qu'elle en a besoin](../assets/screenshots/82-admx-loading.fr.png)
+
+Vous pouvez aussi les charger à l'avance :
 
 ```powershell
 Initialize-PSGPOAdmx -Path \\hardenbox.labo\SYSVOL\hardenbox.labo\Policies\PolicyDefinitions -UICulture en-US
