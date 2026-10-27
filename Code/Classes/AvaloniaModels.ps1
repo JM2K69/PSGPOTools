@@ -259,3 +259,21 @@ class AvaloniaPolicyRuleValueItem {
     # The value each GPO of the set gives it, one per line
     [string]$Text
 }
+
+# One domain controller of the Status tab of the domain (Get-PSGPOHealthData): how it compares to
+# the baseline, and the colour of its state
+class AvaloniaControllerStatusRow {
+    [string]$Name
+    [string]$StateText
+    [string]$Brush
+}
+
+# One problem of the GPOs of the domain (Test-PSGPOHealth), in the Status tab of the domain
+class AvaloniaHealthRow {
+    [string]$SeverityText
+    [string]$Brush
+    # What was checked, and on what: 'Version: Workstations'
+    [string]$Title
+    [string]$DomainController
+    [string]$Detail
+}

@@ -44,7 +44,7 @@ Windows, une copie ou le magasin central de SYSVOL sous Linux) et la langue de s
 d'après le nom de ses dossiers de langue ; le choix est mémorisé, et redemandé après un chargement
 qui a échoué. Ensuite, la console s'ouvre aussitôt et les lit la première fois qu'elle en a besoin
 (l'éditeur, les onglets **Paramètres** et **Historique**, un rapport), sous un bandeau : quelques
-secondes une fois, puis une seconde environ depuis le cache des fichiers déjà lus. Un modèle sans
+secondes une fois, puis une seconde environ depuis [le cache](installation.md#admx-cache) des fichiers déjà lus. Un modèle sans
 ADML dans la langue prend celui d'en-US, comme l'éditeur de stratégie de groupe, et un fichier
 illisible est laissé de côté : le bandeau le nomme.
 

@@ -79,6 +79,34 @@ console of the domain then reads them. The ADMX files already there are kept, th
 name replaced; with files already there, give `-Force`. Before the first release of a version
 (no tag yet), give the branch: `-Ref master`.
 
+### The cache of the ADMX files { #admx-cache }
+
+Parsing a `PolicyDefinitions` folder takes a few seconds, and each console of the launcher opens in
+a process of its own: what a load reads is kept in a cache of the user, one file for each folder
+and language (`%LOCALAPPDATA%\PSGPOTools\Admx` on Windows; `$XDG_CACHE_HOME/PSGPOTools/Admx`, else
+`~/.cache/PSGPOTools/Admx` elsewhere).
+
+- **When it is written**: the first time a folder is loaded in a language, by whatever loads it:
+  the GPO console the first time it needs the policies (the editor, the **Settings** and
+  **History** tabs, a report; never for the links, the delegation or the approval), or before it
+  opens with `-PolicyDefinitions`; the editor alone (`-NoDirectory`) and Policy Analyzer when they
+  start; **Load** in the ADMX window; `Initialize-PSGPOAdmx`. It is written aside, then renamed: a
+  console opening meanwhile reads the former file or the new one, never half of one.
+- **When it is read**: while the `.admx` files, and the `.adml` files of the language and of en-US,
+  keep their names, sizes and dates, with the same version of HGPM. A file added, changed or
+  removed (a new template in the central store), or an update of HGPM, and the next load parses the
+  files again and writes the cache again: a few seconds once more.
+- **When it is not written**: with `-NoCache`, after an error, or when a file was left out for a
+  reason that may pass (the network, the rights): the next load parses the files again rather than
+  keep a load that misses some of them. A cache that cannot be written only makes the next load
+  slower.
+- **Clearing it**: delete its folder, nothing else is lost; the next load writes it again.
+
+```powershell
+Remove-Item -Recurse -Force "$env:LOCALAPPDATA\PSGPOTools\Admx"   # Windows
+Remove-Item -Recurse -Force ~/.cache/PSGPOTools/Admx              # Linux, without XDG_CACHE_HOME
+```
+
 ## Windows
 
 | Need | Why | How |

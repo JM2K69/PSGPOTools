@@ -12,6 +12,8 @@ page. The commands that change the domain support `-WhatIf` and `-Confirm`.
 | [`Import-PSGPODirectory`](commands/import-psgpodirectory.md) `-Path` | reads a domain from a JSON description (offline, demonstrations, tests) |
 | [`Show-GPOManagerAvalonia`](commands/show-gpomanageravalonia.md) `[-Server] [-Credential] [-UseSsl] [-Directory] [-NoDirectory] [-PolicyDefinitions] [-UICulture] [-Language]` | opens the console |
 | [`Get-PSGPOConfiguration`](commands/get-psgpoconfiguration.md) `[-Directory] [-Server]` | the configuration in use, and where it comes from |
+| [`Test-PSGPOHealth`](commands/test-psgpohealth.md) `[-Name] [-Directory] [-Server] [-DomainController]` | checks the GPOs as GPMC and gpotool: their folder and versions in SYSVOL, their client-side extensions, the folders without a GPO, the links, and their replication on each domain controller |
+| [`Get-PSGPOReplicationStatus`](commands/get-psgporeplicationstatus.md) `[-Name] [-Directory] [-Server] [-DomainController]` | compares the GPOs of each domain controller, in its directory and its SYSVOL, to the baseline, as the Status tab of GPMC |
 
 ## GPOs
 
@@ -152,6 +154,8 @@ New-PSGPOFineGrainedPasswordPolicy -Name 'PSO - Tier 1 Admins' -Precedence 10 -M
 | `GPOToolsPolicyRuleSet` | `Get-PSGPOPolicyRuleSet` | `Name`, `Path`, `Rules`, `Extensions`, `GetPolicyNames()` |
 | `PSGPOTools.PolicyRuleComparison` | `Compare-PSGPOPolicyRuleSet` | `Scope`, `Path`, `Name`, `Option`, a property per set, `Conflict`, `Difference`, `PolicyType`, `Group`, `Setting`, `Explain`, `Cells` |
 | `PSGPOTools.Drift` | `Get-PSGPODrift` | `DisplayName`, `State`, `Approved`, `ApprovedBy`, `Changes` |
+| `PSGPOTools.HealthFinding` | `Test-PSGPOHealth` | `Severity`, `Check`, `Target`, `Id`, `DomainController`, `Detail` |
+| `PSGPOTools.ReplicationStatus` | `Get-PSGPOReplicationStatus` | `DomainController`, `IsBaseline`, `DisplayName`, `Id`, `State`, `DirectoryVersion`, `SysvolVersion`, `BaselineVersion`, `Detail` |
 | `PSGPOTools.Restore` | `Restore-PSGPO` | `DisplayName`, `Id`, `Version`, `BackupBefore`, `CreatedAgain`, `Linked`, `Problems` |
 | `PSGPOTools.RemovedBackup` | `Remove-PSGPOBackup` | `DisplayName`, `Id`, `Backups`, `Templates`, `Path` |
 | `PSGPOTools.Link` | `New-PSGPOLink`, `Set-PSGPOLink` | `DisplayName`, `Target`, `Order`, `Enabled`, `Enforced` |

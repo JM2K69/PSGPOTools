@@ -1997,6 +1997,71 @@ InModuleScope -ModuleName HGPM {
             Should -Invoke Update-PSGPODirectoryFromDomain -Times 1 -Exactly -ParameterFilter { $Server -eq 'dc2.hardenbox.labo' }
         }
 
+        It 'Shows the status of the domain on Detect Now, as the Status tab of GPMC' {
+            $Ldap = New-TestLdapDirectory
+            $Ldap.PdcEmulator = 'dc.hardenbox.labo'
+            Mock Get-PSGPOHealthData {
+                [pscustomobject]@{
+                    Baseline = $Directory.Server
+                    Collected = [datetime]'2026-10-27 15:00'
+                    Controllers = @(
+                        [pscustomobject]@{ Name = 'dc.hardenbox.labo'; IsBaseline = $true; IsPdcEmulator = $true; GpoCount = 5; Differences = 1; Problem = $null }
+                        [pscustomobject]@{ Name = 'dc2.hardenbox.labo'; IsBaseline = $false; IsPdcEmulator = $false; GpoCount = 5; Differences = 0; Problem = $null }
+                        [pscustomobject]@{ Name = 'dc3.hardenbox.labo'; IsBaseline = $false; IsPdcEmulator = $false; GpoCount = $null; Differences = 1; Problem = 'The LDAP server is unavailable.' }
+                    )
+                    Replication = @()
+                    Findings = @(
+                        [pscustomobject]@{ Severity = 'Error'; Check = 'Version'; Target = 'Workstations'; DomainController = 'dc.hardenbox.labo'; Detail = 'user 2, computer 2 in the directory, user 2, computer 1 in SYSVOL' }
+                        [pscustomobject]@{ Severity = 'Warning'; Check = 'DomainController'; Target = 'dc3.hardenbox.labo'; DomainController = 'dc3.hardenbox.labo'; Detail = 'The domain controller cannot be read: The LDAP server is unavailable.' }
+                    )
+                }
+            }
+            Start-PSGPOManagerWindow -Directory $Ldap -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Lyon'
+                $Ui.statusTab.IsVisible | Should -BeFalse -Because 'GPMC shows it on the domain only'
+                $Ui.domainTreeView.SelectedItem = @($Ui.domainTreeView.ItemsSource)[0]
+                $Ui.statusTab.IsVisible | Should -BeTrue
+                $Ui.directoryTabs.SelectedItem = $Ui.statusTab
+                $Ui.statusBaselineTextBlock.Text | Should -Be 'Baseline domain controller: dc.hardenbox.labo, PDC emulator'
+                $Ui.statusCollectedTextBlock.Text | Should -BeLike 'No data collected yet*'
+                $Ui.statusDataPanel.IsVisible | Should -BeFalse -Because 'every domain controller is read on Detect Now only'
+                Invoke-Click $Ui.statusDetectButton
+                Invoke-UiLoop -Until { $Ui.statusDataPanel.IsVisible }
+                $Ui.statusCollectedTextBlock.Text | Should -Be "Data collected on $(([datetime]'2026-10-27 15:00').ToString('g'))"
+                @($Ui.statusControllerList.ItemsSource | ForEach-Object { "$($_.Name)|$($_.StateText)|$($_.Brush)" }) | Should -Be @(
+                    'dc.hardenbox.labo (PDC emulator, baseline)|5 GPOs; 1 differences between its directory and its SYSVOL (below)|#CA5010'
+                    'dc2.hardenbox.labo|Replication in sync: 5 GPOs|#107C10'
+                    'dc3.hardenbox.labo|Cannot be read: The LDAP server is unavailable.|#D13438'
+                )
+                $Ui.statusFindingsTextBlock.Text | Should -Be 'Problems found: 2'
+                @($Ui.statusFindingList.ItemsSource | ForEach-Object { "$($_.SeverityText)|$($_.Title)|$($_.DomainController)" }) | Should -Be @(
+                    'Error|Versions: Workstations|dc.hardenbox.labo'
+                    'Warning|Domain controller: dc3.hardenbox.labo|dc3.hardenbox.labo'
+                )
+                $Ui.statusDetectButton.IsEnabled | Should -BeTrue
+                # Another tree node, then the domain again: the data collected is kept.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Lyon'
+                $Ui.domainTreeView.SelectedItem = @($Ui.domainTreeView.ItemsSource)[0]
+                $Ui.statusDataPanel.IsVisible | Should -BeTrue
+            }
+            Should -Invoke Get-PSGPOHealthData -Times 1 -Exactly
+        }
+
+        It 'Says why the status of the domain is not read' {
+            Mock Get-PSGPOHealthData { throw 'The baseline domain controller dc.hardenbox.labo cannot be read: unavailable' }
+            Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = @($Ui.domainTreeView.ItemsSource)[0]
+                $Ui.directoryTabs.SelectedItem = $Ui.statusTab
+                Invoke-Click $Ui.statusDetectButton
+                Invoke-UiLoop -Until { $Ui.statusResultTextBlock.Text -like 'The status*' }
+                $Ui.statusResultTextBlock.Text | Should -Be 'The status of the domain is not read: The baseline domain controller dc.hardenbox.labo cannot be read: unavailable'
+                $Ui.statusDataPanel.IsVisible | Should -BeFalse
+                $Ui.statusDetectButton.IsEnabled | Should -BeTrue
+            }
+        }
+
         It 'Shows a directory read over LDAP: GPO creation offered, links to missing GPOs shown' {
             Start-PSGPOManagerWindow -Directory (New-TestLdapDirectory) -OnShown {
                 param($Ui)

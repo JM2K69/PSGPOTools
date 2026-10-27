@@ -402,6 +402,68 @@ valeur qui n'est pas celle de l'annuaire) :
 | Un cache de tickets sans ticket | *The Kerberos ticket of this session... has expired* : rien n'est écrit | (Windows : la session) |
 | Nettoyé | la GPO supprimée | la GPO supprimée |
 
+## La santé des GPO et leur réplication { #health }
+
+### La menace
+
+- **Un contrôleur de domaine en retard sur les autres** : Active Directory réplique l'annuaire,
+  DFSR le SYSVOL de Windows, chacun à son rythme ; Samba ne réplique pas SYSVOL. Un ordinateur
+  applique la GPO du contrôleur qu'il joint : une autre version, ou aucune, jusqu'à ce qu'ils
+  concordent, et rien ne le disait.
+- **Une GPO qui ne peut pas s'appliquer** : son dossier ou son `GPT.INI` manquant, une version de
+  SYSVOL qui n'est pas celle de l'annuaire, un fichier de paramètres dont la GPO ne déclare pas
+  l'extension côté client (écrit par un script, une copie, un outil qui ne la déclare pas) : les
+  ordinateurs n'arrivent pas à l'appliquer, ou sautent les paramètres, sans un mot dans la console.
+- **Ce qui reste derrière** : un dossier de SYSVOL dont la GPO a été supprimée ailleurs (ou un
+  conflit de la réplication), une liaison vers une GPO qui n'existe plus.
+
+### Ce que fait la console
+
+- **`Get-PSGPOReplicationStatus`** : chaque contrôleur de domaine du domaine est lu, son annuaire
+  et son SYSVOL (une seule liste de `Policies` ; sous Linux, les `GPT.INI` de toutes les GPO en un
+  seul `smbclient`), et comparé à la référence, le contrôleur depuis lequel le domaine a été lu
+  (son émulateur PDC) : une ligne par GPO et par contrôleur, *InSync*, *DirectoryDiffers*,
+  *SysvolDiffers*, *Missing*, *Extra*, *OrphanFolder* ou *Unreachable*, avec ses versions et ce
+  qu'elle signifie.
+- **`Test-PSGPOHealth`** : sur la référence, une GPO redirigée, sans son dossier ou son `GPT.INI`,
+  ou dont les versions diffèrent (erreurs) ; un fichier de paramètres (`Registry.pol` avec des
+  entrées, `GptTmpl.inf`, `audit.csv`, `scripts.ini`, les préférences) dont la GPO ne déclare pas
+  l'extension, un dossier sans GPO, une liaison vers une GPO du domaine qui n'existe pas ; les
+  autres contrôleurs qui diffèrent, ou qui ne peuvent pas être lus (avertissements). Rien de
+  renvoyé : aucun problème.
+- **L'onglet État du domaine**, comme celui de GPMC : **Détecter maintenant** montre les
+  contrôleurs de domaine (*synchronisé*, *réplication en cours*, *ne peut pas être lu*) et les
+  problèmes trouvés ; seulement alors, car il lit chaque contrôleur. Les versions montrées dans
+  les détails des GPO sont relues.
+
+Elles ne font que lire : rien n'est modifié.
+
+### Testé
+
+`PSGPOTools.Health.tests.ps1` : trois contrôleurs de domaine simulés (leur annuaire, et leur
+SYSVOL par `Read-PSGPOSysvolItem` sous Windows et `smbclient` sous Linux) : chaque état de la
+réplication avec ses versions, chaque problème de la référence, un contrôleur qui ne peut pas être
+lu, une référence illisible refusée, `-Name` et `-DomainController`, rien de renvoyé pour un
+domaine sain ; la liste de `smbclient` (les dossiers des GPO et leurs fichiers, un dossier refusé,
+`Policies` refusé), les fichiers qui contiennent des paramètres. `PSGPOTools.Gui.tests.ps1` :
+l'onglet **État** sur le domaine seulement, rempli par **Détecter maintenant**, et pourquoi il
+n'est pas lu.
+
+Sur les deux labos (un contrôleur de domaine chacun), l'administrateur crée des problèmes exprès :
+une GPO dont SYSVOL est en avance sur l'annuaire, avec un `Registry.pol` dont l'extension n'est pas
+déclarée ; une GPO sans `GPT.INI` ; un dossier de `Policies` sans GPO :
+
+| Étape | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| Le domaine tel qu'il est | 7 GPO *InSync*, aucun problème (0,4 s) | 6 GPO *InSync*, aucun problème (0,7 s) |
+| La GPO en avance sur l'annuaire | *Error, Version* : *user 0, computer 0 in the directory, user 0, computer 1 in SYSVOL* | de même |
+| Son `Registry.pol` | *Warning, Extension* : *(Registry Policy) for the computers* | de même |
+| La GPO sans `GPT.INI` | *Error, Folder* : *the folder of the GPO has no GPT.INI* | de même |
+| Le dossier sans GPO | *Warning, OrphanFolder* | de même |
+| Autre chose | rien | rien |
+| `Get-PSGPOReplicationStatus` | les deux GPO *SysvolDiffers*, le dossier *OrphanFolder* | de même |
+| Nettoyé | les GPO et le dossier supprimés, plus aucun problème | de même |
+
 ## Autres protections { #other-guards }
 
 `PSGPOTools.Hardening.tests.ps1` teste aussi :
@@ -434,4 +496,9 @@ La même revue les a trouvées, elles ne sont pas encore corrigées :
   nouvelle approbation : la dérive montre chaque changement ;
 - sous Samba, le propriétaire d'un fichier du journal d'audit central peut encore y écrire avec un
   outil qui l'ouvre en ajout : la chaîne montre une ligne modifiée, pas un fichier entier réécrit
-  avec une nouvelle chaîne. Le journal du système (SIEM) garde une copie de chaque modification.
+  avec une nouvelle chaîne. Le journal du système (SIEM) garde une copie de chaque modification ;
+- `Test-PSGPOHealth` ne compare pas les permissions du dossier d'une GPO dans SYSVOL avec celles de
+  l'annuaire (*les autorisations de cet objet GPO dans le dossier SYSVOL ne sont pas cohérentes*
+  de GPMC), et les contrôleurs de domaine sont comparés à la référence, pas répliqués : un
+  contrôleur en retard le reste jusqu'à ce que la réplication (ou une copie de SYSVOL avec Samba)
+  le rattrape.

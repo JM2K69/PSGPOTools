@@ -43,7 +43,7 @@ or the central store of SYSVOL on Linux) and the language of its ADML files, det
 names of its language folders; the choice is remembered, and asked for again after a load that
 failed. After that, the console opens at once and reads them the first time it needs them (the
 editor, the **Settings** and **History** tabs, a report), under a banner: a few seconds once, then
-about a second from the cache of the files read before. A template without an ADML in the language
+about a second from [the cache](installation.md#admx-cache) of the files read before. A template without an ADML in the language
 takes the one of en-US, as the Group Policy editor, and a file that cannot be read is left out:
 the banner names it.
 

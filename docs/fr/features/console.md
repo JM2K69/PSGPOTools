@@ -68,6 +68,18 @@ appliquent SYSVOL ([durcissement](../technical/hardening.md#domain-controller)).
 
 ![Changer de contrôleur de domaine...](../assets/screenshots/83-change-dc.fr.png){ width="640" }
 
+L'onglet **État** du domaine montre, comme celui de GPMC (*État de l'infrastructure de stratégie
+de groupe*), si les contrôleurs de domaine concordent : **Détecter maintenant** lit les GPO de
+chaque contrôleur de domaine, dans son annuaire et dans son SYSVOL, et les compare à la référence,
+le contrôleur que la console lit (son émulateur PDC). Il liste les contrôleurs de domaine,
+*synchronisés* ou avec une *réplication en cours*, et les problèmes des GPO : une GPO sans son
+dossier ou son `GPT.INI`, des versions qui diffèrent entre l'annuaire et SYSVOL, un fichier de
+paramètres dont la GPO ne déclare pas l'extension côté client, un dossier de SYSVOL sans GPO, une
+liaison vers une GPO qui n'existe pas. `Test-PSGPOHealth` et `Get-PSGPOReplicationStatus` donnent
+la même chose en PowerShell ([durcissement](../technical/hardening.md#health)).
+
+![L'onglet État du domaine](../assets/screenshots/84-status.fr.png){ width="640" }
+
 ## Éditeur de stratégies
 
 **Edit** (clic droit, ou double clic sur une GPO) ouvre la GPO dans

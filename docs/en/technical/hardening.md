@@ -387,6 +387,66 @@ not the one in the directory):
 | A ticket cache without ticket | *The Kerberos ticket of this session... has expired*: nothing written | (Windows: the session) |
 | Cleaned up | the GPO deleted | the GPO deleted |
 
+## The health of the GPOs and their replication { #health }
+
+### The threat
+
+- **A domain controller behind the others**: Active Directory replicates the directory, DFSR the
+  SYSVOL of Windows, each at its own pace; Samba does not replicate SYSVOL. A computer applies the
+  GPO of the domain controller it reaches: another version, or none, until they agree, and nothing
+  said it.
+- **A GPO that cannot apply**: its folder or its `GPT.INI` missing, a version of SYSVOL that is
+  not the one of the directory, a file of settings whose client-side extension the GPO does not
+  declare (written by a script, a copy, a tool that does not declare it): the computers fail to
+  apply it, or skip the settings, without a word in the console.
+- **What is left behind**: a folder of SYSVOL whose GPO was deleted elsewhere (or a conflict of
+  the replication), a link to a GPO that no longer exists.
+
+### What the console does
+
+- **`Get-PSGPOReplicationStatus`**: each domain controller of the domain is read, its directory
+  and its SYSVOL (one listing of `Policies`; on Linux, the `GPT.INI` of every GPO in one
+  `smbclient`), and compared to the baseline, the domain controller the domain was read from (its
+  PDC emulator): one row per GPO and domain controller, *InSync*, *DirectoryDiffers*,
+  *SysvolDiffers*, *Missing*, *Extra*, *OrphanFolder* or *Unreachable*, with its versions and what
+  it means.
+- **`Test-PSGPOHealth`**: on the baseline, a GPO redirected, without its folder or its `GPT.INI`,
+  or whose versions differ (errors); a file of settings (`Registry.pol` with entries,
+  `GptTmpl.inf`, `audit.csv`, `scripts.ini`, the preferences) whose extension the GPO does not
+  declare, a folder without a GPO, a link to a GPO of the domain that does not exist; the other
+  domain controllers that differ, or that cannot be read (warnings). Nothing returned: no problem.
+- **The Status tab of the domain**, as the one of GPMC: **Detect Now** shows the domain
+  controllers (*in sync*, *replication in progress*, *cannot be read*) and the problems found;
+  only then, as it reads every domain controller. The versions shown in the details of the GPOs
+  are read again.
+
+They only read: nothing is changed.
+
+### Tested
+
+`PSGPOTools.Health.tests.ps1`: three domain controllers simulated (their directory, and their
+SYSVOL through `Read-PSGPOSysvolItem` on Windows and `smbclient` on Linux): each state of the
+replication with its versions, each problem of the baseline, a domain controller that cannot be
+read, a baseline that cannot be read refused, `-Name` and `-DomainController`, nothing returned
+for a healthy domain; the listing of `smbclient` (the folders of the GPOs and their files, a
+folder refused, `Policies` refused), the files that hold settings. `PSGPOTools.Gui.tests.ps1`: the
+**Status** tab on the domain only, filled on **Detect Now**, and why it is not read.
+
+On both labs (one domain controller each), the administrator makes problems on purpose: a GPO
+whose SYSVOL is ahead of the directory, with a `Registry.pol` whose extension is not declared; a
+GPO without `GPT.INI`; a folder of `Policies` without a GPO:
+
+| Step | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| The domain as it is | 7 GPOs *InSync*, no problem (0.4 s) | 6 GPOs *InSync*, no problem (0.7 s) |
+| The GPO ahead of the directory | *Error, Version*: *user 0, computer 0 in the directory, user 0, computer 1 in SYSVOL* | the same |
+| Its `Registry.pol` | *Warning, Extension*: *(Registry Policy) for the computers* | the same |
+| The GPO without `GPT.INI` | *Error, Folder*: *the folder of the GPO has no GPT.INI* | the same |
+| The folder without a GPO | *Warning, OrphanFolder* | the same |
+| Anything else | nothing | nothing |
+| `Get-PSGPOReplicationStatus` | the two GPOs *SysvolDiffers*, the folder *OrphanFolder* | the same |
+| Cleaned up | the GPOs and the folder deleted, no problem left | the same |
+
 ## Other guards { #other-guards }
 
 `PSGPOTools.Hardening.tests.ps1` also tests:
@@ -419,4 +479,8 @@ These were found by the same review, and are not fixed yet:
   the drift shows each change;
 - on Samba, the owner of a file of the central audit log can still write in it with a tool that
   opens it to append: the chain shows a line changed, not a whole file written again with a new
-  chain. The log of the system (SIEM) keeps a copy of each change.
+  chain. The log of the system (SIEM) keeps a copy of each change;
+- `Test-PSGPOHealth` does not compare the permissions of the folder of a GPO in SYSVOL with those
+  of the directory (*the permissions for this GPO in the SYSVOL folder are inconsistent* of GPMC),
+  and the domain controllers are compared to the baseline, not replicated: a domain controller
+  behind stays behind until the replication (or a copy of SYSVOL with Samba) catches up.

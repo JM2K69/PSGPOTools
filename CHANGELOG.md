@@ -1,5 +1,17 @@
 # HGPM Release History
 
+## Unreleased
+
+### Added
+
+* `Test-PSGPOHealth` checks the GPOs of the domain as GPMC and gpotool, and returns one row per problem, nothing when there is none: on the baseline (the domain controller read, its PDC emulator), a GPO redirected, without its folder or its `GPT.INI`, or whose versions differ between the directory and SYSVOL (errors); a file of settings (`Registry.pol`, `GptTmpl.inf`, `audit.csv`, `scripts.ini`, the preferences) whose client-side extension the GPO does not declare, so that the computers do not apply it, a folder of SYSVOL without a GPO, a link to a GPO of the domain that does not exist, and the other domain controllers that differ or cannot be read (warnings)
+* `Get-PSGPOReplicationStatus` compares the GPOs of each domain controller of the domain, in its directory and in its SYSVOL, to those of the baseline: one row per GPO and domain controller (*InSync*, *DirectoryDiffers*, *SysvolDiffers*, *Missing*, *Extra*, *OrphanFolder*, *Unreachable*) with their versions. SYSVOL is listed once per domain controller, and on Linux the `GPT.INI` of every GPO read in one `smbclient`
+* The **Status** tab of the domain, as the one of GPMC (*Group Policy Infrastructure Status*): **Detect Now** shows the domain controllers, in sync or with a replication in progress, and the problems of the GPOs
+
+### Documentation
+
+* Installation: the cache of the ADMX files, when it is written, read or not written, and how to clear it
+
 ## 0.1.19 - alpha
 
 ### Security
