@@ -33,7 +33,7 @@ flowchart TB
         trees[New-PSGPODirectoryTree<br/>New-PSGPOPolicyTree<br/>Get-PSGPODirectoryDetail]
     end
     subgraph Commands[Commandes publiques]
-        cmds[Get-PSGPODirectory, Backup-PSGPO,<br/>Restore-PSGPO, Approve-PSGPO…]
+        cmds[Get-PSGPODirectory, Backup-PSGPO,<br/>Restore-PSGPO, Approve-PSGPO<br/>et les autres commandes PSGPO]
     end
     subgraph Model[Modèle - classes]
         dir[GPOToolsDirectory<br/>en mémoire]

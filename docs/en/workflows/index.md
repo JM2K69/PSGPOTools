@@ -13,7 +13,7 @@ Step-by-step procedures, from the window and from the command line, as they run 
 | [Password policies of the tiers](password-policies.md) | administrators | fine-grained password policies (PSO) for the tiers, and the one that applies to each account |
 
 ```mermaid
-flowchart LR
+flowchart TB
     create[Create a GPO] --> edit[Edit its settings]
     edit --> backup[Back up]
     backup --> approve[Approve]
