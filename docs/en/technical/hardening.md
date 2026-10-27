@@ -11,6 +11,7 @@ tests of the module (`CI/tests/PSGPOTools.Hardening.tests.ps1` and others) and o
 | the `gPCFileSysPath` of its GPO (it owns it while it waits) | [uses the folder of the GPO only](#redirected-gpo), refuses a redirected GPO |
 | the permissions of its GPO, outside the console | the approval [rebuilds them](../workflows/approval.md#4-approve-it-tier-0) from what an approved GPO may hold |
 | what is in its GPO until the approval | the approval [approves what was reviewed](#approval), or nothing; it backs up the approved version, and the drift shows any change since |
+| settings the console cannot show (a client-side extension it does not read, a file, a startup script) | [listed where the GPO is reviewed](#what-the-approver-sees), and reviewed before its approval |
 | the groups it may create (`APPLY_<its GPO>`) | a group nobody of Tier 0 made is [not proposed](#approval) at the approval |
 | the configuration of the roles | [roles that overlap, or a group of every account](#approval), stop the workflow |
 | a backup on a share it can write | the [paths of the files](#other-guards) of a backup are checked |
@@ -208,6 +209,62 @@ both labs, `tiers1` (creator) and the administrator (approver):
 | The group deleted, the GPO reviewed again and approved | approved, owned by Domain Admins | approved, owned by Domain Admins |
 | `GPO-Tier1-Admins` in both roles: `tiers1` | *the approval workflow is unknown*: no GPO created | *the approval workflow is unknown*: no GPO created |
 | The configuration restored | the same bytes | the same bytes |
+
+## What the approver sees { #what-the-approver-sees }
+
+### The threat
+
+- **A setting the console does not show**: the computers apply every client-side extension a GPO
+  declares, each with its own files or objects (Folder Redirection, Software Installation, IP
+  Security, a vendor extension...). A technician adds one to its pending GPO; the approver reviews
+  the settings the console lists, and approves the others unseen.
+- **A startup script**: it runs as SYSTEM on every computer the GPO applies to. Its list
+  (`scripts.ini`, `psscripts.ini`) was not read, and its file could change between two versions
+  without a change shown.
+
+### What the console does
+
+- **What it does not interpret is listed**: a client-side extension whose settings it does not
+  read (by its name when it knows it, by its GUID otherwise), and each file of the folder of the
+  GPO none of its readers reads (by its size and SHA-256; not its comments nor the ADM templates
+  copied there, which apply nothing). In the **Settings** tab, in a box of its own; in the details
+  of the GPO (*Not interpreted*, from its extensions, without reading SYSVOL); in its report
+  (`Get-PSGPOReport`, *Save report...*); in a comparison of two backups, for the extensions.
+- **The approval asks for it**: the approval form lists them, and approves only once *I reviewed
+  these settings with GPMC, or in the files of the GPO* is checked; `Approve-PSGPO` says them in a
+  warning and in its confirmation. They come from the same reading of the folder as the stamp of
+  the review ([the approval](#approval)).
+- **The scripts are read**: each startup, shutdown, logon and logoff script with its parameters,
+  whether the PowerShell scripts run first, and the file it runs in the GPO with its size and
+  SHA-256: a change of its content shows when two backups are compared, and the editor shows its
+  content before it is approved. A file of the folders of the scripts no script runs is listed
+  too.
+
+### Tested
+
+`PSGPOTools.Report.tests.ps1` and `PSGPOTools.Gui.tests.ps1`: `scripts.ini` and `psscripts.ini`
+read and written as the Group Policy editor writes them (UTF-16, numbered from 0, the other keys
+kept); a script outside the GPO (`\\server\share`, a drive, `%`, `..`) is not looked for in it;
+a change of the file of a script shows in a comparison; the extensions and files not interpreted
+listed in their order, the files that apply nothing left out; the approval form refuses until the
+box is checked; the report as an object, XML and HTML.
+
+On both labs, the administrator writes a GPO with scripts, `tiers1` adds Folder Redirection to
+its pending GPO, the administrator approves it:
+
+| Step | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| A startup script, a PowerShell startup script run first, a logon script outside the GPO | written in SYSVOL in UTF-16, one increase of the version per configuration, the extension of the scripts declared | the same |
+| Read back from the domain, the report (object, HTML, XML) | the 4 scripts, their files and SHA-256 | the same |
+| `gpupdate` on the member computer | (no Windows member) | the computer registers both startup scripts, the PowerShell one first (`PSScriptOrder=2`) |
+| `Get-GPOReport` of GPMC | | the extension *Scripts* of both configurations, the 3 scripts, `RunPSFirst` |
+| The file of a script changed between two backups | `Compare-PSGPOBackup`: *Changed*, its size and SHA-256 | the same |
+| `tiers1` adds Folder Redirection (`fdeploy1.ini`) to its pending GPO | listed: the extension and the file | the same |
+| `Approve-PSGPO -WhatIf`, then the approval | the warning and the confirmation say both; approved | the same |
+| Cleaned up | both GPOs deleted | both GPOs deleted, `gpupdate`: no startup script left |
+
+`Approve-PSGPO -WhatIf` on Linux did not read the GPO before (the temporary folder of its copy was
+not made under `-WhatIf`): fixed, with a test.
 
 ## The audit log { #audit-log }
 

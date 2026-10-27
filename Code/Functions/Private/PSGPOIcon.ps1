@@ -25,6 +25,8 @@ $script:PSGPOIconBrush = @{
     # Restricted groups, certificate stores of the public key policies
     'people'            = '#107C10'
     'key'               = '#CA5010'
+    # Scripts (Startup, Shutdown, Logon, Logoff)
+    'code'              = '#0F6CBD'
     # Deleted GPOs (their backups), templates of new GPOs
     'delete'            = '#8A8886'
     'document-copy'     = '#8764B8'

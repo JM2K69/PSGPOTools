@@ -135,11 +135,15 @@ function Start-PSGPOManagerWindow {
     $linkGpoMenuItem = Get-PSGPOAvaloniaControl $window 'linkGpoMenuItem'
     $deleteGpoMenuItem = Get-PSGPOAvaloniaControl $window 'deleteGpoMenuItem'
     $approveGpoMenuItem = Get-PSGPOAvaloniaControl $window 'approveGpoMenuItem'
+    $saveReportGpoMenuItem = Get-PSGPOAvaloniaControl $window 'saveReportGpoMenuItem'
     $approveGpoPanel = Get-PSGPOAvaloniaControl $window 'approveGpoPanel'
     $approveGpoTextBlock = Get-PSGPOAvaloniaControl $window 'approveGpoTextBlock'
     $approveGpoRightsComboBox = Get-PSGPOAvaloniaControl $window 'approveGpoRightsComboBox'
     $approveGpoApplyToTextBox = Get-PSGPOAvaloniaControl $window 'approveGpoApplyToTextBox'
     $approveGpoDenyToTextBox = Get-PSGPOAvaloniaControl $window 'approveGpoDenyToTextBox'
+    $approveGpoUninterpretedPanel = Get-PSGPOAvaloniaControl $window 'approveGpoUninterpretedPanel'
+    $approveGpoUninterpretedTextBlock = Get-PSGPOAvaloniaControl $window 'approveGpoUninterpretedTextBlock'
+    $approveGpoUninterpretedCheckBox = Get-PSGPOAvaloniaControl $window 'approveGpoUninterpretedCheckBox'
     $approveGpoGroupsCheckBox = Get-PSGPOAvaloniaControl $window 'approveGpoGroupsCheckBox'
     $approveGpoGroupsTextBlock = Get-PSGPOAvaloniaControl $window 'approveGpoGroupsTextBlock'
     $approveGpoFilteringGrid = Get-PSGPOAvaloniaControl $window 'approveGpoFilteringGrid'
@@ -276,6 +280,11 @@ function Start-PSGPOManagerWindow {
     $computerSettingsList = Get-PSGPOAvaloniaControl $window 'computerSettingsList'
     $userSettingsHeader = Get-PSGPOAvaloniaControl $window 'userSettingsHeader'
     $userSettingsList = Get-PSGPOAvaloniaControl $window 'userSettingsList'
+    $uninterpretedSettingsBorder = Get-PSGPOAvaloniaControl $window 'uninterpretedSettingsBorder'
+    $uninterpretedSettingsHeader = Get-PSGPOAvaloniaControl $window 'uninterpretedSettingsHeader'
+    $uninterpretedSettingsList = Get-PSGPOAvaloniaControl $window 'uninterpretedSettingsList'
+    $settingsReportButton = Get-PSGPOAvaloniaControl $window 'settingsReportButton'
+    $settingsReportStatusTextBlock = Get-PSGPOAvaloniaControl $window 'settingsReportStatusTextBlock'
     $applySettingButton = Get-PSGPOAvaloniaControl $window 'applySettingButton'
     $applyStatusTextBlock = Get-PSGPOAvaloniaControl $window 'applyStatusTextBlock'
 
@@ -316,6 +325,35 @@ function Start-PSGPOManagerWindow {
     $certificatesDeleteTextBlock = Get-PSGPOAvaloniaControl $window 'certificatesDeleteTextBlock'
     $certificatesDeleteConfirmButton = Get-PSGPOAvaloniaControl $window 'certificatesDeleteConfirmButton'
     $certificatesDeleteCancelButton = Get-PSGPOAvaloniaControl $window 'certificatesDeleteCancelButton'
+    $scriptsPanel = Get-PSGPOAvaloniaControl $window 'scriptsPanel'
+    $scriptsTitleTextBlock = Get-PSGPOAvaloniaControl $window 'scriptsTitleTextBlock'
+    $scriptsInfoTextBlock = Get-PSGPOAvaloniaControl $window 'scriptsInfoTextBlock'
+    $scriptsAddButton = Get-PSGPOAvaloniaControl $window 'scriptsAddButton'
+    $scriptsEditButton = Get-PSGPOAvaloniaControl $window 'scriptsEditButton'
+    $scriptsDeleteButton = Get-PSGPOAvaloniaControl $window 'scriptsDeleteButton'
+    $scriptsUpButton = Get-PSGPOAvaloniaControl $window 'scriptsUpButton'
+    $scriptsDownButton = Get-PSGPOAvaloniaControl $window 'scriptsDownButton'
+    $scriptsOrderComboBox = Get-PSGPOAvaloniaControl $window 'scriptsOrderComboBox'
+    $scriptsStatusTextBlock = Get-PSGPOAvaloniaControl $window 'scriptsStatusTextBlock'
+    $scriptsEmptyTextBlock = Get-PSGPOAvaloniaControl $window 'scriptsEmptyTextBlock'
+    $scriptsList = Get-PSGPOAvaloniaControl $window 'scriptsList'
+    $scriptsContentPanel = Get-PSGPOAvaloniaControl $window 'scriptsContentPanel'
+    $scriptsContentTitleTextBlock = Get-PSGPOAvaloniaControl $window 'scriptsContentTitleTextBlock'
+    $scriptsContentTextBox = Get-PSGPOAvaloniaControl $window 'scriptsContentTextBox'
+    $scriptsDeletePanel = Get-PSGPOAvaloniaControl $window 'scriptsDeletePanel'
+    $scriptsDeleteTextBlock = Get-PSGPOAvaloniaControl $window 'scriptsDeleteTextBlock'
+    $scriptsDeleteConfirmButton = Get-PSGPOAvaloniaControl $window 'scriptsDeleteConfirmButton'
+    $scriptsDeleteCancelButton = Get-PSGPOAvaloniaControl $window 'scriptsDeleteCancelButton'
+    $scriptsFormBorder = Get-PSGPOAvaloniaControl $window 'scriptsFormBorder'
+    $scriptsFormTitleTextBlock = Get-PSGPOAvaloniaControl $window 'scriptsFormTitleTextBlock'
+    $scriptsTypeComboBox = Get-PSGPOAvaloniaControl $window 'scriptsTypeComboBox'
+    $scriptsNameTextBox = Get-PSGPOAvaloniaControl $window 'scriptsNameTextBox'
+    $scriptsParametersTextBox = Get-PSGPOAvaloniaControl $window 'scriptsParametersTextBox'
+    $scriptsCopyPathTextBox = Get-PSGPOAvaloniaControl $window 'scriptsCopyPathTextBox'
+    $scriptsCopyBrowseButton = Get-PSGPOAvaloniaControl $window 'scriptsCopyBrowseButton'
+    $scriptsFormErrorTextBlock = Get-PSGPOAvaloniaControl $window 'scriptsFormErrorTextBlock'
+    $scriptsSaveButton = Get-PSGPOAvaloniaControl $window 'scriptsSaveButton'
+    $scriptsCancelButton = Get-PSGPOAvaloniaControl $window 'scriptsCancelButton'
     $restrictedGroupsPanel = Get-PSGPOAvaloniaControl $window 'restrictedGroupsPanel'
     $restrictedGroupsAddButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupsAddButton'
     $restrictedGroupsEditButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupsEditButton'
@@ -884,6 +922,262 @@ function Start-PSGPOManagerWindow {
         if ($problem) { Set-RestrictedGroupStatus (Get-PSGPOText 'Not deleted: {0}' $problem) -Problem }
     })
 
+    # --- Scripts: the scripts of a kind in scripts.ini and psscripts.ini of the edited GPO ---------
+
+    # Scope and Kind of the node; Lists: scripts.ini and psscripts.ini of each scope, read once per
+    # GPO edited (Script, PowerShell); Editing: the script of the form; Filling: the order list set.
+    $scripts = @{ Scope = $null; Kind = $null; Lists = @{}; Editing = $null; Filling = $false }
+    function Set-ScriptStatus {
+        param([string]$Text, [switch]$Problem)
+        $scriptsStatusTextBlock.Text = $Text
+        if ($Problem) { $scriptsStatusTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438')) }
+        else { $scriptsStatusTextBlock.ClearValue([Avalonia.Controls.TextBlock]::ForegroundProperty) }
+    }
+
+    # scripts.ini and psscripts.ini of a scope of the edited GPO.
+    function Get-ScriptList {
+        param([string]$Scope)
+        if (-not $scripts.Lists.ContainsKey($Scope)) {
+            $scripts.Lists[$Scope] = @{
+                Script = [GPOToolsScriptsFile]::Parse($Directory.ReadGpoFile($editing.Gpo, (Get-PSGPOScriptFilePath -Scope $Scope)))
+                PowerShell = [GPOToolsScriptsFile]::Parse($Directory.ReadGpoFile($editing.Gpo, (Get-PSGPOScriptFilePath -Scope $Scope -PowerShell)))
+            }
+        }
+        $scripts.Lists[$Scope]
+    }
+
+    function Test-ScriptEditable {
+        $editing.Gpo -and $editing.Gpo.CanEdit -and -not $Directory.IsReadOnly -and $scripts.Lists.ContainsKey("$($scripts.Scope)")
+    }
+
+    function Update-ScriptToolbar {
+        $editable = [bool](Test-ScriptEditable)
+        $row = $scriptsList.SelectedItem
+        $scriptsAddButton.IsEnabled = $editable
+        $scriptsEditButton.IsEnabled = $editable -and $row
+        $scriptsDeleteButton.IsEnabled = $editable -and $row
+        # Within its type: the scripts of scripts.ini, then those of psscripts.ini.
+        $scriptsUpButton.IsEnabled = $editable -and $row -and $row.Item.Index -gt 0
+        $scriptsDownButton.IsEnabled = $editable -and $row -and $row.Item.Index -lt $row.Item.Count - 1
+        $scriptsOrderComboBox.IsEnabled = $editable
+    }
+
+    # The scripts of the kind of the node, the one at $Select (Type|Index) selected.
+    function Show-ScriptList {
+        param([string]$Status, [switch]$Problem, [string]$Select)
+        $scriptsFormBorder.IsVisible = $false
+        $scriptsDeletePanel.IsVisible = $false
+        $scope = $scripts.Scope
+        $kind = $scripts.Kind
+        $scriptsTitleTextBlock.Text = Get-PSGPOText '{0} ({1})' (Get-PSGPOText $kind) (Get-PSGPOText $(if ($scope -eq 'Machine') { 'Computer Configuration' } else { 'User Configuration' }))
+        $scriptsInfoTextBlock.Text = switch ($kind) {
+            'Startup' { Get-PSGPOText 'The computers run these scripts when they start, as SYSTEM, in this order: scripts.ini and psscripts.ini of the GPO, in Machine\Scripts.' }
+            'Shutdown' { Get-PSGPOText 'The computers run these scripts when they shut down, as SYSTEM, in this order: scripts.ini and psscripts.ini of the GPO, in Machine\Scripts.' }
+            'Logon' { Get-PSGPOText 'The users run these scripts when they log on, with their own rights, in this order: scripts.ini and psscripts.ini of the GPO, in User\Scripts.' }
+            default { Get-PSGPOText 'The users run these scripts when they log off, with their own rights, in this order: scripts.ini and psscripts.ini of the GPO, in User\Scripts.' }
+        }
+        $rows = [System.Collections.Generic.List[object]]::new()
+        $lists = $null
+        if (-not $editing.Gpo) {
+            $scriptsEmptyTextBlock.Text = Get-PSGPOText 'Edit a GPO (Group Policy Management view) to see and configure its scripts.'
+        } else {
+            try { $lists = Get-ScriptList -Scope $scope } catch { $Status = Get-PSGPOText 'The scripts of the GPO cannot be read: {0}' $_.Exception.GetBaseException().Message; $Problem = $true }
+        }
+        if ($lists) {
+            foreach ($type in 'Script', 'PowerShell') {
+                $items = @($lists[$type].GetScripts($kind))
+                for ($index = 0; $index -lt $items.Count; $index++) {
+                    $item = $items[$index]
+                    $row = [AvaloniaPreferenceRow]::new()
+                    $row.Name = $item.CmdLine
+                    $row.Summary = (@((Get-PSGPOText $(if ($type -eq 'PowerShell') { 'Windows PowerShell script' } else { 'Script' })); if ($item.Parameters) { Get-PSGPOText 'Parameters: {0}' $item.Parameters }) -join ' - ')
+                    $path = Get-PSGPOScriptGpoPath -Scope $scope -Kind $kind -CmdLine $item.CmdLine
+                    $row.Flags = if (-not $path) { Get-PSGPOText 'Outside the GPO: the computers run it from there' }
+                    $row.Item = [pscustomobject]@{ Type = $type; Index = $index; Count = $items.Count; CmdLine = $item.CmdLine; Parameters = $item.Parameters; Path = $path }
+                    $rows.Add($row)
+                }
+            }
+            $scripts.Filling = $true
+            $order = Get-PSGPOScriptOrder -PowerShellFile $lists.PowerShell -Kind $kind
+            $scriptsOrderComboBox.SelectedIndex = if ($order -eq 'First') { 1 } elseif ($order -eq 'Last') { 2 } else { 0 }
+            $scripts.Filling = $false
+            $scriptsEmptyTextBlock.Text = if ($rows.Count) { '' } else { Get-PSGPOText 'This GPO has no script of this kind.' }
+        } elseif ($editing.Gpo) {
+            $scriptsEmptyTextBlock.Text = ''
+        }
+        $scriptsEmptyTextBlock.IsVisible = [bool]$scriptsEmptyTextBlock.Text
+        $scriptsList.ItemsSource = $rows.ToArray()
+        if ($Select) { $scriptsList.SelectedItem = $rows | Where-Object { "$($_.Item.Type)|$($_.Item.Index)" -eq $Select } | Select-Object -First 1 }
+        Set-ScriptStatus $Status -Problem:$Problem
+        Update-ScriptToolbar
+        Show-ScriptContent
+    }
+
+    # The content of the selected script when its file is in the GPO: what the computers run.
+    function Show-ScriptContent {
+        $row = $scriptsList.SelectedItem
+        $scriptsContentPanel.IsVisible = $row -and $row.Item.Path
+        if (-not $scriptsContentPanel.IsVisible) { return }
+        try {
+            $bytes = $Directory.ReadGpoFile($editing.Gpo, $row.Item.Path)
+        } catch {
+            $scriptsContentTitleTextBlock.Text = Get-PSGPOText '{0} cannot be read: {1}' $row.Item.Path $_.Exception.GetBaseException().Message
+            $scriptsContentTextBox.Text = ''
+            return
+        }
+        if ($null -eq $bytes) {
+            $scriptsContentTitleTextBlock.Text = Get-PSGPOText 'Not in the GPO: {0} is not in its folder, the computers cannot run it.' $row.Item.Path
+            $scriptsContentTextBox.Text = ''
+            return
+        }
+        $scriptsContentTitleTextBlock.Text = Get-PSGPOText '{0}: {1} bytes, SHA-256 {2}' $row.Item.Path $bytes.Length (Get-PSGPOFileHash -Bytes $bytes)
+        $text = ConvertFrom-PSGPOScriptContent -Bytes $bytes
+        $scriptsContentTextBox.Text = if ($null -ne $text) { $text } else { Get-PSGPOText '(not text: a program or a binary file)' }
+    }
+
+    function Open-ScriptForm {
+        param($Item)
+        $scripts.Editing = $Item
+        $scriptsFormTitleTextBlock.Text = if ($Item) { Get-PSGPOText 'Script: {0}' $Item.CmdLine } else { Get-PSGPOText 'New script' }
+        $scriptsTypeComboBox.SelectedIndex = if ($Item -and $Item.Type -eq 'Script') { 0 } else { 1 }
+        $scriptsNameTextBox.Text = if ($Item) { $Item.CmdLine } else { '' }
+        $scriptsParametersTextBox.Text = if ($Item) { $Item.Parameters } else { '' }
+        $scriptsCopyPathTextBox.Text = ''
+        $scriptsFormErrorTextBlock.Text = ''
+        $scriptsDeletePanel.IsVisible = $false
+        $scriptsFormBorder.IsVisible = $true
+    }
+
+    # A change of the scripts: on copies of scripts.ini and psscripts.ini, the files that changed
+    # written with the files copied into the GPO ($Copy), in one increase of the version.
+    function Save-ScriptChange {
+        param([scriptblock]$Change, [string]$Done, [System.Collections.IDictionary]$Copy, [string]$Select)
+        $scope = $scripts.Scope
+        $lists = Get-ScriptList -Scope $scope
+        $copies = @{ Script = [GPOToolsScriptsFile]::Parse($lists.Script.ToBytes()); PowerShell = [GPOToolsScriptsFile]::Parse($lists.PowerShell.ToBytes()) }
+        $files = [System.Collections.Specialized.OrderedDictionary]::new([System.StringComparer]::OrdinalIgnoreCase)
+        try {
+            & $Change $copies.Script $copies.PowerShell
+            if ($Copy) { foreach ($path in $Copy.Keys) { $files[$path] = $Copy[$path] } }
+            foreach ($type in 'Script', 'PowerShell') {
+                $after = $copies[$type].ToBytes()
+                if ([Convert]::ToBase64String($lists[$type].ToBytes()) -ne [Convert]::ToBase64String($after)) { $files[(Get-PSGPOScriptFilePath -Scope $scope -PowerShell:($type -eq 'PowerShell'))] = $after }
+            }
+            if (-not $files.Count) { return $null }
+            $Directory.WriteScriptFiles($editing.Gpo, $scope, $files)
+        } catch {
+            return $_.Exception.GetBaseException().Message
+        }
+        $scripts.Lists[$scope] = $copies
+        $settingsCache.Remove("$($editing.Gpo.Id)")
+        $version = if ($scope -eq 'Machine') { $editing.Gpo.GetComputerVersion() } else { $editing.Gpo.GetUserVersion() }
+        Show-ScriptList -Status (Get-PSGPOText '{0} in {1} (version {2}).' $Done (@($files.Keys) -join ', ') $version) -Select $Select
+        $null
+    }
+
+    # Moves the selected script up (-1) or down (+1) among the scripts of its type.
+    function Move-SelectedScript {
+        param([int]$Offset)
+        $row = $scriptsList.SelectedItem
+        if (-not $row) { return }
+        $item = $row.Item
+        $kind = $scripts.Kind
+        $problem = Save-ScriptChange -Select "$($item.Type)|$($item.Index + $Offset)" -Done (Get-PSGPOText "Script '{0}' moved" $item.CmdLine) -Change {
+            param($Script, $PowerShell)
+            $file = if ($item.Type -eq 'PowerShell') { $PowerShell } else { $Script }
+            $list = [System.Collections.Generic.List[object]]::new()
+            foreach ($entry in @($file.GetScripts($kind))) { $list.Add($entry) }
+            $moved = $list[$item.Index]
+            $list.RemoveAt($item.Index)
+            $list.Insert($item.Index + $Offset, $moved)
+            $file.SetScripts($kind, $list.ToArray())
+        }
+        if ($problem) { Set-ScriptStatus (Get-PSGPOText 'Not moved: {0}' $problem) -Problem }
+    }
+
+    $scriptsList.add_SelectionChanged({ Update-ScriptToolbar; Show-ScriptContent })
+    $scriptsAddButton.Add_Click({ Open-ScriptForm $null })
+    $scriptsEditButton.Add_Click({ if ($scriptsList.SelectedItem) { Open-ScriptForm $scriptsList.SelectedItem.Item } })
+    $scriptsList.add_DoubleTapped({ if ($scriptsList.SelectedItem -and (Test-ScriptEditable)) { Open-ScriptForm $scriptsList.SelectedItem.Item } })
+    $scriptsCancelButton.Add_Click({ $scriptsFormBorder.IsVisible = $false })
+    $scriptsUpButton.Add_Click({ Move-SelectedScript -Offset -1 })
+    $scriptsDownButton.Add_Click({ Move-SelectedScript -Offset 1 })
+    $scriptsCopyBrowseButton.IsVisible = $null -ne $window.StorageProvider -and $window.StorageProvider.CanOpen
+    $scriptsCopyBrowseButton.Add_Click({
+        Start-FilePicker -Title (Get-PSGPOText 'A script to copy into the GPO') -TypeName (Get-PSGPOText 'Scripts') -Patterns '*.ps1', '*.cmd', '*.bat', '*.vbs', '*.js', '*.exe' -Done {
+            param($Path)
+            $scriptsCopyPathTextBox.Text = $Path
+            if (-not "$($scriptsNameTextBox.Text)".Trim()) { $scriptsNameTextBox.Text = [System.IO.Path]::GetFileName($Path) }
+        }
+    })
+    $scriptsOrderComboBox.add_SelectionChanged({
+        if ($scripts.Filling -or -not (Test-ScriptEditable)) { return }
+        $order = "$($scriptsOrderComboBox.SelectedItem.Tag)"
+        $kind = $scripts.Kind
+        $problem = Save-ScriptChange -Done (Get-PSGPOText 'Order of the PowerShell scripts saved') -Change { param($Script, $PowerShell) Set-PSGPOScriptOrder -PowerShellFile $PowerShell -Kind $kind -Order $order }
+        if ($problem) { Show-ScriptList -Status (Get-PSGPOText 'Not saved: {0}' $problem) -Problem }
+    })
+    $scriptsSaveButton.Add_Click({
+        $name = "$($scriptsNameTextBox.Text)".Trim()
+        $parameters = "$($scriptsParametersTextBox.Text)".Trim()
+        $copyPath = "$($scriptsCopyPathTextBox.Text)".Trim()
+        $type = "$($scriptsTypeComboBox.SelectedItem.Tag)"
+        $kind = $scripts.Kind
+        $copy = $null
+        if ($copyPath) {
+            if (-not $name) { $name = [System.IO.Path]::GetFileName($copyPath) }
+            if ($name -match '[\\/:*?"<>|]') { $scriptsFormErrorTextBlock.Text = Get-PSGPOText 'A file copied into the GPO has a name without a folder: {0}' $name; return }
+            if (-not (Test-Path -LiteralPath $copyPath -PathType Leaf)) { $scriptsFormErrorTextBlock.Text = Get-PSGPOText 'The file {0} is not found.' $copyPath; return }
+            $copy = [System.Collections.Specialized.OrderedDictionary]::new()
+            $copy["$($scripts.Scope)\Scripts\$kind\$name"] = [System.IO.File]::ReadAllBytes($copyPath)
+        }
+        if (-not $name) { $scriptsFormErrorTextBlock.Text = Get-PSGPOText 'Give the script name: a file of the folder of the scripts of the GPO, or its path.'; return }
+        $old = $scripts.Editing
+        $at = if ($old -and $old.Type -eq $type) { $old.Index } else { -1 }
+        $problem = Save-ScriptChange -Copy $copy -Select "$type|$(if ($at -ge 0) { $at } else { 'last' })" -Done (Get-PSGPOText "Script '{0}' saved" $name) -Change {
+            param($Script, $PowerShell)
+            $files = @{ Script = $Script; PowerShell = $PowerShell }
+            # Out of its place, then at the same place when its type is the same, else last.
+            if ($old) {
+                $list = [System.Collections.Generic.List[object]]::new()
+                foreach ($entry in @($files[$old.Type].GetScripts($kind))) { $list.Add($entry) }
+                $list.RemoveAt($old.Index)
+                $files[$old.Type].SetScripts($kind, $list.ToArray())
+            }
+            $list = [System.Collections.Generic.List[object]]::new()
+            foreach ($entry in @($files[$type].GetScripts($kind))) { $list.Add($entry) }
+            $added = [pscustomobject]@{ CmdLine = $name; Parameters = $parameters }
+            if ($at -ge 0) { $list.Insert($at, $added) } else { $list.Add($added) }
+            $files[$type].SetScripts($kind, $list.ToArray())
+        }
+        if ($problem) { $scriptsFormErrorTextBlock.Text = $problem; return }
+        # A new script, or one of another type: the last of its type.
+        if ($at -lt 0) { $scriptsList.SelectedItem = @($scriptsList.ItemsSource | Where-Object { $_.Item.Type -eq $type }) | Select-Object -Last 1 }
+    })
+    $scriptsDeleteButton.Add_Click({
+        $row = $scriptsList.SelectedItem
+        if (-not $row) { return }
+        $scriptsDeleteTextBlock.Text = Get-PSGPOText "Delete the script '{0}' from the GPO? The computers stop running it; its file, if it is in the GPO, stays in its folder." $row.Name
+        $scriptsFormBorder.IsVisible = $false
+        $scriptsDeletePanel.IsVisible = $true
+    })
+    $scriptsDeleteCancelButton.Add_Click({ $scriptsDeletePanel.IsVisible = $false })
+    $scriptsDeleteConfirmButton.Add_Click({
+        $row = $scriptsList.SelectedItem
+        if (-not $row) { return }
+        $item = $row.Item
+        $kind = $scripts.Kind
+        $problem = Save-ScriptChange -Done (Get-PSGPOText "Script '{0}' deleted" $row.Name) -Change {
+            param($Script, $PowerShell)
+            $file = if ($item.Type -eq 'PowerShell') { $PowerShell } else { $Script }
+            $list = [System.Collections.Generic.List[object]]::new()
+            foreach ($entry in @($file.GetScripts($kind))) { $list.Add($entry) }
+            $list.RemoveAt($item.Index)
+            $file.SetScripts($kind, $list.ToArray())
+        }
+        if ($problem) { Set-ScriptStatus (Get-PSGPOText 'Not deleted: {0}' $problem) -Problem }
+    })
+
     # --- Public Key Policies: the certificates of a store in the Registry.pol of the edited GPO ---
 
     $certificates = @{ Node = $null }
@@ -1016,11 +1310,20 @@ function Start-PSGPOManagerWindow {
         $isPreference = $policy -is [GPOToolsPreferenceNode]
         $isRestricted = $policy -is [string] -and $policy -eq 'RestrictedGroups'
         $isStore = $policy -is [GPOToolsCertificateStoreNode]
+        $isScripts = $policy -is [string] -and $policy -match '^Scripts:(Machine|User)\|(\w+)$'
+        if ($isScripts) { $scripts.Scope = $Matches[1]; $scripts.Kind = $Matches[2] }
         $preferencesPanel.IsVisible = $isPreference
         $restrictedGroupsPanel.IsVisible = $isRestricted
         $certificatesPanel.IsVisible = $isStore
-        $detailsTabs.IsVisible = -not $isPreference -and -not $isRestricted -and -not $isStore
-        $detailsTitleTextBlock.Text = Get-PSGPOText $(if ($isPreference) { 'Preference Items' } elseif ($isRestricted) { 'Restricted Groups' } elseif ($isStore) { 'Public Key Policies' } else { 'Policy Details' })
+        $scriptsPanel.IsVisible = $isScripts
+        $detailsTabs.IsVisible = -not $isPreference -and -not $isRestricted -and -not $isStore -and -not $isScripts
+        $detailsTitleTextBlock.Text = Get-PSGPOText $(if ($isPreference) { 'Preference Items' } elseif ($isRestricted) { 'Restricted Groups' } elseif ($isStore) { 'Public Key Policies' } elseif ($isScripts) { 'Scripts' } else { 'Policy Details' })
+        if ($isScripts) {
+            $editing.Policy = $null
+            $editing.Editor = $null
+            Show-ScriptList
+            return
+        }
         if ($isStore) {
             $editing.Policy = $null
             $editing.Editor = $null
@@ -1131,9 +1434,12 @@ function Start-PSGPOManagerWindow {
                     if (@(Get-PSGPOPolicyCertificate -Pol $editing.Pol[$scope] -Store $store.Store).Count) { [void]$only.Add("Certificates:$scope|$($store.Store)") }
                 }
             }
-            # The preference types the GPO declares (its client-side extensions).
+            # The preference types and the scripts the GPO declares (its client-side extensions).
             foreach ($scope in 'Machine', 'User') {
                 $names = if ($scope -eq 'Machine') { "$($editing.Gpo.MachineExtensionNames)" } else { "$($editing.Gpo.UserExtensionNames)" }
+                if ($names.IndexOf([GPOToolsDirectory]::ScriptsExtension, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) {
+                    foreach ($kind in $script:PSGPOScriptKind[$scope]) { [void]$only.Add("Scripts:$scope|$kind") }
+                }
                 foreach ($extension in @(Get-PSGPOPreferenceExtension -Scope $scope)) {
                     if ($names.IndexOf($extension.Cse, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) { [void]$only.Add("Preference:$scope|$($extension.Id)") }
                 }
@@ -1194,6 +1500,7 @@ function Start-PSGPOManagerWindow {
         $editing.Audit = $null
         $editing.Preferences = @{}
         $editing.PolError = $null
+        $scripts.Lists = @{}
         if ($Gpo) {
             try {
                 foreach ($scope in 'Machine', 'User') {
@@ -1473,7 +1780,7 @@ function Start-PSGPOManagerWindow {
 
     # Approval of the selected GPO (approval workflow): what the creators may still do, who
     # applies it; backed up with the approved label in the folder of the History tab.
-    $approveGpo = @{ Gpo = $null; Groups = $null; Stamp = $null }
+    $approveGpo = @{ Gpo = $null; Groups = $null; Stamp = $null; Uninterpreted = @() }
     function Open-ApproveGpoForm {
         $gpo = Get-SelectedGpo
         if (-not $gpo -or $gpo.ApprovalState -ne 'Pending') { return }
@@ -1500,9 +1807,17 @@ function Start-PSGPOManagerWindow {
         Update-ApproveGpoGroupState
         $approveGpoErrorTextBlock.Text = if ($existing.Problem) { $existing.Problem } else { '' }
         # What the approver reviews: the GPO as it is now; its approval is refused if it changes.
+        # What the console does not interpret in it is said, and the approver says it was reviewed.
         $approveGpo.Stamp = $null
-        try { $approveGpo.Stamp = Get-PSGPOReviewStamp -Directory $Directory -Gpo $gpo }
-        catch { $approveGpoErrorTextBlock.Text = Get-PSGPOText 'The GPO cannot be read: {0}' $_.Exception.GetBaseException().Message }
+        $approveGpo.Uninterpreted = @()
+        try {
+            $content = Read-PSGPOReviewContent -Directory $Directory -Gpo $gpo
+            $approveGpo.Uninterpreted = @(Get-PSGPOReviewUninterpreted -Content $content)
+            $approveGpo.Stamp = Get-PSGPOReviewStamp -Directory $Directory -Gpo $gpo -Content $content
+        } catch { $approveGpoErrorTextBlock.Text = Get-PSGPOText 'The GPO cannot be read: {0}' $_.Exception.GetBaseException().Message }
+        $approveGpoUninterpretedPanel.IsVisible = $approveGpo.Uninterpreted.Count -gt 0
+        $approveGpoUninterpretedCheckBox.IsChecked = $false
+        $approveGpoUninterpretedTextBlock.Text = Get-PSGPOText 'The console does not interpret {0} setting(s) of this GPO, which the computers apply: {1}. See them in the Settings tab.' $approveGpo.Uninterpreted.Count (@($approveGpo.Uninterpreted | ForEach-Object { ConvertTo-PSGPODisplayText $_.Name }) -join ', ')
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
         Show-DirectoryForm $approveGpoPanel
@@ -1521,6 +1836,10 @@ function Start-PSGPOManagerWindow {
         $rights = "$($approveGpoRightsComboBox.SelectedItem.Tag)"
         $create = [bool]($approveGpoGroupsCheckBox.IsVisible -and $approveGpoGroupsCheckBox.IsChecked)
         if (-not $approveGpo.Stamp) { $approveGpoErrorTextBlock.Text = Get-PSGPOText 'The GPO could not be read when the form opened: open the form again.'; return }
+        if ($approveGpo.Uninterpreted.Count -and -not $approveGpoUninterpretedCheckBox.IsChecked) {
+            $approveGpoErrorTextBlock.Text = Get-PSGPOText 'Review the settings the console does not interpret, then check the box above: it approves what it does not show.'
+            return
+        }
         try {
             $approval = @{ Directory = $Directory; Gpo = $gpo; CreatorRights = $rights; BackupPath = (Get-HistoryRoot); ReviewStamp = $approveGpo.Stamp }
             if ($create) {
@@ -1824,7 +2143,8 @@ function Start-PSGPOManagerWindow {
         Show-DirectoryResult -Text (Get-PSGPOText "GPO '{0}' linked to {1}, link order {2}." $gpo.DisplayName $som.Name $link.Order)
     }
 
-    # Settings tab of the selected GPO: its Registry.pol files read once per version of the GPO.
+    # Settings tab of the selected GPO: the files of its folder read once per version of the GPO
+    # (Get-PSGPOFolderSetting), what the console does not interpret below its settings.
     $settingsCache = @{}
     function Update-SettingsTab {
         $gpo = Get-SelectedGpo
@@ -1837,34 +2157,17 @@ function Start-PSGPOManagerWindow {
 
         $cached = $settingsCache["$($gpo.Id)"]
         if (-not $cached -or $cached.Version -ne $gpo.Version) {
-            $cached = @{ Version = $gpo.Version; Machine = @(); User = @(); Error = $null }
+            $cached = @{ Version = $gpo.Version; Machine = @(); User = @(); Uninterpreted = @(); Error = $null }
             try {
-                foreach ($scope in 'Machine', 'User') {
-                    $pol = [GPOToolsRegistryPol]::Parse($Directory.ReadPolicyFile($gpo, $scope))
-                    $cached[$scope] = @(Get-PSGPOConfiguredSetting -Pol $pol -Scope $scope)
-                }
-                # Security settings first, as GPMC lists Windows Settings before Administrative Templates.
-                $template = [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($gpo))
-                $audit = [GPOToolsAuditPolicyFile]::Parse($Directory.ReadAuditPolicyFile($gpo))
-                $cached['Machine'] = @(Get-PSGPOConfiguredSecuritySetting -Template $template) + @(Get-PSGPOConfiguredAuditSetting -AuditFile $audit) + $cached['Machine']
-                # Preferences last, as GPMC lists them after the policies: their files, read in one
-                # copy of the folder, only when the GPO declares a preference type.
-                $declared = "$($gpo.MachineExtensionNames)$($gpo.UserExtensionNames)"
-                if (@(Get-PSGPOPreferenceCatalog | Where-Object { $declared.IndexOf($_.Cse, [System.StringComparison]::OrdinalIgnoreCase) -ge 0 }).Count) {
-                    $files = $Directory.ReadGpoFolder($gpo)
-                    foreach ($scope in 'Machine', 'User') {
-                        # Not through the pipeline: it wraps the rows in PSObjects, which Avalonia cannot bind.
-                        $rows = [System.Collections.Generic.List[object]]::new()
-                        foreach ($row in @($cached[$scope])) { $rows.Add($row) }
-                        foreach ($preference in @(Get-PSGPOConfiguredPreference -Files $files -Scope $scope)) { if ($preference.Row) { $rows.Add($preference.Row) } }
-                        $cached[$scope] = $rows.ToArray()
-                    }
-                }
+                # Windows Settings first (scripts, security settings), then the policies of
+                # Registry.pol, then the preferences, as GPMC lists them.
+                $settings = Get-PSGPOFolderSetting -Files $Directory.ReadGpoFolder($gpo) -MachineExtensionNames $gpo.MachineExtensionNames -UserExtensionNames $gpo.UserExtensionNames
+                foreach ($part in 'Machine', 'User', 'Uninterpreted') { $cached[$part] = $settings.$part }
             } catch {
                 $cached.Error = Get-PSGPOText 'The settings of the GPO cannot be read: {0}' $_.Exception.GetBaseException().Message
             }
             # In the language of the interface: the rows come from functions the commands share.
-            foreach ($scope in 'Machine', 'User') { $cached[$scope] = @(foreach ($row in $cached[$scope]) { ConvertTo-DisplaySettingRow $row }) }
+            foreach ($part in 'Machine', 'User', 'Uninterpreted') { $cached[$part] = @(foreach ($row in $cached[$part]) { ConvertTo-DisplaySettingRow $row }) }
             $settingsCache["$($gpo.Id)"] = $cached
         }
         $settingsStatusTextBlock.Text = if ($cached.Error) { $cached.Error }
@@ -1876,7 +2179,52 @@ function Start-PSGPOManagerWindow {
         $userSettingsHeader.Text = Get-PSGPOText $(if ($cached.User.Count) { 'User Configuration ({0})' } else { 'User Configuration ({0}): no settings defined' }) $userState
         $computerSettingsList.ItemsSource = $cached.Machine
         $userSettingsList.ItemsSource = $cached.User
+        $uninterpretedSettingsBorder.IsVisible = $cached.Uninterpreted.Count -gt 0
+        $uninterpretedSettingsHeader.Text = Get-PSGPOText 'Settings the console does not interpret ({0})' $cached.Uninterpreted.Count
+        $uninterpretedSettingsList.ItemsSource = $cached.Uninterpreted
     }
+    # Save report... of the Settings tab and of the context menu, as GPMC: the report of the GPO as
+    # an HTML page (Get-PSGPOReport), in the language of the interface; its result under the button,
+    # or in the Details tab from the context menu (FromMenu).
+    $gpoReport = @{ Gpo = $null; FromMenu = $false }
+    function Save-GpoReport {
+        param([Parameter(Mandatory)] [string]$Path)
+        $gpo = $gpoReport.Gpo
+        if (-not $gpo) { return }
+        $problem = $null
+        try {
+            $html = ConvertTo-PSGPOReportHtml -Report @(Get-PSGPOReportData -Directory $Directory -Gpo $gpo)
+            [System.IO.File]::WriteAllText($Path, $html, [System.Text.UTF8Encoding]::new($false))
+            $text = Get-PSGPOText 'Report saved: {0}' $Path
+        } catch {
+            $problem = $true
+            $text = Get-PSGPOText 'The report is not saved: {0}' $_.Exception.GetBaseException().Message
+        }
+        if ($gpoReport.FromMenu) {
+            Show-DirectoryDetailsTab
+            Show-DirectoryResult -Text $text -Problem:([bool]$problem)
+            return
+        }
+        if ($problem) { $settingsReportStatusTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438')) }
+        else { $settingsReportStatusTextBlock.ClearValue([Avalonia.Controls.TextBlock]::ForegroundProperty) }
+        $settingsReportStatusTextBlock.Text = $text
+    }
+    function Start-GpoReportSave {
+        param([switch]$FromMenu)
+        $gpo = Get-SelectedGpo
+        if (-not $gpo) { return }
+        $gpoReport.Gpo = $gpo
+        $gpoReport.FromMenu = [bool]$FromMenu
+        $settingsReportStatusTextBlock.Text = ''
+        # A name of file: the name of the GPO without the characters a file name cannot have.
+        $invalid = [System.IO.Path]::GetInvalidFileNameChars()
+        $file = (-join @($gpo.DisplayName.ToCharArray() | ForEach-Object { if ($invalid -contains $_) { '_' } else { $_ } })) + '.html'
+        Start-FilePicker -Save -Title (Get-PSGPOText 'Save the report of the GPO') -Path $file -TypeName (Get-PSGPOText 'HTML page') -Patterns '*.html' -Done { param($Path) Save-GpoReport -Path $Path }
+    }
+    $settingsReportButton.IsVisible = $null -ne $window.StorageProvider -and $window.StorageProvider.CanSave
+    $settingsReportButton.Add_Click({ Start-GpoReportSave })
+    $saveReportGpoMenuItem.Add_Click({ Start-GpoReportSave -FromMenu })
+
     # A row of the Settings tab in the language of the interface (a copy: the row of the report
     # stays in English).
     function ConvertTo-DisplaySettingRow {
@@ -2530,6 +2878,8 @@ function Start-PSGPOManagerWindow {
         $purgeDeletedGpoMenuItem.IsVisible = $canRestore
         $approveGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.ApprovalState -eq 'Pending' -and -not $Directory.IsReadOnly -and
             $Directory.Workflow -and $Directory.Workflow.IsApprover
+        # Save report... of any GPO the account reads, as GPMC.
+        $saveReportGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $settingsReportButton.IsVisible
         Update-SettingsTab
         Update-DelegationTab
         Update-WmiDelegationTab
@@ -2541,7 +2891,8 @@ function Start-PSGPOManagerWindow {
         if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $renameMenuItem.IsVisible -or $purgeDeletedGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
                 $exportWmiFilterMenuItem.IsVisible -or $importWmiFilterMenuItem.IsVisible -or $useWmiFilterMenuItem.IsVisible -or
                 $blockInheritanceMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible -or $wmiFilterMenuItem.IsVisible -or $newWmiFilterMenuItem.IsVisible -or $editWmiFilterMenuItem.IsVisible -or $deleteWmiFilterMenuItem.IsVisible -or
-                $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible -or $approveGpoMenuItem.IsVisible -or $importGpoMenuItem.IsVisible) -or
+                $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible -or $approveGpoMenuItem.IsVisible -or $importGpoMenuItem.IsVisible -or
+                $saveReportGpoMenuItem.IsVisible) -or
             -not $domainTreeView.SelectedItem) { $e.Cancel = $true }
     })
 
@@ -2687,14 +3038,19 @@ function Start-PSGPOManagerWindow {
     # files: the result is awaited by a timer, as the UI thread cannot block on it; $Done gets the
     # path chosen.
     $filePicker = @{ Task = $null; Timer = $null; Done = $null }
-    function Start-MofFilePicker {
-        param([switch]$Save, [string]$Title, [string]$Path, [Parameter(Mandatory)] [scriptblock]$Done)
-        $type = [Avalonia.Platform.Storage.FilePickerFileType]::new((Get-PSGPOText 'WMI filter (.mof)'))
-        $type.Patterns = [string[]]@('*.mof')
+    # A file chosen with the picker of the system: a .mof file by default, else the type given
+    # (-TypeName, -Patterns: *.ps1...); $Done gets its path.
+    function Start-FilePicker {
+        param(
+            [switch]$Save, [string]$Title, [string]$Path, [Parameter(Mandatory)] [scriptblock]$Done,
+            [string]$TypeName = (Get-PSGPOText 'WMI filter (.mof)'), [string[]]$Patterns = @('*.mof')
+        )
+        $type = [Avalonia.Platform.Storage.FilePickerFileType]::new($TypeName)
+        $type.Patterns = [string[]]$Patterns
         if ($Save) {
             $options = [Avalonia.Platform.Storage.FilePickerSaveOptions]::new()
             $options.SuggestedFileName = [System.IO.Path]::GetFileName($Path)
-            $options.DefaultExtension = 'mof'
+            $options.DefaultExtension = $Patterns[0].TrimStart('*', '.')
             $options.FileTypeChoices = [Avalonia.Platform.Storage.FilePickerFileType[]]@($type)
         } else {
             $options = [Avalonia.Platform.Storage.FilePickerOpenOptions]::new()
@@ -2914,11 +3270,11 @@ function Start-PSGPOManagerWindow {
     })
 
     $exportWmiFilterMenuItem.Add_Click({ Open-ExportWmiFilterForm })
-    $exportWmiFilterBrowseButton.Add_Click({ Start-MofFilePicker -Save -Title (Get-PSGPOText 'Export the WMI filter') -Path $exportWmiFilterPathTextBox.Text -Done { param($Path) $exportWmiFilterPathTextBox.Text = $Path } })
+    $exportWmiFilterBrowseButton.Add_Click({ Start-FilePicker -Save -Title (Get-PSGPOText 'Export the WMI filter') -Path $exportWmiFilterPathTextBox.Text -Done { param($Path) $exportWmiFilterPathTextBox.Text = $Path } })
     $exportWmiFilterConfirmButton.Add_Click({ Submit-ExportWmiFilter })
     $exportWmiFilterCancelButton.Add_Click({ $exportWmiFilterPanel.IsVisible = $false })
     $importWmiFilterMenuItem.Add_Click({ Open-ImportWmiFilterForm })
-    $importWmiFilterBrowseButton.Add_Click({ Start-MofFilePicker -Title (Get-PSGPOText 'Import a WMI filter') -Done { param($Path) $importWmiFilterPathTextBox.Text = $Path; Read-ImportWmiFilterFile } })
+    $importWmiFilterBrowseButton.Add_Click({ Start-FilePicker -Title (Get-PSGPOText 'Import a WMI filter') -Done { param($Path) $importWmiFilterPathTextBox.Text = $Path; Read-ImportWmiFilterFile } })
     $importWmiFilterReadButton.Add_Click({ Read-ImportWmiFilterFile })
     $importWmiFilterPathTextBox.Add_KeyDown({
         param($control, $e)
@@ -3108,13 +3464,13 @@ function Start-PSGPOManagerWindow {
     # A hashtable, because assigning a variable inside the posted action would only set a child-scope copy.
     $onShownState = @{ Error = $null }
     if ($OnShown) {
-        $controls = @{ Window = $window; Editing = $editing; Clipboard = $clipboard; Directory = $Directory; Configuration = $configurationWindow }
+        $controls = @{ Window = $window; Editing = $editing; Clipboard = $clipboard; Directory = $Directory; Configuration = $configurationWindow; GpoReport = $gpoReport; SaveGpoReport = ${function:Save-GpoReport} }
         foreach ($name in 'treeView', 'logoImage', 'themeToggleButton', 'breadcrumbTextBlock', 'searchTextBox', 'searchButton', 'configuredOnlyCheckBox',
             'displayNameTextBox', 'descriptionTextBox', 'scopeTextBox', 'registryPathTextBox',
             'registryKeyTextBox', 'registryValuesList', 'settingTitleTextBlock', 'previewEmptyTextBlock', 'detailsTabs', 'copyNameMenuItem', 'copyRegistryMenuItem', 'copyCommandMenuItem',
             'notConfiguredRadio', 'enabledRadio', 'disabledRadio', 'optionsHost', 'settingErrorTextBlock', 'registryPreviewList',
             'themeToggleIcon', 'themeToggleText', 'subtitleTextBlock', 'managementButton', 'browseAdmxButton', 'searchPanel', 'managementView', 'editorView',
-            'editingBanner', 'editingGpoTextBlock', 'applyPanel', 'applySettingButton', 'applyStatusTextBlock', 'previewHeaderTextBlock', 'directoryTabs', 'settingsTab', 'settingsStatusTextBlock', 'computerSettingsHeader', 'computerSettingsList', 'userSettingsHeader', 'userSettingsList', 'demoBanner', 'demoBannerTextBlock', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
+            'editingBanner', 'editingGpoTextBlock', 'applyPanel', 'applySettingButton', 'applyStatusTextBlock', 'previewHeaderTextBlock', 'directoryTabs', 'settingsTab', 'settingsStatusTextBlock', 'computerSettingsHeader', 'computerSettingsList', 'userSettingsHeader', 'userSettingsList', 'uninterpretedSettingsBorder', 'uninterpretedSettingsHeader', 'uninterpretedSettingsList', 'settingsReportButton', 'settingsReportStatusTextBlock', 'demoBanner', 'demoBannerTextBlock', 'statusBar', 'statusBarList', 'domainTreeView', 'domainContextMenu', 'directoryEmptyTextBlock', 'directoryBreadcrumbTextBlock',
             'directoryTitleTextBlock', 'directoryPropertiesList', 'linksHeaderTextBlock', 'linksList', 'createLinkedGpoMenuItem',
             'newGpoMenuItem', 'editGpoMenuItem', 'editGpoButton', 'newGpoPanel', 'newGpoTitleTextBlock', 'newGpoNameTextBox',
             'newGpoErrorTextBlock', 'newGpoCreateButton', 'newGpoCancelButton', 'newGpoStatusComboBox', 'newGpoGroupsCheckBox', 'newGpoGroupsPanel',
@@ -3128,9 +3484,10 @@ function Start-PSGPOManagerWindow {
             'editWmiFilterButton', 'editingStatusTextBlock',
             'useWmiFilterMenuItem', 'exportWmiFilterMenuItem', 'importWmiFilterMenuItem', 'exportWmiFilterPanel', 'exportWmiFilterTitleTextBlock', 'exportWmiFilterPathTextBox', 'exportWmiFilterBrowseButton', 'exportWmiFilterErrorTextBlock', 'exportWmiFilterConfirmButton', 'exportWmiFilterCancelButton', 'importWmiFilterPanel', 'importWmiFilterTitleTextBlock', 'importWmiFilterPathTextBox', 'importWmiFilterBrowseButton', 'importWmiFilterReadButton', 'importWmiFilterInfoTextBlock', 'importWmiFilterNameTextBox', 'importWmiFilterErrorTextBlock', 'importWmiFilterConfirmButton', 'importWmiFilterCancelButton', 'useWmiFilterPanel', 'useWmiFilterTitleTextBlock', 'useWmiFilterSearchTextBox', 'useWmiFilterList', 'useWmiFilterErrorTextBlock', 'useWmiFilterConfirmButton', 'useWmiFilterCancelButton', 'gpoWmiFilterPanel', 'gpoWmiFilterComboBox',
             'wmiDelegationTab', 'wmiDelegationTitleTextBlock', 'wmiDelegationInfoTextBlock', 'wmiDelegationList', 'wmiDelegationNameTextBox', 'wmiDelegationPermissionComboBox', 'wmiDelegationSetButton', 'wmiDelegationRemoveButton', 'wmiDelegationStatusTextBlock',
-            'newGpoTemplateComboBox', 'historyNotesTemplateCheckBox', 'approveGpoMenuItem', 'approveGpoPanel', 'approveGpoTextBlock',
+            'newGpoTemplateComboBox', 'historyNotesTemplateCheckBox', 'approveGpoMenuItem', 'saveReportGpoMenuItem', 'approveGpoPanel', 'approveGpoTextBlock',
             'approveGpoRightsComboBox', 'approveGpoApplyToTextBox', 'approveGpoErrorTextBlock', 'approveGpoConfirmButton', 'approveGpoCancelButton',
             'approveGpoDenyToTextBox', 'approveGpoGroupsCheckBox', 'approveGpoGroupsTextBlock', 'approveGpoFilteringGrid',
+            'approveGpoUninterpretedPanel', 'approveGpoUninterpretedTextBlock', 'approveGpoUninterpretedCheckBox',
             'historyCommentTextBox', 'historyDriftBorder', 'historyDriftTextBlock', 'historyDriftButton', 'historyNotesPanel', 'historyNotesInfoTextBlock',
             'historyNotesCommentTextBox', 'historyNotesLabelsTextBox', 'historyNotesApprovedCheckBox', 'historyNotesSaveButton', 'historyTab', 'historyPathTextBox', 'historyBackupButton',
             'importGpoMenuItem', 'importGpoPanel', 'importGpoTitleTextBlock', 'importGpoPathTextBox', 'importGpoReadButton', 'importGpoSourceComboBox', 'importGpoTableTextBox',
@@ -3146,6 +3503,7 @@ function Start-PSGPOManagerWindow {
             'enforcedLinkMenuItem', 'enabledLinkMenuItem', 'moveLinkUpMenuItem', 'moveLinkDownMenuItem', 'blockInheritanceMenuItem', 'gpoStatusMenuItem', 'wmiFilterMenuItem', 'newWmiFilterMenuItem', 'editWmiFilterMenuItem', 'deleteWmiFilterMenuItem', 'newWmiFilterPanel', 'newWmiFilterTitleTextBlock', 'newWmiFilterNameTextBox', 'newWmiFilterDescriptionTextBox', 'newWmiFilterNamespaceTextBox', 'newWmiFilterQueryTextBox', 'newWmiFilterErrorTextBlock', 'newWmiFilterCreateButton', 'newWmiFilterCancelButton', 'deleteWmiFilterPanel', 'deleteWmiFilterTextBlock', 'deleteWmiFilterConfirmButton', 'deleteWmiFilterCancelButton', 'gpoStatusEnabledMenuItem', 'gpoStatusUserDisabledMenuItem', 'gpoStatusComputerDisabledMenuItem', 'gpoStatusAllDisabledMenuItem',
             'preferencesFormHost', 'preferencesFormErrorTextBlock', 'preferencesSaveButton', 'preferencesCancelButton',
             'certificatesPanel', 'certificatesTitleTextBlock', 'certificatesInfoTextBlock', 'certificatesPathTextBox', 'certificatesImportButton', 'certificatesDeleteButton', 'certificatesStatusTextBlock', 'certificatesEmptyTextBlock', 'certificatesList', 'certificatesDeletePanel', 'certificatesDeleteTextBlock', 'certificatesDeleteConfirmButton', 'certificatesDeleteCancelButton',
+            'scriptsPanel', 'scriptsTitleTextBlock', 'scriptsInfoTextBlock', 'scriptsAddButton', 'scriptsEditButton', 'scriptsDeleteButton', 'scriptsUpButton', 'scriptsDownButton', 'scriptsOrderComboBox', 'scriptsStatusTextBlock', 'scriptsEmptyTextBlock', 'scriptsList', 'scriptsContentPanel', 'scriptsContentTitleTextBlock', 'scriptsContentTextBox', 'scriptsDeletePanel', 'scriptsDeleteTextBlock', 'scriptsDeleteConfirmButton', 'scriptsDeleteCancelButton', 'scriptsFormBorder', 'scriptsFormTitleTextBlock', 'scriptsTypeComboBox', 'scriptsNameTextBox', 'scriptsParametersTextBox', 'scriptsCopyPathTextBox', 'scriptsCopyBrowseButton', 'scriptsFormErrorTextBlock', 'scriptsSaveButton', 'scriptsCancelButton',
             'restrictedGroupsPanel', 'restrictedGroupsInfoTextBlock', 'restrictedGroupsAddButton', 'restrictedGroupsEditButton', 'restrictedGroupsDeleteButton', 'restrictedGroupsStatusTextBlock', 'restrictedGroupsEmptyTextBlock', 'restrictedGroupsList', 'restrictedGroupsDeletePanel', 'restrictedGroupsDeleteTextBlock', 'restrictedGroupsDeleteConfirmButton', 'restrictedGroupsDeleteCancelButton', 'restrictedGroupsFormBorder', 'restrictedGroupsFormTitleTextBlock', 'restrictedGroupNameTextBox', 'restrictedGroupMembersCheckBox', 'restrictedGroupMembersTextBox', 'restrictedGroupMemberOfTextBox', 'restrictedGroupsFormErrorTextBlock', 'restrictedGroupsSaveButton', 'restrictedGroupsCancelButton') {
             $controls[$name] = Get-PSGPOAvaloniaControl $window $name
         }

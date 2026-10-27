@@ -149,6 +149,13 @@ Clic droit sur la GPO > **Approve...** :
   pas approuvée** et reste en attente ;
 - ou **Applies to** / **Denied to** : des groupes du domaine (Authenticated Users pour l'appliquer à
   tous). Quand les groupes `APPLY_<GPO>` et `DENY_<GPO>` existent déjà, ils sont proposés.
+- **Les paramètres que la console n'interprète pas**, quand la GPO en a (une extension côté client
+  dont elle ne lit pas les paramètres, un fichier de la GPO qu'aucun lecteur ne lit) : listés, et la
+  GPO n'est approuvée qu'une fois *J'ai vérifié ces paramètres avec GPMC, ou dans les fichiers de la
+  GPO* cochée. `Approve-PSGPO` les cite dans un avertissement et dans sa confirmation
+  ([durcissement](../technical/hardening.md#what-the-approver-sees)).
+
+![L'approbation d'une GPO avec des paramètres que la console n'interprète pas](../assets/screenshots/80-approve-not-interpreted.fr.png)
 
 ```powershell
 # Ses groupes créés dans l'OU Groups du Tier 1

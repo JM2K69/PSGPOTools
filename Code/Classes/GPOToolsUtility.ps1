@@ -18,6 +18,8 @@ class GPOToolsUtility {
     static hidden [hashtable]$CategoryIndex = @{}
     # Index Dossier -> (Namespace -> List[FileInfo]), alimente par FindDependancyFile()
     static hidden [hashtable]$NamespaceIndex = @{}
+    # Namespace of each admx file read (its path): read once, its target only
+    static hidden [hashtable]$NamespaceByFile = @{}
 
     static [void]InitiateAdmxAdml(
         [System.IO.DirectoryInfo]$Folder,
@@ -93,11 +95,38 @@ class GPOToolsUtility {
         }
     }
 
+    # Namespace of an admx file: its first target element, read once per file. The file was read
+    # in full, line by line, for each admx loaded and for the index of the dependencies: three times
+    # per file, through the network for the central store of SYSVOL.
     static [string]GetNamespaceAdmx(
         [System.IO.FileInfo]$AdmxFile
     ){
-        [xml]$Xml = Get-Content -Path $AdmxFile.FullName -Encoding UTF8
-        return $Xml.policyDefinitions.policyNamespaces.target.namespace
+        $Known = [GPOToolsUtility]::NamespaceByFile[$AdmxFile.FullName]
+        if ($null -ne $Known){
+            return $Known
+        }
+        $Namespace = ''
+        $Reader = [System.Xml.XmlReader]::Create($AdmxFile.FullName)
+        try {
+            while ($Reader.Read()){
+                if ($Reader.NodeType -eq [System.Xml.XmlNodeType]::Element -and $Reader.LocalName -eq 'target'){
+                    $Namespace = $Reader.GetAttribute('namespace')
+                    break
+                }
+            }
+        } finally {
+            $Reader.Dispose()
+        }
+        [GPOToolsUtility]::NamespaceByFile[$AdmxFile.FullName] = $Namespace
+        return $Namespace
+    }
+
+    # An admx or adml file as an XML document: read at once, its encoding from its byte order mark
+    # or its declaration (not line by line through the pipeline).
+    static [xml]ReadXml([string]$Path){
+        $Xml = [System.Xml.XmlDocument]::new()
+        $Xml.Load($Path)
+        return $Xml
     }
     static [string]GetADMLPathFromADMX(
         [System.IO.FileInfo]$AdmxFile,
@@ -286,7 +315,8 @@ class GPOToolsUtility {
                 [GPOToolsUtility]::Policies,
                 [GPOToolsUtility]::TargetLoad,
                 [GPOToolsUtility]::CategoryIndex,
-                [GPOToolsUtility]::NamespaceIndex
+                [GPOToolsUtility]::NamespaceIndex,
+                [GPOToolsUtility]::NamespaceByFile
                 #[GPOToolsCategory]::AllParentCategory
             )
         ){
@@ -603,7 +633,7 @@ class GpoToolsAdmx {
 
     GpoToolsAdmx([string]$AdmxPath) {
         $File = Get-Item -Path $AdmxPath
-        [xml]$Xml = Get-Content -Path $File.FullName -Encoding UTF8
+        $Xml = [GPOToolsUtility]::ReadXml($File.FullName)
 
         $PolicyDefinitions = $xml.policyDefinitions
         $trgt = [AdmxNamespace]::New($PolicyDefinitions.policyNamespaces.target)
@@ -794,7 +824,7 @@ class GpoToolsAdml {
 
     GpoToolsAdml ([string]$AdmlPath) {
         $File = Get-Item -Path $AdmlPath
-        [xml]$Xml = Get-Content -Path $File.FullName -Encoding UTF8
+        $Xml = [GPOToolsUtility]::ReadXml($File.FullName)
 
         $This.FilePath = $File.FullName
         $This.BaseName = $File.BaseName

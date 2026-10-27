@@ -43,6 +43,52 @@ d'événements). `[Registry Values]` contient `MACHINE\...\Nom=<type>,<donnée>`
 liste les comptes sous la forme `*SID`. Un fichier écrit par `samba-tool gpo manage security` (sans
 `[Unicode]` ni `[Version]`) est lu aussi.
 
+## scripts.ini et psscripts.ini
+
+`GPOToolsScriptsFile` ([MS-GPSCR] 2.2.2) : `Machine\Scripts\scripts.ini` (démarrage, arrêt) et
+`User\Scripts\scripts.ini` (ouverture, fermeture de session), `psscripts.ini` à côté pour les
+scripts Windows PowerShell ; des fichiers INI en UTF-16LE avec indicateur d'ordre des octets, une
+ligne vide en premier, comme l'éditeur de stratégie de groupe les écrit :
+
+```ini
+[Startup]
+0CmdLine=Install-Agent.cmd
+0Parameters=/quiet
+```
+
+Un script est `<n>CmdLine` et `<n>Parameters`, numérotés depuis 0 dans l'ordre d'exécution ; une
+ligne de commande sans racine est un fichier de `Machine\Scripts\Startup` (`Shutdown`,
+`User\Scripts\Logon`, `Logoff`). `[ScriptsConfig]` de `psscripts.ini` dit si les scripts PowerShell
+s'exécutent en premier : `StartExecutePSFirst` (démarrage, ouverture de session),
+`EndExecutePSFirst` (arrêt, fermeture de session), `true` ou `false`. Les autres sections et clés
+sont gardées. L'extension des scripts est `{42B5FAAE-6536-11D2-AE5A-0000F87571E3}`, avec l'outil
+`{40B6664F-4972-11D1-A7CA-0000F87571E3}` pour l'ordinateur et
+`{40B66650-4972-11D1-A7CA-0000F87571E3}` pour l'utilisateur.
+
+## Le rapport d'une GPO
+
+`Get-PSGPOReport -ReportType Xml` écrit un document XML de HGPM, en anglais (pas le schéma des
+rapports de GPMC), dans l'espace de noms `https://jm2k69.github.io/PSGPOTools/schemas/gpo-report/1` :
+
+```xml
+<GpoReports generated="..." generatedBy="HGPM 0.1.16-alpha">
+  <Gpo id="{...}" name="T1 - Servers - Proxy" domain="contoso.com">
+    <Details owner="..." status="Enabled" approval="Pending" computerVersion="3" userVersion="0"/>
+    <Links><Link name="Servers" container="OU=Servers,..." enabled="true" enforced="false" order="1"/></Links>
+    <SecurityFiltering><Trustee>Authenticated Users</Trustee></SecurityFiltering>
+    <Permissions><Permission trustee="..." permission="GpoEdit" inherited="false" denied="false"/></Permissions>
+    <Extensions><Extension scope="Machine" guid="{...}" name="Scripts" interpreted="true"/></Extensions>
+    <Computer><Setting path="Policies > ..." name="..." state="...">options</Setting></Computer>
+    <User/>
+    <NotInterpreted><Setting path="Client-side extensions" name="Folder Redirection" state="User">...</Setting></NotInterpreted>
+  </Gpo>
+</GpoReports>
+```
+
+`-ReportType Html` écrit une page en un seul fichier, dans la langue de l'interface, lisible dans
+tout navigateur ; `-ReportType Object` donne des objets `PSGPOTools.GpoReport` avec les mêmes
+parties.
+
 ## Préférences de stratégie de groupe
 
 `GPOToolsPreferenceFile` : le XML d'un type de préférences, lu et écrit avec `System.Xml`.

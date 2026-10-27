@@ -116,6 +116,10 @@ function Get-PSGPODirectoryDetail {
                 if ($null -eq $Gpo.WmiFilterId) { Get-PSGPOText 'None' }
                 elseif ($WmiFilter) { "$($WmiFilter.Name) ($($WmiFilter.GetQueryText()))" }
                 else { Get-PSGPOText '{0}: not in the domain anymore, the computers ignore the GPO' ('{' + $Gpo.WmiFilterId.ToString().ToUpperInvariant() + '}') })
+            # The client-side extensions whose settings the console does not read (its files: the Settings tab).
+            $Uninterpreted = @(Get-PSGPODeclaredExtension -MachineExtensionNames $Gpo.MachineExtensionNames -UserExtensionNames $Gpo.UserExtensionNames |
+                    Where-Object Storage -NotIn 'Read', 'Registry' | ForEach-Object { Get-PSGPOText $_.Name } | Select-Object -Unique)
+            if ($Uninterpreted.Count) { New-Row 'Not interpreted' (Get-PSGPOText '{0}: the computers apply their settings, the console does not show them (Settings tab)' ($Uninterpreted -join ', ')) }
             New-Row 'User version' $Gpo.GetUserVersion()
             New-Row 'Computer version' $Gpo.GetComputerVersion()
             New-Row 'Distinguished name' $Gpo.DistinguishedName

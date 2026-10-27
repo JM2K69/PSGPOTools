@@ -91,7 +91,7 @@ function Read-PSGPOSysvolItem {
         if ($null -eq $result) { return $null }
         return , [System.IO.File]::ReadAllBytes($local)
     } finally {
-        Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue
+        Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue -WhatIf:$false
     }
 }
 
@@ -129,7 +129,7 @@ function Write-PSGPOSysvolItem {
         }
         $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $Share -Command ('put "{2}" "{0}\{1}"' -f $Base, $Path, $local)
     } finally {
-        Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue
+        Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue -WhatIf:$false
     }
 }
 
@@ -188,7 +188,8 @@ function Read-PSGPOSysvolFolder {
     } else {
         Assert-PSGPOKerberosOnly -Directory $Directory
         $local = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-$([guid]::NewGuid())"
-        $null = New-Item -ItemType Directory -Path $local
+        # Even under -WhatIf (Approve-PSGPO -WhatIf reads the GPO): a copy to read, no change.
+        $null = New-Item -ItemType Directory -Path $local -WhatIf:$false
         $root = $local
     }
     try {
@@ -203,7 +204,7 @@ function Read-PSGPOSysvolFolder {
         }
         , $files
     } finally {
-        if ($local) { Remove-Item -LiteralPath $local -Recurse -Force -ErrorAction SilentlyContinue }
+        if ($local) { Remove-Item -LiteralPath $local -Recurse -Force -ErrorAction SilentlyContinue -WhatIf:$false }
     }
 }
 
@@ -355,16 +356,18 @@ function Add-PSGPOLdapValueChange {
     [void]$Request.Modifications.Add($add)
 }
 
-# Saves a file of the GPO, then increases the version of the GPO for its scope and declares
-# the client-side extension that applies it.
+# Saves a file of the GPO, or several (the scripts and scripts.ini), then increases the version of
+# the GPO for its scope once and declares the client-side extension that applies them.
 function Save-PSGPODomainGpoFile {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = 'File')]
     param(
         [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
         [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
         # Path in the GPO folder (Machine\Registry.pol)
-        [Parameter(Mandatory)] [string]$Path,
-        [Parameter(Mandatory)] [AllowEmptyCollection()] [byte[]]$Bytes,
+        [Parameter(Mandatory, ParameterSetName = 'File')] [string]$Path,
+        [Parameter(Mandatory, ParameterSetName = 'File')] [AllowEmptyCollection()] [byte[]]$Bytes,
+        # Several files: path in the GPO folder, bytes; written in this order
+        [Parameter(Mandatory, ParameterSetName = 'Files')] [System.Collections.IDictionary]$Files,
         # Scope whose version increases
         [Parameter(Mandatory)] [ValidateSet('Machine', 'User')] [string]$Folder,
         # Client-side extension(s) under which the tool is declared
@@ -372,6 +375,11 @@ function Save-PSGPODomainGpoFile {
         [Parameter(Mandatory)] [string]$Tool
     )
 
+    if ($PSCmdlet.ParameterSetName -eq 'File') {
+        $Files = [System.Collections.Specialized.OrderedDictionary]::new()
+        $Files[$Path] = $Bytes
+    }
+    $saved = @($Files.Keys) -join ', '
     $extensionAttribute = if ($Folder -eq 'Machine') { 'gPCMachineExtensionNames' } else { 'gPCUserExtensionNames' }
     $connection = New-PSGPODirectoryConnection -Directory $Directory
     try {
@@ -381,7 +389,7 @@ function Save-PSGPODomainGpoFile {
         # $Bytes is the whole file, from the copy read with the GPO: if the GPO changed since
         # (another console, GPMC), writing it would undo those changes without a word.
         if ([int]$oldVersion -ne $Gpo.Version) {
-            throw "The GPO $($Gpo.DisplayName) changed since it was read (version $($Gpo.Version), now $([int]$oldVersion)): $Path is not saved, so that those changes are not lost. Read the domain again (Refresh, F5, in the console) and make the change again."
+            throw "The GPO $($Gpo.DisplayName) changed since it was read (version $($Gpo.Version), now $([int]$oldVersion)): $saved is not saved, so that those changes are not lost. Read the domain again (Refresh, F5, in the console) and make the change again."
         }
         $version = [GPOToolsDirectory]::GetNextVersion([int]$oldVersion, $Folder)
         $oldExtensions = Get-PSGPOLdapValue $entry $extensionAttribute
@@ -389,7 +397,7 @@ function Save-PSGPODomainGpoFile {
         foreach ($guid in $Extension) { $extensions = Add-PSGPOExtensionName -Current $extensions -Extension $guid -Tool $Tool }
 
         # SYSVOL first, then the version in GPT.INI and in the directory, as GPMC does.
-        Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $Path -Bytes $Bytes
+        foreach ($name in $Files.Keys) { Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $name -Bytes ([byte[]]$Files[$name]) }
         $gptIni = Set-PSGPOGptIniVersion -Bytes (Read-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path 'GPT.INI') -Version $version
         Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path 'GPT.INI' -Bytes $gptIni
 
@@ -404,7 +412,7 @@ function Save-PSGPODomainGpoFile {
         } catch {
             $base = $_.Exception.GetBaseException()
             if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -in 'NoSuchAttribute', 'AttributeOrValueExists') {
-                throw "The GPO $($Gpo.DisplayName) changed in the domain meanwhile: $Path was saved, read the domain again and apply the setting again so that its version increases."
+                throw "The GPO $($Gpo.DisplayName) changed in the domain meanwhile: $saved was saved, read the domain again and apply the setting again so that its version increases."
             }
             throw
         }
@@ -413,7 +421,7 @@ function Save-PSGPODomainGpoFile {
     }
     $Gpo.Version = $version
     if ($Folder -eq 'Machine') { $Gpo.MachineExtensionNames = $extensions } else { $Gpo.UserExtensionNames = $extensions }
-    Write-Verbose "$Path of $($Gpo.DisplayName) saved, version $version."
+    Write-Verbose "$saved of $($Gpo.DisplayName) saved, version $version."
 }
 
 # Deletes a file of the GPO folder; nothing when it is not there.

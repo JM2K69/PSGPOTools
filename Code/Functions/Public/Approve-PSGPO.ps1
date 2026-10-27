@@ -21,6 +21,11 @@ function Approve-PSGPO {
 
         Whoever manages the members of the group that applies the GPO decides where it applies:
         the groups the approver creates are its own.
+
+        The settings of the GPO that HGPM does not interpret (a client-side extension whose settings
+        it does not read, a file of its folder no reader of HGPM reads) are said in a warning and in
+        the confirmation: the computers apply them all the same. Review them with GPMC, or in the
+        files of the GPO, before confirming (Get-PSGPOReport lists them).
     .PARAMETER Name
         Display names of the GPOs (wildcards allowed).
     .PARAMETER CreatorRights
@@ -109,10 +114,19 @@ function Approve-PSGPO {
                     if (-not $DenyTo -and $existing.Deny) { $deny = $existing.Deny }
                 }
                 # What is approved: the GPO as it is now, before the confirmation; refused if it changes.
-                try { $stamp = Get-PSGPOReviewStamp -Directory $Directory -Gpo $gpo }
-                catch { Write-Error "The GPO '$($gpo.DisplayName)' is not approved: it cannot be read ($($_.Exception.GetBaseException().Message))."; continue }
+                try {
+                    $content = Read-PSGPOReviewContent -Directory $Directory -Gpo $gpo
+                    $stamp = Get-PSGPOReviewStamp -Directory $Directory -Gpo $gpo -Content $content
+                    $uninterpreted = @(Get-PSGPOReviewUninterpreted -Content $content)
+                } catch { Write-Error "The GPO '$($gpo.DisplayName)' is not approved: it cannot be read ($($_.Exception.GetBaseException().Message))."; continue }
+                # What HGPM does not interpret, the computers apply all the same: said before the confirmation.
+                $unseen = ''
+                if ($uninterpreted.Count) {
+                    $unseen = "; it has $($uninterpreted.Count) setting(s) HGPM does not interpret: $(@($uninterpreted | ForEach-Object { "$($_.Name) ($($_.Path))" }) -join '; ')"
+                    Write-Warning "The GPO '$($gpo.DisplayName)' has $($uninterpreted.Count) setting(s) HGPM does not interpret, which the computers apply: $(@($uninterpreted | ForEach-Object { $_.Name }) -join ', '). Review them with GPMC, or in the files of the GPO (Get-PSGPOReport), before approving it."
+                }
                 $who = if ($CreateFilteringGroups) { 'applied by its new groups APPLY_ and DENY_' } else { "applied by $($apply.Name)$(if ($deny) { ", denied to $($deny.Name)" })" }
-                if (-not $PSCmdlet.ShouldProcess("GPO '$($gpo.DisplayName)'", "Approve it: owned by $($Directory.Workflow.ApprovedOwner), the creators $(if ($CreatorRights -eq 'EditSettings') { 'edit its settings' } else { 'read it' }), $who")) { continue }
+                if (-not $PSCmdlet.ShouldProcess("GPO '$($gpo.DisplayName)'", "Approve it: owned by $($Directory.Workflow.ApprovedOwner), the creators $(if ($CreatorRights -eq 'EditSettings') { 'edit its settings' } else { 'read it' }), $who$unseen")) { continue }
                 try {
                     Invoke-PSGPOApproval -Directory $Directory -Gpo $gpo -CreatorRights $CreatorRights -ApplyTo $apply -DenyTo $deny `
                         -CreateFilteringGroups:$CreateFilteringGroups -GroupContainer $GroupContainer -BackupPath $BackupPath -ReviewStamp $stamp

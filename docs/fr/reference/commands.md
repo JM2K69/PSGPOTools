@@ -27,6 +27,7 @@ ouvre sa page. Les commandes qui modifient le domaine acceptent `-WhatIf` et `-C
 | [`Set-PSGPOInheritance`](commands/set-psgpoinheritance.md) `-Target -Blocked` | bloque l'héritage du domaine ou d'une OU, ou non |
 | [`Set-PSGPO`](commands/set-psgpo.md) `-Name [-NewName] [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter]` | renomme une GPO, règle le statut et le filtre WMI de GPO |
 | [`Get-PSGPOPermission`](commands/get-psgpopermission.md) `-Name` | les autorisations de GPO, comme l'onglet Délégation de GPMC : chaque compte et son niveau |
+| [`Get-PSGPOReport`](commands/get-psgporeport.md) `-Name`, `-All` `[-ReportType Object\|Xml\|Html] [-Path]` | le rapport de GPO, comme Get-GPOReport de GPMC : détails, liens, délégation, paramètres, et ce que HGPM n'interprète pas |
 | [`Set-PSGPOPermission`](commands/set-psgpopermission.md) `-Name -Account [-Permission GpoRead\|GpoApply\|GpoEdit\|GpoEditDeleteModifySecurity\|None] [-SecurityFiltering Add\|Remove]` | donne un niveau à un compte sur des GPO, ou change leur filtrage de sécurité, dans l'annuaire et dans SYSVOL |
 | [`Get-PSGPOWmiFilter`](commands/get-psgpowmifilter.md) `[-Name]` | les filtres WMI du domaine, leurs requêtes et leurs GPO |
 | [`New-PSGPOWmiFilter`](commands/new-psgpowmifilter.md) `-Name -Query [-Namespace] [-Description]` | crée un filtre WMI |
@@ -144,6 +145,7 @@ New-PSGPOFineGrainedPasswordPolicy -Name 'PSO - Tier 1 Admins' -Precedence 10 -M
 |---|---|---|
 | `GPOToolsDirectory` | `Get-PSGPODirectory`, `Import-PSGPODirectory` | `DomainName`, `Domain`, `Gpos`, `Account`, `CanCreateGpo`, `Workflow` |
 | `GPOToolsGpo` | `.Gpos`, `New-PSGPO` | `DisplayName`, `Id`, `Version`, `Flags`, `SecurityFiltering`, `DeniedTo`, `CanEdit`, `Owner`, `ApprovalState`, `RemovedAtApproval`, `WmiFilterId` |
+| `PSGPOTools.GpoReport` | `Get-PSGPOReport` | `DisplayName`, `Id`, `Status`, `Links`, `Permissions`, `Extensions`, `Computer`, `User`, `NotInterpreted` |
 | `PSGPOTools.Permission` | `Get-PSGPOPermission`, `Set-PSGPOPermission` | `GpoName`, `GpoId`, `Trustee`, `Sid`, `Permission`, `Inherited`, `Denied` |
 | `PSGPOTools.Backup` | `Backup-PSGPO`, `Get-PSGPOBackup` | `Path`, `Id`, `DisplayName`, `BackedUp`, `BackedUpBy`, `Modified`, `Comment`, `Labels`, `Files` |
 | `PSGPOTools.SettingChange` | `Compare-PSGPOBackup`, `Get-PSGPODrift` | `Change`, `Scope`, `Path`, `Name`, `Before`, `After` |

@@ -21,12 +21,12 @@ jobs:
 
       - name: Install Pester
         shell: pwsh
-        run: Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -Force -SkipPublisherCheck
+        run: ./CI/Install-CIModule.ps1 -Name Pester -MinimumVersion 5.5.0
 
       - name: Analyze the sources (PSScriptAnalyzer)
         shell: pwsh
         run: |
-          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force
+          ./CI/Install-CIModule.ps1 -Name PSScriptAnalyzer
           # TypeNotFound is information: a class of another file, which the build puts first.
           $found = @(Invoke-ScriptAnalyzer -Path ./Code -Recurse -Settings ./PSScriptAnalyzerSettings.psd1 | Where-Object Severity -In 'Error', 'Warning')
           $found | Format-Table RuleName, Severity, ScriptName, Line, Message -AutoSize -Wrap
@@ -69,7 +69,7 @@ jobs:
 
       - name: Install Pester
         shell: pwsh
-        run: Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -Force -SkipPublisherCheck
+        run: ./CI/Install-CIModule.ps1 -Name Pester -MinimumVersion 5.5.0
 
       - name: Install the virtual X server and the X11 libraries
         run: sudo apt-get update && sudo apt-get install -y xvfb libx11-6 libice6 libsm6 libfontconfig1 fonts-dejavu-core
@@ -118,7 +118,7 @@ jobs:
 
       - name: Install Pester
         shell: pwsh
-        run: Install-Module Pester -MinimumVersion 5.5.0 -Scope CurrentUser -Force -SkipPublisherCheck
+        run: ./CI/Install-CIModule.ps1 -Name Pester -MinimumVersion 5.5.0
 
       - name: Install Samba, Kerberos and the SASL GSSAPI module of LDAP
         run: |

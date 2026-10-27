@@ -29,6 +29,8 @@ groups APPLY_<GPO> and DENY_<GPO> when they exist, else to Authenticated Users;
 
 Whoever manages the members of the group that applies the GPO decides where it applies: the groups the approver creates are its own.
 
+The settings of the GPO that HGPM does not interpret (a client-side extension whose settings it does not read, a file of its folder no reader of HGPM reads) are said in a warning and in the confirmation: the computers apply them all the same. Review them with GPMC, or in the files of the GPO, before confirming (Get-PSGPOReport lists them).
+
 ## Paramètres
 
 ### -Name

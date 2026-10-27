@@ -250,7 +250,8 @@ InModuleScope -ModuleName HGPM {
             $null = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName
             Start-Sleep -Milliseconds 1100
             Set-TestSetting $Directory $Gpo 'Enabled' 14
-            $Directory.GpoFiles["$($Gpo.Id)\Machine\Scripts\scripts.ini"] = [System.Text.Encoding]::Unicode.GetBytes('[Startup]')
+            # A file no reader of the console reads: listed by its hash.
+            $Directory.GpoFiles["$($Gpo.Id)\User\Documents & Settings\fdeploy1.ini"] = [System.Text.Encoding]::Unicode.GetBytes('[FolderStatus]')
             $null = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName
             Start-Sleep -Milliseconds 1100
             Set-TestSetting $Directory $Gpo 'Disabled' $null
@@ -264,7 +265,7 @@ InModuleScope -ModuleName HGPM {
             @($Changes | ForEach-Object { "$($_.Change) | $($_.Scope) | $($_.Name) | $($_.After)" }) | Should -Be @(
                 'Added | Computer | Allow the use of biometrics | Enabled'
                 'Added | Computer | Minimum password length | 14 characters'
-                "Added | Files | Machine\Scripts\scripts.ini | 18 bytes, SHA-256 $((Get-PSGPOFileHash -Bytes $Directory.GpoFiles["$($Gpo.Id)\Machine\Scripts\scripts.ini"]).Substring(0, 12))")
+                "Added | Files | User\Documents & Settings\fdeploy1.ini | 28 bytes, SHA-256 $((Get-PSGPOFileHash -Bytes $Directory.GpoFiles["$($Gpo.Id)\User\Documents & Settings\fdeploy1.ini"]).Substring(0, 12))")
             ($Changes | Where-Object Name -EQ 'Allow the use of biometrics').Path | Should -Be 'Policies > Administrative Templates > Windows Components > Biometrics'
         }
 

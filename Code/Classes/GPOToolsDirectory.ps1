@@ -918,6 +918,29 @@ class GPOToolsDirectory {
         $this.SaveGpoFile($Gpo, "$Folder\Registry.pol", $Bytes, $Folder, $Extensions, [GPOToolsDirectory]::PublicKeyTool)
     }
 
+    # Scripts of a GPO ([MS-GPSCR], PSGPOScript.ps1): their client-side extension, and the tool of
+    # the scripts of each scope (Startup/Shutdown, Logon/Logoff).
+    static [string] $ScriptsExtension = '{42B5FAAE-6536-11D2-AE5A-0000F87571E3}'
+    static [hashtable] $ScriptsTool = @{ Machine = '{40B6664F-4972-11D1-A7CA-0000F87571E3}'; User = '{40B66650-4972-11D1-A7CA-0000F87571E3}' }
+
+    # A file of the folder of a GPO (Machine\Scripts\scripts.ini): its bytes, $null when the GPO has none.
+    [byte[]] ReadGpoFile([GPOToolsGpo]$Gpo, [string]$Path) {
+        return $this.LoadGpoFile($Gpo, $Path)
+    }
+
+    # Writes the scripts of a scope: scripts.ini, psscripts.ini and the files of scripts given
+    # (path in the folder of the GPO and bytes, all in <scope>\Scripts), with one increase of the
+    # version of the scope, and declares the extension of the scripts.
+    [void] WriteScriptFiles([GPOToolsGpo]$Gpo, [string]$Scope, [System.Collections.IDictionary]$Files) {
+        $this.AssertWritable()
+        $Folder = [GPOToolsDirectory]::GetScopeFolder($Scope)
+        foreach ($Path in $Files.Keys) {
+            Assert-PSGPOGpoFilePath -Path $Path
+            if (-not "$Path".StartsWith("$Folder\Scripts\", [System.StringComparison]::OrdinalIgnoreCase)) { throw "Not a file of the scripts of the $Folder configuration: '$Path'." }
+        }
+        $this.SaveGpoFiles($Gpo, $Files, $Folder, @([GPOToolsDirectory]::ScriptsExtension), [GPOToolsDirectory]::ScriptsTool[$Folder])
+    }
+
     # Folder of a scope in the GPO: Machine (HKLM) or User (HKCU).
     static [string] GetScopeFolder([string]$Scope) {
         switch ($Scope) {
@@ -1067,7 +1090,14 @@ class GPOToolsDirectory {
     # Saves a file of the GPO, then increases the version of the scope ($Folder) and declares the
     # client-side extension that applies it.
     hidden [void] SaveGpoFile([GPOToolsGpo]$Gpo, [string]$Path, [byte[]]$Bytes, [string]$Folder, [string[]]$Extension, [string]$Tool) {
-        $this.GpoFiles["$($Gpo.Id)\$Path"] = $Bytes
+        $One = [System.Collections.Specialized.OrderedDictionary]::new()
+        $One[$Path] = $Bytes
+        $this.SaveGpoFiles($Gpo, $One, $Folder, $Extension, $Tool)
+    }
+    # Saves files of the GPO (path in its folder, bytes), then increases the version of the scope
+    # once and declares the client-side extension that applies them.
+    hidden [void] SaveGpoFiles([GPOToolsGpo]$Gpo, [System.Collections.IDictionary]$Files, [string]$Folder, [string[]]$Extension, [string]$Tool) {
+        foreach ($Path in $Files.Keys) { $this.GpoFiles["$($Gpo.Id)\$Path"] = [byte[]]$Files[$Path] }
         $Gpo.Version = [GPOToolsDirectory]::GetNextVersion($Gpo.Version, $Folder)
         $Gpo.Modified = [datetime]::UtcNow
         foreach ($Guid in $Extension) {
@@ -1254,10 +1284,13 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
         Write-PSGPOAuditEntry -Directory $this -Action 'RestoreGpo' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details @{ Files = @($Files.Keys); Version = $Gpo.Version }
     }
 
-    hidden [void] SaveGpoFile([GPOToolsGpo]$Gpo, [string]$Path, [byte[]]$Bytes, [string]$Folder, [string[]]$Extension, [string]$Tool) {
-        Save-PSGPODomainGpoFile -Directory $this -Gpo $Gpo -Path $Path -Bytes $Bytes -Folder $Folder -Extension $Extension -Tool $Tool
-        Write-PSGPOAuditEntry -Directory $this -Action 'SaveGpoFile' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details ([ordered]@{
-                Path = $Path; Size = $Bytes.Length; Sha256 = [Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData($Bytes)); Version = $Gpo.Version })
+    hidden [void] SaveGpoFiles([GPOToolsGpo]$Gpo, [System.Collections.IDictionary]$Files, [string]$Folder, [string[]]$Extension, [string]$Tool) {
+        Save-PSGPODomainGpoFile -Directory $this -Gpo $Gpo -Files $Files -Folder $Folder -Extension $Extension -Tool $Tool
+        foreach ($Path in $Files.Keys) {
+            $Bytes = [byte[]]$Files[$Path]
+            Write-PSGPOAuditEntry -Directory $this -Action 'SaveGpoFile' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details ([ordered]@{
+                    Path = $Path; Size = $Bytes.Length; Sha256 = [Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData($Bytes)); Version = $Gpo.Version })
+        }
     }
 
     # Directory service of a domain controller from the vendorName of its rootDSE: Samba sets it,
