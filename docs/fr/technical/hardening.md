@@ -342,6 +342,66 @@ ajoute à la fin quel que soit l'offset donné. La chaîne montre ce que Samba p
 
     ![Le journal d'audit, sa colonne Vérification](../assets/screenshots/66-audit-log-active-directory.fr.png)
 
+## Le contrôleur de domaine et les versions { #domain-controller }
+
+### La menace
+
+- **Deux contrôleurs de domaine, deux versions** : une GPO est un conteneur de l'annuaire et un
+  dossier de SYSVOL, chacun avec sa version (`versionNumber`, `Version=` de `GPT.INI`). Une
+  modification faite sur un autre contrôleur que l'émulateur PDC, celui de GPMC, entre en
+  concurrence avec celles qui y sont faites ; avec Samba, qui ne réplique pas SYSVOL, les fichiers
+  restent sur le contrôleur écrit.
+- **Une modification coupée en chemin** : les fichiers étaient écrits d'abord, puis la version de
+  l'annuaire. Quand l'annuaire la refusait (la GPO modifiée entre-temps, un droit, le serveur
+  parti), SYSVOL gardait les nouveaux fichiers et une version en avance sur l'annuaire : les
+  ordinateurs appliquaient une modification que la console disait non enregistrée. Un ordinateur
+  pouvait aussi lire un fichier en cours d'écriture.
+- **Un ticket Kerberos expiré** (Linux) : SYSVOL et l'annuaire refusent avec des erreurs qui ne le
+  disent pas, après une partie de la modification.
+
+### Ce que fait la console
+
+- **L'émulateur PDC** : le domaine est lu depuis l'émulateur PDC (le `fSMORoleOwner` du domaine),
+  trouvé par le contrôleur de domaine que l'ordinateur atteint ; les modifications y vont.
+  `-Server` sur un autre contrôleur avertit, et la barre d'état dit *pas l'émulateur PDC* ;
+  **Changer de contrôleur de domaine...** (clic droit sur le domaine) liste les contrôleurs de
+  domaine, l'émulateur PDC d'abord, et relit le domaine depuis celui choisi.
+- **Un fichier écrit à côté, puis renommé** sur l'ancien (le chemin UNC sous Windows, `put` puis
+  `rename -f` avec `smbclient`) : un ordinateur lit l'ancien fichier ou le nouveau.
+- **Remis comme ils étaient** : les fichiers de la GPO sont lus avant la modification ; quand un
+  fichier ne peut pas être écrit, ou que l'annuaire refuse la nouvelle version, les fichiers écrits
+  sont remis (ou supprimés quand il n'y en avait pas), et l'erreur le dit. La restauration d'une
+  sauvegarde fait de même.
+- **Les versions des deux** sont affichées dans les détails d'une GPO, comme GPMC (*Version
+  utilisateur : 2 (AD), 2 (SYSVOL)*), et une ligne dit quand elles diffèrent.
+- **Le ticket** est vérifié (`klist -s`) avant d'atteindre SYSVOL ou l'annuaire depuis Linux :
+  *lancez kinit*, rien n'est modifié.
+
+### Testé
+
+`PSGPOTools.Hardening.tests.ps1` et `PSGPOTools.Ldap.tests.ps1` : les fichiers remis dans l'ordre
+inverse de leur écriture, un fichier qui n'existait pas supprimé, ce qui n'a pas pu être remis
+signalé ; une restauration remise ; le `put` et le `rename -f` de `smbclient`, et l'écriture sur le
+fichier avec un `smbclient` qui ne renomme pas sur un fichier ; un ticket expiré refusé avant toute
+commande ; le domaine lu depuis son émulateur PDC trouvé par un autre contrôleur, `-Server` sur un
+autre averti, le contrôleur trouvé utilisé quand l'émulateur PDC est injoignable ; les contrôleurs
+listés, l'émulateur PDC d'abord ; les versions des deux dans les détails, lues une fois par version
+de la GPO. `PSGPOTools.Gui.tests.ps1` : **Changer de contrôleur de domaine...** sur le domaine
+seulement, le domaine relu depuis celui choisi, la barre d'état mise à jour.
+
+Sur les deux labos (un contrôleur de domaine chacun, donc l'émulateur PDC), l'administrateur écrit
+un `Registry.pol` dans une nouvelle GPO, puis l'annuaire refuse la version suivante (une ancienne
+valeur qui n'est pas celle de l'annuaire) :
+
+| Étape | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| Le domaine lu sans `-Server` | depuis `dc.hardenbox.labo`, l'émulateur PDC ; la barre d'état le dit | depuis `ADDS.powershell.labo`, l'émulateur PDC ; de même |
+| Un `Registry.pol` enregistré | aucun fichier laissé à côté (`smbclient`), versions 1 (AD) et 1 (SYSVOL) | aucun fichier laissé à côté (UNC), les mêmes versions |
+| Les détails de la GPO | *0 (AD), 0 (SYSVOL)*, *1 (AD), 1 (SYSVOL)* | de même |
+| L'annuaire refuse la version suivante | *not saved... the files of the GPO were put back as they were* ; `Registry.pol` et `GPT.INI` aux mêmes octets qu'avant, version 1 des deux côtés | de même |
+| Un cache de tickets sans ticket | *The Kerberos ticket of this session... has expired* : rien n'est écrit | (Windows : la session) |
+| Nettoyé | la GPO supprimée | la GPO supprimée |
+
 ## Autres protections { #other-guards }
 
 `PSGPOTools.Hardening.tests.ps1` teste aussi :

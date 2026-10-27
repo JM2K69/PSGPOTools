@@ -148,6 +148,8 @@ function New-PSGPODirectoryConnection {
         [GPOToolsLdapDirectory]$Directory
     )
 
+    # Linux: a ticket that expired fails the change halfway, with an error that does not say it.
+    if (-not $Directory.Credential) { Assert-PSGPOKerberosTicket }
     New-PSGPOLdapConnection -Server $Directory.Server -Credential $Directory.Credential -UseSsl:$Directory.UseSsl -Port $Directory.Port
 }
 

@@ -43,7 +43,10 @@ function Get-PSGPOStatusBarItem {
 
     # The domain controller the directory comes from, and the account it was read with.
     if ($Directory -is [GPOToolsLdapDirectory]) {
-        New-StatusItem 'server' "DC $($Directory.Server) ($($Directory.ServerType))" (Get-PSGPOText 'Directory {0}' $Directory.Source)
+        # Whether it is the PDC emulator, where GPMC changes the GPOs.
+        $role = if (-not $Directory.PdcEmulator) { '' } elseif ($Directory.IsPdcEmulator()) { Get-PSGPOText ', PDC emulator' } else { Get-PSGPOText ', not the PDC emulator ({0})' $Directory.PdcEmulator }
+        $roleTip = if ($Directory.PdcEmulator -and -not $Directory.IsPdcEmulator()) { ' ' + (Get-PSGPOText 'GPMC changes the GPOs on the PDC emulator, {0}: Change Domain Controller... in the context menu of the domain.' $Directory.PdcEmulator) } else { '' }
+        New-StatusItem 'server' "DC $($Directory.Server) ($($Directory.ServerType)$role)" ((Get-PSGPOText 'Directory {0}' $Directory.Source) + $roleTip)
         if ($Directory.Account) {
             $limited = $Directory.IsLimited()
             $delegated = $Directory.HasDelegation()

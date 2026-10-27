@@ -11,6 +11,11 @@ function Get-PSGPODirectory {
         The configuration of HGPM for the domain (Get-PSGPOConfiguration: SYSVOL\<domain>\
         PSGPOTools\Configuration.psd1) is read with it, and used from then on.
 
+        As GPMC, the domain is read from its PDC emulator (the fSMORoleOwner of the domain), where
+        the changes go, unless -Server gives another domain controller: a warning then says it,
+        as the other domain controllers replicate the GPOs from the PDC emulator (and Samba does
+        not replicate SYSVOL).
+
         Its changes are written to the domain: NewGpo creates a GPO with New-GPO of RSAT on
         Windows (the GroupPolicy module), with samba-tool on Linux (Kerberos), NewLink links a GPO
         to the domain or an OU over LDAP. Pass it to
@@ -23,8 +28,9 @@ function Get-PSGPODirectory {
         A password is never sent over plain LDAP.
     .PARAMETER Server
         Domain controller to read from: its DNS name (Kerberos needs the name, not the IP address).
-        By default, the computer itself when it is a domain controller, else the domain of the
-        computer (Windows locates a domain controller).
+        By default, the PDC emulator of the domain, found by the computer itself when it is a
+        domain controller, else by a domain controller of the domain of the computer (Windows
+        locates one); the domain controller found when the PDC emulator cannot be reached.
     .PARAMETER Credential
         Account to read the directory with, instead of the current identity.
     .PARAMETER UseSsl
@@ -55,48 +61,73 @@ function Get-PSGPODirectory {
         [int]$Port
     )
 
+    # Without -Server, as GPMC: the PDC emulator of the domain, once a domain controller says which.
+    $chosen = [bool]$Server
     $Server = Resolve-PSGPODomainServer -Server $Server
 
     $connection = New-PSGPOLdapConnection -Server $Server -Credential $Credential -UseSsl:$UseSsl -Port $Port
+    $retarget = $null
     try {
         $rootDse = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase '' -Scope Base -Attribute 'defaultNamingContext', 'dnsHostName', 'vendorName'
         $domainDN = Get-PSGPOLdapValue $rootDse 'defaultNamingContext'
         $dnsHostName = Get-PSGPOLdapValue $rootDse 'dnsHostName'
         if (-not $domainDN) { throw "$Server did not give its default naming context: is it a domain controller?" }
+        $reached = if ($dnsHostName) { $dnsHostName } else { $Server }
 
         # allowedAttributesEffective: the attributes the account may write, for its rights (RBAC).
-        $domain = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $domainDN -Scope Base -Attribute 'gPLink', 'gPOptions', 'wellKnownObjects', 'allowedAttributesEffective'
+        $domain = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $domainDN -Scope Base -Attribute 'gPLink', 'gPOptions', 'wellKnownObjects', 'allowedAttributesEffective', 'fSMORoleOwner'
         if (-not $domain) { throw "The domain object $domainDN cannot be read: the account has no access to the directory (anonymous bind?)." }
-        $organizationalUnits = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $domainDN -Scope Subtree `
-                -Filter '(objectClass=organizationalUnit)' -Attribute 'name', 'ou', 'gPLink', 'gPOptions', 'allowedAttributesEffective')
-        $gpos = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase "CN=Policies,CN=System,$domainDN" -Scope OneLevel `
-                -Filter '(objectClass=groupPolicyContainer)' -Attribute 'cn', 'displayName', 'versionNumber', 'flags', 'gPCFileSysPath', 'whenChanged', 'gPCMachineExtensionNames', 'gPCUserExtensionNames', 'gPCWQLFilter', 'allowedAttributesEffective')
-        $policies = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase "CN=Policies,CN=System,$domainDN" -Scope Base -Attribute 'allowedChildClassesEffective'
-        $account = Get-PSGPOLdapAccount -Connection $connection
+        $pdc = Get-PSGPOPdcEmulator -Connection $connection -DomainEntry $domain
+        # Found by another domain controller: read from it (below).
+        if (-not $chosen -and $pdc -and -not [string]::Equals($pdc, $reached, [System.StringComparison]::OrdinalIgnoreCase)) { $retarget = $pdc }
+        if (-not $retarget) {
+            $organizationalUnits = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase $domainDN -Scope Subtree `
+                    -Filter '(objectClass=organizationalUnit)' -Attribute 'name', 'ou', 'gPLink', 'gPOptions', 'allowedAttributesEffective')
+            $gpos = @(Invoke-PSGPOLdapSearch -Connection $connection -SearchBase "CN=Policies,CN=System,$domainDN" -Scope OneLevel `
+                    -Filter '(objectClass=groupPolicyContainer)' -Attribute 'cn', 'displayName', 'versionNumber', 'flags', 'gPCFileSysPath', 'whenChanged', 'gPCMachineExtensionNames', 'gPCUserExtensionNames', 'gPCWQLFilter', 'allowedAttributesEffective')
+            $policies = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase "CN=Policies,CN=System,$domainDN" -Scope Base -Attribute 'allowedChildClassesEffective'
+            $account = Get-PSGPOLdapAccount -Connection $connection
 
-        $directory = ConvertTo-PSGPOLdapDirectory -Server $(if ($dnsHostName) { $dnsHostName } else { $Server }) -VendorName (Get-PSGPOLdapValue $rootDse 'vendorName') -DomainEntry $domain `
-            -OrganizationalUnitEntry $organizationalUnits -GpoEntry $gpos -PoliciesEntry $policies -EffectiveRights
-        $directory.Account = $account
-        # The configuration of HGPM for the domain is changed by its administrators only.
-        $directory.IsDomainAdministrator = Test-PSGPODomainAdministrator -Connection $connection -DomainDistinguishedName $domainDN -Account $account
-        # Security filtering of the GPOs, as GPMC shows it: not a reason to fail the reading.
-        try {
-            Read-PSGPODomainSecurityFiltering -Connection $connection -Directory $directory
-        } catch {
-            Write-Warning "The security filtering of the GPOs cannot be read: $($_.Exception.GetBaseException().Message)"
-            foreach ($gpo in $directory.Gpos) { $gpo.SecurityFiltering = $null; $gpo.DeniedTo = $null }
-        }
-        # The WMI filters: not a reason to fail the reading either.
-        try {
-            Read-PSGPODomainWmiFilter -Connection $connection -Directory $directory
-        } catch {
-            Write-Warning "The WMI filters of the domain cannot be read: $($_.Exception.GetBaseException().Message)"
+            $directory = ConvertTo-PSGPOLdapDirectory -Server $(if ($dnsHostName) { $dnsHostName } else { $Server }) -VendorName (Get-PSGPOLdapValue $rootDse 'vendorName') -DomainEntry $domain `
+                -OrganizationalUnitEntry $organizationalUnits -GpoEntry $gpos -PoliciesEntry $policies -EffectiveRights
+            $directory.Account = $account
+            # The configuration of HGPM for the domain is changed by its administrators only.
+            $directory.IsDomainAdministrator = Test-PSGPODomainAdministrator -Connection $connection -DomainDistinguishedName $domainDN -Account $account
+            # Security filtering of the GPOs, as GPMC shows it: not a reason to fail the reading.
+            try {
+                Read-PSGPODomainSecurityFiltering -Connection $connection -Directory $directory
+            } catch {
+                Write-Warning "The security filtering of the GPOs cannot be read: $($_.Exception.GetBaseException().Message)"
+                foreach ($gpo in $directory.Gpos) { $gpo.SecurityFiltering = $null; $gpo.DeniedTo = $null }
+            }
+            # The WMI filters: not a reason to fail the reading either.
+            try {
+                Read-PSGPODomainWmiFilter -Connection $connection -Directory $directory
+            } catch {
+                Write-Warning "The WMI filters of the domain cannot be read: $($_.Exception.GetBaseException().Message)"
+            }
         }
     } catch {
         Write-PSGPOLogEntry -Level Error -Source 'LDAP' -Message "The domain cannot be read from ${Server}." -ErrorRecord $_
         throw
     } finally {
         $connection.Dispose()
+    }
+    if ($retarget) {
+        $again = @{}
+        foreach ($name in 'Credential', 'UseSsl', 'Port') { if ($PSBoundParameters.ContainsKey($name)) { $again[$name] = $PSBoundParameters[$name] } }
+        try {
+            return Get-PSGPODirectory -Server $retarget @again
+        } catch {
+            Write-Warning "The PDC emulator of the domain, $retarget, cannot be read ($($_.Exception.GetBaseException().Message)): the domain is read from $reached."
+            return Get-PSGPODirectory -Server $reached @again
+        }
+    }
+    # A domain controller given that is not the PDC emulator: GPMC changes the GPOs on the PDC
+    # emulator, which the other domain controllers replicate from.
+    $directory.PdcEmulator = $pdc
+    if ($pdc -and -not $directory.IsPdcEmulator()) {
+        Write-Warning "$reached is not the PDC emulator of $($directory.DomainName) ($pdc): GPMC changes the GPOs on the PDC emulator, which the other domain controllers replicate from (Samba does not replicate SYSVOL). Give -Server $pdc, or no -Server."
     }
     # The changes connect again as the directory was read.
     $directory.Credential = $Credential

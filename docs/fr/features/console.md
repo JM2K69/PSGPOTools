@@ -59,6 +59,15 @@ déplié et sélectionné. Sinon la console lit le domaine une fois ; une GPO mo
 lecture n'est pas écrasée ([éditeur de stratégies](policy-editor.md)) : rafraîchissez, puis refaites
 la modification.
 
+Comme GPMC, le domaine est lu depuis son émulateur PDC, où vont les modifications. **Changer de
+contrôleur de domaine...** (clic droit sur le domaine) liste les contrôleurs du domaine, l'émulateur
+PDC d'abord, et relit le domaine depuis celui choisi ; la barre d'état dit quand ce n'est pas
+l'émulateur PDC. Les détails d'une GPO montrent ses versions dans l'annuaire et dans SYSVOL
+(*Version utilisateur : 2 (AD), 2 (SYSVOL)*), et disent quand elles diffèrent : les ordinateurs
+appliquent SYSVOL ([durcissement](../technical/hardening.md#domain-controller)).
+
+![Changer de contrôleur de domaine...](../assets/screenshots/83-change-dc.fr.png){ width="640" }
+
 ## Éditeur de stratégies
 
 **Edit** (clic droit, ou double clic sur une GPO) ouvre la GPO dans
@@ -76,8 +85,8 @@ nom, son chemin de registre ou la commande `Get-ItemProperty` qui la lit.
 ## La barre d'état
 
 En bas : cet ordinateur (nom, système, adresses), son domaine, le contrôleur de domaine depuis
-lequel l'annuaire a été lu et son service d'annuaire (`Samba AD` ou `Active Directory`), le
-compte connecté, et la version de HGPM avec une pastille :
+lequel l'annuaire a été lu, son service d'annuaire (`Samba AD` ou `Active Directory`) et s'il est
+l'émulateur PDC, le compte connecté, et la version de HGPM avec une pastille :
 
 - **verte** : la dernière version de la PowerShell Gallery ;
 - **orange** : une version plus récente est sur la Gallery (`HGPM 0.1.6-alpha : 0.1.7-alpha

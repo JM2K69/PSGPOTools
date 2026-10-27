@@ -249,6 +249,106 @@ InModuleScope -ModuleName HGPM {
             @($Detail.Links.Status) | Should -Be @('User configuration settings disabled', 'GPO not found')
         }
 
+        It 'Shows the versions of the directory and of SYSVOL of a GPO, as GPMC, and when they differ' {
+            $Gpo = $Directory.Gpos | Where-Object Id -EQ ([guid]$TestLdapWorkstationsPolicy)
+            $Row = { param($Detail, $Key) ($Detail.Properties | Where-Object Key -EQ $Key).Value }
+            # GPT.INI of the same version (user 2, computer 2), then of another one.
+            $script:GptIni = [System.Text.Encoding]::ASCII.GetBytes("[General]`r`nVersion=131074`r`n")
+            Mock Read-PSGPOSysvolFile { $script:GptIni } -ParameterFilter { $Path -eq 'GPT.INI' }
+            $Detail = Get-PSGPODirectoryDetail -Directory $Directory -Item $Gpo
+            & $Row $Detail 'User version' | Should -Be '2 (AD), 2 (SYSVOL)'
+            & $Row $Detail 'Computer version' | Should -Be '2 (AD), 2 (SYSVOL)'
+            & $Row $Detail 'Versions' | Should -BeNullOrEmpty
+
+            $Gpo.Version = (3 -shl 16) -bor 2
+            $script:GptIni = [byte[]](0xFF, 0xFE) + [System.Text.Encoding]::Unicode.GetBytes("[General]`r`nVersion=131074`r`n")
+            $Detail = Get-PSGPODirectoryDetail -Directory $Directory -Item $Gpo
+            & $Row $Detail 'User version' | Should -Be '3 (AD), 2 (SYSVOL)'
+            & $Row $Detail 'Versions' | Should -BeLike 'The directory and SYSVOL of dc.hardenbox.labo do not have the same version*'
+
+            # Read once for a version of the GPO in the directory; a folder that cannot be read is said.
+            Should -Invoke Read-PSGPOSysvolFile -Times 2 -Exactly
+            $null = Get-PSGPODirectoryDetail -Directory $Directory -Item $Gpo
+            Should -Invoke Read-PSGPOSysvolFile -Times 2 -Exactly
+            $Gpo.Version = (4 -shl 16) -bor 2
+            Mock Read-PSGPOSysvolFile { throw 'smbclient failed: NT_STATUS_ACCESS_DENIED' } -ParameterFilter { $Path -eq 'GPT.INI' }
+            & $Row (Get-PSGPODirectoryDetail -Directory $Directory -Item $Gpo) 'Computer version' | Should -Be '2 (AD), SYSVOL not read: smbclient failed: NT_STATUS_ACCESS_DENIED'
+        }
+
+    }
+
+    Describe 'PDC emulator' {
+        BeforeEach {
+            $Set = Get-TestLdapEntrySet
+            $PdcDN = 'CN=DC1,CN=Servers,CN=Default-First-Site-Name,CN=Sites,CN=Configuration,DC=hardenbox,DC=labo'
+            $Set.Domain.Attributes['fsmoroleowner'] = [string[]]@("CN=NTDS Settings,$PdcDN")
+            $script:Down = $null
+            $script:Connected = [System.Collections.Generic.List[string]]::new()
+            Mock Resolve-PSGPODomainServer { if ($Server) { $Server } else { 'hardenbox.labo' } }
+            Mock New-PSGPOLdapConnection {
+                if ($Server -eq $script:Down) { throw "The LDAP server $Server is unavailable." }
+                $script:Connected.Add($Server)
+                [pscustomobject]@{ Server = $Server } | Add-Member -MemberType ScriptMethod -Name Dispose -Value { } -PassThru
+            }
+            Mock Invoke-PSGPOLdapSearch {
+                # The name of the domain reaches dc2.
+                if ($SearchBase -eq '') {
+                    $Name = if ($Connection.Server -eq 'hardenbox.labo') { 'dc2.hardenbox.labo' } else { $Connection.Server }
+                    return New-TestLdapEntry '' @{ defaultNamingContext = $TestLdapDomainDN; dnsHostName = $Name; vendorName = 'Samba Team (https://www.samba.org)' }
+                }
+                if ($SearchBase -eq $TestLdapDomainDN -and $Scope -eq 'Base') { return $Set.Domain }
+                if ($SearchBase -eq $PdcDN) { return New-TestLdapEntry $PdcDN @{ dNSHostName = 'dc1.hardenbox.labo' } }
+                if ($Filter -like '*organizationalUnit*') { return $Set.Ous }
+                if ($Filter -like '*groupPolicyContainer*') { return $Set.Gpos }
+            }
+            Mock Get-PSGPOLdapAccount { 'HARDENBOX\Administrator' }
+            Mock Test-PSGPODomainAdministrator { $true }
+            Mock Read-PSGPODomainSecurityFiltering { }
+            Mock Read-PSGPODomainWmiFilter { }
+            Mock Use-PSGPODomainConfiguration { }
+            Mock Get-PSGPOWorkflowSetting { @{ Enabled = $false } }
+            Mock Get-PSGPOConfigurationData { @{ Audit = @{}; Backup = @{} } }
+        }
+
+        It 'Reads the domain from its PDC emulator, found by the domain controller the name of the domain reaches' {
+            $Read = Get-PSGPODirectory -WarningVariable Warnings 3>$null
+            $Read.Server | Should -Be 'dc1.hardenbox.labo'
+            $Read.PdcEmulator | Should -Be 'dc1.hardenbox.labo'
+            $Read.IsPdcEmulator() | Should -BeTrue
+            @($script:Connected) | Should -Be @('hardenbox.labo', 'dc1.hardenbox.labo')
+            @($Warnings | Where-Object { "$_" -like '*PDC emulator*' }) | Should -BeNullOrEmpty
+        }
+
+        It 'Warns when -Server is another domain controller, and reads from it' {
+            $Read = Get-PSGPODirectory -Server 'dc2.hardenbox.labo' -WarningVariable Warnings 3>$null
+            $Read.Server | Should -Be 'dc2.hardenbox.labo'
+            $Read.PdcEmulator | Should -Be 'dc1.hardenbox.labo'
+            $Read.IsPdcEmulator() | Should -BeFalse
+            @($Warnings | Where-Object { "$_" -like '*PDC emulator*' }) | Should -BeLike 'dc2.hardenbox.labo is not the PDC emulator of hardenbox.labo (dc1.hardenbox.labo)*Give -Server dc1.hardenbox.labo, or no -Server.'
+        }
+
+        It 'Reads from the domain controller found when the PDC emulator cannot be reached' {
+            $script:Down = 'dc1.hardenbox.labo'
+            $Read = Get-PSGPODirectory -WarningVariable Warnings 3>$null
+            $Read.Server | Should -Be 'dc2.hardenbox.labo'
+            @($Warnings | Where-Object { "$_" -like 'The PDC emulator*' }) | Should -BeLike 'The PDC emulator of the domain, dc1.hardenbox.labo, cannot be read (*unavailable*): the domain is read from dc2.hardenbox.labo.'
+        }
+
+        It 'Reads a domain whose PDC emulator is not known from the domain controller found' {
+            $Set.Domain.Attributes.Remove('fsmoroleowner')
+            $Read = Get-PSGPODirectory 3>$null
+            $Read.Server | Should -Be 'dc2.hardenbox.labo'
+            $Read.PdcEmulator | Should -BeNullOrEmpty
+            $Read.IsPdcEmulator() | Should -BeTrue -Because 'nothing says another one is'
+        }
+
+        It 'Lists the domain controllers of the domain, the PDC emulator first' {
+            Mock Invoke-PSGPOLdapSearch { New-TestLdapEntry 'CN=DC2' @{ dNSHostName = 'dc2.hardenbox.labo' }; New-TestLdapEntry 'CN=DC1' @{ dNSHostName = 'dc1.hardenbox.labo' } }
+            $Directory = New-TestLdapDirectory
+            $Directory.PdcEmulator = 'dc1.hardenbox.labo'
+            @(Get-PSGPODomainController -Directory $Directory) | Should -Be @('dc1.hardenbox.labo', 'dc2.hardenbox.labo')
+            Should -Invoke Invoke-PSGPOLdapSearch -Times 1 -Exactly -ParameterFilter { $Filter -eq '(&(objectCategory=computer)(userAccountControl:1.2.840.113556.1.4.803:=8192))' }
+        }
     }
 
     Describe 'Directory service of the domain controller' {
@@ -300,6 +400,16 @@ InModuleScope -ModuleName HGPM {
             $Items = @(Get-PSGPOStatusBarItem -Platform $Workstation -Directory $Directory -DirectoryError $Error)
             $Items[3].Text | Should -Be $Expected
             if ($Error) { $Items[3].ToolTip | Should -Be $Error }
+        }
+
+        It 'Says whether the domain controller is the PDC emulator, where GPMC changes the GPOs' {
+            $Directory = New-TestLdapDirectory
+            $Directory.PdcEmulator = 'dc.hardenbox.labo'
+            @(Get-PSGPOStatusBarItem -Platform $SambaDc -Directory $Directory)[3].Text | Should -Be 'DC dc.hardenbox.labo (Samba AD, PDC emulator)'
+            $Directory.PdcEmulator = 'dc1.hardenbox.labo'
+            $Item = @(Get-PSGPOStatusBarItem -Platform $SambaDc -Directory $Directory)[3]
+            $Item.Text | Should -Be 'DC dc.hardenbox.labo (Samba AD, not the PDC emulator (dc1.hardenbox.labo))'
+            $Item.ToolTip | Should -BeLike '*GPMC changes the GPOs on the PDC emulator, dc1.hardenbox.labo: Change Domain Controller... in the context menu of the domain.'
         }
 
         It 'Shows a computer outside a domain without network address' {

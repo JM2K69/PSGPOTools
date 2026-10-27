@@ -10,6 +10,11 @@
     for its scope, in GPT.INI and in the versionNumber of the group policy container, and
     declares the client-side extension of the file (gPCMachineExtensionNames /
     gPCUserExtensionNames): without them the computers would not apply the change, as with GPMC.
+
+    A file is written aside, then renamed over the former one: a computer reading the GPO
+    meanwhile reads the former file or the new one, never half of it. When the directory refuses
+    the change (or a file cannot be written), the files written are put back as they were: SYSVOL
+    and the directory stay at the same version.
 #>
 
 # Share and path of the GPO folder: SysVol and <domain>\Policies\{GUID}, as its gPCFileSysPath
@@ -110,11 +115,20 @@ function Write-PSGPOSysvolItem {
     # Not Split-Path: on Linux it turns the \ of the path into /.
     $separator = $Path.LastIndexOfAny([char[]]'\/')
     $folder = if ($separator -gt 0) { $Path.Substring(0, $separator) } else { '' }
+    # Written aside, then renamed over the file (see the header of this file).
+    $aside = '{0}.{1}.tmp' -f $Path, [guid]::NewGuid().ToString('N').Substring(0, 8)
     if ($IsWindows) {
         Use-PSGPOSysvolCredential -Directory $Directory -Share $Share
         $file = "\\$($Directory.Server)\$Share\$Base\$Path"
-        $null = New-Item -ItemType Directory -Path (Split-Path -Path $file -Parent) -Force
-        [System.IO.File]::WriteAllBytes($file, $Bytes)
+        $temporary = "\\$($Directory.Server)\$Share\$Base\$aside"
+        $null = New-Item -ItemType Directory -Path (Split-Path -Path $file -Parent) -Force -WhatIf:$false
+        try {
+            [System.IO.File]::WriteAllBytes($temporary, $Bytes)
+            [System.IO.File]::Move($temporary, $file, $true)
+        } catch {
+            try { [System.IO.File]::Delete($temporary) } catch { Write-Verbose "$temporary not deleted: $($_.Exception.Message)" }
+            throw
+        }
         return
     }
     Assert-PSGPOKerberosOnly -Directory $Directory
@@ -127,7 +141,15 @@ function Write-PSGPOSysvolItem {
             $level = if ($level) { "$level\$part" } else { $part }
             $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $Share -IgnoreStatus 'NT_STATUS_OBJECT_NAME_COLLISION' -Command ('mkdir "{0}\{1}"' -f $Base, $level)
         }
-        $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $Share -Command ('put "{2}" "{0}\{1}"' -f $Base, $Path, $local)
+        try {
+            # rename -f replaces the file (smbclient 4.x).
+            $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $Share -Command ('put "{3}" "{0}\{2}"; rename "{0}\{2}" "{0}\{1}" -f' -f $Base, $Path, $aside, $local)
+        } catch {
+            # An smbclient without rename -f: the file written over, as before.
+            Write-Verbose "smbclient did not rename $aside over ${Path}: $($_.Exception.Message)"
+            $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $Share -AllowMissing -Command ('del "{0}\{1}"' -f $Base, $aside)
+            $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $Share -Command ('put "{2}" "{0}\{1}"' -f $Base, $Path, $local)
+        }
     } finally {
         Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue -WhatIf:$false
     }
@@ -272,6 +294,107 @@ function Assert-PSGPOKerberosOnly {
     if ($Directory.Credential) {
         throw "SYSVOL is reached with Kerberos: run kinit $($Directory.Credential.UserName), then read the domain without -Credential."
     }
+    Assert-PSGPOKerberosTicket
+}
+
+# Linux and macOS: the Kerberos ticket of the session is still valid (klist -s, MIT and Heimdal),
+# checked at most once a minute. An expired ticket fails SYSVOL and LDAP with errors that do not
+# say it ("Local error", NT_STATUS_...), half of a change written.
+$script:PSGPOKerberosChecked = [datetime]::MinValue
+function Assert-PSGPOKerberosTicket {
+    [CmdletBinding()]
+    param()
+
+    if ($IsWindows -or ([datetime]::UtcNow - $script:PSGPOKerberosChecked).TotalSeconds -lt 60) { return }
+    $klist = Get-Command -Name 'klist' -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+    if (-not $klist) { return }
+    $result = Invoke-PSGPONativeCommand -FilePath $klist.Source -ArgumentList '-s' -TimeoutSeconds 10
+    if ($result.ExitCode -ne 0) {
+        $cache = if ($env:KRB5CCNAME) { " ($env:KRB5CCNAME)" } else { '' }
+        throw "The Kerberos ticket of this session$cache has expired, or there is none: run kinit with your account, then do it again. Nothing was changed."
+    }
+    $script:PSGPOKerberosChecked = [datetime]::UtcNow
+}
+
+# Puts files of the GPO folder back as they were before a change that failed: the bytes read
+# before it, or no file when there was none. The newest first; what could not be put back.
+function Undo-PSGPOSysvolWrite {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
+        # Path in the GPO folder -> bytes before the change ($null: no file)
+        [Parameter(Mandatory)] [System.Collections.IDictionary]$Previous,
+        # The paths changed, in the order they were
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [string[]]$Changed
+    )
+
+    for ($i = $Changed.Count - 1; $i -ge 0; $i--) {
+        $name = $Changed[$i]
+        try {
+            if ($null -eq $Previous[$name]) { Remove-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $name }
+            else { Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $name -Bytes ([byte[]]$Previous[$name]) }
+        } catch {
+            "${name}: $($_.Exception.GetBaseException().Message)"
+        }
+    }
+}
+
+# The error of a change put back: why it failed, and the files left as they were (or not).
+function Get-PSGPOUndoneMessage {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)] [string]$Message,
+        [AllowEmptyCollection()] [string[]]$Problems = @()
+    )
+
+    if ($Problems.Count) { return "$Message The files of the GPO could not all be put back as they were ($($Problems -join '; ')): the version of SYSVOL may differ from the one of the directory, save the GPO again." }
+    "$Message The files of the GPO were put back as they were."
+}
+
+# The version of GPT.INI (Version= of [General]): the user version in the high word, the
+# computer version in the low word, as versionNumber; $null without GPT.INI or version.
+function Get-PSGPOGptIniVersion {
+    [CmdletBinding()]
+    [OutputType([long])]
+    param([AllowNull()] [AllowEmptyCollection()] [byte[]]$Bytes)
+
+    if (-not $Bytes) { return $null }
+    $unicode = $Bytes.Length -ge 2 -and $Bytes[0] -eq 0xFF -and $Bytes[1] -eq 0xFE
+    $text = if ($unicode) { [System.Text.Encoding]::Unicode.GetString($Bytes, 2, $Bytes.Length - 2) } else { [System.Text.Encoding]::ASCII.GetString($Bytes) }
+    $section = ''
+    foreach ($line in $text -split '\r?\n') {
+        if ($line -match '^\s*\[(.+)\]\s*$') { $section = $Matches[1]; continue }
+        if ($section -eq 'General' -and $line -match '^\s*Version\s*=\s*(\d+)\s*$') { return [long]$Matches[1] }
+    }
+    $null
+}
+
+# The version of a GPO in SYSVOL, the one the computers apply, read once for each version of the
+# GPO in the directory: @{ Version (as versionNumber, $null when not read); Problem }. A problem
+# is not kept: the next time reads again.
+$script:PSGPOSysvolVersions = @{}
+function Get-PSGPOSysvolVersion {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo
+    )
+
+    $key = "$($Directory.Server)|$($Gpo.Id)|$($Gpo.Version)"
+    if ($script:PSGPOSysvolVersions.ContainsKey($key)) { return $script:PSGPOSysvolVersions[$key] }
+    try {
+        $bytes = Read-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path 'GPT.INI'
+    } catch {
+        return @{ Version = $null; Problem = $_.Exception.GetBaseException().Message }
+    }
+    if ($null -eq $bytes) { return @{ Version = $null; Problem = (Get-PSGPOText 'the folder of the GPO has no GPT.INI') } }
+    $version = Get-PSGPOGptIniVersion -Bytes $bytes
+    if ($null -eq $version) { return @{ Version = $null; Problem = (Get-PSGPOText 'GPT.INI has no version') } }
+    $script:PSGPOSysvolVersions[$key] = @{ Version = $version; Problem = $null }
+    $script:PSGPOSysvolVersions[$key]
 }
 
 # GPT.INI with the given version (Version= of [General]), in the encoding it had.
@@ -396,25 +519,35 @@ function Save-PSGPODomainGpoFile {
         $extensions = $oldExtensions
         foreach ($guid in $Extension) { $extensions = Add-PSGPOExtensionName -Current $extensions -Extension $guid -Tool $Tool }
 
-        # SYSVOL first, then the version in GPT.INI and in the directory, as GPMC does.
-        foreach ($name in $Files.Keys) { Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $name -Bytes ([byte[]]$Files[$name]) }
-        $gptIni = Set-PSGPOGptIniVersion -Bytes (Read-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path 'GPT.INI') -Version $version
-        Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path 'GPT.INI' -Bytes $gptIni
-
-        $request = [System.DirectoryServices.Protocols.ModifyRequest]::new()
-        $request.DistinguishedName = $Gpo.DistinguishedName
-        Add-PSGPOLdapValueChange -Request $request -Name 'versionNumber' -Old $oldVersion -New "$version"
-        if ($extensions -ne $oldExtensions) {
-            Add-PSGPOLdapValueChange -Request $request -Name $extensionAttribute -Old $oldExtensions -New $extensions
+        # The files as they are, to put them back when the change fails.
+        $previous = [System.Collections.Specialized.OrderedDictionary]::new([System.StringComparer]::OrdinalIgnoreCase)
+        foreach ($name in @($Files.Keys) + 'GPT.INI') {
+            if (-not $previous.Contains($name)) { $previous[$name] = Read-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $name }
         }
+        $changed = [System.Collections.Generic.List[string]]::new()
         try {
+            # SYSVOL first, then the version in GPT.INI and in the directory, as GPMC does.
+            foreach ($name in $Files.Keys) {
+                $changed.Add($name)
+                Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $name -Bytes ([byte[]]$Files[$name])
+            }
+            $changed.Add('GPT.INI')
+            Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path 'GPT.INI' -Bytes (Set-PSGPOGptIniVersion -Bytes $previous['GPT.INI'] -Version $version)
+
+            $request = [System.DirectoryServices.Protocols.ModifyRequest]::new()
+            $request.DistinguishedName = $Gpo.DistinguishedName
+            Add-PSGPOLdapValueChange -Request $request -Name 'versionNumber' -Old $oldVersion -New "$version"
+            if ($extensions -ne $oldExtensions) {
+                Add-PSGPOLdapValueChange -Request $request -Name $extensionAttribute -Old $oldExtensions -New $extensions
+            }
             [void]$connection.SendRequest($request)
         } catch {
             $base = $_.Exception.GetBaseException()
+            $problems = @(Undo-PSGPOSysvolWrite -Directory $Directory -Gpo $Gpo -Previous $previous -Changed $changed)
             if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -in 'NoSuchAttribute', 'AttributeOrValueExists') {
-                throw "The GPO $($Gpo.DisplayName) changed in the domain meanwhile: $saved was saved, read the domain again and apply the setting again so that its version increases."
+                throw (Get-PSGPOUndoneMessage -Message "The GPO $($Gpo.DisplayName) changed in the domain meanwhile: $saved is not saved. Read the domain again and make the change again." -Problems $problems)
             }
-            throw
+            throw (Get-PSGPOUndoneMessage -Message "$saved of the GPO $($Gpo.DisplayName) is not saved: $($base.Message)" -Problems $problems)
         }
     } finally {
         $connection.Dispose()
@@ -468,34 +601,45 @@ function Restore-PSGPODomainGpo {
         $oldVersion = Get-PSGPOLdapValue $entry 'versionNumber'
         $version = [GPOToolsDirectory]::GetNextVersion([GPOToolsDirectory]::GetNextVersion([int]$oldVersion, 'Machine'), 'User')
 
-        # SYSVOL first: the files of the backup, without those it does not have, then GPT.INI.
+        # SYSVOL first: the files of the backup, without those it does not have, then GPT.INI. The
+        # folder as it was is put back when the restore fails.
         $current = Read-PSGPOSysvolFolder -Directory $Directory -Gpo $Gpo
-        foreach ($name in $Files.Keys) {
-            if ($name -ne 'GPT.INI') { Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $name -Bytes ([byte[]]$Files[$name]) }
-        }
-        foreach ($name in @($current.Keys)) {
-            if ($name -ne 'GPT.INI' -and -not $Files.Contains($name)) { Remove-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $name }
-        }
-        $gptIni = if ($Files.Contains('GPT.INI')) { [byte[]]$Files['GPT.INI'] } else { [byte[]]$current['GPT.INI'] }
-        Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path 'GPT.INI' -Bytes (Set-PSGPOGptIniVersion -Bytes $gptIni -Version $version)
-
-        $request = [System.DirectoryServices.Protocols.ModifyRequest]::new()
-        $request.DistinguishedName = $Gpo.DistinguishedName
-        Add-PSGPOLdapValueChange -Request $request -Name 'versionNumber' -Old $oldVersion -New "$version"
-        Add-PSGPOLdapValueChange -Request $request -Name 'flags' -Old (Get-PSGPOLdapValue $entry 'flags') -New "$Flags"
-        Add-PSGPOLdapValueChange -Request $request -Name 'gPCMachineExtensionNames' -Old (Get-PSGPOLdapValue $entry 'gPCMachineExtensionNames') -New $MachineExtensionNames
-        Add-PSGPOLdapValueChange -Request $request -Name 'gPCUserExtensionNames' -Old (Get-PSGPOLdapValue $entry 'gPCUserExtensionNames') -New $UserExtensionNames
+        $previous = [System.Collections.Specialized.OrderedDictionary]::new([System.StringComparer]::OrdinalIgnoreCase)
+        foreach ($name in $current.Keys) { $previous[$name] = $current[$name] }
+        foreach ($name in $Files.Keys) { if (-not $previous.Contains($name)) { $previous[$name] = $null } }
+        $changed = [System.Collections.Generic.List[string]]::new()
         try {
+            foreach ($name in $Files.Keys) {
+                if ($name -eq 'GPT.INI') { continue }
+                $changed.Add($name)
+                Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $name -Bytes ([byte[]]$Files[$name])
+            }
+            foreach ($name in @($current.Keys)) {
+                if ($name -eq 'GPT.INI' -or $Files.Contains($name)) { continue }
+                $changed.Add($name)
+                Remove-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path $name
+            }
+            $gptIni = if ($Files.Contains('GPT.INI')) { [byte[]]$Files['GPT.INI'] } else { [byte[]]$current['GPT.INI'] }
+            $changed.Add('GPT.INI')
+            Write-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path 'GPT.INI' -Bytes (Set-PSGPOGptIniVersion -Bytes $gptIni -Version $version)
+
+            $request = [System.DirectoryServices.Protocols.ModifyRequest]::new()
+            $request.DistinguishedName = $Gpo.DistinguishedName
+            Add-PSGPOLdapValueChange -Request $request -Name 'versionNumber' -Old $oldVersion -New "$version"
+            Add-PSGPOLdapValueChange -Request $request -Name 'flags' -Old (Get-PSGPOLdapValue $entry 'flags') -New "$Flags"
+            Add-PSGPOLdapValueChange -Request $request -Name 'gPCMachineExtensionNames' -Old (Get-PSGPOLdapValue $entry 'gPCMachineExtensionNames') -New $MachineExtensionNames
+            Add-PSGPOLdapValueChange -Request $request -Name 'gPCUserExtensionNames' -Old (Get-PSGPOLdapValue $entry 'gPCUserExtensionNames') -New $UserExtensionNames
             [void]$connection.SendRequest($request)
         } catch {
             $base = $_.Exception.GetBaseException()
+            $problems = @(Undo-PSGPOSysvolWrite -Directory $Directory -Gpo $Gpo -Previous $previous -Changed $changed)
             if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -in 'NoSuchAttribute', 'AttributeOrValueExists') {
-                throw "The GPO $($Gpo.DisplayName) changed in the domain meanwhile: its files were restored, restore it again so that its version increases."
+                throw (Get-PSGPOUndoneMessage -Message "The GPO $($Gpo.DisplayName) changed in the domain meanwhile: it is not restored. Read the domain again and restore it again." -Problems $problems)
             }
             if ($base.PSObject.Properties['Response'] -and $base.Response.ResultCode -eq 'InsufficientAccessRights') {
-                throw "The account cannot edit the GPO '$($Gpo.DisplayName)': $($base.Message)"
+                throw (Get-PSGPOUndoneMessage -Message "The account cannot edit the GPO '$($Gpo.DisplayName)': $($base.Message)" -Problems $problems)
             }
-            throw
+            throw (Get-PSGPOUndoneMessage -Message "The GPO $($Gpo.DisplayName) is not restored: $($base.Message)" -Problems $problems)
         }
     } finally {
         $connection.Dispose()

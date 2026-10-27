@@ -16,6 +16,8 @@ Reads the domain as GPMC shows it: the domain and its organizational units with 
 
 The configuration of HGPM for the domain (Get-PSGPOConfiguration: SYSVOL\<domain>\ PSGPOTools\Configuration.psd1) is read with it, and used from then on.
 
+As GPMC, the domain is read from its PDC emulator (the fSMORoleOwner of the domain), where the changes go, unless -Server gives another domain controller: a warning then says it, as the other domain controllers replicate the GPOs from the PDC emulator (and Samba does not replicate SYSVOL).
+
 Its changes are written to the domain: NewGpo creates a GPO with New-GPO of RSAT on Windows (the GroupPolicy module), with samba-tool on Linux (Kerberos), NewLink links a GPO to the domain or an OU over LDAP. Pass it to Show-GPOManagerAvalonia -Directory to manage it in the window.
 
 Authentication:
@@ -28,7 +30,7 @@ A password is never sent over plain LDAP.
 
 ### -Server
 
-Domain controller to read from: its DNS name (Kerberos needs the name, not the IP address). By default, the computer itself when it is a domain controller, else the domain of the computer (Windows locates a domain controller).
+Domain controller to read from: its DNS name (Kerberos needs the name, not the IP address). By default, the PDC emulator of the domain, found by the computer itself when it is a domain controller, else by a domain controller of the domain of the computer (Windows locates one); the domain controller found when the PDC emulator cannot be reached.
 
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|

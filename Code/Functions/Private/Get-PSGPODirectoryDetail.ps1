@@ -120,8 +120,23 @@ function Get-PSGPODirectoryDetail {
             $Uninterpreted = @(Get-PSGPODeclaredExtension -MachineExtensionNames $Gpo.MachineExtensionNames -UserExtensionNames $Gpo.UserExtensionNames |
                     Where-Object Storage -NotIn 'Read', 'Registry' | ForEach-Object { Get-PSGPOText $_.Name } | Select-Object -Unique)
             if ($Uninterpreted.Count) { New-Row 'Not interpreted' (Get-PSGPOText '{0}: the computers apply their settings, the console does not show them (Settings tab)' ($Uninterpreted -join ', ')) }
-            New-Row 'User version' $Gpo.GetUserVersion()
-            New-Row 'Computer version' $Gpo.GetComputerVersion()
+            # The versions of the directory and of SYSVOL (GPT.INI), as GPMC: the computers apply SYSVOL.
+            if ($Directory -is [GPOToolsLdapDirectory]) {
+                $Sysvol = Get-PSGPOSysvolVersion -Directory $Directory -Gpo $Gpo
+                if ($null -ne $Sysvol.Version) {
+                    New-Row 'User version' (Get-PSGPOText '{0} (AD), {1} (SYSVOL)' $Gpo.GetUserVersion() (($Sysvol.Version -shr 16) -band 0xFFFF))
+                    New-Row 'Computer version' (Get-PSGPOText '{0} (AD), {1} (SYSVOL)' $Gpo.GetComputerVersion() ($Sysvol.Version -band 0xFFFF))
+                    if ($Sysvol.Version -ne ([long]$Gpo.Version -band 0xFFFFFFFFL)) {
+                        New-Row 'Versions' (Get-PSGPOText 'The directory and SYSVOL of {0} do not have the same version: a change is being replicated, was made on another domain controller (Samba does not replicate SYSVOL), or stopped halfway. The computers apply the settings of SYSVOL.' $Directory.Server)
+                    }
+                } else {
+                    New-Row 'User version' (Get-PSGPOText '{0} (AD), SYSVOL not read: {1}' $Gpo.GetUserVersion() $Sysvol.Problem)
+                    New-Row 'Computer version' (Get-PSGPOText '{0} (AD), SYSVOL not read: {1}' $Gpo.GetComputerVersion() $Sysvol.Problem)
+                }
+            } else {
+                New-Row 'User version' $Gpo.GetUserVersion()
+                New-Row 'Computer version' $Gpo.GetComputerVersion()
+            }
             New-Row 'Distinguished name' $Gpo.DistinguishedName
             New-Row 'File system path' $Gpo.FileSysPath
             if ($Directory.IsGpoRedirected($Gpo)) {

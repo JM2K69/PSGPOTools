@@ -179,6 +179,9 @@ $(Get-PSGPOWindowResourceXaml)
                                 <MenuItem Name='moveLinkUpMenuItem' Header='Move link up'/>
                                 <MenuItem Name='moveLinkDownMenuItem' Header='Move link down'/>
                                 <MenuItem Name='blockInheritanceMenuItem' Header='Block Inheritance' ToggleType='CheckBox'/>
+                                <MenuItem Name='changeDcMenuItem' Header='Change Domain Controller...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.server}'/></MenuItem.Icon>
+                                </MenuItem>
                                 <MenuItem Name='gpoStatusMenuItem' Header='GPO Status'>
                                     <MenuItem Name='gpoStatusEnabledMenuItem' Header='Enabled' ToggleType='Radio' Tag='0'/>
                                     <MenuItem Name='gpoStatusUserDisabledMenuItem' Header='User Configuration Settings Disabled' ToggleType='Radio' Tag='1'/>
@@ -512,6 +515,23 @@ $(Get-PSGPOWindowResourceXaml)
                                             <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
                                                 <Button Name='useWmiFilterConfirmButton' Content='Use the filter' MinWidth='110' IsEnabled='False'/>
                                                 <Button Name='useWmiFilterCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Change Domain Controller..., as GPMC: the domain read again from another one -->
+                                    <Border Name='changeDcPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='changeDcTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBlock TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'
+                                                       Text='GPMC changes the GPOs on the PDC emulator, which the other domain controllers replicate from. Samba does not replicate SYSVOL: a change made on another domain controller stays there.'/>
+                                            <ListBox Name='changeDcList' MaxHeight='200' SelectionMode='Single'/>
+                                            <TextBlock Name='changeDcErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='changeDcConfirmButton' Content='Change' MinWidth='110' IsEnabled='False'/>
+                                                <Button Name='changeDcCancelButton' Content='Cancel' Width='100'/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>
