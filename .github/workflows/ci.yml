@@ -4,16 +4,70 @@ on:
   push:
     branches: [master, main]
   pull_request:
-  # The Release workflow runs these tests on the tagged commit before it publishes.
+  # The Release workflow runs these tests on the tagged commit, then publishes the module built here.
   workflow_call:
 
+# Read the repository, nothing else: no job of the tests writes anywhere.
+permissions:
+  contents: read
+
+# A new push of a pull request stops the run of the former one; the branches and the releases run
+# each push (a group of their own: the Release workflow has none, so the two never wait for each other).
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+# The actions are pinned to a commit (Dependabot proposes their new versions), the modules of the
+# tests to a version.
 jobs:
+  build:
+    # The module built once, from Code/: every job tests this one, and the release publishes it.
+    # The build is reproducible: the Windows job builds it again and compares.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Build the module
+        shell: pwsh
+        run: ./CI/03_Build.ps1
+
+      - name: The manifest is the one of the repository
+        # A public function added without the manifest that exports it: the build changed it.
+        run: git diff --exit-code -- HGPM/HGPM.psd1
+
+      - name: Upload the module
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: module
+          path: |
+            HGPM/
+            !HGPM/Avalonia/bin/**
+          if-no-files-found: error
+
   test:
     # Windows: the ADMX parsing paths and the GUI tests (real Avalonia window) target Windows.
+    needs: build
     runs-on: windows-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Download the module
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: module
+          path: HGPM
+
+      - name: The build is reproducible
+        # Built again here from the same sources: the same bytes as the module built on Linux.
+        shell: pwsh
+        run: |
+          $built = (Get-FileHash -LiteralPath HGPM/HGPM.psm1 -Algorithm SHA256).Hash
+          ./CI/03_Build.ps1 *> $null
+          $again = (Get-FileHash -LiteralPath HGPM/HGPM.psm1 -Algorithm SHA256).Hash
+          if ($again -ne $built) { throw "HGPM.psm1 built on Windows ($again) is not the one built on Linux ($built): the build is not reproducible." }
+          "HGPM.psm1 SHA-256 $built, the same on Linux and Windows."
 
       - name: Show PowerShell version
         shell: pwsh
@@ -21,40 +75,35 @@ jobs:
 
       - name: Install Pester
         shell: pwsh
-        run: ./CI/Install-CIModule.ps1 -Name Pester -MinimumVersion 5.5.0
+        run: ./CI/Install-CIModule.ps1 -Name Pester -RequiredVersion 6.2.0
 
       - name: Analyze the sources (PSScriptAnalyzer)
         shell: pwsh
         run: |
-          ./CI/Install-CIModule.ps1 -Name PSScriptAnalyzer
+          ./CI/Install-CIModule.ps1 -Name PSScriptAnalyzer -RequiredVersion 1.25.0
           # TypeNotFound is information: a class of another file, which the build puts first.
           $found = @(Invoke-ScriptAnalyzer -Path ./Code -Recurse -Settings ./PSScriptAnalyzerSettings.psd1 | Where-Object Severity -In 'Error', 'Warning')
           $found | Format-Table RuleName, Severity, ScriptName, Line, Message -AutoSize -Wrap
           if ($found.Count) { throw "PSScriptAnalyzer: $($found.Count) finding(s)." }
 
       - name: Cache Avalonia runtime
-        uses: actions/cache@v4
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: HGPM/Avalonia/bin
           key: avalonia-win-x64-${{ hashFiles('HGPM/Resources/AvaloniaPackages.json') }}
-
-      - name: Build the module
-        # Get-AvaloniaBinaries.ps1 loads the module, which is built from Code/ (not in the repository).
-        shell: pwsh
-        run: ./CI/03_Build.ps1
 
       - name: Stage Avalonia runtime
         shell: pwsh
         run: ./HGPM/Avalonia/Get-AvaloniaBinaries.ps1 -Rid win-x64
 
-      - name: Build and test
+      - name: Test
         # The windows of the GUI must run here: an Avalonia runtime missing fails the job.
         shell: pwsh
-        run: ./CI/Invoke-Tests.ps1 -OutputPath TestResults.xml -RequireRun '* window', 'Policy setting form', 'Group Policy Management view'
+        run: ./CI/Invoke-Tests.ps1 -NoBuild -OutputPath TestResults.xml -RequireRun '* window', 'Policy setting form', 'Group Policy Management view'
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: test-results
           path: TestResults.xml
@@ -62,41 +111,43 @@ jobs:
   test-linux:
     # The console must also run on Linux: every test, the GUI included (Avalonia X11 backend
     # on a virtual X server).
+    needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Download the module
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: module
+          path: HGPM
 
       - name: Install Pester
         shell: pwsh
-        run: ./CI/Install-CIModule.ps1 -Name Pester -MinimumVersion 5.5.0
+        run: ./CI/Install-CIModule.ps1 -Name Pester -RequiredVersion 6.2.0
 
       - name: Install the virtual X server and the X11 libraries
         run: sudo apt-get update && sudo apt-get install -y xvfb libx11-6 libice6 libsm6 libfontconfig1 fonts-dejavu-core
 
       - name: Cache Avalonia runtime
-        uses: actions/cache@v4
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: HGPM/Avalonia/bin
           key: avalonia-linux-x64-${{ hashFiles('HGPM/Resources/AvaloniaPackages.json') }}
-
-      - name: Build the module
-        # Get-AvaloniaBinaries.ps1 loads the module, which is built from Code/ (not in the repository).
-        shell: pwsh
-        run: ./CI/03_Build.ps1
 
       - name: Stage Avalonia runtime
         shell: pwsh
         run: ./HGPM/Avalonia/Get-AvaloniaBinaries.ps1 -Rid linux-x64
 
-      - name: Build and test
+      - name: Test
         # 1920x1080 screen: the default Xvfb screen (640x480) is smaller than the tested windows.
         # The windows of the GUI must run here too (one text: -File passes it as one argument).
-        run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" pwsh -NoProfile -File ./CI/Invoke-Tests.ps1 -OutputPath TestResults-linux.xml -RequireRun "* window,Policy setting form,Group Policy Management view"
+        run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" pwsh -NoProfile -File ./CI/Invoke-Tests.ps1 -NoBuild -OutputPath TestResults-linux.xml -RequireRun "* window,Policy setting form,Group Policy Management view"
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: test-results-linux
           path: TestResults-linux.xml
@@ -104,6 +155,7 @@ jobs:
   test-samba:
     # The tests that write to a domain (links, Registry.pol, versions, groups, restore, samba-tool),
     # against a Samba AD DC provisioned on the runner, with a Kerberos ticket as on a real domain.
+    needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -114,11 +166,17 @@ jobs:
       # A throwaway domain, only on this runner.
       CI_ADMIN_PASSWORD: 'Ci-Passw0rd-Samba'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Download the module
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: module
+          path: HGPM
 
       - name: Install Pester
         shell: pwsh
-        run: ./CI/Install-CIModule.ps1 -Name Pester -MinimumVersion 5.5.0
+        run: ./CI/Install-CIModule.ps1 -Name Pester -RequiredVersion 6.2.0
 
       - name: Install Samba, Kerberos and the SASL GSSAPI module of LDAP
         run: |
@@ -181,7 +239,6 @@ jobs:
         shell: pwsh
         run: |
           $PSVersionTable | Format-Table -AutoSize | Out-String | Write-Host
-          ./CI/03_Build.ps1 *> $null
           Import-Module ./HGPM/HGPM.psd1
           & (Get-Module HGPM) { Get-PSGPOPlatform | Format-List | Out-String | Write-Host }
           try {
@@ -193,14 +250,14 @@ jobs:
               throw
           }
 
-      - name: Build and test against the domain
+      - name: Test against the domain
         # -Command, not -File: -File passes the list of test files as separate arguments.
         # What this job is for must run: a variable misnamed would skip it, green.
-        run: pwsh -NoProfile -Command "./CI/Invoke-Tests.ps1 -Path ./CI/tests/PSGPOTools.Ldap.tests.ps1, ./CI/tests/PSGPOTools.RegistryPol.tests.ps1 -OutputPath TestResults-samba.xml -RequireRun 'Get-PSGPODirectory against a domain controller', 'Scripts of the lab', 'Approval written to a domain controller', 'Changes written to a domain controller', 'Fine-grained password policies written to a domain controller'"
+        run: pwsh -NoProfile -Command "./CI/Invoke-Tests.ps1 -NoBuild -Path ./CI/tests/PSGPOTools.Ldap.tests.ps1, ./CI/tests/PSGPOTools.RegistryPol.tests.ps1 -OutputPath TestResults-samba.xml -RequireRun 'Get-PSGPODirectory against a domain controller', 'Scripts of the lab', 'Approval written to a domain controller', 'Changes written to a domain controller', 'Fine-grained password policies written to a domain controller'"
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: test-results-samba
           path: TestResults-samba.xml

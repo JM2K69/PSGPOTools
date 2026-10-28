@@ -14,7 +14,7 @@ approval).
 | Network, to the domain controllers | LDAP 389 (signed and sealed) or LDAPS 636, Kerberos 88, SMB 445 (SYSVOL), DNS 53 |
 | Network, to the file server | SMB 445: the share of the audit log, the share of the backups |
 | Linux | `smbclient`, `samba-tool`, `python3-samba`, `krb5-user`, a Kerberos ticket (`kinit`) |
-| The first start of a console | nuget.org for the Avalonia runtime, or the runtime installed beforehand ([installation](installation.md#the-avalonia-runtime)) |
+| The first start of a console | nuget.org (or an internal feed) for the Avalonia runtime, or the runtime installed beforehand ([installation](installation.md#the-avalonia-runtime), [offline](offline.md)) |
 | The groups | the approvers (Tier 0), the creators of each tier, the auditors, the purgers: groups of the domain, made beforehand |
 
 Keep the consoles of a domain on **the same version** of HGPM: the [configuration](../reference/configuration.md#console)

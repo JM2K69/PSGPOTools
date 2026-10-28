@@ -14,7 +14,9 @@
         - this version is not on the gallery yet (the gallery refuses a version twice).
 
         The package is the folder HGPM without the Avalonia runtime (Avalonia/bin): the console
-        downloads it the first time it opens, checked against its pinned SHA-512.
+        downloads it the first time it opens, checked against its pinned SHA-512. The Release
+        workflow gives the one CI/05_Package.ps1 made (-PackagePath): signed when the certificate
+        is given, and the one SHA256SUMS and the attestation of the release name.
 
         Writes the notes of the version (its section of CHANGELOG.md) to -NotesPath, for the release
         of GitHub.
@@ -25,6 +27,9 @@
         made, nothing is published.
     .PARAMETER NotesPath
         Where to write the notes of the version.
+    .PARAMETER PackagePath
+        The package to publish (the HGPM folder CI/05_Package.ps1 made); made from the built module
+        when not given.
     .EXAMPLE
         ./CI/03_Build.ps1; ./CI/04_Publish.ps1 -Tag v0.1.3-alpha
         Checks the version and makes the package, without publishing it.
@@ -33,7 +38,8 @@
 param(
     [Parameter(Mandatory)] [string]$Tag,
     [string]$ApiKey,
-    [string]$NotesPath
+    [string]$NotesPath,
+    [string]$PackagePath
 )
 
 $ErrorActionPreference = 'Stop'
@@ -60,12 +66,19 @@ if (-not (Test-Path -LiteralPath (Join-Path $source "$moduleName.psm1"))) { thro
 $null = Test-ModuleManifest -Path $manifestPath
 
 # The package: the module without the Avalonia runtime, in a folder of its name.
-$package = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-publish-$([guid]::NewGuid().ToString('N'))" $moduleName
-$null = New-Item -ItemType Directory -Path $package -Force
-Copy-Item -Path (Join-Path $source '*') -Destination $package -Recurse
-Remove-Item -LiteralPath (Join-Path $package 'Avalonia' 'bin') -Recurse -Force -ErrorAction SilentlyContinue
-# The license and its attribution go with every copy of the module (Apache License 2.0, section 4).
-foreach ($file in 'LICENSE', 'NOTICE') { Copy-Item -LiteralPath (Join-Path $PSScriptRoot '..' $file) -Destination $package }
+if ($PackagePath) {
+    $package = (Resolve-Path -LiteralPath $PackagePath).Path
+    if ((Split-Path -Leaf $package) -ne $moduleName -or -not (Test-Path -LiteralPath (Join-Path $package "$moduleName.psm1"))) { throw "$PackagePath is not a package of $moduleName (CI/05_Package.ps1)." }
+    $packaged = Import-PowerShellDataFile -Path (Join-Path $package "$moduleName.psd1")
+    if ("$($packaged.ModuleVersion)" -ne "$($data.ModuleVersion)") { throw "The package is $($packaged.ModuleVersion), the manifest $($data.ModuleVersion)." }
+} else {
+    $package = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-publish-$([guid]::NewGuid().ToString('N'))" $moduleName
+    $null = New-Item -ItemType Directory -Path $package -Force
+    Copy-Item -Path (Join-Path $source '*') -Destination $package -Recurse
+    Remove-Item -LiteralPath (Join-Path $package 'Avalonia' 'bin') -Recurse -Force -ErrorAction SilentlyContinue
+    # The license and its attribution go with every copy of the module (Apache License 2.0, section 4).
+    foreach ($file in 'LICENSE', 'NOTICE') { Copy-Item -LiteralPath (Join-Path $PSScriptRoot '..' $file) -Destination $package }
+}
 $files = @(Get-ChildItem -LiteralPath $package -Recurse -File)
 Write-Host "[PUBLISH] $moduleName $version : $($files.Count) files, $([math]::Round(($files | Measure-Object Length -Sum).Sum / 1MB, 1)) MB in $package"
 

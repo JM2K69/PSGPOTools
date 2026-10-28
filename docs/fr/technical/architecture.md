@@ -21,7 +21,10 @@ docs/                 cette documentation (en, fr, assets)
 ```
 
 `CI/03_Build.ps1` concatène les classes et les fonctions dans `HGPM.psm1` et écrit les
-fonctions publiques dans le manifest. Le module s'appelle toujours `HGPM`, quel que soit le
+fonctions publiques dans le manifest. La construction est reproductible : pas de date, les
+fichiers dans l'ordre de leurs noms, des fins de ligne LF, pour que les mêmes sources donnent les
+mêmes octets sur tout ordinateur ([installation hors ligne](../getting-started/offline.md#le-reconstruire)).
+Le module s'appelle toujours `HGPM`, quel que soit le
 nom du dossier du dépôt.
 
 ## Les couches

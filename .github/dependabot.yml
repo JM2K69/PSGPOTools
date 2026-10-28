@@ -1,0 +1,13 @@
+# The actions of the workflows are pinned to a commit: Dependabot proposes their new versions (and
+# the commits of their security fixes) as pull requests, which run the CI before they are merged.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
+    commit-message:
+      prefix: CI

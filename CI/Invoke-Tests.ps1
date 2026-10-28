@@ -13,6 +13,8 @@
     of them at all, fails the run. A CI job gives what it is there to test (the windows of the
     GUI, the tests against a domain controller): a runtime or a variable missing does not turn it
     into a green run that tested nothing.
+.PARAMETER NoBuild
+    Tests the module already built (the CI builds it once, then tests and publishes that one).
 #>
 [CmdletBinding()]
 param(
@@ -20,7 +22,9 @@ param(
 
     [string[]]$Path = @(Join-Path $PSScriptRoot 'tests'),
 
-    [string[]]$RequireRun = @()
+    [string[]]$RequireRun = @(),
+
+    [switch]$NoBuild
 )
 
 $ErrorActionPreference = 'Stop'
@@ -34,7 +38,11 @@ $env:PSGPOTOOLS_SETTINGS_PATH = Join-Path ([System.IO.Path]::GetTempPath()) "PSG
 $env:PSGPOTOOLS_BACKUP_PATH = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-tests-backups-$PID"
 $env:PSGPOTOOLS_CACHE_PATH = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-tests-cache-$PID"
 
-& (Join-Path $PSScriptRoot '03_Build.ps1')
+if ($NoBuild) {
+    if (-not (Test-Path -LiteralPath (Join-Path $PSScriptRoot '..' 'HGPM' 'HGPM.psm1'))) { throw 'The module is not built: run CI/03_Build.ps1, or omit -NoBuild.' }
+} else {
+    & (Join-Path $PSScriptRoot '03_Build.ps1')
+}
 
 Import-Module Pester -MinimumVersion 5.5.0
 

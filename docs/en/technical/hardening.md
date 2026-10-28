@@ -447,6 +447,70 @@ GPO without `GPT.INI`; a folder of `Policies` without a GPO:
 | `Get-PSGPOReplicationStatus` | the two GPOs *SysvolDiffers*, the folder *OrphanFolder* | the same |
 | Cleaned up | the GPOs and the folder deleted, no problem left | the same |
 
+## The supply chain { #supply-chain }
+
+### The threat
+
+- **A package that is not the one tested**: the release built the module again, on another
+  runner, at another time; the tests ran another build. Nothing let anyone check that a module was
+  built from the sources of its tag.
+- **A runtime changed after its install**: the Avalonia assemblies, checked when they were
+  downloaded, were then loaded from a folder that can be written to later (the folder of the
+  module, the data folder of the user). A library replaced or added there runs in the console of an
+  administrator of the domain.
+- **The tools of the CI changing by themselves**: an action moved under its tag, a new version of
+  Pester or of the site generator, a token of the tests that could write to the repository.
+- **Computers without internet**: the only way to the runtime was a folder copied by hand, checked
+  by nothing.
+
+### What the console does
+
+- **One build, reproducible**: no date, the sources in the order of their names, LF line endings:
+  the same bytes from the same sources, on Windows and on Linux. The job `build` of the CI makes the
+  module, the other jobs test that one, the Windows job builds it again and compares, and the
+  release publishes that one ([tests](tests.md#ci)).
+- **SHA256SUMS and an attestation**: each release lists the SHA-256 of every file of the module and
+  of every archive, attested by GitHub (`actions/attest`, Sigstore): `gh attestation verify` says a
+  file was built by the release workflow from the commit of the tag.
+- **Authenticode, when the certificate is given**: the scripts of the module signed and
+  timestamped, and the catalog `HGPM.cat` of all its files (`Test-FileCatalog`); the certificate is
+  a secret of the environment of the release.
+- **Offline archives**: the module with the Avalonia runtime of each platform, for the computers
+  without internet ([offline installation](../getting-started/offline.md)).
+- **The runtime pinned file by file**: the SHA-256 of each file of each runtime is in the module;
+  the console checks them each time it loads the runtime, and refuses a library added next to them,
+  before anything is loaded. The packages, from nuget.org, an internal feed or a folder
+  (`PSGPOTOOLS_NUGET_SOURCE`), are checked against their SHA-512 as before.
+- **The CI pinned and read-only**: each action pinned to a commit (Dependabot proposes the new
+  ones), Pester, PSScriptAnalyzer and the site generator to a version; the jobs of the tests read
+  the repository only, the job that publishes has the rights it needs and the secrets of its
+  environment.
+
+### Tested
+
+`PSGPOTools.Release.tests.ps1`: the build gives the same bytes in two cultures, and the module of
+the repository; no date, LF, no BOM, the sources in the order of their names; the package without
+the runtime, with its license; its archive and `SHA256SUMS`, each line checked; a folder not empty
+refused; on Windows, the scripts and the catalog signed with a certificate made for the test, the
+catalog failing once a file changed; each action of the workflows pinned to a commit, the modules of
+the tests to a version, the rights of each workflow, the release publishing the module of the tests.
+`PSGPOTools.AvaloniaInstall.tests.ps1`: each file of each runtime pinned; a file that is not the one
+pinned installs nothing; the packages from a folder (flat, as a feed, any case) and from a feed
+(its index read); a download tried three times, then said; a runtime with a file changed, missing,
+or a library added refused.
+
+On both labs, the offline archive of the platform (made by `CI/05_Package.ps1`), installed as
+[the page](../getting-started/offline.md) says, without internet:
+
+| Step | hardenbox.labo (Linux) | powershell.labo (Windows) |
+|---|---|---|
+| The archive and each file of the module against `SHA256SUMS` | the same (61 files) | the same (61 files) |
+| The console opened, the runtime of the archive loaded | yes, from `Avalonia/bin/linux-x64` | yes, from `Avalonia/bin/win-x64` |
+| A byte of `Avalonia.Base.dll` changed | *Avalonia.Base.dll differs: nothing of it is loaded*, no assembly loaded | the same |
+| A library added next to the runtime | *libextra.so is not part of it*, no assembly loaded | *version.dll is not part of it*, no assembly loaded |
+| The runtime from a folder of `.nupkg` files | installed (15 packages) | (Linux only) |
+| A package of that folder altered | *SHA-512 differs: nothing is installed* | (Linux only) |
+
 ## Other guards { #other-guards }
 
 `PSGPOTools.Hardening.tests.ps1` also tests:
