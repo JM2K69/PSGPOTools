@@ -29,7 +29,7 @@ and is Tier 0's from then on.
 | The delegation of the creation of GPOs | `Initialize-PSGPOWorkflow -Apply` | Group Policy Creator Owners, whose GPOs skip the workflow | never uses Group Policy Creator Owners | keep Group Policy Creator Owners empty |
 | The audit log (`Audit.Path`) | each account, its own file | a technician rewrites its lines, writes in the name of another, a share down loses them | append only, chained lines checked when read, the log of the system first, a local queue ([hardening](hardening.md#audit-log)) | send the log of the system to a SIEM; the purgers in Tier 0 |
 | The backups (`Backup.Path`) | Tier 0 | a backup changed, then restored | checks their SHA-256 and their paths; Tier 0 only | only Tier 0 writes the share |
-| The admin workstation | its user | a malicious module, a stolen ticket | a signed LDAP, signed SMB on Linux, no password on plain LDAP; the Avalonia runtime checked against its SHA-512 | an admin workstation per tier, the module from the Gallery |
+| The admin workstation | its user | a malicious module, a stolen ticket | a signed LDAP, signed SMB on Linux, no password on plain LDAP; the Avalonia runtime checked file by file each time it is loaded; the files of a release attested ([supply chain](hardening.md#supply-chain)) | an admin workstation per tier, the module from the Gallery or an offline archive checked ([offline installation](../getting-started/offline.md)) |
 
 ## What HGPM relies on
 
@@ -52,5 +52,6 @@ and is Tier 0's from then on.
 - **On Samba**, the owner of a file of the audit log can still write in it with a tool that opens
   it to append: the chain shows a line changed, the log of the system keeps a copy.
 - **A Domain Admin** can do everything, HGPM included: protect Tier 0 as the domain requires.
-- **The module itself** is not signed yet; install it from the PowerShell Gallery, on admin
-  workstations only.
+- **The module itself** is not signed with Authenticode yet (the release signs it once its
+  certificate is given): check its files against `SHA256SUMS` and their attestation, and install it
+  on admin workstations only.

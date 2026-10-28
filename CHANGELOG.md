@@ -1,5 +1,19 @@
 # HGPM Release History
 
+## Unreleased
+
+### Security
+
+* The module published is the one the tests ran: the CI builds it once (job `build`), every job tests that one, and the release publishes it, where it built the module again. The build is reproducible (no date, the sources in the order of their names, LF line endings): the same bytes on Windows and on Linux, which the CI checks at each commit
+* Each release lists the SHA-256 of every file of the module and of every archive (`SHA256SUMS`), attested by GitHub (`gh attestation verify <file> --repo JM2K69/PSGPOTools`); with the secrets `CODE_SIGNING_PFX` and `CODE_SIGNING_PASSWORD`, its scripts are signed with Authenticode and timestamped, with a catalog `HGPM.cat` of all its files
+* The Avalonia runtime is checked file by file each time the console loads it (the SHA-256 of each file of each runtime pinned in the module), and a library added next to it is refused, before anything of it is loaded: a runtime changed in the folder of the module or of the user no longer runs in the console of an administrator
+* The CI reads the repository only, and the release job has the rights it needs; the actions are pinned to a commit (Dependabot proposes their new versions), Pester, PSScriptAnalyzer and the site generator to a version
+
+### Added
+
+* Offline archives in each release: the module with the Avalonia runtime of win-x64, win-arm64, linux-x64 and linux-arm64, for the computers without internet (page Offline installation)
+* `PSGPOTOOLS_NUGET_SOURCE`: the Avalonia packages from an internal NuGet feed (its `index.json` or the base address of its packages) or a folder of `.nupkg` files instead of nuget.org, checked the same; a download is tried three times, two minutes each
+
 ## 0.1.20 - alpha
 
 ### Added

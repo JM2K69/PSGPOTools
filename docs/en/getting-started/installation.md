@@ -35,10 +35,16 @@ The window runs on Avalonia 11. Its assemblies are not shipped with the module: 
 window opens, the console downloads the 21 NuGet packages of `Resources/AvaloniaPackages.json`
 for the runtime of the computer (`win-x64`, `win-arm64`, `linux-x64`, `linux-arm64`, `osx`),
 checks each one against its pinned SHA-512 (the hash of the nuget.org catalog) before extracting
-anything, then puts them in place at once.
+anything, then each file of the runtime against its pinned SHA-256, and puts them in place at
+once. The console checks these files again each time it loads them, and refuses a library added
+next to them.
 
 - They go into the module folder when it can be written to, else into the data folder of the user.
-- `PSGPOTOOLS_AVALONIA_NO_DOWNLOAD=1` forbids the download (offline computers).
+- `PSGPOTOOLS_AVALONIA_NO_DOWNLOAD=1` forbids the download (offline computers: the
+  [offline archives](offline.md) of each release have the runtime).
+- `PSGPOTOOLS_NUGET_SOURCE` takes them from an internal NuGet feed, or a folder of `.nupkg` files,
+  instead of nuget.org; the pinned hashes apply all the same ([offline installation](offline.md#an-internal-nuget-feed)).
+  A download is tried three times, two minutes each.
 - `Avalonia/Get-AvaloniaBinaries.ps1` installs them beforehand, or for another computer. It loads
   the module: from the repository, build it first (`CI/03_Build.ps1`).
 

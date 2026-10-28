@@ -36,11 +36,18 @@ La fenêtre fonctionne sur Avalonia 11. Ses assemblies ne sont pas livrées avec
 première ouverture d'une fenêtre, la console télécharge les 21 paquets NuGet de
 `Resources/AvaloniaPackages.json` pour le runtime de l'ordinateur (`win-x64`, `win-arm64`,
 `linux-x64`, `linux-arm64`, `osx`), vérifie chacun avec son SHA-512 épinglé (l'empreinte du
-catalogue nuget.org) avant d'extraire quoi que ce soit, puis les met en place d'un coup.
+catalogue nuget.org) avant d'extraire quoi que ce soit, puis chaque fichier du runtime avec son
+SHA-256 épinglé, et les met en place d'un coup. La console vérifie de nouveau ces fichiers à chaque
+chargement, et refuse une bibliothèque ajoutée à côté.
 
 - Ils vont dans le dossier du module quand on peut y écrire, sinon dans le dossier de données de
   l'utilisateur.
-- `PSGPOTOOLS_AVALONIA_NO_DOWNLOAD=1` interdit le téléchargement (ordinateurs hors ligne).
+- `PSGPOTOOLS_AVALONIA_NO_DOWNLOAD=1` interdit le téléchargement (ordinateurs hors ligne : les
+  [archives hors ligne](offline.md) de chaque release ont le runtime).
+- `PSGPOTOOLS_NUGET_SOURCE` les prend dans un flux NuGet interne, ou un dossier de fichiers
+  `.nupkg`, au lieu de nuget.org ; les empreintes épinglées s'appliquent de même
+  ([installation hors ligne](offline.md#un-flux-nuget-interne)). Un téléchargement est essayé
+  trois fois, deux minutes chacune.
 - `Avalonia/Get-AvaloniaBinaries.ps1` les installe à l'avance, ou pour un autre ordinateur. Il
   charge le module : depuis le dépôt, construisez-le d'abord (`CI/03_Build.ps1`).
 

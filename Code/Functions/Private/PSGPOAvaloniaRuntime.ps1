@@ -32,13 +32,17 @@ function Initialize-PSGPOAvaloniaRuntime {
     }
 
     $rid = Get-PSGPOAvaloniaRid
-    # The module or the data folder of the user; installed from nuget.org on first use.
+    # The module or the data folder of the user; installed from nuget.org (or the source of
+    # PSGPOTOOLS_NUGET_SOURCE) on first use.
     $avaloniaPath = Get-PSGPOAvaloniaPath -Rid $rid
     if (-not $avaloniaPath) {
-        Write-Information -InformationAction Continue "HGPM: the Avalonia runtime of the window ($rid) is not installed; installing it once from nuget.org (checked packages)..."
+        Write-Information -InformationAction Continue "HGPM: the Avalonia runtime of the window ($rid) is not installed; installing it once from $(Get-PSGPONuGetSource) (checked packages)..."
         $avaloniaPath = Install-PSGPOAvaloniaRuntime -Rid $rid
         Write-Information -InformationAction Continue "HGPM: Avalonia runtime installed in $avaloniaPath."
     }
+    # Its files are those pinned, and nothing else is next to them: a library changed in a folder
+    # others can write to would run in the console of an administrator.
+    Assert-PSGPOAvaloniaRuntime -Path $avaloniaPath -Rid $rid
 
     # Common managed assemblies, plus the platform-specific windowing backend.
     $assemblies = @(

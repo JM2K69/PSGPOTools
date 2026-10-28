@@ -23,6 +23,9 @@ Invoke-Pester -Configuration $Config
 | `PSGPOTools.Ldap.tests.ps1` | LDAP, gPLink, samba-tool, RSAT (mocked), and against a domain controller |
 | `PSGPOTools.PasswordPolicy.tests.ps1` | the fine-grained password policies: the values of the directory, the checks, the PSO that applies and why, the commands |
 | `PSGPOTools.Gui.tests.ps1` | the real windows of both consoles (`-OnShown`) |
+| `PSGPOTools.Health.tests.ps1` | the health of the GPOs and their replication between domain controllers (three simulated) |
+| `PSGPOTools.AvaloniaInstall.tests.ps1` | the Avalonia runtime: its pinned packages and files, where they come from, the checks before it is loaded |
+| `PSGPOTools.Release.tests.ps1` | the build reproducible, the package of a release (SHA256SUMS, signature, catalog), the rules of the workflows |
 | `PSGPOTools.Public.tests.ps1` | the commands exported |
 | `PSGPOTools.Update.tests.ps1` | the versions of HGPM and `Test-PSGPOUpdate` (the Gallery mocked) |
 
@@ -77,11 +80,14 @@ failed, skipped, not run) to the summary of its job on GitHub (`GITHUB_STEP_SUMM
 
 ## CI
 
-`.github/workflows/ci.yml` runs three jobs on each push to `master` and `main`, and on each pull request:
+`.github/workflows/ci.yml` runs four jobs on each push to `master` and `main`, and on each pull request
+(with the rights to read the repository only; the actions pinned to a commit, Pester, PSScriptAnalyzer
+and the site generator to a version):
 
 | Job | Runs |
 |---|---|
-| `test` | PSScriptAnalyzer on `Code/` (`PSScriptAnalyzerSettings.psd1`: no error, no warning), then every test on `windows-latest`; the windows must run (`-RequireRun`) |
+| `build` | builds the module once (`CI/03_Build.ps1`), checks its manifest is the one of the repository, and gives it to the other jobs (the artifact `module`): they test this one, and the release publishes it |
+| `test` | builds the module again on Windows and checks it is the same bytes (the build is reproducible), PSScriptAnalyzer on `Code/` (`PSScriptAnalyzerSettings.psd1`: no error, no warning), then every test on `windows-latest`; the windows must run (`-RequireRun`) |
 | `test-linux` | every test on `ubuntu-latest` (Avalonia on Xvfb); the windows must run |
 | `test-samba` | the tests that write to a domain, against a Samba AD DC provisioned on the runner (`CI.TEST`), with a Kerberos ticket of its administrator; the reading of the domain, the scripts of the lab, the approval, the changes and the password policies must run |
 
@@ -96,10 +102,22 @@ number of files and a SHA-256, line endings and case of the names aside). After 
 `sources/PolicyDefinitions`, `CI/Update-AdmxCatalog.ps1` writes the catalog again; a test checks it.
 
 `.github/workflows/release.yml` publishes the module on the PowerShell Gallery for a tag of a version
-(`v0.1.3-alpha`) only, never for a commit: it runs the three jobs of the CI on the tagged commit, then
-`CI/04_Publish.ps1` (the tag is the version of the manifest, `CHANGELOG.md` has its section, the gallery
-does not have it yet) with the secret `PSGALLERY_API_KEY` of the environment `psgallery`, and creates the
-release of GitHub with the notes of the version.
+(`v0.1.3-alpha`) only, never for a commit. It runs the jobs of the CI on the tagged commit, then, on
+Windows, with the rights it needs and those only:
+
+1. `CI/04_Publish.ps1` checks the version (the tag is the version of the manifest, `CHANGELOG.md` has its
+   section, the gallery does not have it yet);
+2. `CI/05_Package.ps1` makes the package from the module the tests ran (the artifact `module`, never a
+   build of its own): signed with Authenticode, with its catalog `HGPM.cat`, when the secrets
+   `CODE_SIGNING_PFX` (the PFX in Base64) and `CODE_SIGNING_PASSWORD` are given; its archive, the
+   [offline archives](../getting-started/offline.md) with the Avalonia runtime of each platform, and
+   `SHA256SUMS`;
+3. `actions/attest` attests every file of `SHA256SUMS` (`gh attestation verify`);
+4. `CI/04_Publish.ps1` publishes the package with the secret `PSGALLERY_API_KEY`, and the release of
+   GitHub is created with the notes of the version, the archives and `SHA256SUMS`.
+
+The secrets are those of the environment `psgallery`, whose protection rules apply before they are
+given.
 
 The documentation is built and published by `.github/workflows/docs.yml`. It makes the Changelog page from
 `CHANGELOG.md`, and puts the version of the module (`ModuleVersion` of its manifest) and the commit the

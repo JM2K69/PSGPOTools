@@ -21,7 +21,9 @@ docs/                 this documentation (en, fr, assets)
 ```
 
 `CI/03_Build.ps1` concatenates the classes and the functions into `HGPM.psm1` and writes the
-public functions in the manifest. The module name is always `HGPM`, whatever the folder of
+public functions in the manifest. The build is reproducible: no date, the files in the order of
+their names, LF line endings, so that the same sources give the same bytes on any computer
+([offline installation](../getting-started/offline.md#build-it-again)). The module name is always `HGPM`, whatever the folder of
 the repository is called.
 
 ## Layers

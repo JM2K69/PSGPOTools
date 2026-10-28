@@ -55,7 +55,11 @@ says what was tested, on Samba AD and on Active Directory. In short:
 - **The backups** are checked against their SHA-256, and their paths must stay in the GPO folder.
   The hash is written by whoever writes the backup: whoever can write the backup folder can change
   a backup. Keep it where only Tier 0 writes (`Backup.Path`, `Initialize-PSGPOBackupShare`).
-- **The Avalonia runtime** is downloaded from nuget.org on the first opening, each package checked
-  against the SHA-512 pinned in `Resources/AvaloniaPackages.json`.
+- **The Avalonia runtime** is downloaded from nuget.org (or an internal feed) on the first opening,
+  each package checked against the SHA-512 pinned in `Resources/AvaloniaPackages.json`, and each
+  file against its pinned SHA-256 each time the console loads it.
+- **The releases**: the module published is the one the tests ran, built reproducibly; each release
+  lists the SHA-256 of its files (`SHA256SUMS`), attested by GitHub
+  (`gh attestation verify <file> --repo JM2K69/PSGPOTools`).
 - **Authentication**: LDAP is signed and sealed (Kerberos or NTLM on Windows, Kerberos on Linux),
   or over LDAPS; a password is never sent over plain LDAP. SMB requires signing on Linux.

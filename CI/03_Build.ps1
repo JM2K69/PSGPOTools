@@ -15,72 +15,36 @@ $ModuleFolderPath = Join-Path -Path $Root -ChildPath $ModuleName
 $CodeSourcePath = Join-Path -Path $Root -ChildPath "Code"
 
 $ExportPath = Join-Path -Path $ModuleFolderPath -ChildPath "$($ModuleName).psm1"
-if(Test-Path $ExportPath){
-    Write-Host "[BUILD][PSM1] PSM1 file detected. Deleting..." -ForegroundColor RED -BackgroundColor White
-    Remove-Item -Path $ExportPath -Force
-}
-$DAte = Get-DAte
-"#Generated at $($Date) by Nicolas BAUDIN" | out-File -FilePath $ExportPath -Encoding utf8 -Append
 
+# The same bytes from the same sources, on any computer: no date, the files in a fixed order
+# (ordinal, neither the order of the file system nor the one of the culture), LF line endings,
+# UTF-8 without BOM. The release publishes the module the tests ran, and anyone can build it again
+# from the tag and compare (docs: Offline installation).
 Write-Host "[BUILD][Code] Loading Class, public and private functions" -ForegroundColor RED -BackgroundColor White
-
-$MainPSM1Contents = @()
-
-
-
-$ClassFolderPath = Join-Path -Path $CodeSourcePath -ChildPath 'Classes'
-If(Test-Path $ClassFolderPath){
-    $PublicClasses = Get-ChildItem -Path $ClassFolderPath -Filter *.ps1 | sort-object Name
-    $MainPSM1Contents += $PublicClasses
+function Get-BuildSource {
+    param([string]$Path)
+    if (-not (Test-Path -LiteralPath $Path)) { return }
+    $files = @(Get-ChildItem -LiteralPath $Path -Filter *.ps1 -File)
+    [System.Linq.Enumerable]::ToArray([System.Linq.Enumerable]::OrderBy($files, [Func[object, string]] { param($File) $File.Name }, [System.StringComparer]::OrdinalIgnoreCase))
 }
-
+$ClassFolderPath = Join-Path -Path $CodeSourcePath -ChildPath 'Classes'
 $PrivateFunctionsFolderPath = Join-Path -Path $CodeSourcePath -ChildPath 'Functions' -AdditionalChildPath 'Private'
 $PublicFunctionsFolderPath = Join-Path -Path $CodeSourcePath -ChildPath 'Functions' -AdditionalChildPath 'Public'
-If(Test-Path $PrivateFunctionsFolderPath){
+$PublicFunctions = @(Get-BuildSource $PublicFunctionsFolderPath)
+# Classes first (the functions use them), then the private and public functions, then the post content.
+$Sources = @(Get-BuildSource $ClassFolderPath) + @(Get-BuildSource $PrivateFunctionsFolderPath) + $PublicFunctions
+$PostContentPath = Join-Path -Path $Current -ChildPath '03_postContent.ps1'
+if (Test-Path -LiteralPath $PostContentPath) { $Sources += Get-Item -LiteralPath $PostContentPath }
 
-    $PrivateFunctions = Get-ChildItem -Path $PrivateFunctionsFolderPath -Filter *.ps1
-    $MainPSM1Contents += $PrivateFunctions
-}
-
-If(Test-Path $PublicFunctionsFolderPath){
-
-    $PublicFunctions = Get-ChildItem -Path $PublicFunctionsFolderPath -Filter *.ps1
-    $MainPSM1Contents += $PublicFunctions
-}
-
-
-
-Write-Host "[BUILD][START][PRE] Adding Pre content" -ForegroundColor RED -BackgroundColor White
-
-$PreContentPath = Join-Path -Path $Current -ChildPath "03_PreContent.ps1"
-
-If(Test-Path $PrecontentPath){
-
-    $file = Get-item $PreContentPath
-    Get-Content $File.FullName | out-File -FilePath $ExportPath -Encoding utf8 -Append
-
-}else{
-    Write-Host "[BUILD][START][POST] No post content file found!" -ForegroundColor RED -BackgroundColor White
-
-}
-
-#Creating PSM1
 Write-Host "[BUILD][START][MAIN PSM1] Building main PSM1" -ForegroundColor RED -BackgroundColor White
-Foreach($file in $MainPSM1Contents){
-    Get-Content $File.FullName | out-File -FilePath $ExportPath -Encoding utf8 -Append
-
+$Content = [System.Text.StringBuilder]::new()
+[void]$Content.Append("# Generated from Code/ by CI/03_Build.ps1 (build of Nicolas BAUDIN): edit Code/, not this file.`n")
+foreach ($Source in $Sources) {
+    $Text = [System.IO.File]::ReadAllText($Source.FullName) -replace "`r`n", "`n"
+    if (-not $Text.EndsWith("`n")) { $Text += "`n" }
+    [void]$Content.Append($Text)
 }
-
-Write-Host "[BUILD][START][POST] Adding post content" -ForegroundColor RED -BackgroundColor White
-
-$PostContentPath = Join-Path -Path $Current -ChildPath "03_postContent.ps1"
-If(test-Path $PostContentPath){
-
-    $file = Get-item $PostContentPath
-    Get-Content $File.FullName | out-File -FilePath $ExportPath -Encoding utf8 -Append
-}else{
-    Write-Host "[BUILD][START][POST] No post content file found!" -ForegroundColor RED -BackgroundColor White
-}
+[System.IO.File]::WriteAllText($ExportPath, $Content.ToString(), [System.Text.UTF8Encoding]::new($false))
 
 Write-Host "[BUILD][START][PSD1] Adding functions to export" -ForegroundColor RED -BackgroundColor White
 

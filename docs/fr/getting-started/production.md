@@ -14,7 +14,7 @@ qui créent des GPO qui attendent une approbation).
 | Réseau, vers les contrôleurs de domaine | LDAP 389 (signé et chiffré) ou LDAPS 636, Kerberos 88, SMB 445 (SYSVOL), DNS 53 |
 | Réseau, vers le serveur de fichiers | SMB 445 : le partage du journal d'audit, le partage des sauvegardes |
 | Linux | `smbclient`, `samba-tool`, `python3-samba`, `krb5-user`, un ticket Kerberos (`kinit`) |
-| Le premier lancement d'une console | nuget.org pour le runtime Avalonia, ou le runtime installé avant ([installation](installation.md#le-runtime-avalonia)) |
+| Le premier lancement d'une console | nuget.org (ou un flux interne) pour le runtime Avalonia, ou le runtime installé avant ([installation](installation.md#le-runtime-avalonia), [hors ligne](offline.md)) |
 | Les groupes | les approbateurs (Tier 0), les créateurs de chaque tier, les auditeurs, les purgeurs : des groupes du domaine, créés avant |
 
 Gardez les consoles d'un domaine sur **la même version** de HGPM : la [configuration](../reference/configuration.md#console)

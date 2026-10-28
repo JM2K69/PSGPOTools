@@ -30,7 +30,7 @@ Tier 0 ne l'a pas approuvée, et elle est au Tier 0 ensuite.
 | La délégation de la création de GPO | `Initialize-PSGPOWorkflow -Apply` | Group Policy Creator Owners, dont les GPO contournent le circuit | n'utilise jamais Group Policy Creator Owners | gardez Group Policy Creator Owners vide |
 | Le journal d'audit (`Audit.Path`) | chaque compte, son propre fichier | un technicien réécrit ses lignes, écrit au nom d'un autre, un partage injoignable les perd | ajout seul, lignes chaînées vérifiées à la lecture, le journal du système d'abord, une file locale ([durcissement](hardening.md#audit-log)) | envoyez le journal du système à un SIEM ; les purgeurs au Tier 0 |
 | Les sauvegardes (`Backup.Path`) | le Tier 0 | une sauvegarde modifiée, puis restaurée | vérifie leur SHA-256 et leurs chemins ; Tier 0 seulement | seul le Tier 0 écrit le partage |
-| Le poste d'administration | son utilisateur | un module malveillant, un ticket volé | un LDAP signé, un SMB signé sous Linux, aucun mot de passe en LDAP en clair ; le runtime Avalonia vérifié par son SHA-512 | un poste d'administration par tier, le module depuis la Gallery |
+| Le poste d'administration | son utilisateur | un module malveillant, un ticket volé | un LDAP signé, un SMB signé sous Linux, aucun mot de passe en LDAP en clair ; le runtime Avalonia vérifié fichier par fichier à chaque chargement ; les fichiers d'une release attestés ([chaîne de livraison](hardening.md#supply-chain)) | un poste d'administration par tier, le module depuis la Gallery ou une archive hors ligne vérifiée ([installation hors ligne](../getting-started/offline.md)) |
 
 ## Ce sur quoi HGPM s'appuie
 
@@ -55,5 +55,6 @@ Tier 0 ne l'a pas approuvée, et elle est au Tier 0 ensuite.
   qui l'ouvre en ajout : la chaîne montre une ligne modifiée, le journal du système en garde une
   copie.
 - **Un Domain Admin** peut tout faire, HGPM compris : protégez le Tier 0 comme le domaine l'exige.
-- **Le module lui-même** n'est pas encore signé ; installez-le depuis la PowerShell Gallery, sur
-  les postes d'administration seulement.
+- **Le module lui-même** n'est pas encore signé avec Authenticode (la release le signe dès que son
+  certificat est donné) : vérifiez ses fichiers avec `SHA256SUMS` et leur attestation, et
+  installez-le sur les postes d'administration seulement.

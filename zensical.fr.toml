@@ -18,6 +18,7 @@ nav = [
   { "Accueil" = "index.md" },
   { "Prise en main" = [
     "getting-started/installation.md",
+    "getting-started/offline.md",
     "getting-started/first-steps.md",
     "getting-started/lab.md",
     "getting-started/production.md",
