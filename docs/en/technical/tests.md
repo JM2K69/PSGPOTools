@@ -25,6 +25,7 @@ Invoke-Pester -Configuration $Config
 | `PSGPOTools.Gui.tests.ps1` | the real windows of both consoles (`-OnShown`) |
 | `PSGPOTools.Health.tests.ps1` | the health of the GPOs and their replication between domain controllers (three simulated) |
 | `PSGPOTools.AvaloniaInstall.tests.ps1` | the Avalonia runtime: its pinned packages and files, where they come from, the checks before it is loaded |
+| `PSGPOTools.WellKnownSid.tests.ps1` | the well-known accounts: their table, the names typed in English or French, the suggestions while typing and the completion of the commands |
 | `PSGPOTools.Release.tests.ps1` | the build reproducible, the package of a release (SHA256SUMS, signature, catalog), the rules of the workflows |
 | `PSGPOTools.Public.tests.ps1` | the commands exported |
 | `PSGPOTools.Update.tests.ps1` | the versions of HGPM and `Test-PSGPOUpdate` (the Gallery mocked) |

@@ -2421,6 +2421,120 @@ InModuleScope -ModuleName HGPM {
             [GPOToolsSecurityTemplate]::Parse($Directory.ReadSecurityTemplate($Gpo)).GetSectionNames() | Should -Not -Contain 'Event Audit'
         }
 
+        It 'Suggests the accounts while typing: by their name for a permission, by their SID in GptTmpl.inf' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                # Typed in the text box of the AutoCompleteBox, as a user does: its suggestions.
+                $Type = {
+                    param($Box, [string]$Text)
+                    # Its template applied once laid out: its text box.
+                    $Find = { [Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Box) | Where-Object { $_ -is [Avalonia.Controls.TextBox] } | Select-Object -First 1 }
+                    Invoke-UiLoop -Until { [bool](& $Find) } -TimeoutMilliseconds 3000
+                    $Before = $Box.ItemsSource
+                    (& $Find).Text = $Text
+                    Invoke-UiLoop -Until { $Box.IsDropDownOpen -and -not [object]::ReferenceEquals($Box.ItemsSource, $Before) } -TimeoutMilliseconds 3000
+                    , @($Box.ItemsSource)
+                }
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                $Ui.directoryTabs.SelectedItem = $Ui.delegationTab
+                Invoke-UiLoop -Until { $Ui.delegationNameTextBox.IsEffectivelyVisible } -TimeoutMilliseconds 2000
+                $Rows = & $Type $Ui.delegationNameTextBox 'authen'
+                $Rows[0].Display | Should -Be 'NT AUTHORITY\Authenticated Users   S-1-5-11'
+                $Ui.delegationNameTextBox.SelectedItem = $Rows[0]
+                $Ui.delegationNameTextBox.Text | Should -Be 'Authenticated Users'
+                $Ui.filteringNameTextBox.Tag.Insert | Should -Be 'Name'
+
+                Invoke-Click $Ui.editGpoMenuItem
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource { param($n) $n.Tag -eq 'RestrictedGroups' }
+                Invoke-Click $Ui.restrictedGroupsAddButton
+                $Rows = & $Type $Ui.restrictedGroupNameTextBox 'administr'
+                $Rows[0].Value | Should -Be '*S-1-5-32-544'
+                $Ui.restrictedGroupNameTextBox.SelectedItem = $Rows[0]
+                $Ui.restrictedGroupNameTextBox.Text | Should -Be '*S-1-5-32-544'
+                # The names that begin with what is typed first; a group of the domain by its name
+                # when the SID of the domain is not known (a directory in memory).
+                $Rows = & $Type $Ui.restrictedGroupAccountBox 'domain ad'
+                $Rows[0].Display | Should -Be 'Domain Admins   RID 512'
+                $Ui.restrictedGroupAccountBox.SelectedItem = $Rows[0]
+                Invoke-Click $Ui.restrictedGroupAddMemberButton
+                $Rows = & $Type $Ui.restrictedGroupAccountBox 'remote desk'
+                $Ui.restrictedGroupAccountBox.SelectedItem = $Rows[0]
+                Invoke-Click $Ui.restrictedGroupAddMemberOfButton
+                $Ui.restrictedGroupMembersTextBox.Text | Should -Be 'Domain Admins'
+                $Ui.restrictedGroupMemberOfTextBox.Text | Should -Be '*S-1-5-32-555'
+                $Ui.restrictedGroupAccountBox.Text | Should -BeNullOrEmpty
+                # The same account again: once.
+                $Ui.restrictedGroupAccountBox.Text = '*S-1-5-32-555'
+                Invoke-Click $Ui.restrictedGroupAddMemberOfButton
+                $Ui.restrictedGroupMemberOfTextBox.Text | Should -Be '*S-1-5-32-555'
+                Invoke-Click $Ui.restrictedGroupsCancelButton
+            }
+        }
+
+        It 'Suggests the registry keys and value names of the ADMX files in a registry item, and says when a policy manages the key' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Type = {
+                    param($Box, [string]$Text)
+                    # Its template applied once laid out: its text box.
+                    $Find = { [Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Box) | Where-Object { $_ -is [Avalonia.Controls.TextBox] } | Select-Object -First 1 }
+                    Invoke-UiLoop -Until { [bool](& $Find) } -TimeoutMilliseconds 3000
+                    $Before = $Box.ItemsSource
+                    (& $Find).Text = $Text
+                    Invoke-UiLoop -Until { $Box.IsDropDownOpen -and -not [object]::ReferenceEquals($Box.ItemsSource, $Before) } -TimeoutMilliseconds 5000
+                    , @($Box.ItemsSource)
+                }
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Servers', 'C - Servers - Security Baseline'
+                Invoke-Click $Ui.editGpoMenuItem
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource {
+                    param($n) $n.Tag -is [GPOToolsPreferenceNode] -and $n.Tag.Scope -eq 'Machine' -and $n.Tag.Extension.Name -eq 'Registry'
+                }
+                Invoke-Click $Ui.preferencesNewButton
+                $Controls = $Ui.preferencesFormHost.Content.Children
+                $After = { param($Label) $Controls[[array]::IndexOf(@($Controls | ForEach-Object { "$($_.Text)" }), $Label) + 1] }
+                $Key = & $After 'Key path *'
+                $Key | Should -BeOfType [Avalonia.Controls.AutoCompleteBox]
+                $Rows = & $Type $Key 'WindowsUpdate\AU'
+                $Rows[0].Value | Should -Be 'Software\Policies\Microsoft\Windows\WindowsUpdate\AU'
+                $Rows[0].Display | Should -BeLike 'Software\Policies\Microsoft\Windows\WindowsUpdate\AU   * other policies'
+                $Key.SelectedItem = $Rows[0]
+                $Warning = $Controls[[array]::IndexOf(@($Controls), $Key) + 1]
+                $Warning.Text | Should -BeLike "A policy manages this key ('*'*): a preference writes it on the computers for good*"
+                $Rows = & $Type (& $After 'Value name (empty: the key only)') 'AUOpt'
+                $Rows[0].Value | Should -Be 'AUOptions'
+                $Rows[0].Display | Should -Be 'AUOptions   Configure Automatic Updates'
+                # A key no policy writes, or another hive: no warning.
+                $Key.Text = 'SOFTWARE\Contoso'
+                $Warning.Text | Should -BeNullOrEmpty
+                $Key.Text = 'Software\Policies\Microsoft\Windows\WindowsUpdate\AU'
+                (& $After 'Hive').SelectedItem = 'HKEY_USERS'
+                $Warning.Text | Should -BeNullOrEmpty
+                Invoke-Click $Ui.preferencesCancelButton
+
+                # A local group: the groups of every computer, its SID filled; a member picked.
+                $Ui.treeView.SelectedItem = Find-TreeNode $Ui.treeView.ItemsSource {
+                    param($n) $n.Tag -is [GPOToolsPreferenceNode] -and $n.Tag.Scope -eq 'Machine' -and $n.Tag.Extension.Name -eq 'Local Users and Groups'
+                }
+                $Ui.preferencesNewTypeComboBox.SelectedIndex = [array]::IndexOf(@($Ui.preferencesNewTypeComboBox.ItemsSource), 'Local Group')
+                Invoke-Click $Ui.preferencesNewButton
+                $Controls = $Ui.preferencesFormHost.Content.Children
+                $Group = & $After 'Group name *'
+                $Rows = & $Type $Group 'remote desk'
+                @($Rows.Value) | Should -Be @('Remote Desktop Users (built-in)')
+                $Group.SelectedItem = $Rows[0]
+                $Group.Text | Should -Be 'Remote Desktop Users (built-in)'
+                (& $After 'Group SID (built-in groups)').Text | Should -Be 'S-1-5-32-555'
+                $Members = $Ui.preferencesFormHost.Content.Children | Where-Object { $_ -is [Avalonia.Controls.Grid] } | Select-Object -First 1
+                $Picker = $Members.Children[0]
+                $Rows = & $Type $Picker 'authenticated'
+                $Picker.SelectedItem = $Rows[0]
+                Invoke-Click $Members.Children[1]
+                $MembersBox = $Controls[[array]::IndexOf(@($Controls), $Members) - 1]
+                $MembersBox.Text | Should -Be 'ADD NT AUTHORITY\Authenticated Users S-1-5-11'
+                Invoke-Click $Ui.preferencesCancelButton
+            }
+        }
+
         It 'Edits the restricted groups of a GPO, as the Group Policy editor' {
             $Gpo = $Directory.FindGpo('C - Servers - Security Baseline')
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {

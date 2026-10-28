@@ -21,7 +21,9 @@ function New-PSGPOSecurityEditor {
         [Parameter(Mandatory)] [GPOToolsSecuritySetting]$Setting,
         # Value shown; the default of its kind when $null.
         [AllowNull()] $Value,
-        [scriptblock]$OnChange = {}
+        [scriptblock]$OnChange = {},
+        # The domain whose accounts are suggested (the accounts of a user right).
+        [AllowNull()] $Directory
     )
 
     $Panel = [Avalonia.Controls.StackPanel]::new()
@@ -146,9 +148,11 @@ function New-PSGPOSecurityEditor {
             $InputRow = [Avalonia.Controls.StackPanel]::new()
             $InputRow.Orientation = [Avalonia.Layout.Orientation]::Horizontal
             $InputRow.Spacing = 6
-            $NameInput = [Avalonia.Controls.TextBox]::new()
+            # An account: suggested while typing, written as *S-1-... (Register-PSGPOAccountSuggestion).
+            $NameInput = if ($Display -eq 'Accounts') { [Avalonia.Controls.AutoCompleteBox]::new() } else { [Avalonia.Controls.TextBox]::new() }
             $NameInput.MinWidth = 260
             $NameInput.Watermark = Get-PSGPOText $(if ($Display -eq 'Accounts') { 'DOMAIN\account or *S-1-5-32-544' } else { 'New value' })
+            if ($Display -eq 'Accounts') { Register-PSGPOAccountSuggestion -Box $NameInput -Directory $Directory -Insert Sid }
             $AddButton = [Avalonia.Controls.Button]::new()
             $AddButton.Content = Get-PSGPOText 'Add'
             $RemoveButton = [Avalonia.Controls.Button]::new()

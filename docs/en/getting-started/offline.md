@@ -37,6 +37,14 @@ It says the file was built by the Release workflow of the repository, from the c
 and fails for any other file. A file of a module installed from the PowerShell Gallery is checked
 the same way (`HGPM.psm1`, `HGPM.psd1`...): `SHA256SUMS` has each of them.
 
+By default `gh` accepts any workflow of the repository, from any reference. On an administration
+workstation, require the release workflow and the tag you expect: another tag, or a file attested
+by another workflow, then fails.
+
+```bash
+gh attestation verify HGPM-0.1.21-alpha-win-x64.zip --repo JM2K69/PSGPOTools --signer-workflow JM2K69/PSGPOTools/.github/workflows/release.yml --source-ref refs/tags/v0.1.21-alpha
+```
+
 ## Install it
 
 Windows: unblock the archive before extracting it. Downloaded from the internet, its files would be

@@ -107,8 +107,11 @@ function Invoke-PSGPOLdapBinarySearch {
     } while ($cookie -and $cookie.Length)
 }
 
-# The accounts of the domain named in the configuration (sAMAccountName, DOMAIN\name or a SID):
-# Name and Sid. An unknown name stops the workflow: it would give the wrong rights.
+# The accounts of the domain named in the configuration (sAMAccountName, DOMAIN\name, a SID or
+# *SID as GptTmpl.inf writes it): Name and Sid. A well-known account the domain names in another
+# language is found by its SID (Domain Admins on a French domain controller, where it is Admins du
+# domaine; BUILTIN\Administrateurs on an English one). An unknown name stops the workflow: it
+# would give the wrong rights.
 function Find-PSGPODomainAccount {
     [CmdletBinding()]
     param(
@@ -117,13 +120,25 @@ function Find-PSGPODomainAccount {
         [Parameter(Mandatory)] [AllowEmptyCollection()] [string[]]$Name
     )
 
+    $domainSid = $null
     foreach ($item in $Name) {
-        if ($item -match '^S-1-\d+(-\d+)+$') { [pscustomobject]@{ Name = $item; Sid = $item }; continue }
-        $account = ($item -split '\\')[-1]
+        $value = $item.Trim().TrimStart('*')
+        if ($value -match '^S-1-\d+(-\d+)+$') { [pscustomobject]@{ Name = $value; Sid = $value }; continue }
+        $account = ($value -split '\\')[-1]
         $entry = @(Invoke-PSGPOLdapBinarySearch -Connection $Connection -SearchBase $DomainDistinguishedName `
                 -Filter "(sAMAccountName=$(ConvertTo-PSGPOLdapFilterValue $account))" -Attribute 'objectSid') | Select-Object -First 1
-        if (-not $entry -or -not $entry.Values['objectSid']) { throw "No account named '$item' in the domain." }
-        [pscustomobject]@{ Name = $account; Sid = ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$entry.Values['objectSid'][0]) }
+        if ($entry -and $entry.Values['objectSid']) {
+            [pscustomobject]@{ Name = $account; Sid = ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$entry.Values['objectSid'][0]) }
+            continue
+        }
+        $known = [GPOToolsWellKnownSid]::FindByName($value, $true)
+        if ($known -and $known.IsDomainAccount() -and -not $domainSid) {
+            $domain = @(Invoke-PSGPOLdapBinarySearch -Connection $Connection -SearchBase $DomainDistinguishedName -Scope Base -Attribute 'objectSid') | Select-Object -First 1
+            if ($domain -and $domain.Values['objectSid']) { $domainSid = ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$domain.Values['objectSid'][0]) }
+        }
+        $sid = if ($known) { $known.GetSid($domainSid) }
+        if (-not $sid) { throw "No account named '$item' in the domain." }
+        [pscustomobject]@{ Name = $known.Name; Sid = $sid }
     }
 }
 
@@ -719,11 +734,11 @@ function Resolve-PSGPOApplyTo {
     )
 
     $Name = $Name.Trim()
-    # The well-known accounts (Authenticated Users, SYSTEM...), by name, NT AUTHORITY\name or SID.
-    $short = ($Name -split '\\')[-1]
-    foreach ($known in [GPOToolsSecurityDescriptor]::WellKnownNames.GetEnumerator()) {
-        if ($Name -eq $known.Key -or $short -eq $known.Value) { return [pscustomobject]@{ Name = $known.Value; Sid = $known.Key } }
-    }
+    # The well-known accounts of every computer (Authenticated Users, SYSTEM...), by their name in
+    # English or French, NT AUTHORITY\name, SID or *SID (GPOToolsWellKnownSid).
+    $value = $Name.TrimStart('*')
+    $known = if ($value -match '^S-1-\d+(-\d+)+$') { [GPOToolsWellKnownSid]::FindBySid($value) } else { [GPOToolsWellKnownSid]::FindByName($value, $false) }
+    if ($known -and -not $known.IsDomainAccount()) { return [pscustomobject]@{ Name = $known.Name; Sid = $known.Sid } }
     if ($Directory -isnot [GPOToolsLdapDirectory]) { return [pscustomobject]@{ Name = $Name; Sid = $Name } }
     $connection = New-PSGPODirectoryConnection -Directory $Directory
     try {

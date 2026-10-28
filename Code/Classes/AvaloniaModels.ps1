@@ -277,3 +277,15 @@ class AvaloniaHealthRow {
     [string]$DomainController
     [string]$Detail
 }
+
+# One suggestion of an AutoCompleteBox (Register-PSGPOAccountSuggestion, the registry keys of a
+# preference): what it writes in the box (Value), what the list shows (Display), and for an account
+# its name and SID.
+class AvaloniaSuggestionRow {
+    [string]$Value
+    [string]$Display
+    [string]$Name
+    [string]$Sid
+
+    [string] ToString() { return $this.Display }
+}

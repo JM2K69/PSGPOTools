@@ -112,43 +112,17 @@ class GPOToolsSecuritySetting {
         if ($null -ne $this.Max -and $Number -gt $this.Max) { throw "'$($this.Name)' must be at most $($this.Max)$(if ($this.Unit) { " $($this.Unit)" })." }
     }
 
-    # Names of the well-known SIDs ([MS-DTYP] 2.4.2.4), as the Group Policy editor shows them.
-    static [hashtable] $WellKnownAccounts = @{
-        'S-1-1-0' = 'Everyone'; 'S-1-3-0' = 'CREATOR OWNER'; 'S-1-5-2' = 'NT AUTHORITY\NETWORK'
-        'S-1-5-3' = 'NT AUTHORITY\BATCH'; 'S-1-5-4' = 'NT AUTHORITY\INTERACTIVE'; 'S-1-5-6' = 'NT AUTHORITY\SERVICE'
-        'S-1-5-7' = 'NT AUTHORITY\ANONYMOUS LOGON'; 'S-1-5-9' = 'NT AUTHORITY\ENTERPRISE DOMAIN CONTROLLERS'
-        'S-1-5-11' = 'NT AUTHORITY\Authenticated Users'; 'S-1-5-13' = 'NT AUTHORITY\TERMINAL SERVER USER'
-        'S-1-5-14' = 'NT AUTHORITY\REMOTE INTERACTIVE LOGON'; 'S-1-5-17' = 'NT AUTHORITY\IUSR'
-        'S-1-5-18' = 'NT AUTHORITY\SYSTEM'; 'S-1-5-19' = 'NT AUTHORITY\LOCAL SERVICE'; 'S-1-5-20' = 'NT AUTHORITY\NETWORK SERVICE'
-        'S-1-5-113' = 'NT AUTHORITY\Local account'; 'S-1-5-114' = 'NT AUTHORITY\Local account and member of Administrators group'
-        'S-1-5-32-544' = 'BUILTIN\Administrators'; 'S-1-5-32-545' = 'BUILTIN\Users'; 'S-1-5-32-546' = 'BUILTIN\Guests'
-        'S-1-5-32-547' = 'BUILTIN\Power Users'; 'S-1-5-32-548' = 'BUILTIN\Account Operators'; 'S-1-5-32-549' = 'BUILTIN\Server Operators'
-        'S-1-5-32-550' = 'BUILTIN\Print Operators'; 'S-1-5-32-551' = 'BUILTIN\Backup Operators'; 'S-1-5-32-552' = 'BUILTIN\Replicator'
-        'S-1-5-32-554' = 'BUILTIN\Pre-Windows 2000 Compatible Access'; 'S-1-5-32-555' = 'BUILTIN\Remote Desktop Users'
-        'S-1-5-32-556' = 'BUILTIN\Network Configuration Operators'; 'S-1-5-32-558' = 'BUILTIN\Performance Monitor Users'
-        'S-1-5-32-559' = 'BUILTIN\Performance Log Users'; 'S-1-5-32-562' = 'BUILTIN\Distributed COM Users'
-        'S-1-5-32-568' = 'BUILTIN\IIS_IUSRS'; 'S-1-5-32-573' = 'BUILTIN\Event Log Readers'; 'S-1-5-32-578' = 'BUILTIN\Hyper-V Administrators'
-        'S-1-5-32-580' = 'BUILTIN\Remote Management Users'; 'S-1-5-80-0' = 'NT SERVICE\ALL SERVICES'
-        'S-1-5-83-0' = 'NT VIRTUAL MACHINE\Virtual Machines'; 'S-1-15-2-1' = 'APPLICATION PACKAGE AUTHORITY\ALL APPLICATION PACKAGES'
-    }
-    # Accounts of a domain by their RID (S-1-5-21-<domain>-<RID>).
-    static [hashtable] $DomainAccounts = @{
-        '500' = 'Administrator'; '501' = 'Guest'; '502' = 'krbtgt'; '512' = 'Domain Admins'; '513' = 'Domain Users'
-        '514' = 'Domain Guests'; '515' = 'Domain Computers'; '516' = 'Domain Controllers'; '517' = 'Cert Publishers'
-        '518' = 'Schema Admins'; '519' = 'Enterprise Admins'; '520' = 'Group Policy Creator Owners'
-        '521' = 'Read-only Domain Controllers'; '525' = 'Protected Users'
-    }
 
     # Name of an account of a user right ('*S-1-5-32-544' -> 'BUILTIN\Administrators'): a name as
-    # written, a SID by its well-known name, else the SID.
+    # written, a SID by its well-known name (GPOToolsWellKnownSid, an account of a domain without
+    # its domain: Domain Admins), else the SID.
     static [string] FormatAccount([string]$Account) {
         if (-not $Account.StartsWith('*')) { return $Account }
         $Sid = $Account.Substring(1)
-        if ([GPOToolsSecuritySetting]::WellKnownAccounts.ContainsKey($Sid)) { return [GPOToolsSecuritySetting]::WellKnownAccounts[$Sid] }
-        if ($Sid -match '^S-1-5-21-\d+-\d+-\d+-(\d+)$' -and [GPOToolsSecuritySetting]::DomainAccounts.ContainsKey($Matches[1])) {
-            return [GPOToolsSecuritySetting]::DomainAccounts[$Matches[1]]
-        }
-        return $Sid
+        $Known = [GPOToolsWellKnownSid]::FindBySid($Sid)
+        if (-not $Known) { return $Sid }
+        if ($Known.IsDomainAccount()) { return $Known.Name }
+        return $Known.GetQualifiedName('')
     }
 
     hidden static [string] Quote([string]$Text) { return '"' + $Text.Replace('"', '""') + '"' }

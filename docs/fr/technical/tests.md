@@ -26,6 +26,7 @@ Invoke-Pester -Configuration $Config
 | `PSGPOTools.Gui.tests.ps1` | les vraies fenêtres des deux consoles (`-OnShown`) |
 | `PSGPOTools.Health.tests.ps1` | la santé des GPO et leur réplication entre contrôleurs de domaine (trois simulés) |
 | `PSGPOTools.AvaloniaInstall.tests.ps1` | le runtime Avalonia : ses paquets et fichiers épinglés, d'où ils viennent, les vérifications avant son chargement |
+| `PSGPOTools.WellKnownSid.tests.ps1` | les comptes bien connus : leur table, les noms saisis en anglais ou en français, les suggestions pendant la frappe et la complétion des commandes |
 | `PSGPOTools.Release.tests.ps1` | la construction reproductible, le paquet d'une release (SHA256SUMS, signature, catalogue), les règles des workflows |
 | `PSGPOTools.Public.tests.ps1` | les commandes exportées |
 | `PSGPOTools.Update.tests.ps1` | les versions de HGPM et `Test-PSGPOUpdate` (la Gallery simulée) |

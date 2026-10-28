@@ -390,6 +390,9 @@ function Start-PSGPOManagerWindow {
     $restrictedGroupsFormBorder = Get-PSGPOAvaloniaControl $window 'restrictedGroupsFormBorder'
     $restrictedGroupsFormTitleTextBlock = Get-PSGPOAvaloniaControl $window 'restrictedGroupsFormTitleTextBlock'
     $restrictedGroupNameTextBox = Get-PSGPOAvaloniaControl $window 'restrictedGroupNameTextBox'
+    $restrictedGroupAccountBox = Get-PSGPOAvaloniaControl $window 'restrictedGroupAccountBox'
+    $restrictedGroupAddMemberButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupAddMemberButton'
+    $restrictedGroupAddMemberOfButton = Get-PSGPOAvaloniaControl $window 'restrictedGroupAddMemberOfButton'
     $restrictedGroupMembersCheckBox = Get-PSGPOAvaloniaControl $window 'restrictedGroupMembersCheckBox'
     $restrictedGroupMembersTextBox = Get-PSGPOAvaloniaControl $window 'restrictedGroupMembersTextBox'
     $restrictedGroupMemberOfTextBox = Get-PSGPOAvaloniaControl $window 'restrictedGroupMemberOfTextBox'
@@ -609,7 +612,7 @@ function Start-PSGPOManagerWindow {
 
         $editing.Security = $Setting
         $settingTitleTextBlock.Text = Get-PSGPOText $Setting.Name
-        $editing.Editor = New-PSGPOSecurityEditor -Setting $Setting -Value $read.Value -OnChange { Update-RegistryPreview }
+        $editing.Editor = New-PSGPOSecurityEditor -Setting $Setting -Value $read.Value -OnChange { Update-RegistryPreview } -Directory $Directory
         $optionsHost.Content = $editing.Editor.Panel
 
         $displayNameTextBox.Text = Get-PSGPOText $Setting.Name
@@ -746,7 +749,7 @@ function Start-PSGPOManagerWindow {
         param($Type, $Item)
         $preferences.Type = $Type
         $preferences.Item = $Item
-        $preferences.Form = New-PSGPOPreferenceForm -Type $Type -Scope $preferences.Node.Scope -Item $Item
+        $preferences.Form = New-PSGPOPreferenceForm -Type $Type -Scope $preferences.Node.Scope -Item $Item -Directory $Directory
         $preferencesFormHost.Content = $preferences.Form.Panel
         $preferencesFormTitleTextBlock.Text = if ($Item) { "$(Get-PSGPOText $Type.Label): $($Item.Name)" } else { Get-PSGPOText 'New {0}' (Get-PSGPOText $Type.Label) }
         $preferencesFormErrorTextBlock.Text = ''
@@ -887,9 +890,33 @@ function Start-PSGPOManagerWindow {
         $restrictedGroupMembersCheckBox.IsChecked = -not $Group -or $null -ne $Group.Members
         $restrictedGroupMembersTextBox.Text = if ($Group) { @($Group.Members) -join [Environment]::NewLine } else { '' }
         $restrictedGroupMemberOfTextBox.Text = if ($Group) { @($Group.MemberOf) -join [Environment]::NewLine } else { '' }
+        $restrictedGroupAccountBox.Text = ''
         $restrictedGroupsFormErrorTextBlock.Text = ''
         $restrictedGroupsDeletePanel.IsVisible = $false
         $restrictedGroupsFormBorder.IsVisible = $true
+    }
+
+    # The account to add (picked among the suggestions: its *S-1-...), on a line of its own of the
+    # members or of the groups it is a member of.
+    function Add-RestrictedGroupAccount {
+        param($Box)
+        $account = "$($restrictedGroupAccountBox.Text)".Trim()
+        if (-not $account) { return }
+        $lines = @("$($Box.Text)" -split '\r?\n' | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+        if ($lines -notcontains $account) { $Box.Text = (@($lines) + $account) -join [Environment]::NewLine }
+        $restrictedGroupAccountBox.IsDropDownOpen = $false
+        $restrictedGroupAccountBox.Text = ''
+    }
+    $restrictedGroupAddMemberButton.Add_Click({
+        $restrictedGroupMembersCheckBox.IsChecked = $true
+        Add-RestrictedGroupAccount -Box $restrictedGroupMembersTextBox
+    })
+    $restrictedGroupAddMemberOfButton.Add_Click({ Add-RestrictedGroupAccount -Box $restrictedGroupMemberOfTextBox })
+    # The accounts suggested while typing (Register-PSGPOAccountSuggestion): as *S-1-... in
+    # GptTmpl.inf, by their name for a permission, the security filtering and an approval.
+    foreach ($box in $restrictedGroupNameTextBox, $restrictedGroupAccountBox) { Register-PSGPOAccountSuggestion -Box $box -Directory $Directory -Insert Sid }
+    foreach ($box in $filteringNameTextBox, $delegationNameTextBox, $wmiDelegationNameTextBox, $approveGpoApplyToTextBox, $approveGpoDenyToTextBox) {
+        Register-PSGPOAccountSuggestion -Box $box -Directory $Directory -Insert Name
     }
 
     # A change of the restricted groups: on a copy of GptTmpl.inf, written, then kept.
@@ -3715,7 +3742,7 @@ function Start-PSGPOManagerWindow {
             'preferencesFormHost', 'preferencesFormErrorTextBlock', 'preferencesSaveButton', 'preferencesCancelButton',
             'certificatesPanel', 'certificatesTitleTextBlock', 'certificatesInfoTextBlock', 'certificatesPathTextBox', 'certificatesImportButton', 'certificatesDeleteButton', 'certificatesStatusTextBlock', 'certificatesEmptyTextBlock', 'certificatesList', 'certificatesDeletePanel', 'certificatesDeleteTextBlock', 'certificatesDeleteConfirmButton', 'certificatesDeleteCancelButton',
             'scriptsPanel', 'scriptsTitleTextBlock', 'scriptsInfoTextBlock', 'scriptsAddButton', 'scriptsEditButton', 'scriptsDeleteButton', 'scriptsUpButton', 'scriptsDownButton', 'scriptsOrderComboBox', 'scriptsStatusTextBlock', 'scriptsEmptyTextBlock', 'scriptsList', 'scriptsContentPanel', 'scriptsContentTitleTextBlock', 'scriptsContentTextBox', 'scriptsDeletePanel', 'scriptsDeleteTextBlock', 'scriptsDeleteConfirmButton', 'scriptsDeleteCancelButton', 'scriptsFormBorder', 'scriptsFormTitleTextBlock', 'scriptsTypeComboBox', 'scriptsNameTextBox', 'scriptsParametersTextBox', 'scriptsCopyPathTextBox', 'scriptsCopyBrowseButton', 'scriptsFormErrorTextBlock', 'scriptsSaveButton', 'scriptsCancelButton',
-            'restrictedGroupsPanel', 'restrictedGroupsInfoTextBlock', 'restrictedGroupsAddButton', 'restrictedGroupsEditButton', 'restrictedGroupsDeleteButton', 'restrictedGroupsStatusTextBlock', 'restrictedGroupsEmptyTextBlock', 'restrictedGroupsList', 'restrictedGroupsDeletePanel', 'restrictedGroupsDeleteTextBlock', 'restrictedGroupsDeleteConfirmButton', 'restrictedGroupsDeleteCancelButton', 'restrictedGroupsFormBorder', 'restrictedGroupsFormTitleTextBlock', 'restrictedGroupNameTextBox', 'restrictedGroupMembersCheckBox', 'restrictedGroupMembersTextBox', 'restrictedGroupMemberOfTextBox', 'restrictedGroupsFormErrorTextBlock', 'restrictedGroupsSaveButton', 'restrictedGroupsCancelButton') {
+            'restrictedGroupsPanel', 'restrictedGroupsInfoTextBlock', 'restrictedGroupsAddButton', 'restrictedGroupsEditButton', 'restrictedGroupsDeleteButton', 'restrictedGroupsStatusTextBlock', 'restrictedGroupsEmptyTextBlock', 'restrictedGroupsList', 'restrictedGroupAccountBox', 'restrictedGroupAddMemberButton', 'restrictedGroupAddMemberOfButton', 'restrictedGroupsDeletePanel', 'restrictedGroupsDeleteTextBlock', 'restrictedGroupsDeleteConfirmButton', 'restrictedGroupsDeleteCancelButton', 'restrictedGroupsFormBorder', 'restrictedGroupsFormTitleTextBlock', 'restrictedGroupNameTextBox', 'restrictedGroupMembersCheckBox', 'restrictedGroupMembersTextBox', 'restrictedGroupMemberOfTextBox', 'restrictedGroupsFormErrorTextBlock', 'restrictedGroupsSaveButton', 'restrictedGroupsCancelButton') {
             $controls[$name] = Get-PSGPOAvaloniaControl $window $name
         }
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {

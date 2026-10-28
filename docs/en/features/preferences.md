@@ -24,6 +24,19 @@ What an item holds as XML is edited as XML, and checked before it is written: th
 definition of a task (a valid task is proposed to start with), the registry values of Internet
 Settings, the content of an application.
 
+A **Registry Item** suggests while typing the keys of the loaded ADMX files for its hive
+(`HKEY_LOCAL_MACHINE`: those of the computer policies, `HKEY_CURRENT_USER`: those of the user
+policies), with the policies that write them, then the value names of the key chosen. When a policy
+manages the key, the form says so: a preference writes the value on the computers for good, and it
+stays when the GPO no longer applies (it tattoos them), where a policy is removed with its GPO. Set
+the policy instead.
+
+![The keys of the ADMX files suggested in a Registry item, and the warning of a key a policy manages](../assets/screenshots/86-registry-suggestions.png){ width="640" }
+
+A **Local Group** suggests the groups of every computer, as GPMC names them
+(`Administrators (built-in)`), and fills their SID; its members are added from the well-known
+accounts and those of the domain, with their SID ([accounts and SIDs](policy-editor.md#accounts-and-sids)).
+
 ## How it is written
 
 The XML file of the type (`Machine\Preferences\Registry\Registry.xml`...) is read and written with

@@ -13,6 +13,11 @@
 
     Returns @{ Panel; GetValues; GetCommon; Controls }: GetValues the attributes of Properties
     (and Members), GetCommon the common attributes, for Set-PSGPOPreferenceElement.
+
+    Suggestions while typing: the keys and value names of the loaded ADMX files for a registry
+    item (with a warning when a policy manages the key), the groups of every computer for the name
+    of a local group (its SID filled), the well-known accounts and those of the domain ($Directory)
+    for its members.
 #>
 
 function New-PSGPOPreferenceForm {
@@ -21,7 +26,9 @@ function New-PSGPOPreferenceForm {
         [Parameter(Mandatory)] $Type,
         [Parameter(Mandatory)] [ValidateSet('Machine', 'User')] [string]$Scope,
         # The item edited; a new item of the type when $null.
-        $Item
+        $Item,
+        # The domain whose accounts are suggested (a member of a local group).
+        [AllowNull()] $Directory
     )
 
     $Panel = [Avalonia.Controls.StackPanel]::new()
@@ -120,6 +127,30 @@ function New-PSGPOPreferenceForm {
                 $Box.Text = (@($(if ($Item) { $Item.Members }) | ForEach-Object { (@($_.Action, $_.Name, $_.Sid) | Where-Object { $_ }) -join ' ' }) -join [Environment]::NewLine)
                 $Panel.Children.Add($Box)
                 $Controls[$Name] = $Box
+                # A member picked: ADD, its name and its SID.
+                $Row = [Avalonia.Controls.Grid]::new()
+                $Row.ColumnDefinitions = [Avalonia.Controls.ColumnDefinitions]::Parse('*,Auto')
+                $Picker = [Avalonia.Controls.AutoCompleteBox]::new()
+                $Picker.Watermark = Get-PSGPOText 'A member to add: Administrators, Domain Admins, a name of the domain...'
+                Register-PSGPOAccountSuggestion -Box $Picker -Directory $Directory -Insert Name
+                $AddMember = [Avalonia.Controls.Button]::new()
+                $AddMember.Content = Get-PSGPOText 'Add'
+                $AddMember.Margin = [Avalonia.Thickness]::new(8, 0, 0, 0)
+                [Avalonia.Controls.Grid]::SetColumn($AddMember, 1)
+                $Row.Children.Add($Picker)
+                $Row.Children.Add($AddMember)
+                $Panel.Children.Add($Row)
+                $Controls["$($Name)Picker"] = $Picker
+                $Controls["$($Name)Add"] = $AddMember
+                $AddMember.add_Click({
+                    $Text = "$($Picker.Text)".Trim()
+                    if (-not $Text) { return }
+                    $Picked = $Picker.SelectedItem
+                    $Line = if ($Picked -and $Picked.Value -eq $Text) { (@('ADD', $Picked.Name, $Picked.Sid) | Where-Object { $_ }) -join ' ' } else { "ADD $Text" }
+                    $Box.Text = (@(@("$($Box.Text)" -split '\r?\n' | Where-Object { $_.Trim() }) + $Line) -join [Environment]::NewLine)
+                    $Picker.IsDropDownOpen = $false
+                    $Picker.Text = ''
+                }.GetNewClosure())
                 $Getters[$Name] = {
                     @(foreach ($Line in @("$($Box.Text)" -split '\r?\n' | Where-Object { $_.Trim() })) {
                             $Parts = @($Line.Trim() -split '\s+')
@@ -132,14 +163,36 @@ function New-PSGPOPreferenceForm {
             }
             default {
                 $Panel.Children.Add((& $NewLabel "$(Get-PSGPOText $Property.Label)$(if ($Property.Required) { ' *' })"))
-                $Box = [Avalonia.Controls.TextBox]::new()
+                # Suggested while typing: the key and value name of a registry item, the name of a local group.
+                $Suggested = ($Type.Element -eq 'Registry' -and $Name -in 'key', 'name') -or ($Type.Element -eq 'Group' -and $Name -eq 'groupName')
+                $Box = if ($Suggested) { [Avalonia.Controls.AutoCompleteBox]::new() } else { [Avalonia.Controls.TextBox]::new() }
                 $Box.Text = & $ValueOf $Property
                 if ($Property.Hint) { $Box.Watermark = Get-PSGPOText $Property.Hint }
                 $Panel.Children.Add($Box)
                 $Controls[$Name] = $Box
                 $Getters[$Name] = { "$($Box.Text)".Trim() }.GetNewClosure()
+                if ($Type.Element -eq 'Registry' -and $Name -eq 'key') {
+                    $Warning = & $NewLabel ''
+                    $Warning.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#CA5010'))
+                    $Warning.FontSize = 12
+                    $Panel.Children.Add($Warning)
+                    $Controls['keyWarning'] = $Warning
+                }
             }
         }
+    }
+
+    if ($Type.Element -eq 'Registry' -and $Controls.Contains('hive') -and $Controls.Contains('key')) {
+        Register-PSGPORegistrySuggestion -Hive $Controls['hive'] -KeyBox $Controls['key'] -ValueBox $Controls['name'] -Warning $Controls['keyWarning']
+    }
+    if ($Type.Element -eq 'Group' -and $Controls.Contains('groupName')) {
+        # A group of every computer picked: its SID too, as GPMC writes it.
+        Register-PSGPOAccountSuggestion -Box $Controls['groupName'] -Directory $Directory -Kind BuiltinGroup
+        $Controls['groupName'].Tag.SidBox = $Controls['groupSid']
+        $Controls['groupName'].add_SelectionChanged({
+                param($control, $e)
+                if ($control.SelectedItem -and $control.Tag.SidBox) { $control.Tag.SidBox.Text = $control.SelectedItem.Sid }
+            })
     }
 
     # Common tab

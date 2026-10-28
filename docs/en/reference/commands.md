@@ -2,7 +2,9 @@
 
 Each command has its page, its help with its parameters and examples: click its name.
 `Get-Help <command> -Full` gives the same help in PowerShell, and `Get-Help <command> -Online` opens its
-page. The commands that change the domain support `-WhatIf` and `-Confirm`.
+page. The commands that change the domain support `-WhatIf` and `-Confirm`. The parameters that
+take an account (`-ApplyTo`, `-DenyTo`, `-Account`) complete the [well-known accounts](well-known-accounts.md)
+with Tab.
 
 ## The domain
 

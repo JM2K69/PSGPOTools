@@ -146,6 +146,7 @@ nav = [
       "reference/commands/test-psgpowmifilter.md",
     ] },
     "reference/configuration.md",
+    "reference/well-known-accounts.md",
   ] },
   # Made from CHANGELOG.md by .github/workflows/docs.yml, with the version of the module.
   { "Changelog" = "changelog.md" },

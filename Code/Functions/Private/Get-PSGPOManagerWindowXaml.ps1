@@ -334,10 +334,10 @@ $(Get-PSGPOWindowResourceXaml)
                                             <Grid ColumnDefinitions='Auto,*' RowDefinitions='Auto,Auto' Name='approveGpoFilteringGrid'>
                                                 <TextBlock Text='Applies to' VerticalAlignment='Center' Margin='0,0,12,6'
                                                            Foreground='{DynamicResource SecondaryTextBrush}'/>
-                                                <TextBox Grid.Column='1' Name='approveGpoApplyToTextBox' Margin='0,0,0,6' Watermark='A group of the domain, or Authenticated Users'/>
+                                                <AutoCompleteBox Grid.Column='1' Name='approveGpoApplyToTextBox' Margin='0,0,0,6' Watermark='A group of the domain, or Authenticated Users'/>
                                                 <TextBlock Grid.Row='1' Text='Denied to' VerticalAlignment='Center' Margin='0,0,12,0'
                                                            Foreground='{DynamicResource SecondaryTextBrush}'/>
-                                                <TextBox Grid.Row='1' Grid.Column='1' Name='approveGpoDenyToTextBox' Watermark='A group of the domain (optional)'/>
+                                                <AutoCompleteBox Grid.Row='1' Grid.Column='1' Name='approveGpoDenyToTextBox' Watermark='A group of the domain (optional)'/>
                                             </Grid>
                                             <!-- What the console does not interpret: reviewed elsewhere, and said so, before the approval -->
                                             <StackPanel Name='approveGpoUninterpretedPanel' Spacing='4' IsVisible='False'>
@@ -741,7 +741,7 @@ $(Get-PSGPOWindowResourceXaml)
                                         </ListBox.ItemTemplate>
                                     </ListBox>
                                     <Grid ColumnDefinitions='*,Auto,Auto'>
-                                        <TextBox Grid.Column='0' Name='filteringNameTextBox' Watermark='Group, user or computer (PC01`$)'/>
+                                        <AutoCompleteBox Grid.Column='0' Name='filteringNameTextBox' Watermark='Group, user or computer (PC01`$)'/>
                                         <Button Grid.Column='1' Name='filteringAddButton' Content='Add' Margin='8,0,0,0'/>
                                         <Button Grid.Column='2' Name='filteringRemoveButton' Content='Remove' Margin='8,0,0,0' IsEnabled='False'/>
                                     </Grid>
@@ -774,7 +774,7 @@ $(Get-PSGPOWindowResourceXaml)
                                         </ListBox.ItemTemplate>
                                     </ListBox>
                                     <Grid ColumnDefinitions='*,Auto'>
-                                        <TextBox Grid.Column='0' Name='delegationNameTextBox' Watermark='Group, user or computer (PC01`$)'/>
+                                        <AutoCompleteBox Grid.Column='0' Name='delegationNameTextBox' Watermark='Group, user or computer (PC01`$)'/>
                                         <ComboBox Grid.Column='1' Name='delegationPermissionComboBox' Margin='8,0,0,0' MinWidth='300' SelectedIndex='0'>
                                             <ComboBoxItem Content='Read' Tag='GpoRead'/>
                                             <ComboBoxItem Content='Read and apply' Tag='GpoApply'/>
@@ -813,7 +813,7 @@ $(Get-PSGPOWindowResourceXaml)
                                         </ListBox.ItemTemplate>
                                     </ListBox>
                                     <Grid ColumnDefinitions='*,Auto'>
-                                        <TextBox Grid.Column='0' Name='wmiDelegationNameTextBox' Watermark='Group or user'/>
+                                        <AutoCompleteBox Grid.Column='0' Name='wmiDelegationNameTextBox' Watermark='Group or user'/>
                                         <ComboBox Grid.Column='1' Name='wmiDelegationPermissionComboBox' Margin='8,0,0,0' MinWidth='220'/>
                                     </Grid>
                                     <StackPanel Orientation='Horizontal' HorizontalAlignment='Right' Spacing='8'>
@@ -1233,7 +1233,14 @@ $(Get-PSGPOWindowResourceXaml)
                                     <StackPanel Spacing='6'>
                                         <TextBlock Name='restrictedGroupsFormTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap'/>
                                         <TextBlock Text='Group' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
-                                        <TextBox Name='restrictedGroupNameTextBox' Watermark='DOMAIN\group, or a SID: *S-1-5-32-544 (Administrators)'/>
+                                        <AutoCompleteBox Name='restrictedGroupNameTextBox' Watermark='DOMAIN\group, or a SID: *S-1-5-32-544 (Administrators)'/>
+                                        <!-- An account picked or typed, added to the members or to the groups it is a member of -->
+                                        <TextBlock Text='Account to add: a well-known account or one of the domain, written as its SID' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                        <Grid ColumnDefinitions='*,Auto,Auto'>
+                                            <AutoCompleteBox Grid.Column='0' Name='restrictedGroupAccountBox' Watermark='Administrators, Domain Admins, a name of the domain, or *S-1-...'/>
+                                            <Button Grid.Column='1' Name='restrictedGroupAddMemberButton' Content='Add to the members' Margin='8,0,0,0'/>
+                                            <Button Grid.Column='2' Name='restrictedGroupAddMemberOfButton' Content='Add to member of' Margin='8,0,0,0'/>
+                                        </Grid>
                                         <CheckBox Name='restrictedGroupMembersCheckBox' Content='Members of this group: the computers keep these members only (empty: none)' IsChecked='True'/>
                                         <TextBox Name='restrictedGroupMembersTextBox' AcceptsReturn='True' MinHeight='70' TextWrapping='NoWrap'
                                                  Watermark='One account per line: DOMAIN\name, or *S-1-5-...'/>

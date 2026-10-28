@@ -1,5 +1,22 @@
 # HGPM Release History
 
+## Unreleased
+
+### Added
+
+* Suggestions while typing an account: the well-known accounts of every computer and of every domain (Domain Admins, Key Admins... with the SID of the domain read), by their English or French name or their SID, then the accounts of the domain whose name begins with what is typed. In a restricted group, its members and the accounts of a user right, the account is written as its SID (`*S-1-5-32-544`), as GPMC does; in the delegation, the security filtering and the approval of a GPO, by its name. A local group of the preferences suggests the groups of every computer (`Administrators (built-in)`) and fills their SID, its members are picked with their SID
+* A registry preference suggests the keys of the loaded ADMX files for its hive, with the policies that write them, then the value names of the key; it warns when a policy manages the key (a preference tattoos the computers: the value stays when the GPO no longer applies)
+* `Approve-PSGPO -ApplyTo` and `-DenyTo`, `Set-PSGPOPermission -Account` and `Set-PSGPOWmiFilterPermission -Account` complete the well-known accounts with Tab
+* One table of the well-known accounts (72: Builtin, NT AUTHORITY, and the RIDs of a domain, Enterprise Read-only Domain Controllers, Cloneable Domain Controllers, Key Admins, Enterprise Key Admins, RAS and IAS Servers and the RODC password replication groups included), in English and French, for the names shown and the names typed (page Well-known accounts)
+
+### Fixed
+
+* A name of a well-known account in the language of another domain controller was not found: `Domain Admins` (the default roles of the configuration) on a French domain controller, where it is `Admins du domaine`, and the French names on an English one; a well-known account of the domain is now found by its RID. `*S-1-...`, as `GptTmpl.inf` writes an account, is accepted wherever an account is typed
+
+### Documentation
+
+* Offline installation: the strict check of an attestation, the release workflow and the tag required (`gh attestation verify --signer-workflow ... --source-ref ...`)
+
 ## 0.1.21 - alpha
 
 ### Security

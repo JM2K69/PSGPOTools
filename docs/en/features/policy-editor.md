@@ -92,6 +92,30 @@ Users received exactly the members defined.
     the same behaviour. Unchecked, the `__Members` key is not written and the current members of
     the group are not touched; only **This group is a member of** applies.
 
+### Accounts and SIDs { #accounts-and-sids }
+
+Wherever an account is typed, the console suggests while typing:
+
+- the well-known accounts of every computer (`BUILTIN\Administrators`, `NT AUTHORITY\Authenticated
+  Users`...) and of every domain (Domain Admins, Enterprise Admins, Key Admins..., with the SID of
+  the domain read), found by their English or French name or by their SID
+  ([the table](../reference/well-known-accounts.md));
+- then the accounts of the domain (users, groups, computers) whose name begins with what is typed.
+
+The names that begin with what is typed come first. In `GptTmpl.inf` (a restricted group, its
+members, the accounts of a user right), the account is written as its SID, `*S-1-5-32-544`, as
+GPMC does: the same on every computer, whatever its language. **Account to add** puts it on a line
+of the members (**Add to the members**) or of the groups the group is a member of. In the
+delegation, the security filtering and the approval of a GPO, the account is written by its name.
+
+![The accounts suggested while typing, in a restricted group](../assets/screenshots/85-account-suggestions.png){ width="640" }
+
+A name typed is found in English or French (`Admins du domaine`, `BUILTIN\Administrateurs`), and a
+well-known account of the domain by its RID when the domain names it in another language: the
+default roles of the configuration (`Domain Admins`) work on a French domain controller. The
+commands complete the well-known accounts with Tab: `Approve-PSGPO -ApplyTo` and `-DenyTo`,
+`Set-PSGPOPermission -Account`, `Set-PSGPOWmiFilterPermission -Account`.
+
 ### Public key policies
 
 ![The trusted root certification authorities of a GPO](../assets/screenshots/40-public-key-policies.png)

@@ -2,7 +2,9 @@
 
 Chaque commande a sa page, son aide avec ses paramètres et ses exemples (en anglais) : cliquez sur
 son nom. `Get-Help <commande> -Full` donne la même aide dans PowerShell, et `Get-Help <commande> -Online`
-ouvre sa page. Les commandes qui modifient le domaine acceptent `-WhatIf` et `-Confirm`.
+ouvre sa page. Les commandes qui modifient le domaine acceptent `-WhatIf` et `-Confirm`. Les paramètres qui
+prennent un compte (`-ApplyTo`, `-DenyTo`, `-Account`) complètent les [comptes bien connus](well-known-accounts.md)
+avec Tab.
 
 ## Le domaine
 

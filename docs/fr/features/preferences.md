@@ -25,6 +25,19 @@ Ce qu'un élément contient en XML se modifie en XML, vérifié avant d'être é
 Planificateur de tâches d'une tâche (une tâche valide est proposée pour commencer), les valeurs de
 registre d'Internet Settings, le contenu d'une application.
 
+Un **élément Registre** suggère pendant la frappe les clés des fichiers ADMX chargés pour sa ruche
+(`HKEY_LOCAL_MACHINE` : celles des stratégies de l'ordinateur, `HKEY_CURRENT_USER` : celles des
+stratégies de l'utilisateur), avec les stratégies qui les écrivent, puis les noms de valeur de la
+clé choisie. Quand une stratégie gère la clé, le formulaire le dit : une préférence écrit la valeur
+sur les ordinateurs pour de bon, et elle reste quand la GPO ne s'applique plus (elle les
+« tatoue »), là où une stratégie est retirée avec sa GPO. Configurez plutôt la stratégie.
+
+![Les clés des fichiers ADMX suggérées dans un élément Registre, et l'avertissement d'une clé gérée par une stratégie](../assets/screenshots/86-registry-suggestions.fr.png){ width="640" }
+
+Un **groupe local** suggère les groupes de tout ordinateur, nommés comme GPMC les nomme
+(`Administrators (built-in)`), et remplit leur SID ; ses membres s'ajoutent depuis les comptes bien
+connus et ceux du domaine, avec leur SID ([comptes et SID](policy-editor.md#accounts-and-sids)).
+
 ## Comment c'est écrit
 
 Le fichier XML du type (`Machine\Preferences\Registry\Registry.xml`…) est lu et écrit avec

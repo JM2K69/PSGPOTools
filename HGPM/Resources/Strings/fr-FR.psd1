@@ -1329,4 +1329,12 @@
     'This page shows the status of Active Directory and SYSVOL replication for this domain as it relates to Group Policy, and the problems of its GPOs.' = 'Cette page indique l''état de la réplication d''Active Directory et de SYSVOL pour ce domaine en ce qui concerne la stratégie de groupe, et les problèmes de ses GPO.'
     'Detect Now' = 'Détecter maintenant'
     'Domain controllers' = 'Contrôleurs de domaine'
+    'Account to add: a well-known account or one of the domain, written as its SID' = 'Compte à ajouter : un compte bien connu ou un compte du domaine, écrit par son SID'
+    'Administrators, Domain Admins, a name of the domain, or *S-1-...' = 'Administrateurs, Admins du domaine, un nom du domaine, ou *S-1-...'
+    'Add to the members' = 'Ajouter aux membres'
+    'Add to member of' = 'Ajouter à « membre de »'
+    'A member to add: Administrators, Domain Admins, a name of the domain...' = 'Un membre à ajouter : Administrateurs, Admins du domaine, un nom du domaine...'
+    '{0}   {1} and {2} other policies' = '{0}   {1} et {2} autres stratégies'
+    'A policy manages this key ({0}{1}): a preference writes it on the computers for good, it stays when the GPO no longer applies. Set the policy instead.' = 'Une stratégie gère cette clé ({0}{1}) : une préférence l''écrit sur les ordinateurs pour de bon, elle reste quand la GPO ne s''applique plus. Configurez plutôt la stratégie.'
+    ' and {0} other' = ' et {0} autre(s)'
 }

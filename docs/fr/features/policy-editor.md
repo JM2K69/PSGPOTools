@@ -97,6 +97,32 @@ Utilisateurs du Bureau à distance locaux ont reçu exactement les membres défi
     défaut : même comportement. Décochée, la clé `__Members` n'est pas écrite et les membres
     actuels du groupe ne sont pas touchés ; seul **Ce groupe est membre de** s'applique.
 
+### Comptes et SID { #accounts-and-sids }
+
+Partout où l'on saisit un compte, la console fait des suggestions pendant la frappe :
+
+- les comptes bien connus de tout ordinateur (`BUILTIN\Administrateurs`, `AUTORITE NT\Utilisateurs
+  authentifiés`...) et de tout domaine (Admins du domaine, Administrateurs de l'entreprise,
+  Administrateurs clés..., avec le SID du domaine lu), trouvés par leur nom anglais ou français ou
+  par leur SID ([la table](../reference/well-known-accounts.md)) ;
+- puis les comptes du domaine (utilisateurs, groupes, ordinateurs) dont le nom commence par ce qui
+  est saisi.
+
+Les noms qui commencent par ce qui est saisi viennent d'abord. Dans `GptTmpl.inf` (un groupe
+restreint, ses membres, les comptes d'un droit utilisateur), le compte est écrit par son SID,
+`*S-1-5-32-544`, comme GPMC : le même sur chaque ordinateur, quelle que soit sa langue. **Compte à
+ajouter** le met sur une ligne des membres (**Ajouter aux membres**) ou des groupes dont le groupe
+est membre. Dans la délégation, le filtrage de sécurité et l'approbation d'une GPO, le compte est
+écrit par son nom.
+
+![Les comptes suggérés pendant la frappe, dans un groupe restreint](../assets/screenshots/85-account-suggestions.fr.png){ width="640" }
+
+Un nom saisi est trouvé en anglais ou en français (`Domain Admins`, `BUILTIN\Administrators`), et
+un compte bien connu du domaine par son RID quand le domaine le nomme dans une autre langue : les
+rôles par défaut de la configuration (`Domain Admins`) fonctionnent sur un contrôleur de domaine
+français. Les commandes complètent les comptes bien connus avec Tab : `Approve-PSGPO -ApplyTo` et
+`-DenyTo`, `Set-PSGPOPermission -Account`, `Set-PSGPOWmiFilterPermission -Account`.
+
 ### Stratégies de clé publique
 
 ![Les autorités de certification racines de confiance d'un GPO](../assets/screenshots/40-public-key-policies.fr.png)

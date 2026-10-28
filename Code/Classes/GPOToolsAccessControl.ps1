@@ -312,11 +312,14 @@ class GPOToolsSecurityDescriptor {
         return [pscustomobject]@{ Apply = $Applied.ToArray(); Deny = $Denied.ToArray() }
     }
 
-    # Names of the well-known SIDs a GPO ACL holds, as Windows shows them.
-    static [hashtable] $WellKnownNames = @{
-        'S-1-1-0' = 'Everyone'; 'S-1-3-0' = 'CREATOR OWNER'; 'S-1-5-9' = 'ENTERPRISE DOMAIN CONTROLLERS'
-        'S-1-5-11' = 'Authenticated Users'; 'S-1-5-18' = 'SYSTEM'; 'S-1-5-32-544' = 'Administrators'
-        'S-1-5-32-545' = 'Users'; 'S-1-5-32-554' = 'Pre-Windows 2000 Compatible Access'
+    # Names of the well-known SIDs of every computer, as Windows shows them in an ACL
+    # (GPOToolsWellKnownSid: Authenticated Users, Administrators, SYSTEM...).
+    static [hashtable] $WellKnownNames = [GPOToolsSecurityDescriptor]::GetWellKnownNames()
+
+    hidden static [hashtable] GetWellKnownNames() {
+        $Names = @{}
+        foreach ($Entry in [GPOToolsWellKnownSid]::All) { if (-not $Entry.IsDomainAccount()) { $Names[$Entry.Sid] = $Entry.Name } }
+        return $Names
     }
 
     # Security filtering of a GPO ([MS-GPOL] 3.2.5.1.6): the members of $ApplySid read and apply
