@@ -670,6 +670,12 @@ function Set-PSGPOGpoFolderAcl {
 # The delegation of the creation of GPOs to the groups of creators, without Group Policy Creator
 # Owners: what it needs, what is there, what is added (-Apply). One row per right: Target, Account,
 # Right, State (Present, Added or Missing).
+#
+# The central store (Policies\PolicyDefinitions) must exist before the creators create folders in
+# Policies: one of them would create it, own it, and choose the ADMX files every console reads.
+# Not created here: an empty central store hides the administrative templates of GPMC. Without it,
+# -Apply changes nothing until it is created, unless the creators create folders already (then it
+# warns).
 function Set-PSGPODomainWorkflowDelegation {
     [CmdletBinding()]
     param(
@@ -680,11 +686,42 @@ function Set-PSGPODomainWorkflowDelegation {
     $setting = Get-PSGPOWorkflowSetting
     $domainDN = $Directory.Domain.DistinguishedName
     $policies = "CN=Policies,CN=System,$domainDN"
+    $path = "$($Directory.DomainName)\Policies"
+    $storePath = "$path\PolicyDefinitions"
+    $store = "\\$($Directory.Server)\SYSVOL\$storePath"
     $connection = New-PSGPODirectoryConnection -Directory $Directory
     try {
         $creators = @(Find-PSGPODomainAccount -Connection $connection -DomainDistinguishedName $domainDN -Name $setting.Creators)
         if (-not $creators.Count) { throw 'No group of creators in the configuration of the domain (Workflow.Creators).' }
-        $null = Find-PSGPODomainAccount -Connection $connection -DomainDistinguishedName $domainDN -Name (@($setting.Approvers) + $setting.ApprovedOwner)
+        $tier0Accounts = @(Find-PSGPODomainAccount -Connection $connection -DomainDistinguishedName $domainDN -Name (@($setting.Approvers) + $setting.ApprovedOwner))
+
+        # SYSVOL: create folders in Policies, CREATOR OWNER full control of what it creates.
+        $folder = Get-PSGPOSysvolItemAcl -Directory $Directory -Share 'SYSVOL' -Path $path
+        $needed = @(foreach ($group in $creators) {
+                @{ Account = $group.Name; Sid = $group.Sid; Flags = 0; Mask = $script:PSGPOCreateFolderMask; Right = 'List, read and create folders (this folder only)'; Creator = $true }
+            }) + @(@{ Account = 'CREATOR OWNER'; Sid = [GPOToolsSecurityDescriptor]::CreatorOwner; Flags = 0x0B; Mask = $script:PSGPOFullFileMask; Right = 'Full control of the folders and files it creates'; Creator = $false })
+        foreach ($right in $needed) {
+            $right.Present = [bool]@($folder.Dacl | Where-Object { $_.IsKnown() -and $_.Type -eq [GPOToolsAce]::AccessAllowed -and $_.Sid -eq $right.Sid -and
+                    ($_.Mask -band $right.Mask) -eq $right.Mask -and ($_.Flags -band 0x0B) -eq $right.Flags }).Count
+        }
+        $creatorsCreateFolders = -not @($needed | Where-Object { $_.Creator -and -not $_.Present }).Count
+
+        # The central store, and who owns it.
+        $storeExists = Test-PSGPOSysvolFolder -Directory $Directory -Path $storePath
+        $storeOwner = $null
+        $storeOwnerName = ''
+        $storeOwnedByTier0 = $false
+        if ($storeExists) {
+            $storeOwner = (Get-PSGPOSysvolItemAcl -Directory $Directory -Share 'SYSVOL' -Path $storePath).Owner
+            $domain = @(Invoke-PSGPOLdapBinarySearch -Connection $connection -SearchBase $domainDN -Scope Base -Attribute 'objectSid')[0]
+            $domainSid = ConvertFrom-PSGPOBinarySid -Bytes ([byte[]]$domain.Values['objectSid'][0])
+            $tier0 = Get-PSGPOTier0Sid -DomainSid $domainSid -Sid @($tier0Accounts | ForEach-Object { $_.Sid })
+            $storeOwnedByTier0 = $storeOwner -and (Test-PSGPOTier0Account -Connection $connection -DomainDistinguishedName $domainDN -Tier0 $tier0 -Cache @{} -Sid $storeOwner)
+            if ($storeOwner) { $storeOwnerName = (Resolve-PSGPODomainSid -Connection $connection -DomainDistinguishedName $domainDN -Sid $storeOwner)[$storeOwner] }
+        }
+        # Nothing is given while a creator could create the central store.
+        $held = $Apply -and -not $storeExists -and -not $creatorsCreateFolders
+        $doApply = $Apply -and -not $held
 
         # The directory: create groupPolicyContainer objects in CN=Policies.
         $descriptor = Get-PSGPODomainSecurityDescriptor -Connection $connection -DistinguishedName $policies
@@ -692,8 +729,8 @@ function Set-PSGPODomainWorkflowDelegation {
         foreach ($group in $creators) {
             $present = @($descriptor.Dacl | Where-Object { $_.IsKnown() -and $_.Type -eq [GPOToolsAce]::AccessAllowedObject -and $_.Sid -eq $group.Sid -and
                     ($_.Mask -band $script:PSGPOCreateChildMask) -and $_.ObjectType -eq $script:PSGPOGroupPolicyContainerClass }).Count
-            $state = if ($present) { 'Present' } elseif ($Apply) { 'Added' } else { 'Missing' }
-            if (-not $present -and $Apply) {
+            $state = if ($present) { 'Present' } elseif ($doApply) { 'Added' } else { 'Missing' }
+            if (-not $present -and $doApply) {
                 $descriptor.AddAce([GPOToolsAce]::new([GPOToolsAce]::AccessAllowedObject, 0, $script:PSGPOCreateChildMask, $group.Sid, $script:PSGPOGroupPolicyContainerClass))
                 $changed = $true
             }
@@ -704,24 +741,26 @@ function Set-PSGPODomainWorkflowDelegation {
         $connection.Dispose()
     }
 
-    # SYSVOL: create folders in Policies, CREATOR OWNER full control of what it creates.
-    $path = "$($Directory.DomainName)\Policies"
-    $folder = Get-PSGPOSysvolItemAcl -Directory $Directory -Share 'SYSVOL' -Path $path
     $changed = $false
-    $needed = @(foreach ($group in $creators) {
-            @{ Account = $group.Name; Sid = $group.Sid; Flags = 0; Mask = $script:PSGPOCreateFolderMask; Right = 'List, read and create folders (this folder only)' }
-        }) + @(@{ Account = 'CREATOR OWNER'; Sid = [GPOToolsSecurityDescriptor]::CreatorOwner; Flags = 0x0B; Mask = $script:PSGPOFullFileMask; Right = 'Full control of the folders and files it creates' })
     foreach ($right in $needed) {
-        $present = @($folder.Dacl | Where-Object { $_.IsKnown() -and $_.Type -eq [GPOToolsAce]::AccessAllowed -and $_.Sid -eq $right.Sid -and
-                ($_.Mask -band $right.Mask) -eq $right.Mask -and ($_.Flags -band 0x0B) -eq $right.Flags }).Count
-        $state = if ($present) { 'Present' } elseif ($Apply) { 'Added' } else { 'Missing' }
-        if (-not $present -and $Apply) {
+        $state = if ($right.Present) { 'Present' } elseif ($doApply) { 'Added' } else { 'Missing' }
+        if (-not $right.Present -and $doApply) {
             $folder.AddAce([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, [byte]$right.Flags, $right.Mask, $right.Sid, [guid]::Empty))
             $changed = $true
         }
         [pscustomobject]@{ Target = "\\$($Directory.Server)\SYSVOL\$path"; Account = $right.Account; Right = $right.Right; State = $state }
     }
     if ($changed) { Set-PSGPOSysvolItemAcl -Directory $Directory -Share 'SYSVOL' -Path $path -Descriptor $folder -Dacl }
+
+    [pscustomobject]@{ Target = $store; Account = $storeOwnerName; Right = 'The central store, owned by the Tier 0, before the creators create folders in Policies'; State = $(if ($storeOwnedByTier0) { 'Present' } else { 'Missing' }) }
+    $create = 'Create it (Install-PSGPOAdmx -CentralStore, or a copy of a PolicyDefinitions folder) as an administrator of the domain'
+    if ($held) {
+        Write-Error "Nothing was changed: there is no central store ($store), and a creator could create it, own it, and choose the ADMX files every console of the domain reads. $create, then run Initialize-PSGPOWorkflow -Apply again."
+    } elseif (-not $storeExists) {
+        Write-Warning "There is no central store ($store), and the creators create folders in Policies: one of them could create it, own it, and choose the ADMX files every console of the domain reads. $create now."
+    } elseif (-not $storeOwnedByTier0) {
+        Write-Warning "The central store ($store) is owned by $(if ($storeOwnerName) { $storeOwnerName } else { 'nobody known' }), outside of the Tier 0: it can change the ADMX files every console of the domain reads. Check them, then give the folder and every file in it to the Tier 0 (Windows: takeown /f <folder> /a /r /d y, then icacls <folder> /reset /t /c; Samba: samba-tool ntacl sysvolreset, then Initialize-PSGPOWorkflow -Apply again)."
+    }
 }
 
 # The group an approved GPO applies to: Name and Sid (Authenticated Users, or a group of the

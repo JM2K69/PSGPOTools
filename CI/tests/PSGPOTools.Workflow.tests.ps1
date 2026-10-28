@@ -344,10 +344,10 @@ InModuleScope -ModuleName HGPM {
     }
 
     Describe 'Delegation of the creation of GPOs' {
-        It 'Says what is missing, then adds it, without Group Policy Creator Owners' {
+        BeforeEach {
             $Directory = [GPOToolsLdapDirectory]::new('contoso.com', 'DC=contoso,DC=com', 'dc1.contoso.com', 'Samba AD')
             Mock Get-PSGPOWorkflowSetting { [pscustomobject]@{ Enabled = $true; Approvers = @('Domain Admins'); Creators = @('GPO-Tier1-Admins'); ApprovedOwner = 'Domain Admins'; CreatorRights = 'ReadOnly' } }
-            Mock Find-PSGPODomainAccount { foreach ($N in $Name) { [pscustomobject]@{ Name = $N; Sid = @{ 'Domain Admins' = $Admins; 'GPO-Tier1-Admins' = $Tier1 }[$N] } } }
+            Mock Find-PSGPODomainAccount { foreach ($N in $Name) { [pscustomobject]@{ Name = $N; Sid = @{ 'Domain Admins' = 'S-1-5-21-1-2-3-512'; 'GPO-Tier1-Admins' = 'S-1-5-21-1-2-3-1123' }[$N] } } }
             Mock New-PSGPODirectoryConnection { [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name Dispose -Value { } -PassThru }
             $script:Policies = [GPOToolsSecurityDescriptor]::new()
             $script:Policies.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
@@ -357,19 +357,36 @@ InModuleScope -ModuleName HGPM {
             $script:Folder.Control = [GPOToolsSecurityDescriptor]::DaclProtected
             $script:Folder.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
             $script:Folder.Dacl.Add([GPOToolsAce]::new(0, 3, 0x001F01FF, 'S-1-5-32-544', [guid]::Empty))
+            # The central store, created by an administrator: Administrators owns it.
+            $script:Store = [GPOToolsSecurityDescriptor]::new()
+            $script:Store.Owner = 'S-1-5-32-544'
+            $script:Store.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
+            $script:WrittenPolicies = $null
+            $script:WrittenFolder = $null
             Mock Get-PSGPODomainSecurityDescriptor { [GPOToolsSecurityDescriptor]::Parse($script:Policies.ToBytes()) }
             Mock Set-PSGPODomainDacl { $script:WrittenPolicies = $Descriptor }
-            Mock Get-PSGPOSysvolItemAcl { [GPOToolsSecurityDescriptor]::Parse($script:Folder.ToBytes()) }
+            Mock Test-PSGPOSysvolFolder { $Path -notlike '*\PolicyDefinitions' -or $null -ne $script:Store }
+            Mock Get-PSGPOSysvolItemAcl { [GPOToolsSecurityDescriptor]::Parse($(if ($Path -like '*\PolicyDefinitions') { $script:Store } else { $script:Folder }).ToBytes()) }
             Mock Set-PSGPOSysvolItemAcl { $script:WrittenFolder = $Descriptor }
+            Mock Invoke-PSGPOLdapBinarySearch { [pscustomobject]@{ DistinguishedName = $SearchBase; Values = @{ objectSid = @(, [GPOToolsSecurityDescriptor]::ConvertSidToBytes('S-1-5-21-1-2-3')) } } }
+            Mock Get-PSGPOAccountGroupSid { , [string[]]@($Sid, 'S-1-5-21-1-2-3-513') }
+            Mock Resolve-PSGPODomainSid { @{ $Sid[0] = @{ 'S-1-5-32-544' = 'Administrators'; 'S-1-5-21-1-2-3-1125' = 'tech1' }[$Sid[0]] } }
+            # The central store is the last row.
+            $Store = '\\dc1.contoso.com\SYSVOL\contoso.com\Policies\PolicyDefinitions'
+        }
 
+        It 'Says what is missing, then adds it, without Group Policy Creator Owners' {
             $Check = @(Set-PSGPODomainWorkflowDelegation -Directory $Directory)
-            @($Check.State | Select-Object -Unique) | Should -Be @('Missing')
-            $Check.Count | Should -Be 3
+            @($Check | Where-Object Target -NE $Store | ForEach-Object { $_.State } | Select-Object -Unique) | Should -Be @('Missing')
+            $Check.Count | Should -Be 4
+            $Check[-1].Target | Should -Be $Store
+            $Check[-1].Account | Should -Be 'Administrators'
+            $Check[-1].State | Should -Be 'Present'
             Should -Invoke Set-PSGPODomainDacl -Times 0
             Should -Invoke Set-PSGPOSysvolItemAcl -Times 0
 
             $Applied = @(Set-PSGPODomainWorkflowDelegation -Directory $Directory -Apply)
-            @($Applied.State | Select-Object -Unique) | Should -Be @('Added')
+            @($Applied | Where-Object Target -NE $Store | ForEach-Object { $_.State } | Select-Object -Unique) | Should -Be @('Added')
             (Get-Sddl $script:WrittenPolicies) | Should -Match "\(OA;;0x00000001;f30e3bc2-9ff0-11d1-b603-0000f80367c1;;$Tier1\)"
             (Get-Sddl $script:WrittenPolicies) | Should -Not -Match "S-1-5-21-1-2-3-519" -Because 'the inherited ACEs are computed again by the directory'
             (Get-Sddl $script:WrittenFolder) | Should -Match "\(A;;0x001200ad;;;$Tier1\)"
@@ -379,6 +396,35 @@ InModuleScope -ModuleName HGPM {
             $script:Policies = $script:WrittenPolicies
             $script:Folder = $script:WrittenFolder
             @((Set-PSGPODomainWorkflowDelegation -Directory $Directory).State | Select-Object -Unique) | Should -Be @('Present')
+        }
+
+        It 'Changes nothing without a central store while the creators cannot create folders yet, and says why' {
+            $script:Store = $null
+            $Rows = @(Set-PSGPODomainWorkflowDelegation -Directory $Directory -Apply -ErrorVariable Failed -ErrorAction SilentlyContinue)
+            @($Rows.State | Select-Object -Unique) | Should -Be @('Missing') -Because 'a creator could create the central store, and own it'
+            $Rows[-1].Account | Should -BeNullOrEmpty
+            "$Failed" | Should -BeLike 'Nothing was changed: there is no central store*Install-PSGPOAdmx -CentralStore*then run Initialize-PSGPOWorkflow -Apply again.'
+            Should -Invoke Set-PSGPODomainDacl -Times 0
+            Should -Invoke Set-PSGPOSysvolItemAcl -Times 0
+        }
+
+        It 'Warns without a central store when the creators create folders already, and adds the rest' {
+            $script:Store = $null
+            $script:Folder.Dacl.Add([GPOToolsAce]::new(0, 0, 0x001200AD, $Tier1, [guid]::Empty))
+            $script:Folder.Dacl.Add([GPOToolsAce]::new(0, 0x0B, 0x001F01FF, 'S-1-3-0', [guid]::Empty))
+            $Rows = @(Set-PSGPODomainWorkflowDelegation -Directory $Directory -Apply -WarningVariable Warned -WarningAction SilentlyContinue -ErrorVariable Failed)
+            $Failed | Should -BeNullOrEmpty
+            $Rows[0].State | Should -Be 'Added' -Because 'the creators create folders already: holding the directory back protects nothing'
+            $Rows[-1].State | Should -Be 'Missing'
+            "$Warned" | Should -BeLike 'There is no central store*the creators create folders in Policies*'
+        }
+
+        It 'Says who owns the central store when it is not the Tier 0, and does not change it' {
+            $script:Store.Owner = 'S-1-5-21-1-2-3-1125'
+            $Rows = @(Set-PSGPODomainWorkflowDelegation -Directory $Directory -WarningVariable Warned -WarningAction SilentlyContinue)
+            $Rows[-1].Account | Should -Be 'tech1'
+            $Rows[-1].State | Should -Be 'Missing'
+            "$Warned" | Should -BeLike '*is owned by tech1, outside of the Tier 0*takeown*samba-tool ntacl sysvolreset*'
         }
     }
 

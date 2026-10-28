@@ -18,6 +18,8 @@ Directory](../getting-started/lab.md)).
 | une sauvegarde sur un partage qu'il peut écrire | les [chemins des fichiers](#other-guards) d'une sauvegarde sont vérifiés |
 | une console plus ancienne, un contrôleur de domaine sans la configuration | la [configuration échoue en sécurité](#configuration-fails-closed) |
 | son propre fichier du journal d'audit central | [ajout seul, chaîné, vérifié à la lecture](#audit-log) ; rien de perdu quand le partage est injoignable |
+| le magasin central, quand le domaine n'en a pas (il crée des dossiers dans `Policies`) | les créateurs n'ont [aucun droit tant qu'il n'existe pas](#posture) ; la posture dit à qui il est |
+| un droit donné à côté du circuit (Group Policy Creator Owners, une GPO ou une UO des contrôleurs de domaine) | [trouvé chaque jour](#posture), envoyé au SIEM |
 
 ## Une GPO redirigée vers un autre dossier { #redirected-gpo }
 
@@ -464,6 +466,68 @@ déclarée ; une GPO sans `GPT.INI` ; un dossier de `Policies` sans GPO :
 | `Get-PSGPOReplicationStatus` | les deux GPO *SysvolDiffers*, le dossier *OrphanFolder* | de même |
 | Nettoyé | les GPO et le dossier supprimés, plus aucun problème | de même |
 
+## La posture de sécurité { #posture }
+
+### La menace
+
+- **Des droits donnés à côté du circuit** : le circuit ne tient que si personne d'autre ne crée,
+  ne modifie ou ne lie de GPO. Un membre de Group Policy Creator Owners crée des GPO qui
+  s'appliquent aussitôt, et en est propriétaire. Un droit sur `CN=Policies`, sur une GPO liée au
+  domaine ou aux contrôleurs de domaine, ou sur leur `gPLink`, donné une fois pour une migration ou
+  un outil puis oublié, donne les contrôleurs de domaine à un compte hors du Tier 0.
+- **Le magasin central pris le premier** : les créateurs créent des dossiers dans le dossier
+  `Policies` de SYSVOL (les dossiers de leurs GPO). Là où le domaine n'a pas encore de magasin
+  central, un créateur peut créer `Policies\PolicyDefinitions` et en être propriétaire : chaque
+  console du domaine lit alors ses fichiers ADMX, qui disent ce qu'écrit chaque stratégie, et où.
+- **Personne ne regarde** : ces droits sont dans les descripteurs de l'annuaire et les ACL de
+  SYSVOL, que personne ne relit une fois donnés.
+
+### Ce que fait la console
+
+- **`Test-PSGPOSecurityPosture`** lit le propriétaire et la DACL de `CN=Policies`, de chaque GPO,
+  du domaine et de chaque UO, les membres de Group Policy Creator Owners, et les ACL du dossier
+  `Policies`, du magasin central et de la configuration de HGPM dans SYSVOL. Il dit ce qu'un compte
+  hors du Tier 0 peut y faire (*High*) : créer des GPO hors des créateurs, modifier une GPO qui
+  s'applique aux contrôleurs de domaine, lier des GPO au domaine ou à leur UO, posséder ou modifier
+  ces dossiers ; et ce qu'un groupe de tous les comptes peut faire où que ce soit. *Medium* : pas de
+  magasin central alors que les créateurs créent des dossiers. *Low* : le circuit désactivé, pas de
+  journal d'audit central, rien dans le journal du système. Le Tier 0, ce sont les groupes que le
+  domaine protège (AdminSDHolder), les approbateurs, le propriétaire des GPO approuvées, et les
+  comptes de leurs groupes. Les attributs qui comptent (`gPLink`, `gPOptions`, ceux d'une GPO qui
+  changent ce qui s'applique) sont lus dans le schéma. Il ne fait que lire : un compte sans groupe
+  le lance, un gMSA dans une [tâche quotidienne](../getting-started/production.md#the-posture-each-day).
+- **`-SystemLog`** : un résumé (événement 4000) et chaque constat *High* (événement 4001) dans le
+  [journal du système](../features/audit-log.md#le-journal-du-systeme-pour-un-siem), pour un SIEM.
+- **`Initialize-PSGPOWorkflow`** ne donne rien aux créateurs tant que le magasin central manque,
+  et dit pourquoi. Il ne le crée pas : un magasin central vide cache les modèles d'administration
+  de GPMC (`Install-PSGPOAdmx -CentralStore` le remplit). Sa dernière ligne dit si le Tier 0 en est
+  propriétaire, et sinon comment le reprendre.
+
+### Testé
+
+`PSGPOTools.Posture.tests.ps1` : un domaine tel que le circuit le laisse, rien de trouvé ; chaque
+droit trop large dans l'annuaire et dans SYSVOL trouvé, avec le compte nommé ; un compte d'un
+groupe de Domain Admins est du Tier 0 ; un droit sur un autre attribut (le nom d'une GPO,
+`msDS-KeyCredentialLink` de Key Admins) ne compte pas, et chaque attribut compte quand le schéma ne
+peut pas être lu ; le résumé et chaque constat *High* dans le journal du système.
+`PSGPOTools.Workflow.tests.ps1` : sans magasin central, `-Apply` ne change rien et dit pourquoi ;
+il avertit quand les créateurs créent déjà des dossiers ; le propriétaire du magasin central nommé.
+`PSGPOTools.Ldap.tests.ps1`, sur le contrôleur de domaine Samba de la CI : le script du lab refusé
+sans magasin central, puis la délégation du lab, et aucun constat *High*.
+
+Sur les deux labs, des problèmes faits exprès, puis défaits :
+
+| Étape | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| Le domaine tel qu'il est | *Medium, CentralStore* : pas de magasin central alors que les créateurs créent des dossiers (0,5 s ; la même chose avec `tiers2`, un compte d'aucun autre groupe) | aucun constat (0,5 s) : le magasin central existe, à Administrators |
+| `Initialize-PSGPOWorkflow` | le magasin central *Missing*, et pourquoi | le magasin central *Present* [Administrators] |
+| `tiers1` crée le magasin central | *High, CentralStore* [tiers1] ; `Initialize-PSGPOWorkflow` : *Missing* [tiers1], et comment le reprendre | (le magasin central existe : aucun technicien ne peut le créer) |
+| Domain Users peut modifier une GPO | *High, GpoEditableByAll* [Domain Users] | la même chose |
+| `GPO-Tier1-Admins` peut lier des GPO à l'UO des contrôleurs de domaine | *High, Tier0Link* [GPO-Tier1-Admins] | la même chose |
+| `tiers1` dans Group Policy Creator Owners | *High, GroupPolicyCreatorOwners* [tiers1] | la même chose |
+| `-SystemLog` | journald : `[4000] ... 4 high, 0 medium, 0 low`, quatre lignes `[4001]` | le journal d'événements : 4000 *Warning* `... 3 high, 0 medium, 0 low`, trois événements 4001 |
+| Défait | le seul constat d'avant | aucun constat, comme avant |
+
 ## La chaîne de livraison { #supply-chain }
 
 ### La menace
@@ -562,6 +626,9 @@ La même revue les a trouvées, elles ne sont pas encore corrigées :
 - sous Samba, le propriétaire d'un fichier du journal d'audit central peut encore y écrire avec un
   outil qui l'ouvre en ajout : la chaîne montre une ligne modifiée, pas un fichier entier réécrit
   avec une nouvelle chaîne. Le journal du système (SIEM) garde une copie de chaque modification ;
+- `Test-PSGPOSecurityPosture` lit les groupes d'un compte (`tokenGroups`) : un groupe qu'il ne
+  peut pas lire compte comme hors du Tier 0 (un constat à vérifier, jamais un constat manqué). Les
+  liens des sites (`CN=Sites`) ne sont pas encore vérifiés ;
 - `Test-PSGPOHealth` ne compare pas les permissions du dossier d'une GPO dans SYSVOL avec celles de
   l'annuaire (*les autorisations de cet objet GPO dans le dossier SYSVOL ne sont pas cohérentes*
   de GPMC), et les contrôleurs de domaine sont comparés à la référence, pas répliqués : un

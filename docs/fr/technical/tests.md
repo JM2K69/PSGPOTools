@@ -25,6 +25,7 @@ Invoke-Pester -Configuration $Config
 | `PSGPOTools.PasswordPolicy.tests.ps1` | les stratégies de mot de passe affinées : les valeurs de l'annuaire, les vérifications, le PSO qui s'applique et pourquoi, les commandes |
 | `PSGPOTools.Gui.tests.ps1` | les vraies fenêtres des deux consoles (`-OnShown`) |
 | `PSGPOTools.Health.tests.ps1` | la santé des GPO et leur réplication entre contrôleurs de domaine (trois simulés) |
+| `PSGPOTools.Posture.tests.ps1` | la posture de sécurité : les droits trop larges dans l'annuaire et dans SYSVOL, le Tier 0 et ses groupes, les constats dans le journal du système |
 | `PSGPOTools.AvaloniaInstall.tests.ps1` | le runtime Avalonia : ses paquets et fichiers épinglés, d'où ils viennent, les vérifications avant son chargement |
 | `PSGPOTools.WellKnownSid.tests.ps1` | les comptes bien connus : leur table, les noms saisis en anglais ou en français, les suggestions pendant la frappe et la complétion des commandes |
 | `PSGPOTools.Release.tests.ps1` | la construction reproductible, le paquet d'une release (SHA256SUMS, signature, catalogue), les règles des workflows |

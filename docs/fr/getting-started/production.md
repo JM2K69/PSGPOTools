@@ -25,10 +25,10 @@ d'une console plus récente est ignorée par une plus ancienne.
 | # | Étape | Qui | Commande ou endroit | Vérification |
 |---|---|---|---|---|
 | 1 | Installer le module sur chaque poste d'administration | chaque compte | `Install-PSResource HGPM -Prerelease` | `Get-Module HGPM -ListAvailable` |
-| 2 | Les fichiers ADMX : le magasin central du domaine, ou une copie à côté du module | Tier 0 | le magasin central (`SYSVOL\<domaine>\Policies\PolicyDefinitions`), ou `Install-PSGPOAdmx` | la console liste les stratégies |
+| 2 | Les fichiers ADMX : le magasin central du domaine (avant l'étape 5 : un créateur pourrait le créer), ou une copie à côté du module | Tier 0 | le magasin central (`SYSVOL\<domaine>\Policies\PolicyDefinitions`), ou `Install-PSGPOAdmx` | la console liste les stratégies |
 | 3 | La configuration du domaine : ouvrir la console une fois | un Domain Admin | `Show-GPOManagerAvalonia` crée `SYSVOL\<domaine>\PSGPOTools\Configuration.psd1` | `Get-PSGPOConfiguration` |
 | 4 | Les rôles du circuit d'approbation | un Domain Admin | **Paramètres** : `Workflow.Enabled`, `Workflow.Approvers`, `Workflow.Creators`, `Workflow.ApprovedOwner`, `Workflow.CreatorRights` | `Get-PSGPOConfiguration` : aucun problème ; un rôle dans les deux listes est refusé |
-| 5 | La création de GPO pour les créateurs | un Domain Admin | `Initialize-PSGPOWorkflow -Apply` | `Initialize-PSGPOWorkflow` : chaque droit `Present` |
+| 5 | La création de GPO pour les créateurs | un Domain Admin | `Initialize-PSGPOWorkflow -Apply` | `Initialize-PSGPOWorkflow` : chaque droit `Present`, le magasin central au Tier 0 |
 | 6 | Les liens de chaque tier sur ses UO | un Domain Admin | l'onglet Délégation des UO, comme GPMC (le script du lab `Grant-PSGPOTierDelegation.ps1` en est un exemple) | un technicien voit ses UO, les autres grisées |
 | 7 | Le partage du journal d'audit | l'administrateur du serveur de fichiers | `New-PSGPOShare.ps1` (Windows) ou `New-PSGPOShare.sh` (Samba) ([journal d'audit](../features/audit-log.md#1-le-partage)) | le partage existe, seuls les administrateurs ont le contrôle total |
 | 8 | Le journal d'audit : son partage et ses rôles | un Domain Admin | **Paramètres** : `Audit.Path`, `Audit.Tiers`, `Audit.Readers`, `Audit.Purgers` ; puis `Initialize-PSGPOAuditShare` | l'outil Journal d'audit d'un technicien : son tier seulement, ses modifications *Vérifiées* |
@@ -36,6 +36,41 @@ d'une console plus récente est ignorée par une plus ancienne.
 | 10 | Le journal du système, pour un SIEM | un administrateur de chaque poste Windows | `Register-PSGPOEventSource` (Linux : journald, rien à faire) | les événements de source HGPM ([identifiants](../features/audit-log.md#le-journal-du-systeme-pour-un-siem)) |
 | 11 | La rétention du journal d'audit | un Domain Admin | un gMSA dans un groupe de `Audit.Purgers`, une tâche mensuelle ([rétention](../features/audit-log.md#retention-et-archives)) | `Invoke-PSGPOAuditRetention -WhatIf` en tant que gMSA |
 | 12 | La version des consoles | un Domain Admin, une fois toutes les consoles à jour | **Paramètres** : `Console.MinimumVersion` | une console plus ancienne ne crée aucune GPO |
+| 13 | La posture du domaine, chaque jour | un Domain Admin, puis un gMSA | `Test-PSGPOSecurityPosture`, puis une tâche quotidienne avec `-SystemLog` ([ci-dessous](#the-posture-each-day)) | aucun constat *High* ; les événements 4000 et 4001 dans le SIEM |
+
+## La posture, chaque jour { #the-posture-each-day }
+
+`Test-PSGPOSecurityPosture` dit qui peut créer, modifier et lier des GPO hors du Tier 0 et du
+circuit ([durcissement](../technical/hardening.md#posture)). Il ne fait que lire : planifiez-le avec
+un compte sans groupe, chaque jour, avec `-SystemLog` ; le SIEM alerte sur l'événement 4001 (un
+constat *High*).
+
+=== "Windows (un gMSA)"
+
+    ```powershell
+    # Une fois, en administrateur du domaine
+    New-ADServiceAccount -Name hgpm-posture -DNSHostName hgpm-posture.contoso.com -PrincipalsAllowedToRetrieveManagedPassword 'ADMIN-SERVER$'
+    Install-ADServiceAccount hgpm-posture                                     # sur ADMIN-SERVER
+    Register-PSGPOEventSource                                                 # sur ADMIN-SERVER, en administrateur
+
+    # Chaque jour, en tant que gMSA : -LogonType Password sans mot de passe, Windows le récupère
+    $action = New-ScheduledTaskAction -Execute 'pwsh.exe' -Argument '-NoProfile -Command "Import-Module HGPM; Test-PSGPOSecurityPosture -SystemLog | Out-Null"'
+    $principal = New-ScheduledTaskPrincipal -UserId 'CONTOSO\hgpm-posture$' -LogonType Password
+    Register-ScheduledTask -TaskName 'HGPM posture' -Action $action -Principal $principal -Trigger (New-ScheduledTaskTrigger -Daily -At 6am)
+    ```
+
+=== "Linux (un keytab)"
+
+    ```bash
+    # Une fois, sur un contrôleur de domaine Samba, en root
+    samba-tool user add hgpm-posture --random-password
+    samba-tool domain exportkeytab /root/hgpm-posture.keytab --principal=hgpm-posture
+    # Copié sur l'ordinateur du contrôle, pour le seul compte hgpm
+    sudo install -o hgpm -g hgpm -m 600 hgpm-posture.keytab /etc/hgpm/hgpm-posture.keytab
+
+    # Chaque jour
+    echo '0 6 * * * hgpm kinit -k -t /etc/hgpm/hgpm-posture.keytab hgpm-posture && pwsh -NoProfile -Command "Import-Module HGPM; Test-PSGPOSecurityPosture -Server dc.contoso.com -SystemLog | Out-Null"' | sudo tee /etc/cron.d/hgpm-posture
+    ```
 
 ## La recette
 
@@ -56,6 +91,8 @@ Avant que les techniciens l'utilisent, comme dans le [lab](lab.md#3-la-console-e
 - Ne donnez aucun autre usage aux approbateurs, à Domain Admins et aux purgeurs : ils sont du Tier 0.
 - Planifiez avec un gMSA ou un compte dédié et son keytab (mode 600), jamais avec le mot de passe
   d'un Domain Admin dans une tâche planifiée.
+- Vérifiez la posture chaque jour ([ci-dessus](#the-posture-each-day)) : un droit donné à côté
+  du circuit, puis oublié, donne les contrôleurs de domaine à un compte hors du Tier 0.
 - Envoyez le journal du système au SIEM : il garde une copie de chaque modification hors de portée
   des techniciens.
 

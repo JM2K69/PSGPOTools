@@ -24,6 +24,7 @@ Invoke-Pester -Configuration $Config
 | `PSGPOTools.PasswordPolicy.tests.ps1` | the fine-grained password policies: the values of the directory, the checks, the PSO that applies and why, the commands |
 | `PSGPOTools.Gui.tests.ps1` | the real windows of both consoles (`-OnShown`) |
 | `PSGPOTools.Health.tests.ps1` | the health of the GPOs and their replication between domain controllers (three simulated) |
+| `PSGPOTools.Posture.tests.ps1` | the security posture: the rights too wide in the directory and in SYSVOL, the Tier 0 and its groups, the findings to the log of the system |
 | `PSGPOTools.AvaloniaInstall.tests.ps1` | the Avalonia runtime: its pinned packages and files, where they come from, the checks before it is loaded |
 | `PSGPOTools.WellKnownSid.tests.ps1` | the well-known accounts: their table, the names typed in English or French, the suggestions while typing and the completion of the commands |
 | `PSGPOTools.Release.tests.ps1` | the build reproducible, the package of a release (SHA256SUMS, signature, catalog), the rules of the workflows |

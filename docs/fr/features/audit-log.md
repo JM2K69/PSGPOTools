@@ -256,6 +256,7 @@ du journal technique partent aussi dans le journal du système, où un SIEM les 
 | Où | le journal d'événements **Application**, source **HGPM** | syslog / journald, étiquette **hgpm** (`logger`) |
 | Une modification | Information, l'ID d'événement de son action | `user.notice`, `[<ID d'événement>]` |
 | Un avertissement, une erreur | Warning 2000, Error 3000 | `user.warning`, `user.err` |
+| La [posture](../technical/hardening.md#posture) (`Test-PSGPOSecurityPosture -SystemLog`) | 4000 un résumé (Information ; Warning avec un constat *High*), Warning 4001 chaque constat *High* | `[4000]`, `[4001]` |
 | Une fois par ordinateur | `Register-PSGPOEventSource`, en administrateur | rien |
 
 ![Les événements de HGPM dans l'Observateur d'événements](../assets/screenshots/67-event-viewer.png)
@@ -285,6 +286,7 @@ HGPM audit: ApproveGpo by HARDENBOX\Administrator from dc on hardenbox.labo: T1 
 | 1022 | RemoveLink | 1061 | InstallAdmx |
 | 1062 | InitializeAuditShare | 1063 | InitializeBackupShare |
 | 1064 | PurgeAuditLog | 2000, 3000 | un avertissement, une erreur |
+| 4000 | la posture : un résumé | 4001 | la posture : un constat *High* |
 
 ```powershell
 Register-PSGPOEventSource                                                # Windows, une fois, en administrateur

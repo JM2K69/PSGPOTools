@@ -245,6 +245,7 @@ log also goes to the log of the system, where a SIEM collects it:
 | Where | the event log **Application**, source **HGPM** | syslog / journald, tag **hgpm** (`logger`) |
 | A change | Information, the event ID of its action | `user.notice`, `[<event ID>]` |
 | A warning, an error | Warning 2000, Error 3000 | `user.warning`, `user.err` |
+| The [posture](../technical/hardening.md#posture) (`Test-PSGPOSecurityPosture -SystemLog`) | 4000 a summary (Information; Warning with a *High* finding), Warning 4001 each *High* finding | `[4000]`, `[4001]` |
 | Once per computer | `Register-PSGPOEventSource`, as an administrator | nothing |
 
 ![The events of HGPM in the Event Viewer](../assets/screenshots/67-event-viewer.png)
@@ -274,6 +275,7 @@ HGPM audit: ApproveGpo by HARDENBOX\Administrator from dc on hardenbox.labo: T1 
 | 1022 | RemoveLink | 1061 | InstallAdmx |
 | 1062 | InitializeAuditShare | 1063 | InitializeBackupShare |
 | 1064 | PurgeAuditLog | 2000, 3000 | a warning, an error |
+| 4000 | the posture: a summary | 4001 | the posture: a *High* finding |
 
 ```powershell
 Register-PSGPOEventSource                                                # Windows, once, as an administrator

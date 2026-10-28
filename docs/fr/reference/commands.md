@@ -15,6 +15,7 @@ avec Tab.
 | [`Show-GPOManagerAvalonia`](commands/show-gpomanageravalonia.md) `[-Server] [-Credential] [-UseSsl] [-Directory] [-NoDirectory] [-PolicyDefinitions] [-UICulture] [-Language]` | ouvre la console |
 | [`Get-PSGPOConfiguration`](commands/get-psgpoconfiguration.md) `[-Directory] [-Server]` | la configuration utilisée, et d'où elle vient |
 | [`Test-PSGPOHealth`](commands/test-psgpohealth.md) `[-Name] [-Directory] [-Server] [-DomainController]` | vérifie les GPO comme GPMC et gpotool : leur dossier et leurs versions dans SYSVOL, leurs extensions côté client, les dossiers sans GPO, les liaisons, et leur réplication sur chaque contrôleur de domaine |
+| [`Test-PSGPOSecurityPosture`](commands/test-psgposecurityposture.md) `[-Directory] [-Server] [-SystemLog]` | vérifie qui peut créer, modifier et lier des GPO hors du Tier 0 et du workflow, et à qui sont les dossiers de SYSVOL que lisent les ordinateurs et les consoles ; les constats High dans le journal du système |
 | [`Get-PSGPOReplicationStatus`](commands/get-psgporeplicationstatus.md) `[-Name] [-Directory] [-Server] [-DomainController]` | compare les GPO de chaque contrôleur de domaine, dans son annuaire et son SYSVOL, à la référence, comme l'onglet État de GPMC |
 
 ## Les GPO
@@ -24,7 +25,7 @@ avec Tab.
 | [`New-PSGPO`](commands/new-psgpo.md) `-Name [-Template] [-Status Enabled\|ComputerOnly\|UserOnly]` | crée une GPO, vide ou à partir d'un modèle |
 | [`Remove-PSGPO`](commands/remove-psgpo.md) `-Name [-BackupPath] [-NoBackup]` | supprime des GPO et leurs liens, sauvegardées d'abord |
 | [`Approve-PSGPO`](commands/approve-psgpo.md) `-Name [-CreatorRights ReadOnly\|EditSettings] [-ApplyTo] [-DenyTo] [-CreateFilteringGroups] [-GroupContainer] [-BackupPath]` | approuve des GPO en attente d'approbation, avec leur filtrage de sécurité (et ses groupes) |
-| [`Initialize-PSGPOWorkflow`](commands/initialize-psgpoworkflow.md) `[-Apply]` | vérifie, et avec `-Apply` pose, la délégation de la création de GPO aux créateurs |
+| [`Initialize-PSGPOWorkflow`](commands/initialize-psgpoworkflow.md) `[-Apply]` | vérifie, et avec `-Apply` pose, la délégation de la création de GPO aux créateurs, une fois le magasin central créé |
 | [`New-PSGPOLink`](commands/new-psgpolink.md) `-Name -Target [-Enforced] [-Disabled]` | lie des GPO au domaine ou à une OU, avec la plus faible priorité |
 | [`Set-PSGPOLink`](commands/set-psgpolink.md) `-Name -Target [-Enabled] [-Enforced] [-Order]` | active, désactive, applique (Enforced) ou déplace des liens |
 | [`Remove-PSGPOLink`](commands/remove-psgpolink.md) `-Name -Target` | supprime des liens, les GPO restent |
@@ -157,6 +158,7 @@ New-PSGPOFineGrainedPasswordPolicy -Name 'PSO - Tier 1 Admins' -Precedence 10 -M
 | `PSGPOTools.PolicyRuleComparison` | `Compare-PSGPOPolicyRuleSet` | `Scope`, `Path`, `Name`, `Option`, une propriété par jeu, `Conflict`, `Difference`, `PolicyType`, `Group`, `Setting`, `Explain`, `Cells` |
 | `PSGPOTools.Drift` | `Get-PSGPODrift` | `DisplayName`, `State`, `Approved`, `ApprovedBy`, `Changes` |
 | `PSGPOTools.HealthFinding` | `Test-PSGPOHealth` | `Severity`, `Check`, `Target`, `Id`, `DomainController`, `Detail` |
+| `PSGPOTools.PostureFinding` | `Test-PSGPOSecurityPosture` | `Severity`, `Check`, `Target`, `Principal`, `Detail` |
 | `PSGPOTools.ReplicationStatus` | `Get-PSGPOReplicationStatus` | `DomainController`, `IsBaseline`, `DisplayName`, `Id`, `State`, `DirectoryVersion`, `SysvolVersion`, `BaselineVersion`, `Detail` |
 | `PSGPOTools.Restore` | `Restore-PSGPO` | `DisplayName`, `Id`, `Version`, `BackupBefore`, `CreatedAgain`, `Linked`, `Problems` |
 | `PSGPOTools.RemovedBackup` | `Remove-PSGPOBackup` | `DisplayName`, `Id`, `Backups`, `Templates`, `Path` |

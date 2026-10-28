@@ -1,5 +1,19 @@
 # HGPM Release History
 
+## Unreleased
+
+### Security
+
+* `Initialize-PSGPOWorkflow -Apply` gives the creators nothing while the domain has no central store (`Policies\PolicyDefinitions`): a creator that creates folders in `Policies` could create it, own it, and choose the ADMX files every console reads. It is not created empty (an empty central store hides the administrative templates of GPMC): `Install-PSGPOAdmx -CentralStore` fills it. When the creators create folders already, it warns; its last row says whether Tier 0 owns the central store, and how to take it back otherwise
+
+### Added
+
+* `Test-PSGPOSecurityPosture`: who can create, change and link GPOs beyond Tier 0 and the workflow (Group Policy Creator Owners, `CN=Policies`, the GPOs and the links of the domain and of the domain controllers, a group of every account anywhere), who owns or changes the `Policies` folder, the central store and the configuration of HGPM in SYSVOL, and what the configuration leaves open. It only reads, as an account of no group; `-SystemLog` sends a summary (event 4000) and each High finding (event 4001) to the log of the system, for a SIEM
+
+### Documentation
+
+* Hardening: the security posture, tested on both labs; Production: the central store before the delegation, the posture checked each day by a gMSA or a keytab
+
 ## 0.1.22 - alpha
 
 ### Added

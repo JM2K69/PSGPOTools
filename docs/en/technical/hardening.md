@@ -17,6 +17,8 @@ tests of the module (`CI/tests/PSGPOTools.Hardening.tests.ps1` and others) and o
 | a backup on a share it can write | the [paths of the files](#other-guards) of a backup are checked |
 | an older console, a domain controller without the configuration | the [configuration fails closed](#configuration-fails-closed) |
 | its own file of the central audit log | [append only, chained, checked when read](#audit-log); nothing lost when the share is down |
+| the central store, when the domain has none (it creates folders in `Policies`) | the creators get [no right until it exists](#posture); the posture says who owns it |
+| a right given beside the workflow (Group Policy Creator Owners, a GPO or an OU of the domain controllers) | [found each day](#posture), sent to the SIEM |
 
 ## A GPO redirected to another folder { #redirected-gpo }
 
@@ -447,6 +449,68 @@ GPO without `GPT.INI`; a folder of `Policies` without a GPO:
 | `Get-PSGPOReplicationStatus` | the two GPOs *SysvolDiffers*, the folder *OrphanFolder* | the same |
 | Cleaned up | the GPOs and the folder deleted, no problem left | the same |
 
+## The security posture { #posture }
+
+### The threat
+
+- **Rights given beside the workflow**: the workflow holds only if nobody else creates, changes
+  or links GPOs. A member of Group Policy Creator Owners creates GPOs that apply at once, and owns
+  them. A right on `CN=Policies`, on a GPO linked to the domain or to the domain controllers, or on
+  their `gPLink`, given once for a migration or a tool and forgotten, gives the domain controllers
+  to an account outside of Tier 0.
+- **The central store taken first**: the creators create folders in the `Policies` folder of
+  SYSVOL (the folders of their GPOs). Where the domain has no central store yet, a creator can
+  create `Policies\PolicyDefinitions` and own it: every console of the domain then reads its ADMX
+  files, which say what each policy writes, and where.
+- **Nobody looking**: these rights are in the descriptors of the directory and the ACLs of
+  SYSVOL, read by nobody once given.
+
+### What the console does
+
+- **`Test-PSGPOSecurityPosture`** reads the owner and the DACL of `CN=Policies`, of each GPO, of
+  the domain and of each OU, the members of Group Policy Creator Owners, and the ACLs of the
+  `Policies` folder, of the central store and of the configuration of HGPM in SYSVOL. It says what
+  an account outside of Tier 0 can do there (*High*): create GPOs beyond the creators, change a GPO
+  that applies to the domain controllers, link GPOs to the domain or to their OU, own or change
+  these folders; and what a group of every account can do anywhere. *Medium*: no central store
+  while the creators create folders. *Low*: the workflow off, no central audit log, nothing to the
+  log of the system. Tier 0 is the groups the domain protects (AdminSDHolder), the approvers, the
+  owner of the approved GPOs, and the accounts in their groups. The attributes that count
+  (`gPLink`, `gPOptions`, those of a GPO that change what applies) are read from the schema. It
+  only reads: an account of no group runs it, a gMSA in a [daily
+  task](../getting-started/production.md#the-posture-each-day).
+- **`-SystemLog`**: a summary (event 4000) and each *High* finding (event 4001) to the [log of the
+  system](../features/audit-log.md#the-log-of-the-system-for-a-siem), for a SIEM.
+- **`Initialize-PSGPOWorkflow`** gives the creators nothing while the central store is missing,
+  and says why. It does not create it: an empty central store hides the administrative templates
+  of GPMC (`Install-PSGPOAdmx -CentralStore` fills it). Its last row says whether Tier 0 owns it,
+  and how to take it back otherwise.
+
+### Tested
+
+`PSGPOTools.Posture.tests.ps1`: a domain as the workflow leaves it, nothing found; each right too
+wide in the directory and in SYSVOL found, with the account named; an account in a group of Domain
+Admins is of Tier 0; a right on another attribute (the name of a GPO, `msDS-KeyCredentialLink` of
+Key Admins) does not count, and every attribute counts when the schema cannot be read; the summary
+and each *High* finding to the log of the system. `PSGPOTools.Workflow.tests.ps1`: without a
+central store, `-Apply` changes nothing and says why; it warns when the creators create folders
+already; the owner of the central store named. `PSGPOTools.Ldap.tests.ps1`, on the Samba domain
+controller of the CI: the script of the lab refused without a central store, then the delegation of
+the lab, and no *High* finding.
+
+On both labs, problems made on purpose, then undone:
+
+| Step | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| The domain as it is | *Medium, CentralStore*: no central store while the creators create folders (0.5 s; the same as `tiers2`, an account of no other group) | no finding (0.5 s): the central store exists, owned by Administrators |
+| `Initialize-PSGPOWorkflow` | the central store *Missing*, and why | the central store *Present* [Administrators] |
+| `tiers1` creates the central store | *High, CentralStore* [tiers1]; `Initialize-PSGPOWorkflow`: *Missing* [tiers1], and how to take it back | (the central store exists: no technician can create it) |
+| Domain Users can change a GPO | *High, GpoEditableByAll* [Domain Users] | the same |
+| `GPO-Tier1-Admins` can link GPOs to the domain controllers OU | *High, Tier0Link* [GPO-Tier1-Admins] | the same |
+| `tiers1` in Group Policy Creator Owners | *High, GroupPolicyCreatorOwners* [tiers1] | the same |
+| `-SystemLog` | journald: `[4000] ... 4 high, 0 medium, 0 low`, four lines `[4001]` | the event log: 4000 *Warning* `... 3 high, 0 medium, 0 low`, three events 4001 |
+| Undone | the finding of before only | no finding, as before |
+
 ## The supply chain { #supply-chain }
 
 ### The threat
@@ -544,6 +608,9 @@ These were found by the same review, and are not fixed yet:
 - on Samba, the owner of a file of the central audit log can still write in it with a tool that
   opens it to append: the chain shows a line changed, not a whole file written again with a new
   chain. The log of the system (SIEM) keeps a copy of each change;
+- `Test-PSGPOSecurityPosture` reads the groups of an account (`tokenGroups`): a group it cannot
+  read counts as outside of Tier 0 (a finding to check, never one missed). The links of the sites
+  (`CN=Sites`) are not checked yet;
 - `Test-PSGPOHealth` does not compare the permissions of the folder of a GPO in SYSVOL with those
   of the directory (*the permissions for this GPO in the SYSVOL folder are inconsistent* of GPMC),
   and the domain controllers are compared to the baseline, not replicated: a domain controller

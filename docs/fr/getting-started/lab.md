@@ -106,6 +106,10 @@ administrateur du domaine, **Paramètres** : `Workflow.Enabled` = `True`, `Workf
 [Workflow d'approbation](../workflows/approval.md#1-configurer-le-workflow-tier-0-une-fois)). Sans cela,
 le script s'arrête avant de rien changer, et dit ce qu'il a lu.
 
+Le magasin central du domaine doit exister aussi (`Install-PSGPOAdmx -CentralStore`, ou une copie
+d'un dossier `PolicyDefinitions`) : sans lui, les créateurs n'ont aucun droit, car l'un d'eux
+pourrait le créer et en être propriétaire ([durcissement](../technical/hardening.md#posture)).
+
 ![Workflow.Creators avec les groupes des scripts](../assets/screenshots/28-settings-workflow-creators.fr.png)
 
 === "Windows"

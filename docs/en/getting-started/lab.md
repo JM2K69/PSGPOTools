@@ -104,6 +104,10 @@ domain administrator, **Settings**: `Workflow.Enabled` = `True`, `Workflow.Creat
 [Approval workflow](../workflows/approval.md#1-configure-the-workflow-tier-0-once)). Without it,
 the script stops before changing anything, and says what it read.
 
+The central store of the domain must exist too (`Install-PSGPOAdmx -CentralStore`, or a copy of a
+`PolicyDefinitions` folder): without it, the creators get no right, as one of them could create it
+and own it ([hardening](../technical/hardening.md#posture)).
+
 ![Workflow.Creators with the groups of the scripts](../assets/screenshots/28-settings-workflow-creators.png)
 
 === "Windows"

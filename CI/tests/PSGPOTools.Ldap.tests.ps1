@@ -811,7 +811,19 @@ InModuleScope -ModuleName HGPM {
 
             # The workflow of the lab, for the test only.
             Save-PSGPODomainConfiguration -Directory $Directory -Values @{ 'Workflow.Enabled' = $true; 'Workflow.Creators' = 'GPO-Tier1-Admins, GPO-Tier2-Admins' } -Confirm:$false
+            $Store = "$($Directory.DomainName)\Policies\PolicyDefinitions"
+            $StoreCreated = $false
             try {
+                # Without the central store, the creators get no right: one of them could create it.
+                if (-not (Test-PSGPOSysvolFolder -Directory $Directory -Path $Store)) {
+                    $Held = Invoke-LabScript 'Grant-PSGPOTierDelegation.ps1'
+                    $Held.ExitCode | Should -Not -Be 0
+                    $Held.Output | Should -Match 'there is no central store'
+                    @(Initialize-PSGPOWorkflow -Server $Server 3>$null | Where-Object { $_.Target -like '\\*' -and $_.Account -like 'GPO-Tier*' -and $_.State -eq 'Present' }) |
+                        Should -BeNullOrEmpty -Because 'no creator creates folders in Policies yet'
+                    $null = Invoke-PSGPOSmbClient -Server $Server -Share 'SYSVOL' -Command "mkdir `"$Store`""
+                    $StoreCreated = $true
+                }
                 $Run = Invoke-LabScript 'Grant-PSGPOTierDelegation.ps1'
                 $Run.ExitCode | Should -Be 0 -Because $Run.Output
                 $Acl = & $ReadAcl
@@ -827,7 +839,12 @@ InModuleScope -ModuleName HGPM {
                 $Again = Invoke-LabScript 'Grant-PSGPOTierDelegation.ps1'
                 $Again.ExitCode | Should -Be 0 -Because $Again.Output
                 $Again.Output | Should -Not -Match 'now writes|Added' -Because 'what is there is kept'
+
+                # The posture of the domain: the delegation of the lab is what it expects.
+                $Posture = @(Test-PSGPOSecurityPosture -Server $Server)
+                @($Posture | Where-Object { $_.Severity -eq 'High' }) | Should -BeNullOrEmpty -Because ($Posture | Format-List | Out-String)
             } finally {
+                if ($StoreCreated) { $null = Invoke-PSGPOSmbClient -Server $Server -Share 'SYSVOL' -Command "rmdir `"$Store`"" }
                 # The configuration of the domain back to the defaults, for the other tests.
                 Save-PSGPODomainConfiguration -Directory $Directory -Values @{} -Confirm:$false
             }
