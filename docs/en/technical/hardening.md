@@ -481,10 +481,10 @@ GPO without `GPT.INI`; a folder of `Policies` without a GPO:
   task](../getting-started/production.md#the-posture-each-day).
 - **`-SystemLog`**: a summary (event 4000) and each *High* finding (event 4001) to the [log of the
   system](../features/audit-log.md#the-log-of-the-system-for-a-siem), for a SIEM.
-- **`Initialize-PSGPOWorkflow`** gives the creators nothing while the central store is missing,
-  and says why. It does not create it: an empty central store hides the administrative templates
-  of GPMC (`Install-PSGPOAdmx -CentralStore` fills it). Its last row says whether Tier 0 owns it,
-  and how to take it back otherwise.
+- **`Initialize-PSGPOWorkflow`** gives the creators nothing while the central store is missing:
+  it stops, and says why (a script that delegates stops too). It does not create it: an empty
+  central store hides the administrative templates of GPMC (`Install-PSGPOAdmx -CentralStore`
+  fills it). Its last row says whether Tier 0 owns it, and how to take it back otherwise.
 
 ### Tested
 
@@ -493,8 +493,8 @@ wide in the directory and in SYSVOL found, with the account named; an account in
 Admins is of Tier 0; a right on another attribute (the name of a GPO, `msDS-KeyCredentialLink` of
 Key Admins) does not count, and every attribute counts when the schema cannot be read; the summary
 and each *High* finding to the log of the system. `PSGPOTools.Workflow.tests.ps1`: without a
-central store, `-Apply` changes nothing and says why; it warns when the creators create folders
-already; the owner of the central store named. `PSGPOTools.Ldap.tests.ps1`, on the Samba domain
+central store, `-Apply` changes nothing and stops, a script with it; it warns when the creators
+create folders already; the owner of the central store named. `PSGPOTools.Ldap.tests.ps1`, on the Samba domain
 controller of the CI: the script of the lab refused without a central store, then the delegation of
 the lab, and no *High* finding.
 

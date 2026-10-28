@@ -498,9 +498,10 @@ déclarée ; une GPO sans `GPT.INI` ; un dossier de `Policies` sans GPO :
   le lance, un gMSA dans une [tâche quotidienne](../getting-started/production.md#the-posture-each-day).
 - **`-SystemLog`** : un résumé (événement 4000) et chaque constat *High* (événement 4001) dans le
   [journal du système](../features/audit-log.md#le-journal-du-systeme-pour-un-siem), pour un SIEM.
-- **`Initialize-PSGPOWorkflow`** ne donne rien aux créateurs tant que le magasin central manque,
-  et dit pourquoi. Il ne le crée pas : un magasin central vide cache les modèles d'administration
-  de GPMC (`Install-PSGPOAdmx -CentralStore` le remplit). Sa dernière ligne dit si le Tier 0 en est
+- **`Initialize-PSGPOWorkflow`** ne donne rien aux créateurs tant que le magasin central manque :
+  il s'arrête, et dit pourquoi (un script qui délègue s'arrête aussi). Il ne le crée pas : un
+  magasin central vide cache les modèles d'administration de GPMC
+  (`Install-PSGPOAdmx -CentralStore` le remplit). Sa dernière ligne dit si le Tier 0 en est
   propriétaire, et sinon comment le reprendre.
 
 ### Testé
@@ -510,8 +511,8 @@ droit trop large dans l'annuaire et dans SYSVOL trouvé, avec le compte nommé ;
 groupe de Domain Admins est du Tier 0 ; un droit sur un autre attribut (le nom d'une GPO,
 `msDS-KeyCredentialLink` de Key Admins) ne compte pas, et chaque attribut compte quand le schéma ne
 peut pas être lu ; le résumé et chaque constat *High* dans le journal du système.
-`PSGPOTools.Workflow.tests.ps1` : sans magasin central, `-Apply` ne change rien et dit pourquoi ;
-il avertit quand les créateurs créent déjà des dossiers ; le propriétaire du magasin central nommé.
+`PSGPOTools.Workflow.tests.ps1` : sans magasin central, `-Apply` ne change rien et s'arrête, un
+script avec lui ; il avertit quand les créateurs créent déjà des dossiers ; le propriétaire du magasin central nommé.
 `PSGPOTools.Ldap.tests.ps1`, sur le contrôleur de domaine Samba de la CI : le script du lab refusé
 sans magasin central, puis la délégation du lab, et aucun constat *High*.
 

@@ -771,7 +771,8 @@ InModuleScope -ModuleName HGPM {
             function Invoke-LabScript {
                 param([string]$Name, [string[]]$Argument)
                 $Output = pwsh -NoProfile -NonInteractive -Command "Import-Module '$Module'; & '$(Join-Path $Scripts $Name)' -Server '$Server' $($Argument -join ' ')" 2>&1
-                [pscustomobject]@{ ExitCode = $LASTEXITCODE; Output = ($Output | ForEach-Object { "$_" }) -join "`n" }
+                # Without the colors of the errors: an escape character in a message breaks the NUnit report.
+                [pscustomobject]@{ ExitCode = $LASTEXITCODE; Output = ($Output | ForEach-Object { "$_" -replace '\x1b\[[0-9;]*[A-Za-z]' }) -join "`n" }
             }
         }
 
@@ -884,7 +885,7 @@ InModuleScope -ModuleName HGPM {
                 $Saved = $env:KRB5CCNAME
                 try {
                     $env:KRB5CCNAME = $Tier1Cache
-                    $Lines = @(pwsh -NoProfile -NonInteractive -Command $Code 2>&1 | ForEach-Object { "$_" })
+                    $Lines = @(pwsh -NoProfile -NonInteractive -Command $Code 2>&1 | ForEach-Object { "$_" -replace '\x1b\[[0-9;]*[A-Za-z]' })
                 } finally { $env:KRB5CCNAME = $Saved }
                 [pscustomobject]@{ ExitCode = $LASTEXITCODE; Output = $Lines -join "`n"; Result = $(try { $Lines[-1] | ConvertFrom-Json } catch { $null }) }
             }

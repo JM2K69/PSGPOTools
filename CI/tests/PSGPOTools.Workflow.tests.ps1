@@ -398,14 +398,22 @@ InModuleScope -ModuleName HGPM {
             @((Set-PSGPODomainWorkflowDelegation -Directory $Directory).State | Select-Object -Unique) | Should -Be @('Present')
         }
 
-        It 'Changes nothing without a central store while the creators cannot create folders yet, and says why' {
+        It 'Changes nothing without a central store while the creators cannot create folders yet, and stops with why' {
             $script:Store = $null
-            $Rows = @(Set-PSGPODomainWorkflowDelegation -Directory $Directory -Apply -ErrorVariable Failed -ErrorAction SilentlyContinue)
-            @($Rows.State | Select-Object -Unique) | Should -Be @('Missing') -Because 'a creator could create the central store, and own it'
+            $Rows = [System.Collections.Generic.List[object]]::new()
+            { Set-PSGPODomainWorkflowDelegation -Directory $Directory -Apply | ForEach-Object { $Rows.Add($_) } } |
+                Should -Throw 'Nothing was changed: there is no central store*Install-PSGPOAdmx -CentralStore*then run Initialize-PSGPOWorkflow -Apply again.'
+            @($Rows.State | Select-Object -Unique) | Should -Be @('Missing') -Because 'a creator could create the central store, and own it; the rows say what is missing'
             $Rows[-1].Account | Should -BeNullOrEmpty
-            "$Failed" | Should -BeLike 'Nothing was changed: there is no central store*Install-PSGPOAdmx -CentralStore*then run Initialize-PSGPOWorkflow -Apply again.'
             Should -Invoke Set-PSGPODomainDacl -Times 0
             Should -Invoke Set-PSGPOSysvolItemAcl -Times 0
+        }
+
+        It 'Stops a script that delegates, whatever its error preference' {
+            $script:Store = $null
+            Mock Use-PSGPODomainConfiguration { }
+            $Script = { $ErrorActionPreference = 'Continue'; Initialize-PSGPOWorkflow -Directory $Directory -Apply -Confirm:$false; 'went on' }
+            { & $Script } | Should -Throw '*there is no central store*'
         }
 
         It 'Warns without a central store when the creators create folders already, and adds the rest' {

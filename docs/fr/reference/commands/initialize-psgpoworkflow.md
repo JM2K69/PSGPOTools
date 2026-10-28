@@ -20,7 +20,7 @@ class), until it is approved;
 - in SYSVOL, the Policies folder: list, read and create folders (this folder only), and
 CREATOR OWNER full control of the folders and files it creates.
 
-The central store (Policies\PolicyDefinitions, the ADMX files every console reads) must exist before: a creator that creates folders in Policies could create it, and own it. It is not created here, as an empty central store hides the administrative templates of GPMC: create it with Install-PSGPOAdmx -CentralStore, or a copy of a PolicyDefinitions folder. Without it, -Apply changes nothing and says why; when the creators create folders already, it warns. Its last row says whether the Tier 0 owns it.
+The central store (Policies\PolicyDefinitions, the ADMX files every console reads) must exist before: a creator that creates folders in Policies could create it, and own it. It is not created here, as an empty central store hides the administrative templates of GPMC: create it with Install-PSGPOAdmx -CentralStore, or a copy of a PolicyDefinitions folder. Without it, -Apply changes nothing and stops with an error that says why; when the creators create folders already, it warns. Its last row says whether the Tier 0 owns it.
 
 Without -Apply, it says what is there and what is missing; with it, an administrator of the domain adds what is missing. One row per right: Target, Account, Right, State (Present, Added or Missing). Run it again after samba-tool ntacl sysvolreset, which gives SYSVOL its default ACL back.
 

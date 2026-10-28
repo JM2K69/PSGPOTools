@@ -4,7 +4,7 @@
 
 ### Security
 
-* `Initialize-PSGPOWorkflow -Apply` gives the creators nothing while the domain has no central store (`Policies\PolicyDefinitions`): a creator that creates folders in `Policies` could create it, own it, and choose the ADMX files every console reads. It is not created empty (an empty central store hides the administrative templates of GPMC): `Install-PSGPOAdmx -CentralStore` fills it. When the creators create folders already, it warns; its last row says whether Tier 0 owns the central store, and how to take it back otherwise
+* `Initialize-PSGPOWorkflow -Apply` gives the creators nothing, and stops (a script that delegates stops with it), while the domain has no central store (`Policies\PolicyDefinitions`): a creator that creates folders in `Policies` could create it, own it, and choose the ADMX files every console reads. It is not created empty (an empty central store hides the administrative templates of GPMC): `Install-PSGPOAdmx -CentralStore` fills it. When the creators create folders already, it warns; its last row says whether Tier 0 owns the central store, and how to take it back otherwise
 
 ### Added
 

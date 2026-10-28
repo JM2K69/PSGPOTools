@@ -674,8 +674,8 @@ function Set-PSGPOGpoFolderAcl {
 # The central store (Policies\PolicyDefinitions) must exist before the creators create folders in
 # Policies: one of them would create it, own it, and choose the ADMX files every console reads.
 # Not created here: an empty central store hides the administrative templates of GPMC. Without it,
-# -Apply changes nothing until it is created, unless the creators create folders already (then it
-# warns).
+# -Apply changes nothing and stops until it is created, unless the creators create folders already
+# (then it warns).
 function Set-PSGPODomainWorkflowDelegation {
     [CmdletBinding()]
     param(
@@ -755,7 +755,9 @@ function Set-PSGPODomainWorkflowDelegation {
     [pscustomobject]@{ Target = $store; Account = $storeOwnerName; Right = 'The central store, owned by the Tier 0, before the creators create folders in Policies'; State = $(if ($storeOwnedByTier0) { 'Present' } else { 'Missing' }) }
     $create = 'Create it (Install-PSGPOAdmx -CentralStore, or a copy of a PolicyDefinitions folder) as an administrator of the domain'
     if ($held) {
-        Write-Error "Nothing was changed: there is no central store ($store), and a creator could create it, own it, and choose the ADMX files every console of the domain reads. $create, then run Initialize-PSGPOWorkflow -Apply again."
+        # It stops: a script that delegates would go on as if the creators could create GPOs (a
+        # non-terminating error of a module ignores the $ErrorActionPreference of the script).
+        throw "Nothing was changed: there is no central store ($store), and a creator could create it, own it, and choose the ADMX files every console of the domain reads. $create, then run Initialize-PSGPOWorkflow -Apply again."
     } elseif (-not $storeExists) {
         Write-Warning "There is no central store ($store), and the creators create folders in Policies: one of them could create it, own it, and choose the ADMX files every console of the domain reads. $create now."
     } elseif (-not $storeOwnedByTier0) {
