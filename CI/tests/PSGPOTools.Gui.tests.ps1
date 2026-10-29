@@ -641,6 +641,10 @@ InModuleScope -ModuleName HGPM {
                     # The version of each part, named: '3 / 0' read as a fraction.
                     $Nodes[2].Subtitle | Should -Be ('computer {0}, user {1}' -f $Gpo.GetComputerVersion(), $Gpo.GetUserVersion())
                     $Ui.historyTimelineList.SelectedIndex | Should -Be 2
+                    # The nodes at the top: centered, those without labels (shorter) put their part of
+                    # the line lower than a node with labels.
+                    @($Ui.historyTimelineList.Styles[0].Setters | Where-Object { $_.Property.Name -eq 'VerticalContentAlignment' }).Value |
+                        Should -Be ([Avalonia.Layout.VerticalAlignment]::Top)
                     $Ui.historyStatusTextBlock.Text | Should -BeLike '2 backups in*The GPO changed since the last one (Now).'
                     $Ui.historyCompareTextBlock.Text | Should -BeLike 'Changes since the backup of*not backed up yet'
                     $Row = @($Ui.historyChangesList.ItemsSource)[0]

@@ -863,9 +863,12 @@ $(Get-PSGPOWindowResourceXaml)
                                             <ItemsPanelTemplate><StackPanel Orientation='Horizontal'/></ItemsPanelTemplate>
                                         </ListBox.ItemsPanel>
                                         <ListBox.Styles>
+                                            <!-- At the top: a node with labels is taller, and the others, centered,
+                                                 would put their part of the line lower -->
                                             <Style Selector='ListBoxItem'>
                                                 <Setter Property='Padding' Value='0'/>
                                                 <Setter Property='Margin' Value='0'/>
+                                                <Setter Property='VerticalContentAlignment' Value='Top'/>
                                             </Style>
                                         </ListBox.Styles>
                                         <ListBox.ItemTemplate>

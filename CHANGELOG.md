@@ -1,5 +1,11 @@
 # HGPM Release History
 
+## Unreleased
+
+### Fixed
+
+* History tab: the line of the timeline was not straight, the backups with a label (Approved) a little higher than the others: the nodes are now aligned at the top
+
 ## 0.1.23 - alpha
 
 ### Security
