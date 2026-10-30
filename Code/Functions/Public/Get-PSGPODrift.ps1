@@ -12,6 +12,13 @@ function Get-PSGPODrift {
         State of each GPO: InSync (it is its approved version), Drifted (Changes: what changed
         since, Added, Removed or Changed with the value before and after), or NotApproved (no
         approved version yet).
+
+        With -IncludePermissions, its owner and its permissions are compared too, as the
+        Delegation tab lists them (Path Permissions: each account by its SID, its level, denied or
+        inherited): an account added, removed or given another level since the approval, another
+        owner. A backup keeps them since HGPM 0.1.26: when the approved version is older,
+        Permissions says NotRecorded, and the permissions are not compared (approve the GPO again
+        to record them).
     .PARAMETER Path
         Root folder of the backups (Backup-PSGPO).
     .PARAMETER Name
@@ -22,8 +29,13 @@ function Get-PSGPODrift {
         Domain controller to read the domain from, without -Directory.
     .PARAMETER Label
         Label of the approved versions, instead of the one of the configuration.
+    .PARAMETER IncludePermissions
+        Compares the owner and the permissions of each GPO to those of its approved version too.
     .EXAMPLE
         Get-PSGPODrift -Path /srv/gpo-backups | Where-Object State -EQ 'Drifted'
+    .EXAMPLE
+        # Who was given rights on a GPO since its approval
+        (Get-PSGPODrift -Path /srv/gpo-backups -IncludePermissions).Changes | Where-Object Path -EQ 'Permissions' | Format-Table Change, Name, Before, After
     .EXAMPLE
         (Get-PSGPODrift -Path D:\GPO_Backup -Name 'Default Domain Policy').Changes | Format-Table Change, Path, Name, Before, After
     .LINK
@@ -46,7 +58,9 @@ function Get-PSGPODrift {
 
         [string]$Server,
 
-        [string]$Label
+        [string]$Label,
+
+        [switch]$IncludePermissions
     )
 
     begin {
@@ -71,7 +85,9 @@ function Get-PSGPODrift {
         }
         foreach ($gpo in @($gpos)) {
             try {
-                Get-PSGPODriftState -Directory $Directory -Gpo $gpo -Path $Path -Label $Label
+                $state = Get-PSGPODriftState -Directory $Directory -Gpo $gpo -Path $Path -Label $Label -Permission:$IncludePermissions
+                if ($state.Permissions -eq 'NotRecorded') { Write-Warning "GPO '$($gpo.DisplayName)': its approved version was backed up before the permissions were kept, they are not compared. Approve it again to record them." }
+                $state
             } catch {
                 Write-Error "The GPO '$($gpo.DisplayName)' is not compared to its approved version: $($_.Exception.GetBaseException().Message)"
             }

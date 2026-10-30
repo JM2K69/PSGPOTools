@@ -93,6 +93,8 @@ Avant que les techniciens l'utilisent, comme dans le [lab](lab.md#3-la-console-e
   d'un Domain Admin dans une tâche planifiée.
 - Vérifiez la posture chaque jour ([ci-dessus](#the-posture-each-day)) : un droit donné à côté
   du circuit, puis oublié, donne les contrôleurs de domaine à un compte hors du Tier 0.
+- Auditez aussi les contrôleurs de domaine ([Windows et Samba](../technical/dc-audit.md)) : une
+  modification faite avec un autre outil que HGPM est dans leurs journaux, pas dans le sien.
 - Envoyez le journal du système au SIEM : il garde une copie de chaque modification hors de portée
   des techniciens.
 

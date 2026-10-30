@@ -36,6 +36,21 @@ foreach ($Gpo in $Drift) {
 Envoyez-le par mail ou à votre supervision : une GPO changée hors du processus de changement (GPMC
 par quelqu'un d'autre, `samba-tool`, un script) apparaît ici.
 
+### Ses permissions aussi { #its-permissions-too }
+
+Une sauvegarde garde le propriétaire et les permissions de la GPO, comme l'onglet Délégation les
+liste (depuis HGPM 0.1.26). `-IncludePermissions` les compare aussi : un compte ajouté, retiré ou
+qui a reçu un autre niveau depuis l'approbation, un autre propriétaire.
+
+```powershell
+(Get-PSGPODrift -Path /srv/gpo-backups -IncludePermissions).Changes | Where-Object Path -EQ 'Permissions' |
+    Format-Table Change, Name, Before, After
+```
+
+Une version approuvée sauvegardée avant n'a pas de permissions : `Permissions` vaut `NotRecorded`,
+et un avertissement demande d'approuver la GPO de nouveau. Qui les a modifiées : les [contrôleurs
+de domaine](../technical/dc-audit.md).
+
 ## 4. Ensuite
 
 - le changement est bon : approuvez la nouvelle version (sauvegardez-la avec `-Approve`) ;

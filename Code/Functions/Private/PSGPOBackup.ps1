@@ -155,12 +155,15 @@ function Get-PSGPOFileHash {
     [Convert]::ToHexString([System.Security.Cryptography.SHA256]::HashData($Bytes))
 }
 
-# What a backup keeps of a GPO besides its files.
+# What a backup keeps of a GPO besides its files. -Permission: its owner and its permissions too,
+# as the Delegation tab lists them (Sid, Name, Permission, Inherited, Denied), $null when they
+# cannot be read.
 function Get-PSGPOBackupProperty {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
-        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo
+        [Parameter(Mandatory)] [GPOToolsGpo]$Gpo,
+        [switch]$Permission
     )
 
     # Not "if (...) { @(...) }": the output of if unrolls an empty list into $null.
@@ -168,7 +171,7 @@ function Get-PSGPOBackupProperty {
     if ($null -ne $Gpo.SecurityFiltering) { $filtering = [string[]]@($Gpo.SecurityFiltering) }
     $denied = $null
     if ($null -ne $Gpo.DeniedTo) { $denied = [string[]]@($Gpo.DeniedTo) }
-    [ordered]@{
+    $properties = [ordered]@{
         DisplayName = $Gpo.DisplayName
         Version = $Gpo.Version
         ComputerVersion = $Gpo.GetComputerVersion()
@@ -187,6 +190,23 @@ function Get-PSGPOBackupProperty {
                 [ordered]@{ Container = $pair.Som.DistinguishedName; Enabled = $pair.Link.Enabled; Enforced = $pair.Link.Enforced; Order = $pair.Link.Order }
             })
     }
+    if ($Permission) {
+        $properties.Owner = $null
+        $properties.Permissions = $null
+        try {
+            # The descriptor read once: the owner and the permissions from it.
+            $descriptor = $Directory.LoadGpoDescriptor($Gpo)
+            $rows = @(Get-PSGPOPermissionFromDescriptor -Descriptor $descriptor)
+            $names = $Directory.ResolveSidNames([string[]]@(@($rows | ForEach-Object { $_.Sid }) + @($descriptor.Owner | Where-Object { $_ })))
+            if ($descriptor.Owner) { $properties.Owner = [ordered]@{ Sid = $descriptor.Owner; Name = $names[$descriptor.Owner] } }
+            $properties.Permissions = @(foreach ($row in @($rows | Sort-Object Sid, Denied, Inherited)) {
+                    [ordered]@{ Sid = $row.Sid; Name = $names[$row.Sid]; Permission = $row.Permission; Inherited = [bool]$row.Inherited; Denied = [bool]$row.Denied }
+                })
+        } catch {
+            Write-Verbose "The permissions of the GPO '$($Gpo.DisplayName)' are not read: $($_.Exception.GetBaseException().Message)"
+        }
+    }
+    $properties
 }
 
 # Backups of a root folder, newest first; those of one GPO with -Id.
@@ -267,6 +287,11 @@ function ConvertTo-PSGPOBackupEntry {
         # $null in a backup of a GPO whose extensions were not read
         MachineExtensionNames = $gpo.MachineExtensionNames
         UserExtensionNames = $gpo.UserExtensionNames
+        # Its owner and its permissions (Sid, Name, Permission, Inherited, Denied); $null when they
+        # were not read, and in the backups made before they were kept (HasPermissions $false)
+        Owner = $gpo.Owner
+        Permissions = $gpo.Permissions
+        HasPermissions = $gpo.Contains('Permissions')
         Files = @($Manifest.Files)
         # Notes of the backup (notes.json)
         Comment = "$($Note.Comment)"
@@ -299,7 +324,7 @@ function Save-PSGPOBackup {
     # The GPO as it is now: it may have changed since the directory was read.
     $Directory.RefreshGpo($Gpo)
     $files = $Directory.ReadGpoFolder($Gpo)
-    $properties = Get-PSGPOBackupProperty -Directory $Directory -Gpo $Gpo
+    $properties = Get-PSGPOBackupProperty -Directory $Directory -Gpo $Gpo -Permission
     $fileList = @(foreach ($name in $files.Keys) {
             [ordered]@{ Path = $name; Size = $files[$name].Length; Sha256 = Get-PSGPOFileHash -Bytes $files[$name] }
         })
@@ -311,7 +336,10 @@ function Save-PSGPOBackup {
             (ConvertTo-Json -Compress -InputObject @($last.SecurityFiltering)) -eq (ConvertTo-Json -Compress -InputObject @($properties.SecurityFiltering)) -and
             (ConvertTo-Json -Compress -InputObject @($last.DeniedTo)) -eq (ConvertTo-Json -Compress -InputObject @($properties.DeniedTo)) -and
             (ConvertTo-Json -Depth 5 -Compress -InputObject @($last.Links)) -eq (ConvertTo-Json -Depth 5 -Compress -InputObject @($properties.Links)) -and
-            "$($last.WmiFilter.Id)" -eq "$($properties.WmiFilter.Id)"
+            "$($last.WmiFilter.Id)" -eq "$($properties.WmiFilter.Id)" -and
+            # Its permissions too: a backup made before they were kept is not the GPO as it is.
+            $last.HasPermissions -and "$($last.Owner.Sid)" -eq "$($properties.Owner.Sid)" -and
+            (ConvertTo-Json -Depth 5 -Compress -InputObject @($last.Permissions)) -eq (ConvertTo-Json -Depth 5 -Compress -InputObject @($properties.Permissions))
         if ($same) {
             # Its labels (the approval of the GPO as it is); the comment is of a change: none here.
             if (@($labels | Where-Object { $_ -notin @($last.Labels) }).Count) {
@@ -363,7 +391,9 @@ function Save-PSGPOBackup {
 # The approved version of a GPO and what changed since: State InSync (the GPO is the approved
 # version), Drifted (Changes: from the approved version to the GPO now) or NotApproved (no backup
 # with the label). $Backups: the backups of the GPO, read when not given; $Current: the settings
-# of the GPO now (Get-PSGPOSettingReport), read when not given.
+# of the GPO now (Get-PSGPOSettingReport), read when not given. -Permission: its owner and its
+# permissions compared too (Permissions: Compared), unless the approved version was backed up
+# before they were kept (NotRecorded).
 function Get-PSGPODriftState {
     [CmdletBinding()]
     param(
@@ -373,7 +403,8 @@ function Get-PSGPODriftState {
         [AllowEmptyCollection()] [object[]]$Backups,
         [AllowEmptyCollection()] [object[]]$Current,
         [object[]]$ApprovedSetting,
-        [string]$Label = (Get-PSGPOApprovedLabel)
+        [string]$Label = (Get-PSGPOApprovedLabel),
+        [switch]$Permission
     )
 
     if ($null -eq $Backups) { $Backups = @(Get-PSGPOBackupEntry -Path $Path -Id $Gpo.Id) }
@@ -387,13 +418,17 @@ function Get-PSGPODriftState {
         ApprovedBy = $null
         ApprovedBackup = $approved
         Changes = @()
+        # NotCompared, Compared, or NotRecorded (the approved version has no permissions).
+        Permissions = 'NotCompared'
     }
     if (-not $approved) { return $state }
+    $withPermissions = $Permission -and $approved.HasPermissions
+    if ($Permission) { $state.Permissions = if ($withPermissions) { 'Compared' } else { 'NotRecorded' } }
     if ($null -eq $Current) {
         $Directory.RefreshGpo($Gpo)
-        $Current = @(Get-PSGPOSettingReport -Files $Directory.ReadGpoFolder($Gpo) -Property (Get-PSGPOBackupProperty -Directory $Directory -Gpo $Gpo))
+        $Current = @(Get-PSGPOSettingReport -Files $Directory.ReadGpoFolder($Gpo) -Property (Get-PSGPOBackupProperty -Directory $Directory -Gpo $Gpo -Permission:$withPermissions) -Permission:$withPermissions)
     }
-    if ($null -eq $ApprovedSetting) { $ApprovedSetting = @(Get-PSGPOBackupSetting -Backup $approved) }
+    if ($null -eq $ApprovedSetting) { $ApprovedSetting = @(Get-PSGPOBackupSetting -Backup $approved -Permission:$withPermissions) }
     $state.Approved = if ($approved.Modified) { $approved.Modified } else { $approved.BackedUp }
     $state.ApprovedBy = if ($approved.NotesUpdatedBy) { $approved.NotesUpdatedBy } else { $approved.BackedUpBy }
     $state.Changes = @(Compare-PSGPOSettingReport -Reference $ApprovedSetting -Difference $Current)
@@ -481,7 +516,9 @@ function Get-PSGPOSettingReport {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] [AllowEmptyCollection()] [System.Collections.IDictionary]$Files,
-        [Parameter(Mandatory)] [System.Collections.IDictionary]$Property
+        [Parameter(Mandatory)] [System.Collections.IDictionary]$Property,
+        # The owner and the permissions of the GPO too (Get-PSGPOBackupProperty -Permission).
+        [switch]$Permission
     )
 
     function New-ReportRow {
@@ -501,6 +538,23 @@ function Get-PSGPOSettingReport {
     }
     foreach ($link in @($Property.Links)) {
         New-ReportRow 'GPO' 'Links' $link.Container ('{0}, {1}' -f $(if ($link.Enabled) { 'Link enabled' } else { 'Link disabled' }), $(if ($link.Enforced) { 'enforced' } else { 'not enforced' }))
+    }
+    # Its owner and its permissions, each account by its SID (a group renamed is the same).
+    if ($Permission) {
+        $account = { param($Entry) if ("$($Entry.Name)" -and "$($Entry.Name)" -ne "$($Entry.Sid)") { "$($Entry.Name) ($($Entry.Sid))" } else { "$($Entry.Sid)" } }
+        if ($null -eq $Property.Permissions) {
+            New-ReportRow 'GPO' 'Permissions' 'Permissions' 'Not read'
+        } else {
+            if ($Property.Owner) { [pscustomobject]@{ Key = 'GPO|Permissions|Owner'; Scope = 'GPO'; Path = 'Permissions'; Name = 'Owner'; State = & $account $Property.Owner; Options = '' } }
+            foreach ($entry in @($Property.Permissions)) {
+                [pscustomobject]@{
+                    Key = "GPO|Permissions|$($entry.Sid)|$(if ($entry.Denied) { 'Deny' } else { 'Allow' })|$(if ($entry.Inherited) { 'Inherited' } else { 'Explicit' })"
+                    Scope = 'GPO'; Path = 'Permissions'; Name = & $account $entry
+                    State = (Get-PSGPOPermissionText -Permission $entry.Permission) + $(if ($entry.Denied) { ', denied' }) + $(if ($entry.Inherited) { ', inherited' })
+                    Options = ''
+                }
+            }
+        }
     }
     # The client-side extensions whose settings the console does not read: one added applies what
     # the comparison cannot show (those it reads come with their settings).
@@ -532,10 +586,10 @@ function Get-PSGPOSettingReport {
     }
 }
 
-# The settings of a backup (Get-PSGPOSettingReport).
+# The settings of a backup (Get-PSGPOSettingReport); -Permission: its owner and its permissions too.
 function Get-PSGPOBackupSetting {
     [CmdletBinding()]
-    param([Parameter(Mandatory)] $Backup)
+    param([Parameter(Mandatory)] $Backup, [switch]$Permission)
 
     $files = Read-PSGPOBackupFile -Backup $Backup
     $extensions = Get-PSGPOBackupExtensionName -Backup $Backup -Files $files
@@ -543,8 +597,9 @@ function Get-PSGPOBackupSetting {
         DisplayName = $Backup.DisplayName; Status = $Backup.Status; SecurityFiltering = $Backup.SecurityFiltering
         DeniedTo = $Backup.DeniedTo; Links = $Backup.Links; WmiFilter = $Backup.WmiFilter
         MachineExtensionNames = $extensions.Machine; UserExtensionNames = $extensions.User
+        Owner = $Backup.Owner; Permissions = $Backup.Permissions
     }
-    Get-PSGPOSettingReport -Files $files -Property $property
+    Get-PSGPOSettingReport -Files $files -Property $property -Permission:$Permission
 }
 
 # What changed from $Reference (older) to $Difference (newer), setting by setting: Added,

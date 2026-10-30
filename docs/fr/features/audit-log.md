@@ -248,6 +248,9 @@ domaine.
 
 ## Le journal du système, pour un SIEM
 
+Les modifications faites avec d'autres outils : [l'audit sur les contrôleurs de
+domaine](../technical/dc-audit.md).
+
 Avec `Log.SystemLog` (activé par défaut), chaque modification du journal d'audit et chaque erreur
 du journal technique partent aussi dans le journal du système, où un SIEM les collecte :
 

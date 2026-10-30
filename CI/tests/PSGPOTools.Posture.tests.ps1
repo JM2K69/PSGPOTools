@@ -66,6 +66,8 @@ InModuleScope -ModuleName HGPM {
                 Names = @{ "$D-512" = 'Domain Admins'; "$D-513" = 'Domain Users'; "$D-1123" = 'GPO-Tier1-Admins'; "$D-1124" = 'GPO-Tier2-Admins'; "$D-1125" = 'tech1'; "$D-1200" = 'helpdesk'; 'S-1-5-11' = 'Authenticated Users' }
                 Members = @{}
                 Schema = @{ gPLink = $GpLink; gPOptions = $GpOptions; gPCFileSysPath = $FileSysPath; versionNumber = $VersionNumber }
+                # The sites of the forest: none linked by default.
+                Sites = [ordered]@{ 'Default-First-Site-Name' = @{ GpLink = ''; Descriptor = New-TestDescriptor "$D-519" @(New-TestAce "$D-519" 0x000F01FF 0x02; New-TestAce 'S-1-5-11' 0x00020094 0x02) } }
                 Domain = New-TestDescriptor "$D-512" @(
                     New-TestAce "$D-512" 0x000F01FF 0x02
                     New-TestAce 'S-1-5-18' 0x000F01FF 0x02
@@ -112,13 +114,23 @@ InModuleScope -ModuleName HGPM {
                     [pscustomobject]@{ Name = $Item; Sid = $Found }
                 }
             }
-            Mock Invoke-PSGPOLdapSearch { [pscustomobject]@{ DistinguishedName = ''; Attributes = @{ schemanamingcontext = [string[]]@('CN=Schema,CN=Configuration,DC=hardenbox,DC=labo') } } }
+            Mock Invoke-PSGPOLdapSearch {
+                [pscustomobject]@{ DistinguishedName = ''; Attributes = @{
+                        schemanamingcontext = [string[]]@('CN=Schema,CN=Configuration,DC=hardenbox,DC=labo')
+                        configurationnamingcontext = [string[]]@('CN=Configuration,DC=hardenbox,DC=labo')
+                    }
+                }
+            }
             Mock Invoke-PSGPOLdapBinarySearch {
                 $T = $script:TestPosture
                 $Entry = { param([string]$Dn, [hashtable]$Values) [pscustomobject]@{ DistinguishedName = $Dn; Values = $Values } }
                 $Utf8 = [System.Text.Encoding]::UTF8
                 if ($SearchBase -like 'CN=Schema,*') {
                     foreach ($Name in $T.Schema.Keys) { & $Entry "CN=$Name,$SearchBase" @{ lDAPDisplayName = @(, $Utf8.GetBytes($Name)); schemaIDGUID = @(, $T.Schema[$Name].ToByteArray()) } }
+                } elseif ($SearchBase -like 'CN=Sites,*') {
+                    foreach ($Name in $T.Sites.Keys) {
+                        & $Entry "CN=$Name,$SearchBase" @{ cn = @(, $Utf8.GetBytes($Name)); gPLink = @(, $Utf8.GetBytes($T.Sites[$Name].GpLink)); nTSecurityDescriptor = @(, $T.Sites[$Name].Descriptor.ToBytes()) }
+                    }
                 } elseif ($Filter -like '(objectSid=*') {
                     & $Entry "CN=Group Policy Creator Owners,CN=Users,$($T.DomainDN)" @{ member = @($T.Members.Keys | ForEach-Object { , $Utf8.GetBytes($_) }) }
                 } elseif ($T.Members.Contains($SearchBase)) {
@@ -231,6 +243,19 @@ InModuleScope -ModuleName HGPM {
                 $All = Get-TestFinding 'LinkByAll'
                 $All.Target | Should -Be "OU=Lyon,$TestLdapDomainDN"
                 $All.Principal | Should -Be 'Authenticated Users'
+            }
+
+            It 'Finds who links GPOs to a site, and a GPO linked to a site changed outside of the Tier 0: the domain controllers of the site apply it' {
+                $Site = $script:TestPosture.Sites['Default-First-Site-Name']
+                $Site.GpLink = "[LDAP://$(Get-TestLdapGpoDN $Gpo.Workstations);0]"
+                $Site.Descriptor.Dacl.Add((New-TestAce "$D-1200" 0x20 0 $GpLink))
+                $script:TestPosture.Gpos[$Gpo.Workstations].Dacl.Add((New-TestAce "$D-1123" 0x000200B7))
+                $script:Result = Get-PSGPOPostureData -Directory $Directory
+                $Link = Get-TestFinding 'Tier0Link'
+                "$($Link.Target)|$($Link.Principal)" | Should -Be 'Default-First-Site-Name (site)|helpdesk'
+                $Changed = Get-TestFinding 'Tier0Gpo'
+                "$($Changed.Target)|$($Changed.Principal)" | Should -Be 'Workstations|GPO-Tier1-Admins' -Because 'linked to an OU of Tier 1 only, it would be expected'
+                $Changed.Detail | Should -BeLike '*linked to the site Default-First-Site-Name*'
             }
 
             It 'Finds who owns or changes the folders of SYSVOL outside of the Tier 0' {

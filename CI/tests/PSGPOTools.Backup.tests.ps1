@@ -372,6 +372,59 @@ InModuleScope -ModuleName HGPM {
             (Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Label 'Other').State | Should -Be 'NotApproved'
         }
 
+        It 'Finds who was given rights on a GPO since its approval, with -IncludePermissions' {
+            $Approved = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Approve
+            $Approved.HasPermissions | Should -BeTrue
+            @($Approved.Permissions).Count | Should -BeGreaterThan 0
+            $Approved.Owner.Sid | Should -Not -BeNullOrEmpty
+            (Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName -IncludePermissions).State | Should -Be 'InSync'
+
+            # Edit settings given to a group since: said with -IncludePermissions only.
+            $Directory.SetGpoPermission($Gpo, 'S-1-5-21-1-2-3-1500', 'GpoEdit')
+            $Drift = Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName -IncludePermissions
+            $Drift.State | Should -Be 'Drifted'
+            $Drift.Permissions | Should -Be 'Compared'
+            $Change = @($Drift.Changes | Where-Object Path -EQ 'Permissions')
+            $Change.Count | Should -Be 1
+            $Change[0].Change | Should -Be 'Added'
+            $Change[0].Name | Should -Be 'S-1-5-21-1-2-3-1500'
+            $Change[0].After | Should -Be 'Edit settings'
+            $Without = Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName
+            $Without.State | Should -Be 'InSync' -Because 'the permissions are compared with -IncludePermissions only'
+            $Without.Permissions | Should -Be 'NotCompared'
+
+            # Its level changed: Changed.
+            $Directory.SetGpoPermission($Gpo, 'S-1-5-21-1-2-3-1500', 'GpoRead')
+            $Change = @((Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName -IncludePermissions).Changes | Where-Object Path -EQ 'Permissions')
+            $Change.Change | Should -Be 'Added' -Because 'the account was not there at the approval'
+            $Change.After | Should -Be 'Read'
+
+            # A backup records them: a change of the permissions makes a new one.
+            (Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName).Result | Should -Be 'Created'
+            (Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName).Result | Should -Be 'Unchanged'
+            $Directory.SetGpoPermission($Gpo, 'S-1-5-21-1-2-3-1500', 'GpoEdit')
+            (Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName).Result | Should -Be 'Created'
+        }
+
+        It 'Says when the approved version was backed up before the permissions were kept' {
+            $Approved = Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName -Approve
+            # The manifest of an older backup: no owner, no permissions.
+            $File = Join-Path $Approved.Path 'manifest.json'
+            $Manifest = Get-Content -LiteralPath $File -Raw | ConvertFrom-Json -AsHashtable
+            $Manifest.Gpo.Remove('Owner')
+            $Manifest.Gpo.Remove('Permissions')
+            $Manifest | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $File -Encoding utf8
+            (Get-PSGPOBackup -Path $Root).HasPermissions | Should -BeFalse
+
+            $Directory.SetGpoPermission($Gpo, 'S-1-5-21-1-2-3-1500', 'GpoEdit')
+            $Drift = Get-PSGPODrift -Directory $Directory -Path $Root -Name $Gpo.DisplayName -IncludePermissions -WarningVariable Warned -WarningAction SilentlyContinue
+            $Drift.Permissions | Should -Be 'NotRecorded'
+            $Drift.State | Should -Be 'InSync' -Because 'nothing else changed, and its permissions cannot be compared'
+            "$Warned" | Should -BeLike '*backed up before the permissions were kept*Approve it again*'
+            # The next backup is not the older one: it records them.
+            (Backup-PSGPO -Directory $Directory -Path $Root -Name $Gpo.DisplayName).Result | Should -Be 'Created'
+        }
+
         It 'Uses the approved label of the configuration of the domain' {
             $Directory.WriteConfigurationFile([System.Text.Encoding]::UTF8.GetBytes("@{ Backup = @{ ApprovedLabel = 'Production' } }"))
             try {

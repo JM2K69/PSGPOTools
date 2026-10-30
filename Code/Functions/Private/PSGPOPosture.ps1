@@ -26,6 +26,7 @@ $script:PSGPOObjectClass = @{
     Domain = [guid]'19195a5b-6da0-11d0-afd3-00c04fd930c9'
     Gpo = [guid]'f30e3bc2-9ff0-11d1-b603-0000f80367c1'
     Container = [guid]'bf967a8b-0de6-11d0-a285-00aa003049e2'
+    Site = [guid]'bf967ab3-0de6-11d0-a285-00aa003049e2'
 }
 # The attributes a link writes (Block Inheritance with gPOptions), and those of a GPO that change
 # what the computers apply: read from the schema (Get-PSGPOSchemaGuid).
@@ -217,6 +218,15 @@ function Get-PSGPOPostureData {
             if ($text -match '^B:32:A361B2FFFFD211D1AA4B00C04FD7D83A:(.+)$') { $controllersDN = $Matches[1] }
         }
         $organizationalUnits = @(Invoke-PSGPOLdapBinarySearch -Connection $connection -SearchBase $domainDN -Filter '(objectClass=organizationalUnit)' -Attribute 'nTSecurityDescriptor' -SecurityMasks $masks)
+        # The sites of the forest: their domain controllers apply the GPOs linked to them.
+        $sites = @()
+        try {
+            $forest = Get-PSGPOLdapValue (Invoke-PSGPOLdapSearch -Connection $connection -SearchBase '' -Scope Base -Attribute 'configurationNamingContext') 'configurationNamingContext'
+            if ($forest) { $sites = @(Invoke-PSGPOLdapBinarySearch -Connection $connection -SearchBase "CN=Sites,$forest" -Scope OneLevel -Filter '(objectClass=site)' -Attribute 'cn', 'gPLink', 'nTSecurityDescriptor' -SecurityMasks $masks) }
+        } catch {
+            Write-Verbose "The sites are not read: $($_.Exception.Message)"
+        }
+        $siteName = { param($Entry) if ($Entry.Values['cn']) { [System.Text.Encoding]::UTF8.GetString([byte[]]$Entry.Values['cn'][0]) } else { $Entry.DistinguishedName } }
         $container = @(Invoke-PSGPOLdapBinarySearch -Connection $connection -SearchBase $policies -Scope Base -Attribute 'nTSecurityDescriptor' -SecurityMasks $masks)[0]
         $gpoEntries = @(Invoke-PSGPOLdapBinarySearch -Connection $connection -SearchBase $policies -Scope OneLevel -Filter '(objectClass=groupPolicyContainer)' -Attribute 'cn', 'nTSecurityDescriptor' -SecurityMasks $masks)
 
@@ -266,6 +276,13 @@ function Get-PSGPOPostureData {
         foreach ($som in $soms) {
             foreach ($link in @($som.Links | Where-Object { $_.Gpo })) { $tier0Gpo["$($link.Gpo.Id)"] = $som.Name }
         }
+        foreach ($site in $sites) {
+            $gpLink = if ($site.Values['gPLink']) { [System.Text.Encoding]::UTF8.GetString([byte[]]$site.Values['gPLink'][0]) } else { '' }
+            foreach ($link in @([GPOToolsGpoLink]::Parse($gpLink))) {
+                $linked = $Directory.FindGpoByDistinguishedName($link.GpoDistinguishedName)
+                if ($linked) { $tier0Gpo["$($linked.Id)"] = "the site $(& $siteName $site)" }
+            }
+        }
         foreach ($entry in $gpoEntries) {
             $id = [guid]::Empty
             if (-not $entry.Values['cn'] -or -not [guid]::TryParse([System.Text.Encoding]::UTF8.GetString([byte[]]$entry.Values['cn'][0]).Trim('{', '}'), [ref]$id)) { continue }
@@ -306,6 +323,7 @@ function Get-PSGPOPostureData {
             $controllers = @(try { Invoke-PSGPOLdapBinarySearch -Connection $connection -SearchBase $controllersDN -Scope Base -Attribute 'nTSecurityDescriptor' -SecurityMasks $masks } catch { Write-Verbose "$controllersDN is not read: $($_.Exception.Message)" })[0]
             if ($controllers) { $targets += @{ Name = $controllersDN; Entry = $controllers; Class = $script:PSGPOObjectClass.OrganizationalUnit; Tier0 = $true } }
         }
+        foreach ($site in $sites) { $targets += @{ Name = "$(& $siteName $site) (site)"; Entry = $site; Class = $script:PSGPOObjectClass.Site; Tier0 = $true } }
         foreach ($target in $targets) {
             $targetDescriptor = & $descriptor $target.Entry
             if (-not $targetDescriptor) { continue }

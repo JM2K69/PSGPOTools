@@ -91,6 +91,8 @@ Before the technicians use it, as in the [lab](lab.md#3-the-console-as-a-technic
   Domain Admin in a scheduled task.
 - Check the posture each day ([above](#the-posture-each-day)): a right given beside the
   workflow, and forgotten, gives the domain controllers to an account outside of Tier 0.
+- Audit the domain controllers too ([Windows and Samba](../technical/dc-audit.md)): a change made
+  with another tool than HGPM is in their logs, not in its own.
 - Send the log of the system to the SIEM: it keeps a copy of each change out of reach of the
   technicians.
 

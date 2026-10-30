@@ -1,5 +1,17 @@
 # HGPM Release History
 
+## Unreleased
+
+### Added
+
+* A backup keeps the owner and the permissions of the GPO, as the Delegation tab lists them; `Get-PSGPODrift -IncludePermissions` says who was given, or lost, a right on a GPO since its approval, or another owner. An approved version backed up before is said (`Permissions`: `NotRecorded`), not compared
+* `Test-PSGPOHealth` finds a GPO whose folder in SYSVOL does not have the permissions of the GPO in the directory, as GPMC (*the permissions for this GPO in the SYSVOL folder are inconsistent*): an account the folder does not give its rights, or that an ACE of the folder lets change it. The folders of the default GPOs of Windows, given to Administrators, are consistent. On Linux, the ACLs of the folders are read in one connection
+* `Test-PSGPOSecurityPosture` checks the sites of the forest: who can link GPOs to a site, and the GPOs linked to one (their domain controllers apply them)
+
+### Documentation
+
+* Audit on the domain controllers: what Windows (the audit policy, the SACLs, events 5136, 5137, 5141, 4663) and Samba (`dsdb_json_audit` and `vfs_full_audit` in `smb.conf`, each line explained) log of a change made to the GPOs with another tool than HGPM; tested on Samba
+
 ## 0.1.25 - alpha
 
 ### Added

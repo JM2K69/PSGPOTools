@@ -9,7 +9,7 @@ tests of the module (`CI/tests/PSGPOTools.Hardening.tests.ps1` and others) and o
 | What a technician controls | What HGPM does |
 |---|---|
 | the `gPCFileSysPath` of its GPO (it owns it while it waits) | [uses the folder of the GPO only](#redirected-gpo), refuses a redirected GPO |
-| the permissions of its GPO, outside the console | the approval [rebuilds them](../workflows/approval.md#4-approve-it-tier-0) from what an approved GPO may hold |
+| the permissions of its GPO, outside the console | the approval [rebuilds them](../workflows/approval.md#4-approve-it-tier-0) from what an approved GPO may hold; the [drift](../workflows/drift.md#its-permissions-too) shows a change since |
 | what is in its GPO until the approval | the approval [approves what was reviewed](#approval), or nothing; it backs up the approved version, and the drift shows any change since |
 | settings the console cannot show (a client-side extension it does not read, a file, a startup script) | [listed where the GPO is reviewed](#what-the-approver-sees), and reviewed before its approval |
 | the groups it may create (`APPLY_<its GPO>`) | a group nobody of Tier 0 made is [not proposed](#approval) at the approval |
@@ -415,8 +415,11 @@ not the one in the directory):
 - **`Test-PSGPOHealth`**: on the baseline, a GPO redirected, without its folder or its `GPT.INI`,
   or whose versions differ (errors); a file of settings (`Registry.pol` with entries,
   `GptTmpl.inf`, `audit.csv`, `scripts.ini`, the preferences) whose extension the GPO does not
-  declare, a folder without a GPO, a link to a GPO of the domain that does not exist; the other
-  domain controllers that differ, or that cannot be read (warnings). Nothing returned: no problem.
+  declare, a folder without a GPO, a link to a GPO of the domain that does not exist, a folder
+  whose permissions are not those of its GPO in the directory (*the permissions for this GPO in the
+  SYSVOL folder are inconsistent* of GPMC; the folders of the default GPOs of Windows, given to
+  Administrators, are consistent); the other domain controllers that differ, or that cannot be read
+  (warnings). Nothing returned: no problem.
 - **The Status tab of the domain**, as the one of GPMC: **Detect Now** shows the domain
   controllers (*in sync*, *replication in progress*, *cannot be read*) and the problems found;
   only then, as it reads every domain controller. The versions shown in the details of the GPOs
@@ -449,6 +452,15 @@ GPO without `GPT.INI`; a folder of `Policies` without a GPO:
 | `Get-PSGPOReplicationStatus` | the two GPOs *SysvolDiffers*, the folder *OrphanFolder* | the same |
 | Cleaned up | the GPOs and the folder deleted, no problem left | the same |
 
+The permissions of the folders: a test GPO whose folder gives `tiers1` full control, its GPO not
+(the DACLs read in one search, the folders in one connection on Linux):
+
+| Step | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| The domain as it is | every folder consistent (0.6 s) | every folder consistent, the default GPOs of Windows included |
+| The folder of the test GPO | *Warning, Permissions*: *tiers1: the folder lets it change it, the GPO does not* (0.4 s) | the same (0.4 s) |
+| Undone | no finding | no finding |
+
 ## The security posture { #posture }
 
 ### The threat
@@ -471,8 +483,8 @@ GPO without `GPT.INI`; a folder of `Policies` without a GPO:
   the domain and of each OU, the members of Group Policy Creator Owners, and the ACLs of the
   `Policies` folder, of the central store and of the configuration of HGPM in SYSVOL. It says what
   an account outside of Tier 0 can do there (*High*): create GPOs beyond the creators, change a GPO
-  that applies to the domain controllers, link GPOs to the domain or to their OU, own or change
-  these folders; and what a group of every account can do anywhere. *Medium*: no central store
+  that applies to the domain controllers, link GPOs to the domain, to their OU or to a site (its
+  domain controllers apply them), own or change these folders; and what a group of every account can do anywhere. *Medium*: no central store
   while the creators create folders. *Low*: the workflow off, no central audit log, nothing to the
   log of the system. Tier 0 is the groups the domain protects (AdminSDHolder), the approvers, the
   owner of the approved GPOs, and the accounts in their groups. The attributes that count
@@ -508,6 +520,7 @@ On both labs, problems made on purpose, then undone:
 | Domain Users can change a GPO | *High, GpoEditableByAll* [Domain Users] | the same |
 | `GPO-Tier1-Admins` can link GPOs to the domain controllers OU | *High, Tier0Link* [GPO-Tier1-Admins] | the same |
 | `tiers1` in Group Policy Creator Owners | *High, GroupPolicyCreatorOwners* [tiers1] | the same |
+| `GPO-Tier1-Admins` can link GPOs to the first site | *High, Tier0Link* [Default-First-Site-Name (site)] | the same |
 | `-SystemLog` | journald: `[4000] ... 4 high, 0 medium, 0 low`, four lines `[4001]` | the event log: 4000 *Warning* `... 3 high, 0 medium, 0 low`, three events 4001 |
 | Undone | the finding of before only | no finding, as before |
 
@@ -609,9 +622,9 @@ These were found by the same review, and are not fixed yet:
   opens it to append: the chain shows a line changed, not a whole file written again with a new
   chain. The log of the system (SIEM) keeps a copy of each change;
 - `Test-PSGPOSecurityPosture` reads the groups of an account (`tokenGroups`): a group it cannot
-  read counts as outside of Tier 0 (a finding to check, never one missed). The links of the sites
-  (`CN=Sites`) are not checked yet;
-- `Test-PSGPOHealth` does not compare the permissions of the folder of a GPO in SYSVOL with those
-  of the directory (*the permissions for this GPO in the SYSVOL folder are inconsistent* of GPMC),
-  and the domain controllers are compared to the baseline, not replicated: a domain controller
-  behind stays behind until the replication (or a copy of SYSVOL with Samba) catches up.
+  read counts as outside of Tier 0 (a finding to check, never one missed);
+- `Test-PSGPOHealth` compares the domain controllers to the baseline, it does not replicate them: a
+  domain controller behind stays behind until the replication (or a copy of SYSVOL with Samba)
+  catches up;
+- a change made with another tool than HGPM is not in its audit log: the drift shows what changed,
+  the [domain controllers](dc-audit.md) who changed it.

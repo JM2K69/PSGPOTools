@@ -162,6 +162,8 @@ InModuleScope -ModuleName HGPM {
             }
             Mock Get-PSGPODomainController { $Dc1, $Dc2, $Dc3 }
             Mock Get-PSGPOSysvolPolicyFolder { , $script:Folders[$Directory.Server] }
+            # The permissions of the folders: their own tests, below.
+            Mock Get-PSGPOSysvolPermissionProblem { }
             Mock Assert-PSGPOKerberosOnly { }
             # Windows reads each GPT.INI, Linux all of them in one smbclient.
             Mock Read-PSGPOSysvolItem {
@@ -281,6 +283,94 @@ InModuleScope -ModuleName HGPM {
         It 'Refuses a directory that is not read from a domain controller' {
             { Test-PSGPOHealth -Directory ([GPOToolsDirectory]::new('contoso.com')) } | Should -Throw '*read over LDAP*'
             { Get-PSGPOReplicationStatus -Directory ([GPOToolsDirectory]::new('contoso.com')) } | Should -Throw '*read over LDAP*'
+        }
+    }
+
+    Describe 'Permissions of the folders of the GPOs in SYSVOL' {
+        BeforeAll {
+            $D = 'S-1-5-21-1-2-3'
+            # A GPO as the console or GPMC makes it, and the ACL its folder gets from it.
+            function New-TestGpoDescriptor {
+                $Descriptor = [GPOToolsSecurityDescriptor]::new()
+                $Descriptor.Owner = "$D-512"
+                $Descriptor.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
+                $Descriptor.Dacl.Add([GPOToolsAce]::new(0, 2, 0x000F00FF, "$D-512", [guid]::Empty))
+                $Descriptor.Dacl.Add([GPOToolsAce]::new(0, 2, 0x000F00FF, 'S-1-5-18', [guid]::Empty))
+                $Descriptor.Dacl.Add([GPOToolsAce]::new(0, 0x0A, 0x000F00FF, 'S-1-3-0', [guid]::Empty))
+                $Descriptor.Dacl.Add([GPOToolsAce]::new(0, 2, 0x00020094, 'S-1-5-11', [guid]::Empty))
+                $Descriptor.Dacl.Add([GPOToolsAce]::new(5, 2, 0x00000100, 'S-1-5-11', [GPOToolsSecurityDescriptor]::ApplyGroupPolicy))
+                $Descriptor.Dacl.Add([GPOToolsAce]::new(0, 2, 0x000200B7, "$D-1123", [guid]::Empty))
+                $Descriptor
+            }
+        }
+
+        It 'Finds nothing when the folder has what the GPO gives, and what it inherits from Policies' {
+            $Gpo = New-TestGpoDescriptor
+            $Folder = $Gpo.ConvertToFileSystem()
+            # Inherited from Policies (Group Policy Creator Owners, as Windows gives it): not of the GPO.
+            $Folder.Dacl.Add([GPOToolsAce]::new(0, 0x13, 0x001301BF, "$D-520", [guid]::Empty))
+            @(Compare-PSGPOSysvolPermission -DirectoryDescriptor $Gpo -FolderDescriptor $Folder) | Should -BeNullOrEmpty
+        }
+
+        It 'Finds nothing in the folder of a default GPO as Windows makes it: Administrators edits it, Authenticated Users reads it' {
+            # The DACL of the Default Domain Policy of a Windows domain, and the ACL of its folder (powershell.labo).
+            $Gpo = [GPOToolsSecurityDescriptor]::new()
+            $Gpo.Owner = "$D-512"
+            $Gpo.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
+            foreach ($Sid in "$D-512", "$D-519") { $Gpo.Dacl.Add([GPOToolsAce]::new(0, 0, 0x000E00BD, $Sid, [guid]::Empty)) }
+            $Gpo.Dacl.Add([GPOToolsAce]::new(0, 0, 0x00020094, 'S-1-5-9', [guid]::Empty))
+            $Gpo.Dacl.Add([GPOToolsAce]::new(0, 0, 0x000E00BD, 'S-1-5-18', [guid]::Empty))
+            $Gpo.Dacl.Add([GPOToolsAce]::new(0, 0, 0x00020094, 'S-1-5-11', [guid]::Empty))
+            $Folder = [GPOToolsSecurityDescriptor]::new()
+            $Folder.Owner = 'S-1-5-32-544'
+            $Folder.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
+            $Folder.Dacl.Add([GPOToolsAce]::new(0, 0x0B, 0x10000000, 'S-1-3-0', [guid]::Empty))
+            $Folder.Dacl.Add([GPOToolsAce]::new(0, 0, 0x001200A9, 'S-1-5-11', [guid]::Empty))
+            $Folder.Dacl.Add([GPOToolsAce]::new(0, 0, 0x001F01FF, 'S-1-5-18', [guid]::Empty))
+            $Folder.Dacl.Add([GPOToolsAce]::new(0, 0, 0x001E01BF, 'S-1-5-32-544', [guid]::Empty))
+            $Folder.Dacl.Add([GPOToolsAce]::new(0, 0, 0x001200A9, 'S-1-5-32-549', [guid]::Empty))
+            @(Compare-PSGPOSysvolPermission -DirectoryDescriptor $Gpo -FolderDescriptor $Folder) | Should -BeNullOrEmpty
+        }
+
+        It 'Finds the rights the folder does not give, and an account of its own that can change it' {
+            $Gpo = New-TestGpoDescriptor
+            $Folder = $Gpo.ConvertToFileSystem()
+            # The editors lost their rights on the folder; someone gave tech1 full control of it.
+            $null = $Folder.Dacl.RemoveAll([Predicate[GPOToolsAce]] { param($Ace) $Ace.Sid -eq "$D-1123" })
+            $Folder.Dacl.Add([GPOToolsAce]::new(0, 3, 0x001F01FF, "$D-1125", [guid]::Empty))
+            $Rows = @(Compare-PSGPOSysvolPermission -DirectoryDescriptor $Gpo -FolderDescriptor $Folder)
+            @($Rows | ForEach-Object { "$($_.Difference) $($_.Sid)" }) | Should -Be @("Missing $D-1123", "Extra $D-1125")
+            # Read only, of its own: not a way to change the GPO.
+            $Folder = $Gpo.ConvertToFileSystem()
+            $Folder.Dacl.Add([GPOToolsAce]::new(0, 3, 0x001200A9, "$D-1125", [guid]::Empty))
+            @(Compare-PSGPOSysvolPermission -DirectoryDescriptor $Gpo -FolderDescriptor $Folder) | Should -BeNullOrEmpty
+        }
+
+        It 'Reads the DACLs in one search and the folders together, and says who and what' {
+            $Directory = New-TestLdapDirectory
+            $script:TestDirectory = $Directory
+            $script:TestGpo = New-TestGpoDescriptor
+            $Gpos = @($Directory.Gpos | Where-Object { $_.DisplayName -in 'Default Domain Policy', 'Workstations' })
+            $script:TestFolders = @{}
+            foreach ($Gpo in $Gpos) { $script:TestFolders["hardenbox.labo\Policies\{$($Gpo.Id.ToString().ToUpperInvariant())}"] = $script:TestGpo.ConvertToFileSystem() }
+            $Broken = $Gpos | Where-Object DisplayName -EQ 'Default Domain Policy'
+            $script:TestFolders["hardenbox.labo\Policies\{$($Broken.Id.ToString().ToUpperInvariant())}"].Dacl.Add([GPOToolsAce]::new(0, 3, 0x001F01FF, "$D-1125", [guid]::Empty))
+            $Unread = @($Directory.Gpos | Where-Object { $_ -notin $Gpos })[0]
+            $script:TestFolders["hardenbox.labo\Policies\{$($Unread.Id.ToString().ToUpperInvariant())}"] = 'NT_STATUS_ACCESS_DENIED'
+            Mock New-PSGPODirectoryConnection { [pscustomobject]@{} | Add-Member -MemberType ScriptMethod -Name Dispose -Value { } -PassThru }
+            Mock Invoke-PSGPOLdapBinarySearch {
+                foreach ($Item in $script:TestDirectory.Gpos) { [pscustomobject]@{ DistinguishedName = $Item.DistinguishedName; Values = @{ nTSecurityDescriptor = @(, $script:TestGpo.ToBytes()) } } }
+            }
+            Mock Get-PSGPOSysvolLocation { [pscustomobject]@{ Share = 'SYSVOL'; Path = "hardenbox.labo\Policies\{$($Gpo.Id.ToString().ToUpperInvariant())}" } }
+            Mock Get-PSGPOSysvolItemAclSet { $Read = @{}; foreach ($Item in $Path) { $Read[$Item] = $script:TestFolders[$Item] }; $Read }
+            Mock Resolve-PSGPODomainSid { $Names = @{}; foreach ($Item in $Sid) { $Names[$Item] = @{ 'S-1-5-21-1-2-3-1125' = 'tech1' }[$Item] }; $Names }
+
+            $Problems = @(Get-PSGPOSysvolPermissionProblem -Directory $Directory -Gpo (@($Gpos) + $Unread))
+            Should -Invoke Invoke-PSGPOLdapBinarySearch -Times 1 -Exactly
+            Should -Invoke Get-PSGPOSysvolItemAclSet -Times 1 -Exactly
+            $Problems.Count | Should -Be 2
+            ($Problems | Where-Object { $_.Gpo -eq $Broken }).Detail | Should -BeLike 'The permissions of its folder in SYSVOL are not those of the GPO in the directory (tech1: the folder lets it change it, the GPO does not)*'
+            ($Problems | Where-Object { $_.Gpo -eq $Unread }).Detail | Should -BeLike '*cannot be read (NT_STATUS_ACCESS_DENIED)*'
         }
     }
 

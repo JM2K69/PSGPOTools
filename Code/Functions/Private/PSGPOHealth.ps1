@@ -284,6 +284,105 @@ function Get-PSGPOUndeclaredExtension {
     }
 }
 
+# What differs between the permissions of the folder of a GPO in SYSVOL and those of the GPO in the
+# directory, as GPMC checks them ("the permissions for this GPO in the SYSVOL folder are
+# inconsistent with those in Active Directory"): by SID, Missing (rights the directory gives that
+# the folder does not) and Extra (rights to change the folder that an ACE of its own gives, the
+# directory not). What the folder inherits from Policies is not its own: the posture checks it.
+# A right is given to an account by its own ACE, or by Everyone or Authenticated Users; to Domain
+# Admins and Enterprise Admins by Administrators too, of which they are members on every domain
+# controller: Windows gives the folders of its default GPOs to Administrators, and their reading to
+# Authenticated Users. Administrators and SYSTEM control the domain controller: never Extra.
+function Compare-PSGPOSysvolPermission {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsSecurityDescriptor]$DirectoryDescriptor,
+        [Parameter(Mandatory)] [GPOToolsSecurityDescriptor]$FolderDescriptor
+    )
+
+    # The rights of each account: the allow ACEs that apply to the folder itself.
+    $sum = {
+        param($Descriptor, [switch]$OwnOnly)
+        $masks = @{}
+        foreach ($ace in @($Descriptor.Dacl)) {
+            if (-not $ace.IsKnown() -or $ace.IsDeny() -or $ace.IsObjectAce() -or ($ace.Flags -band [GPOToolsAce]::InheritOnly)) { continue }
+            if ($OwnOnly -and ($ace.Flags -band [GPOToolsAce]::Inherited)) { continue }
+            $masks[$ace.Sid] = [uint32]([uint32]$masks[$ace.Sid] -bor $ace.Mask)
+        }
+        $masks
+    }
+    $expected = & $sum $DirectoryDescriptor.ConvertToFileSystem()
+    $granted = & $sum $FolderDescriptor
+    $own = & $sum $FolderDescriptor -OwnOnly
+    foreach ($sid in @($expected.Keys | Sort-Object)) {
+        $has = [uint32]$granted[$sid] -bor [uint32]$granted['S-1-1-0'] -bor [uint32]$granted['S-1-5-11']
+        if ($sid -match '^S-1-5-21-[\d-]+-(512|519)$') { $has = $has -bor [uint32]$granted['S-1-5-32-544'] }
+        $missing = [uint32]($expected[$sid] -band -bnot $has)
+        if ($missing) { [pscustomobject]@{ Sid = $sid; Difference = 'Missing'; Mask = $missing } }
+    }
+    foreach ($sid in @($own.Keys | Sort-Object)) {
+        if ($sid -in 'S-1-5-32-544', 'S-1-5-18') { continue }
+        $extra = [uint32]($own[$sid] -band $script:PSGPOFileWriteMask -band -bnot [uint32]$expected[$sid])
+        if ($extra) { [pscustomobject]@{ Sid = $sid; Difference = 'Extra'; Mask = $extra } }
+    }
+}
+
+# The GPOs whose folder in SYSVOL does not have the permissions of the GPO in the directory: Gpo and
+# Detail (who, and what). The DACLs read in one search, the ACLs of the folders in one connection on
+# Linux.
+function Get-PSGPOSysvolPermissionProblem {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [GPOToolsGpo[]]$Gpo
+    )
+
+    if (-not $Gpo.Count) { return }
+    $connection = New-PSGPODirectoryConnection -Directory $Directory
+    try {
+        $descriptors = @{}
+        foreach ($entry in @(Invoke-PSGPOLdapBinarySearch -Connection $connection -SearchBase "CN=Policies,CN=System,$($Directory.Domain.DistinguishedName)" -Scope OneLevel `
+                    -Filter '(objectClass=groupPolicyContainer)' -Attribute 'nTSecurityDescriptor' -SecurityMasks 'Dacl')) {
+            if ($entry.Values['nTSecurityDescriptor']) { $descriptors[$entry.DistinguishedName.ToLowerInvariant()] = [GPOToolsSecurityDescriptor]::Parse([byte[]]$entry.Values['nTSecurityDescriptor'][0]) }
+        }
+        # The folders by share (SYSVOL, or another name the domain controller gives it).
+        $locations = @{}
+        foreach ($item in $Gpo) { $locations["$($item.Id)"] = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $item }
+        $acls = @{}
+        foreach ($group in @($locations.Values | Group-Object Share)) {
+            $read = Get-PSGPOSysvolItemAclSet -Directory $Directory -Share $group.Name -Path @($group.Group | ForEach-Object { $_.Path })
+            foreach ($key in $read.Keys) { $acls["$($group.Name)|$key"] = $read[$key] }
+        }
+        $problems = foreach ($item in $Gpo) {
+            $descriptor = $descriptors[$item.DistinguishedName.ToLowerInvariant()]
+            $location = $locations["$($item.Id)"]
+            $folder = $acls["$($location.Share)|$($location.Path)"]
+            if (-not $descriptor) { continue }
+            if ($folder -isnot [GPOToolsSecurityDescriptor]) {
+                [pscustomobject]@{ Gpo = $item; Rows = @(); Unread = "$folder" }
+                continue
+            }
+            $rows = @(Compare-PSGPOSysvolPermission -DirectoryDescriptor $descriptor -FolderDescriptor $folder)
+            if ($rows.Count) { [pscustomobject]@{ Gpo = $item; Rows = $rows; Unread = $null } }
+        }
+        $problems = @($problems)
+        $names = Resolve-PSGPODomainSid -Connection $connection -DomainDistinguishedName $Directory.Domain.DistinguishedName -Sid @($problems | ForEach-Object { $_.Rows } | ForEach-Object { $_.Sid })
+    } finally {
+        $connection.Dispose()
+    }
+    foreach ($problem in $problems) {
+        $detail = if ($null -ne $problem.Unread) {
+            Get-PSGPOText 'The permissions of its folder in SYSVOL cannot be read ({0}): they are not compared with those of the GPO.' $problem.Unread
+        } else {
+            $who = @(foreach ($row in $problem.Rows) {
+                    Get-PSGPOText $(if ($row.Difference -eq 'Missing') { '{0}: the folder does not give it the rights the GPO gives' } else { '{0}: the folder lets it change it, the GPO does not' }) $names[$row.Sid]
+                }) -join '; '
+            Get-PSGPOText 'The permissions of its folder in SYSVOL are not those of the GPO in the directory ({0}): the computers or the editors do not get what the GPO says. Set a permission of the GPO again (Delegation tab), which writes both; on Samba, samba-tool ntacl sysvolreset.' $who
+        }
+        [pscustomobject]@{ Gpo = $problem.Gpo; Detail = $detail }
+    }
+}
+
 # The health of the GPOs of the domain and their replication, from the domain controller of the
 # directory (the baseline) and the other ones ($DomainController, every one by default):
 #   Baseline     the domain controller compared to
@@ -414,6 +513,7 @@ function Get-PSGPOHealthData {
             })
     }
     # The GPOs on the baseline: their folder, their versions, their extensions.
+    $withFolder = [System.Collections.Generic.List[GPOToolsGpo]]::new()
     foreach ($gpo in $base.Directory.Gpos) {
         if (-not (& $isWanted $gpo)) { continue }
         $redirected = $base.Directory.GetRedirectedProblem($gpo)
@@ -423,6 +523,7 @@ function Get-PSGPOHealthData {
             & $newFinding 'Error' 'Folder' $gpo.DisplayName $gpo.Id $baseline (Get-PSGPOText '{0}: the computers fail to apply the GPO.' $sysvol.Problem)
             continue
         }
+        $withFolder.Add($gpo)
         if ($sysvol.Version -ne $gpo.Version) {
             & $newFinding 'Error' 'Version' $gpo.DisplayName $gpo.Id $baseline (Get-PSGPOText '{0} in the directory, {1} in SYSVOL: a change of the GPO stopped halfway, and the computers apply SYSVOL. Save a setting of the GPO again.' (Get-PSGPOVersionText $gpo.Version) (Get-PSGPOVersionText $sysvol.Version))
         }
@@ -431,6 +532,10 @@ function Get-PSGPOHealthData {
             $scope = if ($missing.Scope -eq 'User') { Get-PSGPOText 'the users' } else { Get-PSGPOText 'the computers' }
             & $newFinding 'Warning' 'Extension' $gpo.DisplayName $gpo.Id $baseline (Get-PSGPOText '{0} holds settings, but the GPO does not declare their client-side extension ({1}) for {2}: they are not applied. Save one of them again in the console to declare it.' $missing.Path $missing.Name $scope)
         }
+    }
+    # The permissions of their folder in SYSVOL, against those of the GPO in the directory.
+    foreach ($row in @(Get-PSGPOSysvolPermissionProblem -Directory $base.Directory -Gpo $withFolder.ToArray())) {
+        & $newFinding 'Warning' 'Permissions' $row.Gpo.DisplayName $row.Gpo.Id $baseline $row.Detail
     }
     if (-not $Name) {
         # The links to a GPO of the domain that is not there (a link to another domain is not checked).

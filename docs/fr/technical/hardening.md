@@ -430,9 +430,11 @@ valeur qui n'est pas celle de l'annuaire) :
 - **`Test-PSGPOHealth`** : sur la référence, une GPO redirigée, sans son dossier ou son `GPT.INI`,
   ou dont les versions diffèrent (erreurs) ; un fichier de paramètres (`Registry.pol` avec des
   entrées, `GptTmpl.inf`, `audit.csv`, `scripts.ini`, les préférences) dont la GPO ne déclare pas
-  l'extension, un dossier sans GPO, une liaison vers une GPO du domaine qui n'existe pas ; les
-  autres contrôleurs qui diffèrent, ou qui ne peuvent pas être lus (avertissements). Rien de
-  renvoyé : aucun problème.
+  l'extension, un dossier sans GPO, une liaison vers une GPO du domaine qui n'existe pas, un
+  dossier dont les permissions ne sont pas celles de sa GPO dans l'annuaire (*les autorisations de
+  cet objet GPO dans le dossier SYSVOL ne sont pas cohérentes* de GPMC ; les dossiers des GPO par
+  défaut de Windows, donnés à Administrators, sont cohérents) ; les autres contrôleurs qui
+  diffèrent, ou qui ne peuvent pas être lus (avertissements). Rien de renvoyé : aucun problème.
 - **L'onglet État du domaine**, comme celui de GPMC : **Détecter maintenant** montre les
   contrôleurs de domaine (*synchronisé*, *réplication en cours*, *ne peut pas être lu*) et les
   problèmes trouvés ; seulement alors, car il lit chaque contrôleur. Les versions montrées dans
@@ -466,6 +468,15 @@ déclarée ; une GPO sans `GPT.INI` ; un dossier de `Policies` sans GPO :
 | `Get-PSGPOReplicationStatus` | les deux GPO *SysvolDiffers*, le dossier *OrphanFolder* | de même |
 | Nettoyé | les GPO et le dossier supprimés, plus aucun problème | de même |
 
+Les permissions des dossiers : une GPO de test dont le dossier donne le contrôle total à `tiers1`,
+sa GPO non (les DACL lues en une recherche, les dossiers en une connexion sous Linux) :
+
+| Étape | hardenbox.labo (Samba AD) | powershell.labo (Active Directory) |
+|---|---|---|
+| Le domaine tel qu'il est | chaque dossier cohérent (0,6 s) | chaque dossier cohérent, y compris ceux des GPO par défaut de Windows |
+| Le dossier de la GPO de test | *Warning, Permissions* : *tiers1: the folder lets it change it, the GPO does not* (0,4 s) | de même (0,4 s) |
+| Défait | aucun constat | aucun constat |
+
 ## La posture de sécurité { #posture }
 
 ### La menace
@@ -488,8 +499,8 @@ déclarée ; une GPO sans `GPT.INI` ; un dossier de `Policies` sans GPO :
   du domaine et de chaque UO, les membres de Group Policy Creator Owners, et les ACL du dossier
   `Policies`, du magasin central et de la configuration de HGPM dans SYSVOL. Il dit ce qu'un compte
   hors du Tier 0 peut y faire (*High*) : créer des GPO hors des créateurs, modifier une GPO qui
-  s'applique aux contrôleurs de domaine, lier des GPO au domaine ou à leur UO, posséder ou modifier
-  ces dossiers ; et ce qu'un groupe de tous les comptes peut faire où que ce soit. *Medium* : pas de
+  s'applique aux contrôleurs de domaine, lier des GPO au domaine, à leur UO ou à un site (ses
+  contrôleurs de domaine les appliquent), posséder ou modifier ces dossiers ; et ce qu'un groupe de tous les comptes peut faire où que ce soit. *Medium* : pas de
   magasin central alors que les créateurs créent des dossiers. *Low* : le circuit désactivé, pas de
   journal d'audit central, rien dans le journal du système. Le Tier 0, ce sont les groupes que le
   domaine protège (AdminSDHolder), les approbateurs, le propriétaire des GPO approuvées, et les
@@ -526,6 +537,7 @@ Sur les deux labs, des problèmes faits exprès, puis défaits :
 | Domain Users peut modifier une GPO | *High, GpoEditableByAll* [Domain Users] | la même chose |
 | `GPO-Tier1-Admins` peut lier des GPO à l'UO des contrôleurs de domaine | *High, Tier0Link* [GPO-Tier1-Admins] | la même chose |
 | `tiers1` dans Group Policy Creator Owners | *High, GroupPolicyCreatorOwners* [tiers1] | la même chose |
+| `GPO-Tier1-Admins` peut lier des GPO au premier site | *High, Tier0Link* [Default-First-Site-Name (site)] | la même chose |
 | `-SystemLog` | journald : `[4000] ... 4 high, 0 medium, 0 low`, quatre lignes `[4001]` | le journal d'événements : 4000 *Warning* `... 3 high, 0 medium, 0 low`, trois événements 4001 |
 | Défait | le seul constat d'avant | aucun constat, comme avant |
 
@@ -628,10 +640,9 @@ La même revue les a trouvées, elles ne sont pas encore corrigées :
   outil qui l'ouvre en ajout : la chaîne montre une ligne modifiée, pas un fichier entier réécrit
   avec une nouvelle chaîne. Le journal du système (SIEM) garde une copie de chaque modification ;
 - `Test-PSGPOSecurityPosture` lit les groupes d'un compte (`tokenGroups`) : un groupe qu'il ne
-  peut pas lire compte comme hors du Tier 0 (un constat à vérifier, jamais un constat manqué). Les
-  liens des sites (`CN=Sites`) ne sont pas encore vérifiés ;
-- `Test-PSGPOHealth` ne compare pas les permissions du dossier d'une GPO dans SYSVOL avec celles de
-  l'annuaire (*les autorisations de cet objet GPO dans le dossier SYSVOL ne sont pas cohérentes*
-  de GPMC), et les contrôleurs de domaine sont comparés à la référence, pas répliqués : un
+  peut pas lire compte comme hors du Tier 0 (un constat à vérifier, jamais un constat manqué) ;
+- `Test-PSGPOHealth` compare les contrôleurs de domaine à la référence, il ne les réplique pas : un
   contrôleur en retard le reste jusqu'à ce que la réplication (ou une copie de SYSVOL avec Samba)
-  le rattrape.
+  le rattrape ;
+- une modification faite avec un autre outil que HGPM n'est pas dans son journal d'audit : l'écart
+  montre ce qui a changé, les [contrôleurs de domaine](dc-audit.md) qui l'a changé.

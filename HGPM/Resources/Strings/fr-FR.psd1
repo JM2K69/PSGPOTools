@@ -1347,4 +1347,10 @@
     'Link order 1 is applied last: it wins over the others. This account cannot change the links here.' = 'L''ordre de lien 1 est appliqué en dernier : il l''emporte sur les autres. Ce compte ne peut pas modifier les liens ici.'
     'Link order 1 is applied last: it wins over the others. Select a link, then move it.' = 'L''ordre de lien 1 est appliqué en dernier : il l''emporte sur les autres. Sélectionnez un lien, puis déplacez-le.'
     '{0} blocks the inheritance: the GPOs linked above it apply here only when their link is enforced.' = '{0} bloque l''héritage : les GPO liées au-dessus ne s''appliquent ici que si leur lien est appliqué (Enforced).'
+
+    # --- Permissions of the folders of the GPOs in SYSVOL (Test-PSGPOHealth) -----------------------
+    'The permissions of its folder in SYSVOL cannot be read ({0}): they are not compared with those of the GPO.' = 'Les permissions de son dossier dans SYSVOL ne peuvent pas être lues ({0}) : elles ne sont pas comparées à celles de la GPO.'
+    '{0}: the folder does not give it the rights the GPO gives' = '{0} : le dossier ne lui donne pas les droits que la GPO lui donne'
+    '{0}: the folder lets it change it, the GPO does not' = '{0} : le dossier lui permet de le modifier, la GPO non'
+    'The permissions of its folder in SYSVOL are not those of the GPO in the directory ({0}): the computers or the editors do not get what the GPO says. Set a permission of the GPO again (Delegation tab), which writes both; on Samba, samba-tool ntacl sysvolreset.' = 'Les permissions de son dossier dans SYSVOL ne sont pas celles de la GPO dans l''annuaire ({0}) : les ordinateurs ou les éditeurs n''ont pas ce que dit la GPO. Redonnez une permission de la GPO (onglet Délégation), ce qui écrit les deux ; sous Samba, samba-tool ntacl sysvolreset.'
 }

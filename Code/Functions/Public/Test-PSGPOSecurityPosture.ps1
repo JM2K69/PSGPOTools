@@ -15,10 +15,10 @@ function Test-PSGPOSecurityPosture {
         - High, GpoEditableByAll: a group of every account (Everyone, Authenticated Users, Domain
           Users...) can change a GPO, or owns it.
         - High, Tier0Gpo: an account outside of the Tier 0 can change, or owns, a GPO linked to the
-          domain or to the domain controllers OU: it controls the domain controllers.
+          domain, to the domain controllers OU or to a site: it controls the domain controllers.
         - High, LinkByAll and Tier0Link: a group of every account can link GPOs (gPLink,
-          gPOptions) somewhere; an account outside of the Tier 0 can link them to the domain or to
-          the domain controllers OU.
+          gPOptions) somewhere; an account outside of the Tier 0 can link them to the domain, to
+          the domain controllers OU or to a site (the domain controllers of the site apply them).
         - High, PoliciesFolder, CentralStore and ConfigurationFolder: an account outside of the
           Tier 0 owns or can change the Policies folder of SYSVOL, the central store
           (Policies\PolicyDefinitions, the ADMX files every console reads) or the configuration of

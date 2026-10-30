@@ -8,8 +8,9 @@
     - Linux: the SMB client of Samba (its Python bindings, there with samba-tool), Kerberos only.
 #>
 
-# Commands of the Python helper: getacl <path> (the descriptor in hexadecimal), setacl <path>
-# <hex> <secinfo>, tree <path> (every file and folder below it: D|F<TAB>relative path).
+# Commands of the Python helper: getacl <path> (the descriptor in hexadecimal), getacls - <path>...
+# (one line each), setacl <path> <hex> <secinfo>, tree <path> (every file and folder below it:
+# D|F<TAB>relative path).
 $script:PSGPOSysvolAclPython = @'
 import sys
 from samba import param
@@ -33,6 +34,13 @@ conn = libsmb.Conn(server, share, lp=s3_lp, creds=creds)
 everything = security.SECINFO_OWNER | security.SECINFO_GROUP | security.SECINFO_DACL
 if command == 'getacl':
     print(ndr_pack(conn.get_acl(path, everything)).hex())
+elif command == 'getacls':
+    # One line per path given after it: the descriptor in hexadecimal, or ERROR and why.
+    for item in sys.argv[5:]:
+        try:
+            print(ndr_pack(conn.get_acl(item, everything)).hex())
+        except Exception as error:
+            print('ERROR ' + ' '.join(str(error).split()))
 elif command == 'setacl':
     descriptor = ndr_unpack(security.descriptor, bytes.fromhex(sys.argv[5]))
     conn.set_acl(path, descriptor, int(sys.argv[6]))
@@ -60,7 +68,7 @@ function Invoke-PSGPOSysvolAclPython {
     param(
         [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
         [Parameter(Mandatory)] [string]$Share,
-        [Parameter(Mandatory)] [ValidateSet('getacl', 'setacl', 'tree')] [string]$Command,
+        [Parameter(Mandatory)] [ValidateSet('getacl', 'getacls', 'setacl', 'tree')] [string]$Command,
         [Parameter(Mandatory)] [string]$Path,
         [string[]]$Argument = @()
     )
@@ -96,6 +104,33 @@ function Get-PSGPOSysvolItemAcl {
     }
     $hex = (Invoke-PSGPOSysvolAclPython -Directory $Directory -Share $Share -Command getacl -Path $Path | Select-Object -Last 1).Trim()
     [GPOToolsSecurityDescriptor]::Parse([Convert]::FromHexString($hex))
+}
+
+# The security descriptors of files or folders of a SYSVOL share, by path: a descriptor, or why
+# it cannot be read (a string). On Linux, all in one connection.
+function Get-PSGPOSysvolItemAclSet {
+    [CmdletBinding()]
+    [OutputType([hashtable])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [string]$Share,
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [string[]]$Path
+    )
+
+    $acls = @{}
+    if (-not $Path.Count) { return $acls }
+    if ($IsWindows) {
+        foreach ($item in $Path) {
+            try { $acls[$item] = Get-PSGPOSysvolItemAcl -Directory $Directory -Share $Share -Path $item } catch { $acls[$item] = $_.Exception.GetBaseException().Message }
+        }
+        return $acls
+    }
+    $lines = @(Invoke-PSGPOSysvolAclPython -Directory $Directory -Share $Share -Command getacls -Path '-' -Argument @($Path | ForEach-Object { $_ -replace '/', '\' }))
+    for ($i = 0; $i -lt $Path.Count; $i++) {
+        $line = "$($lines[$i])".Trim()
+        $acls[$Path[$i]] = if (-not $line) { 'not read' } elseif ($line.StartsWith('ERROR ')) { $line.Substring(6) } else { [GPOToolsSecurityDescriptor]::Parse([Convert]::FromHexString($line)) }
+    }
+    $acls
 }
 
 # Writes the owner and/or the DACL of a file or folder of a SYSVOL share. On Windows the

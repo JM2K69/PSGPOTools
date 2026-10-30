@@ -238,7 +238,8 @@ months and write the archives, with no other right in the domain.
 ## The log of the system, for a SIEM
 
 With `Log.SystemLog` (on by default), each change of the audit log and each error of the technical
-log also goes to the log of the system, where a SIEM collects it:
+log also goes to the log of the system, where a SIEM collects it (the changes made with other tools:
+[audit on the domain controllers](../technical/dc-audit.md)):
 
 | | Windows | Linux |
 |---|---|---|

@@ -22,6 +22,11 @@ stopped halfway, and the computers apply SYSVOL.
 - Warning, Extension: a file of the GPO holds settings (Registry.pol, GptTmpl.inf,
 audit.csv, scripts.ini, the preferences) whose client-side extension the GPO does not
 declare (gPCMachineExtensionNames, gPCUserExtensionNames): they are not applied.
+- Warning, Permissions: the folder of the GPO in SYSVOL does not have the permissions of the
+GPO in the directory, as GPMC says "the permissions for this GPO in the SYSVOL folder are
+inconsistent": an account the folder does not give the rights the GPO gives, or that an
+ACE of the folder lets change it. The folders of the default GPOs of Windows, given to
+Administrators and read by Authenticated Users, are consistent.
 - Warning, OrphanFolder: a folder of SYSVOL without a GPO in the directory.
 - Warning, Link: a link to a GPO of the domain that does not exist.
 - Warning, Replication: another domain controller does not have the GPO, or not the same
