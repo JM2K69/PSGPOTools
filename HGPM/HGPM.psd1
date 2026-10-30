@@ -12,7 +12,7 @@
 RootModule = 'HGPM.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.24'
+ModuleVersion = '0.1.25'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Core'
