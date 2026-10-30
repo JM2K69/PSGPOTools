@@ -82,6 +82,10 @@ the local Administrators), then:
   `__Members` key);
 - **This group is a member of**: the groups the computers add it to.
 
+Each list shows its accounts by their name and their SID, as GPMC. Type an account in the box below
+the list ([suggested while typing](#accounts-and-sids)), then **Add** (or Enter); **Remove** takes
+the selected one out. An account typed and not added stops the save, and is named.
+
 **Edit** and **Delete** change or remove a group; a deleted group keeps the members it has. The
 Settings tab lists them (Members, Member of). Checked on a Windows member: the local Remote Desktop
 Users received exactly the members defined.
@@ -104,9 +108,9 @@ Wherever an account is typed, the console suggests while typing:
 
 The names that begin with what is typed come first. In `GptTmpl.inf` (a restricted group, its
 members, the accounts of a user right), the account is written as its SID, `*S-1-5-32-544`, as
-GPMC does: the same on every computer, whatever its language. **Account to add** puts it on a line
-of the members (**Add to the members**) or of the groups the group is a member of. In the
-delegation, the security filtering and the approval of a GPO, the account is written by its name.
+GPMC does: the same on every computer, whatever its language, and shown with its name. In a
+restricted group, the box below each list adds the account to it. In the delegation, the security
+filtering and the approval of a GPO, the account is written by its name.
 
 ![The accounts suggested while typing, in a restricted group](../assets/screenshots/85-account-suggestions.png){ width="640" }
 

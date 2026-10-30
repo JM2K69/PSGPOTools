@@ -1237,19 +1237,23 @@ $(Get-PSGPOWindowResourceXaml)
                                         <TextBlock Name='restrictedGroupsFormTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap'/>
                                         <TextBlock Text='Group' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
                                         <AutoCompleteBox Name='restrictedGroupNameTextBox' Watermark='DOMAIN\group, or a SID: *S-1-5-32-544 (Administrators)'/>
-                                        <!-- An account picked or typed, added to the members or to the groups it is a member of -->
-                                        <TextBlock Text='Account to add: a well-known account or one of the domain, written as its SID' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
-                                        <Grid ColumnDefinitions='*,Auto,Auto'>
-                                            <AutoCompleteBox Grid.Column='0' Name='restrictedGroupAccountBox' Watermark='Administrators, Domain Admins, a name of the domain, or *S-1-...'/>
-                                            <Button Grid.Column='1' Name='restrictedGroupAddMemberButton' Content='Add to the members' Margin='8,0,0,0'/>
-                                            <Button Grid.Column='2' Name='restrictedGroupAddMemberOfButton' Content='Add to member of' Margin='8,0,0,0'/>
-                                        </Grid>
+                                        <!-- Each list as GPMC has it: its accounts (name and SID), one picked or typed below it, Add (or Enter) and Remove -->
                                         <CheckBox Name='restrictedGroupMembersCheckBox' Content='Members of this group: the computers keep these members only (empty: none)' IsChecked='True'/>
-                                        <TextBox Name='restrictedGroupMembersTextBox' AcceptsReturn='True' MinHeight='70' TextWrapping='NoWrap'
-                                                 Watermark='One account per line: DOMAIN\name, or *S-1-5-...'/>
+                                        <StackPanel Name='restrictedGroupMembersPanel' Spacing='6'>
+                                            <ListBox Name='restrictedGroupMembersList' MinHeight='60' MaxHeight='180'/>
+                                            <Grid ColumnDefinitions='*,Auto,Auto'>
+                                                <AutoCompleteBox Grid.Column='0' Name='restrictedGroupMemberBox' Watermark='Administrators, Domain Admins, a name of the domain, or *S-1-...'/>
+                                                <Button Grid.Column='1' Name='restrictedGroupAddMemberButton' Content='Add' Margin='8,0,0,0'/>
+                                                <Button Grid.Column='2' Name='restrictedGroupRemoveMemberButton' Content='Remove' Margin='8,0,0,0'/>
+                                            </Grid>
+                                        </StackPanel>
                                         <TextBlock Text='This group is a member of' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
-                                        <TextBox Name='restrictedGroupMemberOfTextBox' AcceptsReturn='True' MinHeight='50' TextWrapping='NoWrap'
-                                                 Watermark='One group per line: DOMAIN\name, or *S-1-5-...'/>
+                                        <ListBox Name='restrictedGroupMemberOfList' MinHeight='50' MaxHeight='140'/>
+                                        <Grid ColumnDefinitions='*,Auto,Auto'>
+                                            <AutoCompleteBox Grid.Column='0' Name='restrictedGroupMemberOfBox' Watermark='Administrators, Domain Admins, a name of the domain, or *S-1-...'/>
+                                            <Button Grid.Column='1' Name='restrictedGroupAddMemberOfButton' Content='Add' Margin='8,0,0,0'/>
+                                            <Button Grid.Column='2' Name='restrictedGroupRemoveMemberOfButton' Content='Remove' Margin='8,0,0,0'/>
+                                        </Grid>
                                         <TextBlock Name='restrictedGroupsFormErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap'
                                                    IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
                                         <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>

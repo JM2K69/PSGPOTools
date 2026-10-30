@@ -164,6 +164,14 @@ function New-PSGPOSecurityEditor {
                 $Items.Add($Entry)
                 $Entries.Add((& $Show $Entry))
                 $NameInput.Text = ''
+                if ($NameInput -is [Avalonia.Controls.AutoCompleteBox]) {
+                    # As Clear-PSGPOSuggestionBox, which this handler does not see: its Text alone comes back.
+                    $NameInput.IsDropDownOpen = $false
+                    $NameInput.SelectedItem = $null
+                    $NameInput.Text = ''
+                    $Inner = [Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($NameInput) | Where-Object { $_ -is [Avalonia.Controls.TextBox] } | Select-Object -First 1
+                    if ($Inner) { $Inner.Text = '' }
+                }
                 & $OnChange
             }.GetNewClosure())
             $RemoveButton.add_Click({

@@ -87,6 +87,11 @@ comme Windows l'écrit), augmente la version ordinateur et déclare l'extension 
   clé `__Members`) ;
 - **Ce groupe est membre de** : les groupes auxquels les ordinateurs l'ajoutent.
 
+Chaque liste montre ses comptes par leur nom et leur SID, comme GPMC. Saisissez un compte dans la
+zone sous la liste ([suggéré pendant la frappe](#accounts-and-sids)), puis **Ajouter** (ou
+Entrée) ; **Supprimer** retire celui qui est sélectionné. Un compte saisi mais pas ajouté empêche
+l'enregistrement, et il est nommé.
+
 **Modifier** et **Supprimer** changent ou retirent un groupe ; un groupe supprimé garde les membres
 qu'il a. L'onglet Paramètres les liste (Membres, Membre de). Vérifié sur un membre Windows : les
 Utilisateurs du Bureau à distance locaux ont reçu exactement les membres définis.
@@ -110,10 +115,9 @@ Partout où l'on saisit un compte, la console fait des suggestions pendant la fr
 
 Les noms qui commencent par ce qui est saisi viennent d'abord. Dans `GptTmpl.inf` (un groupe
 restreint, ses membres, les comptes d'un droit utilisateur), le compte est écrit par son SID,
-`*S-1-5-32-544`, comme GPMC : le même sur chaque ordinateur, quelle que soit sa langue. **Compte à
-ajouter** le met sur une ligne des membres (**Ajouter aux membres**) ou des groupes dont le groupe
-est membre. Dans la délégation, le filtrage de sécurité et l'approbation d'une GPO, le compte est
-écrit par son nom.
+`*S-1-5-32-544`, comme GPMC : le même sur chaque ordinateur, quelle que soit sa langue, et affiché
+avec son nom. Dans un groupe restreint, la zone sous chaque liste y ajoute le compte. Dans la
+délégation, le filtrage de sécurité et l'approbation d'une GPO, le compte est écrit par son nom.
 
 ![Les comptes suggérés pendant la frappe, dans un groupe restreint](../assets/screenshots/85-account-suggestions.fr.png){ width="640" }
 

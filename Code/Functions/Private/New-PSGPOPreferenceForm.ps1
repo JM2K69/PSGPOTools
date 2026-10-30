@@ -148,8 +148,12 @@ function New-PSGPOPreferenceForm {
                     $Picked = $Picker.SelectedItem
                     $Line = if ($Picked -and $Picked.Value -eq $Text) { (@('ADD', $Picked.Name, $Picked.Sid) | Where-Object { $_ }) -join ' ' } else { "ADD $Text" }
                     $Box.Text = (@(@("$($Box.Text)" -split '\r?\n' | Where-Object { $_.Trim() }) + $Line) -join [Environment]::NewLine)
+                    # As Clear-PSGPOSuggestionBox, which this handler does not see: its Text alone comes back.
                     $Picker.IsDropDownOpen = $false
+                    $Picker.SelectedItem = $null
                     $Picker.Text = ''
+                    $Inner = [Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Picker) | Where-Object { $_ -is [Avalonia.Controls.TextBox] } | Select-Object -First 1
+                    if ($Inner) { $Inner.Text = '' }
                 }.GetNewClosure())
                 $Getters[$Name] = {
                     @(foreach ($Line in @("$($Box.Text)" -split '\r?\n' | Where-Object { $_.Trim() })) {

@@ -2377,6 +2377,8 @@ InModuleScope -ModuleName HGPM {
                 $Accounts = $Ui.Editing.Editor.Controls['Value']
                 foreach ($Account in '*S-1-5-32-544', 'CONTOSO\Backup') { $Accounts.NameInput.Text = $Account; Invoke-Click $Accounts.Add }
                 @($Accounts.Entries) | Should -Be @('BUILTIN\Administrators (*S-1-5-32-544)', 'CONTOSO\Backup')
+                Invoke-UiLoop -TimeoutMilliseconds 700
+                $Accounts.NameInput.Text | Should -BeNullOrEmpty
                 Invoke-Click $Ui.applySettingButton
 
                 # Selected again: read from GptTmpl.inf.
@@ -2455,22 +2457,39 @@ InModuleScope -ModuleName HGPM {
                 $Rows[0].Value | Should -Be '*S-1-5-32-544'
                 $Ui.restrictedGroupNameTextBox.SelectedItem = $Rows[0]
                 $Ui.restrictedGroupNameTextBox.Text | Should -Be '*S-1-5-32-544'
+                # Each list has its box (issue HardenBox#5: typed in the list, nothing was suggested).
                 # The names that begin with what is typed first; a group of the domain by its name
                 # when the SID of the domain is not known (a directory in memory).
-                $Rows = & $Type $Ui.restrictedGroupAccountBox 'domain ad'
+                $Rows = & $Type $Ui.restrictedGroupMemberBox 'domain ad'
                 $Rows[0].Display | Should -Be 'Domain Admins   RID 512'
-                $Ui.restrictedGroupAccountBox.SelectedItem = $Rows[0]
+                $Ui.restrictedGroupMemberBox.SelectedItem = $Rows[0]
                 Invoke-Click $Ui.restrictedGroupAddMemberButton
-                $Rows = & $Type $Ui.restrictedGroupAccountBox 'remote desk'
-                $Ui.restrictedGroupAccountBox.SelectedItem = $Rows[0]
+                $Rows = & $Type $Ui.restrictedGroupMemberOfBox 'remote desk'
+                $Ui.restrictedGroupMemberOfBox.SelectedItem = $Rows[0]
                 Invoke-Click $Ui.restrictedGroupAddMemberOfButton
-                $Ui.restrictedGroupMembersTextBox.Text | Should -Be 'Domain Admins'
-                $Ui.restrictedGroupMemberOfTextBox.Text | Should -Be '*S-1-5-32-555'
-                $Ui.restrictedGroupAccountBox.Text | Should -BeNullOrEmpty
+                @($Ui.restrictedGroupMembersList.ItemsSource) | Should -Be @('Domain Admins')
+                @($Ui.restrictedGroupMemberOfList.ItemsSource) | Should -Be @('BUILTIN\Remote Desktop Users (*S-1-5-32-555)') -Because 'its name and its SID, as GPMC shows them'
+                # Empty, and still once the search of what was typed is over: it gave the text back.
+                Invoke-UiLoop -TimeoutMilliseconds 700
+                foreach ($Box in $Ui.restrictedGroupMemberBox, $Ui.restrictedGroupMemberOfBox) {
+                    $Box.Text | Should -BeNullOrEmpty
+                    $Box.IsDropDownOpen | Should -BeFalse
+                }
                 # The same account again: once.
-                $Ui.restrictedGroupAccountBox.Text = '*S-1-5-32-555'
+                $Ui.restrictedGroupMemberOfBox.Text = '*S-1-5-32-555'
                 Invoke-Click $Ui.restrictedGroupAddMemberOfButton
-                $Ui.restrictedGroupMemberOfTextBox.Text | Should -Be '*S-1-5-32-555'
+                @($Ui.restrictedGroupMemberOfList.ItemsSource).Count | Should -Be 1
+                # Enter adds it, as Add does.
+                $Ui.restrictedGroupMemberOfBox.Text = '*S-1-5-32-544'
+                $KeyArgs = [Avalonia.Input.KeyEventArgs]::new()
+                $KeyArgs.RoutedEvent = [Avalonia.Input.InputElement]::KeyDownEvent
+                $KeyArgs.Key = [Avalonia.Input.Key]::Enter
+                $Ui.restrictedGroupMemberOfBox.RaiseEvent($KeyArgs)
+                @($Ui.restrictedGroupMemberOfList.ItemsSource) | Should -Be @('BUILTIN\Remote Desktop Users (*S-1-5-32-555)', 'BUILTIN\Administrators (*S-1-5-32-544)')
+                # Remove: the selected one.
+                $Ui.restrictedGroupMemberOfList.SelectedIndex = 0
+                Invoke-Click $Ui.restrictedGroupRemoveMemberOfButton
+                @($Ui.restrictedGroupMemberOfList.ItemsSource) | Should -Be @('BUILTIN\Administrators (*S-1-5-32-544)')
                 Invoke-Click $Ui.restrictedGroupsCancelButton
             }
         }
@@ -2535,6 +2554,8 @@ InModuleScope -ModuleName HGPM {
                 Invoke-Click $Members.Children[1]
                 $MembersBox = $Controls[[array]::IndexOf(@($Controls), $Members) - 1]
                 $MembersBox.Text | Should -Be 'ADD NT AUTHORITY\Authenticated Users S-1-5-11'
+                Invoke-UiLoop -TimeoutMilliseconds 700
+                $Picker.Text | Should -BeNullOrEmpty -Because 'emptied once added, and still once the search of what was typed is over'
                 Invoke-Click $Ui.preferencesCancelButton
             }
         }
@@ -2559,8 +2580,16 @@ InModuleScope -ModuleName HGPM {
                 # A group: the members of the local Administrators.
                 Invoke-Click $Ui.restrictedGroupsAddButton
                 $Ui.restrictedGroupNameTextBox.Text = '*S-1-5-32-544'
-                $Ui.restrictedGroupMembersTextBox.Text = "CONTOSO\Domain Admins`nCONTOSO\Tier1-Admins"
-                $Ui.restrictedGroupMemberOfTextBox.Text = ''
+                foreach ($Account in 'CONTOSO\Domain Admins', 'CONTOSO\Tier1-Admins') {
+                    $Ui.restrictedGroupMemberBox.Text = $Account
+                    Invoke-Click $Ui.restrictedGroupAddMemberButton
+                }
+                # An account typed and not added: said, nothing saved.
+                $Ui.restrictedGroupMemberOfBox.Text = 'CONTOSO\Ops'
+                Invoke-Click $Ui.restrictedGroupsSaveButton
+                $Ui.restrictedGroupsFormErrorTextBlock.Text | Should -Be "'CONTOSO\Ops' is typed but not added: click Add (or press Enter), or clear it."
+                @($Ui.restrictedGroupsList.ItemsSource).Count | Should -Be 0
+                $Ui.restrictedGroupMemberOfBox.Text = ''
                 Invoke-Click $Ui.restrictedGroupsSaveButton
                 $Ui.restrictedGroupsFormErrorTextBlock.Text | Should -BeNullOrEmpty
                 $Ui.restrictedGroupsStatusTextBlock.Text | Should -BeLike "Restricted group '*S-1-5-32-544' added in GptTmpl.inf (version *)."
@@ -2578,8 +2607,11 @@ InModuleScope -ModuleName HGPM {
                 # Edited: its members no longer defined, a member of Remote Desktop Users.
                 $Ui.restrictedGroupsList.SelectedItem = $Row
                 Invoke-Click $Ui.restrictedGroupsEditButton
+                @($Ui.restrictedGroupMembersList.ItemsSource) | Should -Be @('CONTOSO\Domain Admins', 'CONTOSO\Tier1-Admins') -Because 'the form shows the members of the group'
                 $Ui.restrictedGroupMembersCheckBox.IsChecked = $false
-                $Ui.restrictedGroupMemberOfTextBox.Text = '*S-1-5-32-555'
+                $Ui.restrictedGroupMembersPanel.IsEnabled | Should -BeFalse
+                $Ui.restrictedGroupMemberOfBox.Text = '*S-1-5-32-555'
+                Invoke-Click $Ui.restrictedGroupAddMemberOfButton
                 Invoke-Click $Ui.restrictedGroupsSaveButton
                 @($Ui.restrictedGroupsList.ItemsSource)[0].Summary | Should -Be 'Members: not defined - Member of: BUILTIN\Remote Desktop Users (*S-1-5-32-555)'
 

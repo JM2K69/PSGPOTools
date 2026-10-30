@@ -5,6 +5,8 @@
 ### Fixed
 
 * History tab: the line of the timeline was not straight, the backups with a label (Approved) a little higher than the others: the nodes are now aligned at the top
+* Restricted groups: an account typed in the list of the members, or of the groups the group is a member of, was suggested nothing (HardenSamba/HardenBox#5); the suggestions were in one box above both lists, little seen. Each list now has its own box below it, with the suggestions, **Add** (or Enter) and **Remove**, as GPMC and the user rights; its accounts are shown by their name and their SID, the names of the accounts of the domain read from it. An account typed and not added stops the save, and is named
+* A box of accounts (a restricted group, a user right, the members of a local group of the preferences) emptied once the account was added got its text back a moment later, from the suggestion picked or the search still running
 
 ## 0.1.23 - alpha
 

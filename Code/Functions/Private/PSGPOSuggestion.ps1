@@ -163,6 +163,20 @@ function Initialize-PSGPOSuggestionBox {
     $Box.ItemSelector = [Avalonia.Controls.AutoCompleteSelector[object]] { param($Search, $Item) if ($Item) { $Item.Value } else { $Search } }
 }
 
+# Empties a box of suggestions once its value is used. Its Text alone comes back: the suggestion
+# picked gives it again, and so does the search of what was typed (its text box).
+# New-PSGPOSecurityEditor and New-PSGPOPreferenceForm do the same in their handlers.
+function Clear-PSGPOSuggestionBox {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] $Box)
+
+    $Box.IsDropDownOpen = $false
+    $Box.SelectedItem = $null
+    $Box.Text = ''
+    $inner = [Avalonia.VisualTree.VisualExtensions]::GetVisualDescendants($Box) | Where-Object { $_ -is [Avalonia.Controls.TextBox] } | Select-Object -First 1
+    if ($inner) { $inner.Text = '' }
+}
+
 # The registry keys of the loaded ADMX files, for a scope (Machine, User): each key with the
 # policies that write it, sorted; kept for the loaded set.
 function Get-PSGPORegistryKeyCatalog {
