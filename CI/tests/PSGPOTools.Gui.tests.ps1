@@ -75,6 +75,14 @@ InModuleScope -ModuleName HGPM {
             $Task.GetAwaiter().GetResult()
         }
 
+        # Until the operation of the console ends (Start-ConsoleOperation: posted, without a worker
+        # in the GUI tests), as its banner says.
+        function Wait-ConsoleOperation {
+            param($Ui)
+            Invoke-UiLoop -Until { -not $Ui.operationBanner.IsVisible } -TimeoutMilliseconds 30000
+            if ($Ui.operationBanner.IsVisible) { throw "The operation of the console did not end: $($Ui.operationTextBlock.Text)" }
+        }
+
         function Invoke-Click {
             param($Control)
             $ClickEvent = if ($Control -is [Avalonia.Controls.MenuItem]) { [Avalonia.Controls.MenuItem]::ClickEvent } else { [Avalonia.Controls.Button]::ClickEvent }
@@ -660,10 +668,12 @@ InModuleScope -ModuleName HGPM {
 
                     # Back up now: the current state becomes the newest backup.
                     Invoke-Click $Ui.historyBackupButton
+                    Wait-ConsoleOperation $Ui
                     $Ui.historyStatusTextBlock.Text | Should -Be "Backed up in $Root."
                     @($Ui.historyTimelineList.ItemsSource).Count | Should -Be 3
                     @($Ui.historyTimelineList.ItemsSource | Where-Object IsCurrent).Count | Should -Be 0
                     Invoke-Click $Ui.historyBackupButton
+                    Wait-ConsoleOperation $Ui
                     $Ui.historyStatusTextBlock.Text | Should -BeLike 'Not backed up again*'
 
                     # Restore the first backup, once confirmed.
@@ -740,6 +750,7 @@ InModuleScope -ModuleName HGPM {
                     # Backed up with a comment: still not the approved version.
                     $Ui.historyCommentTextBox.Text = 'CHG-1024: biometrics'
                     Invoke-Click $Ui.historyBackupButton
+                    Wait-ConsoleOperation $Ui
                     $Ui.historyCommentTextBox.Text | Should -Be '' -Because 'the comment went with the backup'
                     $Nodes = @($Ui.historyTimelineList.ItemsSource)
                     $Nodes.Count | Should -Be 2
@@ -1908,6 +1919,7 @@ InModuleScope -ModuleName HGPM {
                     $Ui.GpoReport.Gpo = $Gpo
                     $Ui.GpoReport.FromMenu = $true
                     & $Ui.SaveGpoReport -Path $Report
+                    Wait-ConsoleOperation $Ui
                     $Ui.directoryTabs.SelectedIndex | Should -Be 0
                     $Ui.directoryResultTextBlock.Text | Should -Be "Report saved: $Report"
                     Get-Content -LiteralPath $Report -Raw | Should -BeLike '*Settings the console does not interpret (2)*fdeploy1.ini*'
@@ -2050,6 +2062,7 @@ InModuleScope -ModuleName HGPM {
             $Ldap = New-TestLdapDirectory
             $Ldap.PdcEmulator = 'dc.hardenbox.labo'
             Mock Get-PSGPODomainController { 'dc.hardenbox.labo', 'dc2.hardenbox.labo' }
+            Mock Read-PSGPODirectoryFromDomain { $Directory }
             Mock Update-PSGPODirectoryFromDomain { $Directory.Server = $Server }
             Start-PSGPOManagerWindow -Directory $Ldap -OnShown {
                 param($Ui)
@@ -2349,6 +2362,7 @@ InModuleScope -ModuleName HGPM {
                     $Ui.admxLoadingBanner.IsVisible | Should -BeFalse
                     [GPOToolsUtility]::Policies.Count | Should -BeGreaterThan 0
                     [GPOToolsUtility]::Generation | Should -Be ($Generation + 1) -Because 'one load for the three of them'
+                    Wait-ConsoleOperation $Ui
                     Get-Content -LiteralPath $Report -Raw | Should -Match 'Allow the use of biometrics'
                     @($Ui.computerSettingsList.ItemsSource)[0].Name | Should -Be 'Allow the use of biometrics'
                     $Ui.editorView.IsVisible | Should -BeTrue
@@ -4088,6 +4102,165 @@ InModuleScope -ModuleName HGPM {
                 $Ui.templateCategoryComboBox.SelectedItem | Should -Be 'Toutes les catégories'
                 $Ui.filterStatusTextBlock.Text | Should -Be 'Donnez un nom au filtre. Ajoutez au moins une requête.'
             }
+        }
+    }
+
+    Describe 'Errors of the windows' -Skip:$AvaloniaMissing {
+        BeforeAll {
+            # A window whose button fails, as a handler of a console with a bug.
+            function New-TestFailingWindow {
+                param([hashtable]$State, [int]$Clicks = 2)
+                Initialize-PSGPOAvaloniaRuntime
+                $Window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse("<Window xmlns='https://github.com/avaloniaui' Width='360' Height='220' Title='Window of the test'><Button Name='failButton' Content='Fail'/></Window>")
+                $Button = Get-PSGPOAvaloniaControl $Window 'failButton'
+                # Closures: they run in the loop, once this function has returned.
+                $Button.Add_Click({ $State.Clicks++; throw 'The handler of the test failed' }.GetNewClosure())
+                $Window.Show()
+                # Clicks, each its own action: the error of the first one ends its action.
+                $Click = [System.Action] { $Button.RaiseEvent([Avalonia.Interactivity.RoutedEventArgs]::new([Avalonia.Controls.Button]::ClickEvent)) }.GetNewClosure()
+                foreach ($Index in 1..$Clicks) { [Avalonia.Threading.Dispatcher]::UIThread.Post($Click) }
+                $Window
+            }
+        }
+        BeforeEach { $null = Set-PSGPOLanguage -Language 'en-US' }
+
+        It 'Keeps the window open on an error no handler caught: it says it once, and the technical log has it' {
+            $State = @{ Clicks = 0; OpenAfter = $null; Shown = $null }
+            $Window = New-TestFailingWindow -State $State
+            $Timer = [Avalonia.Threading.DispatcherTimer]::new()
+            $Timer.Interval = [TimeSpan]::FromMilliseconds(600)
+            $Timer.Add_Tick({
+                    $Timer.Stop()
+                    $State.OpenAfter = $Window.IsVisible
+                    $State.Shown = [bool]$script:PSGPOWindowLoops[$script:PSGPOWindowLoops.Count - 1].Notifications
+                    $Window.Close()
+                })
+            $Timer.Start()
+            Invoke-PSGPOWindowLoop -Window $Window -KeepOpenOnError
+            $State.Clicks | Should -Be 2
+            $State.OpenAfter | Should -BeTrue -Because 'the error is handled, the window goes on'
+            $State.Shown | Should -BeTrue -Because 'a notification of the window says it'
+            $Logged = @(Get-ChildItem -LiteralPath (Get-PSGPOLogPath) -File -Filter 'hgpm-*.log' | Select-String -SimpleMatch 'An error was not handled: The handler of the test failed')
+            $Logged.Count | Should -Be 1 -Because 'the same error twice in a row is said once'
+            $Logged[0].Line | Should -Match '\bERROR\b.*Window of the test'
+        }
+
+        It 'Stops the loop and closes the window on such an error without -KeepOpenOnError (the GUI tests)' {
+            $State = @{ Clicks = 0 }
+            # One click: a second one would wait in the dispatcher for the next window.
+            $Window = New-TestFailingWindow -State $State -Clicks 1
+            { Invoke-PSGPOWindowLoop -Window $Window } | Should -Throw '*The handler of the test failed*'
+            $Window.IsVisible | Should -BeFalse
+        }
+    }
+
+    Describe 'Operations in the background' -Skip:$AvaloniaMissing {
+        BeforeAll {
+            # One worker for these tests: HGPM imported in its runspace once (some seconds on Windows).
+            $Worker = New-PSGPOWindowWorker
+            $SamplePolicies = (Resolve-Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'PasswordPolicy.sample.json')).Path
+            # A window that runs $Start once shown, until a callback closes it (or 3 minutes).
+            function Invoke-TestOperationWindow {
+                param([hashtable]$State, [scriptblock]$Start)
+                Initialize-PSGPOAvaloniaRuntime
+                $Window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse("<Window xmlns='https://github.com/avaloniaui' Width='320' Height='160' Title='Operation of the test'/>")
+                $State.Window = $Window
+                $State.Ticks = 0
+                # The window answers while the operation runs: its timer ticks.
+                $Ticker = [Avalonia.Threading.DispatcherTimer]::new()
+                $Ticker.Interval = [TimeSpan]::FromMilliseconds(50)
+                $Ticker.Add_Tick({ $State.Ticks++; if ($State.Ticks -gt 1200) { $State.TimedOut = $true; $Window.Close() } }.GetNewClosure())
+                $Ticker.Start()
+                $Window.Show()
+                & $Start
+                Invoke-PSGPOWindowLoop -Window $Window
+                $Ticker.Stop()
+                if ($State.TimedOut) { throw 'The operation did not end within a minute.' }
+            }
+        }
+        # An operation a failed test left: not the next test's.
+        BeforeEach {
+            if ($Worker.Operation) {
+                if ($Worker.Operation.Timer) { $Worker.Operation.Timer.Stop() }
+                $Worker.PowerShell.Stop()
+                $Worker.Operation = $null
+            }
+        }
+        AfterAll { Remove-PSGPOWindowWorker -Worker $Worker }
+
+        It 'Runs an operation in the worker, the window answering, and gives back what it returns with the state of the window' {
+            $State = @{ Result = $null; Failed = $null; Ticks = 0; Window = $null; TicksBefore = 0 }
+            $Saved = Get-PSGPOConfigurationState
+            try {
+                $Marked = $Saved.Clone()
+                $Marked.Problem = 'Configuration of the window'
+                Set-PSGPOConfigurationState -State $Marked
+                Invoke-TestOperationWindow -State $State -Start {
+                    Start-PSGPOWindowOperation -Worker $Worker -Language 'fr-FR' -ArgumentList 'test.labo', $SamplePolicies -ScriptBlock {
+                        param($Name, $SamplePolicies)
+                        Start-Sleep -Milliseconds 1500
+                        [GPOToolsDirectory]::new($Name)
+                        $script:PSGPOLanguage
+                        (Get-PSGPOConfigurationState).Problem
+                        [System.Threading.Thread]::CurrentThread.ManagedThreadId
+                        # A method of a class that calls the module (Test-PSGPOPasswordPolicy): it runs
+                        # in the runspace of the window, which takes the call during its loop.
+                        $Store = Import-PSGPOPasswordPolicyStore -Path $SamplePolicies
+                        $Policy = $Store.Policies[0].Clone()
+                        $Policy.Name = 'PSO - Worker'
+                        $Policy.Precedence = 99
+                        $Store.NewPolicy($Policy).DistinguishedName
+                    } -Done { param($Result) $State.Result = $Result; $State.Window.Close() } -Failed { param($ErrorRecord) $State.Failed = $ErrorRecord; $State.Window.Close() }
+                }
+            } finally {
+                Set-PSGPOConfigurationState -State $Saved
+            }
+            $State.Failed | Should -BeNullOrEmpty
+            $State.Result.Count | Should -Be 5
+            $State.Result[0] | Should -BeOfType ([GPOToolsDirectory]) -Because 'the classes of HGPM are the same types in the worker'
+            $State.Result[0].DomainName | Should -Be 'test.labo'
+            $State.Result[1] | Should -Be 'fr-FR' -Because 'the language of the window'
+            $State.Result[2] | Should -Be 'Configuration of the window' -Because 'the configuration of the domain of the window'
+            $State.Result[3] | Should -Not -Be ([System.Threading.Thread]::CurrentThread.ManagedThreadId) -Because 'another thread runs it'
+            $State.Result[4] | Should -BeLike 'CN=PSO - Worker,*' -Because 'the window takes the calls of the worker to the methods of the classes'
+            $State.Ticks | Should -BeGreaterThan 20 -Because 'the window answers meanwhile'
+        }
+
+        It 'Gives the error of the operation' {
+            $State = @{ Result = $null; Failed = $null; Ticks = 0; Window = $null }
+            Invoke-TestOperationWindow -State $State -Start {
+                Start-PSGPOWindowOperation -Worker $Worker -ScriptBlock { throw 'The operation of the test failed' } -Done { param($Result) $State.Result = $Result; $State.Window.Close() } -Failed { param($ErrorRecord) $State.Failed = $ErrorRecord; $State.Window.Close() }
+            }
+            $State.Result | Should -BeNullOrEmpty
+            $State.Failed | Should -BeOfType ([System.Management.Automation.ErrorRecord])
+            $State.Failed.Exception.Message | Should -Be 'The operation of the test failed'
+        }
+
+        It 'Refuses a second operation while one runs, and cancels the one running' {
+            $State = @{ Result = $null; Failed = $null; Cancelled = $false; Ticks = 0; Window = $null; Second = $null; StoppedAt = $null; Ended = $null }
+            Invoke-TestOperationWindow -State $State -Start {
+                # In $State: the callbacks run once this block has returned.
+                $State.End = { $State.Ended = [datetime]::UtcNow; $State.Window.Close() }
+                Start-PSGPOWindowOperation -Worker $Worker -ScriptBlock { Start-Sleep -Seconds 120 } -Done { param($Result) $State.Result = 'done'; & $State.End } -Failed { param($ErrorRecord) $State.Failed = $ErrorRecord; & $State.End } -Cancelled { $State.Cancelled = $true; & $State.End }
+                try { Start-PSGPOWindowOperation -Worker $Worker -ScriptBlock { 1 } -Done { } -Failed { } } catch { $State.Second = $_.Exception.Message }
+                # Stopped once it runs in the worker. Not a closure: it calls the module; it finds
+                # $State and $Worker in the scopes of the test, which run the loop.
+                $State.Stopper = [Avalonia.Threading.DispatcherTimer]::new()
+                $State.Stopper.Interval = [TimeSpan]::FromMilliseconds(200)
+                $State.Stopper.Add_Tick({
+                        if (-not $Worker.Operation -or -not $Worker.Operation.Started) { return }
+                        $State.Stopper.Stop()
+                        $State.StoppedAt = [datetime]::UtcNow
+                        Stop-PSGPOWindowOperation -Worker $Worker
+                    })
+                $State.Stopper.Start()
+            }
+            $State.Second | Should -BeLike 'An operation of the console runs already*'
+            $State.Cancelled | Should -BeTrue
+            $State.Result | Should -BeNullOrEmpty
+            $State.Failed | Should -BeNullOrEmpty
+            ($State.Ended - $State.StoppedAt).TotalSeconds | Should -BeLessThan 10 -Because 'Start-Sleep is stopped, not waited for'
+            $Worker.Operation | Should -BeNullOrEmpty -Because 'the worker can run the next one'
         }
     }
 }

@@ -1,5 +1,13 @@
 # HGPM Release History
 
+## Unreleased
+
+### Changed
+
+* The long operations of the GPO console run in the background: Refresh (F5) and Change Domain Controller..., Detect Now (Status tab), Back up and Back up all (History tab), Save report.... The window stays drawn and answers, a banner says what runs, the tree and the details of the domain wait meanwhile, and **Cancel** stops a read (not a backup, which writes)
+* An error that a handler of a window does not catch no longer closes the window: every console says it in a notification at the top right and stays open, and the technical log has it, with the script and the line where it happened (the same error again within 5 seconds is said once)
+* The GPO console is split by view, a file each (`Initialize-PSGPOManager*View`), and its controls are made from its XAML in one loop instead of a line each; a test reads its code and fails on a variable that is neither assigned nor a control of the window
+
 ## 0.1.26 - alpha
 
 ### Added

@@ -62,7 +62,7 @@ function Start-PSGPOPolicyAnalyzerWindow {
             })
     }
 
-    Invoke-PSGPOWindowLoop -Window $window
+    Invoke-PSGPOWindowLoop -Window $window -KeepOpenOnError:(-not $OnShown)
 
     if ($onShownState.Error) { throw $onShownState.Error }
 }

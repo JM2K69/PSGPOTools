@@ -101,3 +101,25 @@ function Get-PSGPOAvaloniaControl {
     if ($null -eq $control) { throw "Control not found: $Name" }
     return $control
 }
+
+# Every named control of a window, by its name: the names of its XAML (Name='...') that the name
+# scope of the window holds (a name inside a template is not in it). A window puts each one in a
+# variable of its name, rather than one line per control.
+function Get-PSGPOAvaloniaNamedControl {
+    [CmdletBinding()]
+    [OutputType([System.Collections.Specialized.OrderedDictionary])]
+    param(
+        [Parameter(Mandatory)] $Root,
+        [Parameter(Mandatory)] [string]$Xaml
+    )
+
+    $nameScope = [Avalonia.Controls.NameScope]::GetNameScope($Root)
+    if ($null -eq $nameScope) { throw "No name scope on the root element." }
+    $controls = [ordered]@{}
+    foreach ($match in [regex]::Matches($Xaml, '\bName\s*=\s*[''"]([A-Za-z_]\w*)[''"]')) {
+        $name = $match.Groups[1].Value
+        $control = $nameScope.Find($name)
+        if ($null -ne $control) { $controls[$name] = $control }
+    }
+    $controls
+}

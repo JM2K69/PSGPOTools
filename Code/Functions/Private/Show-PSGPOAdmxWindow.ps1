@@ -191,7 +191,7 @@ function Show-PSGPOAdmxWindow {
             try { & $OnShown $controls } catch { $onShownState.Error = $_ } finally { if ($window.IsVisible) { $window.Close() } }
         })
     }
-    Invoke-PSGPOWindowLoop -Window $window
+    Invoke-PSGPOWindowLoop -Window $window -KeepOpenOnError:(-not $OnShown)
     if ($onShownState.Error) { throw $onShownState.Error }
     $state.Loaded
 }

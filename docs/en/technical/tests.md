@@ -23,7 +23,8 @@ Invoke-Pester -Configuration $Config
 | `PSGPOTools.Delegation.tests.ps1` | the rights read from the directory |
 | `PSGPOTools.Ldap.tests.ps1` | LDAP, gPLink, samba-tool, RSAT (mocked), and against a domain controller |
 | `PSGPOTools.PasswordPolicy.tests.ps1` | the fine-grained password policies: the values of the directory, the checks, the PSO that applies and why, the commands |
-| `PSGPOTools.Gui.tests.ps1` | the real windows of both consoles (`-OnShown`) |
+| `PSGPOTools.Gui.tests.ps1` | the real windows of both consoles (`-OnShown`), an error no handler caught |
+| `PSGPOTools.WindowCode.tests.ps1` | the code of the GPO console read as a syntax tree: each variable it reads is assigned or a control of its XAML |
 | `PSGPOTools.Health.tests.ps1` | the health of the GPOs and their replication between domain controllers (three simulated) |
 | `PSGPOTools.Posture.tests.ps1` | the security posture: the rights too wide in the directory and in SYSVOL, the Tier 0 and its groups, the findings to the log of the system |
 | `PSGPOTools.Inheritance.tests.ps1` | the links of a domain or an OU by link order, and the GPOs that apply there by precedence (`Get-PSGPOInheritance`) |

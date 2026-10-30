@@ -100,6 +100,15 @@ $(Get-PSGPOWindowResourceXaml)
                     <TextBlock Name='admxLoadingTextBlock' TextWrapping='Wrap' VerticalAlignment='Center' Foreground='{DynamicResource TextBrush}'/>
                 </StackPanel>
             </Border>
+            <!-- While a long operation runs in the background (Refresh, Detect Now, a backup, a report) -->
+            <Border Name='operationBanner' IsVisible='False' Margin='16,16,16,0' Padding='12,8'
+                    CornerRadius='6' Background='{DynamicResource SecondaryBackgroundBrush}' BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'>
+                <Grid ColumnDefinitions='Auto,*,Auto'>
+                    <ProgressBar Grid.Column='0' IsIndeterminate='True' MinWidth='48' Width='48' VerticalAlignment='Center' Margin='0,0,12,0'/>
+                    <TextBlock Grid.Column='1' Name='operationTextBlock' TextWrapping='Wrap' VerticalAlignment='Center' Foreground='{DynamicResource TextBrush}'/>
+                    <Button Grid.Column='2' Name='operationCancelButton' Content='Cancel' Margin='12,0,0,0' VerticalAlignment='Center'/>
+                </Grid>
+            </Border>
             <!-- Shown when no domain was discovered and the sample directory is displayed -->
             <Border Name='demoBanner' IsVisible='False' Margin='16,16,16,0' Padding='12,8'
                     CornerRadius='6' Background='#FFF4CE' BorderThickness='1' BorderBrush='#F2C94C'>
@@ -116,7 +125,7 @@ $(Get-PSGPOWindowResourceXaml)
             </StackPanel>
 
 
-            <Border Grid.Row='1' Grid.Column='0'
+            <Border Grid.Row='1' Grid.Column='0' Name='domainTreeBorder'
                     Background='{DynamicResource BackgroundBrush}'
                     Margin='16,16,8,16' CornerRadius='8' BorderThickness='1'
                     BorderBrush='{DynamicResource BorderBrush}'
@@ -238,7 +247,7 @@ $(Get-PSGPOWindowResourceXaml)
             <GridSplitter Grid.Row='1' Grid.Column='1' Width='6' HorizontalAlignment='Center'
                           VerticalAlignment='Stretch' Background='Transparent'/>
 
-            <Border Grid.Row='1' Grid.Column='2'
+            <Border Grid.Row='1' Grid.Column='2' Name='directoryDetailsBorder'
                     Background='{DynamicResource BackgroundBrush}'
                     Margin='8,16,16,16' CornerRadius='8' BorderThickness='1'
                     BorderBrush='{DynamicResource BorderBrush}'

@@ -1353,4 +1353,12 @@
     '{0}: the folder does not give it the rights the GPO gives' = '{0} : le dossier ne lui donne pas les droits que la GPO lui donne'
     '{0}: the folder lets it change it, the GPO does not' = '{0} : le dossier lui permet de le modifier, la GPO non'
     'The permissions of its folder in SYSVOL are not those of the GPO in the directory ({0}): the computers or the editors do not get what the GPO says. Set a permission of the GPO again (Delegation tab), which writes both; on Samba, samba-tool ntacl sysvolreset.' = 'Les permissions de son dossier dans SYSVOL ne sont pas celles de la GPO dans l''annuaire ({0}) : les ordinateurs ou les éditeurs n''ont pas ce que dit la GPO. Redonnez une permission de la GPO (onglet Délégation), ce qui écrit les deux ; sous Samba, samba-tool ntacl sysvolreset.'
+    'An error was not handled: {0}' = 'Une erreur n''a pas été traitée : {0}'
+    '{0} The window stays open; the technical log has the details.' = '{0} La fenêtre reste ouverte ; le journal technique a les détails.'
+    'Cancelled: {0}' = 'Annulé : {0}'
+    'Cancelling: {0}' = 'Annulation : {0}'
+    'Saving the report of {0}...' = 'Enregistrement du rapport de {0}...'
+    'The report is not saved: cancelled.' = 'Le rapport n''est pas enregistré : annulé.'
+    'The status of the domain is not read: cancelled.' = 'L''état du domaine n''est pas lu : annulé.'
+    'Backing up {0} GPO(s) in {1}...' = 'Sauvegarde de {0} GPO dans {1}...'
 }

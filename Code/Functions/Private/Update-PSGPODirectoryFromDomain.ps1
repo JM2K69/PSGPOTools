@@ -1,9 +1,9 @@
 # Reads the domain of a directory again, from the same domain controller or from -Server (Change
-# Domain Controller... of GPMC), with the same account and transport (-Credential, LDAPS, port),
-# and puts it in place in the directory object: what holds it keeps it. The configuration of the
-# domain is read again too.
-function Update-PSGPODirectoryFromDomain {
+# Domain Controller... of GPMC), with the same account and transport (-Credential, LDAPS, port):
+# a new directory, the one given unchanged (the console reads it in the background).
+function Read-PSGPODirectoryFromDomain {
     [CmdletBinding()]
+    [OutputType([GPOToolsLdapDirectory])]
     param(
         [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
         [string]$Server
@@ -13,8 +13,22 @@ function Update-PSGPODirectoryFromDomain {
     if ($Directory.Credential) { $read.Credential = $Directory.Credential }
     if ($Directory.UseSsl) { $read.UseSsl = $true }
     if ($Directory.Port) { $read.Port = $Directory.Port }
-    $again = Get-PSGPODirectory @read
-    $Directory.ReplaceWith($again)
+    Get-PSGPODirectory @read
+}
+
+# Reads the domain of a directory again (Read-PSGPODirectoryFromDomain), or takes the directory
+# read already (-Read), and puts it in place in the directory object: what holds it keeps it. The
+# configuration of the domain is read again too.
+function Update-PSGPODirectoryFromDomain {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [string]$Server,
+        [GPOToolsLdapDirectory]$Read
+    )
+
+    if (-not $Read) { $Read = Read-PSGPODirectoryFromDomain -Directory $Directory -Server $Server }
+    $Directory.ReplaceWith($Read)
     Use-PSGPODomainConfiguration -Directory $Directory -Force
 }
 

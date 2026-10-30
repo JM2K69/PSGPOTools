@@ -49,6 +49,58 @@ desktops have no font to draw them.
     The class `accent` of the Fluent theme does not color a button here: the windows share the
     style `Button.active` (`Get-PSGPOWindowResourceXaml`, with the brushes of both themes).
 
+## The code of a window
+
+Each named control of a window (`Name='...'` in its XAML) is in a variable of its name
+(`$treeView`, `$applySettingButton`...), made from the XAML in one loop
+(`Get-PSGPOAvaloniaNamedControl`), not one line per control. The GPO console is split by view:
+`Start-PSGPOManagerWindow` builds the window, then dot-sources each view
+(`Initialize-PSGPOManagerSettingView`, `...HistoryView`, `...WmiFilterView`...), a file each, whose
+state, functions and handlers live in the scope of the window while it is open.
+
+A variable misspelt would only be `$null` when the window runs: `PSGPOTools.WindowCode.tests.ps1`
+reads the code of the console (its syntax tree) and fails on a variable read that is neither
+assigned nor a control of its XAML.
+
+## An error no handler caught
+
+An error that escapes a handler (a click, a timer, an action posted) does not close the window: the
+loop of each window (`Invoke-PSGPOWindowLoop -KeepOpenOnError`) takes it from
+`Dispatcher.UIThread.UnhandledException`, shows it in a notification of the window (at the top
+right, for 30 seconds), and writes it to the technical log (`ERROR`, with the script and the line
+where it happened). The same error again within 5 seconds is said once. The GUI tests open the
+windows without it: an error there stops the loop and fails the test.
+
+## Long operations in the background
+
+The GPO console reads and writes some things that take seconds or minutes: Refresh (F5) and
+Change Domain Controller..., Detect Now (Status tab), Back up and Back up all (History tab), Save
+report.... They run in a worker of the console: a runspace of its own, opened as the console
+starts, with HGPM imported in it once (some seconds on Windows, where the module is scanned; the
+first operation waits for it). The window stays drawn and answers: a banner says what runs, the
+tree and the details of the domain wait (no other change starts meanwhile), and **Cancel** stops
+a read (not a backup, which writes and is not left half-way).
+
+The block of an operation runs in the scope of the module in the worker: it finds the functions of
+HGPM, and what it needs from the window is given as arguments. The objects of HGPM go to the
+worker and back as they are, as its classes are the same types in both runspaces; the worker gets
+the language and the configuration of the domain of the window when the operation starts, and the
+ADMX files loaded are static members, shared already (`PSGPOWindowOperation.ps1`,
+`Initialize-PSGPOManagerOperationView`). The GUI tests run the operations on the thread of the
+window instead, where their mocks are; the worker has tests of its own (a result, an error, a
+cancellation, a second operation refused).
+
+!!! note "Classes and runspaces"
+    A method of a class of HGPM that calls the module runs in the runspace that defined the class,
+    the one of the window, even when the worker calls it (reading the files of a GPO for a
+    report). That runspace takes such a call between two commands of its pipeline, never while it
+    runs the loop of the window: the worker waited forever. While an operation runs, its timer
+    runs `Start-Sleep -Milliseconds 0` every 5 ms, which lets the window take them. The classes
+    keep their affinity: with `[NoRunspaceAffinity()]` their methods would look for the functions
+    of the module in the session of the caller, where a closure or a script of the user does not
+    have them. Checked against the Samba lab and the Windows lab: Refresh, Detect Now and a report
+    in the worker, the window answering meanwhile.
+
 ## Tests of the window
 
 `Start-PSGPOManagerWindow -OnShown { param($Ui) ... }` (and `Start-PSGPOPasswordPolicyWindow` for

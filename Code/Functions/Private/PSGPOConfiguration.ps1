@@ -32,6 +32,22 @@ function Get-PSGPODefaultConfigurationPath {
 # Problem (why it is not used).
 $script:PSGPOConfigurationState = @{ Directory = $null; Path = $null; Exists = $false; Override = @{}; Unknown = @{}; Problem = $null }
 
+# The configuration of the domain in use, and the same set in another runspace of the module (the
+# worker of a console, PSGPOWindowOperation.ps1): the window and its worker use one configuration.
+function Get-PSGPOConfigurationState {
+    [CmdletBinding()]
+    [OutputType([hashtable])]
+    param()
+
+    $script:PSGPOConfigurationState
+}
+function Set-PSGPOConfigurationState {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [hashtable]$State)
+
+    $script:PSGPOConfigurationState = $State
+}
+
 # Reads the configuration of the domain of $Directory, used from now on; nothing again for the
 # same directory unless -Force. Without a directory: the defaults of the module.
 function Use-PSGPODomainConfiguration {
