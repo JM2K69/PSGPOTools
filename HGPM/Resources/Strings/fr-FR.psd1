@@ -1333,4 +1333,18 @@
     '{0}   {1} and {2} other policies' = '{0}   {1} et {2} autres stratégies'
     'A policy manages this key ({0}{1}): a preference writes it on the computers for good, it stays when the GPO no longer applies. Set the policy instead.' = 'Une stratégie gère cette clé ({0}{1}) : une préférence l''écrit sur les ordinateurs pour de bon, elle reste quand la GPO ne s''applique plus. Configurez plutôt la stratégie.'
     ' and {0} other' = ' et {0} autre(s)'
+
+    # --- Linked Group Policy Objects and Group Policy Inheritance of a domain or OU ---------------
+    'Linked GPOs' = 'GPO liés'
+    'Inheritance' = 'Héritage'
+    'Move to top' = 'Placer en premier'
+    'Move to bottom' = 'Placer en dernier'
+    'GPO' = 'GPO'
+    'The GPOs that apply here, by precedence: 1 wins. The enforced links come first, from the domain down; then the others, from here up to the domain, or to an OU that blocks the inheritance. The security filtering and the WMI filters, which depend on each computer or user, are not taken into account.' = 'Les GPO qui s''appliquent ici, par priorité : 1 l''emporte. Les liens appliqués (Enforced) viennent d''abord, du domaine vers le bas ; puis les autres, d''ici vers le domaine, ou jusqu''à une UO qui bloque l''héritage. Le filtrage de sécurité et les filtres WMI, qui dépendent de chaque ordinateur ou utilisateur, ne sont pas pris en compte.'
+    'Not shown: this account has no delegation here.' = 'Non affiché : ce compte n''a aucune délégation ici.'
+    'No GPO is linked here.' = 'Aucune GPO n''est liée ici.'
+    'No GPO applies here.' = 'Aucune GPO ne s''applique ici.'
+    'Link order 1 is applied last: it wins over the others. This account cannot change the links here.' = 'L''ordre de lien 1 est appliqué en dernier : il l''emporte sur les autres. Ce compte ne peut pas modifier les liens ici.'
+    'Link order 1 is applied last: it wins over the others. Select a link, then move it.' = 'L''ordre de lien 1 est appliqué en dernier : il l''emporte sur les autres. Sélectionnez un lien, puis déplacez-le.'
+    '{0} blocks the inheritance: the GPOs linked above it apply here only when their link is enforced.' = '{0} bloque l''héritage : les GPO liées au-dessus ne s''appliquent ici que si leur lien est appliqué (Enforced).'
 }

@@ -88,6 +88,25 @@ l'héritage.
 
 ![Une OU qui bloque l'héritage](../assets/screenshots/20-block-inheritance.fr.png)
 
+### Les onglets du domaine ou d'une OU { #linked-gpos-and-inheritance }
+
+Sélectionné dans l'arbre, le domaine ou une OU a les deux onglets de GPMC :
+
+- **GPO liés** (Objets de stratégie de groupe liés) : ses liens par ordre de lien, avec leur état
+  (appliqué, activé, l'état et le filtre WMI de la GPO). **Placer en premier**, **Monter**,
+  **Descendre** et **Placer en dernier** changent l'ordre du lien sélectionné, là où le compte lie
+  des GPO : l'ordre de lien 1 est appliqué en dernier, il l'emporte donc sur les autres.
+- **Héritage** (Héritage de stratégie de groupe) : les GPO qui s'y appliquent, par priorité (1
+  l'emporte), et où chacune est liée. Les liens appliqués (Enforced) viennent d'abord, du domaine
+  vers le bas ; puis les autres, de l'OU vers le domaine, ou jusqu'à une OU qui bloque l'héritage,
+  ce que l'onglet dit. Un lien désactivé ne s'applique pas ; une GPO dont tous les paramètres sont
+  désactivés est listée, avec son état. Le filtrage de sécurité et les filtres WMI, qui dépendent
+  de chaque ordinateur ou utilisateur, ne sont pas pris en compte, ni les liens des sites.
+
+![Les liens d'une OU, déplacés avec les flèches](../assets/screenshots/87-linked-gpos.fr.png)
+
+![Les GPO qui s'appliquent à une OU, par priorité](../assets/screenshots/88-gpo-inheritance.fr.png)
+
 Chaque modification est écrite tout de suite dans le domaine, et seulement ce qui change : la
 console relit le `gPLink` (ou le `gPOptions`), modifie son lien, et l'écrit dans une seule requête
 qui retire aussi la valeur lue. Une modification faite entre-temps par une autre console est
@@ -100,6 +119,7 @@ New-PSGPOLink -Name 'C - Servers - Baseline' -Target 'OU=Servers,DC=contoso,DC=c
 Set-PSGPOLink -Name 'U - Lyon - Printers' -Target Lyon -Enabled $false
 Set-PSGPOLink -Name 'C - Servers - Baseline' -Target Servers -Order 1
 Set-PSGPOInheritance -Target 'OU=Kiosks,DC=contoso,DC=com' -Blocked $true
+(Get-PSGPOInheritance -Target 'OU=Kiosks,DC=contoso,DC=com').InheritedGpoLinks   # les GPO qui s'y appliquent, par priorité
 Remove-PSGPOLink -Name 'U - Lyon - Printers' -Target Lyon
 ```
 

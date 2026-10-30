@@ -1200,6 +1200,81 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Moves the links of an OU with the arrows, and lists the GPOs that apply there by precedence, as the tabs of GPMC' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Workstations = $Ui.Directory.FindSom('OU=Workstations,OU=Lyon,OU=Sites,DC=corp,DC=contoso,DC=com')
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Workstations'
+                $Ui.linkedGposTab.IsVisible | Should -BeTrue
+                $Ui.inheritanceTab.IsVisible | Should -BeTrue
+                $Ui.directoryTabs.SelectedItem = $Ui.linkedGposTab
+                @($Ui.linkedGposList.ItemsSource | ForEach-Object { "$($_.Order) $($_.Name) $($_.Enforced) $($_.LinkEnabled)" }) | Should -Be @(
+                    '1 C - Workstations - Security Baseline Windows 11 Yes Yes'
+                    '2 C - Workstations - BitLocker No Yes'
+                    '3 C - Workstations - Windows Update Ring Broad No Yes'
+                    '4 OLD - Windows 10 Baseline No No'
+                )
+                $Ui.linkedGposInfoTextBlock.Text | Should -BeLike '*Select a link, then move it.'
+                $Ui.linkedGposUpButton.IsEnabled | Should -BeFalse -Because 'no link is selected'
+
+                # The third link: up, to the top, then to the bottom.
+                $Name = 'C - Workstations - Windows Update Ring Broad'
+                $Link = $Workstations.Links | Where-Object { $_.Gpo.DisplayName -eq $Name }
+                $Ui.linkedGposList.SelectedItem = @($Ui.linkedGposList.ItemsSource)[2]
+                $Ui.linkedGposUpButton.IsEnabled | Should -BeTrue
+                $Ui.linkedGposDownButton.IsEnabled | Should -BeTrue
+                Invoke-Click $Ui.linkedGposUpButton
+                $Link.Order | Should -Be 2
+                $Ui.linkedGposList.SelectedItem.Name | Should -Be $Name -Because 'the link moved stays selected'
+                $Ui.linkedGposStatusTextBlock.Text | Should -Be "The link of '$Name' to Workstations has the link order 2."
+                $Ui.directoryTabs.SelectedItem | Should -Be $Ui.linkedGposTab -Because 'the tab stays open'
+                Invoke-Click $Ui.linkedGposTopButton
+                @($Ui.linkedGposList.ItemsSource)[0].Name | Should -Be $Name
+                $Ui.linkedGposTopButton.IsEnabled | Should -BeFalse
+                $Ui.linkedGposUpButton.IsEnabled | Should -BeFalse
+                Invoke-Click $Ui.linkedGposBottomButton
+                $Link.Order | Should -Be 4
+                @($Ui.linkedGposList.ItemsSource)[3].Name | Should -Be $Name
+                $Ui.linkedGposDownButton.IsEnabled | Should -BeFalse
+                $Ui.linkedGposBottomButton.IsEnabled | Should -BeFalse
+
+                # The GPOs that apply there, by precedence: the enforced links first, from the domain down.
+                $Ui.directoryTabs.SelectedItem = $Ui.inheritanceTab
+                @($Ui.inheritanceList.ItemsSource | ForEach-Object { "$($_.Precedence) $($_.Name) | $($_.Location) | $($_.Enforced)" }) | Should -Be @(
+                    '1 C - All - LAPS | corp.contoso.com | Yes'
+                    '2 C - Workstations - Security Baseline Windows 11 | Workstations | Yes'
+                    '3 C - Workstations - BitLocker | Workstations | No'
+                    '4 C - Workstations - Windows Update Ring Broad | Workstations | No'
+                    '5 Default Domain Policy | corp.contoso.com | No'
+                    '6 C - All - Defender Antivirus | corp.contoso.com | No'
+                    '7 C - All - Windows Firewall | corp.contoso.com | No'
+                ) -Because 'the disabled link applies nowhere, and the link moved to the bottom comes after the other links of the OU'
+                $Ui.inheritanceBlockedBorder.IsVisible | Should -BeFalse
+
+                # An OU that blocks the inheritance: said, the enforced links of its parents only.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Paris', 'Workstations', 'Kiosks (blocks inheritance)'
+                $Ui.directoryTabs.SelectedItem | Should -Be $Ui.inheritanceTab
+                $Ui.inheritanceBlockedBorder.IsVisible | Should -BeTrue
+                $Ui.inheritanceBlockedTextBlock.Text | Should -Be 'Kiosks blocks the inheritance: the GPOs linked above it apply here only when their link is enforced.'
+                @($Ui.inheritanceList.ItemsSource.Name) | Should -Be @('C - All - LAPS', 'C - Workstations - Security Baseline Windows 11', 'C - Kiosks - Assigned Access')
+
+                # Where the account does not link GPOs: shown, not changed.
+                $Workstations.CanLink = $false
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Lyon', 'Workstations'
+                $Ui.directoryTabs.SelectedItem = $Ui.linkedGposTab
+                $Ui.linkedGposInfoTextBlock.Text | Should -BeLike '*This account cannot change the links here.'
+                $Ui.linkedGposList.SelectedItem = @($Ui.linkedGposList.ItemsSource)[1]
+                $Ui.linkedGposUpButton.IsEnabled | Should -BeFalse
+                $Ui.linkedGposDownButton.IsEnabled | Should -BeFalse
+
+                # A GPO: neither tab, the Details tab back.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'C - All - LAPS'
+                $Ui.linkedGposTab.IsVisible | Should -BeFalse
+                $Ui.inheritanceTab.IsVisible | Should -BeFalse
+                $Ui.directoryTabs.SelectedIndex | Should -Be 0
+            }
+        }
+
         It 'Links a GPO to a WMI filter from its context menu' {
             $Filter = $Directory.NewWmiFilter('Laptops', '', @([pscustomobject]@{ Namespace = 'root\CIMv2'; Query = 'SELECT * FROM Win32_Battery' }))
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {

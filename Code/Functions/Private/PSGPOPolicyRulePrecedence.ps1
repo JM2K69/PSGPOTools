@@ -10,13 +10,18 @@
 #>
 
 # The GPOs that apply to $Som, by precedence: Precedence, Gpo, Som (where it is linked), Enforced.
+# -IncludeDisabledGpo: the GPOs whose settings are all disabled too, as GPMC lists them (with their
+# status).
 function Get-PSGPOSomPrecedence {
     [CmdletBinding()]
-    param([Parameter(Mandatory)] [GPOToolsSom]$Som)
+    param(
+        [Parameter(Mandatory)] [GPOToolsSom]$Som,
+        [switch]$IncludeDisabledGpo
+    )
 
     $chain = [System.Collections.Generic.List[GPOToolsSom]]::new()
     for ($node = $Som; $node; $node = $node.Parent) { $chain.Add($node) }
-    $applies = { param($Link) $Link.Enabled -and $Link.Gpo -and ($Link.Gpo.Flags -band 3) -ne 3 }
+    $applies = { param($Link) $Link.Enabled -and $Link.Gpo -and ($IncludeDisabledGpo -or ($Link.Gpo.Flags -band 3) -ne 3) }
 
     $ordered = [System.Collections.Generic.List[object]]::new()
     # The enforced links, from the domain down.

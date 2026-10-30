@@ -30,6 +30,7 @@ avec Tab.
 | [`Set-PSGPOLink`](commands/set-psgpolink.md) `-Name -Target [-Enabled] [-Enforced] [-Order]` | active, désactive, applique (Enforced) ou déplace des liens |
 | [`Remove-PSGPOLink`](commands/remove-psgpolink.md) `-Name -Target` | supprime des liens, les GPO restent |
 | [`Set-PSGPOInheritance`](commands/set-psgpoinheritance.md) `-Target -Blocked` | bloque l'héritage du domaine ou d'une OU, ou non |
+| [`Get-PSGPOInheritance`](commands/get-psgpoinheritance.md) `-Target` | les liens du domaine ou d'une OU par ordre de lien, et les GPO qui s'y appliquent par priorité, comme les onglets de GPMC |
 | [`Set-PSGPO`](commands/set-psgpo.md) `-Name [-NewName] [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter]` | renomme une GPO, règle le statut et le filtre WMI de GPO |
 | [`Get-PSGPOPermission`](commands/get-psgpopermission.md) `-Name` | les autorisations de GPO, comme l'onglet Délégation de GPMC : chaque compte et son niveau |
 | [`Get-PSGPOReport`](commands/get-psgporeport.md) `-Name`, `-All` `[-ReportType Object\|Xml\|Html] [-Path]` | le rapport de GPO, comme Get-GPOReport de GPMC : détails, liens, délégation, paramètres, et ce que HGPM n'interprète pas |
@@ -159,6 +160,7 @@ New-PSGPOFineGrainedPasswordPolicy -Name 'PSO - Tier 1 Admins' -Precedence 10 -M
 | `PSGPOTools.Drift` | `Get-PSGPODrift` | `DisplayName`, `State`, `Approved`, `ApprovedBy`, `Changes` |
 | `PSGPOTools.HealthFinding` | `Test-PSGPOHealth` | `Severity`, `Check`, `Target`, `Id`, `DomainController`, `Detail` |
 | `PSGPOTools.PostureFinding` | `Test-PSGPOSecurityPosture` | `Severity`, `Check`, `Target`, `Principal`, `Detail` |
+| `PSGPOTools.GpoInheritance` | `Get-PSGPOInheritance` | `Name`, `ContainerType`, `Path`, `GpoInheritanceBlocked`, `GpoLinks`, `InheritedGpoLinks` |
 | `PSGPOTools.ReplicationStatus` | `Get-PSGPOReplicationStatus` | `DomainController`, `IsBaseline`, `DisplayName`, `Id`, `State`, `DirectoryVersion`, `SysvolVersion`, `BaselineVersion`, `Detail` |
 | `PSGPOTools.Restore` | `Restore-PSGPO` | `DisplayName`, `Id`, `Version`, `BackupBefore`, `CreatedAgain`, `Linked`, `Problems` |
 | `PSGPOTools.RemovedBackup` | `Remove-PSGPOBackup` | `DisplayName`, `Id`, `Backups`, `Templates`, `Path` |

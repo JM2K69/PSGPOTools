@@ -646,6 +646,80 @@ $(Get-PSGPOWindowResourceXaml)
                                 </StackPanel>
                             </ScrollViewer>
                         </TabItem>
+                        <!-- The links of a domain or OU, as GPMC: their link order, changed with the arrows -->
+                        <TabItem Name='linkedGposTab' Header='Linked GPOs' IsVisible='False'>
+                            <Grid Margin='16,8' RowDefinitions='Auto,Auto,Auto,*,Auto'>
+                                <TextBlock Grid.Row='0' Name='linkedGposInfoTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                <WrapPanel Grid.Row='1' Orientation='Horizontal' Margin='0,8,0,0'>
+                                    <Button Name='linkedGposTopButton' Content='Move to top' Margin='0,0,8,4' IsEnabled='False'/>
+                                    <Button Name='linkedGposUpButton' Content='Move up' Margin='0,0,8,4' IsEnabled='False'/>
+                                    <Button Name='linkedGposDownButton' Content='Move down' Margin='0,0,8,4' IsEnabled='False'/>
+                                    <Button Name='linkedGposBottomButton' Content='Move to bottom' Margin='0,0,8,4' IsEnabled='False'/>
+                                </WrapPanel>
+                                <Grid Grid.Row='2' ColumnDefinitions='60,*,80,80,130,90' Margin='12,8,12,2'>
+                                    <TextBlock Grid.Column='0' Text='Order' FontWeight='SemiBold'/>
+                                    <TextBlock Grid.Column='1' Text='GPO' FontWeight='SemiBold'/>
+                                    <TextBlock Grid.Column='2' Text='Enforced' FontWeight='SemiBold'/>
+                                    <TextBlock Grid.Column='3' Text='Enabled' FontWeight='SemiBold'/>
+                                    <TextBlock Grid.Column='4' Text='Status' FontWeight='SemiBold'/>
+                                    <TextBlock Grid.Column='5' Text='WMI Filter' FontWeight='SemiBold'/>
+                                </Grid>
+                                <Grid Grid.Row='3'>
+                                    <ListBox Name='linkedGposList'>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid ColumnDefinitions='60,*,80,80,130,90'>
+                                                    <TextBlock Grid.Column='0' Text='{Binding Order}' FontWeight='SemiBold'/>
+                                                    <TextBlock Grid.Column='1' Text='{Binding Name}' TextTrimming='CharacterEllipsis' ToolTip.Tip='{Binding Name}' Margin='0,0,8,0'/>
+                                                    <TextBlock Grid.Column='2' Text='{Binding Enforced}'/>
+                                                    <TextBlock Grid.Column='3' Text='{Binding LinkEnabled}'/>
+                                                    <TextBlock Grid.Column='4' Text='{Binding Status}' TextTrimming='CharacterEllipsis' ToolTip.Tip='{Binding Status}' Margin='0,0,8,0'/>
+                                                    <TextBlock Grid.Column='5' Text='{Binding WmiFilter}' TextTrimming='CharacterEllipsis' ToolTip.Tip='{Binding WmiFilter}'/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <TextBlock Name='linkedGposEmptyTextBlock' TextWrapping='Wrap' Margin='12,8' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                </Grid>
+                                <TextBlock Grid.Row='4' Name='linkedGposStatusTextBlock' TextWrapping='Wrap' Margin='0,6,0,0'/>
+                            </Grid>
+                        </TabItem>
+                        <!-- The GPOs that apply to a domain or OU, by precedence, as GPMC -->
+                        <TabItem Name='inheritanceTab' Header='Inheritance' IsVisible='False'>
+                            <Grid Margin='16,8' RowDefinitions='Auto,Auto,Auto,*'>
+                                <TextBlock Grid.Row='0' TextWrapping='Wrap' Foreground='{DynamicResource SecondaryTextBrush}'
+                                           Text='The GPOs that apply here, by precedence: 1 wins. The enforced links come first, from the domain down; then the others, from here up to the domain, or to an OU that blocks the inheritance. The security filtering and the WMI filters, which depend on each computer or user, are not taken into account.'/>
+                                <Border Grid.Row='1' Name='inheritanceBlockedBorder' IsVisible='False' Margin='0,8,0,0' Padding='10,6' CornerRadius='4'
+                                        BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}' Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                    <TextBlock Name='inheritanceBlockedTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                </Border>
+                                <Grid Grid.Row='2' ColumnDefinitions='80,*,120,80,130,90' Margin='12,8,12,2'>
+                                    <TextBlock Grid.Column='0' Text='Precedence' FontWeight='SemiBold'/>
+                                    <TextBlock Grid.Column='1' Text='GPO' FontWeight='SemiBold'/>
+                                    <TextBlock Grid.Column='2' Text='Location' FontWeight='SemiBold'/>
+                                    <TextBlock Grid.Column='3' Text='Enforced' FontWeight='SemiBold'/>
+                                    <TextBlock Grid.Column='4' Text='Status' FontWeight='SemiBold'/>
+                                    <TextBlock Grid.Column='5' Text='WMI Filter' FontWeight='SemiBold'/>
+                                </Grid>
+                                <Grid Grid.Row='3'>
+                                    <ListBox Name='inheritanceList'>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid ColumnDefinitions='80,*,120,80,130,90'>
+                                                    <TextBlock Grid.Column='0' Text='{Binding Precedence}' FontWeight='SemiBold'/>
+                                                    <TextBlock Grid.Column='1' Text='{Binding Name}' TextTrimming='CharacterEllipsis' ToolTip.Tip='{Binding Name}' Margin='0,0,8,0'/>
+                                                    <TextBlock Grid.Column='2' Text='{Binding Location}' TextTrimming='CharacterEllipsis' ToolTip.Tip='{Binding Location}' Margin='0,0,8,0'/>
+                                                    <TextBlock Grid.Column='3' Text='{Binding Enforced}'/>
+                                                    <TextBlock Grid.Column='4' Text='{Binding Status}' TextTrimming='CharacterEllipsis' ToolTip.Tip='{Binding Status}' Margin='0,0,8,0'/>
+                                                    <TextBlock Grid.Column='5' Text='{Binding WmiFilter}' TextTrimming='CharacterEllipsis' ToolTip.Tip='{Binding WmiFilter}'/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                    <TextBlock Name='inheritanceEmptyTextBlock' TextWrapping='Wrap' Margin='12,8' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
                         <TabItem Name='settingsTab' Header='Settings' IsVisible='False'>
                             <ScrollViewer>
                                 <StackPanel Margin='16,8' Spacing='4'>

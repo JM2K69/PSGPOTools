@@ -1,5 +1,12 @@
 # HGPM Release History
 
+## Unreleased
+
+### Added
+
+* The domain and each OU have the tabs of GPMC: **Linked GPOs**, their links by link order with the state of each (enforced, enabled, the status and the WMI filter of the GPO), and **Move to top**, **Move up**, **Move down**, **Move to bottom** to change the order of application where the account links GPOs (link order 1 wins), each change audited; **Inheritance**, the GPOs that apply there by precedence and where each is linked, the enforced links first, an OU that blocks the inheritance said
+* `Get-PSGPOInheritance`, as `Get-GPInheritance` of the GroupPolicy module: the links of the domain or an OU by link order (`GpoLinks`), whether it blocks the inheritance, and the GPOs that apply there by precedence (`InheritedGpoLinks`)
+
 ## 0.1.24 - alpha
 
 ### Fixed

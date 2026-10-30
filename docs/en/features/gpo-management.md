@@ -85,6 +85,25 @@ inheritance.
 
 ![An OU that blocks the inheritance](../assets/screenshots/20-block-inheritance.png)
 
+### The tabs of the domain or an OU { #linked-gpos-and-inheritance }
+
+Selected in the tree, the domain or an OU has the two tabs of GPMC:
+
+- **Linked GPOs** (Linked Group Policy Objects): its links by link order, with their state
+  (enforced, enabled, the status and the WMI filter of the GPO). **Move to top**, **Move up**,
+  **Move down** and **Move to bottom** change the link order of the link selected, where the
+  account links GPOs: link order 1 is applied last, so it wins over the others.
+- **Inheritance** (Group Policy Inheritance): the GPOs that apply there, by precedence (1 wins),
+  and where each is linked. The enforced links come first, from the domain down; then the others,
+  from the OU up to the domain, or to an OU that blocks the inheritance, which the tab says. A
+  disabled link does not apply; a GPO whose settings are all disabled is listed, with its status.
+  The security filtering and the WMI filters, which depend on each computer or user, are not taken
+  into account, nor the links of the sites.
+
+![The links of an OU, moved with the arrows](../assets/screenshots/87-linked-gpos.png)
+
+![The GPOs that apply to an OU, by precedence](../assets/screenshots/88-gpo-inheritance.png)
+
 Each change is written to the domain at once, and only what changes: the console reads the
 `gPLink` (or the `gPOptions`) again, changes its link, and writes it in one request that also
 removes the value read. A change another console made meanwhile is kept, a link order another
@@ -96,6 +115,7 @@ New-PSGPOLink -Name 'C - Servers - Baseline' -Target 'OU=Servers,DC=contoso,DC=c
 Set-PSGPOLink -Name 'U - Lyon - Printers' -Target Lyon -Enabled $false
 Set-PSGPOLink -Name 'C - Servers - Baseline' -Target Servers -Order 1
 Set-PSGPOInheritance -Target 'OU=Kiosks,DC=contoso,DC=com' -Blocked $true
+(Get-PSGPOInheritance -Target 'OU=Kiosks,DC=contoso,DC=com').InheritedGpoLinks   # the GPOs that apply there, by precedence
 Remove-PSGPOLink -Name 'U - Lyon - Printers' -Target Lyon
 ```
 

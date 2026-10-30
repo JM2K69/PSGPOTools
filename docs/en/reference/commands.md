@@ -30,6 +30,7 @@ with Tab.
 | [`Set-PSGPOLink`](commands/set-psgpolink.md) `-Name -Target [-Enabled] [-Enforced] [-Order]` | enables, disables, enforces or moves links |
 | [`Remove-PSGPOLink`](commands/remove-psgpolink.md) `-Name -Target` | deletes links, the GPOs kept |
 | [`Set-PSGPOInheritance`](commands/set-psgpoinheritance.md) `-Target -Blocked` | blocks the inheritance of the domain or an OU, or not |
+| [`Get-PSGPOInheritance`](commands/get-psgpoinheritance.md) `-Target` | the links of the domain or an OU by link order, and the GPOs that apply there by precedence, as the tabs of GPMC |
 | [`Set-PSGPO`](commands/set-psgpo.md) `-Name [-NewName] [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter]` | renames a GPO, sets the status and the WMI filter of GPOs |
 | [`Get-PSGPOPermission`](commands/get-psgpopermission.md) `-Name` | the permissions of GPOs, as the Delegation tab of GPMC: each account and its level |
 | [`Get-PSGPOReport`](commands/get-psgporeport.md) `-Name`, `-All` `[-ReportType Object\|Xml\|Html] [-Path]` | the report of GPOs, as Get-GPOReport of GPMC: details, links, delegation, settings, and what HGPM does not interpret |
@@ -159,6 +160,7 @@ New-PSGPOFineGrainedPasswordPolicy -Name 'PSO - Tier 1 Admins' -Precedence 10 -M
 | `PSGPOTools.Drift` | `Get-PSGPODrift` | `DisplayName`, `State`, `Approved`, `ApprovedBy`, `Changes` |
 | `PSGPOTools.HealthFinding` | `Test-PSGPOHealth` | `Severity`, `Check`, `Target`, `Id`, `DomainController`, `Detail` |
 | `PSGPOTools.PostureFinding` | `Test-PSGPOSecurityPosture` | `Severity`, `Check`, `Target`, `Principal`, `Detail` |
+| `PSGPOTools.GpoInheritance` | `Get-PSGPOInheritance` | `Name`, `ContainerType`, `Path`, `GpoInheritanceBlocked`, `GpoLinks`, `InheritedGpoLinks` |
 | `PSGPOTools.ReplicationStatus` | `Get-PSGPOReplicationStatus` | `DomainController`, `IsBaseline`, `DisplayName`, `Id`, `State`, `DirectoryVersion`, `SysvolVersion`, `BaselineVersion`, `Detail` |
 | `PSGPOTools.Restore` | `Restore-PSGPO` | `DisplayName`, `Id`, `Version`, `BackupBefore`, `CreatedAgain`, `Linked`, `Problems` |
 | `PSGPOTools.RemovedBackup` | `Remove-PSGPOBackup` | `DisplayName`, `Id`, `Backups`, `Templates`, `Path` |

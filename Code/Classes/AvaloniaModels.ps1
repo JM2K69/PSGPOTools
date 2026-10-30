@@ -71,6 +71,29 @@ class AvaloniaLinkRow {
     [string]$Status
 }
 
+# One link of the Linked Group Policy Objects tab of a domain or OU, as GPMC: its link order, its
+# GPO and their state; the link itself (GPOToolsGpoLink), to move it.
+class AvaloniaLinkedGpoRow {
+    [int]$Order
+    [string]$Name
+    [string]$Enforced
+    [string]$LinkEnabled
+    [string]$Status
+    [string]$WmiFilter
+    [object]$Link
+}
+
+# One GPO of the Group Policy Inheritance tab of a domain or OU, as GPMC: its precedence, where it
+# is linked, whether its link is enforced.
+class AvaloniaInheritanceRow {
+    [int]$Precedence
+    [string]$Name
+    [string]$Location
+    [string]$Enforced
+    [string]$Status
+    [string]$WmiFilter
+}
+
 # One node of the timeline of a GPO (History tab): a backup, or the GPO as it is now
 class AvaloniaHistoryNode {
     [string]$Title
