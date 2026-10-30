@@ -41,3 +41,7 @@ Third-party components shipped with HGPM, under their own licenses:
 
 Downloaded at the first start, not shipped: the Avalonia runtime (nuget.org), under
 the licenses of its packages.
+
+Neither shipped nor kept in the repository: the ADMX files of Windows. Install-PSGPOAdmx
+downloads them from Microsoft (Administrative Templates (.admx) for Windows 11, on
+download.microsoft.com) on the computer of the user, under the terms of Microsoft.

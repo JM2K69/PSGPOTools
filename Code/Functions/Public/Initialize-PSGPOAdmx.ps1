@@ -51,7 +51,7 @@ Function Initialize-PSGPOAdmx {
     if (-not $Path) {
         if (-not $IsWindows) {
             $found = @(Get-PSGPOAdmxCandidate -CentralStore @())
-            $hint = if ($found.Count) { " Found on this computer: $($found -join ', ')." } else { ' Install-PSGPOAdmx downloads those of HGPM.' }
+            $hint = if ($found.Count) { " Found on this computer: $($found -join ', ')." } else { ' Install-PSGPOAdmx installs those of Windows, from the package of Microsoft.' }
             throw "Specify -Path: there is no local PolicyDefinitions folder outside Windows (use a copy of the ADMX files or the SYSVOL central store).$hint"
         }
         $Path = Join-Path -Path $Env:windir -ChildPath 'PolicyDefinitions'

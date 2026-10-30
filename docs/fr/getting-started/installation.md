@@ -69,16 +69,22 @@ a été choisi dans sa fenêtre, qui propose d'abord le magasin central ; `Initi
 sont analysés une fois, puis lus dans un cache de l'utilisateur tant qu'ils gardent leurs noms,
 tailles et dates (`%LOCALAPPDATA%\PSGPOTools\Admx` sous Windows ; `$XDG_CACHE_HOME/PSGPOTools/Admx`,
 sinon `~/.cache/PSGPOTools/Admx` ailleurs ; `-NoCache` les analyse). Là où il n'y en a pas (un
-ordinateur Linux, un domaine sans magasin central), `Install-PSGPOAdmx` télécharge la copie du
-dépôt depuis GitHub (`sources/PolicyDefinitions` : 236 fichiers `.admx`, leurs fichiers `.adml` en
-22 langues), au tag de la version du module. Chaque ensemble de fichiers (les `.admx`, chaque
-langue) est vérifié avec le SHA-256 que le module épingle avant que rien ne soit écrit.
+ordinateur Linux, un domaine sans magasin central), `Install-PSGPOAdmx` installe ceux de Windows
+depuis le paquet de Microsoft, *Administrative Templates (.admx) for Windows 11* (un `.msi` de
+download.microsoft.com : 236 fichiers `.admx`, leurs fichiers `.adml` en 22 langues). HGPM ne les
+livre ni ne les redistribue : ce sont les fichiers de Microsoft, selon ses conditions. La commande
+extrait le paquet sans l'installer (`msiexec /a` sous Windows ; sous Linux et macOS `msiextract`,
+du paquet `msitools` : `sudo apt install msitools`, `sudo dnf install msitools`,
+`brew install msitools`). Le module épingle le paquet (sa taille et son SHA-256) et chaque ensemble
+de ses fichiers (les `.admx`, chaque langue) : un paquet ou des fichiers qui diffèrent sont refusés
+avant que rien ne soit écrit.
 
 ```powershell
 Install-PSGPOAdmx                                    # en-US et la langue de la session, à côté du module
 Install-PSGPOAdmx -UICulture en-US, fr-FR            # les langues choisies
 Install-PSGPOAdmx -AllLanguages -Path ~/PolicyDefinitions
 Install-PSGPOAdmx -CentralStore -Server dc.hardenbox.labo -UICulture en-US, fr-FR   # le magasin central du domaine
+Install-PSGPOAdmx -MsiPath './Administrative Templates (.admx) for Windows 11 Sep 2026 Update.msi'   # sans internet
 ```
 
 Sans `-Path`, les fichiers vont à côté du module quand on peut y écrire, sinon dans le dossier de
@@ -86,8 +92,9 @@ données de l'utilisateur (`PSGPOTools/PolicyDefinitions`) : la console les y tr
 `-CentralStore`, ils vont dans `SYSVOL\<domaine>\Policies\PolicyDefinitions` du contrôleur de
 domaine (un compte qui peut écrire SYSVOL : un administrateur du domaine), comme pour GPMC : toutes
 les consoles du domaine les lisent alors. Les fichiers ADMX déjà présents sont gardés, ceux de même
-nom remplacés ; s'il y en a déjà, ajoutez `-Force`. Avant la première publication d'une version
-(pas encore de tag), donnez la branche : `-Ref master`.
+nom remplacés ; s'il y en a déjà, ajoutez `-Force`. Un ordinateur sans internet : téléchargez le
+paquet sur un autre (la page de Microsoft est dans l'erreur d'un téléchargement qui échoue) et
+donnez-le avec `-MsiPath` ; il est vérifié comme un téléchargement.
 
 ### Le cache des fichiers ADMX { #admx-cache }
 

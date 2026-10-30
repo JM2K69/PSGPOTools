@@ -4,6 +4,7 @@ The tests are [Pester](https://pester.dev) 5 tests, in `CI/tests`, run against t
 
 ```powershell
 pwsh -File CI/03_Build.ps1
+pwsh -File CI/Get-AdmxSource.ps1      # once: the ADMX files of Windows the tests read
 $Config = New-PesterConfiguration
 $Config.Run.Path = 'CI/tests'
 $Config.Output.Verbosity = 'Detailed'
@@ -99,10 +100,14 @@ written from its help by `CI/Update-CommandReference.ps1`, after `CI/03_Build.ps
 the help of a command is its page, which `Get-Help <command> -Online` opens. A test checks that the pages
 are those of the help.
 
-`Install-PSGPOAdmx` downloads `sources/PolicyDefinitions` from GitHub and installs only the files that
-`HGPM/Resources/PolicyDefinitions.json` pins (each set, the `.admx` files and each language: its
-number of files and a SHA-256, line endings and case of the names aside). After a change of
-`sources/PolicyDefinitions`, `CI/Update-AdmxCatalog.ps1` writes the catalog again; a test checks it.
+The repository keeps no file of Microsoft. The tests read the ADMX files of Windows from
+`sources/PolicyDefinitions`, which is not in Git: `CI/Get-AdmxSource.ps1` installs them there with
+`Install-PSGPOAdmx -AllLanguages`, from the package of Microsoft the module pins, kept in
+`sources/package` (the CI caches it). `Install-PSGPOAdmx` installs only the package that
+`HGPM/Resources/PolicyDefinitions.json` pins (its address, size and SHA-256), and from it only the
+files pinned (each set, the `.admx` files and each language: its number of files and a SHA-256, the
+case of the names aside). For a new package of Microsoft, `CI/Update-AdmxCatalog.ps1 -MsiPath`
+writes the catalog again; a test checks it.
 
 `.github/workflows/release.yml` publishes the module on the PowerShell Gallery for a tag of a version
 (`v0.1.3-alpha`) only, never for a commit. It runs the jobs of the CI on the tagged commit, then, on

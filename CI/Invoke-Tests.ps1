@@ -43,6 +43,10 @@ if ($NoBuild) {
 } else {
     & (Join-Path $PSScriptRoot '03_Build.ps1')
 }
+# The ADMX files of Windows many tests read: not in the repository, the files of Microsoft.
+if (-not (Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot '..' 'sources' 'PolicyDefinitions') -File -Filter '*.admx' -ErrorAction SilentlyContinue | Select-Object -First 1)) {
+    throw 'No ADMX file in sources/PolicyDefinitions: run CI/Get-AdmxSource.ps1 once (it installs those of the package of Microsoft).'
+}
 
 Import-Module Pester -MinimumVersion 5.5.0
 

@@ -14,3 +14,9 @@ docs/fr/changelog.md
 
 # The Security Compliance Toolkit of Microsoft, kept next to the repository: its files are not ours to publish
 SCT/
+
+# The ADMX files of Windows the tests read, and the package of Microsoft they come from
+# (CI/Get-AdmxSource.ps1): its files are not ours to publish either
+sources/
+# Install-PSGPOAdmx run from the repository: next to the module
+HGPM/sources/

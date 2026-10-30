@@ -167,7 +167,7 @@ function Show-GPOManagerAvalonia {
             $window = @{}
             if ($null -ne $source.CentralStore) { $window.CentralStore = $source.CentralStore }
             if (-not (Show-PSGPOAdmxWindow @window)) {
-                Write-Warning 'No ADMX file loaded: the console is not opened. Choose a PolicyDefinitions folder, give -PolicyDefinitions, or download the ADMX files of HGPM with Install-PSGPOAdmx.'
+                Write-Warning 'No ADMX file loaded: the console is not opened. Choose a PolicyDefinitions folder, give -PolicyDefinitions, or install the ADMX files of Windows with Install-PSGPOAdmx (from the package of Microsoft).'
                 return
             }
         }

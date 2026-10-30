@@ -1,21 +1,21 @@
 # Install-PSGPOAdmx
 
-Downloads the ADMX files of HGPM from GitHub: into a folder, or to create the central store of the domain.
+Installs the ADMX files of Windows from the package of Microsoft: into a folder, or to create the central store of the domain.
 
 _L'aide de la commande, telle que `Get-Help Install-PSGPOAdmx -Full` la donne (en anglais)._
 
 ## Syntaxe
 
 ```powershell
-Install-PSGPOAdmx [-UICulture <string[]>] [-AllLanguages] [-Path <string>] [-Ref <string>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
-Install-PSGPOAdmx -CentralStore [-UICulture <string[]>] [-AllLanguages] [-Directory <GPOToolsDirectory>] [-Server <string>] [-Ref <string>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
+Install-PSGPOAdmx [-UICulture <string[]>] [-AllLanguages] [-Path <string>] [-MsiPath <string>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
+Install-PSGPOAdmx -CentralStore [-UICulture <string[]>] [-AllLanguages] [-Directory <GPOToolsDirectory>] [-Server <string>] [-MsiPath <string>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## Description
 
-The module does not ship ADMX files: the console reads those of the central store of the domain, of Windows (%windir%\PolicyDefinitions) or of the SYSVOL of a Samba domain controller. This command downloads the copy of the repository (sources/PolicyDefinitions: the .admx files and their .adml files in 22 languages) from GitHub, at the tag of the version of the module, with the languages asked for (-UICulture) or all of them (-AllLanguages).
+The module does not ship ADMX files: the console reads those of the central store of the domain, of Windows (%windir%\PolicyDefinitions) or of the SYSVOL of a Samba domain controller. This command downloads the package of Microsoft, Administrative Templates (.admx) for Windows 11 (an .msi, from download.microsoft.com), extracts it without installing it (msiexec /a on Windows, msiextract of msitools on Linux and macOS) and installs its .admx files with their .adml files in the languages asked for (-UICulture) or all of them (-AllLanguages, 22 languages). The files are those of Microsoft, under its terms.
 
-Each set of files (the .admx files, each language) is checked against the SHA-256 the module pins (Resources/PolicyDefinitions.json) before anything is written: a download that differs is refused, nothing installed.
+The module pins the package (Resources/PolicyDefinitions.json): a download whose size or SHA-256 differs is refused, and so are extracted files that are not those pinned, set by set (the .admx files, each language), before anything is written.
 
 - Without -CentralStore, the files go into -Path, by default next to the module when it can
 be written to, else into the data folder of the user (PSGPOTools/PolicyDefinitions),
@@ -25,6 +25,8 @@ SYSVOL\<domain>\Policies\PolicyDefinitions on the domain controller the director
 from (Windows: its share; Linux: smbclient with Kerberos), as an administrator creates it
 for GPMC: every console of the domain then reads them. The files already there (the ADMX
 files of other products) are kept, those of the same name replaced.
+
+A computer without internet: download the package on another computer (the page of Microsoft is in the error of a failed download) and give it with -MsiPath; it is checked as a download is.
 
 ## Paramètres
 
@@ -76,9 +78,9 @@ With -CentralStore: the domain controller to read the domain from and write to.
 |---|---|---|---|---|
 | `String` | Non | Nommé | Aucune | Non |
 
-### -Ref
+### -MsiPath
 
-The tag, branch or commit of the repository to download; the tag of the version of the module (v0.1.3-alpha) by default. Its files must be those the module pins.
+The package of Microsoft downloaded beforehand (the .msi file): nothing is downloaded. It must be the package the module pins.
 
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|
@@ -125,6 +127,13 @@ Creates the central store of the domain, in English and French.
 
 ```powershell
 Install-PSGPOAdmx -AllLanguages -Path ~/PolicyDefinitions; Initialize-PSGPOAdmx -Path ~/PolicyDefinitions
+```
+
+### Exemple 4
+
+```powershell
+Install-PSGPOAdmx -MsiPath 'D:\Administrative Templates (.admx) for Windows 11 Sep 2026 Update.msi'
+From the package copied to a computer without internet.
 ```
 
 ## Sorties

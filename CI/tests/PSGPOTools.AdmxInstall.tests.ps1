@@ -1,9 +1,10 @@
 #Requires -Modules @{ ModuleName = 'Pester'; ModuleVersion = '5.5.0' }
 
-# The ADMX files of the repository downloaded from GitHub (PSGPOAdmxInstall.ps1, Install-PSGPOAdmx):
-# the catalog that pins them, the hash of a set of files, the languages chosen, and the install
-# from an archive like the one of GitHub (the download mocked), into a folder or the central store.
-# The copy into a real SYSVOL is tested in PSGPOTools.Ldap.tests.ps1.
+# The ADMX files of Windows installed from the package of Microsoft (PSGPOAdmxInstall.ps1,
+# Install-PSGPOAdmx): the catalog that pins the package and its files, the hash of a set of files,
+# the languages chosen, and the install from a package (the download and the extraction mocked),
+# into a folder or the central store. The real package is extracted by CI/Get-AdmxSource.ps1
+# before the tests; the copy into a real SYSVOL is tested in PSGPOTools.Ldap.tests.ps1.
 BeforeDiscovery {
     $ModuleManifest = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1'
     Get-Module HGPM | Remove-Module -Force
@@ -13,34 +14,26 @@ BeforeDiscovery {
 InModuleScope -ModuleName HGPM {
     BeforeAll {
         $Sources = Join-Path $PSScriptRoot '..' '..' 'sources' 'PolicyDefinitions'
-        # A small PolicyDefinitions folder: two .admx files, en-US and fr-FR.
+        # A small PolicyDefinitions folder: two .admx files and two languages (named as the
+        # package names them: fr-fr).
         function New-TestPolicyDefinitions {
-            param([string]$Path)
-            $null = New-Item -ItemType Directory -Path (Join-Path $Path 'en-US'), (Join-Path $Path 'fr-FR') -Force
+            param([string]$Path, [string[]]$Culture = @('en-US', 'fr-FR'))
+            $null = New-Item -ItemType Directory -Path @($Culture | ForEach-Object { Join-Path $Path $_ }) -Force
             foreach ($Name in 'One', 'Two') {
                 [System.IO.File]::WriteAllText((Join-Path $Path "$Name.admx"), "<policyDefinitions>`n  <!-- $Name -->`n</policyDefinitions>`n")
-                foreach ($Culture in 'en-US', 'fr-FR') { [System.IO.File]::WriteAllText((Join-Path $Path $Culture "$Name.adml"), "<policyDefinitionResources culture='$Culture'>$Name</policyDefinitionResources>`n") }
+                foreach ($Item in $Culture) { [System.IO.File]::WriteAllText((Join-Path $Path $Item "$Name.adml"), "<policyDefinitionResources culture='$(([cultureinfo]$Item).Name)'>$Name</policyDefinitionResources>`n") }
             }
-        }
-        # A zip as GitHub serves the archive of a ref: <repository>-<ref>/sources/PolicyDefinitions/...
-        function New-TestArchive {
-            param([string]$PolicyDefinitions, [string]$Path)
-            $Root = Join-Path $TestDrive "archive-$([guid]::NewGuid().ToString('N'))"
-            $Target = Join-Path $Root 'PSGPOTools-0.1.2-alpha' 'sources'
-            $null = New-Item -ItemType Directory -Path $Target -Force
-            Copy-Item -LiteralPath $PolicyDefinitions -Destination (Join-Path $Target 'PolicyDefinitions') -Recurse
-            $null = New-Item -ItemType File -Path (Join-Path $Root 'PSGPOTools-0.1.2-alpha' 'README.md') -Force
-            [System.IO.Compression.ZipFile]::CreateFromDirectory($Root, $Path)
-            $Path
         }
         $script:Source = Join-Path $TestDrive 'source'
         New-TestPolicyDefinitions -Path $script:Source
         $script:Catalog = @(Get-PSGPOAdmxSet -Path $script:Source)
-        $script:Archive = New-TestArchive -PolicyDefinitions $script:Source -Path (Join-Path $TestDrive 'good.zip')
+        # The same files as the package holds them: the languages in lower case but en-US.
+        $script:Packaged = Join-Path $TestDrive 'packaged'
+        New-TestPolicyDefinitions -Path $script:Packaged -Culture 'en-US', 'fr-fr'
     }
 
     Describe 'Catalog of the ADMX files' {
-        It 'Pins the files of sources/PolicyDefinitions (CI/Update-AdmxCatalog.ps1 run after a change of them)' {
+        It 'Pins the files of the package, those CI/Get-AdmxSource.ps1 installed in sources/PolicyDefinitions' {
             $Pinned = @(Get-PSGPOAdmxCatalog)
             $Actual = @(Get-PSGPOAdmxSet -Path $Sources)
             $Pinned.Count | Should -Be $Actual.Count
@@ -53,17 +46,28 @@ InModuleScope -ModuleName HGPM {
             $Pinned.Name | Should -Contain '.'
             $Pinned.Name | Should -Contain 'en-US'
             $Pinned.Name | Should -Contain 'fr-FR' -Because 'a language is named after its culture, whatever the case of its folder'
+            @(Get-ChildItem -LiteralPath $Sources -Directory).Name | Should -Contain 'fr-FR' -Because 'the folders installed are named after their culture (the package has fr-fr)'
         }
 
-        It 'Gives a set the same hash with CR LF or LF, and whatever the case of the names' {
-            $Lf = Join-Path $TestDrive 'lf'
-            $Crlf = Join-Path $TestDrive 'crlf'
-            $null = New-Item -ItemType Directory -Path $Lf, $Crlf -Force
-            [System.IO.File]::WriteAllText((Join-Path $Lf 'AppHVSI.admx'), "<a>`n<b/>`n</a>`n")
-            [System.IO.File]::WriteAllText((Join-Path $Crlf 'apphvsi.admx'), "<a>`r`n<b/>`r`n</a>`r`n")
-            Get-PSGPOAdmxSetHash -File (Get-ChildItem -LiteralPath $Crlf -File) | Should -Be (Get-PSGPOAdmxSetHash -File (Get-ChildItem -LiteralPath $Lf -File))
-            [System.IO.File]::WriteAllText((Join-Path $Crlf 'apphvsi.admx'), "<a>`r`n<c/>`r`n</a>`r`n")
-            Get-PSGPOAdmxSetHash -File (Get-ChildItem -LiteralPath $Crlf -File) | Should -Not -Be (Get-PSGPOAdmxSetHash -File (Get-ChildItem -LiteralPath $Lf -File))
+        It 'Pins the package of Microsoft: its address on download.microsoft.com, its size and SHA-256' {
+            $Package = Get-PSGPOAdmxPackage
+            $Package.Uri | Should -BeLike 'https://download.microsoft.com/*.msi'
+            $Package.FileName | Should -Be ([uri]::UnescapeDataString(([uri]$Package.Uri).Segments[-1]))
+            $Package.Page | Should -BeLike 'https://www.microsoft.com/*'
+            $Package.Name | Should -BeLike 'Administrative Templates (.admx) for Windows*'
+            $Package.Size | Should -BeGreaterThan 1MB
+            $Package.Sha256 | Should -MatchExactly '^[0-9A-F]{64}$'
+        }
+
+        It 'Gives a set the same hash whatever the case of the names, another one for other content' {
+            $Upper = Join-Path $TestDrive 'upper'
+            $Lower = Join-Path $TestDrive 'lower'
+            $null = New-Item -ItemType Directory -Path $Upper, $Lower -Force
+            [System.IO.File]::WriteAllText((Join-Path $Upper 'AppHVSI.admx'), "<a>`r`n<b/>`r`n</a>`r`n")
+            [System.IO.File]::WriteAllText((Join-Path $Lower 'apphvsi.admx'), "<a>`r`n<b/>`r`n</a>`r`n")
+            Get-PSGPOAdmxSetHash -File (Get-ChildItem -LiteralPath $Lower -File) | Should -Be (Get-PSGPOAdmxSetHash -File (Get-ChildItem -LiteralPath $Upper -File))
+            [System.IO.File]::WriteAllText((Join-Path $Lower 'apphvsi.admx'), "<a>`n<b/>`n</a>`n")
+            Get-PSGPOAdmxSetHash -File (Get-ChildItem -LiteralPath $Lower -File) | Should -Not -Be (Get-PSGPOAdmxSetHash -File (Get-ChildItem -LiteralPath $Upper -File)) -Because 'the files are hashed as the package holds them'
         }
     }
 
@@ -84,50 +88,104 @@ InModuleScope -ModuleName HGPM {
         }
     }
 
+    Describe 'Extraction of the package' {
+        It 'Says to install msitools when msiextract is missing' -Skip:$IsWindows {
+            Mock Get-Command { } -ParameterFilter { $Name -eq 'msiextract' }
+            { Expand-PSGPOAdmxMsi -Package (Join-Path $TestDrive 'package.msi') -Folder (Join-Path $TestDrive 'never-msi') } | Should -Throw '*install msitools*apt install msitools*'
+        }
+
+        It 'Finds the PolicyDefinitions folder of the package, wherever the tool puts it' {
+            $Expanded = Join-Path $TestDrive 'expanded'
+            $Folder = Join-Path $Expanded 'Program Files' 'Microsoft Group Policy' 'Windows 11 Sep 2026 Update (26H2)' 'PolicyDefinitions'
+            New-TestPolicyDefinitions -Path $Folder -Culture 'en-US', 'fr-fr'
+            (Get-PSGPOAdmxPackageFolder -Path $Expanded).FullName | Should -Be ([System.IO.DirectoryInfo]$Folder).FullName
+            { Get-PSGPOAdmxPackageFolder -Path (Join-Path $Folder 'en-US') -Package 'package.msi' } | Should -Throw "*No PolicyDefinitions folder of .admx files in 'package.msi'*"
+        }
+    }
+
     Describe 'Install-PSGPOAdmx' {
         BeforeAll {
             Mock Get-PSGPOAdmxCatalog { $script:Catalog }
+            # The package: bytes of a test, pinned by their size and SHA-256.
+            $script:PackageFile = Join-Path $TestDrive 'package.msi'
+            [System.IO.File]::WriteAllBytes($script:PackageFile, [byte[]](1..200))
+            $script:Pin = [pscustomobject]@{
+                Name     = 'Administrative Templates (.admx) for Windows 11 (test)'
+                Page     = 'https://www.microsoft.com/en-us/download/details.aspx?id=1'
+                Uri      = 'https://download.microsoft.com/download/test/Administrative%20Templates.msi'
+                FileName = 'Administrative Templates.msi'
+                Size     = 200
+                Sha256   = (Get-FileHash -LiteralPath $script:PackageFile -Algorithm SHA256).Hash
+            }
+            Mock Get-PSGPOAdmxPackage { $script:Pin }
             Mock Invoke-WebRequest { Copy-Item -LiteralPath $script:Download -Destination $OutFile }
-            $script:Download = $script:Archive
+            # msiexec /a or msiextract: the PolicyDefinitions folder of the package under Program Files.
+            Mock Expand-PSGPOAdmxMsi {
+                $Target = Join-Path $Folder 'Program Files' 'Microsoft Group Policy' 'Windows 11 (test)' 'PolicyDefinitions'
+                $null = New-Item -ItemType Directory -Path $Target -Force
+                Copy-Item -Path (Join-Path $script:Extracted '*') -Destination $Target -Recurse
+            }
         }
-        BeforeEach { $script:Download = $script:Archive }
+        BeforeEach {
+            $script:Download = $script:PackageFile
+            $script:Extracted = $script:Packaged
+        }
 
-        It 'Installs the .admx files and the languages asked for, from the tag of the version' {
+        It 'Installs the .admx files and the languages asked for, from the package of Microsoft' {
             $Path = Join-Path $TestDrive "folder-$([guid]::NewGuid().ToString('N'))"
             $Result = Install-PSGPOAdmx -Path $Path -UICulture fr-FR -Confirm:$false
             $Result.Path | Should -Be ([System.IO.Path]::GetFullPath($Path))
             $Result.Languages | Should -Be @('fr-FR')
             $Result.Files | Should -Be 4
-            $Result.Ref | Should -BeLike 'v*-alpha'
+            $Result.Package | Should -Be $script:Pin.Name
             @(Get-ChildItem -LiteralPath $Path -File -Filter '*.admx').Name | Sort-Object | Should -Be @('One.admx', 'Two.admx')
+            @(Get-ChildItem -LiteralPath $Path -Directory).Name | Should -BeExactly @('fr-FR') -Because 'the folder of a language is named after its culture (fr-fr in the package), only the languages asked for'
             Test-Path -LiteralPath (Join-Path $Path 'fr-FR' 'One.adml') | Should -BeTrue
-            Test-Path -LiteralPath (Join-Path $Path 'en-US') | Should -BeFalse -Because 'only the languages asked for'
-            Should -Invoke Invoke-WebRequest -Times 1 -Exactly -ParameterFilter { $Uri -eq "https://github.com/JM2K69/PSGPOTools/archive/$($Result.Ref).zip" }
+            Should -Invoke Invoke-WebRequest -Times 1 -Exactly -ParameterFilter { $Uri -eq $script:Pin.Uri }
         }
 
-        It 'Installs every language with -AllLanguages, from the ref given' {
+        It 'Installs every language with -AllLanguages' {
             $Path = Join-Path $TestDrive "folder-$([guid]::NewGuid().ToString('N'))"
-            $Result = Install-PSGPOAdmx -Path $Path -AllLanguages -Ref master -Confirm:$false
+            $Result = Install-PSGPOAdmx -Path $Path -AllLanguages -Confirm:$false
             $Result.Languages | Should -Be @('en-US', 'fr-FR')
             $Result.Files | Should -Be 6
-            Should -Invoke Invoke-WebRequest -Times 1 -Exactly -ParameterFilter { $Uri -eq 'https://github.com/JM2K69/PSGPOTools/archive/master.zip' }
         }
 
-        It 'Refuses a download that is not the files pinned, and installs nothing' {
-            $Tampered = Join-Path $TestDrive 'tampered'
-            New-TestPolicyDefinitions -Path $Tampered
-            [System.IO.File]::WriteAllText((Join-Path $Tampered 'Two.admx'), "<policyDefinitions>changed</policyDefinitions>`n")
-            $script:Download = New-TestArchive -PolicyDefinitions $Tampered -Path (Join-Path $TestDrive 'tampered.zip')
+        It 'Refuses a download that is not the package pinned, and extracts nothing' {
+            $script:Download = Join-Path $TestDrive 'other.msi'
+            [System.IO.File]::WriteAllBytes($script:Download, [byte[]](200..1))
             $Path = Join-Path $TestDrive "folder-$([guid]::NewGuid().ToString('N'))"
-            { Install-PSGPOAdmx -Path $Path -UICulture en-US -Confirm:$false } | Should -Throw '*not the ADMX files of this version*.admx files differ*nothing is installed*'
+            { Install-PSGPOAdmx -Path $Path -UICulture en-US -Confirm:$false } | Should -Throw '*download of https://download.microsoft.com/*is not the package HGPM pins*SHA-256*nothing is installed*'
+            Should -Invoke Expand-PSGPOAdmxMsi -Times 0 -Exactly
             Test-Path -LiteralPath $Path | Should -BeFalse
         }
 
-        It 'Refuses a download without a language asked for' {
+        It 'Installs from -MsiPath without downloading, and refuses another file' {
+            $Path = Join-Path $TestDrive "folder-$([guid]::NewGuid().ToString('N'))"
+            $Result = Install-PSGPOAdmx -Path $Path -UICulture en-US -MsiPath $script:PackageFile -Confirm:$false
+            $Result.Files | Should -Be 4
+            Should -Invoke Invoke-WebRequest -Times 0 -Exactly
+            $Other = Join-Path $TestDrive 'other-copy.msi'
+            [System.IO.File]::WriteAllBytes($Other, [byte[]](1..199))
+            { Install-PSGPOAdmx -Path (Join-Path $TestDrive 'never') -MsiPath $Other -Confirm:$false } | Should -Throw "*other-copy.msi' is not the package HGPM pins*"
+            { Install-PSGPOAdmx -Path (Join-Path $TestDrive 'never') -MsiPath (Join-Path $TestDrive 'missing.msi') -Confirm:$false } | Should -Throw "*No file*missing.msi*Administrative Templates.msi*"
+            Test-Path -LiteralPath (Join-Path $TestDrive 'never') | Should -BeFalse
+        }
+
+        It 'Refuses a package whose files are not those pinned, and installs nothing' {
+            $Tampered = Join-Path $TestDrive 'tampered'
+            New-TestPolicyDefinitions -Path $Tampered -Culture 'en-US', 'fr-fr'
+            [System.IO.File]::WriteAllText((Join-Path $Tampered 'Two.admx'), "<policyDefinitions>changed</policyDefinitions>`n")
+            $script:Extracted = $Tampered
+            $Path = Join-Path $TestDrive "folder-$([guid]::NewGuid().ToString('N'))"
+            { Install-PSGPOAdmx -Path $Path -UICulture en-US -Confirm:$false } | Should -Throw '*does not hold the ADMX files HGPM pins*.admx files differ*nothing is installed*'
+            Test-Path -LiteralPath $Path | Should -BeFalse
+        }
+
+        It 'Refuses a package without a language asked for' {
             $Partial = Join-Path $TestDrive 'partial'
-            New-TestPolicyDefinitions -Path $Partial
-            Remove-Item -LiteralPath (Join-Path $Partial 'fr-FR') -Recurse
-            $script:Download = New-TestArchive -PolicyDefinitions $Partial -Path (Join-Path $TestDrive 'partial.zip')
+            New-TestPolicyDefinitions -Path $Partial -Culture 'en-US'
+            $script:Extracted = $Partial
             { Install-PSGPOAdmx -Path (Join-Path $TestDrive 'never') -UICulture fr-FR -Confirm:$false } | Should -Throw '*none of the fr-FR .adml files*'
         }
 
@@ -148,9 +206,9 @@ InModuleScope -ModuleName HGPM {
             Test-Path -LiteralPath $Path | Should -BeFalse
         }
 
-        It 'Says to give a branch when the tag of the version cannot be downloaded' {
-            Mock Invoke-WebRequest { throw 'Response status code does not indicate success: 404 (Not Found).' }
-            { Install-PSGPOAdmx -Path (Join-Path $TestDrive 'never') -Confirm:$false } | Should -Throw '*404*-Ref master*'
+        It 'Says to give the package with -MsiPath when it cannot be downloaded' {
+            Mock Invoke-WebRequest { throw 'No such host is known.' }
+            { Install-PSGPOAdmx -Path (Join-Path $TestDrive 'never') -Confirm:$false } | Should -Throw '*Cannot download https://download.microsoft.com/*No such host*details.aspx?id=1*-MsiPath*'
         }
 
         It 'Writes the central store of the domain controller, and the audit log' {
@@ -164,7 +222,7 @@ InModuleScope -ModuleName HGPM {
             $Result = Install-PSGPOAdmx -CentralStore -Directory $Directory -UICulture en-US, fr-FR -Confirm:$false
             $Result.Path | Should -Be '\\dc.hardenbox.labo\SYSVOL\hardenbox.labo\Policies\PolicyDefinitions'
             $script:Copied | Should -Be @('en-US/One.adml', 'en-US/Two.adml', 'fr-FR/One.adml', 'fr-FR/Two.adml', 'One.admx', 'Two.admx')
-            Should -Invoke Write-PSGPOAuditEntry -Times 1 -Exactly -ParameterFilter { $Action -eq 'InstallAdmx' -and $Details.Files -eq 6 }
+            Should -Invoke Write-PSGPOAuditEntry -Times 1 -Exactly -ParameterFilter { $Action -eq 'InstallAdmx' -and $Details.Files -eq 6 -and $Details.Package -eq $script:Pin.Name -and $Details.Sha256 -eq $script:Pin.Sha256 }
         }
 
         It 'Keeps the central store that has ADMX files unless -Force' {

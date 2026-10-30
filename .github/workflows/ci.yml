@@ -69,6 +69,19 @@ jobs:
           if ($again -ne $built) { throw "HGPM.psm1 built on Windows ($again) is not the one built on Linux ($built): the build is not reproducible." }
           "HGPM.psm1 SHA-256 $built, the same on Linux and Windows."
 
+      - name: Cache the package of the ADMX files
+        # The package of Microsoft (an .msi): downloaded once for each package pinned.
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: sources/package
+          key: admx-${{ runner.os }}-${{ hashFiles('HGPM/Resources/PolicyDefinitions.json') }}
+
+      - name: Get the ADMX files of Windows
+        # Not in the repository (the files of Microsoft): installed from the package it pins,
+        # checked, as Install-PSGPOAdmx does for a user.
+        shell: pwsh
+        run: ./CI/Get-AdmxSource.ps1
+
       - name: Show PowerShell version
         shell: pwsh
         run: $PSVersionTable
@@ -127,8 +140,21 @@ jobs:
         shell: pwsh
         run: ./CI/Install-CIModule.ps1 -Name Pester -RequiredVersion 6.2.0
 
-      - name: Install the virtual X server and the X11 libraries
-        run: sudo apt-get update && sudo apt-get install -y xvfb libx11-6 libice6 libsm6 libfontconfig1 fonts-dejavu-core
+      - name: Install the virtual X server, the X11 libraries and msitools
+        run: sudo apt-get update && sudo apt-get install -y xvfb libx11-6 libice6 libsm6 libfontconfig1 fonts-dejavu-core msitools
+
+      - name: Cache the package of the ADMX files
+        # The package of Microsoft (an .msi): downloaded once for each package pinned.
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: sources/package
+          key: admx-${{ runner.os }}-${{ hashFiles('HGPM/Resources/PolicyDefinitions.json') }}
+
+      - name: Get the ADMX files of Windows
+        # Not in the repository (the files of Microsoft): installed from the package it pins,
+        # checked, as Install-PSGPOAdmx does for a user.
+        shell: pwsh
+        run: ./CI/Get-AdmxSource.ps1
 
       - name: Cache Avalonia runtime
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -178,12 +204,25 @@ jobs:
         shell: pwsh
         run: ./CI/Install-CIModule.ps1 -Name Pester -RequiredVersion 6.2.0
 
-      - name: Install Samba, Kerberos and the SASL GSSAPI module of LDAP
+      - name: Install Samba, Kerberos, the SASL GSSAPI module of LDAP and msitools
         run: |
           sudo DEBIAN_FRONTEND=noninteractive apt-get update
           # samba-ad-dc: the services of a domain controller, the KDC included (Ubuntu splits them out).
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y samba samba-ad-dc samba-dsdb-modules samba-vfs-modules smbclient python3-samba krb5-user libsasl2-modules-gssapi-mit ldb-tools
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y samba samba-ad-dc samba-dsdb-modules samba-vfs-modules smbclient python3-samba krb5-user libsasl2-modules-gssapi-mit ldb-tools msitools
           sudo systemctl disable --now smbd nmbd winbind samba-ad-dc 2>/dev/null || true
+
+      - name: Cache the package of the ADMX files
+        # The package of Microsoft (an .msi): downloaded once for each package pinned.
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: sources/package
+          key: admx-${{ runner.os }}-${{ hashFiles('HGPM/Resources/PolicyDefinitions.json') }}
+
+      - name: Get the ADMX files of Windows
+        # Not in the repository (the files of Microsoft): installed from the package it pins,
+        # checked, as Install-PSGPOAdmx does for a user.
+        shell: pwsh
+        run: ./CI/Get-AdmxSource.ps1
 
       - name: Provision the domain CI.TEST
         run: |

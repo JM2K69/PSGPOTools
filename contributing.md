@@ -48,6 +48,7 @@ always edit `Code/`, then build.
 
 ```powershell
 pwsh -File CI/03_Build.ps1
+pwsh -File CI/Get-AdmxSource.ps1                                 # once: the ADMX files of Windows the tests read
 pwsh -File CI/Invoke-Tests.ps1                                   # every test (Pester 5.5+)
 pwsh -File CI/Invoke-Tests.ps1 -Path CI/tests/PSGPOTools.Backup.tests.ps1
 Invoke-ScriptAnalyzer -Path ./Code -Recurse -Settings ./PSScriptAnalyzerSettings.psd1   # no error, no warning
@@ -87,8 +88,10 @@ repository (Settings > Environments), whose rules (a reviewer to approve) apply 
   its page on the site; after a change of a help, `./CI/03_Build.ps1; ./CI/Update-CommandReference.ps1`
   writes the pages of the commands again (a test checks they are those of the help).
 
-- After a change of the ADMX files of the repository (`sources/PolicyDefinitions`),
-  `./CI/03_Build.ps1; ./CI/Update-AdmxCatalog.ps1` pins them again for `Install-PSGPOAdmx`.
+- The repository keeps no file of Microsoft: never commit ADMX files (`sources/` is ignored).
+  For a new package of Microsoft (Administrative Templates (.admx) for Windows 11), download it,
+  then `./CI/03_Build.ps1; ./CI/Update-AdmxCatalog.ps1 -MsiPath <package> -Uri <its address> -Name <its name> -Page <its page>`
+  pins it for `Install-PSGPOAdmx`, and `./CI/Get-AdmxSource.ps1` installs its files for the tests.
 - Write like the code around: its names, its comments (why, not what), its error messages (what
   happened and what to do).
 - The CI must pass on Windows, Linux and against Samba.

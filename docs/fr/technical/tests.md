@@ -5,6 +5,7 @@ construit.
 
 ```powershell
 pwsh -File CI/03_Build.ps1
+pwsh -File CI/Get-AdmxSource.ps1      # une fois : les fichiers ADMX de Windows que lisent les tests
 $Config = New-PesterConfiguration
 $Config.Run.Path = 'CI/tests'
 $Config.Output.Verbosity = 'Detailed'
@@ -104,10 +105,14 @@ La page de chaque commande publique (`docs/<langue>/reference/commands/`, et son
 `.LINK` de l'aide d'une commande est sa page, que `Get-Help <commande> -Online` ouvre. Un test vérifie que
 les pages sont celles de l'aide.
 
-`Install-PSGPOAdmx` télécharge `sources/PolicyDefinitions` depuis GitHub et n'installe que les fichiers
-qu'épingle `HGPM/Resources/PolicyDefinitions.json` (chaque ensemble, les `.admx` et chaque langue :
-son nombre de fichiers et un SHA-256, fins de ligne et casse des noms mises à part). Après un changement de
-`sources/PolicyDefinitions`, `CI/Update-AdmxCatalog.ps1` réécrit le catalogue ; un test le vérifie.
+Le dépôt ne garde aucun fichier de Microsoft. Les tests lisent les fichiers ADMX de Windows dans
+`sources/PolicyDefinitions`, qui n'est pas dans Git : `CI/Get-AdmxSource.ps1` les y installe avec
+`Install-PSGPOAdmx -AllLanguages`, depuis le paquet de Microsoft qu'épingle le module, gardé dans
+`sources/package` (la CI le met en cache). `Install-PSGPOAdmx` n'installe que le paquet qu'épingle
+`HGPM/Resources/PolicyDefinitions.json` (son adresse, sa taille et son SHA-256), et de lui que les
+fichiers épinglés (chaque ensemble, les `.admx` et chaque langue : son nombre de fichiers et un
+SHA-256, la casse des noms mise à part). Pour un nouveau paquet de Microsoft,
+`CI/Update-AdmxCatalog.ps1 -MsiPath` réécrit le catalogue ; un test le vérifie.
 
 `.github/workflows/release.yml` publie le module sur la PowerShell Gallery pour un tag de version
 (`v0.1.3-alpha`) seulement, jamais pour un commit. Il lance les jobs de la CI sur le commit tagué, puis,

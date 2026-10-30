@@ -74,8 +74,8 @@ Then, so that nothing is ever looked for on the internet:
 | `PSGPOTOOLS_SKIP_UPDATE_CHECK=1` | the PowerShell Gallery is not read for a newer version |
 
 The ADMX files come from the central store of the domain, or from `%windir%\PolicyDefinitions`;
-on Linux, from a copy: the folder `sources/PolicyDefinitions` of the source archive of the release
-(`Initialize-PSGPOAdmx -Path`, [Installation](installation.md#the-admx-files)).
+on Linux, from the package of Microsoft copied with the module: `Install-PSGPOAdmx -MsiPath`
+installs it, checked as a download is ([Installation](installation.md#the-admx-files)).
 
 ## The runtime is checked each time
 

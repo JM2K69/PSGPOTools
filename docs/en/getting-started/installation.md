@@ -65,16 +65,22 @@ takes the central store too. The files of a folder are parsed once, then read
 from a cache of the user while they keep their names, sizes and dates (`%LOCALAPPDATA%\PSGPOTools\Admx`
 on Windows; `$XDG_CACHE_HOME/PSGPOTools/Admx`, else `~/.cache/PSGPOTools/Admx` elsewhere;
 `-NoCache` parses them). Where there are none (a
-Linux computer, a domain without a central store), `Install-PSGPOAdmx` downloads the copy of the
-repository from GitHub (`sources/PolicyDefinitions`: 236 `.admx` files, their `.adml` files in 22
-languages), at the tag of the version of the module. Each set of files (the `.admx` files, each
-language) is checked against the SHA-256 the module pins before anything is written.
+Linux computer, a domain without a central store), `Install-PSGPOAdmx` installs those of Windows
+from the package of Microsoft, *Administrative Templates (.admx) for Windows 11* (an `.msi` of
+download.microsoft.com: 236 `.admx` files, their `.adml` files in 22 languages). HGPM neither ships
+nor redistributes them: they are the files of Microsoft, under its terms. The command extracts the
+package without installing it (`msiexec /a` on Windows; on Linux and macOS `msiextract`, of the
+package `msitools`: `sudo apt install msitools`, `sudo dnf install msitools`,
+`brew install msitools`). The module pins the package (its size and SHA-256) and each set of its
+files (the `.admx` files, each language): a package or files that differ are refused before
+anything is written.
 
 ```powershell
 Install-PSGPOAdmx                                    # en-US and the language of the session, next to the module
 Install-PSGPOAdmx -UICulture en-US, fr-FR            # the languages chosen
 Install-PSGPOAdmx -AllLanguages -Path ~/PolicyDefinitions
 Install-PSGPOAdmx -CentralStore -Server dc.hardenbox.labo -UICulture en-US, fr-FR   # the central store of the domain
+Install-PSGPOAdmx -MsiPath './Administrative Templates (.admx) for Windows 11 Sep 2026 Update.msi'   # without internet
 ```
 
 Without `-Path`, the files go next to the module when it can be written to, else into the data
@@ -82,8 +88,9 @@ folder of the user (`PSGPOTools/PolicyDefinitions`): the console finds them ther
 `-CentralStore`, they go into `SYSVOL\<domain>\Policies\PolicyDefinitions` of the domain
 controller (an account allowed to write SYSVOL: a domain administrator), as for GPMC: every
 console of the domain then reads them. The ADMX files already there are kept, those of the same
-name replaced; with files already there, give `-Force`. Before the first release of a version
-(no tag yet), give the branch: `-Ref master`.
+name replaced; with files already there, give `-Force`. A computer without internet: download the
+package on another one (the page of Microsoft is in the error of a failed download) and give it
+with `-MsiPath`; it is checked as a download is.
 
 ### The cache of the ADMX files { #admx-cache }
 

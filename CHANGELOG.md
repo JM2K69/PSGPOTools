@@ -8,6 +8,11 @@
 * `Test-PSGPOHealth` finds a GPO whose folder in SYSVOL does not have the permissions of the GPO in the directory, as GPMC (*the permissions for this GPO in the SYSVOL folder are inconsistent*): an account the folder does not give its rights, or that an ACE of the folder lets change it. The folders of the default GPOs of Windows, given to Administrators, are consistent. On Linux, the ACLs of the folders are read in one connection
 * `Test-PSGPOSecurityPosture` checks the sites of the forest: who can link GPOs to a site, and the GPOs linked to one (their domain controllers apply them)
 
+### Changed
+
+* `Install-PSGPOAdmx` installs the ADMX files of Windows from the package of Microsoft, *Administrative Templates (.admx) for Windows 11 2026 Update (26H2)*, downloaded from download.microsoft.com, instead of a copy kept in the repository of HGPM: those files are Microsoft's, and HGPM no longer redistributes them. The module pins the package (its size and SHA-256) and its files, as before; the package is extracted without being installed (`msiexec /a` on Windows, `msiextract` of `msitools` on Linux and macOS). `-MsiPath` installs from the package downloaded on another computer; `-Ref` is gone. The languages are installed in folders named after their culture (`fr-FR`), as in Windows
+* The repository no longer holds the ADMX files of Microsoft, its history included: `CI/Get-AdmxSource.ps1` installs them from the package for the tests
+
 ### Documentation
 
 * Audit on the domain controllers: what Windows (the audit policy, the SACLs, events 5136, 5137, 5141, 4663) and Samba (`dsdb_json_audit` and `vfs_full_audit` in `smb.conf`, each line explained) log of a change made to the GPOs with another tool than HGPM; tested on Samba
