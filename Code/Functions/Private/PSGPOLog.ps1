@@ -21,7 +21,7 @@ $script:PSGPOLogState = @{ Purged = $false; EventSourceMissing = $false; InSyste
 # errors of the technical log. Never changed once given: a SIEM filters on them.
 $script:PSGPOAuditEventId = @{
     NewGpo = 1001; RenameGpo = 1002; SetGpoStatus = 1003; RemoveGpo = 1004; RemoveDeletedGpoBackup = 1005
-    RestoreGpo = 1006; ImportGpo = 1007; SaveGpoFile = 1008; ImportPolicyRuleSet = 1009; PendingGpo = 1010; ApproveGpo = 1011; SetGpoComment = 1012
+    RestoreGpo = 1006; ImportGpo = 1007; SaveGpoFile = 1008; ImportPolicyRuleSet = 1009; PendingGpo = 1010; ApproveGpo = 1011; SetGpoComment = 1012; SaveStarterGpo = 1013; RemoveStarterGpo = 1014
     NewLink = 1020; SetLink = 1021; RemoveLink = 1022; SetBlockInheritance = 1023
     SetGpoPermission = 1030; SetGpoSecurityFiltering = 1031; NewFilteringGroups = 1032
     SetWmiFilter = 1040; NewWmiFilter = 1041; EditWmiFilter = 1042; RemoveWmiFilter = 1043; SetWmiFilterPermission = 1044

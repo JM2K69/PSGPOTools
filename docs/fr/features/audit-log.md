@@ -289,6 +289,7 @@ HGPM audit: ApproveGpo by HARDENBOX\Administrator from dc on hardenbox.labo: T1 
 | 1022 | RemoveLink | 1061 | InstallAdmx |
 | 1062 | InitializeAuditShare | 1063 | InitializeBackupShare |
 | 1012 | SetGpoComment | 1064 | PurgeAuditLog |
+| 1013 | SaveStarterGpo | 1014 | RemoveStarterGpo |
 | 2000, 3000 | un avertissement, une erreur | | |
 | 4000 | la posture : un résumé | 4001 | la posture : un constat *High* |
 

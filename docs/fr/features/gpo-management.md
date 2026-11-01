@@ -458,3 +458,36 @@ part de ses paramètres, vérifiés d'abord par leur SHA-256.
 $Template = Get-PSGPOBackup -Path /srv/gpo-backups -Template -Name 'Template - Servers' | Select-Object -First 1
 New-PSGPO -Name 'C - Servers - Lyon' -Template $Template
 ```
+
+## Les objets GPO Starter { #les-objets-gpo-starter }
+
+**Objets GPO Starter**, sous le domaine, liste les objets GPO Starter du domaine, comme GPMC : des
+modèles d'administration dont partent les nouvelles GPO. GPMC garde chacun dans un dossier de
+`SYSVOL\<domaine>\StarterGPOs`, sans objet dans l'annuaire : la console les lit quand leur nœud est
+sélectionné, en arrière-plan. Les objets GPO Starter **Système** sont ceux de Microsoft, que GPMC
+ajoute avec le dossier, en lecture seule ; les **Personnalisés** sont ceux du domaine.
+
+- **Nouvel objet GPO Starter...** (le menu contextuel d'Objets GPO Starter) en crée un, avec sa
+  description : vide, ou avec les modèles d'administration d'une GPO (ses `Registry.pol`
+  ordinateur et utilisateur) ; un objet GPO Starter ne contient pas d'autres paramètres. Le dossier
+  des objets GPO Starter est créé avec le premier.
+- **Nouvel objet GPO à partir de l'objet GPO Starter...** (le menu contextuel d'un objet GPO
+  Starter) ouvre le formulaire de nouvelle GPO, parti de lui ; **Partir de** de ce formulaire
+  propose aussi chaque objet GPO Starter. La nouvelle GPO reçoit ses paramètres, déclarés comme
+  GPMC les déclare ; pas sa description, que GPMC ne prend pas non plus comme commentaire de la
+  GPO.
+- **Supprimer l'objet GPO Starter...** supprime un objet personnalisé ; les GPO créées à partir de
+  lui gardent leurs paramètres.
+
+GPMC lit les objets GPO Starter qu'écrit HGPM, et crée des GPO à partir d'eux, comme HGPM le fait à
+partir de ceux de GPMC (vérifié sur un domaine Windows). Les modifications vont dans le
+[journal d'audit](audit-log.md) (`SaveStarterGpo`, `RemoveStarterGpo`).
+
+![Les objets GPO Starter](../assets/screenshots/94-starter-gpos.fr.png){ width="560" }
+
+```powershell
+Get-PSGPOStarterGpo                                                    # Système et Personnalisés
+New-PSGPOStarterGpo -Name 'Workstations - Baseline' -Description 'Ce dont partent les GPO des postes' -FromGpo 'C - Workstations - Security Baseline Windows 11'
+New-PSGPO -Name 'C - Workstations - Lyon' -StarterGpo 'Workstations - Baseline'
+Remove-PSGPOStarterGpo -Name 'Workstations - Baseline'
+```

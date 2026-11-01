@@ -15,8 +15,12 @@ La vue sur laquelle elle s'ouvre, comme GPMC :
   icône. Un lien dit quand il est **appliqué** (enforced) ou **désactivé**.
 - **Group Policy Objects** : toutes les GPO du domaine que votre compte peut voir.
 - **WMI Filters** : les filtres WMI du domaine ([filtres WMI](gpo-management.md#les-filtres-wmi)).
+- **Starter GPOs** : les objets GPO Starter du domaine, lus quand le nœud est sélectionné
+  ([objets GPO Starter](gpo-management.md#les-objets-gpo-starter)).
 - **Deleted GPOs** : les GPO supprimées du domaine qui ont une sauvegarde, pour les restaurer
   ([corbeille](gpo-management.md#la-corbeille)).
+- **Sites**, à côté du domaine : les sites de la forêt et leurs liens, en lecture seule
+  ([sites](gpo-management.md#les-sites-de-la-foret)).
 
 Les détails d'un nœud dépendent de ce qu'il est :
 
@@ -27,6 +31,8 @@ Les détails d'un nœud dépendent de ce qu'il est :
 | GPO, lien | identifiant unique, statut, état d'approbation et propriétaire, vos droits, filtrage de sécurité, filtre WMI, les extensions côté client que la console n'interprète pas, versions, nom distinctif, chemin SYSVOL, tous les liens de la GPO, son [commentaire](gpo-management.md#le-commentaire-dune-gpo) |
 | Filtre WMI | description, requêtes, les GPO qui l'utilisent, identifiant unique, nom distinctif |
 | GPO supprimée | sa dernière sauvegarde, par qui, son commentaire, statut, filtrage de sécurité, où elle était liée |
+| Objet GPO Starter | type (Système ou Personnalisé), auteur, description, les paramètres de chaque partie, identifiant unique, dossier |
+| Site | nom distinctif, vos droits (lecture seule), les GPO liées |
 
 Une GPO a aussi deux onglets :
 

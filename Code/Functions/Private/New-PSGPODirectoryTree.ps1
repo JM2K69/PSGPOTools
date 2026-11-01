@@ -28,6 +28,7 @@ function Get-PSGPODirectoryNodeKey {
     elseif ($Node.Tag -eq 'WmiFilters') { 'WMI:' + $Node.Parent.Tag.DistinguishedName }
     elseif ($Node.Tag -eq 'PendingGpos') { 'PENDING:' + $Node.Parent.Tag.DistinguishedName }
     elseif ($Node.Tag -eq 'Sites') { 'SITES' }
+    elseif ($Node.Tag -eq 'StarterGpos') { 'STARTERS:' + $Node.Parent.Tag.DistinguishedName }
 }
 
 function New-PSGPODirectoryTree {
@@ -43,6 +44,12 @@ function New-PSGPODirectoryTree {
         # The backups of the deleted GPOs (Get-PSGPODeletedGpoBackup): the "Deleted GPOs" node.
         [AllowEmptyCollection()]
         [object[]]$DeletedGpo,
+
+        # The Starter GPOs of the domain (Get-PSGPOStarterGpoData) under "Starter GPOs"; $null: not
+        # read yet, the node without children.
+        [AllowNull()]
+        [AllowEmptyCollection()]
+        [object[]]$StarterGpo,
 
         # What the account does not manage is shown, greyed; View.ShowUnmanaged of the configuration
         # when not given.
@@ -146,6 +153,13 @@ function New-PSGPODirectoryTree {
     # WMI Filters, as GPMC: every filter of the domain.
     $WmiNode = New-Node (Get-PSGPOText 'WMI Filters') 'filter' 'WmiFilters' $DomainNode
     foreach ($Filter in $Directory.WmiFilters) { [void](New-Node $Filter.Name 'filter' $Filter $WmiNode) }
+    # Starter GPOs, as GPMC: those of Microsoft (System) and of the domain (Custom); one that
+    # cannot be read in red.
+    $StartersNode = New-Node (Get-PSGPOText 'Starter GPOs') 'document-copy' 'StarterGpos' $DomainNode
+    foreach ($Starter in @($StarterGpo | Where-Object { $_ })) {
+        $Node = New-Node $Starter.DisplayName 'document-copy' $Starter $StartersNode
+        if ($Starter.Problem) { $Node.IconBrush = '#C50F1F' }
+    }
     if ($null -ne $DeletedGpo) {
         $DeletedNode = New-Node (Get-PSGPOText 'Deleted GPOs') 'delete' 'DeletedGpos' $DomainNode
         foreach ($Backup in $DeletedGpo) {

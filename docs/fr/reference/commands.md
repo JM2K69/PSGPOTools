@@ -23,8 +23,11 @@ avec Tab.
 | Commande | Fait |
 |---|---|
 | [`Find-PSGPO`](commands/find-psgpo.md) `[-Name] [-Id] [-LinkedTo] [-Linked\|-NotLinked] [-WmiFilter] [-Account [-Permission]] [-Extension] [-Setting] [-Status] [-ApprovalState] [-Comment]` | recherche des GPO, comme la recherche de GPMC |
-| [`New-PSGPO`](commands/new-psgpo.md) `-Name [-Template] [-Status Enabled\|ComputerOnly\|UserOnly] [-Comment]` | crée une GPO, vide ou à partir d'un modèle |
+| [`New-PSGPO`](commands/new-psgpo.md) `-Name [-Template\|-StarterGpo] [-Status Enabled\|ComputerOnly\|UserOnly] [-Comment]` | crée une GPO, vide, à partir d'un modèle ou d'un objet GPO Starter |
 | [`Copy-PSGPO`](commands/copy-psgpo.md) `-Name -TargetName [-CopyAcl]` | copie une GPO dans une nouvelle GPO de son domaine, comme Copier et Coller de GPMC : ses paramètres, son état, son filtre WMI et son commentaire, pas ses liens |
+| [`Get-PSGPOStarterGpo`](commands/get-psgpostartergpo.md) `[-Name]` | les objets GPO Starter du domaine, Système et Personnalisés |
+| [`New-PSGPOStarterGpo`](commands/new-psgpostartergpo.md) `-Name [-Description] [-FromGpo]` | crée un objet GPO Starter, vide ou avec les modèles d'administration d'une GPO |
+| [`Remove-PSGPOStarterGpo`](commands/remove-psgpostartergpo.md) `-Name` | supprime des objets GPO Starter personnalisés |
 | [`Remove-PSGPO`](commands/remove-psgpo.md) `-Name [-BackupPath] [-NoBackup]` | supprime des GPO et leurs liens, sauvegardées d'abord |
 | [`Approve-PSGPO`](commands/approve-psgpo.md) `-Name [-CreatorRights ReadOnly\|EditSettings] [-ApplyTo] [-DenyTo] [-CreateFilteringGroups] [-GroupContainer] [-BackupPath]` | approuve des GPO en attente d'approbation, avec leur filtrage de sécurité (et ses groupes) |
 | [`Initialize-PSGPOWorkflow`](commands/initialize-psgpoworkflow.md) `[-Apply]` | vérifie, et avec `-Apply` pose, la délégation de la création de GPO aux créateurs, une fois le magasin central créé |

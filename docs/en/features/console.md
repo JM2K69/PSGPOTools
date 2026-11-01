@@ -15,8 +15,12 @@ The view it opens on, as GPMC:
   A link says when it is **enforced** or **disabled**.
 - **Group Policy Objects**: every GPO of the domain your account can see.
 - **WMI Filters**: the WMI filters of the domain ([WMI filters](gpo-management.md#wmi-filters)).
+- **Starter GPOs**: the Starter GPOs of the domain, read when the node is selected
+  ([Starter GPOs](gpo-management.md#starter-gpos)).
 - **Deleted GPOs**: the GPOs deleted from the domain that have a backup, to restore them
   ([recycle bin](gpo-management.md#the-recycle-bin)).
+- **Sites**, beside the domain: the sites of the forest and their links, read only
+  ([sites](gpo-management.md#the-sites-of-the-forest)).
 
 The details of a node depend on what it is:
 
@@ -27,6 +31,8 @@ The details of a node depend on what it is:
 | GPO, link | unique ID, status, approval state and owner, your rights, security filtering, WMI filter, the client-side extensions the console does not interpret, versions, distinguished name, SYSVOL path, every link of the GPO, its [comment](gpo-management.md#the-comment-of-a-gpo) |
 | WMI filter | description, queries, the GPOs using it, unique ID, distinguished name |
 | Deleted GPO | its last backup, by whom, its comment, status, security filtering, where it was linked |
+| Starter GPO | type (System or Custom), author, description, the settings of each part, unique ID, folder |
+| Site | distinguished name, your rights (read only), the GPOs linked |
 
 A GPO also has two tabs:
 

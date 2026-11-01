@@ -128,7 +128,7 @@ function Initialize-PSGPOManagerDirectoryView {
         Update-BackupList
         $keys = Get-ExpandedKey
         if ($null -ne $Select) {
-            $roots = New-PSGPODirectoryTree -Directory $Directory -Expanded $keys -DeletedGpo $backupLists.Deleted
+            $roots = New-PSGPODirectoryTree -Directory $Directory -Expanded $keys -DeletedGpo $backupLists.Deleted -StarterGpo $starterGpos.List
             $target = $null
             $stack = [System.Collections.Generic.Stack[object]]::new()
             foreach ($root in $roots) { $stack.Push($root) }
@@ -139,7 +139,7 @@ function Initialize-PSGPOManagerDirectoryView {
             }
             for ($parent = $target.Parent; $parent; $parent = $parent.Parent) { [void]$keys.Add("$(Get-PSGPODirectoryNodeKey $parent)") }
         }
-        $roots = New-PSGPODirectoryTree -Directory $Directory -Expanded $keys -DeletedGpo $backupLists.Deleted
+        $roots = New-PSGPODirectoryTree -Directory $Directory -Expanded $keys -DeletedGpo $backupLists.Deleted -StarterGpo $starterGpos.List
         $domainTreeView.ItemsSource = $roots
         if ($null -ne $Select) {
             $stack = [System.Collections.Generic.Stack[object]]::new()

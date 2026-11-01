@@ -977,6 +977,7 @@ $written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 
             $ImportName = "PSGPOTools test GPO import $Stamp"
             $RulesName = "PSGPOTools test GPO rules $Stamp"
             $CopyName = "PSGPOTools test GPO copy $Stamp"
+            $FromStarterName = "PSGPOTools test GPO from starter $Stamp"
             # An OU of the test, then the directory read again to have it.
             $null = Invoke-PSGPOSambaTool -ArgumentList 'ou', 'add', $OuDN, '-H', "ldap://$Server", '--use-kerberos=required'
             $Directory = Get-PSGPODirectory -Server $Server
@@ -988,7 +989,7 @@ $written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 
 
         AfterAll {
             # Everything the tests created, whatever failed.
-            foreach ($Name in $GpoName, $SecondName, $TerminalName, $ImportName, $RulesName, $CopyName) {
+            foreach ($Name in $GpoName, $SecondName, $TerminalName, $ImportName, $RulesName, $CopyName, $FromStarterName) {
                 $Gpo = (Get-PSGPODirectory -Server $Server).FindGpo($Name)
                 if (-not $Gpo) { continue }
                 $Id = '{' + $Gpo.Id.ToString().ToUpperInvariant() + '}'
@@ -1343,6 +1344,39 @@ $written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 
             $Levels = { param($Gpo) @($Read.GetGpoPermissions($Gpo) | Where-Object { -not $_.Inherited -and -not $_.Denied -and $_.Permission -ne 'GpoCustom' } | ForEach-Object { "$($_.Sid)=$($_.Permission)/$($_.Applies)" } | Sort-Object) }
             & $Levels $Again | Should -Be (& $Levels $From)
             & $Levels $Again | Should -Contain "$($Users.Sid)=GpoRead/False"
+        }
+
+        It 'Creates a Starter GPO in SYSVOL from the Administrative Templates of a GPO, starts a GPO from it, and deletes it' {
+            $StarterName = "PSGPOTools test starter $Stamp"
+            $Root = "$($Directory.DomainName)\StarterGPOs"
+            # The folder of the Starter GPOs: deleted at the end when the test created it.
+            $HadFolder = $null -ne (Read-PSGPOSysvolTree -Directory $Directory -Share 'SYSVOL' -Path $Root -AllowMissing)
+            $Starter = New-PSGPOStarterGpo -Directory $Directory -Name $StarterName -Description "Starter of the test`nsecond line" -FromGpo $RulesName -Confirm:$false
+            try {
+                $Read = Get-PSGPODirectory -Server $Server
+                $Again = @(Get-PSGPOStarterGpo -Directory $Read -Name $StarterName)
+                $Again.Count | Should -Be 1
+                $Again[0].Id | Should -Be $Starter.Id
+                $Again[0].Type | Should -Be 'Custom'
+                $Again[0].Description | Should -Be "Starter of the test`nsecond line"
+                $Tmplx = Read-PSGPOSysvolItem -Directory $Read -Share 'SYSVOL' -Path "$Root\{$($Starter.Id.ToString().ToUpperInvariant())}\StarterGPO.tmplx"
+                $Tmplx[0..2] | Should -Be @(0xEF, 0xBB, 0xBF) -Because 'UTF-8 with its mark, as GPMC writes it'
+                $Source = Read-PSGPOSysvolFile -Directory $Read -Gpo $Read.FindGpo($RulesName) -Path 'Machine\Registry.pol'
+                [Linq.Enumerable]::SequenceEqual([byte[]]$Again[0].Files['Machine\Registry.pol'], [byte[]]$Source) | Should -BeTrue
+
+                $null = New-PSGPO -Directory $Read -Name $FromStarterName -StarterGpo $StarterName -Confirm:$false
+                $Domain = Get-PSGPODirectory -Server $Server
+                $Gpo = $Domain.FindGpo($FromStarterName)
+                $Gpo.MachineExtensionNames | Should -BeLike '*{35378EAC-683F-11D2-A89A-00C04FBBCFA2}{0F6B957D-509E-11D1-A7CC-0000F87571E3}*'
+                $Gpo.GetComputerVersion() | Should -BeGreaterThan 0
+                [Linq.Enumerable]::SequenceEqual([byte[]](Read-PSGPOSysvolFile -Directory $Domain -Gpo $Gpo -Path 'Machine\Registry.pol'), [byte[]]$Source) | Should -BeTrue
+                @(Get-PSGPOAuditLog -Path $script:AuditLog -Domain $Directory.DomainName | Where-Object Action -EQ 'SaveStarterGpo').Count | Should -BeGreaterThan 0
+            } finally {
+                Remove-PSGPOStarterGpo -Directory $Directory -Name $StarterName -Confirm:$false
+                if (-not $HadFolder) { Remove-PSGPOSysvolTree -Directory $Directory -Share 'SYSVOL' -Path $Root }
+            }
+            @(Get-PSGPOStarterGpoData -Directory (Get-PSGPODirectory -Server $Server) | Where-Object DisplayName -EQ $StarterName) | Should -BeNullOrEmpty
+            @(Get-PSGPOAuditLog -Path $script:AuditLog -Domain $Directory.DomainName | Where-Object Action -EQ 'RemoveStarterGpo').Count | Should -Be 1
         }
 
         It 'Writes the Registry.pol of the GPO in SYSVOL and increases its version' {

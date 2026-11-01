@@ -604,6 +604,28 @@ class GPOToolsDirectory {
         $this.SaveGpoComment($Gpo, (ConvertTo-PSGPOCommentByte -Comment $Comment), "$Comment")
     }
 
+    # The files of the Starter GPOs of the domain (SYSVOL\<domain>\StarterGPOs), by path in that
+    # folder ({GUID}\StarterGPO.tmplx): empty when the domain has no such folder.
+    [System.Collections.Specialized.OrderedDictionary] ReadStarterGpoFiles() {
+        $Files = $this.LoadStarterGpoFiles()
+        if ($null -eq $Files) { return [System.Collections.Specialized.OrderedDictionary]::new([System.StringComparer]::OrdinalIgnoreCase) }
+        return $Files
+    }
+
+    # Writes files of a Starter GPO, by path in its folder StarterGPOs\{Id} (the folders created when
+    # needed), as GPMC keeps it: no object in the directory, its folder only.
+    [void] WriteStarterGpo([guid]$Id, [string]$DisplayName, [System.Collections.IDictionary]$Files) {
+        $this.AssertWritable()
+        foreach ($Path in $Files.Keys) { Assert-PSGPOGpoFilePath -Path $Path }
+        $this.SaveStarterGpo($Id, $DisplayName, $Files)
+    }
+
+    # Deletes a Starter GPO: its folder StarterGPOs\{Id} and everything in it.
+    [void] RemoveStarterGpo([guid]$Id, [string]$DisplayName) {
+        $this.AssertWritable()
+        $this.SaveRemovedStarterGpo($Id, $DisplayName)
+    }
+
     # Security filtering groups of a GPO, created in $Container: APPLY_<GPO>, whose members alone
     # apply it, and DENY_<GPO>, whose members never apply it. Returns the two groups (Name,
     # DistinguishedName, Sid).
@@ -1121,6 +1143,22 @@ class GPOToolsDirectory {
     hidden [byte[]] LoadConfigurationFile() { return $this.ConfigurationBytes }
     hidden [void] SaveConfigurationFile([byte[]]$Bytes) { $this.ConfigurationBytes = if ($Bytes -and $Bytes.Length) { $Bytes } else { $null } }
 
+    # Files of the Starter GPOs kept in memory, by path in StarterGPOs ({GUID}\StarterGPO.tmplx).
+    hidden [System.Collections.Specialized.OrderedDictionary]$StarterGpoFiles = [System.Collections.Specialized.OrderedDictionary]::new([System.StringComparer]::OrdinalIgnoreCase)
+    hidden [System.Collections.Specialized.OrderedDictionary] LoadStarterGpoFiles() {
+        $Files = [System.Collections.Specialized.OrderedDictionary]::new([System.StringComparer]::OrdinalIgnoreCase)
+        foreach ($Key in @($this.StarterGpoFiles.Keys | Sort-Object)) { $Files[$Key] = $this.StarterGpoFiles[$Key] }
+        return $Files
+    }
+    hidden [void] SaveStarterGpo([guid]$Id, [string]$DisplayName, [System.Collections.IDictionary]$Files) {
+        $Folder = '{' + $Id.ToString().ToUpperInvariant() + '}'
+        foreach ($Path in $Files.Keys) { $this.StarterGpoFiles["$Folder\$Path"] = [byte[]]$Files[$Path] }
+    }
+    hidden [void] SaveRemovedStarterGpo([guid]$Id, [string]$DisplayName) {
+        $Prefix = '{' + $Id.ToString().ToUpperInvariant() + '}\'
+        foreach ($Key in @($this.StarterGpoFiles.Keys | Where-Object { $_.StartsWith($Prefix, [System.StringComparison]::OrdinalIgnoreCase) })) { $this.StarterGpoFiles.Remove($Key) }
+    }
+
     # Files of the GPOs kept in memory, by GPO and path in its folder.
     hidden [hashtable]$GpoFiles = @{}
     hidden [byte[]] LoadGpoFile([GPOToolsGpo]$Gpo, [string]$Path) {
@@ -1206,6 +1244,23 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
     hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {
         Set-PSGPODomainGpoStatus -Directory $this -Gpo $Gpo -Flags $Flags
         Write-PSGPOAuditEntry -Directory $this -Action 'SetGpoStatus' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details @{ Flags = $Flags }
+    }
+
+    # The Starter GPOs: in SYSVOL\<domain>\StarterGPOs of the domain controller, as GPMC.
+    hidden [System.Collections.Specialized.OrderedDictionary] LoadStarterGpoFiles() {
+        return Read-PSGPOSysvolTree -Directory $this -Share 'SYSVOL' -Path "$($this.DomainName)\StarterGPOs" -AllowMissing
+    }
+    hidden [void] SaveStarterGpo([guid]$Id, [string]$DisplayName, [System.Collections.IDictionary]$Files) {
+        $Folder = '{' + $Id.ToString().ToUpperInvariant() + '}'
+        foreach ($Path in $Files.Keys) {
+            Write-PSGPOSysvolItem -Directory $this -Share 'SYSVOL' -Base $this.DomainName -Path "StarterGPOs\$Folder\$Path" -Bytes ([byte[]]$Files[$Path])
+        }
+        Write-PSGPOAuditEntry -Directory $this -Action 'SaveStarterGpo' -Target "$($this.DomainName)\StarterGPOs\$Folder" -Details ([ordered]@{ Name = $DisplayName; Files = @($Files.Keys) })
+    }
+    hidden [void] SaveRemovedStarterGpo([guid]$Id, [string]$DisplayName) {
+        $Folder = '{' + $Id.ToString().ToUpperInvariant() + '}'
+        Remove-PSGPOSysvolTree -Directory $this -Share 'SYSVOL' -Path "$($this.DomainName)\StarterGPOs\$Folder"
+        Write-PSGPOAuditEntry -Directory $this -Action 'RemoveStarterGpo' -Target "$($this.DomainName)\StarterGPOs\$Folder" -Details @{ Name = $DisplayName }
     }
 
     hidden [void] SaveGpoComment([GPOToolsGpo]$Gpo, [byte[]]$Bytes, [string]$Comment) {

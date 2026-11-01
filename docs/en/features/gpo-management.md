@@ -436,3 +436,33 @@ settings, checked against their SHA-256 first.
 $Template = Get-PSGPOBackup -Path /srv/gpo-backups -Template -Name 'Template - Servers' | Select-Object -First 1
 New-PSGPO -Name 'C - Servers - Lyon' -Template $Template
 ```
+
+## Starter GPOs { #starter-gpos }
+
+**Starter GPOs**, under the domain, lists the Starter GPOs of the domain, as GPMC: a set of
+Administrative Templates new GPOs start from. GPMC keeps each in a folder of
+`SYSVOL\<domain>\StarterGPOs`, without an object in the directory: the console reads them when
+their node is selected, in the background. The **System** Starter GPOs are those of Microsoft,
+which GPMC adds with the folder, read only; the **Custom** ones are those of the domain.
+
+- **New Starter GPO...** (the context menu of Starter GPOs) creates one, with its description:
+  empty, or with the Administrative Templates of a GPO (its computer and user `Registry.pol`); a
+  Starter GPO holds no other settings. The folder of the Starter GPOs is created with the first.
+- **New GPO from Starter GPO...** (the context menu of a Starter GPO) opens the New GPO form,
+  started from it; **Start from** of that form proposes every Starter GPO too. The new GPO gets
+  its settings, declared as GPMC declares them; not its description, which GPMC does not take as
+  the comment of the GPO either.
+- **Delete Starter GPO...** deletes a Custom one; the GPOs created from it keep their settings.
+
+GPMC reads the Starter GPOs HGPM writes, and creates GPOs from them, as HGPM does from those of
+GPMC (checked on a Windows domain). The changes go to the [audit log](audit-log.md)
+(`SaveStarterGpo`, `RemoveStarterGpo`).
+
+![Starter GPOs](../assets/screenshots/94-starter-gpos.png){ width="560" }
+
+```powershell
+Get-PSGPOStarterGpo                                                    # System and Custom
+New-PSGPOStarterGpo -Name 'Workstations - Baseline' -Description 'What every workstation GPO starts from' -FromGpo 'C - Workstations - Security Baseline Windows 11'
+New-PSGPO -Name 'C - Workstations - Lyon' -StarterGpo 'Workstations - Baseline'
+Remove-PSGPOStarterGpo -Name 'Workstations - Baseline'
+```

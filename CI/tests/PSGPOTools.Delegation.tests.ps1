@@ -135,7 +135,7 @@ InModuleScope -ModuleName HGPM {
             Test-PSGPOUnmanagedShown | Should -BeFalse
             $Domain = @($Roots)[0]
             # The domain: no link shown, only the path to Lyon, and the GPO container.
-            @($Domain.Children.Header) | Should -Be @('Lyon', 'Group Policy Objects', 'WMI Filters')
+            @($Domain.Children.Header) | Should -Be @('Lyon', 'Group Policy Objects', 'WMI Filters', 'Starter GPOs')
             $Lyon = Get-Node $Roots 'Lyon'
             $Lyon.IconBrush | Should -Be '#8A8886' -Because 'it is only the path to the OUs it manages'
             @($Lyon.Children.Header) | Should -Be @('Workstations (blocks inheritance)')
@@ -166,7 +166,7 @@ InModuleScope -ModuleName HGPM {
             $Reader.Account = 'HARDENBOX\test.user'
             $Reader.CanCreateWmiFilter = $false
             $Domain = @(New-PSGPODirectoryTree -Directory $Reader)[0]
-            @($Domain.Children.Header) | Should -Be @('Group Policy Objects', 'WMI Filters')
+            @($Domain.Children.Header) | Should -Be @('Group Policy Objects', 'WMI Filters', 'Starter GPOs')
             (Get-Node @($Domain) 'Group Policy Objects').Children | Should -BeNullOrEmpty
             Get-Row (Get-PSGPODirectoryDetail -Directory $Reader -Item $Reader.Domain) 'Delegation' | Should -Be 'None: this account manages no OU, GPO or WMI filter, nothing is shown'
             # The same domain, the setting given: everything, greyed.

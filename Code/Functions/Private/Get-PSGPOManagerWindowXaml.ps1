@@ -177,6 +177,16 @@ $(Get-PSGPOWindowResourceXaml)
                                 <MenuItem Name='newGpoMenuItem' Header='New GPO...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.add}'/></MenuItem.Icon>
                                 </MenuItem>
+                                <!-- Starter GPOs, as GPMC: a new one, a GPO from one, the deletion of a Custom one -->
+                                <MenuItem Name='newStarterGpoMenuItem' Header='New Starter GPO...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.add}'/></MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Name='newGpoFromStarterMenuItem' Header='New GPO from Starter GPO...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.add}'/></MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Name='deleteStarterGpoMenuItem' Header='Delete Starter GPO...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.delete}'/></MenuItem.Icon>
+                                </MenuItem>
                                 <MenuItem Name='gpoSearchMenuItem' Header='Search...' InputGesture='Ctrl+F'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.search}'/></MenuItem.Icon>
                                 </MenuItem>
@@ -295,7 +305,7 @@ $(Get-PSGPOWindowResourceXaml)
                                                 <TextBlock Text='Start from' VerticalAlignment='Center' Margin='0,0,12,0'
                                                            Foreground='{DynamicResource SecondaryTextBrush}'/>
                                                 <ComboBox Grid.Column='1' Name='newGpoTemplateComboBox' HorizontalAlignment='Stretch'
-                                                          ToolTip.Tip='A backup labelled as a template (History tab): the new GPO starts with its settings'/>
+                                                          ToolTip.Tip='A backup labelled as a template (History tab), or a Starter GPO: the new GPO starts with its settings'/>
                                             </Grid>
                                             <!-- Security filtering groups APPLY_<GPO> and DENY_<GPO> -->
                                             <CheckBox Name='newGpoGroupsCheckBox' Content='Create the security filtering groups'/>
@@ -392,6 +402,42 @@ $(Get-PSGPOWindowResourceXaml)
                                             <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
                                                 <Button Name='renameConfirmButton' Content='Rename' MinWidth='110'/>
                                                 <Button Name='renameCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- New Starter GPO, as GPMC: empty or with the Administrative Templates of a GPO -->
+                                    <Border Name='starterGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='starterGpoTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBox Name='starterGpoNameTextBox' Watermark='Name of the new Starter GPO'/>
+                                            <TextBox Name='starterGpoDescriptionTextBox' Watermark='Its description (optional)' AcceptsReturn='True' TextWrapping='Wrap' MinHeight='60'/>
+                                            <Grid ColumnDefinitions='Auto,*'>
+                                                <TextBlock Text='Settings' VerticalAlignment='Center' Margin='0,0,12,0'
+                                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                <ComboBox Grid.Column='1' Name='starterGpoSourceComboBox' HorizontalAlignment='Stretch'
+                                                          ToolTip.Tip='A Starter GPO holds Administrative Templates only: those of a GPO, or none'/>
+                                            </Grid>
+                                            <TextBlock Name='starterGpoErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='starterGpoCreateButton' Content='Create' MinWidth='100'/>
+                                                <Button Name='starterGpoCancelButton' Content='Cancel' MinWidth='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Deletion of a Custom Starter GPO, once confirmed -->
+                                    <Border Name='deleteStarterGpoPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='#D13438'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='deleteStarterGpoTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBlock Name='deleteStarterGpoErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='deleteStarterGpoConfirmButton' Content='Delete' MinWidth='100'/>
+                                                <Button Name='deleteStarterGpoCancelButton' Content='Cancel' MinWidth='100'/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>

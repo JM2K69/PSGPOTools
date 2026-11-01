@@ -9,10 +9,11 @@
 #>
 
 function Initialize-PSGPOManagerGpoFormView {
-    # New GPO form: linked to $Som, or only created in the domain when $Som is $null.
-    $newGpo = @{ Som = $null; Groups = $null; Templates = @() }
+    # New GPO form: linked to $Som, or only created in the domain when $Som is $null; it starts
+    # empty, from a template (a backup), or from a Starter GPO ($StarterGpo: chosen already).
+    $newGpo = @{ Som = $null; Groups = $null; Templates = @(); Starters = @() }
     function Open-NewGpoForm {
-        param([GPOToolsSom]$Som)
+        param([GPOToolsSom]$Som, $StarterGpo)
         $newGpo.Som = $Som
         $newGpoTitleTextBlock.Text = if ($Som) { Get-PSGPOText 'New GPO in {0}, linked to {1}' $Directory.DomainName $Som.Name } else { Get-PSGPOText 'New GPO in {0}' $Directory.DomainName }
         # What the configuration proposes (Get-PSGPOConfiguration): name, status, groups.
@@ -25,10 +26,19 @@ function Initialize-PSGPOManagerGpoFormView {
         # The templates: the backups with the template label, newest first.
         Update-BackupList -Force
         $newGpo.Templates = @($backupLists.Templates)
+        # The Starter GPOs of the domain, read now when they are not yet: those that can be read.
+        if ($null -eq $starterGpos.List) {
+            try { $starterGpos.List = @(Get-PSGPOStarterGpoData -Directory $Directory) } catch { $starterGpos.List = @(); $starterGpos.Problem = $_.Exception.GetBaseException().Message }
+        }
+        $newGpo.Starters = @($starterGpos.List | Where-Object { $_ -and -not $_.Problem })
         $newGpoTemplateComboBox.ItemsSource = @(Get-PSGPOText 'Empty GPO') + @(foreach ($template in $newGpo.Templates) {
                 (Get-PSGPOText '{0}, backup of {1}' $template.DisplayName (Format-HistoryDate $template.BackedUp)) + $(if ($template.Domain -and $template.Domain -ne $Directory.DomainName) { " ($($template.Domain))" })
-            })
+            }) + @(foreach ($starter in $newGpo.Starters) { Get-PSGPOText 'Starter GPO: {0}' $starter.DisplayName })
         $newGpoTemplateComboBox.SelectedIndex = 0
+        if ($StarterGpo) {
+            $index = @($newGpo.Starters.Id).IndexOf($StarterGpo.Id)
+            if ($index -ge 0) { $newGpoTemplateComboBox.SelectedIndex = 1 + $newGpo.Templates.Count + $index }
+        }
         $newGpoStatusComboBox.SelectedIndex = [array]::IndexOf(@('Enabled', 'ComputerOnly', 'UserOnly'), $configuration.Status)
         # A GPO of a creator waits for its approval: its security filtering is set then.
         $creator = $Directory.IsWorkflowCreator()
@@ -72,7 +82,9 @@ function Initialize-PSGPOManagerGpoFormView {
     # It is not linked when its security filtering failed: it would apply to every computer and
     # user. What failed after the creation is said under the details of the GPO.
     function Submit-NewGpo {
-        $template = if ($newGpoTemplateComboBox.SelectedIndex -gt 0) { $newGpo.Templates[$newGpoTemplateComboBox.SelectedIndex - 1] }
+        $index = $newGpoTemplateComboBox.SelectedIndex
+        $template = if ($index -gt 0 -and $index -le $newGpo.Templates.Count) { $newGpo.Templates[$index - 1] }
+        $starter = if ($index -gt $newGpo.Templates.Count) { $newGpo.Starters[$index - 1 - $newGpo.Templates.Count] }
         try {
             # A template checked before the GPO is created.
             if ($template) { $null = Get-PSGPOVerifiedBackupFile -Backup $template }
@@ -91,6 +103,14 @@ function Initialize-PSGPOManagerGpoFormView {
                 $done.Add((Get-PSGPOText "Settings of the template '{0}' copied." $template.DisplayName))
             } catch {
                 $problems.Add((Get-PSGPOText 'The settings of the template are not copied: {0}' $_.Exception.GetBaseException().Message))
+            }
+        }
+        if ($starter) {
+            try {
+                Copy-PSGPOStarterSetting -Directory $Directory -Gpo $gpo -StarterGpo $starter
+                $done.Add((Get-PSGPOText "Settings of the Starter GPO '{0}' copied." $starter.DisplayName))
+            } catch {
+                $problems.Add((Get-PSGPOText 'The settings of the Starter GPO are not copied: {0}' $_.Exception.GetBaseException().Message))
             }
         }
         $flags = [int]"$($newGpoStatusComboBox.SelectedItem.Tag)"
@@ -174,7 +194,7 @@ function Initialize-PSGPOManagerGpoFormView {
     # The forms of the details, one at a time.
     function Hide-DirectoryForm {
         foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel, $purgeDeletedGpoPanel, $renamePanel, $approveGpoPanel, $newWmiFilterPanel, $deleteWmiFilterPanel,
-            $exportWmiFilterPanel, $importWmiFilterPanel, $useWmiFilterPanel, $importGpoPanel, $changeDcPanel, $gpoCopyPanel) { $panel.IsVisible = $false }
+            $exportWmiFilterPanel, $importWmiFilterPanel, $useWmiFilterPanel, $importGpoPanel, $changeDcPanel, $gpoCopyPanel, $starterGpoPanel, $deleteStarterGpoPanel) { $panel.IsVisible = $false }
     }
 
     # Approval of the selected GPO (approval workflow): what the creators may still do, who

@@ -54,6 +54,8 @@ function Initialize-PSGPOManagerToolbarView {
             }
             $settingsCache.Clear()
             $gpoComment.Cache.Clear()
+            # The Starter GPOs: read again when their node is selected.
+            $starterGpos.List = $null
             $history.Current = @{}
             $backupLists.Root = $null
             Update-DirectoryTree -Select (Find-PSGPODirectoryItem -Directory $Directory -Item $refresh.Item -LinkSom $refresh.LinkSom)

@@ -425,8 +425,9 @@ InModuleScope -ModuleName HGPM {
 
                 $Domain = @($Ui.domainTreeView.ItemsSource)[0]
                 $Domain.Header | Should -Be 'corp.contoso.com'
-                $Domain.Children[-3].Header | Should -Be 'Group Policy Objects'
-                $Domain.Children[-2].Header | Should -Be 'WMI Filters'
+                $Domain.Children[-4].Header | Should -Be 'Group Policy Objects'
+                $Domain.Children[-3].Header | Should -Be 'WMI Filters'
+                $Domain.Children[-2].Header | Should -Be 'Starter GPOs'
                 $Domain.Children[-1].Header | Should -Be 'Deleted GPOs' -Because 'the recycle bin of the GPOs, from their backups'
                 # The IsExpanded binding reaches the tree view item.
                 $Ui.Window.UpdateLayout()
@@ -449,7 +450,7 @@ InModuleScope -ModuleName HGPM {
                     $Ui.historyTab.Header | Should -Be 'Historique'
                     $Ui.subtitleTextBlock.Text | Should -Be 'Gestion de stratégie de groupe - corp.contoso.com'
                     $Domain = @($Ui.domainTreeView.ItemsSource)[0]
-                    @($Domain.Children[-3..-1].Header) | Should -Be @('Objets de stratégie de groupe', 'Filtres WMI', 'GPO supprimés')
+                    @($Domain.Children[-4..-1].Header) | Should -Be @('Objets de stratégie de groupe', 'Filtres WMI', 'Objets GPO Starter', 'GPO supprimés')
 
                     $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites', 'Paris', 'Workstations'
                     $Ui.linksHeaderTextBlock.Text | Should -Be 'Objets de stratégie de groupe liés (3)'
@@ -1498,6 +1499,62 @@ InModuleScope -ModuleName HGPM {
                 @($Ui.gpoSearchList.ItemsSource).Count | Should -Be 1
                 Invoke-Click $Ui.gpoSearchCancelButton
                 $Ui.gpoSearchPanel.IsVisible | Should -BeFalse
+            }
+        }
+
+        It 'Reads the Starter GPOs when their node is selected, creates one from a GPO, starts a GPO from it and deletes it' {
+            $Source = $Directory.FindGpo('U - Lyon - Printers')
+            $Pol = [GPOToolsRegistryPol]::new()
+            $Pol.Entries.Add([GPOToolsPolEntry]::new('Software\Policies\Contoso\Printers', 'Default', [GPOToolsPolType]::DWord, [BitConverter]::GetBytes([uint32]1)))
+            $Directory.WritePolicyFile($Source, 'User', $Pol.ToBytes())
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Starter GPOs'
+                Wait-ConsoleOperation $Ui
+                $Ui.directoryTitleTextBlock.Text | Should -Be 'Starter GPOs in corp.contoso.com'
+                @($Ui.directoryPropertiesList.ItemsSource)[0].Key | Should -Be 'None'
+                $Ui.newStarterGpoMenuItem.IsVisible | Should -BeTrue
+                $Ui.newGpoFromStarterMenuItem.IsVisible | Should -BeFalse
+
+                # New Starter GPO...: a name required, then the Administrative Templates of a GPO.
+                Invoke-Click $Ui.newStarterGpoMenuItem
+                $Ui.starterGpoPanel.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.starterGpoCreateButton
+                $Ui.starterGpoErrorTextBlock.Text | Should -Be 'The name of the Starter GPO is required.'
+                $Ui.starterGpoNameTextBox.Text = 'Printers - Baseline'
+                $Ui.starterGpoDescriptionTextBox.Text = 'What the printer GPOs start from'
+                $Ui.starterGpoSourceComboBox.SelectedIndex = 1 + [array]::IndexOf(@($Ui.Directory.Gpos), $Source)
+                Invoke-Click $Ui.starterGpoCreateButton
+                Wait-ConsoleOperation $Ui
+                $Ui.starterGpoPanel.IsVisible | Should -BeFalse
+                $Ui.directoryTitleTextBlock.Text | Should -Be 'Printers - Baseline'
+                $Ui.directoryResultTextBlock.Text | Should -Be "Starter GPO 'Printers - Baseline' created."
+                ($Ui.directoryPropertiesList.ItemsSource | Where-Object Key -EQ 'User settings').Value | Should -Be '1 registry value(s)'
+
+                # New GPO from Starter GPO...: the New GPO form, started from it.
+                $Ui.newGpoFromStarterMenuItem.IsVisible | Should -BeTrue
+                $Ui.deleteStarterGpoMenuItem.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.newGpoFromStarterMenuItem
+                $Ui.newGpoPanel.IsVisible | Should -BeTrue
+                $Ui.newGpoTemplateComboBox.SelectedItem | Should -Be 'Starter GPO: Printers - Baseline'
+                $Ui.newGpoNameTextBox.Text = 'U - Paris - Color printers'
+                Invoke-Click $Ui.newGpoCreateButton
+                $Gpo = $Ui.Directory.FindGpo('U - Paris - Color printers')
+                $Gpo | Should -Not -BeNullOrEmpty
+                $Ui.Directory.ReadGpoFile($Gpo, 'User\Registry.pol') | Should -Be $Ui.Directory.ReadGpoFile($Source, 'User\Registry.pol')
+                $Ui.directoryResultTextBlock.Text | Should -BeLike "*Settings of the Starter GPO 'Printers - Baseline' copied.*"
+
+                # Delete Starter GPO...: the GPO created from it keeps its settings.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Starter GPOs', 'Printers - Baseline'
+                Invoke-Click $Ui.deleteStarterGpoMenuItem
+                $Ui.deleteStarterGpoPanel.IsVisible | Should -BeTrue
+                $Ui.deleteStarterGpoTextBlock.Text | Should -BeLike "Delete the Starter GPO 'Printers - Baseline'?*"
+                Invoke-Click $Ui.deleteStarterGpoConfirmButton
+                Wait-ConsoleOperation $Ui
+                $Ui.directoryTitleTextBlock.Text | Should -Be 'Starter GPOs in corp.contoso.com'
+                $Ui.directoryResultTextBlock.Text | Should -Be "Starter GPO 'Printers - Baseline' deleted."
+                @(Get-PSGPOStarterGpoData -Directory $Ui.Directory) | Should -BeNullOrEmpty
+                $Ui.Directory.ReadGpoFile($Gpo, 'User\Registry.pol') | Should -Not -BeNullOrEmpty
             }
         }
 

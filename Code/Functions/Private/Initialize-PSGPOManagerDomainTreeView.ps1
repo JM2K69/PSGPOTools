@@ -23,7 +23,7 @@ function Initialize-PSGPOManagerDomainTreeView {
         for ($current = $selected; $current; $current = $current.Parent) { $pathParts.Insert(0, $current.Header) }
         $directoryBreadcrumbTextBlock.Text = if ($pathParts.Count) { $pathParts -join ' > ' } else { $directoryHint }
 
-        $detail = Get-PSGPODirectoryDetail -Directory $Directory -Item $item -DeletedGpo $backupLists.Deleted
+        $detail = Get-PSGPODirectoryDetail -Directory $Directory -Item $item -DeletedGpo $backupLists.Deleted -StarterGpo $starterGpos.List -StarterGpoProblem $starterGpos.Problem
         $directoryTitleTextBlock.Text = $detail.Title
         $directoryPropertiesList.ItemsSource = $detail.Properties
         $linksHeaderTextBlock.Text = $detail.LinksHeader
@@ -44,6 +44,11 @@ function Initialize-PSGPOManagerDomainTreeView {
         $createLinkedGpoMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo -and $item.CanLink
         $linkGpoMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly -and $item.CanLink -and $Directory.Gpos.Count -gt 0
         $newGpoMenuItem.IsVisible = $item -eq 'GroupPolicyObjects' -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo
+        # Starter GPOs, as GPMC: a new one on their node; a GPO from one, the deletion of a Custom one.
+        $starter = $null -ne $item -and $item.PSObject.TypeNames -contains 'PSGPOTools.StarterGpo'
+        $newStarterGpoMenuItem.IsVisible = $item -eq 'StarterGpos' -and -not $Directory.IsReadOnly
+        $newGpoFromStarterMenuItem.IsVisible = $starter -and -not $item.Problem -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo
+        $deleteStarterGpoMenuItem.IsVisible = $starter -and $item.Type -ne 'System' -and -not $Directory.IsReadOnly
         # Search..., as GPMC: on the domain and on Group Policy Objects.
         $gpoSearchMenuItem.IsVisible = [object]::ReferenceEquals($item, $Directory.Domain) -or $item -eq 'GroupPolicyObjects'
         $editGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit
@@ -95,6 +100,8 @@ function Initialize-PSGPOManagerDomainTreeView {
         $saveReportGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $settingsReportButton.IsVisible
         Update-SomTab
         Update-SettingsTab
+        # The Starter GPOs, read the first time their node is selected.
+        Test-StarterGpoNode -Item $item
         Update-DelegationTab
         Update-WmiDelegationTab
         Update-HistoryTab
@@ -103,7 +110,7 @@ function Initialize-PSGPOManagerDomainTreeView {
     # Nothing to offer on this node: do not open an empty menu.
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
         param($control, $e)
-        if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $gpoSearchMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $renameMenuItem.IsVisible -or $gpoCopyMenuItem.IsVisible -or $purgeDeletedGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
+        if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $newStarterGpoMenuItem.IsVisible -or $newGpoFromStarterMenuItem.IsVisible -or $deleteStarterGpoMenuItem.IsVisible -or $gpoSearchMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $renameMenuItem.IsVisible -or $gpoCopyMenuItem.IsVisible -or $purgeDeletedGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
                 $exportWmiFilterMenuItem.IsVisible -or $importWmiFilterMenuItem.IsVisible -or $useWmiFilterMenuItem.IsVisible -or
                 $blockInheritanceMenuItem.IsVisible -or $changeDcMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible -or $wmiFilterMenuItem.IsVisible -or $newWmiFilterMenuItem.IsVisible -or $editWmiFilterMenuItem.IsVisible -or $deleteWmiFilterMenuItem.IsVisible -or
                 $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible -or $approveGpoMenuItem.IsVisible -or $importGpoMenuItem.IsVisible -or

@@ -17,7 +17,14 @@ function Get-PSGPODirectoryDetail {
 
         # The backups of the deleted GPOs, for 'DeletedGpos'
         [AllowEmptyCollection()]
-        [object[]]$DeletedGpo = @()
+        [object[]]$DeletedGpo = @(),
+
+        # The Starter GPOs of the domain, for 'StarterGpos' ($null: not read yet), and why they
+        # cannot be read
+        [AllowNull()]
+        [AllowEmptyCollection()]
+        [object[]]$StarterGpo,
+        [string]$StarterGpoProblem
     )
 
     $Date = { param($Value) if ($Value) { ([datetime]$Value).ToLocalTime().ToString('g') } else { Get-PSGPOText 'unknown date' } }
@@ -203,6 +210,31 @@ function Get-PSGPODirectoryDetail {
             New-Row 'GPOs using it' $(if ($Users.Count) { $Users -join [Environment]::NewLine } else { Get-PSGPOText 'None' })
             New-Row 'Unique ID' ('{' + $Item.Id.ToString().ToUpperInvariant() + '}')
             New-Row 'Distinguished name' $Item.DistinguishedName
+        )
+    } elseif ($Item -eq 'StarterGpos') {
+        $Detail.Title = Get-PSGPOText 'Starter GPOs in {0}' $Directory.DomainName
+        $Detail.Properties = @(foreach ($Starter in @($StarterGpo | Where-Object { $_ })) { New-Row $Starter.DisplayName (Get-PSGPOText $Starter.Type) -Name })
+        if ($StarterGpoProblem) { $Detail.Properties = @(New-Row 'Problem' (Get-PSGPOText 'The Starter GPOs cannot be read: {0}' $StarterGpoProblem)) }
+        elseif ($null -eq $StarterGpo) { $Detail.Properties = @(New-Row 'Starter GPOs' (Get-PSGPOText 'Reading the Starter GPOs of {0}...' $Directory.DomainName)) }
+        elseif (-not $Detail.Properties.Count) { $Detail.Properties = @(New-Row 'None' (Get-PSGPOText 'No Starter GPO in the domain: New Starter GPO... in the context menu creates one, with the folder of the Starter GPOs.')) }
+    } elseif ($null -ne $Item -and $Item.PSObject.TypeNames -contains 'PSGPOTools.StarterGpo') {
+        # A Starter GPO: what it is, and how many settings each part has.
+        $Detail.Title = $Item.DisplayName
+        $Count = {
+            param([string]$Path)
+            if (-not $Item.Files.Contains($Path)) { return (Get-PSGPOText 'None') }
+            try { Get-PSGPOText '{0} registry value(s)' ([GPOToolsRegistryPol]::Parse([byte[]]$Item.Files[$Path]).Entries.Count) } catch { Get-PSGPOText 'Cannot be read: {0}' $_.Exception.GetBaseException().Message }
+        }
+        $Detail.Properties = @(
+            New-Row 'Type' (Get-PSGPOText $(if ($Item.Type -eq 'System') { 'System: a Starter GPO of Microsoft, read only' } else { 'Custom' }))
+            if ($Item.Problem) { New-Row 'Problem' $Item.Problem }
+            if ($Item.Author) { New-Row 'Author' $Item.Author }
+            if ($Item.Product) { New-Row 'Product' $Item.Product }
+            New-Row 'Description' $(if ($Item.Description) { $Item.Description } else { Get-PSGPOText '(none)' })
+            New-Row 'Computer settings' (& $Count 'Machine\Registry.pol')
+            New-Row 'User settings' (& $Count 'User\Registry.pol')
+            New-Row 'Unique ID' ('{' + $Item.Id.ToString().ToUpperInvariant() + '}')
+            New-Row 'Folder' ('\\{0}\SYSVOL\{0}\StarterGPOs\{{{1}}}' -f $Directory.DomainName, $Item.Id.ToString().ToUpperInvariant())
         )
     } elseif ($Item -eq 'Sites') {
         $Detail.Title = Get-PSGPOText 'Sites of the forest'

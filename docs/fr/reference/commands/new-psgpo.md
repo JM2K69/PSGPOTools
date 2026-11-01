@@ -7,12 +7,12 @@ _L'aide de la commande, telle que `Get-Help New-PSGPO -Full` la donne (en anglai
 ## Syntaxe
 
 ```powershell
-New-PSGPO [-Name] <string> [[-Template] <Backup>] [[-Status] <string>] [[-Comment] <string>] [[-Directory] <GPOToolsDirectory>] [[-Server] <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PSGPO [-Name] <string> [[-Template] <Backup>] [[-StarterGpo] <string>] [[-Status] <string>] [[-Comment] <string>] [[-Directory] <GPOToolsDirectory>] [[-Server] <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## Description
 
-Like GPMC "New GPO": the GPO is created in the domain (on Windows with New-GPO of RSAT, on Linux with samba-tool and Kerberos), not linked. With -Template, it starts with the settings of a backup (Get-PSGPOBackup -Template: the backups with the template label of the configuration, Backup.TemplateLabel), whatever GPO or domain it comes from: its files, checked against their SHA-256, and their client-side extensions. -Comment gives it a comment (GPO.cmt, the Comment of the Details tab of GPMC).
+Like GPMC "New GPO": the GPO is created in the domain (on Windows with New-GPO of RSAT, on Linux with samba-tool and Kerberos), not linked. With -Template, it starts with the settings of a backup (Get-PSGPOBackup -Template: the backups with the template label of the configuration, Backup.TemplateLabel), whatever GPO or domain it comes from: its files, checked against their SHA-256, and their client-side extensions. With -StarterGpo, it starts with the Administrative Templates of a Starter GPO of the domain (Get-PSGPOStarterGpo), as New GPO > Source Starter GPO in GPMC. -Comment gives it a comment (GPO.cmt, the Comment of the Details tab of GPMC).
 
 ## Paramètres
 
@@ -32,13 +32,21 @@ Backup whose settings the GPO starts with.
 |---|---|---|---|---|
 | `Object` | Non | 2 | Aucune | Non |
 
+### -StarterGpo
+
+Display name of the Starter GPO whose Administrative Templates the GPO starts with.
+
+| Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
+|---|---|---|---|---|
+| `String` | Non | 3 | Aucune | Non |
+
 ### -Status
 
 GPO status: Enabled (default), ComputerOnly (user settings disabled) or UserOnly (computer settings disabled).
 
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|
-| `String` | Non | 3 | `Enabled` | Non |
+| `String` | Non | 4 | `Enabled` | Non |
 
 ### -Comment
 
@@ -46,7 +54,7 @@ Comment of the GPO (several lines allowed).
 
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|
-| `String` | Non | 4 | Aucune | Non |
+| `String` | Non | 5 | Aucune | Non |
 
 ### -Directory
 
@@ -54,7 +62,7 @@ Directory of the domain (Get-PSGPODirectory); the domain is read when not given.
 
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|
-| `GPOToolsDirectory` | Non | 5 | Aucune | Non |
+| `GPOToolsDirectory` | Non | 6 | Aucune | Non |
 
 ### -Server
 
@@ -62,7 +70,7 @@ Domain controller to read the domain from, without -Directory.
 
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|
-| `String` | Non | 6 | Aucune | Non |
+| `String` | Non | 7 | Aucune | Non |
 
 ### -WhatIf
 
@@ -89,6 +97,12 @@ New-PSGPO -Name 'C - Kiosks - Baseline' -Status ComputerOnly -Comment 'CHG-2041:
 ```powershell
 $Template = Get-PSGPOBackup -Path /srv/gpo-backups -Template -Name 'Template - Servers' | Select-Object -First 1
 New-PSGPO -Name 'C - Servers - Lyon' -Template $Template
+```
+
+### Exemple 3
+
+```powershell
+New-PSGPO -Name 'C - Workstations - Lyon' -StarterGpo 'Workstations - Baseline'
 ```
 
 ## Sorties

@@ -23,8 +23,11 @@ with Tab.
 | Command | Does |
 |---|---|
 | [`Find-PSGPO`](commands/find-psgpo.md) `[-Name] [-Id] [-LinkedTo] [-Linked\|-NotLinked] [-WmiFilter] [-Account [-Permission]] [-Extension] [-Setting] [-Status] [-ApprovalState] [-Comment]` | searches the GPOs, as the Search of GPMC |
-| [`New-PSGPO`](commands/new-psgpo.md) `-Name [-Template] [-Status Enabled\|ComputerOnly\|UserOnly] [-Comment]` | creates a GPO, empty or from a template |
+| [`New-PSGPO`](commands/new-psgpo.md) `-Name [-Template\|-StarterGpo] [-Status Enabled\|ComputerOnly\|UserOnly] [-Comment]` | creates a GPO, empty, from a template or from a Starter GPO |
 | [`Copy-PSGPO`](commands/copy-psgpo.md) `-Name -TargetName [-CopyAcl]` | copies a GPO into a new GPO of its domain, as Copy and Paste of GPMC: its settings, status, WMI filter and comment, not its links |
+| [`Get-PSGPOStarterGpo`](commands/get-psgpostartergpo.md) `[-Name]` | the Starter GPOs of the domain, System and Custom |
+| [`New-PSGPOStarterGpo`](commands/new-psgpostartergpo.md) `-Name [-Description] [-FromGpo]` | creates a Starter GPO, empty or with the Administrative Templates of a GPO |
+| [`Remove-PSGPOStarterGpo`](commands/remove-psgpostartergpo.md) `-Name` | deletes Custom Starter GPOs |
 | [`Remove-PSGPO`](commands/remove-psgpo.md) `-Name [-BackupPath] [-NoBackup]` | deletes GPOs and their links, backed up first |
 | [`Approve-PSGPO`](commands/approve-psgpo.md) `-Name [-CreatorRights ReadOnly\|EditSettings] [-ApplyTo] [-DenyTo] [-CreateFilteringGroups] [-GroupContainer] [-BackupPath]` | approves GPOs waiting for their approval, with their security filtering (and its groups) |
 | [`Initialize-PSGPOWorkflow`](commands/initialize-psgpoworkflow.md) `[-Apply]` | checks, and with `-Apply` sets, the delegation of the creation of GPOs to the creators, once the central store exists |

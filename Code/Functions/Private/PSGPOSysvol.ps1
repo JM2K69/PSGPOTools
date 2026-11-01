@@ -192,7 +192,7 @@ function Read-PSGPOSysvolFile {
 }
 
 # Every file of the GPO folder, by path in the folder (Machine\Registry.pol), sorted: for a
-# backup. Linux copies the folder with smbclient into a temporary folder first.
+# backup.
 function Read-PSGPOSysvolFolder {
     [CmdletBinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
@@ -202,11 +202,32 @@ function Read-PSGPOSysvolFolder {
     )
 
     $location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
+    $files = Read-PSGPOSysvolTree -Directory $Directory -Share $location.Share -Path $location.Path -AllowMissing
+    if ($null -eq $files) { throw "The folder of the GPO '$($Gpo.DisplayName)' is not in SYSVOL: \\$($Directory.Server)\$($location.Share)\$($location.Path)" }
+    , $files
+}
+
+# Every file of a folder of a SYSVOL share (path with \ from the root of the share), by path in
+# the folder, sorted; with -AllowMissing, $null when the folder does not exist. Linux copies the
+# folder with smbclient into a temporary folder first.
+function Read-PSGPOSysvolTree {
+    [CmdletBinding()]
+    [OutputType([System.Collections.Specialized.OrderedDictionary])]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [string]$Share,
+        [Parameter(Mandatory)] [string]$Path,
+        [switch]$AllowMissing
+    )
+
     $local = $null
     if ($IsWindows) {
-        Use-PSGPOSysvolCredential -Directory $Directory -Share $($location.Share)
-        $root = "\\$($Directory.Server)\$($location.Share)\$($location.Path)"
-        if (-not (Test-Path -LiteralPath $root -PathType Container)) { throw "The folder of the GPO '$($Gpo.DisplayName)' is not in SYSVOL: $root" }
+        Use-PSGPOSysvolCredential -Directory $Directory -Share $Share
+        $root = "\\$($Directory.Server)\$Share\$Path"
+        if (-not (Test-Path -LiteralPath $root -PathType Container)) {
+            if ($AllowMissing) { return $null }
+            throw "The folder is not in SYSVOL: $root"
+        }
     } else {
         Assert-PSGPOKerberosOnly -Directory $Directory
         $local = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-$([guid]::NewGuid())"
@@ -216,8 +237,9 @@ function Read-PSGPOSysvolFolder {
     }
     try {
         if ($local) {
-            $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $location.Share -TimeoutSeconds 600 `
-                -Command ('prompt OFF; recurse ON; lcd "{0}"; cd "{1}"; mget *' -f $local, $location.Path)
+            $copied = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $Share -TimeoutSeconds 600 -AllowMissing:$AllowMissing `
+                -Command ('prompt OFF; recurse ON; lcd "{0}"; cd "{1}"; mget *' -f $local, $Path)
+            if ($AllowMissing -and $null -eq $copied) { return $null }
         }
         $files = [System.Collections.Specialized.OrderedDictionary]::new([System.StringComparer]::OrdinalIgnoreCase)
         $prefix = $root.TrimEnd('\', '/').Length + 1
@@ -228,6 +250,25 @@ function Read-PSGPOSysvolFolder {
     } finally {
         if ($local) { Remove-Item -LiteralPath $local -Recurse -Force -ErrorAction SilentlyContinue -WhatIf:$false }
     }
+}
+
+# Deletes a folder of a SYSVOL share and everything in it; nothing when it is not there.
+function Remove-PSGPOSysvolTree {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsLdapDirectory]$Directory,
+        [Parameter(Mandatory)] [string]$Share,
+        [Parameter(Mandatory)] [string]$Path
+    )
+
+    if ($IsWindows) {
+        Use-PSGPOSysvolCredential -Directory $Directory -Share $Share
+        $folder = "\\$($Directory.Server)\$Share\$Path"
+        if (Test-Path -LiteralPath $folder -PathType Container) { Remove-Item -LiteralPath $folder -Recurse -Force -ErrorAction Stop }
+        return
+    }
+    Assert-PSGPOKerberosOnly -Directory $Directory
+    $null = Invoke-PSGPOSmbClient -Server $Directory.Server -Share $Share -AllowMissing -Command ('deltree "{0}"' -f $Path)
 }
 
 # Writes a file of the GPO folder, creating its folder when needed.
