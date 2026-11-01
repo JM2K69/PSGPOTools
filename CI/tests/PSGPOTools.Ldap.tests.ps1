@@ -763,7 +763,10 @@ InModuleScope -ModuleName HGPM {
             $Result = Get-PSGPOModeling -Directory $Directory -Computer $Dc -User 'Administrator'
             $Result.ComputerSom | Should -Be "OU=Domain Controllers,$($Directory.Domain.DistinguishedName)"
             $Result.UserSom | Should -Be $Directory.Domain.DistinguishedName -Because 'CN=Users is not an OU'
-            (@($Result.ComputerGpos | Where-Object { $_.Gpo.Id -eq [guid]'6AC1786C-016F-11D2-945F-00C04FB984F9' })[0]).Reason | Should -Be 'Applied'
+            # Applied; Empty when the domain declares no client-side extension for it, as Windows (a
+            # Samba domain just provisioned, as in the CI).
+            $DcPolicy = @($Result.ComputerGpos | Where-Object { $_.Gpo.Id -eq [guid]'6AC1786C-016F-11D2-945F-00C04FB984F9' })[0]
+            $DcPolicy.Reason | Should -Be $(if ($DcPolicy.Gpo.MachineExtensionNames) { 'Applied' } else { 'Empty' }) -Because "its extensions: '$($DcPolicy.Gpo.MachineExtensionNames)'"
             @((Get-PSGPOModelingAccount -Directory $Directory -Name 'Administrator' -Kind User).Sids | Where-Object { $_ -match '-512$' }).Count | Should -Be 1 -Because 'Domain Admins'
             { Get-PSGPOModeling -Directory $Directory -Computer 'Administrator' } | Should -Throw "*No computer named 'Administrator'*"
         }
