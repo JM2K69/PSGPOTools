@@ -1344,7 +1344,8 @@ $written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 
             $Directory.WriteGpoComment($Source, "Copied by the test $Stamp")
             $Users = Resolve-PSGPOApplyTo -Directory $Directory -Name 'Domain Users'
             $Directory.SetGpoPermission($Source, $Users.Sid, 'GpoRead')
-            $Copy = Copy-PSGPO -Directory $Directory -Name $RulesName -TargetName $CopyName -CopyAcl -Confirm:$false 3>$null
+            $Copy = Copy-PSGPO -Directory $Directory -Name $RulesName -TargetName $CopyName -CopyAcl -Confirm:$false -ErrorVariable CopyErrors 3>$null
+            @($CopyErrors) | Should -BeNullOrEmpty -Because "the copy writes everything: $(@($CopyErrors) -join ' | ')"
 
             # Read again from the domain: the same files, but GPT.INI (its own version).
             $Read = Get-PSGPODirectory -Server $Server
@@ -1546,9 +1547,18 @@ $written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 
             $Sddl | Should -Not -Match 'edacfd8f-ffb3-11d1-b41d-00a0c968f939;;S-1-5-11\)' -Because 'Authenticated Users no longer apply it'
             $Sddl | Should -Match ([regex]::Escape('(A;CI;0x00020094;;;S-1-5-11)')) -Because 'the computers still read it'
 
-            # Samba finds the ACL of the SYSVOL folder consistent with the directory one.
+            # Samba finds the ACL of the SYSVOL folder consistent with the directory one. A GPO it
+            # says is named, with the ACL of its container and of its folder as the console reads them.
             $Check = Invoke-PSGPONativeCommand -FilePath (Get-PSGPOPlatform).SambaToolPath -ArgumentList 'gpo', 'aclcheck', '-H', "ldap://$Server", '--use-kerberos=required', '--no-pass'
-            "$($Check.Output -join "`n")`n$($Check.Error)" | Should -Not -Match 'ERROR'
+            $CheckText = "$($Check.Output -join "`n")`n$($Check.Error)"
+            $Found = foreach ($Guid in @([regex]::Matches($CheckText, '\\Policies\\\{([0-9A-Fa-f-]{36})\}') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)) {
+                $Bad = (Get-PSGPODirectory -Server $Server).Gpos | Where-Object Id -EQ ([guid]$Guid)
+                $Connection = New-PSGPODirectoryConnection -Directory $Directory
+                try { $DsSddl = (Get-PSGPODomainSecurityDescriptor -Connection $Connection -DistinguishedName $Bad.DistinguishedName).ToSddl() } finally { $Connection.Dispose() }
+                $Location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Bad
+                "GPO '$($Bad.DisplayName)' {$Guid}: directory $DsSddl; folder $((Get-PSGPOSysvolItemAcl -Directory $Directory -Share $Location.Share -Path $Location.Path).ToSddl())"
+            }
+            $CheckText | Should -Not -Match 'ERROR' -Because ($Found -join ' | ')
             { $Directory.NewFilteringGroups($Gpo, $OuDN) } | Should -Throw -ExpectedMessage '*already exists*'
 
             # Read again with the domain: the names of the groups, as GPMC shows the filtering.
