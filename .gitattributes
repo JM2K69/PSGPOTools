@@ -7,3 +7,5 @@ CI/tests/Fixtures/PolicyRules/*.PolicyRules binary
 CI/tests/Fixtures/PolicyRules/GPOs/** binary
 # Shell scripts run on Linux: LF line endings on every platform
 *.sh text eol=lf
+# gpresult /x writes UTF-16: kept byte for byte
+CI/tests/Fixtures/Rsop/*.xml binary

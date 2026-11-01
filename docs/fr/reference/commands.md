@@ -28,6 +28,9 @@ avec Tab.
 | [`Get-PSGPOStarterGpo`](commands/get-psgpostartergpo.md) `[-Name]` | les objets GPO Starter du domaine, Système et Personnalisés |
 | [`New-PSGPOStarterGpo`](commands/new-psgpostartergpo.md) `-Name [-Description] [-FromGpo]` | crée un objet GPO Starter, vide ou avec les modèles d'administration d'une GPO |
 | [`Remove-PSGPOStarterGpo`](commands/remove-psgpostartergpo.md) `-Name` | supprime des objets GPO Starter personnalisés |
+| [`Get-PSGPOModeling`](commands/get-psgpomodeling.md) `[-Computer] [-ComputerGroup] [-User] [-UserGroup] [-Site] [-Loopback] [-FalseWmiFilter]` | les GPO qu'un ordinateur et un utilisateur appliqueraient, d'après l'annuaire, comme la modélisation de GPMC |
+| [`Get-PSGPOResult`](commands/get-psgporesult.md) `[-ComputerName] [-User] [-Scope] [-Path]` | ce qu'un ordinateur et un utilisateur ont appliqué, comme les résultats de stratégie de groupe (gpresult, samba-gpupdate --rsop) |
+| [`Invoke-PSGPOUpdate`](commands/invoke-psgpoupdate.md) `[-ComputerName] [-Target] [-User] [-Force]` | fait appliquer leurs GPO aux ordinateurs tout de suite (gpupdate, Invoke-GPUpdate, samba-gpupdate) |
 | [`Remove-PSGPO`](commands/remove-psgpo.md) `-Name [-BackupPath] [-NoBackup]` | supprime des GPO et leurs liens, sauvegardées d'abord |
 | [`Approve-PSGPO`](commands/approve-psgpo.md) `-Name [-CreatorRights ReadOnly\|EditSettings] [-ApplyTo] [-DenyTo] [-CreateFilteringGroups] [-GroupContainer] [-BackupPath]` | approuve des GPO en attente d'approbation, avec leur filtrage de sécurité (et ses groupes) |
 | [`Initialize-PSGPOWorkflow`](commands/initialize-psgpoworkflow.md) `[-Apply]` | vérifie, et avec `-Apply` pose, la délégation de la création de GPO aux créateurs, une fois le magasin central créé |

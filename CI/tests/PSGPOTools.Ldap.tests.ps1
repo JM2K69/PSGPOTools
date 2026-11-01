@@ -646,6 +646,7 @@ InModuleScope -ModuleName HGPM {
             # smbclient: Kerberos, and no --no-pass, with which it does not use the ticket.
             Should -Invoke Invoke-PSGPONativeCommand -Times 1 -Exactly -ParameterFilter { $FilePath -eq '/usr/bin/smbclient' -and $ArgumentList -notcontains '--no-pass' -and $ArgumentList -contains '--use-kerberos=required' }
         }
+
     }
 
     Describe 'Changes of a directory read over LDAP' {
@@ -750,6 +751,21 @@ InModuleScope -ModuleName HGPM {
             $DefaultDomain.FileSysPath | Should -BeLike '\\*\sysvol\*\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}'
             $Directory.Domain.Links.Gpo | Should -Contain $DefaultDomain
             $Directory.FindSom("OU=Domain Controllers,$($Directory.Domain.DistinguishedName)").Links.Gpo | Should -Contain $DefaultDc
+        }
+
+        It 'Models the GPOs of a domain controller and of the administrator, their accounts and groups read from the domain' {
+            $Dc = ($Directory.Server -split '\.')[0]
+            $Account = Get-PSGPOModelingAccount -Directory $Directory -Name $Dc -Kind Computer
+            $Account.DistinguishedName | Should -BeLike "*,OU=Domain Controllers,$($Directory.Domain.DistinguishedName)"
+            $Account.Container | Should -BeFalse
+            @($Account.Sids) | Should -Contain 'S-1-5-11'
+            @($Account.Sids | Where-Object { $_ -match '-516$' }).Count | Should -Be 1 -Because 'the group Domain Controllers, from tokenGroups'
+            $Result = Get-PSGPOModeling -Directory $Directory -Computer $Dc -User 'Administrator'
+            $Result.ComputerSom | Should -Be "OU=Domain Controllers,$($Directory.Domain.DistinguishedName)"
+            $Result.UserSom | Should -Be $Directory.Domain.DistinguishedName -Because 'CN=Users is not an OU'
+            (@($Result.ComputerGpos | Where-Object { $_.Gpo.Id -eq [guid]'6AC1786C-016F-11D2-945F-00C04FB984F9' })[0]).Reason | Should -Be 'Applied'
+            @((Get-PSGPOModelingAccount -Directory $Directory -Name 'Administrator' -Kind User).Sids | Where-Object { $_ -match '-512$' }).Count | Should -Be 1 -Because 'Domain Admins'
+            { Get-PSGPOModeling -Directory $Directory -Computer 'Administrator' } | Should -Throw "*No computer named 'Administrator'*"
         }
 
         It 'Names the account it is read with, and its rights' {
