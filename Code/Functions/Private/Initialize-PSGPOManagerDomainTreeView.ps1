@@ -71,6 +71,8 @@ function Initialize-PSGPOManagerDomainTreeView {
         $deleteWmiFilterMenuItem.IsVisible = $editWmiFilterMenuItem.IsVisible
         # Rename a GPO (its node or a link to it) or a WMI filter, as GPMC.
         $renameMenuItem.IsVisible = $editWmiFilterMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible
+        # Copy a GPO (its node or a link to it) to a new GPO, as Copy and Paste of GPMC.
+        $gpoCopyMenuItem.IsVisible = $null -ne $detail.Gpo -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo
         # WMI Filter: the filters of the domain, as the WMI Filtering of the Scope tab of GPMC.
         $wmiFilterMenuItem.IsVisible = $gpoStatusMenuItem.IsVisible -and ($Directory.WmiFilters.Count -or $null -ne $detail.Gpo.WmiFilterId)
         if ($wmiFilterMenuItem.IsVisible) { Update-WmiFilterMenu -Gpo $detail.Gpo }
@@ -101,7 +103,7 @@ function Initialize-PSGPOManagerDomainTreeView {
     # Nothing to offer on this node: do not open an empty menu.
     (Get-PSGPOAvaloniaControl $window 'domainContextMenu').add_Opening({
         param($control, $e)
-        if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $renameMenuItem.IsVisible -or $purgeDeletedGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
+        if (-not ($createLinkedGpoMenuItem.IsVisible -or $linkGpoMenuItem.IsVisible -or $newGpoMenuItem.IsVisible -or $gpoSearchMenuItem.IsVisible -or $editGpoMenuItem.IsVisible -or $renameMenuItem.IsVisible -or $gpoCopyMenuItem.IsVisible -or $purgeDeletedGpoMenuItem.IsVisible -or $deleteLinkMenuItem.IsVisible -or
                 $exportWmiFilterMenuItem.IsVisible -or $importWmiFilterMenuItem.IsVisible -or $useWmiFilterMenuItem.IsVisible -or
                 $blockInheritanceMenuItem.IsVisible -or $changeDcMenuItem.IsVisible -or $gpoStatusMenuItem.IsVisible -or $wmiFilterMenuItem.IsVisible -or $newWmiFilterMenuItem.IsVisible -or $editWmiFilterMenuItem.IsVisible -or $deleteWmiFilterMenuItem.IsVisible -or
                 $deleteGpoMenuItem.IsVisible -or $restoreDeletedGpoMenuItem.IsVisible -or $approveGpoMenuItem.IsVisible -or $importGpoMenuItem.IsVisible -or

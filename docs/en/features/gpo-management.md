@@ -299,6 +299,26 @@ read it. The rename goes to the [audit log](backup-history.md) (`RenameGpo`).
 Set-PSGPO -Name 'U - Lyon - Printers' -NewName 'U - Lyon - Color printers'
 ```
 
+## Copy a GPO { #copy-a-gpo }
+
+**Copy...** in the context menu of a GPO, or of a link to it, makes a new GPO of the domain from
+it, as Copy and Paste of GPMC: the files of its folder in SYSVOL (its settings, its preferences,
+its scripts, its comment), its status, the client-side extensions it declares and its WMI filter.
+Its links are not copied: the copy applies nowhere until it is linked where it applies. Its
+permissions are those of a new GPO, or, with **Preserve the existing permissions**, those of the
+GPO copied; a denied or custom permission is not a level the console gives: it is said, to give
+it in the Delegation tab. Under the [approval workflow](../workflows/approval.md), the copy of a creator
+waits for its approval as any new GPO, and the approval gives its permissions. The copy is made in
+the background ([long operations](../technical/user-interface.md#long-operations-in-the-background)),
+then shown in the tree.
+
+![Copy a GPO](../assets/screenshots/92-gpo-copy.png){ width="560" }
+
+```powershell
+Copy-PSGPO -Name 'C - Workstations - BitLocker' -TargetName 'C - Laptops - BitLocker'
+Copy-PSGPO -Name 'C - Servers - Baseline' -TargetName 'C - Servers - Baseline (test)' -CopyAcl
+```
+
 ## Search the GPOs { #search-the-gpos }
 
 **Search...** (the context menu of the domain or of **Group Policy Objects**, or **Ctrl+F**) finds

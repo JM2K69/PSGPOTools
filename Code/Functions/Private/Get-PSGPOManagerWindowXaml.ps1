@@ -186,6 +186,10 @@ $(Get-PSGPOWindowResourceXaml)
                                 <MenuItem Name='renameMenuItem' Header='Rename...' InputGesture='F2'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.rename}'/></MenuItem.Icon>
                                 </MenuItem>
+                                <!-- As Copy and Paste of GPMC: a new GPO with the settings of this one -->
+                                <MenuItem Name='gpoCopyMenuItem' Header='Copy...'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.document-copy}'/></MenuItem.Icon>
+                                </MenuItem>
                                 <MenuItem Name='enforcedLinkMenuItem' Header='Enforced' ToggleType='CheckBox'/>
                                 <MenuItem Name='enabledLinkMenuItem' Header='Link Enabled' ToggleType='CheckBox'/>
                                 <MenuItem Name='moveLinkUpMenuItem' Header='Move link up'/>
@@ -388,6 +392,31 @@ $(Get-PSGPOWindowResourceXaml)
                                             <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
                                                 <Button Name='renameConfirmButton' Content='Rename' MinWidth='110'/>
                                                 <Button Name='renameCancelButton' Content='Cancel' Width='100'/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Copy of a GPO, as Copy and Paste of GPMC: a new GPO, not linked -->
+                                    <Border Name='gpoCopyPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='gpoCopyTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <TextBox Name='gpoCopyNameTextBox' Watermark='Name of the new GPO'/>
+                                            <Grid ColumnDefinitions='Auto,*'>
+                                                <TextBlock Text='Permissions' VerticalAlignment='Center' Margin='0,0,12,0'
+                                                           Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                                <ComboBox Grid.Column='1' Name='gpoCopyPermissionComboBox' HorizontalAlignment='Stretch'>
+                                                    <ComboBoxItem Content='Use the default permissions for new GPOs'/>
+                                                    <ComboBoxItem Content='Preserve the existing permissions'/>
+                                                </ComboBox>
+                                            </Grid>
+                                            <TextBlock Name='gpoCopyPermissionTextBlock' TextWrapping='Wrap' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'
+                                                       IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <TextBlock Name='gpoCopyErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='gpoCopyConfirmButton' Content='Copy' MinWidth='110'/>
+                                                <Button Name='gpoCopyCancelButton' Content='Cancel' MinWidth='100'/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Border>

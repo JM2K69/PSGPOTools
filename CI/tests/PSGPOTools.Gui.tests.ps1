@@ -1501,6 +1501,55 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Copies a GPO to a new GPO, as Copy and Paste of GPMC, and shows the copy in the tree' {
+            $Source = $Directory.FindGpo('U - Lyon - Printers')
+            $Directory.WriteGpoComment($Source, 'Printers of Lyon')
+            $Directory.SetGpoPermission($Source, 'S-1-5-21-1-2-3-1500', 'GpoEdit')
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                $Ui.gpoCopyMenuItem.IsVisible | Should -BeFalse -Because 'Copy... is on a GPO'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'U - Lyon - Printers'
+                $Ui.gpoCopyMenuItem.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.gpoCopyMenuItem
+                $Ui.gpoCopyPanel.IsVisible | Should -BeTrue
+                $Ui.gpoCopyTitleTextBlock.Text | Should -Be "Copy the GPO 'U - Lyon - Printers' to a new GPO of corp.contoso.com: its settings, its status, its WMI filter and its comment, not its links"
+                $Ui.gpoCopyNameTextBox.Text | Should -Be 'Copy of U - Lyon - Printers'
+
+                # A name taken: said, nothing created.
+                $Ui.gpoCopyNameTextBox.Text = 'U - Paris - Printers'
+                Invoke-Click $Ui.gpoCopyConfirmButton
+                $Ui.gpoCopyErrorTextBlock.Text | Should -Be "A GPO named 'U - Paris - Printers' already exists in corp.contoso.com."
+
+                # Its permissions kept.
+                $Ui.gpoCopyNameTextBox.Text = 'U - Lyon - Printers (test)'
+                $Ui.gpoCopyPermissionComboBox.SelectedIndex = 1
+                Invoke-Click $Ui.gpoCopyConfirmButton
+                Wait-ConsoleOperation $Ui
+                $Copy = $Ui.Directory.FindGpo('U - Lyon - Printers (test)')
+                $Copy | Should -Not -BeNullOrEmpty
+                $Ui.gpoCopyPanel.IsVisible | Should -BeFalse
+                $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Copy
+                $Ui.directoryResultTextBlock.Text | Should -Be "GPO 'U - Lyon - Printers (test)' created, a copy of 'U - Lyon - Printers': link it where it applies."
+                $Ui.Directory.ReadGpoComment($Copy) | Should -BeExactly 'Printers of Lyon'
+                @($Ui.Directory.GetGpoPermissions($Copy) | Where-Object Sid -EQ 'S-1-5-21-1-2-3-1500').Permission | Should -Be 'GpoEdit'
+
+                # Escape closes the form.
+                Invoke-Click $Ui.gpoCopyMenuItem
+                $Escape = [Avalonia.Input.KeyEventArgs]::new()
+                $Escape.RoutedEvent = [Avalonia.Input.InputElement]::KeyDownEvent
+                $Escape.Key = [Avalonia.Input.Key]::Escape
+                $Ui.gpoCopyNameTextBox.RaiseEvent($Escape)
+                $Ui.gpoCopyPanel.IsVisible | Should -BeFalse
+
+                # Read-only, or without the right to create GPOs: no Copy.
+                $Ui.Directory.CanCreateGpo = $false
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'U - Lyon - Printers'
+                $Ui.gpoCopyMenuItem.IsVisible | Should -BeFalse
+            }
+        }
+
         It 'Shows the comment of a GPO in its details, saved by an account that edits it, and read once' {
             $Gpo = $Directory.FindGpo('U - Lyon - Printers')
             $Directory.WriteGpoComment($Gpo, "Printers of Lyon`nOwner: workplace")

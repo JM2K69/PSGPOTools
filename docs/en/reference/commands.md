@@ -24,6 +24,7 @@ with Tab.
 |---|---|
 | [`Find-PSGPO`](commands/find-psgpo.md) `[-Name] [-Id] [-LinkedTo] [-Linked\|-NotLinked] [-WmiFilter] [-Account [-Permission]] [-Extension] [-Setting] [-Status] [-ApprovalState] [-Comment]` | searches the GPOs, as the Search of GPMC |
 | [`New-PSGPO`](commands/new-psgpo.md) `-Name [-Template] [-Status Enabled\|ComputerOnly\|UserOnly] [-Comment]` | creates a GPO, empty or from a template |
+| [`Copy-PSGPO`](commands/copy-psgpo.md) `-Name -TargetName [-CopyAcl]` | copies a GPO into a new GPO of its domain, as Copy and Paste of GPMC: its settings, status, WMI filter and comment, not its links |
 | [`Remove-PSGPO`](commands/remove-psgpo.md) `-Name [-BackupPath] [-NoBackup]` | deletes GPOs and their links, backed up first |
 | [`Approve-PSGPO`](commands/approve-psgpo.md) `-Name [-CreatorRights ReadOnly\|EditSettings] [-ApplyTo] [-DenyTo] [-CreateFilteringGroups] [-GroupContainer] [-BackupPath]` | approves GPOs waiting for their approval, with their security filtering (and its groups) |
 | [`Initialize-PSGPOWorkflow`](commands/initialize-psgpoworkflow.md) `[-Apply]` | checks, and with `-Apply` sets, the delegation of the creation of GPOs to the creators, once the central store exists |

@@ -70,7 +70,7 @@ PowerShellVersion = '7.4'
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
 FunctionsToExport = 'Add-PSGPOFineGrainedPasswordPolicySubject', 'Approve-PSGPO', 
-               'Backup-PSGPO', 'Compare-PSGPOBackup', 'Compare-PSGPOPolicyRuleSet', 
+               'Backup-PSGPO', 'Compare-PSGPOBackup', 'Compare-PSGPOPolicyRuleSet', 'Copy-PSGPO', 
                'Export-PSGPOPolicyRuleComparison', 'Export-PSGPOPolicyRuleSet', 
                'Export-PSGPOWmiFilter', 'Find-PSGPO', 'Get-PSGPOAuditLog', 
                'Get-PSGPOBackup', 'Get-PSGPOCategory', 'Get-PSGPOConfiguration', 

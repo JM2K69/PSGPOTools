@@ -174,7 +174,7 @@ function Initialize-PSGPOManagerGpoFormView {
     # The forms of the details, one at a time.
     function Hide-DirectoryForm {
         foreach ($panel in $newGpoPanel, $deleteLinkPanel, $linkGpoPanel, $deleteGpoPanel, $restoreGpoPanel, $purgeDeletedGpoPanel, $renamePanel, $approveGpoPanel, $newWmiFilterPanel, $deleteWmiFilterPanel,
-            $exportWmiFilterPanel, $importWmiFilterPanel, $useWmiFilterPanel, $importGpoPanel, $changeDcPanel) { $panel.IsVisible = $false }
+            $exportWmiFilterPanel, $importWmiFilterPanel, $useWmiFilterPanel, $importGpoPanel, $changeDcPanel, $gpoCopyPanel) { $panel.IsVisible = $false }
     }
 
     # Approval of the selected GPO (approval workflow): what the creators may still do, who

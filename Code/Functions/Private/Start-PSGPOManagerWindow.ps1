@@ -68,6 +68,7 @@ function Start-PSGPOManagerWindow {
     . Initialize-PSGPOManagerDomainTreeView
     . Initialize-PSGPOManagerCommentView
     . Initialize-PSGPOManagerSearchView
+    . Initialize-PSGPOManagerCopyView
     . Initialize-PSGPOManagerWmiFilterView
     . Initialize-PSGPOManagerToolbarView
     . Initialize-PSGPOManagerSomView

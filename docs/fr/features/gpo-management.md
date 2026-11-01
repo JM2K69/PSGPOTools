@@ -315,6 +315,28 @@ comme une GPO renommée dans le domaine depuis que la console l'a lue. Le renomm
 Set-PSGPO -Name 'U - Lyon - Printers' -NewName 'U - Lyon - Color printers'
 ```
 
+## Copier une GPO { #copier-une-gpo }
+
+**Copier...** dans le menu contextuel d'une GPO, ou d'un lien vers elle, crée une nouvelle GPO du
+domaine à partir d'elle, comme Copier et Coller de GPMC : les fichiers de son dossier dans SYSVOL
+(ses paramètres, ses préférences, ses scripts, son commentaire), son état, les extensions côté
+client qu'elle déclare et son filtre WMI. Ses liens ne sont pas copiés : la copie ne s'applique
+nulle part tant qu'elle n'est pas liée là où elle s'applique. Ses autorisations sont celles d'une
+nouvelle GPO, ou, avec **Conserver les autorisations existantes**, celles de la GPO copiée ; une
+autorisation refusée ou personnalisée n'est pas un niveau que la console donne : elle est signalée,
+pour la donner dans l'onglet Délégation. Avec le [workflow d'approbation](../workflows/approval.md), la
+copie d'un créateur attend son approbation comme toute nouvelle GPO, et l'approbation lui donne ses
+autorisations. La copie se fait en arrière-plan
+([opérations longues](../technical/user-interface.md#les-operations-longues-en-arriere-plan)),
+puis s'affiche dans l'arborescence.
+
+![Copier une GPO](../assets/screenshots/92-gpo-copy.fr.png){ width="560" }
+
+```powershell
+Copy-PSGPO -Name 'C - Workstations - BitLocker' -TargetName 'C - Laptops - BitLocker'
+Copy-PSGPO -Name 'C - Servers - Baseline' -TargetName 'C - Servers - Baseline (test)' -CopyAcl
+```
+
 ## Rechercher les GPO { #rechercher-les-gpo }
 
 **Rechercher...** (le menu contextuel du domaine ou d'**Objets de stratégie de groupe**, ou

@@ -976,6 +976,7 @@ $written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 
             $TerminalName = "PSGPOTools test GPO terminal $Stamp"
             $ImportName = "PSGPOTools test GPO import $Stamp"
             $RulesName = "PSGPOTools test GPO rules $Stamp"
+            $CopyName = "PSGPOTools test GPO copy $Stamp"
             # An OU of the test, then the directory read again to have it.
             $null = Invoke-PSGPOSambaTool -ArgumentList 'ou', 'add', $OuDN, '-H', "ldap://$Server", '--use-kerberos=required'
             $Directory = Get-PSGPODirectory -Server $Server
@@ -987,7 +988,7 @@ $written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 
 
         AfterAll {
             # Everything the tests created, whatever failed.
-            foreach ($Name in $GpoName, $SecondName, $TerminalName, $ImportName, $RulesName) {
+            foreach ($Name in $GpoName, $SecondName, $TerminalName, $ImportName, $RulesName, $CopyName) {
                 $Gpo = (Get-PSGPODirectory -Server $Server).FindGpo($Name)
                 if (-not $Gpo) { continue }
                 $Id = '{' + $Gpo.Id.ToString().ToUpperInvariant() + '}'
@@ -1293,6 +1294,34 @@ $written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 
             $Gpo.GetUserVersion() | Should -BeGreaterThan 0
             # Read as the audit log reads itself: with a central log (Audit.Path), each tier has a folder.
             @(Get-PSGPOAuditLog -Path $script:AuditLog -Domain $Directory.DomainName | Where-Object Action -EQ 'ImportPolicyRuleSet').Count | Should -Be 1
+        }
+
+        It 'Copies a GPO to a new GPO, its files, extensions, comment and permissions with it, as Copy and Paste of GPMC' {
+            $Source = $Directory.FindGpo($RulesName)
+            $Directory.WriteGpoComment($Source, "Copied by the test $Stamp")
+            $Users = Resolve-PSGPOApplyTo -Directory $Directory -Name 'Domain Users'
+            $Directory.SetGpoPermission($Source, $Users.Sid, 'GpoRead')
+            $Copy = Copy-PSGPO -Directory $Directory -Name $RulesName -TargetName $CopyName -CopyAcl -Confirm:$false 3>$null
+
+            # Read again from the domain: the same files, but GPT.INI (its own version).
+            $Read = Get-PSGPODirectory -Server $Server
+            $From = $Read.FindGpo($RulesName)
+            $Again = $Read.FindGpo($CopyName)
+            $Again.Id | Should -Be $Copy.Id
+            $SourceFiles = $Read.ReadGpoFolder($From)
+            $CopyFiles = $Read.ReadGpoFolder($Again)
+            @($CopyFiles.Keys | Where-Object { $_ -ne 'GPT.INI' } | Sort-Object) | Should -Be @($SourceFiles.Keys | Where-Object { $_ -ne 'GPT.INI' } | Sort-Object)
+            foreach ($Name in @($SourceFiles.Keys | Where-Object { $_ -ne 'GPT.INI' })) {
+                [Linq.Enumerable]::SequenceEqual([byte[]]$CopyFiles[$Name], [byte[]]$SourceFiles[$Name]) | Should -BeTrue -Because $Name
+            }
+            $Again.MachineExtensionNames | Should -Be $From.MachineExtensionNames
+            $Again.GetComputerVersion() | Should -BeGreaterThan 0 -Because 'its settings are new to the computers'
+            $Read.ReadGpoComment($Again) | Should -Be "Copied by the test $Stamp"
+            @($Read.GetLinksOf($Again)) | Should -BeNullOrEmpty
+            # Its permissions: those of the GPO, in the directory.
+            $Levels = { param($Gpo) @($Read.GetGpoPermissions($Gpo) | Where-Object { -not $_.Inherited -and -not $_.Denied -and $_.Permission -ne 'GpoCustom' } | ForEach-Object { "$($_.Sid)=$($_.Permission)/$($_.Applies)" } | Sort-Object) }
+            & $Levels $Again | Should -Be (& $Levels $From)
+            & $Levels $Again | Should -Contain "$($Users.Sid)=GpoRead/False"
         }
 
         It 'Writes the Registry.pol of the GPO in SYSVOL and increases its version' {
