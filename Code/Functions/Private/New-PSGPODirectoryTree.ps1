@@ -1,7 +1,8 @@
 <#
     Builds the Group Policy Management tree of Show-GPOManagerAvalonia, as GPMC shows it:
     domain > GPO links (by link order) and OUs, then the "Group Policy Objects" container, and
-    "Deleted GPOs": the recycle bin, the newest backup of each GPO deleted from the domain.
+    "Deleted GPOs": the recycle bin, the newest backup of each GPO deleted from the domain; then
+    "Sites": the sites of the forest and their links, read only.
 
     With the approval workflow, the GPOs waiting for their approval are found without expanding
     the tree: a "Waiting for approval" node lists them (expanded when the console opens), and an
@@ -26,6 +27,7 @@ function Get-PSGPODirectoryNodeKey {
     elseif ($Node.Tag -eq 'DeletedGpos') { 'DELETED:' + $Node.Parent.Tag.DistinguishedName }
     elseif ($Node.Tag -eq 'WmiFilters') { 'WMI:' + $Node.Parent.Tag.DistinguishedName }
     elseif ($Node.Tag -eq 'PendingGpos') { 'PENDING:' + $Node.Parent.Tag.DistinguishedName }
+    elseif ($Node.Tag -eq 'Sites') { 'SITES' }
 }
 
 function New-PSGPODirectoryTree {
@@ -94,13 +96,15 @@ function New-PSGPODirectoryTree {
             $Count = @(Get-PendingBelow $Som | Select-Object -Unique).Count
             if ($Count) { $Header += Get-PSGPOText ' ({0} waiting for approval)' $Count }
         }
-        $Icon = if ($Som.Kind -eq [GPOToolsSomKind]::Domain) { 'globe' } elseif ($Som.BlockInheritance) { 'folder-prohibited' } else { 'folder' }
+        $Icon = if ($Som.Kind -eq [GPOToolsSomKind]::Domain) { 'globe' } elseif ($Som.Kind -eq [GPOToolsSomKind]::Site) { 'location' } elseif ($Som.BlockInheritance) { 'folder-prohibited' } else { 'folder' }
         $Node = New-Node $Header $Icon $Som $Parent
         # An OU where the account does not link GPOs: greyed, as its links; without what the account
-        # does not manage, only the path to its OUs, without its links.
-        if (-not $Som.CanLink) { $Node.IconBrush = '#8A8886' }
+        # does not manage, only the path to its OUs, without its links. A site is read only for
+        # every account: its links are shown as they are.
+        $IsSite = $Som.Kind -eq [GPOToolsSomKind]::Site
+        if (-not $Som.CanLink -and -not $IsSite) { $Node.IconBrush = '#8A8886' }
 
-        foreach ($Link in @($Som.Links | Where-Object { $ShowUnmanaged -or $Som.CanLink } | Sort-Object Order)) {
+        foreach ($Link in @($Som.Links | Where-Object { $ShowUnmanaged -or $Som.CanLink -or $IsSite } | Sort-Object Order)) {
             $LinkHeader = if ($Link.Gpo) { $Link.Gpo.DisplayName } else { Get-PSGPOText 'GPO not found ({0})' $Link.GpoDistinguishedName }
             if ($Link.Gpo -and $Link.Gpo.AppliesWhilePending()) { $LinkHeader += Get-PSGPOText ' (waiting for approval, but it applies)' }
             elseif ($Link.Gpo -and $Link.Gpo.ApprovalState -eq 'Pending') { $LinkHeader += Get-PSGPOText ' (waiting for approval)' }
@@ -109,7 +113,7 @@ function New-PSGPODirectoryTree {
             $LinkHeader += Get-RedirectedText $Link.Gpo
             $LinkIcon = if (-not $Link.Enabled) { 'link-dismiss' } elseif ($Link.Enforced) { 'lock-closed' } else { 'link' }
             $LinkNode = New-Node $LinkHeader $LinkIcon $Link $Node
-            if (-not $Som.CanLink) { $LinkNode.IconBrush = '#8A8886' }
+            if (-not $Som.CanLink -and -not $IsSite) { $LinkNode.IconBrush = '#8A8886' }
             if ($Link.Gpo -and $Directory.IsGpoRedirected($Link.Gpo)) { $LinkNode.IconBrush = '#C50F1F' }
         }
         foreach ($Child in $Som.Children) { if ($ShowUnmanaged -or $Directory.IsSomVisible($Child)) { [void](Add-Som $Child $Node) } }
@@ -151,6 +155,12 @@ function New-PSGPODirectoryTree {
     }
 
     $Roots.Add($DomainNode)
+    # Sites, as GPMC: the sites of the forest beside the domain, their links read only.
+    if ($Directory.Sites.Count) {
+        $SitesNode = New-Node (Get-PSGPOText 'Sites') 'location' 'Sites' $null
+        foreach ($Site in $Directory.Sites) { [void](Add-Som $Site $SitesNode) }
+        $Roots.Add($SitesNode)
+    }
     # Comma keeps PowerShell from unrolling the collection into the pipeline.
     , $Roots
 }

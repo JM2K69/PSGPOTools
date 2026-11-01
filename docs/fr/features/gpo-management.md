@@ -125,6 +125,20 @@ Remove-PSGPOLink -Name 'U - Lyon - Printers' -Target Lyon
 
 `-Target` est un nom distinctif, le nom du domaine, ou le nom d'une OU quand une seule OU le porte.
 
+### Les sites de la forêt { #les-sites-de-la-foret }
+
+**Sites**, à côté du domaine dans l'arborescence, montre les sites de la forêt (`CN=Sites` de sa
+configuration) et les GPO liées à chacun, comme GPMC. Les contrôleurs de domaine et les ordinateurs
+d'un site appliquent ses GPO avant celles de leur domaine et de leurs OU. La console lit ces liens
+et ne les modifie pas : ils sont écrits dans la configuration de la forêt, par ses administrateurs,
+avec GPMC. Un site a son onglet **Objets de stratégie de groupe liés**, sans les flèches, mais pas
+d'onglet Héritage de stratégie de groupe : ce qui s'y applique dépend de l'OU de chaque ordinateur.
+Une GPO liée à un site montre le site parmi ses liens ; la supprimer laisse le lien du site, vers
+une GPO introuvable, et la console le signale. `Find-PSGPO -LinkedTo` accepte le nom d'un site, et
+une GPO liée seulement à un site n'est pas une GPO liée nulle part.
+
+![Les sites de la forêt](../assets/screenshots/93-sites.fr.png){ width="560" }
+
 ## Statut et filtrage de sécurité
 
 **GPO Status**, dans le menu contextuel d'une GPO, règle quelle partie les ordinateurs en

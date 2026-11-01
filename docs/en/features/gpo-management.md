@@ -122,6 +122,20 @@ Remove-PSGPOLink -Name 'U - Lyon - Printers' -Target Lyon
 `-Target` is a distinguished name, the name of the domain, or the name of an OU when only one OU
 has it.
 
+### The sites of the forest { #the-sites-of-the-forest }
+
+**Sites**, beside the domain in the tree, shows the sites of the forest (`CN=Sites` of its
+configuration) and the GPOs linked to each, as GPMC does. The domain controllers and the computers
+of a site apply its GPOs before those of their domain and OUs. The console reads these links and
+does not change them: they are written in the configuration of the forest, by its administrators,
+with GPMC. A site has its **Linked Group Policy Objects** tab, without the arrows, but no Group
+Policy Inheritance tab: what applies there depends on the OU of each computer. A GPO linked to a
+site shows the site among its links; deleting it leaves the link of the site, to a GPO not found,
+and the console says so. `Find-PSGPO -LinkedTo` takes the name of a site, and a GPO linked to a
+site only is not one linked nowhere.
+
+![The sites of the forest](../assets/screenshots/93-sites.png){ width="560" }
+
 ## GPO status and security filtering
 
 **GPO Status** in the context menu of a GPO sets which part of it the computers apply, as in

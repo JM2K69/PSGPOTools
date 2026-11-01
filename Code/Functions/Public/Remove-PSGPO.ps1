@@ -63,8 +63,11 @@ function Remove-PSGPO {
                 $links = @($Directory.GetLinksOf($gpo)).Count
                 $what = "Delete it and its $links link$(if ($links -ne 1) { 's' })$(if ($NoBackup) { ', without backup' } else { ", backed up in $BackupPath" })"
                 if (-not $PSCmdlet.ShouldProcess("GPO '$($gpo.DisplayName)'", $what)) { continue }
+                # The links of the sites are not the domain's: they stay, to a GPO not found.
+                $sites = @($Directory.GetSiteLinksOf($gpo) | ForEach-Object { $_.Som.Name })
                 try {
                     Remove-PSGPOWithBackup -Directory $Directory -Gpo $gpo -Path $BackupPath -NoBackup:$NoBackup
+                    if ($sites.Count) { Write-Warning "The GPO '$($gpo.DisplayName)' is deleted, but the sites $($sites -join ', ') keep their link to it: the administrators of the forest delete these links with GPMC." }
                 } catch {
                     Write-Error "The GPO '$($gpo.DisplayName)' is not deleted: $($_.Exception.GetBaseException().Message)"
                 }

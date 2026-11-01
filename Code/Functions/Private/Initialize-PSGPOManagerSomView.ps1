@@ -24,15 +24,18 @@ function Initialize-PSGPOManagerSomView {
         param([string]$Status, [switch]$Problem, [string]$Select)
         $item = if ($domainTreeView.SelectedItem) { $domainTreeView.SelectedItem.Tag }
         $som = if ($item -is [GPOToolsSom]) { $item }
+        # A site: its links, read only; its inheritance depends on the OU of each computer.
+        $site = $som -and $som.Kind -eq [GPOToolsSomKind]::Site
         $linkedGposTab.IsVisible = $null -ne $som
-        $inheritanceTab.IsVisible = $null -ne $som
+        $inheritanceTab.IsVisible = $null -ne $som -and -not $site
+        if ($site -and $directoryTabs.SelectedItem -eq $inheritanceTab) { $directoryTabs.SelectedIndex = 0 }
         if (-not $som) {
             if ($directoryTabs.SelectedItem -eq $linkedGposTab -or $directoryTabs.SelectedItem -eq $inheritanceTab) { $directoryTabs.SelectedIndex = 0 }
             return
         }
         $yesNo = { param($Value) if ($Value) { Get-PSGPOText 'Yes' } else { Get-PSGPOText 'No' } }
         # What the account does not manage: greyed, or not shown (View.ShowUnmanaged).
-        $shown = $som.CanLink -or (Test-PSGPOUnmanagedShown)
+        $shown = $som.CanLink -or $site -or (Test-PSGPOUnmanagedShown)
         $notShown = Get-PSGPOText 'Not shown: this account has no delegation here.'
 
         $rows = @(if ($shown) {
@@ -51,7 +54,7 @@ function Initialize-PSGPOManagerSomView {
         $linkedGposList.ItemsSource = $rows
         $linkedGposEmptyTextBlock.Text = if (-not $shown) { $notShown } elseif (-not $rows.Count) { Get-PSGPOText 'No GPO is linked here.' } else { '' }
         $linkedGposEmptyTextBlock.IsVisible = [bool]$linkedGposEmptyTextBlock.Text
-        $linkedGposInfoTextBlock.Text = Get-PSGPOText $(if ($Directory.IsReadOnly -or -not $som.CanLink) { 'Link order 1 is applied last: it wins over the others. This account cannot change the links here.' } else { 'Link order 1 is applied last: it wins over the others. Select a link, then move it.' })
+        $linkedGposInfoTextBlock.Text = Get-PSGPOText $(if ($site) { 'Link order 1 is applied last: it wins over the others. The links of a site are read here: change them with GPMC.' } elseif ($Directory.IsReadOnly -or -not $som.CanLink) { 'Link order 1 is applied last: it wins over the others. This account cannot change the links here.' } else { 'Link order 1 is applied last: it wins over the others. Select a link, then move it.' })
         if ($Select) { $linkedGposList.SelectedItem = $rows | Where-Object { $_.Link.GpoDistinguishedName -eq $Select } | Select-Object -First 1 }
         $linkedGposStatusTextBlock.Text = $Status
         if ($Problem) { $linkedGposStatusTextBlock.Foreground = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438')) }

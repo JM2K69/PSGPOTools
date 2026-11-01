@@ -13,12 +13,12 @@ function Find-PSGPO {
     .PARAMETER Id
         The unique ID (GUID) of a GPO.
     .PARAMETER LinkedTo
-        The domain or an OU (its distinguished name, or its name when only one OU has it): the GPOs
-        linked there.
+        The domain, an OU (its distinguished name, or its name when only one OU has it) or a site
+        of the forest (its name or its distinguished name): the GPOs linked there.
     .PARAMETER Linked
-        The GPOs linked somewhere in the domain.
+        The GPOs linked somewhere in the domain or in a site of the forest.
     .PARAMETER NotLinked
-        The GPOs linked nowhere in the domain.
+        The GPOs linked nowhere, in the domain nor in a site of the forest.
     .PARAMETER WmiFilter
         Name (or Id) of a WMI filter of the domain: the GPOs linked to it.
     .PARAMETER Account
@@ -94,7 +94,14 @@ function Find-PSGPO {
         Account = $Account; Permission = $Permission; Extension = $Extension; Setting = $Setting; Status = $Status
         ApprovalState = $ApprovalState; Comment = $Comment
     }
-    if ($LinkedTo) { $criteria.LinkedTo = Resolve-PSGPOSom -Directory $Directory -Target $LinkedTo }
+    if ($LinkedTo) {
+        # The domain or an OU; else a site of the forest.
+        try { $criteria.LinkedTo = Resolve-PSGPOSom -Directory $Directory -Target $LinkedTo }
+        catch {
+            $criteria.LinkedTo = $Directory.FindSite($LinkedTo.Trim())
+            if (-not $criteria.LinkedTo) { throw }
+        }
+    }
     if ($WmiFilter) {
         $criteria.WmiFilter = $Directory.FindWmiFilter($WmiFilter)
         if (-not $criteria.WmiFilter) { throw "No WMI filter named '$WmiFilter' in $($Directory.DomainName): $(@($Directory.WmiFilters.Name) -join ', ')." }

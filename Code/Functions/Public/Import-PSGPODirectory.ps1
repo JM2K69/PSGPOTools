@@ -14,6 +14,7 @@ function Import-PSGPODirectory {
             links                links of the domain, by link order (1 first): either the GPO
                                  name or { gpo, enabled, enforced }
             organizationalUnits  [ { name (required), blockInheritance, links, organizationalUnits } ]
+            sites                sites of the forest, read only: [ { name (required), links } ]
 
         A sample is shipped with the module: Samples/Directory.sample.json.
     .PARAMETER Path
@@ -74,6 +75,24 @@ function Import-PSGPODirectory {
 
     Add-Link $Directory.Domain $Data.links
     Add-OrganizationalUnit $Directory.Domain $Data.organizationalUnits
+    # The sites: read only, their links set as a domain controller gives them.
+    foreach ($Entry in @($Data.sites)) {
+        if ($null -eq $Entry) { continue }
+        if (-not $Entry.name) { throw "'$Path': every site needs a 'name'." }
+        $Site = $Directory.AddSite($Entry.name, "CN=$($Entry.name),CN=Sites,CN=Configuration,$($Directory.Domain.DistinguishedName)")
+        foreach ($LinkEntry in @($Entry.links)) {
+            if ($null -eq $LinkEntry) { continue }
+            $Name = if ($LinkEntry -is [string]) { $LinkEntry } else { $LinkEntry.gpo }
+            $Gpo = $Directory.FindGpo($Name)
+            if (-not $Gpo) { throw "'$Path': the site $($Entry.name) is linked to '$Name', which is not in 'gpos'." }
+            $Link = [GPOToolsGpoLink]::new()
+            $Link.GpoDistinguishedName = $Gpo.DistinguishedName
+            $Link.Gpo = $Gpo
+            $Link.Order = $Site.Links.Count + 1
+            if ($LinkEntry -isnot [string]) { $Link.Enabled = $LinkEntry.enabled -ne $false; $Link.Enforced = [bool]$LinkEntry.enforced }
+            $Site.Links.Add($Link)
+        }
+    }
     # A directory in memory has no configuration of its own: the defaults.
     Use-PSGPODomainConfiguration -Directory $Directory
     $Directory

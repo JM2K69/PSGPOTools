@@ -1043,6 +1043,27 @@ $written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 
             $Again.Version | Should -Be $Version -Because 'the comment is not a setting the computers apply'
         }
 
+        It 'Reads the sites of the forest and their links, and changes none of them' {
+            $Gpo = $Directory.FindGpo($GpoName)
+            $Site = "CN=Default-First-Site-Name,CN=Sites,CN=Configuration,$($Directory.Domain.DistinguishedName)"
+            $Id = '{' + $Gpo.Id.ToString().ToUpperInvariant() + '}'
+            # Linked as the administrators of the forest do, with their tools.
+            $null = Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'setlink', $Site, $Id, '-H', "ldap://$Server", '--use-kerberos=required'
+            try {
+                $Read = Get-PSGPODirectory -Server $Server
+                $Default = $Read.FindSite('Default-First-Site-Name')
+                $Default | Should -Not -BeNullOrEmpty -Because "the sites: $(@($Read.Sites.Name) -join ', ')"
+                $Default.DistinguishedName | Should -Be $Site
+                $Again = $Read.FindGpo($GpoName)
+                @($Default.Links | Where-Object { [object]::ReferenceEquals($_.Gpo, $Again) }).Count | Should -Be 1
+                @($Read.GetSiteLinksOf($Again).Som.Name) | Should -Be @('Default-First-Site-Name')
+                { $Read.RemoveLink($Default, $Default.Links[0]) } | Should -Throw '*read, not changed*'
+                @(Find-PSGPO -Directory $Read -LinkedTo 'Default-First-Site-Name').DisplayName | Should -Contain $GpoName
+            } finally {
+                try { $null = Invoke-PSGPOSambaTool -ArgumentList 'gpo', 'dellink', $Site, $Id, '-H', "ldap://$Server", '--use-kerberos=required' } catch { Write-Warning $_ }
+            }
+        }
+
         It 'Changes the permissions of the GPO in the domain and in its SYSVOL folder' {
             $Gpo = $Directory.FindGpo($GpoName)
             $Users = Resolve-PSGPOApplyTo -Directory $Directory -Name 'Domain Users'

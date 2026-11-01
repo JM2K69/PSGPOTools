@@ -11,7 +11,7 @@ function Get-PSGPODirectoryDetail {
         [GPOToolsDirectory]$Directory,
 
         # GPOToolsSom, GPOToolsGpoLink, GPOToolsGpo, GPOToolsWmiFilter, 'GroupPolicyObjects',
-        # 'WmiFilters', 'DeletedGpos' or the backup of a deleted GPO
+        # 'WmiFilters', 'DeletedGpos', 'Sites' or the backup of a deleted GPO
         [AllowNull()]
         $Item,
 
@@ -48,7 +48,18 @@ function Get-PSGPODirectoryDetail {
 
     $Detail = @{ Title = (Get-PSGPOText 'Select an item in the tree'); Properties = @(); LinksHeader = ''; Links = @(); Gpo = $null; Som = $null; Deleted = $null }
 
-    if ($Item -is [GPOToolsSom]) {
+    if ($Item -is [GPOToolsSom] -and $Item.Kind -eq [GPOToolsSomKind]::Site) {
+        # A site of the forest: its links, read only.
+        $Detail.Som = $Item
+        $Detail.Title = $Item.Name
+        $Detail.Properties = @(
+            New-Row 'Type' (Get-PSGPOText 'Site')
+            New-Row 'Distinguished name' $Item.DistinguishedName
+            New-Row 'Your rights' (Get-PSGPOText 'Read only: the links of a site are changed with GPMC, by the administrators of the forest')
+        )
+        $Detail.LinksHeader = Get-PSGPOText 'Linked Group Policy Objects ({0})' $Item.Links.Count
+        $Detail.Links = @(foreach ($Link in @($Item.Links | Sort-Object Order)) { New-LinkRow $Link $Link.GetDisplayName() '' })
+    } elseif ($Item -is [GPOToolsSom]) {
         $Detail.Som = $Item
         $Detail.Title = $Item.Name
         $Detail.Properties = @(
@@ -147,7 +158,8 @@ function Get-PSGPODirectoryDetail {
             # A slice, not Select-Object: the pipeline wraps the rows in PSObject, which Avalonia cannot bind.
             $Detail.Properties = @($Detail.Properties[0..1]) + @(New-Row 'Your rights' (Get-PSGPOText $(if ($Gpo.CanEdit) { 'Edit settings' } else { 'Read only' }))) + @($Detail.Properties[2..($Detail.Properties.Count - 1)])
         }
-        $Found = @($Directory.GetLinksOf($Gpo) | Sort-Object { $_.Som.DistinguishedName.Length }, { $_.Som.DistinguishedName })
+        # Its links in the domain, then in the sites of the forest.
+        $Found = @($Directory.GetLinksOf($Gpo) | Sort-Object { $_.Som.DistinguishedName.Length }, { $_.Som.DistinguishedName }) + @($Directory.GetSiteLinksOf($Gpo))
         $Detail.LinksHeader = Get-PSGPOText 'Links ({0})' $Found.Count
         $Detail.Links = @(foreach ($Pair in $Found) { New-LinkRow $Pair.Link $Pair.Som.Name $Pair.Som.DistinguishedName })
     } elseif ($Item -and $Item.PSObject.TypeNames -contains 'PSGPOTools.Backup') {
@@ -192,6 +204,10 @@ function Get-PSGPODirectoryDetail {
             New-Row 'Unique ID' ('{' + $Item.Id.ToString().ToUpperInvariant() + '}')
             New-Row 'Distinguished name' $Item.DistinguishedName
         )
+    } elseif ($Item -eq 'Sites') {
+        $Detail.Title = Get-PSGPOText 'Sites of the forest'
+        $Detail.Properties = @(foreach ($Site in $Directory.Sites) { New-Row $Site.Name (Get-PSGPOText '{0} linked GPO(s)' $Site.Links.Count) -Name })
+        $Detail.Properties += New-Row 'Your rights' (Get-PSGPOText 'Read only: the links of a site are changed with GPMC, by the administrators of the forest')
     } elseif ($Item -eq 'GroupPolicyObjects') {
         $Detail.Title = Get-PSGPOText 'Group Policy Objects in {0}' $Directory.DomainName
         $Detail.Properties = @(foreach ($Gpo in $(if ($ShowUnmanaged) { $Directory.Gpos } else { $Directory.GetVisibleGpos() })) { New-Row $Gpo.DisplayName (Get-PSGPOText $Gpo.GetStatus()) -Name })

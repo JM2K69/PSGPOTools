@@ -1412,4 +1412,11 @@
     'Permissions not copied, given in the Delegation tab if they are needed: {0}' = 'Autorisations non copiées, à donner dans l''onglet Délégation si elles sont nécessaires : {0}'
     'It is created, but not completed: {0}' = 'Elle est créée, mais pas terminée : {0}'
     '{0}, denied' = '{0}, refusée'
+    'Sites' = 'Sites'
+    'Site' = 'Site'
+    'Sites of the forest' = 'Sites de la forêt'
+    '{0} linked GPO(s)' = '{0} GPO liée(s)'
+    'Read only: the links of a site are changed with GPMC, by the administrators of the forest' = 'Lecture seule : les liens d''un site se modifient avec la GPMC, par les administrateurs de la forêt'
+    'Link order 1 is applied last: it wins over the others. The links of a site are read here: change them with GPMC.' = 'L''ordre de lien 1 est appliqué en dernier : il l''emporte sur les autres. Les liens d''un site sont lus ici : modifiez-les avec la GPMC.'
+    'Its links to the sites {0} stay: the administrators of the forest delete them with GPMC. ' = 'Ses liens aux sites {0} restent : les administrateurs de la forêt les suppriment avec la GPMC. '
 }

@@ -21,6 +21,7 @@ userEnabled, computerEnabled } ]
 links                links of the domain, by link order (1 first): either the GPO
 name or { gpo, enabled, enforced }
 organizationalUnits  [ { name (required), blockInheritance, links, organizationalUnits } ]
+sites                sites of the forest, read only: [ { name (required), links } ]
 
 A sample is shipped with the module: Samples/Directory.sample.json.
 

@@ -121,5 +121,10 @@
         },
         { "name": "Staging", "blockInheritance": true },
         { "name": "Disabled Objects", "organizationalUnits": [ { "name": "Computers" }, { "name": "Users" } ] }
+    ],
+    "sites": [
+        { "name": "Default-First-Site-Name" },
+        { "name": "Lyon-Site", "links": [ "U - Lyon - Printers" ] },
+        { "name": "Paris-Site", "links": [ "U - Paris - Printers", { "gpo": "C - Workstations - Windows Update Ring Pilot", "enabled": false } ] }
     ]
 }

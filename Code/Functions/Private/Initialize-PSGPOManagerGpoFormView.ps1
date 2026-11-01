@@ -336,8 +336,11 @@ function Initialize-PSGPOManagerGpoFormView {
         $deleteGpo.Gpo = $gpo
         $links = @($Directory.GetLinksOf($gpo))
         $linkNames = @($links | ForEach-Object { $_.Som.Name }) -join ', '
+        # The links of the sites are not the domain's: they stay, to a GPO not found.
+        $siteNames = @($Directory.GetSiteLinksOf($gpo) | ForEach-Object { $_.Som.Name }) -join ', '
         $deleteGpoTextBlock.Text = (Get-PSGPOText "Delete the GPO '{0}'? " $gpo.DisplayName) +
             $(if ($links.Count -gt 1) { Get-PSGPOText 'Its {0} links ({1}) are deleted too. ' $links.Count $linkNames } elseif ($links.Count) { Get-PSGPOText 'Its 1 link ({0}) is deleted too. ' $linkNames } else { Get-PSGPOText 'It is not linked. ' }) +
+            $(if ($siteNames) { Get-PSGPOText 'Its links to the sites {0} stay: the administrators of the forest delete them with GPMC. ' $siteNames }) +
             (Get-PSGPOText 'It is backed up first in {0}: Deleted GPOs keeps it, to restore it.' (Get-HistoryRoot))
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''

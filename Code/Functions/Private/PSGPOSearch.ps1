@@ -43,7 +43,8 @@ function Find-PSGPOMatch {
         if ($Criteria.Id -and $gpo.Id -ne $Criteria.Id) { continue }
         if ($linkedThere -and -not $linkedThere.Contains($gpo)) { continue }
         if ($Criteria.Linked -or $Criteria.NotLinked) {
-            $isLinked = @($Directory.GetLinksOf($gpo)).Count -gt 0
+            # A GPO linked to a site only applies there: linked.
+            $isLinked = @($Directory.GetLinksOf($gpo)).Count -gt 0 -or @($Directory.GetSiteLinksOf($gpo)).Count -gt 0
             if ($Criteria.Linked -and -not $isLinked) { continue }
             if ($Criteria.NotLinked -and $isLinked) { continue }
         }

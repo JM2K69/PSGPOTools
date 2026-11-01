@@ -1501,6 +1501,36 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Shows the sites of the forest beside the domain, their links read only, as GPMC' {
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $SitesNode = @($Ui.domainTreeView.ItemsSource)[1]
+                $SitesNode.Header | Should -Be 'Sites'
+                $Ui.domainTreeView.SelectedItem = $SitesNode
+                $Ui.directoryTitleTextBlock.Text | Should -Be 'Sites of the forest'
+                $Ui.linkedGposTab.IsVisible | Should -BeFalse
+
+                $Paris = $SitesNode.Children | Where-Object Header -EQ 'Paris-Site'
+                $Ui.domainTreeView.SelectedItem = $Paris
+                $Ui.directoryTitleTextBlock.Text | Should -Be 'Paris-Site'
+                $Ui.linkedGposTab.IsVisible | Should -BeTrue
+                $Ui.inheritanceTab.IsVisible | Should -BeFalse -Because 'what applies in a site depends on the OU of each computer'
+                @($Ui.linkedGposList.ItemsSource).Name | Should -Be @('U - Paris - Printers', 'C - Workstations - Windows Update Ring Pilot')
+                $Ui.linkedGposInfoTextBlock.Text | Should -BeLike '*The links of a site are read here: change them with GPMC.'
+                $Ui.linkedGposList.SelectedIndex = 1
+                $Ui.linkedGposUpButton.IsEnabled | Should -BeFalse
+                # Nothing that changes the site in its menu.
+                foreach ($Item in $Ui.createLinkedGpoMenuItem, $Ui.linkGpoMenuItem, $Ui.blockInheritanceMenuItem, $Ui.deleteLinkMenuItem, $Ui.enforcedLinkMenuItem) { $Item.IsVisible | Should -BeFalse }
+
+                # A link of the site: the GPO, its menu without the link options.
+                $Ui.domainTreeView.SelectedItem = $Paris.Children[0]
+                $Ui.directoryTitleTextBlock.Text | Should -Be 'U - Paris - Printers'
+                $Ui.deleteLinkMenuItem.IsVisible | Should -BeFalse
+                $Ui.enabledLinkMenuItem.IsVisible | Should -BeFalse
+                @($Ui.linksList.ItemsSource).Name | Should -Contain 'Paris-Site'
+            }
+        }
+
         It 'Copies a GPO to a new GPO, as Copy and Paste of GPMC, and shows the copy in the tree' {
             $Source = $Directory.FindGpo('U - Lyon - Printers')
             $Directory.WriteGpoComment($Source, 'Printers of Lyon')
@@ -1899,7 +1929,8 @@ InModuleScope -ModuleName HGPM {
                     $Ui.deleteGpoMenuItem.IsVisible | Should -BeTrue
                     Invoke-Click $Ui.deleteGpoMenuItem
                     $Ui.deleteGpoPanel.IsVisible | Should -BeTrue
-                    $Ui.deleteGpoTextBlock.Text | Should -BeLike "Delete the GPO 'U - Lyon - Printers'? Its 1 link (Users) is deleted too. It is backed up first in $Root*"
+                    # Its link to the site of Lyon stays: the forest, not the domain.
+                    $Ui.deleteGpoTextBlock.Text | Should -BeLike "Delete the GPO 'U - Lyon - Printers'? Its 1 link (Users) is deleted too. Its links to the sites Lyon-Site stay: the administrators of the forest delete them with GPMC. It is backed up first in $Root*"
                     Invoke-Click $Ui.deleteGpoCancelButton
                     $Ui.Directory.FindGpo('U - Lyon - Printers') | Should -Not -BeNullOrEmpty
                     Invoke-Click $Ui.deleteGpoMenuItem

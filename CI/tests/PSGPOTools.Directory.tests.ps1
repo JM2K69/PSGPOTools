@@ -178,7 +178,8 @@ class FailingDirectory : GPOToolsDirectory {
 
         It 'Shows the domain links, its OUs then the Group Policy Objects container' {
             $Roots = New-PSGPODirectoryTree -Directory $Directory
-            $Roots.Count | Should -Be 1
+            $Roots.Count | Should -Be 2 -Because 'the sites of the forest are beside the domain'
+            $Roots[1].Tag | Should -Be 'Sites'
             $Roots[0].Header | Should -Be 'corp.contoso.com'
             $Roots[0].IsExpanded | Should -BeTrue
             @($Roots[0].Children.Header) | Should -Be @(

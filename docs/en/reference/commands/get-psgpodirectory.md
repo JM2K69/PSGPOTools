@@ -12,7 +12,7 @@ Get-PSGPODirectory [[-Server] <string>] [[-Credential] <pscredential>] [[-Port] 
 
 ## Description
 
-Reads the domain as GPMC shows it: the domain and its organizational units with their GPO links (gPLink, by link order, enforced and disabled links) and blocked inheritance (gPOptions), and the group policy containers (GPOs). Works with Windows and Samba domain controllers, from Windows and Linux, through System.DirectoryServices.Protocols.
+Reads the domain as GPMC shows it: the domain and its organizational units with their GPO links (gPLink, by link order, enforced and disabled links) and blocked inheritance (gPOptions), and the group policy containers (GPOs); and the sites of the forest with their links, read only (CN=Sites of the configuration: their links are changed with GPMC). Works with Windows and Samba domain controllers, from Windows and Linux, through System.DirectoryServices.Protocols.
 
 The configuration of HGPM for the domain (Get-PSGPOConfiguration: SYSVOL\<domain>\ PSGPOTools\Configuration.psd1) is read with it, and used from then on.
 

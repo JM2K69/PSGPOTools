@@ -5,8 +5,10 @@ function Get-PSGPODirectory {
     .DESCRIPTION
         Reads the domain as GPMC shows it: the domain and its organizational units with their GPO
         links (gPLink, by link order, enforced and disabled links) and blocked inheritance
-        (gPOptions), and the group policy containers (GPOs). Works with Windows and Samba domain
-        controllers, from Windows and Linux, through System.DirectoryServices.Protocols.
+        (gPOptions), and the group policy containers (GPOs); and the sites of the forest with their
+        links, read only (CN=Sites of the configuration: their links are changed with GPMC). Works
+        with Windows and Samba domain controllers, from Windows and Linux, through
+        System.DirectoryServices.Protocols.
 
         The configuration of HGPM for the domain (Get-PSGPOConfiguration: SYSVOL\<domain>\
         PSGPOTools\Configuration.psd1) is read with it, and used from then on.
@@ -68,7 +70,7 @@ function Get-PSGPODirectory {
     $connection = New-PSGPOLdapConnection -Server $Server -Credential $Credential -UseSsl:$UseSsl -Port $Port
     $retarget = $null
     try {
-        $rootDse = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase '' -Scope Base -Attribute 'defaultNamingContext', 'dnsHostName', 'vendorName'
+        $rootDse = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase '' -Scope Base -Attribute 'defaultNamingContext', 'dnsHostName', 'vendorName', 'configurationNamingContext'
         $domainDN = Get-PSGPOLdapValue $rootDse 'defaultNamingContext'
         $dnsHostName = Get-PSGPOLdapValue $rootDse 'dnsHostName'
         if (-not $domainDN) { throw "$Server did not give its default naming context: is it a domain controller?" }
@@ -105,6 +107,15 @@ function Get-PSGPODirectory {
                 Read-PSGPODomainWmiFilter -Connection $connection -Directory $directory
             } catch {
                 Write-Warning "The WMI filters of the domain cannot be read: $($_.Exception.GetBaseException().Message)"
+            }
+            # The sites of the forest and their links, read only: neither.
+            $configuration = Get-PSGPOLdapValue $rootDse 'configurationNamingContext'
+            if ($configuration) {
+                try {
+                    Read-PSGPODomainSite -Connection $connection -Directory $directory -ConfigurationNamingContext $configuration
+                } catch {
+                    Write-Warning "The sites of the forest cannot be read: $($_.Exception.GetBaseException().Message)"
+                }
             }
         }
     } catch {

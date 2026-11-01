@@ -15,6 +15,8 @@
 enum GPOToolsSomKind {
     Domain
     OrganizationalUnit
+    # A site of the forest (CN=Sites of the configuration): its links are read, not changed.
+    Site
 }
 
 class GPOToolsGpo {
@@ -156,7 +158,7 @@ class GPOToolsGpoLink {
     }
 }
 
-# Scope of management: the domain or an OU, where GPOs are linked.
+# Scope of management: the domain or an OU, where GPOs are linked; or a site, read only.
 class GPOToolsSom {
     [string]$Name
     [string]$DistinguishedName
@@ -207,6 +209,9 @@ class GPOToolsDirectory {
     [string]$AccountSid = ''
     # WMI filters of the domain
     [System.Collections.Generic.List[GPOToolsWmiFilter]]$WmiFilters
+    # Sites of the forest with their links, as GPMC shows them under Sites: read, not changed
+    # (their links are written in the configuration of the forest, by its administrators).
+    [System.Collections.Generic.List[GPOToolsSom]]$Sites
     # Approval workflow of the domain (Update-PSGPODomainWorkflow): Enabled, IsApprover,
     # IsCreator, the SIDs and names of the groups, the owner of the approved GPOs; $null without it
     [pscustomobject]$Workflow
@@ -216,6 +221,7 @@ class GPOToolsDirectory {
         $this.DomainName = $DomainName
         $this.Gpos = [System.Collections.Generic.List[GPOToolsGpo]]::new()
         $this.WmiFilters = [System.Collections.Generic.List[GPOToolsWmiFilter]]::new()
+        $this.Sites = [System.Collections.Generic.List[GPOToolsSom]]::new()
         $this.Domain = [GPOToolsSom]::new()
         $this.Domain.Name = $DomainName
         $this.Domain.DistinguishedName = (($DomainName.Split('.') | ForEach-Object { "DC=$_" }) -join ',')
@@ -267,6 +273,27 @@ class GPOToolsDirectory {
         $Som.Parent = $ParentSom
         $ParentSom.Children.Add($Som)
         return $Som
+    }
+
+    # Adds a site of the forest: read only, its links set with SetLinks; the sites by name.
+    [GPOToolsSom] AddSite([string]$Name, [string]$DistinguishedName) {
+        $Som = [GPOToolsSom]::new()
+        $Som.Name = $Name
+        $Som.DistinguishedName = $DistinguishedName
+        $Som.Kind = [GPOToolsSomKind]::Site
+        $Som.CanLink = $false
+        $this.Sites.Add($Som)
+        $this.Sites.Sort([System.Comparison[GPOToolsSom]] { param($a, $b) [string]::Compare($a.Name, $b.Name, $true) })
+        return $Som
+    }
+
+    # A site by its name or its distinguished name (case-insensitive); $null when the forest has none.
+    [GPOToolsSom] FindSite([string]$NameOrDistinguishedName) {
+        foreach ($Site in $this.Sites) {
+            if ([string]::Equals($Site.Name, $NameOrDistinguishedName, [System.StringComparison]::OrdinalIgnoreCase) -or
+                [string]::Equals($Site.DistinguishedName, $NameOrDistinguishedName, [System.StringComparison]::OrdinalIgnoreCase)) { return $Site }
+        }
+        return $null
     }
 
     # Sets the links of a SOM from its gPLink, resolving their GPO in the directory.
@@ -454,6 +481,8 @@ class GPOToolsDirectory {
         foreach ($Pair in $Links) { $this.RemoveLink($Pair.Som, $Pair.Link) }
         $this.SaveRemovedGpo($Gpo)
         [void]$this.Gpos.Remove($Gpo)
+        # Its links in the sites of the forest are not the domain's: they stay, to a GPO not found.
+        foreach ($Pair in @($this.GetSiteLinksOf($Gpo))) { $Pair.Link.Gpo = $null }
     }
 
     # Rights of the account, as the delegations of the domain give them (RBAC): a technician
@@ -809,6 +838,17 @@ class GPOToolsDirectory {
         }
     }
 
+    # Where a GPO is linked in the sites of the forest, as (Som, Link) pairs.
+    [object[]] GetSiteLinksOf([GPOToolsGpo]$Gpo) {
+        $Found = [System.Collections.Generic.List[object]]::new()
+        foreach ($Site in $this.Sites) {
+            foreach ($Link in $Site.Links) {
+                if ([object]::ReferenceEquals($Link.Gpo, $Gpo)) { $Found.Add([pscustomobject]@{ Som = $Site; Link = $Link }) }
+            }
+        }
+        return $Found.ToArray()
+    }
+
     [string] GetUsersContainer() {
         if ($this.UsersContainer) { return $this.UsersContainer }
         return "CN=Users,$($this.Domain.DistinguishedName)"
@@ -977,6 +1017,7 @@ class GPOToolsDirectory {
     }
 
     hidden [void] AssertCanLink([GPOToolsSom]$Som) {
+        if ($Som.Kind -eq [GPOToolsSomKind]::Site) { throw "The links of the site $($Som.Name) are read, not changed, by this console: change them with GPMC." }
         if (-not $Som.CanLink) { throw "The account $($this.Account) cannot link GPOs to $($Som.Name): no delegation there." }
     }
 

@@ -36,7 +36,7 @@ The unique ID (GUID) of a GPO.
 
 ### -LinkedTo
 
-The domain or an OU (its distinguished name, or its name when only one OU has it): the GPOs linked there.
+The domain, an OU (its distinguished name, or its name when only one OU has it) or a site of the forest (its name or its distinguished name): the GPOs linked there.
 
 | Type | Required | Position | Default value | Accepts pipeline input |
 |---|---|---|---|---|
@@ -44,7 +44,7 @@ The domain or an OU (its distinguished name, or its name when only one OU has it
 
 ### -Linked
 
-The GPOs linked somewhere in the domain.
+The GPOs linked somewhere in the domain or in a site of the forest.
 
 | Type | Required | Position | Default value | Accepts pipeline input |
 |---|---|---|---|---|
@@ -52,7 +52,7 @@ The GPOs linked somewhere in the domain.
 
 ### -NotLinked
 
-The GPOs linked nowhere in the domain.
+The GPOs linked nowhere, in the domain nor in a site of the forest.
 
 | Type | Required | Position | Default value | Accepts pipeline input |
 |---|---|---|---|---|
