@@ -22,7 +22,8 @@ with Tab.
 
 | Command | Does |
 |---|---|
-| [`New-PSGPO`](commands/new-psgpo.md) `-Name [-Template] [-Status Enabled\|ComputerOnly\|UserOnly]` | creates a GPO, empty or from a template |
+| [`Find-PSGPO`](commands/find-psgpo.md) `[-Name] [-Id] [-LinkedTo] [-Linked\|-NotLinked] [-WmiFilter] [-Account [-Permission]] [-Extension] [-Setting] [-Status] [-ApprovalState] [-Comment]` | searches the GPOs, as the Search of GPMC |
+| [`New-PSGPO`](commands/new-psgpo.md) `-Name [-Template] [-Status Enabled\|ComputerOnly\|UserOnly] [-Comment]` | creates a GPO, empty or from a template |
 | [`Remove-PSGPO`](commands/remove-psgpo.md) `-Name [-BackupPath] [-NoBackup]` | deletes GPOs and their links, backed up first |
 | [`Approve-PSGPO`](commands/approve-psgpo.md) `-Name [-CreatorRights ReadOnly\|EditSettings] [-ApplyTo] [-DenyTo] [-CreateFilteringGroups] [-GroupContainer] [-BackupPath]` | approves GPOs waiting for their approval, with their security filtering (and its groups) |
 | [`Initialize-PSGPOWorkflow`](commands/initialize-psgpoworkflow.md) `[-Apply]` | checks, and with `-Apply` sets, the delegation of the creation of GPOs to the creators, once the central store exists |
@@ -31,7 +32,7 @@ with Tab.
 | [`Remove-PSGPOLink`](commands/remove-psgpolink.md) `-Name -Target` | deletes links, the GPOs kept |
 | [`Set-PSGPOInheritance`](commands/set-psgpoinheritance.md) `-Target -Blocked` | blocks the inheritance of the domain or an OU, or not |
 | [`Get-PSGPOInheritance`](commands/get-psgpoinheritance.md) `-Target` | the links of the domain or an OU by link order, and the GPOs that apply there by precedence, as the tabs of GPMC |
-| [`Set-PSGPO`](commands/set-psgpo.md) `-Name [-NewName] [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter]` | renames a GPO, sets the status and the WMI filter of GPOs |
+| [`Set-PSGPO`](commands/set-psgpo.md) `-Name [-NewName] [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter] [-Comment]` | renames a GPO, sets the status, the WMI filter and the comment of GPOs |
 | [`Get-PSGPOPermission`](commands/get-psgpopermission.md) `-Name` | the permissions of GPOs, as the Delegation tab of GPMC: each account and its level |
 | [`Get-PSGPOReport`](commands/get-psgporeport.md) `-Name`, `-All` `[-ReportType Object\|Xml\|Html] [-Path]` | the report of GPOs, as Get-GPOReport of GPMC: details, links, delegation, settings, and what HGPM does not interpret |
 | [`Set-PSGPOPermission`](commands/set-psgpopermission.md) `-Name -Account [-Permission GpoRead\|GpoApply\|GpoEdit\|GpoEditDeleteModifySecurity\|None] [-SecurityFiltering Add\|Remove]` | gives an account a level on GPOs, or changes their security filtering, in the directory and in SYSVOL |

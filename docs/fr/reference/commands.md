@@ -22,7 +22,8 @@ avec Tab.
 
 | Commande | Fait |
 |---|---|
-| [`New-PSGPO`](commands/new-psgpo.md) `-Name [-Template] [-Status Enabled\|ComputerOnly\|UserOnly]` | crée une GPO, vide ou à partir d'un modèle |
+| [`Find-PSGPO`](commands/find-psgpo.md) `[-Name] [-Id] [-LinkedTo] [-Linked\|-NotLinked] [-WmiFilter] [-Account [-Permission]] [-Extension] [-Setting] [-Status] [-ApprovalState] [-Comment]` | recherche des GPO, comme la recherche de GPMC |
+| [`New-PSGPO`](commands/new-psgpo.md) `-Name [-Template] [-Status Enabled\|ComputerOnly\|UserOnly] [-Comment]` | crée une GPO, vide ou à partir d'un modèle |
 | [`Remove-PSGPO`](commands/remove-psgpo.md) `-Name [-BackupPath] [-NoBackup]` | supprime des GPO et leurs liens, sauvegardées d'abord |
 | [`Approve-PSGPO`](commands/approve-psgpo.md) `-Name [-CreatorRights ReadOnly\|EditSettings] [-ApplyTo] [-DenyTo] [-CreateFilteringGroups] [-GroupContainer] [-BackupPath]` | approuve des GPO en attente d'approbation, avec leur filtrage de sécurité (et ses groupes) |
 | [`Initialize-PSGPOWorkflow`](commands/initialize-psgpoworkflow.md) `[-Apply]` | vérifie, et avec `-Apply` pose, la délégation de la création de GPO aux créateurs, une fois le magasin central créé |
@@ -31,7 +32,7 @@ avec Tab.
 | [`Remove-PSGPOLink`](commands/remove-psgpolink.md) `-Name -Target` | supprime des liens, les GPO restent |
 | [`Set-PSGPOInheritance`](commands/set-psgpoinheritance.md) `-Target -Blocked` | bloque l'héritage du domaine ou d'une OU, ou non |
 | [`Get-PSGPOInheritance`](commands/get-psgpoinheritance.md) `-Target` | les liens du domaine ou d'une OU par ordre de lien, et les GPO qui s'y appliquent par priorité, comme les onglets de GPMC |
-| [`Set-PSGPO`](commands/set-psgpo.md) `-Name [-NewName] [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter]` | renomme une GPO, règle le statut et le filtre WMI de GPO |
+| [`Set-PSGPO`](commands/set-psgpo.md) `-Name [-NewName] [-Status Enabled\|ComputerOnly\|UserOnly\|Disabled] [-WmiFilter] [-NoWmiFilter] [-Comment]` | renomme une GPO, règle le statut, le filtre WMI et le commentaire de GPO |
 | [`Get-PSGPOPermission`](commands/get-psgpopermission.md) `-Name` | les autorisations de GPO, comme l'onglet Délégation de GPMC : chaque compte et son niveau |
 | [`Get-PSGPOReport`](commands/get-psgporeport.md) `-Name`, `-All` `[-ReportType Object\|Xml\|Html] [-Path]` | le rapport de GPO, comme Get-GPOReport de GPMC : détails, liens, délégation, paramètres, et ce que HGPM n'interprète pas |
 | [`Set-PSGPOPermission`](commands/set-psgpopermission.md) `-Name -Account [-Permission GpoRead\|GpoApply\|GpoEdit\|GpoEditDeleteModifySecurity\|None] [-SecurityFiltering Add\|Remove]` | donne un niveau à un compte sur des GPO, ou change leur filtrage de sécurité, dans l'annuaire et dans SYSVOL |

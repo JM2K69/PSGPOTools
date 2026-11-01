@@ -71,7 +71,7 @@ right, for 30 seconds), and writes it to the technical log (`ERROR`, with the sc
 where it happened). The same error again within 5 seconds is said once. The GUI tests open the
 windows without it: an error there stops the loop and fails the test.
 
-## Long operations in the background
+## Long operations in the background { #long-operations-in-the-background }
 
 The GPO console reads and writes some things that take seconds or minutes: Refresh (F5) and
 Change Domain Controller..., Detect Now (Status tab), Back up and Back up all (History tab), Save

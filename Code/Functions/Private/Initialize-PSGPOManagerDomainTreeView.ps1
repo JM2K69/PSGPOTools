@@ -44,6 +44,8 @@ function Initialize-PSGPOManagerDomainTreeView {
         $createLinkedGpoMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo -and $item.CanLink
         $linkGpoMenuItem.IsVisible = $item -is [GPOToolsSom] -and -not $Directory.IsReadOnly -and $item.CanLink -and $Directory.Gpos.Count -gt 0
         $newGpoMenuItem.IsVisible = $item -eq 'GroupPolicyObjects' -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo
+        # Search..., as GPMC: on the domain and on Group Policy Objects.
+        $gpoSearchMenuItem.IsVisible = [object]::ReferenceEquals($item, $Directory.Domain) -or $item -eq 'GroupPolicyObjects'
         $editGpoMenuItem.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit
         $deleteLinkMenuItem.IsVisible = $item -is [GPOToolsGpoLink] -and -not $Directory.IsReadOnly -and $selected.Parent.Tag.CanLink
         # A link: Enforced, Link Enabled and its order, as GPMC; a SOM: Block Inheritance.

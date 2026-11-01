@@ -315,6 +315,31 @@ comme une GPO renommée dans le domaine depuis que la console l'a lue. Le renomm
 Set-PSGPO -Name 'U - Lyon - Printers' -NewName 'U - Lyon - Color printers'
 ```
 
+## Rechercher les GPO { #rechercher-les-gpo }
+
+**Rechercher...** (le menu contextuel du domaine ou d'**Objets de stratégie de groupe**, ou
+**Ctrl+F**) trouve les GPO du domaine, comme la recherche de GPMC : chaque critère donné doit
+correspondre. Le nom (une partie, ou un modèle avec `*` et `?`), les liens (liée quelque part, ou
+nulle part : des GPO oubliées), le filtre WMI, l'état de la GPO et l'approbation sont ceux du
+domaine lu ; la permission d'un compte ou d'un groupe (par son nom ou son SID, toute permission ou
+l'une d'elles), une extension côté client (Registry, Security, Scripts, Drive Maps...), un texte des
+paramètres (tels que l'onglet Paramètres les montre : les stratégies, les clés et valeurs de
+registre) et un texte du commentaire sont lus pour chaque GPO, en arrière-plan
+([opérations longues](../technical/user-interface.md#les-operations-longues-en-arriere-plan)).
+Les résultats restent pendant que l'un d'eux est affiché dans l'arborescence (double-clic ou
+Entrée), jusqu'à **Fermer**.
+
+![Rechercher les GPO](../assets/screenshots/91-gpo-search.fr.png){ width="560" }
+
+`Find-PSGPO` fait de même en PowerShell, ses résultats passant aux autres commandes :
+
+```powershell
+Find-PSGPO -NotLinked                                            # les GPO liées nulle part
+Find-PSGPO -Account 'Paris-Workstations' -Permission GpoApply     # les GPO qui s'appliquent à un groupe
+Find-PSGPO -Setting 'Turn off Windows Defender' | Get-PSGPOReport -ReportType Html -Path ./reports
+Find-PSGPO -Extension 'Scripts' -LinkedTo 'OU=Servers,DC=contoso,DC=com'
+```
+
 ## Le commentaire d'une GPO { #le-commentaire-dune-gpo }
 
 Les détails d'une GPO se terminent par son **commentaire**, comme l'onglet Détails de GPMC : le

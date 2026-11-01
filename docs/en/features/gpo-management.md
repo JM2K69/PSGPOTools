@@ -299,6 +299,29 @@ read it. The rename goes to the [audit log](backup-history.md) (`RenameGpo`).
 Set-PSGPO -Name 'U - Lyon - Printers' -NewName 'U - Lyon - Color printers'
 ```
 
+## Search the GPOs { #search-the-gpos }
+
+**Search...** (the context menu of the domain or of **Group Policy Objects**, or **Ctrl+F**) finds
+the GPOs of the domain, as the Search of GPMC: every criterion given must match. The name (a part
+of it, or a pattern with `*` and `?`), the links (linked somewhere, or nowhere: GPOs forgotten), the
+WMI filter, the GPO status and the approval are those of the domain read; the permission of an
+account or a group (by its name or its SID, any permission or one of them), a client-side extension
+(Registry, Security, Scripts, Drive Maps...), a text of the settings (as the Settings tab shows
+them: the policies, the registry keys and values) and a text of the comment are read for each GPO,
+in the background ([long operations](../technical/user-interface.md#long-operations-in-the-background)).
+The results stay while one of them is shown in the tree (double-click or Enter), until **Close**.
+
+![Search the GPOs](../assets/screenshots/91-gpo-search.png){ width="560" }
+
+`Find-PSGPO` does the same in PowerShell, its results going on to the other commands:
+
+```powershell
+Find-PSGPO -NotLinked                                            # the GPOs linked nowhere
+Find-PSGPO -Account 'Paris-Workstations' -Permission GpoApply     # the GPOs that apply to a group
+Find-PSGPO -Setting 'Turn off Windows Defender' | Get-PSGPOReport -ReportType Html -Path ./reports
+Find-PSGPO -Extension 'Scripts' -LinkedTo 'OU=Servers,DC=contoso,DC=com'
+```
+
 ## The comment of a GPO { #the-comment-of-a-gpo }
 
 The details of a GPO end with its **comment**, as the Details tab of GPMC: the file `GPO.cmt` of its

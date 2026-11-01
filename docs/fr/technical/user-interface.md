@@ -76,7 +76,7 @@ ligne où elle s'est produite). La même erreur répétée dans les 5 secondes n
 Les tests de l'interface ouvrent les fenêtres sans elle : une erreur y arrête la boucle et fait
 échouer le test.
 
-## Les opérations longues en arrière-plan
+## Les opérations longues en arrière-plan { #les-operations-longues-en-arriere-plan }
 
 La console GPO lit et écrit des choses qui prennent des secondes ou des minutes : Actualiser (F5)
 et Changer de contrôleur de domaine..., Détecter maintenant (onglet État), Sauvegarder et Tout

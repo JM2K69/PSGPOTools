@@ -177,6 +177,9 @@ $(Get-PSGPOWindowResourceXaml)
                                 <MenuItem Name='newGpoMenuItem' Header='New GPO...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.add}'/></MenuItem.Icon>
                                 </MenuItem>
+                                <MenuItem Name='gpoSearchMenuItem' Header='Search...' InputGesture='Ctrl+F'>
+                                    <MenuItem.Icon><PathIcon Data='{StaticResource Icon.search}'/></MenuItem.Icon>
+                                </MenuItem>
                                 <MenuItem Name='editGpoMenuItem' Header='Edit...'>
                                     <MenuItem.Icon><PathIcon Data='{StaticResource Icon.edit}'/></MenuItem.Icon>
                                 </MenuItem>
@@ -555,6 +558,80 @@ $(Get-PSGPOWindowResourceXaml)
                                                 <Button Name='deleteWmiFilterConfirmButton' Content='Delete' Width='120'/>
                                                 <Button Name='deleteWmiFilterCancelButton' Content='Cancel' Width='100'/>
                                             </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Search of the GPOs, as the Search of GPMC: every criterion given must match; the results
+                                         stay while one of them is selected in the tree -->
+                                    <Border Name='gpoSearchPanel' IsVisible='False' Margin='0,8,0,8' Padding='12' CornerRadius='4'
+                                            BorderThickness='1' BorderBrush='{DynamicResource PrimaryBrush}'
+                                            Background='{DynamicResource SecondaryBackgroundBrush}'>
+                                        <StackPanel Spacing='8'>
+                                            <TextBlock Name='gpoSearchTitleTextBlock' FontWeight='SemiBold' TextWrapping='Wrap'
+                                                       Foreground='{DynamicResource TextBrush}'/>
+                                            <Grid ColumnDefinitions='170,*' RowDefinitions='Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto'>
+                                                <TextBlock Grid.Row='0' Text='Name' VerticalAlignment='Center' TextWrapping='Wrap' Margin='0,0,8,6'/>
+                                                <TextBox Grid.Row='0' Grid.Column='1' Name='gpoSearchNameTextBox' Watermark='A part of the name, or * and ?' Margin='0,0,0,6'/>
+                                                <TextBlock Grid.Row='1' Text='Links' VerticalAlignment='Center' TextWrapping='Wrap' Margin='0,0,8,6'/>
+                                                <ComboBox Grid.Row='1' Grid.Column='1' Name='gpoSearchLinksComboBox' SelectedIndex='0' HorizontalAlignment='Stretch' Margin='0,0,0,6'>
+                                                    <ComboBoxItem Content='Any'/>
+                                                    <ComboBoxItem Content='Linked somewhere'/>
+                                                    <ComboBoxItem Content='Linked nowhere'/>
+                                                </ComboBox>
+                                                <TextBlock Grid.Row='2' Text='WMI filter' VerticalAlignment='Center' TextWrapping='Wrap' Margin='0,0,8,6'/>
+                                                <ComboBox Grid.Row='2' Grid.Column='1' Name='gpoSearchWmiFilterComboBox' HorizontalAlignment='Stretch' Margin='0,0,0,6'/>
+                                                <TextBlock Grid.Row='3' Text='Permission of' VerticalAlignment='Center' TextWrapping='Wrap' Margin='0,0,8,6'/>
+                                                <Grid Grid.Row='3' Grid.Column='1' ColumnDefinitions='*,Auto' Margin='0,0,0,6'>
+                                                    <TextBox Name='gpoSearchAccountTextBox' Watermark='An account or a group, its name or its SID'/>
+                                                    <ComboBox Grid.Column='1' Name='gpoSearchPermissionComboBox' SelectedIndex='0' Margin='8,0,0,0' MinWidth='170'>
+                                                        <ComboBoxItem Content='Any permission'/>
+                                                        <ComboBoxItem Content='Read'/>
+                                                        <ComboBoxItem Content='Read and apply'/>
+                                                        <ComboBoxItem Content='Edit settings'/>
+                                                        <ComboBoxItem Content='Edit settings, delete, modify security'/>
+                                                        <ComboBoxItem Content='Custom'/>
+                                                    </ComboBox>
+                                                </Grid>
+                                                <TextBlock Grid.Row='4' Text='Client-side extension' VerticalAlignment='Center' TextWrapping='Wrap' Margin='0,0,8,6'/>
+                                                <TextBox Grid.Row='4' Grid.Column='1' Name='gpoSearchExtensionTextBox' Watermark='Registry, Security, Scripts, Drive Maps...' Margin='0,0,0,6'/>
+                                                <TextBlock Grid.Row='5' Text='Setting' VerticalAlignment='Center' TextWrapping='Wrap' Margin='0,0,8,6'/>
+                                                <TextBox Grid.Row='5' Grid.Column='1' Name='gpoSearchSettingTextBox' Watermark='A policy, a setting, a registry key or value' Margin='0,0,0,6'/>
+                                                <TextBlock Grid.Row='6' Text='GPO status' VerticalAlignment='Center' TextWrapping='Wrap' Margin='0,0,8,6'/>
+                                                <ComboBox Grid.Row='6' Grid.Column='1' Name='gpoSearchStatusComboBox' SelectedIndex='0' HorizontalAlignment='Stretch' Margin='0,0,0,6'>
+                                                    <ComboBoxItem Content='Any'/>
+                                                    <ComboBoxItem Content='Enabled'/>
+                                                    <ComboBoxItem Content='User configuration settings disabled'/>
+                                                    <ComboBoxItem Content='Computer configuration settings disabled'/>
+                                                    <ComboBoxItem Content='All settings disabled'/>
+                                                </ComboBox>
+                                                <TextBlock Grid.Row='7' Text='Approval' VerticalAlignment='Center' TextWrapping='Wrap' Margin='0,0,8,6'/>
+                                                <ComboBox Grid.Row='7' Grid.Column='1' Name='gpoSearchApprovalComboBox' SelectedIndex='0' HorizontalAlignment='Stretch' Margin='0,0,0,6'>
+                                                    <ComboBoxItem Content='Any'/>
+                                                    <ComboBoxItem Content='Waiting for approval'/>
+                                                    <ComboBoxItem Content='Approved'/>
+                                                </ComboBox>
+                                                <TextBlock Grid.Row='8' Text='Comment' VerticalAlignment='Center' TextWrapping='Wrap' Margin='0,0,8,0'/>
+                                                <TextBox Grid.Row='8' Grid.Column='1' Name='gpoSearchCommentTextBox' Watermark='A part of the comment'/>
+                                            </Grid>
+                                            <TextBlock Name='gpoSearchErrorTextBlock' Foreground='#D13438' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <StackPanel Orientation='Horizontal' Spacing='8' HorizontalAlignment='Right'>
+                                                <Button Name='gpoSearchConfirmButton' MinWidth='100' HorizontalContentAlignment='Center'>
+                                                    <StackPanel Orientation='Horizontal' Spacing='6'>
+                                                        <PathIcon Data='{StaticResource Icon.search}' Width='14' Height='14'/>
+                                                        <TextBlock Text='Search' VerticalAlignment='Center'/>
+                                                    </StackPanel>
+                                                </Button>
+                                                <Button Name='gpoSearchCancelButton' Content='Close' MinWidth='100' HorizontalContentAlignment='Center'/>
+                                            </StackPanel>
+                                            <TextBlock Name='gpoSearchResultTextBlock' TextWrapping='Wrap' IsVisible='{Binding `$self.Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}'/>
+                                            <ListBox Name='gpoSearchList' MaxHeight='260' SelectionMode='Single'
+                                                     ToolTip.Tip='Double-click or Enter: the GPO in the tree'>
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text='{Binding DisplayName}' TextTrimming='CharacterEllipsis'/>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
                                         </StackPanel>
                                     </Border>
 

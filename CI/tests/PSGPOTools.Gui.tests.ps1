@@ -1450,6 +1450,57 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Searches the GPOs of the domain, as the Search of GPMC, and shows the one chosen in the tree' {
+            $New = $Directory.NewGpo('C - Kiosks - Not linked yet')
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = @($Ui.domainTreeView.ItemsSource)[0]
+                $Ui.gpoSearchMenuItem.IsVisible | Should -BeTrue -Because 'Search... is on the domain'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites'
+                $Ui.gpoSearchMenuItem.IsVisible | Should -BeFalse -Because 'not on an OU'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
+                $Ui.gpoSearchMenuItem.IsVisible | Should -BeTrue
+                Invoke-Click $Ui.gpoSearchMenuItem
+                $Ui.gpoSearchPanel.IsVisible | Should -BeTrue
+                $Ui.gpoSearchTitleTextBlock.Text | Should -Be 'Search the GPOs of corp.contoso.com: every criterion given must match'
+
+                Invoke-Click $Ui.gpoSearchConfirmButton
+                $Ui.gpoSearchErrorTextBlock.Text | Should -Be 'Give at least one criterion.'
+
+                $Ui.gpoSearchNameTextBox.Text = 'printers'
+                Invoke-Click $Ui.gpoSearchConfirmButton
+                Wait-ConsoleOperation $Ui
+                @($Ui.gpoSearchList.ItemsSource).DisplayName | Should -Be @('U - Lyon - Printers', 'U - Paris - Printers')
+                $Ui.gpoSearchResultTextBlock.Text | Should -Be '2 GPO(s) found: double-click one to see it in the tree.'
+
+                # Linked nowhere: the GPO just created.
+                $Ui.gpoSearchNameTextBox.Text = ''
+                $Ui.gpoSearchLinksComboBox.SelectedIndex = 2
+                Invoke-Click $Ui.gpoSearchConfirmButton
+                Wait-ConsoleOperation $Ui
+                @($Ui.gpoSearchList.ItemsSource).DisplayName | Should -Be @('C - Kiosks - Not linked yet')
+
+                # All settings disabled, with nothing else.
+                $Ui.gpoSearchLinksComboBox.SelectedIndex = 0
+                $Ui.gpoSearchStatusComboBox.SelectedIndex = 4
+                Invoke-Click $Ui.gpoSearchConfirmButton
+                Wait-ConsoleOperation $Ui
+                @($Ui.gpoSearchList.ItemsSource).DisplayName | Should -Be @('OLD - Windows 10 Baseline')
+
+                # Enter on a result: the GPO in the tree, the search still there.
+                $Ui.gpoSearchList.SelectedIndex = 0
+                $Enter = [Avalonia.Input.KeyEventArgs]::new()
+                $Enter.RoutedEvent = [Avalonia.Input.InputElement]::KeyDownEvent
+                $Enter.Key = [Avalonia.Input.Key]::Enter
+                $Ui.gpoSearchList.RaiseEvent($Enter)
+                $Ui.domainTreeView.SelectedItem.Tag | Should -Be $Ui.Directory.FindGpo('OLD - Windows 10 Baseline')
+                $Ui.gpoSearchPanel.IsVisible | Should -BeTrue -Because 'the results stay while one of them is seen'
+                @($Ui.gpoSearchList.ItemsSource).Count | Should -Be 1
+                Invoke-Click $Ui.gpoSearchCancelButton
+                $Ui.gpoSearchPanel.IsVisible | Should -BeFalse
+            }
+        }
+
         It 'Shows the comment of a GPO in its details, saved by an account that edits it, and read once' {
             $Gpo = $Directory.FindGpo('U - Lyon - Printers')
             $Directory.WriteGpoComment($Gpo, "Printers of Lyon`nOwner: workplace")
