@@ -36,3 +36,13 @@ command instead. When a tool cannot open, the launcher says why under its tiles.
   and those opened after, and the windows they open (ADMX files, configuration...). The choice is
   kept in the settings of the user too: the tools open in their own processes follow it within a
   second, and the next start begins on it.
+
+## About { #about }
+
+**About**, at the right of the header, says which HGPM this is: the version of the module
+installed and the folder it runs from, the version of PowerShell and the system. It links to the
+documentation (in the language of the launcher), to the source code, and to
+[hardenad.net](https://hardenad.net/): HGPM is a product of the Hardenad community. The links open
+in the browser of the system; **Close**, or Escape, goes back to the tiles.
+
+![About in the launcher](../assets/screenshots/89-launcher-about.png)

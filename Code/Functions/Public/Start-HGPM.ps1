@@ -14,7 +14,9 @@ function Start-HGPM {
         once the launcher is closed; the tile of an open console is disabled until its window is
         closed. The theme (Dark mode / Light mode) is kept in the settings of the user, and the open
         consoles follow it. To give a console parameters (-Server, -Credential,
-        -PolicyDefinitions...), run its command instead.
+        -PolicyDefinitions...), run its command instead. About gives the version of HGPM installed
+        and the folder it runs from, and links to its documentation, its source code and
+        https://hardenad.net/: HGPM is a product of the Hardenad community.
 
         Hosted on Avalonia UI under PowerShell 7+, as Show-GPOManagerAvalonia; the call blocks
         until the launcher is closed.

@@ -24,7 +24,7 @@ The details of a node depend on what it is:
 |---|---|
 | Domain | distinguished name, domain controller and directory service, the account connected, its delegation, its role in the approval workflow, the GPOs linked |
 | OU | distinguished name, block inheritance, your rights there, the GPOs linked |
-| GPO, link | unique ID, status, approval state and owner, your rights, security filtering, WMI filter, the client-side extensions the console does not interpret, versions, distinguished name, SYSVOL path, every link of the GPO |
+| GPO, link | unique ID, status, approval state and owner, your rights, security filtering, WMI filter, the client-side extensions the console does not interpret, versions, distinguished name, SYSVOL path, every link of the GPO, its [comment](gpo-management.md#the-comment-of-a-gpo) |
 | WMI filter | description, queries, the GPOs using it, unique ID, distinguished name |
 | Deleted GPO | its last backup, by whom, its comment, status, security filtering, where it was linked |
 

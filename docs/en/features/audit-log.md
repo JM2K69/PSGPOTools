@@ -275,7 +275,8 @@ HGPM audit: ApproveGpo by HARDENBOX\Administrator from dc on hardenbox.labo: T1 
 | 1021 | SetLink | 1060 | SaveConfiguration |
 | 1022 | RemoveLink | 1061 | InstallAdmx |
 | 1062 | InitializeAuditShare | 1063 | InitializeBackupShare |
-| 1064 | PurgeAuditLog | 2000, 3000 | a warning, an error |
+| 1012 | SetGpoComment | 1064 | PurgeAuditLog |
+| 2000, 3000 | a warning, an error | | |
 | 4000 | the posture: a summary | 4001 | the posture: a *High* finding |
 
 ```powershell

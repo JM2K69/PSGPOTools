@@ -1030,6 +1030,18 @@ $written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 
             $Again.GetStatus() | Should -Be 'Enabled'
         }
 
+        It 'Writes the comment of the GPO in GPO.cmt of its folder, as GPMC, without changing its version' {
+            $Gpo = $Directory.FindGpo($GpoName)
+            $Version = $Gpo.Version
+            $Directory.WriteGpoComment($Gpo, "Comment of the test $Stamp`nsecond line")
+            $Bytes = Read-PSGPOSysvolFile -Directory $Directory -Gpo $Gpo -Path 'GPO.cmt'
+            $Bytes[0..1] | Should -Be @(0xFF, 0xFE) -Because 'UTF-16 with its mark, as GPMC writes it'
+            $Read = Get-PSGPODirectory -Server $Server
+            $Again = $Read.FindGpo($GpoName)
+            $Read.ReadGpoComment($Again) | Should -Be "Comment of the test $Stamp`r`nsecond line"
+            $Again.Version | Should -Be $Version -Because 'the comment is not a setting the computers apply'
+        }
+
         It 'Changes the permissions of the GPO in the domain and in its SYSVOL folder' {
             $Gpo = $Directory.FindGpo($GpoName)
             $Users = Resolve-PSGPOApplyTo -Directory $Directory -Name 'Domain Users'
@@ -1223,6 +1235,7 @@ $written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 
             @($Entries.Action) | Should -Contain 'NewLink'
             @($Entries.Action) | Should -Contain 'SetLink'
             @($Entries.Action) | Should -Contain 'SetBlockInheritance'
+            @($Entries.Action) | Should -Contain 'SetGpoComment'
             ($Entries | Where-Object Action -EQ 'NewGpo' | Select-Object -Last 1).GpoName | Should -Be $GpoName
             ($Entries | Select-Object -First 1).Server | Should -Be $Directory.Server
         }
@@ -1278,7 +1291,8 @@ $written = try { $d.WritePolicyFile($gpo, 'Machine', [byte[]](0x50, 0x52, 0x65, 
             $Gpo.MachineExtensionNames.Contains('[{F3CCC681-B74C-4060-9F26-CD84525DCA2A}{0F3F3735-573D-9804-99E4-AB2A69BA5FD4}]') | Should -BeTrue -Because $Gpo.MachineExtensionNames
             $Gpo.GetComputerVersion() | Should -BeGreaterThan 0
             $Gpo.GetUserVersion() | Should -BeGreaterThan 0
-            @(Get-ChildItem -LiteralPath $script:AuditLog -Filter '*.jsonl' | Get-Content | Where-Object { $_ -match '"Action":"ImportPolicyRuleSet"' }).Count | Should -Be 1
+            # Read as the audit log reads itself: with a central log (Audit.Path), each tier has a folder.
+            @(Get-PSGPOAuditLog -Path $script:AuditLog -Domain $Directory.DomainName | Where-Object Action -EQ 'ImportPolicyRuleSet').Count | Should -Be 1
         }
 
         It 'Writes the Registry.pol of the GPO in SYSVOL and increases its version' {

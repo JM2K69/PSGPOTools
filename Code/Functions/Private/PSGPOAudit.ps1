@@ -25,7 +25,7 @@ $script:PSGPOAuditActionText = [ordered]@{
     NewGpo = 'GPO created'; RenameGpo = 'GPO renamed'; SetGpoStatus = 'GPO status changed'; RemoveGpo = 'GPO deleted'
     RemoveDeletedGpoBackup = 'Deleted GPO removed for good'; RestoreGpo = 'GPO restored'; ImportGpo = 'GPO imported'
     SaveGpoFile = 'Settings of a GPO saved'; ImportPolicyRuleSet = 'Rule set written in a GPO'
-    PendingGpo = 'GPO waiting for approval'; ApproveGpo = 'GPO approved'
+    PendingGpo = 'GPO waiting for approval'; ApproveGpo = 'GPO approved'; SetGpoComment = 'Comment of a GPO changed'
     NewLink = 'Link created'; SetLink = 'Link changed'; RemoveLink = 'Link deleted'; SetBlockInheritance = 'Inheritance blocked or unblocked'
     SetGpoPermission = 'Permissions of a GPO changed'; SetGpoSecurityFiltering = 'Security filtering changed'; NewFilteringGroups = 'Security filtering groups created'
     SetWmiFilter = 'WMI filter of a GPO changed'; NewWmiFilter = 'WMI filter created'; EditWmiFilter = 'WMI filter changed'

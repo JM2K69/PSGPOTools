@@ -631,6 +631,22 @@ $(Get-PSGPOWindowResourceXaml)
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
 
+                                    <!-- The comment of the GPO (GPO.cmt), as the Details tab of GPMC; saved by an account that edits it -->
+                                    <StackPanel Name='gpoCommentPanel' IsVisible='False' Margin='0,12,0,0' Spacing='6'>
+                                        <TextBlock Text='Comment' FontSize='12' FontWeight='SemiBold' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                                        <TextBox Name='gpoCommentTextBox' AcceptsReturn='True' TextWrapping='Wrap' MinHeight='56' MaxHeight='160'
+                                                 Watermark='No comment'/>
+                                        <StackPanel Orientation='Horizontal' Spacing='8'>
+                                            <Button Name='gpoCommentSaveButton' IsEnabled='False'>
+                                                <StackPanel Orientation='Horizontal' Spacing='8'>
+                                                    <PathIcon Data='{StaticResource Icon.save}'/>
+                                                    <TextBlock Text='Save the comment' VerticalAlignment='Center'/>
+                                                </StackPanel>
+                                            </Button>
+                                            <TextBlock Name='gpoCommentStatusTextBlock' VerticalAlignment='Center' TextWrapping='Wrap'/>
+                                        </StackPanel>
+                                    </StackPanel>
+
                                     <TextBlock Name='linksHeaderTextBlock' FontSize='12' FontWeight='SemiBold'
                                                Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>
                                     <ItemsControl Name='linksList'>

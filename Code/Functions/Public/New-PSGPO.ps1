@@ -7,7 +7,8 @@ function New-PSGPO {
         Linux with samba-tool and Kerberos), not linked. With -Template, it starts with the
         settings of a backup (Get-PSGPOBackup -Template: the backups with the template label of
         the configuration, Backup.TemplateLabel), whatever GPO or domain it comes from: its files,
-        checked against their SHA-256, and their client-side extensions.
+        checked against their SHA-256, and their client-side extensions. -Comment gives it a comment
+        (GPO.cmt, the Comment of the Details tab of GPMC).
     .PARAMETER Name
         Display name of the new GPO.
     .PARAMETER Template
@@ -15,12 +16,14 @@ function New-PSGPO {
     .PARAMETER Status
         GPO status: Enabled (default), ComputerOnly (user settings disabled) or UserOnly
         (computer settings disabled).
+    .PARAMETER Comment
+        Comment of the GPO (several lines allowed).
     .PARAMETER Directory
         Directory of the domain (Get-PSGPODirectory); the domain is read when not given.
     .PARAMETER Server
         Domain controller to read the domain from, without -Directory.
     .EXAMPLE
-        New-PSGPO -Name 'C - Kiosks - Baseline' -Status ComputerOnly
+        New-PSGPO -Name 'C - Kiosks - Baseline' -Status ComputerOnly -Comment 'CHG-2041: kiosks of the halls'
     .EXAMPLE
         $Template = Get-PSGPOBackup -Path /srv/gpo-backups -Template -Name 'Template - Servers' | Select-Object -First 1
         New-PSGPO -Name 'C - Servers - Lyon' -Template $Template
@@ -43,6 +46,8 @@ function New-PSGPO {
         [ValidateSet('Enabled', 'ComputerOnly', 'UserOnly')]
         [string]$Status = 'Enabled',
 
+        [string]$Comment,
+
         [GPOToolsDirectory]$Directory,
 
         [string]$Server
@@ -64,6 +69,7 @@ function New-PSGPO {
         if ($Template) { Copy-PSGPOBackupSetting -Directory $Directory -Gpo $gpo -Backup $Template }
         $flags = @{ Enabled = 0; ComputerOnly = 1; UserOnly = 2 }[$Status]
         if ($flags -ne $gpo.Flags) { $Directory.SetGpoStatus($gpo, $flags) }
+        if ($Comment) { $Directory.WriteGpoComment($gpo, $Comment) }
     } catch {
         Write-Error "The GPO '$Name' is created, but not completed: $($_.Exception.GetBaseException().Message)"
     }

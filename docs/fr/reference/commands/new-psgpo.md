@@ -7,12 +7,12 @@ _L'aide de la commande, telle que `Get-Help New-PSGPO -Full` la donne (en anglai
 ## Syntaxe
 
 ```powershell
-New-PSGPO [-Name] <string> [[-Template] <Backup>] [[-Status] <string>] [[-Directory] <GPOToolsDirectory>] [[-Server] <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PSGPO [-Name] <string> [[-Template] <Backup>] [[-Status] <string>] [[-Comment] <string>] [[-Directory] <GPOToolsDirectory>] [[-Server] <string>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## Description
 
-Like GPMC "New GPO": the GPO is created in the domain (on Windows with New-GPO of RSAT, on Linux with samba-tool and Kerberos), not linked. With -Template, it starts with the settings of a backup (Get-PSGPOBackup -Template: the backups with the template label of the configuration, Backup.TemplateLabel), whatever GPO or domain it comes from: its files, checked against their SHA-256, and their client-side extensions.
+Like GPMC "New GPO": the GPO is created in the domain (on Windows with New-GPO of RSAT, on Linux with samba-tool and Kerberos), not linked. With -Template, it starts with the settings of a backup (Get-PSGPOBackup -Template: the backups with the template label of the configuration, Backup.TemplateLabel), whatever GPO or domain it comes from: its files, checked against their SHA-256, and their client-side extensions. -Comment gives it a comment (GPO.cmt, the Comment of the Details tab of GPMC).
 
 ## Paramètres
 
@@ -40,13 +40,21 @@ GPO status: Enabled (default), ComputerOnly (user settings disabled) or UserOnly
 |---|---|---|---|---|
 | `String` | Non | 3 | `Enabled` | Non |
 
+### -Comment
+
+Comment of the GPO (several lines allowed).
+
+| Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
+|---|---|---|---|---|
+| `String` | Non | 4 | Aucune | Non |
+
 ### -Directory
 
 Directory of the domain (Get-PSGPODirectory); the domain is read when not given.
 
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|
-| `GPOToolsDirectory` | Non | 4 | Aucune | Non |
+| `GPOToolsDirectory` | Non | 5 | Aucune | Non |
 
 ### -Server
 
@@ -54,7 +62,7 @@ Domain controller to read the domain from, without -Directory.
 
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|
-| `String` | Non | 5 | Aucune | Non |
+| `String` | Non | 6 | Aucune | Non |
 
 ### -WhatIf
 
@@ -73,7 +81,7 @@ Domain controller to read the domain from, without -Directory.
 ### Exemple 1
 
 ```powershell
-New-PSGPO -Name 'C - Kiosks - Baseline' -Status ComputerOnly
+New-PSGPO -Name 'C - Kiosks - Baseline' -Status ComputerOnly -Comment 'CHG-2041: kiosks of the halls'
 ```
 
 ### Exemple 2

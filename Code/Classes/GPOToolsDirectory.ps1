@@ -561,6 +561,20 @@ class GPOToolsDirectory {
         $this.SortGpos()
     }
 
+    # The comment of a GPO, as GPMC keeps it (GPO.cmt at the root of its folder): '' when it has none.
+    [string] ReadGpoComment([GPOToolsGpo]$Gpo) {
+        return ConvertFrom-PSGPOCommentByte -Bytes $this.LoadGpoFile($Gpo, 'GPO.cmt')
+    }
+
+    # Writes the comment of a GPO (GPO.cmt), as GPMC: its version does not change, the comment is
+    # not a setting the computers apply.
+    [void] WriteGpoComment([GPOToolsGpo]$Gpo, [string]$Comment) {
+        $this.AssertWritable()
+        if (-not $this.Gpos.Contains($Gpo)) { throw "The GPO '$($Gpo.DisplayName)' is not in $($this.DomainName)." }
+        if (-not $Gpo.CanEdit) { throw "The account $($this.Account) cannot edit the GPO '$($Gpo.DisplayName)'." }
+        $this.SaveGpoComment($Gpo, (ConvertTo-PSGPOCommentByte -Comment $Comment), "$Comment")
+    }
+
     # Security filtering groups of a GPO, created in $Container: APPLY_<GPO>, whose members alone
     # apply it, and DENY_<GPO>, whose members never apply it. Returns the two groups (Name,
     # DistinguishedName, Sid).
@@ -972,6 +986,9 @@ class GPOToolsDirectory {
     # SaveNewLink may set the links of the SOM again from the domain (link added by someone else).
     hidden [void] SaveNewLink([GPOToolsSom]$Som, [GPOToolsGpoLink]$Link) {}
     hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {}
+    hidden [void] SaveGpoComment([GPOToolsGpo]$Gpo, [byte[]]$Bytes, [string]$Comment) {
+        $this.GpoFiles["$($Gpo.Id)\GPO.cmt"] = $Bytes
+    }
     # $Gpo still has the name the domain has.
     hidden [void] SaveRenamedGpo([GPOToolsGpo]$Gpo, [string]$DisplayName) {}
     # SaveRemovedLink may set the links of the SOM again from the domain.
@@ -1148,6 +1165,11 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
     hidden [void] SaveGpoStatus([GPOToolsGpo]$Gpo, [int]$Flags) {
         Set-PSGPODomainGpoStatus -Directory $this -Gpo $Gpo -Flags $Flags
         Write-PSGPOAuditEntry -Directory $this -Action 'SetGpoStatus' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details @{ Flags = $Flags }
+    }
+
+    hidden [void] SaveGpoComment([GPOToolsGpo]$Gpo, [byte[]]$Bytes, [string]$Comment) {
+        Write-PSGPOSysvolFile -Directory $this -Gpo $Gpo -Path 'GPO.cmt' -Bytes $Bytes
+        Write-PSGPOAuditEntry -Directory $this -Action 'SetGpoComment' -Target $Gpo.DistinguishedName -Gpo $Gpo -Details @{ Comment = $Comment }
     }
 
     hidden [void] SaveRenamedGpo([GPOToolsGpo]$Gpo, [string]$DisplayName) {

@@ -28,13 +28,13 @@ function Start-PSGPOLauncherWindow {
     Initialize-PSGPOAvaloniaRuntime
     $Language = Set-PSGPOLanguage -Language $Language
 
-    $window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse((ConvertTo-PSGPOLocalizedXaml -Xaml (Get-PSGPOLauncherWindowXaml)))
+    $xaml = ConvertTo-PSGPOLocalizedXaml -Xaml (Get-PSGPOLauncherWindowXaml)
+    $window = [Avalonia.Markup.Xaml.AvaloniaRuntimeXamlLoader]::Parse($xaml)
     Set-PSGPOWindowIcon -Window $window
-    $ui = @{}
-    foreach ($name in 'logoImage', 'subtitleTextBlock', 'languageComboBox', 'themeToggleButton', 'themeToggleIcon', 'themeToggleText', 'toolsPanel', 'statusTextBlock') {
-        $ui[$name] = Get-PSGPOAvaloniaControl $window $name
-    }
+    # The named controls of the window, from its XAML.
+    $ui = Get-PSGPOAvaloniaNamedControl -Root $window -Xaml $xaml
     $ui.logoImage.Source = New-PSGPOLogoBitmap
+    $ui.aboutLogoImage.Source = $ui.logoImage.Source
 
     # Theme: the one of the session, the same in every window (PSGPOTheme.ps1).
     Register-PSGPOThemeWindow -Window $window -ToggleText $ui.themeToggleText -ToggleIcon $ui.themeToggleIcon
@@ -141,10 +141,38 @@ function Start-PSGPOLauncherWindow {
             $launch.Timer.Start()
         })
 
+    # About: the version of HGPM installed and where, PowerShell and the system it runs on, the
+    # Hardenad community HGPM comes from, its documentation (in the language of the launcher) and
+    # its source code; the links open in the browser of the system.
+    $about = Get-PSGPOModuleVersion
+    function Update-LauncherAbout {
+        $ui.aboutButtonText.Text = Get-PSGPOText 'About'
+        [Avalonia.Controls.ToolTip]::SetTip($ui.aboutButton, (Get-PSGPOText 'About HGPM: its version, the Hardenad community'))
+        $ui.aboutVersionTextBlock.Text = Get-PSGPOText 'Version {0}' $about.Version
+        $ui.aboutDescriptionTextBlock.Text = Get-PSGPOText 'Group Policy management for Samba AD and Active Directory, in the spirit of GPMC, on Windows and Linux.'
+        $ui.aboutCommunityTextBlock.Text = Get-PSGPOText 'HGPM is a product of the Hardenad community:'
+        # A name of domain, not a text to translate.
+        $ui.aboutHardenadLink.Content = 'hardenad.net'
+        $ui.aboutPathTextBlock.Text = Get-PSGPOText 'Installed in {0}' $about.Path
+        $ui.aboutRuntimeTextBlock.Text = Get-PSGPOText 'PowerShell {0} on {1}' $PSVersionTable.PSVersion ([System.Runtime.InteropServices.RuntimeInformation]::OSDescription)
+        $ui.aboutDocsLink.Content = Get-PSGPOText 'Documentation'
+        $ui.aboutDocsLink.NavigateUri = [uri]"https://jm2k69.github.io/PSGPOTools/$(if ("$($launch.Language)" -like 'fr*') { 'fr' } else { 'en' })/"
+        $ui.aboutSourceLink.Content = Get-PSGPOText 'Source code'
+        $ui.aboutLicenseTextBlock.Text = Get-PSGPOText 'Apache License 2.0'
+        $ui.aboutCloseButton.Content = Get-PSGPOText 'Close'
+    }
+    $ui.aboutButton.Add_Click({ $ui.aboutPanel.IsVisible = $true; $ui.aboutCloseButton.Focus() })
+    $ui.aboutCloseButton.Add_Click({ $ui.aboutPanel.IsVisible = $false })
+    $window.add_KeyDown({
+            param($control, $e)
+            if ($e.Key -eq [Avalonia.Input.Key]::Escape -and $ui.aboutPanel.IsVisible) { $ui.aboutPanel.IsVisible = $false; $e.Handled = $true }
+        })
+
     # The language: an item for each one of the module, in its own language. The texts of the window
     # and of the tiles change with it (the titles of the tools from Get-PSGPOLauncherTool).
     function Update-LauncherText {
         $ui.subtitleTextBlock.Text = Get-PSGPOText 'Choose a console'
+        Update-LauncherAbout
         [Avalonia.Controls.ToolTip]::SetTip($ui.languageComboBox, (Get-PSGPOText 'Language of the consoles'))
         $ui.themeToggleText.Text = Get-PSGPOText $(if (Get-PSGPOThemeIsDark) { 'Light mode' } else { 'Dark mode' })
         $translated = @{}
@@ -165,6 +193,7 @@ function Start-PSGPOLauncherWindow {
         if ($name -eq $launch.Language) { $ui.languageComboBox.SelectedItem = $item }
     }
     Update-LauncherTile
+    Update-LauncherAbout
     $ui.languageComboBox.add_SelectionChanged({
             $chosen = $ui.languageComboBox.SelectedItem.Tag
             if (-not $chosen -or $chosen -eq $launch.Language) { return }
@@ -179,7 +208,8 @@ function Start-PSGPOLauncherWindow {
 
     $onShownState = @{ Error = $null }
     if ($OnShown) {
-        $controls = @{ Window = $window; Tiles = $tiles } + $ui
+        $controls = @{ Window = $window; Tiles = $tiles }
+        foreach ($controlName in $ui.Keys) { $controls[$controlName] = $ui[$controlName] }
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
                 try { & $OnShown $controls } catch { $onShownState.Error = $_ } finally { $window.Close() }
             })

@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Added
+
+* The comment of a GPO, as GPMC (`GPO.cmt` of its folder, UTF-16): in its details in the console, saved by an account that edits it, without changing its version; `Set-PSGPO -Comment`, `New-PSGPO -Comment`, in the report of the GPO, and in the audit log (`SetGpoComment`, event 1012)
+* **About** in the launcher (`Start-HGPM`): the version of HGPM installed and the folder it runs from, PowerShell and the system, links to the documentation, the source code and [hardenad.net](https://hardenad.net/): HGPM is a product of the Hardenad community
+
 ### Changed
 
 * The long operations of the GPO console run in the background: Refresh (F5) and Change Domain Controller..., Detect Now (Status tab), Back up and Back up all (History tab), Save report.... The window stays drawn and answers, a banner says what runs, the tree and the details of the domain wait meanwhile, and **Cancel** stops a read (not a backup, which writes)

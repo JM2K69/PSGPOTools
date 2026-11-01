@@ -39,3 +39,13 @@ pourquoi sous ses tuiles.
   configuration...). Le choix est aussi gardé dans les paramètres de l'utilisateur : les outils
   ouverts dans leurs propres processus le suivent en une seconde, et le démarrage suivant part de
   lui.
+
+## À propos { #a-propos }
+
+**À propos**, à droite de l'en-tête, dit de quel HGPM il s'agit : la version du module installée
+et le dossier d'où il tourne, la version de PowerShell et le système. Il mène à la documentation
+(dans la langue du lanceur), au code source et à [hardenad.net](https://hardenad.net/) : HGPM est
+un produit de la communauté Hardenad. Les liens s'ouvrent dans le navigateur du système ;
+**Fermer**, ou Échap, revient aux tuiles.
+
+![À propos dans le lanceur](../assets/screenshots/89-launcher-about.fr.png)

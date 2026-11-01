@@ -30,6 +30,8 @@ function Initialize-PSGPOManagerDomainTreeView {
         $linksHeaderTextBlock.IsVisible = [bool]$detail.LinksHeader
         $linksList.ItemsSource = $detail.Links
         $editGpoButton.IsVisible = $null -ne $detail.Gpo -and $detail.Gpo.CanEdit
+        # Its comment (GPO.cmt), read after the click.
+        Update-GpoComment -Gpo $detail.Gpo
         $directoryResultTextBlock.Text = ''
         Hide-DirectoryForm
         $canRestore = $null -ne $detail.Deleted -and -not $Directory.IsReadOnly -and $Directory.CanCreateGpo

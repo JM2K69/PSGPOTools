@@ -1450,6 +1450,44 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Shows the comment of a GPO in its details, saved by an account that edits it, and read once' {
+            $Gpo = $Directory.FindGpo('U - Lyon - Printers')
+            $Directory.WriteGpoComment($Gpo, "Printers of Lyon`nOwner: workplace")
+            $Other = $Directory.FindGpo('Default Domain Policy')
+            $Other.CanEdit = $false
+            Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                param($Ui)
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'U - Lyon - Printers'
+                $Ui.gpoCommentPanel.IsVisible | Should -BeTrue
+                Invoke-UiLoop -Until { $Ui.gpoCommentTextBox.Text }
+                $Ui.gpoCommentTextBox.Text | Should -Be "Printers of Lyon`nOwner: workplace"
+                $Ui.gpoCommentTextBox.IsReadOnly | Should -BeFalse
+                $Ui.gpoCommentSaveButton.IsVisible | Should -BeTrue
+                $Ui.gpoCommentSaveButton.IsEnabled | Should -BeFalse -Because 'nothing changed'
+                $Ui.gpoCommentTextBox.Text = "Printers of Lyon`nOwner: print team"
+                $Ui.gpoCommentSaveButton.IsEnabled | Should -BeTrue
+                Invoke-Click $Ui.gpoCommentSaveButton
+                $Ui.gpoCommentStatusTextBlock.Text | Should -Be 'Comment saved.'
+                $Ui.gpoCommentSaveButton.IsEnabled | Should -BeFalse
+                $Ui.Directory.ReadGpoComment($Gpo) | Should -Be "Printers of Lyon`r`nOwner: print team"
+
+                # A GPO the account does not edit: read only.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'Default Domain Policy'
+                Invoke-UiLoop -Until { $Ui.gpoCommentTextBox.Watermark -eq 'No comment' }
+                $Ui.gpoCommentTextBox.Text | Should -BeNullOrEmpty
+                $Ui.gpoCommentTextBox.IsReadOnly | Should -BeTrue
+                $Ui.gpoCommentSaveButton.IsVisible | Should -BeFalse
+
+                # Back to the first one: from what was read, not read again (its file changed since).
+                $Ui.Directory.GpoFiles["$($Gpo.Id)\GPO.cmt"] = ConvertTo-PSGPOCommentByte -Comment 'Changed by another console'
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'U - Lyon - Printers'
+                $Ui.gpoCommentTextBox.Text | Should -Be "Printers of Lyon`nOwner: print team"
+                # An OU: no comment.
+                $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Sites'
+                $Ui.gpoCommentPanel.IsVisible | Should -BeFalse
+            }
+        }
+
         It 'Exports a WMI filter to a .mof file and imports it, from their context menus' {
             $SettingsBefore = $env:PSGPOTOOLS_SETTINGS_PATH
             $script:MofRoot = Join-Path $TestDrive "mof-$([guid]::NewGuid())"
@@ -3694,6 +3732,45 @@ InModuleScope -ModuleName HGPM {
                 $Ui.statusTextBlock.IsVisible | Should -BeFalse
             }
             Should -Invoke Start-PSGPOToolProcess -Times 1 -Exactly -ParameterFilter { $Command -eq 'Show-PSOManagerAvalonia' -and $Language -eq 'en-US' }
+        }
+
+        It 'Says in About the version of HGPM installed and where, and links to the Hardenad community' {
+            $Installed = Get-PSGPOModuleVersion
+            try {
+                Start-PSGPOLauncherWindow -Tools (Get-PSGPOLauncherTool) -OnShown {
+                    param($Ui)
+                    $Ui.aboutPanel.IsVisible | Should -BeFalse
+                    $Ui.aboutButtonText.Text | Should -Be 'About'
+                    Invoke-Click $Ui.aboutButton
+                    $Ui.aboutPanel.IsVisible | Should -BeTrue
+                    $Ui.aboutVersionTextBlock.Text | Should -Be "Version $($Installed.Version)"
+                    $Ui.aboutPathTextBlock.Text | Should -Be "Installed in $($Installed.Path)"
+                    $Ui.aboutRuntimeTextBlock.Text | Should -BeLike "PowerShell $($PSVersionTable.PSVersion) on *"
+                    $Ui.aboutCommunityTextBlock.Text | Should -Be 'HGPM is a product of the Hardenad community:'
+                    $Ui.aboutHardenadLink.NavigateUri | Should -Be ([uri]'https://hardenad.net/')
+                    $Ui.aboutHardenadLink.Content | Should -Be 'hardenad.net'
+                    $Ui.aboutDocsLink.NavigateUri | Should -Be ([uri]'https://jm2k69.github.io/PSGPOTools/en/')
+                    $Ui.aboutSourceLink.NavigateUri | Should -Be ([uri]'https://github.com/JM2K69/PSGPOTools')
+                    Invoke-Click $Ui.aboutCloseButton
+                    $Ui.aboutPanel.IsVisible | Should -BeFalse
+
+                    # Escape closes it too; in French, its texts and the documentation in French.
+                    $Ui.languageComboBox.SelectedItem = @($Ui.languageComboBox.Items | Where-Object Tag -EQ 'fr-FR')[0]
+                    Invoke-Click $Ui.aboutButton
+                    $Ui.aboutButtonText.Text | Should -Be 'À propos'
+                    $Ui.aboutCommunityTextBlock.Text | Should -Be 'HGPM est un produit de la communauté Hardenad :'
+                    $Ui.aboutDocsLink.NavigateUri | Should -Be ([uri]'https://jm2k69.github.io/PSGPOTools/fr/')
+                    $Escape = [Avalonia.Input.KeyEventArgs]::new()
+                    $Escape.RoutedEvent = [Avalonia.Input.InputElement]::KeyDownEvent
+                    $Escape.Key = [Avalonia.Input.Key]::Escape
+                    $Ui.Window.RaiseEvent($Escape)
+                    $Ui.aboutPanel.IsVisible | Should -BeFalse
+                }
+            } finally {
+                # The language chosen is kept for the next start: not for the next tests.
+                Set-PSGPOUserSetting -Values @{ Language = $null } -Confirm:$false
+                $null = Set-PSGPOLanguage -Language 'en-US'
+            }
         }
 
         It 'Starts a console in a PowerShell process of its own, which says why it did not open' {

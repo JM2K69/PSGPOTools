@@ -5,6 +5,11 @@ en PowerShell 7 avec une interface [Avalonia](https://avaloniaui.net/). Elle fon
 **Windows et Linux**, et gère aussi bien les GPO des domaines **Samba AD** que ceux d'**Active
 Directory**.
 
+!!! info "Un produit de la communauté Hardenad"
+    HGPM est un produit de la communauté [Hardenad](https://hardenad.net/). **À propos**, dans le
+    [lanceur](features/launcher.md#a-propos) (`Start-HGPM`), donne la version du module installée
+    et mène à [hardenad.net](https://hardenad.net/).
+
 === "Samba AD (Linux)"
 
     ![La vue Group Policy Management sur un domaine Samba AD](assets/screenshots/01-console-domain.fr.png)

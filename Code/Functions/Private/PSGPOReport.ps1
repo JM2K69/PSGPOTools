@@ -18,7 +18,11 @@ function Get-PSGPOReportData {
     )
 
     $problems = [System.Collections.Generic.List[string]]::new()
-    $settings = Get-PSGPOFolderSetting -Files $Directory.ReadGpoFolder($Gpo) -MachineExtensionNames $Gpo.MachineExtensionNames -UserExtensionNames $Gpo.UserExtensionNames
+    $files = $Directory.ReadGpoFolder($Gpo)
+    $settings = Get-PSGPOFolderSetting -Files $files -MachineExtensionNames $Gpo.MachineExtensionNames -UserExtensionNames $Gpo.UserExtensionNames
+    # Its comment (GPO.cmt), from the files read already.
+    $commentFile = @($files.Keys | Where-Object { $_ -ieq 'GPO.cmt' })[0]
+    $comment = if ($commentFile) { ConvertFrom-PSGPOCommentByte -Bytes ([byte[]]$files[$commentFile]) } else { '' }
     $permissions = $null
     try {
         $permissions = @(Get-PSGPOPermissionRow -Directory $Directory -Gpo $Gpo | ForEach-Object { [pscustomobject]@{ Trustee = $_.Trustee; Permission = $_.Permission; Inherited = $_.Inherited; Denied = $_.Denied } })
@@ -34,6 +38,7 @@ function Get-PSGPOReportData {
         Domain = $Directory.DomainName
         DistinguishedName = $Gpo.DistinguishedName
         Owner = $Gpo.Owner
+        Comment = $comment
         Status = $Gpo.GetStatus()
         ApprovalState = $Gpo.ApprovalState
         ComputerVersion = $Gpo.GetComputerVersion()
@@ -195,6 +200,7 @@ function ConvertTo-PSGPOReportHtml {
             , @((& $encode (Get-PSGPOText 'GPO status')), (& $show $item.Status))
             if ($item.ApprovalState) { , @((& $encode (Get-PSGPOText 'Approval')), (& $encode (Get-PSGPOText $(if ($item.ApprovalState -eq 'Pending') { 'Waiting for approval' } else { 'Approved' })))) }
             if ($item.Owner) { , @((& $encode (Get-PSGPOText 'Owner')), (& $encode $item.Owner)) }
+            if ($item.Comment) { , @((& $encode (Get-PSGPOText 'Comment')), ((& $encode $item.Comment) -replace '\r?\n', '<br>')) }
             , @((& $encode (Get-PSGPOText 'Computer version')), (& $encode $item.ComputerVersion))
             , @((& $encode (Get-PSGPOText 'User version')), (& $encode $item.UserVersion))
             , @((& $encode (Get-PSGPOText 'Modified')), (& $encode (& $date $item.Modified)))

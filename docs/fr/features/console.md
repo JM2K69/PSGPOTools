@@ -24,7 +24,7 @@ Les détails d'un nœud dépendent de ce qu'il est :
 |---|---|
 | Domaine | nom distinctif, contrôleur de domaine et service d'annuaire, le compte connecté, sa délégation, son rôle dans le workflow d'approbation, les GPO liées |
 | OU | nom distinctif, blocage de l'héritage, vos droits à cet endroit, les GPO liées |
-| GPO, lien | identifiant unique, statut, état d'approbation et propriétaire, vos droits, filtrage de sécurité, filtre WMI, les extensions côté client que la console n'interprète pas, versions, nom distinctif, chemin SYSVOL, tous les liens de la GPO |
+| GPO, lien | identifiant unique, statut, état d'approbation et propriétaire, vos droits, filtrage de sécurité, filtre WMI, les extensions côté client que la console n'interprète pas, versions, nom distinctif, chemin SYSVOL, tous les liens de la GPO, son [commentaire](gpo-management.md#le-commentaire-dune-gpo) |
 | Filtre WMI | description, requêtes, les GPO qui l'utilisent, identifiant unique, nom distinctif |
 | GPO supprimée | sa dernière sauvegarde, par qui, son commentaire, statut, filtrage de sécurité, où elle était liée |
 

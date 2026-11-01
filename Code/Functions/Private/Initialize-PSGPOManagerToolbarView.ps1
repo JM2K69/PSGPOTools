@@ -53,6 +53,7 @@ function Initialize-PSGPOManagerToolbarView {
                 return
             }
             $settingsCache.Clear()
+            $gpoComment.Cache.Clear()
             $history.Current = @{}
             $backupLists.Root = $null
             Update-DirectoryTree -Select (Find-PSGPODirectoryItem -Directory $Directory -Item $refresh.Item -LinkSom $refresh.LinkSom)

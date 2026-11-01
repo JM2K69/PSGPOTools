@@ -315,6 +315,24 @@ comme une GPO renommée dans le domaine depuis que la console l'a lue. Le renomm
 Set-PSGPO -Name 'U - Lyon - Printers' -NewName 'U - Lyon - Color printers'
 ```
 
+## Le commentaire d'une GPO { #le-commentaire-dune-gpo }
+
+Les détails d'une GPO se terminent par son **commentaire**, comme l'onglet Détails de GPMC : le
+fichier `GPO.cmt` de son dossier dans SYSVOL, lu après le clic (les détails s'affichent aussitôt)
+et gardé jusqu'à la relecture du domaine. Un compte qui modifie la GPO le change dans la zone et
+l'enregistre avec **Enregistrer le commentaire** ; pour les autres, il est en lecture seule. Le
+commentaire n'est pas un paramètre que les ordinateurs appliquent : la version de la GPO ne change
+pas, comme avec GPMC, et l'onglet Paramètres et l'écart l'ignorent. Il figure dans le rapport de la
+GPO, et va dans le [journal d'audit](backup-history.md) (`SetGpoComment`, événement 1012).
+
+![Le commentaire d'une GPO dans ses détails](../assets/screenshots/90-gpo-comment.fr.png){ width="640" }
+
+```powershell
+Set-PSGPO -Name 'C - Kiosks - Baseline' -Comment "CHG-2041 : bornes des halls`nResponsable : équipe poste de travail"
+New-PSGPO -Name 'C - Kiosks - Halls' -Comment 'Bornes des halls'
+Set-PSGPO -Name 'C - Kiosks - Baseline' -Comment ''      # le supprime
+```
+
 ## Supprimer une GPO
 
 **Delete GPO...** sur une GPO de Group Policy Objects, après confirmation :

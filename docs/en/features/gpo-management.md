@@ -299,6 +299,24 @@ read it. The rename goes to the [audit log](backup-history.md) (`RenameGpo`).
 Set-PSGPO -Name 'U - Lyon - Printers' -NewName 'U - Lyon - Color printers'
 ```
 
+## The comment of a GPO { #the-comment-of-a-gpo }
+
+The details of a GPO end with its **comment**, as the Details tab of GPMC: the file `GPO.cmt` of its
+folder in SYSVOL, read after the click (the details show at once) and kept until the domain is read
+again. An account that edits the GPO changes it in the box and saves it with **Save the comment**;
+for the others it is read only. The comment is not a setting the computers apply: the version of
+the GPO does not change, as with GPMC, and the Settings tab and the drift leave it out. It is in
+the report of the GPO, and goes to the [audit log](backup-history.md) (`SetGpoComment`, event
+1012).
+
+![The comment of a GPO in its details](../assets/screenshots/90-gpo-comment.png){ width="640" }
+
+```powershell
+Set-PSGPO -Name 'C - Kiosks - Baseline' -Comment "CHG-2041: kiosks of the halls`nOwner: workplace team"
+New-PSGPO -Name 'C - Kiosks - Halls' -Comment 'Kiosks of the halls'
+Set-PSGPO -Name 'C - Kiosks - Baseline' -Comment ''      # removes it
+```
+
 ## Delete a GPO
 
 **Delete GPO...** on a GPO of Group Policy Objects, after confirmation:
