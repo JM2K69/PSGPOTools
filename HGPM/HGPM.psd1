@@ -12,7 +12,7 @@
 RootModule = 'HGPM.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.26'
+ModuleVersion = '0.2.0'
 
 # Supported PSEditions
 CompatiblePSEditions = 'Core'
@@ -141,8 +141,8 @@ PrivateData = @{
         # ReleaseNotes of this module
         ReleaseNotes = 'https://jm2k69.github.io/PSGPOTools/en/changelog/'
 
-        # Prerelease string of this module
-        Prerelease = 'alpha'
+        # Prerelease string of this module: none, HGPM 0.2.0 is the first release out of alpha
+        # Prerelease = ''
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

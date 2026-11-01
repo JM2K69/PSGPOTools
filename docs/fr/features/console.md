@@ -107,9 +107,8 @@ lequel l'annuaire a été lu, son service d'annuaire (`Samba AD` ou `Active Dire
 l'émulateur PDC, le compte connecté, et la version de HGPM avec une pastille :
 
 - **verte** : la dernière version de la PowerShell Gallery ;
-- **orange** : une version plus récente est sur la Gallery (`HGPM 0.1.6-alpha : 0.1.7-alpha
-  disponible`) ; son info-bulle donne la commande qui l'installe (`Update-PSResource -Name HGPM
-  -Prerelease`, ou `Install-PSResource` pour un module qui n'a pas été installé depuis la Gallery,
+- **orange** : une version plus récente est sur la Gallery (`HGPM 0.2.0 : 0.2.1
+  disponible`) ; son info-bulle donne la commande qui l'installe (`Update-PSResource -Name HGPM`, ou `Install-PSResource` pour un module qui n'a pas été installé depuis la Gallery,
   une copie du dépôt par exemple), puis ouvrez une nouvelle session PowerShell ;
 - **grise** : la Gallery n'a pas été lue (pas de réseau, ou vérification désactivée), les mises à
   jour sont inconnues.

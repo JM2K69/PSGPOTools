@@ -1,6 +1,8 @@
 # HGPM Release History
 
-## Unreleased
+## 0.2.0
+
+The first release out of alpha: `Install-PSResource -Name HGPM` installs it, without `-Prerelease`.
 
 ### Added
 

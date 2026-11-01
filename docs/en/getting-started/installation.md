@@ -13,12 +13,13 @@ Install it from the PowerShell Gallery, or build it from the repository (the bra
     (`Install-Module`):
 
     ```powershell
-    Install-PSResource -Name HGPM -Prerelease -Scope CurrentUser   # alpha versions
+    Install-PSResource -Name HGPM -Scope CurrentUser
     Import-Module HGPM
     ```
 
-    `-Prerelease` while HGPM has alpha versions only. Later, `Update-PSResource -Name HGPM -Prerelease`
-    installs a newer version ([updates](#updates)).
+    Since 0.2.0, HGPM has releases: no `-Prerelease`. An alpha version installed before (0.1.x-alpha,
+    with `-Prerelease`) goes to the release with `Update-PSResource -Name HGPM`, which also installs
+    the newer versions later ([updates](#updates)).
 
 === "From the repository"
 
@@ -188,8 +189,8 @@ PowerShell Gallery has it:
 
 ```text
 PS> Import-Module HGPM
-HGPM 0.1.5-alpha
-HGPM 0.1.6-alpha is available on the PowerShell Gallery: Update-PSResource -Name HGPM -Prerelease, then open a new PowerShell session.
+HGPM 0.2.0
+HGPM 0.2.1 is available on the PowerShell Gallery: Update-PSResource -Name HGPM, then open a new PowerShell session.
 ```
 
 The import reads the Gallery at most once a day (`UpdateCheck.json` in the local data folder of
@@ -206,12 +207,12 @@ prereleases count when the version loaded is one (or with `-Prerelease`).
 ```powershell
 Test-PSGPOUpdate
 # Name             : HGPM
-# InstalledVersion : 0.1.4-alpha
-# LatestVersion    : 0.1.5-alpha
+# InstalledVersion : 0.2.0
+# LatestVersion    : 0.2.1
 # UpdateAvailable  : True
-# UpdateCommand    : Update-PSResource -Name HGPM -Prerelease
+# UpdateCommand    : Update-PSResource -Name HGPM
 
-if (Test-PSGPOUpdate -Quiet) { Update-PSResource -Name HGPM -Prerelease }
+if (Test-PSGPOUpdate -Quiet) { Update-PSResource -Name HGPM }
 ```
 
 ### Update HGPM
@@ -223,13 +224,13 @@ if (Test-PSGPOUpdate -Quiet) { Update-PSResource -Name HGPM -Prerelease }
     === "PowerShell Gallery"
 
         ```powershell
-        Update-PSResource -Name HGPM -Prerelease
+        Update-PSResource -Name HGPM
         ```
 
         The new version goes beside the old one (a folder per version in `Modules/HGPM`). A module
         installed for all users (`-Scope AllUsers`) is updated as an administrator, with
         `-Scope AllUsers` (`sudo pwsh` on Linux). Installed with PowerShellGet (`Install-Module`):
-        `Update-Module -Name HGPM -AllowPrerelease`.
+        `Update-Module -Name HGPM`.
 
     === "From the repository"
 

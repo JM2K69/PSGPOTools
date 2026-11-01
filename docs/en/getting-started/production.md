@@ -24,7 +24,7 @@ of a newer one is left out by an older one.
 
 | # | Step | Who | Command or place | Check |
 |---|---|---|---|---|
-| 1 | Install the module on each admin workstation | each account | `Install-PSResource HGPM -Prerelease` | `Get-Module HGPM -ListAvailable` |
+| 1 | Install the module on each admin workstation | each account | `Install-PSResource HGPM` | `Get-Module HGPM -ListAvailable` |
 | 2 | The ADMX files: the central store of the domain (before step 5: a creator could create it), or a copy next to the module | Tier 0 | the central store (`SYSVOL\<domain>\Policies\PolicyDefinitions`), or `Install-PSGPOAdmx` | the console lists the policies |
 | 3 | The configuration of the domain: open the console once | a Domain Admin | `Show-GPOManagerAvalonia` creates `SYSVOL\<domain>\PSGPOTools\Configuration.psd1` | `Get-PSGPOConfiguration` |
 | 4 | The roles of the workflow | a Domain Admin | **Settings**: `Workflow.Enabled`, `Workflow.Approvers`, `Workflow.Creators`, `Workflow.ApprovedOwner`, `Workflow.CreatorRights` | `Get-PSGPOConfiguration`: no problem; a role in both lists is refused |

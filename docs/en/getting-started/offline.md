@@ -22,7 +22,7 @@ Linux: the CI checks it at each commit).
 The SHA-256 of an archive, against `SHA256SUMS`:
 
 ```powershell
-$archive = 'HGPM-0.1.21-alpha-win-x64.zip'
+$archive = 'HGPM-0.2.0-win-x64.zip'
 $expected = (Get-Content SHA256SUMS | Where-Object { $_.EndsWith("  $archive") }).Split(' ')[0]
 (Get-FileHash $archive -Algorithm SHA256).Hash.ToLower() -eq $expected
 ```
@@ -30,7 +30,7 @@ $expected = (Get-Content SHA256SUMS | Where-Object { $_.EndsWith("  $archive") }
 Its attestation, with the GitHub CLI (from a computer with internet):
 
 ```bash
-gh attestation verify HGPM-0.1.21-alpha-win-x64.zip --repo JM2K69/PSGPOTools
+gh attestation verify HGPM-0.2.0-win-x64.zip --repo JM2K69/PSGPOTools
 ```
 
 It says the file was built by the Release workflow of the repository, from the commit of the tag,
@@ -42,7 +42,7 @@ workstation, require the release workflow and the tag you expect: another tag, o
 by another workflow, then fails.
 
 ```bash
-gh attestation verify HGPM-0.1.21-alpha-win-x64.zip --repo JM2K69/PSGPOTools --signer-workflow JM2K69/PSGPOTools/.github/workflows/release.yml --source-ref refs/tags/v0.1.21-alpha
+gh attestation verify HGPM-0.2.0-win-x64.zip --repo JM2K69/PSGPOTools --signer-workflow JM2K69/PSGPOTools/.github/workflows/release.yml --source-ref refs/tags/v0.2.0
 ```
 
 ## Install it
@@ -51,19 +51,19 @@ Windows: unblock the archive before extracting it. Downloaded from the internet,
 marked, and the execution policy `RemoteSigned` would refuse the scripts that are not signed.
 
 ```powershell
-Unblock-File .\HGPM-0.1.21-alpha-win-x64.zip
-Expand-Archive .\HGPM-0.1.21-alpha-win-x64.zip -DestinationPath $env:TEMP\HGPM-0.1.21
+Unblock-File .\HGPM-0.2.0-win-x64.zip
+Expand-Archive .\HGPM-0.2.0-win-x64.zip -DestinationPath $env:TEMP\HGPM-0.2.0
 $modules = "$env:ProgramFiles\PowerShell\Modules\HGPM"      # all the users; $HOME\Documents\PowerShell\Modules\HGPM for one
 New-Item -ItemType Directory -Path $modules -Force | Out-Null
-Copy-Item $env:TEMP\HGPM-0.1.21\HGPM "$modules\0.1.21" -Recurse
+Copy-Item $env:TEMP\HGPM-0.2.0\HGPM "$modules\0.2.0" -Recurse
 ```
 
 Linux:
 
 ```bash
-unzip HGPM-0.1.21-alpha-linux-x64.zip -d /tmp/hgpm
+unzip HGPM-0.2.0-linux-x64.zip -d /tmp/hgpm
 mkdir -p ~/.local/share/powershell/Modules/HGPM      # one user; /usr/local/share/powershell/Modules for all
-cp -r /tmp/hgpm/HGPM ~/.local/share/powershell/Modules/HGPM/0.1.21
+cp -r /tmp/hgpm/HGPM ~/.local/share/powershell/Modules/HGPM/0.2.0
 ```
 
 Then, so that nothing is ever looked for on the internet:
@@ -104,7 +104,7 @@ workflow), each script of the module is signed, and the catalog `HGPM.cat` lists
 module:
 
 ```powershell
-$module = "$env:ProgramFiles\PowerShell\Modules\HGPM\0.1.21"
+$module = "$env:ProgramFiles\PowerShell\Modules\HGPM\0.2.0"
 Get-AuthenticodeSignature "$module\HGPM.psm1"
 # The runtime of an offline archive is not in the catalog (the module checks it, above), nor the file Install-PSResource adds.
 $skip = @(Get-ChildItem "$module\Avalonia\bin" -Recurse -File -ErrorAction SilentlyContinue).Name + 'PSGetModuleInfo.xml'
@@ -119,7 +119,7 @@ certificate of your organization (`Set-AuthenticodeSignature`) once checked as a
 Anyone can build the module again from the tag, and compare it with the release:
 
 ```powershell
-git clone --branch v0.1.21-alpha https://github.com/JM2K69/PSGPOTools
+git clone --branch v0.2.0 https://github.com/JM2K69/PSGPOTools
 cd PSGPOTools
 ./CI/03_Build.ps1
 (Get-FileHash HGPM/HGPM.psm1 -Algorithm SHA256).Hash.ToLower()   # the line HGPM/HGPM.psm1 of SHA256SUMS

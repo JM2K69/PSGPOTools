@@ -24,7 +24,7 @@ d'une console plus récente est ignorée par une plus ancienne.
 
 | # | Étape | Qui | Commande ou endroit | Vérification |
 |---|---|---|---|---|
-| 1 | Installer le module sur chaque poste d'administration | chaque compte | `Install-PSResource HGPM -Prerelease` | `Get-Module HGPM -ListAvailable` |
+| 1 | Installer le module sur chaque poste d'administration | chaque compte | `Install-PSResource HGPM` | `Get-Module HGPM -ListAvailable` |
 | 2 | Les fichiers ADMX : le magasin central du domaine (avant l'étape 5 : un créateur pourrait le créer), ou une copie à côté du module | Tier 0 | le magasin central (`SYSVOL\<domaine>\Policies\PolicyDefinitions`), ou `Install-PSGPOAdmx` | la console liste les stratégies |
 | 3 | La configuration du domaine : ouvrir la console une fois | un Domain Admin | `Show-GPOManagerAvalonia` crée `SYSVOL\<domaine>\PSGPOTools\Configuration.psd1` | `Get-PSGPOConfiguration` |
 | 4 | Les rôles du circuit d'approbation | un Domain Admin | **Paramètres** : `Workflow.Enabled`, `Workflow.Approvers`, `Workflow.Creators`, `Workflow.ApprovedOwner`, `Workflow.CreatorRights` | `Get-PSGPOConfiguration` : aucun problème ; un rôle dans les deux listes est refusé |
