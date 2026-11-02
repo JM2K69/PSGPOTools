@@ -14,6 +14,10 @@ The first release out of alpha: `Install-PSResource -Name HGPM` installs it, wit
 * The comment of a GPO, as GPMC (`GPO.cmt` of its folder, UTF-16): in its details in the console, saved by an account that edits it, without changing its version; `Set-PSGPO -Comment`, `New-PSGPO -Comment`, in the report of the GPO, and in the audit log (`SetGpoComment`, event 1012)
 * **About** in the launcher (`Start-HGPM`): the version of HGPM installed and the folder it runs from, PowerShell and the system, links to the documentation, the source code and [hardenad.net](https://hardenad.net/): HGPM is a product of the Hardenad community
 
+### Fixed
+
+* The ACL HGPM writes on the SYSVOL folder of a GPO follows the version of Samba of the domain controller, as its `samba-tool gpo aclcheck` derives it (Samba bug 14927): Windows and Samba 4.23 and later, the allow and deny ACEs without the object ones (*Apply Group Policy*), Samba 4.17 to 4.22 as before, Samba 4.16 and before the allow ACEs; `Get-PSGPODirectory` reads the version (`ServerVersion`, the `vendorVersion` of the rootDSE). With Samba 4.23, aclcheck said the GPOs whose permissions HGPM had changed were inconsistent
+
 ### Changed
 
 * The long operations of the GPO console run in the background: Refresh (F5) and Change Domain Controller..., Detect Now (Status tab), Back up and Back up all (History tab), Save report.... The window stays drawn and answers, a banner says what runs, the tree and the details of the domain wait meanwhile, and **Cancel** stops a read (not a backup, which writes)

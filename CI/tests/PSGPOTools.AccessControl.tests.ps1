@@ -37,12 +37,52 @@ InModuleScope -ModuleName HGPM {
                 "(OA;CI;0x00000100;$Apply;;S-1-5-11)(A;CI;0x00020094;;;S-1-5-9)")
         }
 
-        It 'Derives the ACL of the SYSVOL folder as Samba does (dsacl2fsacl)' {
-            # What samba-tool gpo create set on the folder of a new GPO (smbcacls --numeric --sddl).
-            ([GPOToolsSecurityDescriptor]::Parse($DefaultDomainPolicy)).ConvertToFileSystem().ToSddl() | Should -Be (
-                "O:$Domain-512G:$Domain-512D:P(A;OICI;0x001f01ff;;;$Domain-512)(A;OICI;0x001f01ff;;;$Domain-519)(A;OICIIO;0x001f01ff;;;S-1-3-0)" +
-                "(A;OICI;0x001f01ff;;;$Domain-512)(A;OICI;0x001f01ff;;;S-1-5-18)(A;OICI;0x001200a9;;;S-1-5-11)" +
-                "(OA;OICI;0x00000000;$Apply;;S-1-5-11)(A;OICI;0x001200a9;;;S-1-5-9)")
+        It 'Derives the ACL of the SYSVOL folder as Samba does (dsacl2fsacl), by its version' {
+            $Head = "O:$Domain-512G:$Domain-512D:P(A;OICI;0x001f01ff;;;$Domain-512)(A;OICI;0x001f01ff;;;$Domain-519)(A;OICIIO;0x001f01ff;;;S-1-3-0)" +
+                "(A;OICI;0x001f01ff;;;$Domain-512)(A;OICI;0x001f01ff;;;S-1-5-18)(A;OICI;0x001200a9;;;S-1-5-11)"
+            # What samba-tool gpo create of Samba 4.17 to 4.22 sets on the folder of a new GPO (smbcacls --numeric --sddl).
+            ([GPOToolsSecurityDescriptor]::Parse($DefaultDomainPolicy)).ConvertToFileSystem('AllowedAndObject').ToSddl() | Should -Be (
+                "$Head(OA;OICI;0x00000000;$Apply;;S-1-5-11)(A;OICI;0x001200a9;;;S-1-5-9)")
+            # Windows and Samba 4.23 and later: no object ACE (Apply Group Policy means nothing on a file), as Samba 4.16 and before.
+            ([GPOToolsSecurityDescriptor]::Parse($DefaultDomainPolicy)).ConvertToFileSystem().ToSddl() | Should -Be "$Head(A;OICI;0x001200a9;;;S-1-5-9)"
+            ([GPOToolsSecurityDescriptor]::Parse($DefaultDomainPolicy)).ConvertToFileSystem('Allowed').ToSddl() | Should -Be "$Head(A;OICI;0x001200a9;;;S-1-5-9)"
+        }
+
+        It 'Keeps a deny of the directory on the folder for Windows and Samba 4.23 and later only, never a deny of an extended right' {
+            $Descriptor = [GPOToolsSecurityDescriptor]::Parse($DefaultDomainPolicy)
+            $Descriptor.Dacl.Insert(0, [GPOToolsAce]::new([GPOToolsAce]::AccessDenied, 2, 0x20094, "$Domain-1105", [guid]::Empty))
+            $Descriptor.SetSecurityFiltering($null, "$Domain-1104")
+            $Current = $Descriptor.ConvertToFileSystem('AllowedAndDenied')
+            @($Current.Dacl | Where-Object { $_.IsDeny() }).Sid | Should -Be @("$Domain-1105")
+            $Current.ToSddl() | Should -BeLike "*(D;OICI;0x001200a9;;;$Domain-1105)*"
+            @($Descriptor.ConvertToFileSystem('AllowedAndObject').Dacl | Where-Object { $_.IsDeny() }) | Should -BeNullOrEmpty
+            @($Descriptor.ConvertToFileSystem('Allowed').Dacl | Where-Object { $_.IsDeny() -or $_.IsObjectAce() }) | Should -BeNullOrEmpty
+            { $Descriptor.ConvertToFileSystem('Other') } | Should -Throw '*Unknown rule of the SYSVOL ACL*'
+        }
+
+        It 'Derives the ACL of Samba 4.23 for its own test of dsacl2fsacl: compound ACL with object ACEs' {
+            # python/samba/tests/ntacls.py of Samba 4.23 (bug 14927): DA, AO and SY full control,
+            # CREATOR OWNER inherit only, the object ACEs and the deny of an extended right left out.
+            $Descriptor = [GPOToolsSecurityDescriptor]::new()
+            $Descriptor.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
+            $Descriptor.Dacl.Add([GPOToolsAce]::new([GPOToolsAce]::AccessDeniedObject, 0, 0x100, 'S-1-1-0', [guid]'00299570-246d-11d0-a768-00aa006e0529'))
+            foreach ($Sid in "$Domain-512", 'S-1-5-32-548', 'S-1-5-18') { $Descriptor.Dacl.Add([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, 0, 0x000F01FF, $Sid, [guid]::Empty)) }
+            $Descriptor.Dacl.Add([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, 0, 0x000301D4, 'S-1-3-0', [guid]::Empty))
+            $Descriptor.Dacl.Add([GPOToolsAce]::new([GPOToolsAce]::AccessDeniedObject, 0, 0x20, 'S-1-3-0', [guid]'4c164200-20c0-11d0-a768-00aa006e0529'))
+            $Descriptor.Dacl.Add([GPOToolsAce]::new([GPOToolsAce]::AccessAllowedObject, 0, 0x8, 'S-1-3-0', [guid]'72e39547-7b18-11d1-adef-00c04fd8d5cd'))
+            $Descriptor.ConvertToFileSystem('AllowedAndDenied').ToSddl() | Should -Be (
+                "D:(A;OICI;0x001f01ff;;;$Domain-512)(A;OICI;0x001f01ff;;;S-1-5-32-548)(A;OICI;0x001f01ff;;;S-1-5-18)(A;OICIIO;0x001300a9;;;S-1-3-0)")
+        }
+
+        It 'Chooses the rule of the SYSVOL ACL from the domain controller and its version of Samba' {
+            $Ldap = { param($Type, $Version) $Directory = [GPOToolsLdapDirectory]::new('ci.test', 'DC=ci,DC=test', 'dc.ci.test', $Type); $Directory.ServerVersion = $Version; $Directory }
+            Get-PSGPOSysvolAclRule -Directory (& $Ldap 'Active Directory' '') | Should -Be 'AllowedAndDenied'
+            Get-PSGPOSysvolAclRule -Directory (& $Ldap 'Samba AD' '4.23.6-Ubuntu-4.23.6+dfsg-1ubuntu2.2') | Should -Be 'AllowedAndDenied'
+            Get-PSGPOSysvolAclRule -Directory (& $Ldap 'Samba AD' '4.22.11-Debian-4.22.11+dfsg-0+deb13u1') | Should -Be 'AllowedAndObject'
+            Get-PSGPOSysvolAclRule -Directory (& $Ldap 'Samba AD' '4.17.0') | Should -Be 'AllowedAndObject'
+            Get-PSGPOSysvolAclRule -Directory (& $Ldap 'Samba AD' '4.16.11') | Should -Be 'Allowed'
+            Get-PSGPOSysvolAclRule -Directory (& $Ldap 'Samba AD' '') | Should -Be 'AllowedAndObject' -Because 'an unknown version: the rule of most domains'
+            Get-PSGPOSysvolAclRule -Directory ([GPOToolsDirectory]::new('corp.contoso.com')) | Should -Be 'AllowedAndDenied'
         }
 
         It 'Leaves the deny entries and the Pre-Windows 2000 group out of the SYSVOL ACL' {

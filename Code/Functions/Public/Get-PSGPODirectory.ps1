@@ -70,7 +70,7 @@ function Get-PSGPODirectory {
     $connection = New-PSGPOLdapConnection -Server $Server -Credential $Credential -UseSsl:$UseSsl -Port $Port
     $retarget = $null
     try {
-        $rootDse = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase '' -Scope Base -Attribute 'defaultNamingContext', 'dnsHostName', 'vendorName', 'configurationNamingContext'
+        $rootDse = Invoke-PSGPOLdapSearch -Connection $connection -SearchBase '' -Scope Base -Attribute 'defaultNamingContext', 'dnsHostName', 'vendorName', 'vendorVersion', 'configurationNamingContext'
         $domainDN = Get-PSGPOLdapValue $rootDse 'defaultNamingContext'
         $dnsHostName = Get-PSGPOLdapValue $rootDse 'dnsHostName'
         if (-not $domainDN) { throw "$Server did not give its default naming context: is it a domain controller?" }
@@ -93,6 +93,8 @@ function Get-PSGPODirectory {
             $directory = ConvertTo-PSGPOLdapDirectory -Server $(if ($dnsHostName) { $dnsHostName } else { $Server }) -VendorName (Get-PSGPOLdapValue $rootDse 'vendorName') -DomainEntry $domain `
                 -OrganizationalUnitEntry $organizationalUnits -GpoEntry $gpos -PoliciesEntry $policies -EffectiveRights
             $directory.Account = $account
+            # The version of Samba: the ACL of a SYSVOL folder it checks depends on it (Get-PSGPOSysvolAclRule).
+            $directory.ServerVersion = "$(Get-PSGPOLdapValue $rootDse 'vendorVersion')"
             # The configuration of HGPM for the domain is changed by its administrators only.
             $directory.IsDomainAdministrator = Test-PSGPODomainAdministrator -Connection $connection -DomainDistinguishedName $domainDN -Account $account
             # Security filtering of the GPOs, as GPMC shows it: not a reason to fail the reading.

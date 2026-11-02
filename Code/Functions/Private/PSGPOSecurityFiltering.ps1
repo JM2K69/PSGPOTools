@@ -250,7 +250,7 @@ function Set-PSGPODomainSecurityFiltering {
     } finally {
         $connection.Dispose()
     }
-    Set-PSGPOSysvolAcl -Directory $Directory -Gpo $Gpo -Descriptor $descriptor.ConvertToFileSystem()
+    Set-PSGPOSysvolAcl -Directory $Directory -Gpo $Gpo -Descriptor $descriptor.ConvertToFileSystem((Get-PSGPOSysvolAclRule -Directory $Directory))
     Write-Verbose "GPO '$($Gpo.DisplayName)': security filtering set (apply: $ApplySid, deny: $DenySid)."
 }
 

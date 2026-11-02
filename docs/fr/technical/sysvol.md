@@ -33,8 +33,10 @@ fichier.
 ## Droits
 
 L'ACL du dossier d'une GPO est dérivée de la DACL de son conteneur, comme le font Samba
-(`dsacl2fsacl`) et GPMC : les ACE d'autorisation, héritées par les fichiers et dossiers, les droits
-de l'annuaire traduits en droits de fichiers.
+(`dsacl2fsacl`) et GPMC : les ACE d'autorisation (et de refus pour Windows et Samba 4.23 et
+suivants), héritées par les fichiers et dossiers, les droits de l'annuaire traduits en droits de
+fichiers ; les ACE objet seulement pour Samba 4.17 à 4.22, comme chaque version les vérifie
+([descripteurs de sécurité](security-descriptors.md#de-lannuaire-a-sysvol)).
 
 | | Windows | Linux |
 |---|---|---|

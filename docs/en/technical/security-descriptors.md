@@ -31,11 +31,16 @@ extended right **Apply Group Policy** (`edacfd8f-ffb3-11d1-b41d-00a0c968f939`).
 - `SetSecurityFiltering(apply, deny)`: Authenticated Users no longer apply it but keep reading it
   (MS16-072: the computers must read the GPO), the group applies it, the other group is denied it.
 
-## From the directory to SYSVOL
+## From the directory to SYSVOL { #from-the-directory-to-sysvol }
 
 `ConvertToFileSystem()` derives the ACL of the GPO folder from the DACL of its container, as Samba
-`dsacl2fsacl`: the allow ACEs, inherited by files and folders (`OI CI`), CREATOR OWNER inherit-only,
-the rights of the directory turned into file rights (`ldapmask2filemask`):
+`dsacl2fsacl`: the ACEs below, inherited by files and folders (`OI CI`), CREATOR OWNER inherit-only,
+the rights of the directory turned into file rights (`ldapmask2filemask`). Which ACEs depends on the
+domain controller, as its own checks (`samba-tool gpo aclcheck`, `ntacl sysvolcheck`) derive them
+(Samba bug 14927): Windows and Samba 4.23 and later, the allow and deny ACEs, not the object ones
+(*Apply Group Policy* means nothing on a file); Samba 4.17 to 4.22, the allow ACEs, the object ones
+included; Samba 4.16 and before, the allow ACEs. HGPM reads the version of Samba in the
+`vendorVersion` of the rootDSE (`ServerVersion` of the directory):
 
 | Directory | Files |
 |---|---|

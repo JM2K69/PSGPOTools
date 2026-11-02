@@ -22,6 +22,9 @@ InModuleScope -ModuleName HGPM {
     # The approval with two accounts: after the scripts of the lab (tiers1 gets a ticket with the
     # password of the lab), or on a lab whose ticket of tiers1 is given (PSGPOTOOLS_TEST_TIER1_CCACHE).
     $ApprovalTest = $LabScripts -or ($LdapWrite -and -not $IsWindows -and $env:PSGPOTOOLS_TEST_TIER1_CCACHE)
+    # The Samba Python bindings of this computer: the ACL of a GPO folder is compared with what
+    # their dsacl2fsacl derives (the rule changed with the versions of Samba, bug 14927).
+    $SambaPython = $LdapServer -and -not $IsWindows -and [bool](Get-Command python3 -CommandType Application -ErrorAction SilentlyContinue) -and $(python3 -c 'import samba.ntacls' 2>$null; $LASTEXITCODE -eq 0)
 
     BeforeAll {
         . (Join-Path $PSScriptRoot 'Fixtures' 'LdapDirectory.ps1')
@@ -730,6 +733,59 @@ InModuleScope -ModuleName HGPM {
         It 'Names the directory service of the domain controller' {
             $Directory.ServerType | Should -BeIn 'Samba AD', 'Active Directory'
             $Directory.Source | Should -BeLike "read over LDAP from * ($($Directory.ServerType))"
+            # Samba gives its version, which the ACL of the SYSVOL folders follows (Get-PSGPOSysvolAclRule).
+            if ($Directory.ServerType -eq 'Samba AD') { $Directory.ServerVersion | Should -Match '^\d+\.\d+' }
+        }
+
+        It 'Derives the ACL of a GPO folder by the rule of the version of the domain controller as its Samba does (dsacl2fsacl)' -Skip:(-not $SambaPython) {
+            # The CI checks the rule of its image (ubuntu-24.04: Samba 4.19, 26.04: Samba 4.23) against
+            # the code of Samba itself: a new GPO, its security filtering groups, a deny of reading.
+            $Domain = 'S-1-5-21-1-2-3'
+            $New = [GPOToolsSecurityDescriptor]::new()
+            $New.Owner = "$Domain-512"
+            $New.Group = "$Domain-512"
+            $New.Control = [GPOToolsSecurityDescriptor]::DaclProtected
+            $New.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
+            foreach ($Ace in @(@(2, "$Domain-512"), @(2, "$Domain-519"), @(10, 'S-1-3-0'), @(0, "$Domain-512"), @(2, 'S-1-5-18'))) {
+                $New.Dacl.Add([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, $Ace[0], 0x000F00FF, $Ace[1], [guid]::Empty))
+            }
+            Set-PSGPOPermissionAce -Descriptor $New -Sid 'S-1-5-11' -Permission GpoApply
+            Set-PSGPOPermissionAce -Descriptor $New -Sid 'S-1-5-9' -Permission GpoRead
+            $Filtered = [GPOToolsSecurityDescriptor]::Parse($New.ToBytes())
+            $Filtered.SetSecurityFiltering("$Domain-1106", "$Domain-1107")
+            $Denied = [GPOToolsSecurityDescriptor]::Parse($New.ToBytes())
+            $Denied.AddAce([GPOToolsAce]::new([GPOToolsAce]::AccessDenied, [GPOToolsAce]::ContainerInherit, 0x00020094, "$Domain-1108", [guid]::Empty))
+            $Denied.Dacl.Add([GPOToolsAce]::new([GPOToolsAce]::AccessAllowed, [GPOToolsAce]::ContainerInherit, 0x00020094, 'S-1-5-32-554', [guid]::Empty))
+            $Descriptors = @($New, $Filtered, $Denied)
+
+            # The version of the Samba of this computer, then the folder ACL of each descriptor.
+            $Script = @'
+import sys
+import samba
+from samba.dcerpc import security
+from samba.ndr import ndr_pack, ndr_unpack
+from samba.ntacls import dsacl2fsacl
+sid = security.dom_sid(sys.argv[1])
+print(samba.version)
+for value in sys.argv[2:]:
+    folder = dsacl2fsacl(ndr_unpack(security.descriptor, bytes.fromhex(value)).as_sddl(), sid)
+    print(ndr_pack(security.descriptor.from_sddl(folder, sid)).hex())
+'@
+            $Python = (Get-Command python3 -CommandType Application | Select-Object -First 1).Source
+            $Result = Invoke-PSGPONativeCommand -FilePath $Python -ArgumentList (@('-c', $Script, $Domain) + @($Descriptors | ForEach-Object { [Convert]::ToHexString($_.ToBytes()) }))
+            $Result.ExitCode | Should -Be 0 -Because $Result.Error
+            $Local = @($Result.Output)[0]
+            $Version = { param($Text) ([regex]::Match("$Text", '^\d+\.\d+')).Value }
+            if ((& $Version $Local) -ne (& $Version $Directory.ServerVersion)) {
+                Set-ItResult -Skipped -Because "the Samba of this computer ($Local) is not that of the domain controller ($($Directory.ServerVersion))"
+                return
+            }
+            $Rule = Get-PSGPOSysvolAclRule -Directory $Directory
+            $Samba = @(@($Result.Output) | Select-Object -Skip 1 | ForEach-Object { [GPOToolsSecurityDescriptor]::Parse([Convert]::FromHexString($_)).ToSddl() })
+            $Samba.Count | Should -Be $Descriptors.Count
+            for ($i = 0; $i -lt $Descriptors.Count; $i++) {
+                $Descriptors[$i].ConvertToFileSystem($Rule).ToSddl() | Should -Be $Samba[$i] -Because "Samba $Local, rule $Rule, the directory ACL $($Descriptors[$i].ToSddl())"
+            }
         }
 
         It 'Is read by Show-GPOManagerAvalonia at launch' {

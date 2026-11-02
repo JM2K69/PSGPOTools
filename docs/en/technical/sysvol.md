@@ -32,8 +32,10 @@ Without 1 and 2 the computers would not apply the change; without 3 they would i
 ## Permissions
 
 The ACL of a GPO folder is derived from the DACL of its container, as Samba (`dsacl2fsacl`) and
-GPMC do: the allow ACEs, inherited by the files and folders, the rights of the directory turned
-into file rights.
+GPMC do: the allow ACEs (and the deny ones for Windows and Samba 4.23 and later), inherited by the
+files and folders, the rights of the directory turned into file rights; the object ACEs only for
+Samba 4.17 to 4.22, as each version checks them
+([security descriptors](security-descriptors.md#from-the-directory-to-sysvol)).
 
 | | Windows | Linux |
 |---|---|---|

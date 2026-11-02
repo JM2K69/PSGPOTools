@@ -1211,6 +1211,9 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
     [string]$Server
     # Directory service of the domain controller: 'Samba AD' or 'Active Directory' (Windows)
     [string]$ServerType
+    # Version of Samba on the domain controller (vendorVersion of its rootDSE: 4.22.11-Debian-...);
+    # empty for Windows, or when not read
+    [string]$ServerVersion
     # The PDC emulator of the domain (DNS name), where GPMC changes the GPOs; empty when unknown
     [string]$PdcEmulator
     # How the directory was read, to connect again for the changes

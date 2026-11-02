@@ -636,6 +636,23 @@ function Approve-PSGPODomainGpo {
     , [string[]]$unexpected
 }
 
+# Which ACEs of the ACL of a group policy container its SYSVOL folder gets, as the domain
+# controller derives it (GPOToolsSecurityDescriptor.ConvertToFileSystem): Windows and Samba 4.23 and
+# later, the allow and deny ACEs (AllowedAndDenied); Samba 4.17 to 4.22, the allow ACEs, the object
+# ones included (AllowedAndObject); Samba 4.16 and before, the allow ACEs (Allowed). Samba of an
+# unknown version: AllowedAndObject, the rule of the versions most domains run.
+function Get-PSGPOSysvolAclRule {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([Parameter(Mandatory)] [GPOToolsDirectory]$Directory)
+
+    if ($Directory -isnot [GPOToolsLdapDirectory] -or $Directory.ServerType -ne 'Samba AD') { return 'AllowedAndDenied' }
+    $match = [regex]::Match("$($Directory.ServerVersion)", '^(\d+)\.(\d+)')
+    if (-not $match.Success) { return 'AllowedAndObject' }
+    $version = [version]"$($match.Groups[1].Value).$($match.Groups[2].Value)"
+    if ($version -ge [version]'4.23') { 'AllowedAndDenied' } elseif ($version -ge [version]'4.17') { 'AllowedAndObject' } else { 'Allowed' }
+}
+
 # The SYSVOL folder of a GPO, every file and every folder in it, with the ACL derived from the
 # directory ($Descriptor of its container), and with its owner (-Owner). Windows propagates the
 # ACL of the folder to what it holds. Samba does not, and checks (samba-tool ntacl sysvolcheck)
@@ -652,7 +669,7 @@ function Set-PSGPOGpoFolderAcl {
     )
 
     $location = Get-PSGPOSysvolLocation -Directory $Directory -Gpo $Gpo
-    $folder = $Descriptor.ConvertToFileSystem()
+    $folder = $Descriptor.ConvertToFileSystem((Get-PSGPOSysvolAclRule -Directory $Directory))
     $folder.Owner = $Descriptor.Owner
     Set-PSGPOSysvolItemAcl -Directory $Directory -Share $location.Share -Path $location.Path -Descriptor $folder -Owner:$Owner -Dacl
     # Windows: what the folder holds only inherits its ACL, its explicit ACEs removed (the creator

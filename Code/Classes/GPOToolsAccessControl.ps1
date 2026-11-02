@@ -239,17 +239,32 @@ class GPOToolsSecurityDescriptor {
         $this.Dacl.Insert($Index, $Ace)
     }
 
-    # ACL of the SYSVOL folder of a GPO from the ACL of its group policy container, as Samba
-    # (dsacl2fsacl) and GPMC derive it: the allow ACEs, inherited by the files and folders, with
-    # the rights of the directory turned into file rights.
+    # ACL of the SYSVOL folder of a GPO from the ACL of its group policy container, as Windows and
+    # Samba 4.23 and later derive it (dsacl2fsacl): the allow and deny ACEs, not the object ones
+    # (Apply Group Policy has no meaning on a file), inherited by the files and folders, with the
+    # rights of the directory turned into file rights.
     [GPOToolsSecurityDescriptor] ConvertToFileSystem() {
+        return $this.ConvertToFileSystem('AllowedAndDenied')
+    }
+
+    # The same, with the ACEs a version of Samba keeps (Get-PSGPOSysvolAclRule), so that its checks
+    # (samba-tool gpo aclcheck, ntacl sysvolcheck) find the folder as it derives it (bug 14927):
+    # AllowedAndDenied (Windows, Samba 4.23 and later), AllowedAndObject (Samba 4.17 to 4.22: the
+    # allow ACEs, the object ones included), Allowed (Samba 4.16 and before: the allow ACEs only).
+    [GPOToolsSecurityDescriptor] ConvertToFileSystem([string]$Rule) {
+        $Kept = switch ($Rule) {
+            'Allowed' { @([GPOToolsAce]::AccessAllowed) }
+            'AllowedAndObject' { @([GPOToolsAce]::AccessAllowed, [GPOToolsAce]::AccessAllowedObject) }
+            'AllowedAndDenied' { @([GPOToolsAce]::AccessAllowed, [GPOToolsAce]::AccessDenied) }
+            default { throw "Unknown rule of the SYSVOL ACL '$Rule': Allowed, AllowedAndObject or AllowedAndDenied." }
+        }
         $Files = [GPOToolsSecurityDescriptor]::new()
         $Files.Owner = $this.Owner
         $Files.Group = $this.Group
         $Files.Control = $this.Control -band ([GPOToolsSecurityDescriptor]::DaclProtected -bor [GPOToolsSecurityDescriptor]::DaclAutoInherited)
         $Files.Dacl = [System.Collections.Generic.List[GPOToolsAce]]::new()
         foreach ($Ace in $this.Dacl) {
-            if (-not $Ace.IsKnown() -or $Ace.IsDeny() -or $Ace.Sid -eq [GPOToolsSecurityDescriptor]::PreWindows2000) { continue }
+            if (-not $Ace.IsKnown() -or $Kept -notcontains $Ace.Type -or $Ace.Sid -eq [GPOToolsSecurityDescriptor]::PreWindows2000) { continue }
             $Copy = [GPOToolsAce]::new($Ace.Type, ($Ace.Flags -bor [GPOToolsAce]::ObjectInherit -bor [GPOToolsAce]::ContainerInherit), [GPOToolsSecurityDescriptor]::ConvertToFileMask($Ace.Mask), $Ace.Sid, $Ace.ObjectType)
             $Copy.InheritedObjectType = $Ace.InheritedObjectType
             if ($Ace.Sid -eq [GPOToolsSecurityDescriptor]::CreatorOwner) { $Copy.Flags = $Copy.Flags -bor [GPOToolsAce]::InheritOnly }

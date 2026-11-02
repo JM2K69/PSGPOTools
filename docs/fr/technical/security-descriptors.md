@@ -33,12 +33,17 @@ qu'il a le droit étendu **Appliquer la stratégie de groupe** (`edacfd8f-ffb3-1
   (MS16-072 : les ordinateurs doivent lire la GPO), le groupe l'applique, l'autre groupe se la voit
   refuser.
 
-## De l'annuaire à SYSVOL
+## De l'annuaire à SYSVOL { #de-lannuaire-a-sysvol }
 
 `ConvertToFileSystem()` dérive l'ACL du dossier de la GPO de la DACL de son conteneur, comme
-`dsacl2fsacl` de Samba : les ACE d'autorisation, héritées par fichiers et dossiers (`OI CI`),
-CREATOR OWNER en héritage seul, les droits de l'annuaire traduits en droits de fichiers
-(`ldapmask2filemask`) :
+`dsacl2fsacl` de Samba : les ACE ci-dessous, héritées par fichiers et dossiers (`OI CI`), CREATOR
+OWNER en héritage seul, les droits de l'annuaire traduits en droits de fichiers
+(`ldapmask2filemask`). Lesquelles dépend du contrôleur de domaine, comme ses propres vérifications
+(`samba-tool gpo aclcheck`, `ntacl sysvolcheck`) les dérivent (bogue Samba 14927) : Windows et
+Samba 4.23 et suivants, les ACE d'autorisation et de refus, pas les ACE objet (*Appliquer la
+stratégie de groupe* ne veut rien dire sur un fichier) ; Samba 4.17 à 4.22, les ACE d'autorisation,
+objet comprises ; Samba 4.16 et avant, les ACE d'autorisation. HGPM lit la version de Samba dans le
+`vendorVersion` du rootDSE (`ServerVersion` de l'annuaire) :
 
 | Annuaire | Fichiers |
 |---|---|

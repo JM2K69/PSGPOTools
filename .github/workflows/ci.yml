@@ -182,7 +182,13 @@ jobs:
     # The tests that write to a domain (links, Registry.pol, versions, groups, restore, samba-tool),
     # against a Samba AD DC provisioned on the runner, with a Kerberos ticket as on a real domain.
     needs: build
-    runs-on: ubuntu-latest
+    # The two images ubuntu-latest moves between, each with its Samba (24.04: 4.19, 26.04: 4.23),
+    # which derives the ACL of the SYSVOL folders its own way (Samba bug 14927): both checked.
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [ubuntu-24.04, ubuntu-26.04]
+    runs-on: ${{ matrix.image }}
     timeout-minutes: 30
     env:
       PSGPOTOOLS_TEST_LDAP_SERVER: dc.ci.test
@@ -298,5 +304,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: test-results-samba
+          name: test-results-samba-${{ matrix.image }}
           path: TestResults-samba.xml
