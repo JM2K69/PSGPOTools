@@ -1,0 +1,1240 @@
+{
+  "Products": [
+    {
+      "Name": "Office",
+      "DisplayName": "Microsoft 365 Apps and Office",
+      "Publisher": "Microsoft",
+      "Version": "5568.1000",
+      "Page": "https://www.microsoft.com/en-us/download/details.aspx?id=49030",
+      "Uri": "https://download.microsoft.com/download/cd208613-5ca8-445f-9855-5081666d124e/admintemplates_x64_5568_1000_en-us.exe",
+      "FileName": "admintemplates_x64_5568_1000_en-us.exe",
+      "Size": 13617072,
+      "Sha256": "A775828C86808BED55343C4738BED9458825D6FB7FA1948C2726E0B38DC45CFA",
+      "Format": "CabinetExecutable",
+      "NumberedLanguage": [
+        "de-DE",
+        "en-US",
+        "es-ES",
+        "fr-FR",
+        "it-IT",
+        "ja-JP",
+        "ko-KR",
+        "nl-NL",
+        "pt-BR",
+        "ru-RU",
+        "zh-CN",
+        "zh-TW"
+      ],
+      "Files": [
+        {
+          "Path": "access16.admx",
+          "Sha256": "8A4F1A5DB453E86AAF217117172F2DD7C901419C5E5F7210B35F3417CDFFD9D6"
+        },
+        {
+          "Path": "excel16.admx",
+          "Sha256": "792E3CCF98ABCF63EA17DB94FBCA361BDF354FE3B57FE1A55A917580194F44B8"
+        },
+        {
+          "Path": "lync16.admx",
+          "Sha256": "6325019035DFDDFF888DA1F015B78B1B19F092BCD91332D32216478140FD58A4"
+        },
+        {
+          "Path": "office16.admx",
+          "Sha256": "8D1992FEB234D680D3FCE83E6CE6E16EF731FCCB09A1221A62AE1E0D51D8F3C5"
+        },
+        {
+          "Path": "onent16.admx",
+          "Sha256": "CD3AC15EA9145289331DE273EB17373E89E13701C4838A046DE4977EB500349B"
+        },
+        {
+          "Path": "outlk16.admx",
+          "Sha256": "BAC9B7FA994AB45627AF3746EC394282DCA48DB882026591DC28D62FA2018BF8"
+        },
+        {
+          "Path": "ppt16.admx",
+          "Sha256": "D857BCB5E80541C72BACE16E42A5DB9A23B4BAFBDE8101A574E6882405257EF9"
+        },
+        {
+          "Path": "proj16.admx",
+          "Sha256": "5AA60DA20A19B16F45175AEDDA0D810A313BC49D31734BFB831347B29A7468AC"
+        },
+        {
+          "Path": "pub16.admx",
+          "Sha256": "B2FDAB057DEF23606BF33D57D0C7B038963E9673BA2B908DD9D73A8E4D549383"
+        },
+        {
+          "Path": "teams16.admx",
+          "Sha256": "FCB4DD6479A6F7CB32833B16A62853EDF86612C8345FCC8BC72126703D2B0287"
+        },
+        {
+          "Path": "visio16.admx",
+          "Sha256": "0CEF4F955742254EE29F0C8DA76E7F0E9ACBCD311234669E14AB77DCAF2C23E3"
+        },
+        {
+          "Path": "word16.admx",
+          "Sha256": "9E818C0EBC624CD733C5C241B89B311D2AA08899970FEF92F05C700D146A97CD"
+        },
+        {
+          "Path": "de-DE/access16.adml",
+          "Sha256": "02F637D0CDF8CC11FE9D9D148007133FA6976B12C07AE43F88828BBAA39B87C7"
+        },
+        {
+          "Path": "de-DE/excel16.adml",
+          "Sha256": "5B534741056A83D3F86BF6022EBA9503D9AA7055022502A51400126C59007FEF"
+        },
+        {
+          "Path": "de-DE/lync16.adml",
+          "Sha256": "0A54958210A120448EFAD44780A7449C662AC33DD7C00B775ADE58A969A1B82A"
+        },
+        {
+          "Path": "de-DE/office16.adml",
+          "Sha256": "DF6F708FABA7C2E39BABED8DA236A8AE6A573FE6A5382DC379E0BE479FFEE75D"
+        },
+        {
+          "Path": "de-DE/onent16.adml",
+          "Sha256": "2DECF7511D9ECE433AF47AB4FE34AB952EE762C9A522C854696E968714842FB6"
+        },
+        {
+          "Path": "de-DE/outlk16.adml",
+          "Sha256": "92B050F8629ABA6F67B4CD76B597D86C82117FA5A3705D0A5E0A1C0A1E87C301"
+        },
+        {
+          "Path": "de-DE/ppt16.adml",
+          "Sha256": "684170CB54817147FA3668853853CC08474A835F710EF9161C0D7DEDB431345E"
+        },
+        {
+          "Path": "de-DE/proj16.adml",
+          "Sha256": "29B15702BC508DFC5665908DCA50868F0DE75A81CD5F2F4C91838D30BD7C90BA"
+        },
+        {
+          "Path": "de-DE/pub16.adml",
+          "Sha256": "1FC3F018F3BA17D139745F1813CB8C788FA29CF82F13335DDC446E5BB4805F70"
+        },
+        {
+          "Path": "de-DE/teams16.adml",
+          "Sha256": "E92EEA6E162EEFC31FEE1B9800C6871E4D379EE27A3991729CA110195285EDA6"
+        },
+        {
+          "Path": "de-DE/visio16.adml",
+          "Sha256": "873E99B23385312BE05348FA1A31BACE3A831D0DAEE91DAF6D59AADD1A7990EB"
+        },
+        {
+          "Path": "de-DE/word16.adml",
+          "Sha256": "255D0D5CB65EE767D6F8DE6B265964A81FA04ED9811EC2B3EC2C8F0A34B7A1EA"
+        },
+        {
+          "Path": "en-US/access16.adml",
+          "Sha256": "BB0EA4FCA70C20BCECC7C757469E242AAFC0DC3F16C30DFCFB66C07A0C024851"
+        },
+        {
+          "Path": "en-US/excel16.adml",
+          "Sha256": "FDF98796C06A9EC99B0ABA5D483EBCFF2BC08F68EF958C68E49EB0DDCC024702"
+        },
+        {
+          "Path": "en-US/lync16.adml",
+          "Sha256": "C2D77D866AAAEFB55F04F7372CFCED3593798C07100CFC75AC3686B49EE89F78"
+        },
+        {
+          "Path": "en-US/office16.adml",
+          "Sha256": "417050310C0149B4BC2CEE465F767F0A5669FE4529424F9CCEAF2B64AFAB31C4"
+        },
+        {
+          "Path": "en-US/onent16.adml",
+          "Sha256": "6571A28752D26AE6C733E2C1EFDAD0A7C2CAEA097AA4DB0CB21853252EB0C443"
+        },
+        {
+          "Path": "en-US/outlk16.adml",
+          "Sha256": "21C01CDB621B80BF178D121EC799F1F59AD8E7B0C2172091DE2F183DAAC5B6C7"
+        },
+        {
+          "Path": "en-US/ppt16.adml",
+          "Sha256": "67B3B8B448F46A0EB8A7C139289D50E54D412CA15E15F81BDBBD83B50BFEDFAC"
+        },
+        {
+          "Path": "en-US/proj16.adml",
+          "Sha256": "BB618C2BB710E6C4A6F3DFAAB74ED50EFDB89B86BC402B113BBF644D92D03385"
+        },
+        {
+          "Path": "en-US/pub16.adml",
+          "Sha256": "03B8E3FD3C96E75C7209498E1B136FFF3BF7864ABF9D55A1746529C2AC4A18B4"
+        },
+        {
+          "Path": "en-US/teams16.adml",
+          "Sha256": "A475FFAE4DE691F391F1562B0069BD52D5A081CB658EE9FD64B02F2970C88E28"
+        },
+        {
+          "Path": "en-US/visio16.adml",
+          "Sha256": "B32565A44FE9AF6204F0F8E037BE44206175799017DBABD5336A10A2C1FFAF8E"
+        },
+        {
+          "Path": "en-US/word16.adml",
+          "Sha256": "A146E178E95A269CC9D70C72FA5466CF6C27DBB5BF2B89DC89DFA81C1F5E53C2"
+        },
+        {
+          "Path": "es-ES/access16.adml",
+          "Sha256": "0110F245E6AC058DF05D3C86CA63D06603D61A53DCD955B9B99D2AA7FB82D856"
+        },
+        {
+          "Path": "es-ES/excel16.adml",
+          "Sha256": "65C9B2E6C290752FE9205FA7261E8BD7AA406A9B1DA0DCBFCCC6A83E9131FFBB"
+        },
+        {
+          "Path": "es-ES/lync16.adml",
+          "Sha256": "3DA05501506A09FC064D3FCC892A6C09A906CCCCD5EDF35952800C0F602686DB"
+        },
+        {
+          "Path": "es-ES/office16.adml",
+          "Sha256": "8473E43BD3A10AB260599BB5D40D669B8C3D2BA82D3C445A769BC8B8EF3E475E"
+        },
+        {
+          "Path": "es-ES/onent16.adml",
+          "Sha256": "C607FEB51E2BB86C7C3EB9602C1358C44F773E3A2268F4A47A3BED326F4162DB"
+        },
+        {
+          "Path": "es-ES/outlk16.adml",
+          "Sha256": "DDE56B2A0B9823E806654FAE378D1CD468620DD020C7517A44715F69EEB614E5"
+        },
+        {
+          "Path": "es-ES/ppt16.adml",
+          "Sha256": "F249655958B6E375B94BB38E921AD2148045ED774636446118BE29A381425A8B"
+        },
+        {
+          "Path": "es-ES/proj16.adml",
+          "Sha256": "883E4CE6FCAAD397213461DAD215E37841D6FDCD1AA91F270FB47A18E1CABF21"
+        },
+        {
+          "Path": "es-ES/pub16.adml",
+          "Sha256": "97D2BEB652D6A6529D322D177A403D388C6C8A10D12AE124D06EDCB7A7AC836C"
+        },
+        {
+          "Path": "es-ES/teams16.adml",
+          "Sha256": "17A81EB5F22A7053B40D2B113B6AB425373230DAE19E8EC61573A934F55E1982"
+        },
+        {
+          "Path": "es-ES/visio16.adml",
+          "Sha256": "B6DE937A7F4F41120CFC05FCF3166FEEE68B7CFABB5EEFEEC90DBE79FA03D83E"
+        },
+        {
+          "Path": "es-ES/word16.adml",
+          "Sha256": "68C9EB16E3D5211335439C1D78B7406C9DBA86BFBF3983364660D7AC22AE152F"
+        },
+        {
+          "Path": "fr-FR/access16.adml",
+          "Sha256": "F24ADCD4A34FEE10C9AAB909D22A790FEC6DA210BDB2F18A893156521DDBAB8B"
+        },
+        {
+          "Path": "fr-FR/excel16.adml",
+          "Sha256": "0FFCBD99DDEC19C99EE436A45D97B41AEA24ECEFCB86D1E40F69C51E890E468A"
+        },
+        {
+          "Path": "fr-FR/lync16.adml",
+          "Sha256": "6857E3EEB16B44DBFDE53C27F2B32477D4FD84A93C9B9FCA6934EC6845C93051"
+        },
+        {
+          "Path": "fr-FR/office16.adml",
+          "Sha256": "0647461179E35CA33739F4467E77CFA39E33F8B39457392D7D94A3127F12F89B"
+        },
+        {
+          "Path": "fr-FR/onent16.adml",
+          "Sha256": "BE193FDFCB0B9B70F2F3DCB5CCEBDB874E133F37DA0DA1B9DBF53B6D94F8DB3C"
+        },
+        {
+          "Path": "fr-FR/outlk16.adml",
+          "Sha256": "324CA7ECD3F8EC01D3AF83067EE2ECD6DDE4DF4B02F6ECA979F30279CC686CE1"
+        },
+        {
+          "Path": "fr-FR/ppt16.adml",
+          "Sha256": "61A1470689C75197413CDB146FE97632BBF1B590AD835C5DF4D06A7FC323E528"
+        },
+        {
+          "Path": "fr-FR/proj16.adml",
+          "Sha256": "38D2AE4686D094EC458F08770313087044CFF0DDEFA314D508A9EA27BAEE541F"
+        },
+        {
+          "Path": "fr-FR/pub16.adml",
+          "Sha256": "FDC4749E21D4DE9105C1E5D7B388FB1DF7F6269BFCD10773D96B055859D3DA82"
+        },
+        {
+          "Path": "fr-FR/teams16.adml",
+          "Sha256": "86537E2CDADDB77AA61EA4DCF78CAFCBE5544CFA6B43BB5A8D353A2A9F040F29"
+        },
+        {
+          "Path": "fr-FR/visio16.adml",
+          "Sha256": "24787F674A632088946C46920DEE2D5C2B07FCD10A0DF6F075E1F27C3B877B3F"
+        },
+        {
+          "Path": "fr-FR/word16.adml",
+          "Sha256": "2004C10A0D869763637055F78B770C8BE6F1B175993CA31E83417E087840FA8A"
+        },
+        {
+          "Path": "it-IT/access16.adml",
+          "Sha256": "ED6973E36D1D9C4EAA0747FE1BD4CB998F64703607E147305CD98C870FF31C28"
+        },
+        {
+          "Path": "it-IT/excel16.adml",
+          "Sha256": "43A360B617370F807D4D103A0BC9B3C5E87E59DE429882498A128971630A1354"
+        },
+        {
+          "Path": "it-IT/lync16.adml",
+          "Sha256": "9672AF693CCD78643FB51847148DF58F1B4FF3F6148C78F0AD2469BF78E9D2CD"
+        },
+        {
+          "Path": "it-IT/office16.adml",
+          "Sha256": "56AFFD120B93599BEFD1B85C561B4D10C732FCF0AE57A75EA0E0C7FDCDF81336"
+        },
+        {
+          "Path": "it-IT/onent16.adml",
+          "Sha256": "B321373A6D762746702E1B792E4CCD6D6FAC48C0EE6411AEDD13C39B22BEA34E"
+        },
+        {
+          "Path": "it-IT/outlk16.adml",
+          "Sha256": "C8375981E9790F2BCC0E8FEA8860D5CA7EB9724B9F8387D30ABE56DBE4751151"
+        },
+        {
+          "Path": "it-IT/ppt16.adml",
+          "Sha256": "0F6E34A8783E01A8976189B1BAB26FA74A76074E44F807861CE090A5A89CC2B0"
+        },
+        {
+          "Path": "it-IT/proj16.adml",
+          "Sha256": "9CAB915FB686D0C7FF33DAECCB6E746EDB6B9117BB572347B71FD54507156449"
+        },
+        {
+          "Path": "it-IT/pub16.adml",
+          "Sha256": "FB82E64FE4E35E358D3441AE2069BD7ED432735A0774E6775497EC677D526BF1"
+        },
+        {
+          "Path": "it-IT/teams16.adml",
+          "Sha256": "C11A5C2BDD821C31BDAFF2BCC9D4C9B81BDE93A77B70F2CC6CD837577E38F939"
+        },
+        {
+          "Path": "it-IT/visio16.adml",
+          "Sha256": "F08A79EFF8BA3A071F6840922E6F25A116520046549F6EB1F43A044CEAEA9252"
+        },
+        {
+          "Path": "it-IT/word16.adml",
+          "Sha256": "68E05ACEAA818AE3F3C1413B2C74CB57A58A65B93092533F5120E7C4F2AC4260"
+        },
+        {
+          "Path": "ja-JP/access16.adml",
+          "Sha256": "50CBE0BAA5562BCC39BBCB8C076E3DE53FCD49CAA877263AE26F39232995A932"
+        },
+        {
+          "Path": "ja-JP/excel16.adml",
+          "Sha256": "4FDF2237A50AB7B077D39870D2CCD7F0851BBCE3E15745D880103DE30E905FB1"
+        },
+        {
+          "Path": "ja-JP/lync16.adml",
+          "Sha256": "CB968C13F245B36C680930B9C12B095099932F125E84763A8DDF8F31D965205B"
+        },
+        {
+          "Path": "ja-JP/office16.adml",
+          "Sha256": "F14EB1A536DEB8479791245091648B37D8A839302CF75912304E1C40866CCA69"
+        },
+        {
+          "Path": "ja-JP/onent16.adml",
+          "Sha256": "015523C5EF708390E35599D8297FFA54877C404869486F9168CF26A4101ABEF2"
+        },
+        {
+          "Path": "ja-JP/outlk16.adml",
+          "Sha256": "B67BF7B30207FF9B04EE5F199A9968A305215708E8934CCAD3446D03354B5FA1"
+        },
+        {
+          "Path": "ja-JP/ppt16.adml",
+          "Sha256": "002BA94B016165002E2719CD55FAE1BB826EDB24539DD4C0D3062836D77C2723"
+        },
+        {
+          "Path": "ja-JP/proj16.adml",
+          "Sha256": "127F8188361604702B0126B063526572B790649349C7AA5D88BF372884DFDF2E"
+        },
+        {
+          "Path": "ja-JP/pub16.adml",
+          "Sha256": "539F0D4D239110CC804F9AE8C71F3F2B6F6CD5115467029C08FEFBDD92B1490F"
+        },
+        {
+          "Path": "ja-JP/teams16.adml",
+          "Sha256": "C9A41440375E9757537F79CBAA54DB18FA94E9520EE34574F42C5F4E7C30A3D4"
+        },
+        {
+          "Path": "ja-JP/visio16.adml",
+          "Sha256": "1E3FCC3FE81757E197B6397156F3F4DEA17CAE59FF381C741E4273CA83D029E3"
+        },
+        {
+          "Path": "ja-JP/word16.adml",
+          "Sha256": "D70F3874A8D61AF19F020EB3089B7BC2C3DC7F2D809DAA111288AC695CE9549E"
+        },
+        {
+          "Path": "ko-KR/access16.adml",
+          "Sha256": "41A002EE6C2BCC0A2B97DA06456D76A3D5D916ECB143F0351BD52504412C8F70"
+        },
+        {
+          "Path": "ko-KR/excel16.adml",
+          "Sha256": "A141EBFB8A752ABA04CA1A01CAFB7FB616F3D142CA96C99352EB2F81A76F6202"
+        },
+        {
+          "Path": "ko-KR/lync16.adml",
+          "Sha256": "6DED29A48AC1DA640E13D3C0F35326363E9011E552203EF3BA40A007118BAE47"
+        },
+        {
+          "Path": "ko-KR/office16.adml",
+          "Sha256": "D3FDC73DC5DC0567E0531A8A256265F4044A27083F282BB64C9766CE9E3E5355"
+        },
+        {
+          "Path": "ko-KR/onent16.adml",
+          "Sha256": "6E9C17219957D656C68A7EEEC44FAC3B013AF29910E34F5D11008B970094B9F2"
+        },
+        {
+          "Path": "ko-KR/outlk16.adml",
+          "Sha256": "F3253E661139FD3E30EB8AA7665D8BE5D7365EC1E89E49D5695F7B295E30F82F"
+        },
+        {
+          "Path": "ko-KR/ppt16.adml",
+          "Sha256": "0B2CA972EE9A404EAA64C46A7132153604B64217FDF0FDE1983E4DD3D3F6CF3D"
+        },
+        {
+          "Path": "ko-KR/proj16.adml",
+          "Sha256": "6E8C18FCFD8D6216A788935D906EC2DE22B78AA75D04847CBBA5399374D2E380"
+        },
+        {
+          "Path": "ko-KR/pub16.adml",
+          "Sha256": "84EE2286EBB45489AF5496586DA6952935CE6ABFF75F6DE2C4021D9A1DD08132"
+        },
+        {
+          "Path": "ko-KR/teams16.adml",
+          "Sha256": "3584099171F8F1BFB482B33EC46183A5DE58D2244B04215037626D4B6B059F01"
+        },
+        {
+          "Path": "ko-KR/visio16.adml",
+          "Sha256": "6835E0AB4A993E3C3A94CC54B3C30B371146B10F291B4F57149CDEE24463309D"
+        },
+        {
+          "Path": "ko-KR/word16.adml",
+          "Sha256": "7259494DD5038A98CFB48824346C3713CAD393E490AE33C771934BB3224E5485"
+        },
+        {
+          "Path": "nl-NL/access16.adml",
+          "Sha256": "A276CBAC88736DD0E56D625FBC28B7C31371FB31BEF4272606E58DA7615F8218"
+        },
+        {
+          "Path": "nl-NL/excel16.adml",
+          "Sha256": "BBF7C6102B84907B57C09D9BA3DC02114ADFE52775F051F810B54C31E6C227F4"
+        },
+        {
+          "Path": "nl-NL/lync16.adml",
+          "Sha256": "7312ABB46D063940474436F5059CEBB6568A1286E6AE5391872D97BBFD205900"
+        },
+        {
+          "Path": "nl-NL/office16.adml",
+          "Sha256": "EBA6537D78E78B6893CDCBE6A0026E1F2369933BDBAD729CEAC0E353040DA4D3"
+        },
+        {
+          "Path": "nl-NL/onent16.adml",
+          "Sha256": "B9ED1A9647CB04245727947497A82B10886E9AF641183010AB8C7ECE1CA05333"
+        },
+        {
+          "Path": "nl-NL/outlk16.adml",
+          "Sha256": "78D2878F9861D3D8A1A7F84677AA509C2D07762DD30F6EAB60AC8021689BDE38"
+        },
+        {
+          "Path": "nl-NL/ppt16.adml",
+          "Sha256": "CC4FAB38FAD5A606249DE216C9A71DCCD0E8F51077FF77BA5F068D19C544EA72"
+        },
+        {
+          "Path": "nl-NL/proj16.adml",
+          "Sha256": "57A6A1837BD7BAD499BE2E91871626606BAC7EAE4D12EEAECE3FDC2778B31614"
+        },
+        {
+          "Path": "nl-NL/pub16.adml",
+          "Sha256": "09AF8FE0345667912C0C4BEFF83509EE9C531A6198016787CC2CFA74309E2504"
+        },
+        {
+          "Path": "nl-NL/teams16.adml",
+          "Sha256": "9E4BF4A4D383645E4565E421C27EC1B2B3BBCE02DC060583998C3B4954B3B298"
+        },
+        {
+          "Path": "nl-NL/visio16.adml",
+          "Sha256": "825DF59806D69A2F0352FECB6F7382634486003B377389709E4202833586314A"
+        },
+        {
+          "Path": "nl-NL/word16.adml",
+          "Sha256": "01FAC42EBD4132BB75BF0AE24F4622F6EA47E37F3F4670ADDC5BEAE14BD84F28"
+        },
+        {
+          "Path": "pt-BR/access16.adml",
+          "Sha256": "1C62E36FC06E7887A9D4CD884D96A93A49BD2FA09ACFEE037E40F85534FCE4D9"
+        },
+        {
+          "Path": "pt-BR/excel16.adml",
+          "Sha256": "BA49CBA69D73F462D84282585674CF02B67D17A51EB351D3C94534DAAAB3BDD3"
+        },
+        {
+          "Path": "pt-BR/lync16.adml",
+          "Sha256": "2F020597F7A901EF3FF2BEE57394E0AC8A204AE8B72FA805801F7E8F26B9876B"
+        },
+        {
+          "Path": "pt-BR/office16.adml",
+          "Sha256": "9E26005FAE2087C2A77D12A50CF6047363D1710CDC692FBD50C7C17560B0EC2B"
+        },
+        {
+          "Path": "pt-BR/onent16.adml",
+          "Sha256": "C5A34A9551DC53BC55CAC01F14855D6EBE7BF34048551C3C29D264C22FC63EB7"
+        },
+        {
+          "Path": "pt-BR/outlk16.adml",
+          "Sha256": "3B2323C2F19C0E9F4BB0467E39C67E1FDDB6E567250CF72F7CAD0058891BAFC9"
+        },
+        {
+          "Path": "pt-BR/ppt16.adml",
+          "Sha256": "47D814DC2EAFDE508BB83232F840E9D8B5A27075FA26F62AD97EAB623531CA04"
+        },
+        {
+          "Path": "pt-BR/proj16.adml",
+          "Sha256": "30F3E049D4CEA002A1D6A8C6E97B1DF3EBC01F09DE6316AAB8D6E1554876CA73"
+        },
+        {
+          "Path": "pt-BR/pub16.adml",
+          "Sha256": "F924FA2DE1E861C804D7A621B4B63D8EB6C095B812B6E9F4C113851062FD2C23"
+        },
+        {
+          "Path": "pt-BR/teams16.adml",
+          "Sha256": "79FFC106BE716081216AEC41A55C12074585051E239412524C9C60C66D23A477"
+        },
+        {
+          "Path": "pt-BR/visio16.adml",
+          "Sha256": "DABBB5E7C31BFDEF035AE53F1829AA527AD0F34620D46AA856198B3FAD431E79"
+        },
+        {
+          "Path": "pt-BR/word16.adml",
+          "Sha256": "E403186DB350F42C65E04774D2330FEB0BC90B73A5399F317204BD2309E7EBF7"
+        },
+        {
+          "Path": "ru-RU/access16.adml",
+          "Sha256": "785A41E6AD5F664DD489D0CE509BD499A59FDB327D1CAE6C6F2C5985ACB18054"
+        },
+        {
+          "Path": "ru-RU/excel16.adml",
+          "Sha256": "D802600C465FC0376A49C0A5F963B5A0D07B3614C4DB407C63ADDCA6266D7C13"
+        },
+        {
+          "Path": "ru-RU/lync16.adml",
+          "Sha256": "B173476F4BA056D187B47B960C48A8D9125B2C4AE29CC707503EC126BF4BFBB6"
+        },
+        {
+          "Path": "ru-RU/office16.adml",
+          "Sha256": "35EE933C89D05644DEB7C94145289E2E0412B5D0536866DC6B165B819E2F5E0A"
+        },
+        {
+          "Path": "ru-RU/onent16.adml",
+          "Sha256": "54AF1013B513A9EAEE616303302A6AD3D4F540CE63C13EDC6B0EB9DA57A734FA"
+        },
+        {
+          "Path": "ru-RU/outlk16.adml",
+          "Sha256": "69884EA91AADA97E8C9136E10B767192DFBA436A8AEEB899FD614108620DA8EA"
+        },
+        {
+          "Path": "ru-RU/ppt16.adml",
+          "Sha256": "E51B077B64FD9AB91E3B3D4540C601ED8E9937C29A131C13D246D0CDEBF5FF2B"
+        },
+        {
+          "Path": "ru-RU/proj16.adml",
+          "Sha256": "C9680894ACAD16D145281ECFC7821856FD2BE0DE36006E23B8D029035DDF1EC0"
+        },
+        {
+          "Path": "ru-RU/pub16.adml",
+          "Sha256": "050B452690B5959A0F753EE4FFE79EFF8B4587F50B49EB6709FB10DF51598EDB"
+        },
+        {
+          "Path": "ru-RU/teams16.adml",
+          "Sha256": "C470DB55CA9DF371B335FEF0FCABDA1D92D53CFB6D49BA1383219BC865123248"
+        },
+        {
+          "Path": "ru-RU/visio16.adml",
+          "Sha256": "CD91ACFC5D66C2409446EA440257D9BF1EA30F19C6AAEDCD7BC79296223D25F7"
+        },
+        {
+          "Path": "ru-RU/word16.adml",
+          "Sha256": "1D981FE125E231148B56ACCC9BB84C28E30BEEF9C7FE31ABBE90FF9879DC1119"
+        },
+        {
+          "Path": "zh-CN/access16.adml",
+          "Sha256": "366A23500E6925317E15EAA6157CEB53371638DB40371FC8AE5F7B1F01940EB0"
+        },
+        {
+          "Path": "zh-CN/excel16.adml",
+          "Sha256": "A00FEFD709196F64155E38A86E448D2509F3CF6889194C067743BFAEC40F1EFF"
+        },
+        {
+          "Path": "zh-CN/lync16.adml",
+          "Sha256": "B964A82E60343775BC6FD5DFC182D8A11ABD1925186045C18D84EC816C59AA25"
+        },
+        {
+          "Path": "zh-CN/office16.adml",
+          "Sha256": "FA457E2162198074AF3CBC9FA267B7742F18B2032304FD1814D915804FFAAF6F"
+        },
+        {
+          "Path": "zh-CN/onent16.adml",
+          "Sha256": "B4C9752775E2E90BF12EDDA0AAAD8C3EB8484A7F90B6C2AD113AC1C89B28117F"
+        },
+        {
+          "Path": "zh-CN/outlk16.adml",
+          "Sha256": "62A3964DBEA2DD81939AEA7E81EC24E1F427C257EECB1777EDBF6A36C739030F"
+        },
+        {
+          "Path": "zh-CN/ppt16.adml",
+          "Sha256": "C04247891502D42BF51C8A468334328E6B776A0C3DDA14D24CF3F6F5F8DAD2FE"
+        },
+        {
+          "Path": "zh-CN/proj16.adml",
+          "Sha256": "0BFAC999F6B13B085AF9F2A4BBCAF7E54BC86878D12C3247D2CA639B02C8DC44"
+        },
+        {
+          "Path": "zh-CN/pub16.adml",
+          "Sha256": "6D50243C84AAA1823766FD26E51AB667A4E53CCAA0EB367A07971CABEFBE7B19"
+        },
+        {
+          "Path": "zh-CN/teams16.adml",
+          "Sha256": "4B3AB1D816527B0FB066C74F9028F38317E69E72F0E5C35D54F8C40778AE5F9D"
+        },
+        {
+          "Path": "zh-CN/visio16.adml",
+          "Sha256": "E47668B47B325B78622061B08340D2F60C280A0E04DAB83758A297AF328F0AC8"
+        },
+        {
+          "Path": "zh-CN/word16.adml",
+          "Sha256": "BFB179907E882319C7A16FED0EA2260727CEEC05506FC0BEAA2388416789EDB4"
+        },
+        {
+          "Path": "zh-TW/access16.adml",
+          "Sha256": "A19BC2243340FF4FB89B489CC316971F73A316F96182F46D5A86F83295EA8E9E"
+        },
+        {
+          "Path": "zh-TW/excel16.adml",
+          "Sha256": "7402DF5B14FD7004F7F714C4392C4A6AA4A0BEE4AF9E3AEB4B7883CA360007E7"
+        },
+        {
+          "Path": "zh-TW/lync16.adml",
+          "Sha256": "721888342A1B153858D68277E18349C70EC0885F86AA011C287F39BA352D834C"
+        },
+        {
+          "Path": "zh-TW/office16.adml",
+          "Sha256": "48638E130248BFE013B69D93359DC6E74CAB74A8966C478F924CDCF14A87ECB8"
+        },
+        {
+          "Path": "zh-TW/onent16.adml",
+          "Sha256": "AAE908B866A5316BFD9F9DD1D23B77B2889E739EEE41B264EF1B3110A8D48301"
+        },
+        {
+          "Path": "zh-TW/outlk16.adml",
+          "Sha256": "048764D98BA4954303893B18FE4EA6187A8F2721105FA8A60870032FA226CD7C"
+        },
+        {
+          "Path": "zh-TW/ppt16.adml",
+          "Sha256": "63EE307665B60C7354ACEDB57074607EDECEE4F0D2EB0DA151D238318875E10F"
+        },
+        {
+          "Path": "zh-TW/proj16.adml",
+          "Sha256": "153FF96085A4F18525C8C49DA842861042FBFC1F8D1E4F08BD8483B6A1CBDB8B"
+        },
+        {
+          "Path": "zh-TW/pub16.adml",
+          "Sha256": "408EF9C0CBDCFD499ADA6B4CF952056154C373E0EC2FE829E6DDCE1EACBCC27D"
+        },
+        {
+          "Path": "zh-TW/teams16.adml",
+          "Sha256": "7CE410ECB290E1909D14F45CB69C83970A7BEAF199156472D6AB609F8477CEEB"
+        },
+        {
+          "Path": "zh-TW/visio16.adml",
+          "Sha256": "606AF699D60DEE2BCCC7E302EBEFE3D831A9432959F9F8DB1C3813305BBC6547"
+        },
+        {
+          "Path": "zh-TW/word16.adml",
+          "Sha256": "75566A2EA705C04315DE229957F624F849FECEF50258A82BC86A679306C8F27E"
+        }
+      ]
+    },
+    {
+      "Name": "Firefox",
+      "DisplayName": "Mozilla Firefox",
+      "Publisher": "Mozilla",
+      "Version": "8.4",
+      "Page": "https://github.com/mozilla/policy-templates/releases",
+      "Uri": "https://github.com/mozilla/policy-templates/releases/download/v8.4/policy_templates_v8.4.zip",
+      "FileName": "policy_templates_v8.4.zip",
+      "Size": 188498,
+      "Sha256": "287FB7D5AE5100F0A24C0EC8E025B3DD80A24C001AD7B5C3A91CC2C4616D58EA",
+      "Format": "Zip",
+      "Files": [
+        {
+          "Path": "firefox.admx",
+          "Sha256": "6F32BC4AFC7BF141C9713598122D0786A981F318112B6D09CA1CAF1399D26F05"
+        },
+        {
+          "Path": "mozilla.admx",
+          "Sha256": "C1A07A146E6373DEB42DDCD6958A8A178F1F748F3FE0474677546C562CF554E2"
+        },
+        {
+          "Path": "de-DE/firefox.adml",
+          "Sha256": "E555E2F07402C0993B53EA55C913F403941C05F34378B5FAB823A666DF28D483"
+        },
+        {
+          "Path": "de-DE/mozilla.adml",
+          "Sha256": "CF5DD71F00B574AA99937EEC9E72819344F4280550CE17923F88F1820BE78AC6"
+        },
+        {
+          "Path": "en-US/firefox.adml",
+          "Sha256": "387788A86CC584660843BE619B4719C1565BFB33A895A1A34AF5E6E83AE89302"
+        },
+        {
+          "Path": "en-US/mozilla.adml",
+          "Sha256": "CF5DD71F00B574AA99937EEC9E72819344F4280550CE17923F88F1820BE78AC6"
+        },
+        {
+          "Path": "fr-FR/firefox.adml",
+          "Sha256": "490FB3389B2ADD7A6C8C801FD9697925707C3E0E4AD786B00F25580B979D7E61"
+        },
+        {
+          "Path": "fr-FR/mozilla.adml",
+          "Sha256": "CF5DD71F00B574AA99937EEC9E72819344F4280550CE17923F88F1820BE78AC6"
+        },
+        {
+          "Path": "ru-RU/firefox.adml",
+          "Sha256": "FB44ED34899AB434F7529DF31D354E484872F72D8D5F4F838D74D7425610D215"
+        },
+        {
+          "Path": "ru-RU/mozilla.adml",
+          "Sha256": "CF5DD71F00B574AA99937EEC9E72819344F4280550CE17923F88F1820BE78AC6"
+        }
+      ]
+    },
+    {
+      "Name": "AdobeAcrobat",
+      "DisplayName": "Adobe Acrobat",
+      "Publisher": "Adobe",
+      "Version": "2023-05-01",
+      "Page": "https://www.adobe.com/devnet-docs/acrobatetk/tools/AdminGuide/gpo.html",
+      "Uri": "https://ardownload2.adobe.com/pub/adobe/acrobat/win/AcrobatDC/misc/AcrobatADMTemplate.zip",
+      "FileName": "AcrobatADMTemplate.zip",
+      "Size": 7639,
+      "Sha256": "51503569D68ACCCEC1F7D17D1DAF67706A1F10BA421754836D3DDBFE47874676",
+      "Format": "Zip",
+      "Files": [
+        {
+          "Path": "AcrobatDC.admx",
+          "Sha256": "615C8FD951148D33438D0F81144D526ADD832F44C9ED0CA414AD2D38CCDC10AB"
+        },
+        {
+          "Path": "en-US/AcrobatDC.adml",
+          "Sha256": "457F8FD1CA8AA6FE3F5BFBC8A972673025B5ED0E28A5D4470EE81DE0E644BFD8"
+        }
+      ]
+    },
+    {
+      "Name": "AdobeReader",
+      "DisplayName": "Adobe Acrobat Reader",
+      "Publisher": "Adobe",
+      "Version": "2023-05-01",
+      "Page": "https://www.adobe.com/devnet-docs/acrobatetk/tools/AdminGuide/gpo.html",
+      "Uri": "https://ardownload2.adobe.com/pub/adobe/reader/win/AcrobatDC/misc/ReaderADMTemplate.zip",
+      "FileName": "ReaderADMTemplate.zip",
+      "Size": 7492,
+      "Sha256": "962DF7B1854C2398489F5DB8C2C7BE6C4C6613F2057E9AD6728D9A4AE5748A55",
+      "Format": "Zip",
+      "Files": [
+        {
+          "Path": "AcrobatReaderDC.admx",
+          "Sha256": "59AAD2DA442EDEE1BE01164E99A76D67764F90D7E6FA17FD08CCEED9FDB28C70"
+        },
+        {
+          "Path": "en-US/AcrobatReaderDC.adml",
+          "Sha256": "7E93CC0E9511E5C3334C5E805A27996AE37313A4F5CD14BD34AFED47A253D0D1"
+        }
+      ]
+    },
+    {
+      "Name": "Edge",
+      "DisplayName": "Microsoft Edge",
+      "Publisher": "Microsoft",
+      "Version": "158.0.4357.0",
+      "Page": "https://www.microsoft.com/en-us/edge/business/download",
+      "Uri": "https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/534d809c-39e6-4d07-b6ad-cede74b4891f/MicrosoftEdgePolicyTemplates.cab",
+      "FileName": "MicrosoftEdgePolicyTemplates.cab",
+      "Size": 19092547,
+      "Sha256": "AFF53732BD9CE8AC4895F057E1BDE0E32EF399D55391318540CD251AB5175B11",
+      "Format": "Cabinet",
+      "Files": [
+        {
+          "Path": "msedge.admx",
+          "Sha256": "6BFF93F53E522FA26400C3373A2D601D4FEB8B9A10FDF48E209B82F6A61D73D9"
+        },
+        {
+          "Path": "msedgeupdate.admx",
+          "Sha256": "E0CE554C1C524048D8324687D9C3559AB3E6A59BB21B8194334E9C998B66509A"
+        },
+        {
+          "Path": "msedgewebview2.admx",
+          "Sha256": "799CE9996CAD2A093F402B6751B458A9D2BC018579DE0B6F359E89176EB430BD"
+        },
+        {
+          "Path": "cs-CZ/msedge.adml",
+          "Sha256": "CDE64180D24C60794FE148BD781B77ED834E9C97035F8A9E13ED4F14FE3A6FCA"
+        },
+        {
+          "Path": "cs-CZ/msedgeupdate.adml",
+          "Sha256": "288B497547EFC0F65124217A600C76B211BC9C9A33BA66BF6E307087276EBDFF"
+        },
+        {
+          "Path": "cs-CZ/msedgewebview2.adml",
+          "Sha256": "877D80C12027A5FDA39D22C7B7373AD09BD1E27710DFE7556F8A10542491C834"
+        },
+        {
+          "Path": "da-DK/msedge.adml",
+          "Sha256": "3C10F64FB4BDDD3A8DF8E11512692878AB5610F5408B6B83D5CBEEBD33928A95"
+        },
+        {
+          "Path": "da-DK/msedgeupdate.adml",
+          "Sha256": "CB4A526038C1C6D3DB3EF8D635E61AFBEA75E788FC7C7C2BABB3634785F3247E"
+        },
+        {
+          "Path": "da-DK/msedgewebview2.adml",
+          "Sha256": "802576F7E1B295216CAB0C6FCA10BD3520E0FEDC602CBDF0A5E5E40C2B09151B"
+        },
+        {
+          "Path": "de-DE/msedge.adml",
+          "Sha256": "66920987A03BF0F5888222B45DD7614AF2C7B0CB8FB916F906CF1580FFDA6FE2"
+        },
+        {
+          "Path": "de-DE/msedgeupdate.adml",
+          "Sha256": "327765B4AC9537703CA55DD972231D1DFE0364C7826AB295C334485000999887"
+        },
+        {
+          "Path": "de-DE/msedgewebview2.adml",
+          "Sha256": "61B1F8FF45D0C9B486FAEB9E2CFAB82C0BF58947CFCFEA7014E903D7B75BEDB3"
+        },
+        {
+          "Path": "el-GR/msedge.adml",
+          "Sha256": "8802D15BFA1FE28CF9884DA657BBBC936E0F5223C92C0E750865706C839E589C"
+        },
+        {
+          "Path": "el-GR/msedgeupdate.adml",
+          "Sha256": "A7C426A21180F90B488C212AD431A0E2B62CA2F77096D6D6C927BD049AD801E5"
+        },
+        {
+          "Path": "el-GR/msedgewebview2.adml",
+          "Sha256": "A408DD461BAF83D9DFBC000E61234C9F0CBC6FDF57A9FC5A84A487344ECAE159"
+        },
+        {
+          "Path": "en-US/msedge.adml",
+          "Sha256": "4021C0BCE7233DD4E15DFFC8F0E13A1DD6AE3A9E7B307844AB35D9E8B0100F87"
+        },
+        {
+          "Path": "en-US/msedgeupdate.adml",
+          "Sha256": "537FDE93D1C3AAA4082D91EB04C8D9453B91FEFF31B05B2C4E30B0059FED7242"
+        },
+        {
+          "Path": "en-US/msedgewebview2.adml",
+          "Sha256": "CDCB1CA586B7252EE74D0C11B43AC43579FF0C2E65B5C0B78AF6891233A0BFF1"
+        },
+        {
+          "Path": "es-ES/msedge.adml",
+          "Sha256": "C382F1F3D2D91F91F46638AB7512B7B970C62A40FD20E83DE50F34B6805B3289"
+        },
+        {
+          "Path": "es-ES/msedgeupdate.adml",
+          "Sha256": "FCAEF07C0DDE4805D90116C1D1696B4ACC9ED8B44FD7B6299E59F60951554CA9"
+        },
+        {
+          "Path": "es-ES/msedgewebview2.adml",
+          "Sha256": "BA83B0E9F555F26F3B4B9B0C8498AE23BB8A88C4811897E5789BD1C8D4F71C72"
+        },
+        {
+          "Path": "fi-FI/msedge.adml",
+          "Sha256": "142DBEE98BC752CE0333913E638F88B6C93E248F803E8959D60E8D3BE301B374"
+        },
+        {
+          "Path": "fi-FI/msedgeupdate.adml",
+          "Sha256": "71E4AFC44EE0E16717EE76297F0CB4DCDF2DF6C325358225A722A2C90B98BB3C"
+        },
+        {
+          "Path": "fi-FI/msedgewebview2.adml",
+          "Sha256": "E5A31AFADFFF26773C7C19331203E369C75DB567B81FC853C82FFFCB04C1E52A"
+        },
+        {
+          "Path": "fr-FR/msedge.adml",
+          "Sha256": "60B205EA3346E391CAA7AAEDD9E208D4B0FEAC5B7C95242EDA44D1AEB9A3D8D0"
+        },
+        {
+          "Path": "fr-FR/msedgeupdate.adml",
+          "Sha256": "DBDFA0544A3913BB03908C89BFCEB5C6DED8F81BB610C33DBF5A4E7ABC8E1ABC"
+        },
+        {
+          "Path": "fr-FR/msedgewebview2.adml",
+          "Sha256": "6293BF1D58325F8EE8C2968CAA2706F939CE806AC8E7949CE15AC60FB68CE8A5"
+        },
+        {
+          "Path": "hu-HU/msedge.adml",
+          "Sha256": "37B6412D30783D7A99820804EA300A315A375B9191AA2D08C51F02208BECD39D"
+        },
+        {
+          "Path": "hu-HU/msedgeupdate.adml",
+          "Sha256": "0E0FE479978B5785E174DA510A10807113F3CAD6B8C3B6A041823FFB4F7CB5BB"
+        },
+        {
+          "Path": "hu-HU/msedgewebview2.adml",
+          "Sha256": "DEEC08D4151ED661E31A3AF8620A38D1CCF74797480B26CF365EA6E375C59C98"
+        },
+        {
+          "Path": "it-IT/msedge.adml",
+          "Sha256": "15521488F208AC2780FE6AB3DA9989F16747E12509BC3E633A87BB693AED4D24"
+        },
+        {
+          "Path": "it-IT/msedgeupdate.adml",
+          "Sha256": "41E5D640ACEC28541A05A7950F4F24A91CD09520CF4C571865436E277AB61FC4"
+        },
+        {
+          "Path": "it-IT/msedgewebview2.adml",
+          "Sha256": "DD4017C7DFF2737173374197E5033422ED52F5F0057831A0A5C3AB845B22C3A0"
+        },
+        {
+          "Path": "ja-JP/msedge.adml",
+          "Sha256": "C6BD01480CD4C02AEFD25A2EA5E5C6158D47D85FA8423D43FBB65EA27E9E1421"
+        },
+        {
+          "Path": "ja-JP/msedgeupdate.adml",
+          "Sha256": "2609DD34BCF6EB1450C79300665522AE340A35318A4E2DA768ADC1EBE3155EFE"
+        },
+        {
+          "Path": "ja-JP/msedgewebview2.adml",
+          "Sha256": "8F37D686F7C7F2C4D865F77900991F793B2ABD8EF66CF7D979F9C52D5CFB195A"
+        },
+        {
+          "Path": "ko-KR/msedge.adml",
+          "Sha256": "BCC6D59659B4EA541279D1E0FE91171FA99471DBA7F3609B71B9FE46774DB5E7"
+        },
+        {
+          "Path": "ko-KR/msedgeupdate.adml",
+          "Sha256": "33A87AAC35C123C2255753D7915FF8A2707D4A2F1504024029C0ED30757DC0E8"
+        },
+        {
+          "Path": "ko-KR/msedgewebview2.adml",
+          "Sha256": "AAC7398E1A07C5C496D2B466D519CAC435D6A1303DADB9414BB81D70E4FA5A7C"
+        },
+        {
+          "Path": "nb-NO/msedge.adml",
+          "Sha256": "F0FE681C8D0431CB302A51EBEC717C233328609C52CBD5EBE98C81A394F99C9E"
+        },
+        {
+          "Path": "nb-NO/msedgeupdate.adml",
+          "Sha256": "A82B0263EBF3325EE8EB477EF57D39C0051A78DF5B6780DC186CB76C4FC72B62"
+        },
+        {
+          "Path": "nb-NO/msedgewebview2.adml",
+          "Sha256": "A4B4044DC3FD8A99E59FCF27B3C916BEE6A111124CD7F0C60E591A1CEE2266AD"
+        },
+        {
+          "Path": "nl-NL/msedge.adml",
+          "Sha256": "8FC8BA9EACAAEA5580671710D08B67AE54170FEE98E85E39C2EA620FD710DC94"
+        },
+        {
+          "Path": "nl-NL/msedgeupdate.adml",
+          "Sha256": "2C16FB22FAE5D90A91C5C0F1BA0BDDB399155FCF4F5636A6BD211D88C4F52978"
+        },
+        {
+          "Path": "nl-NL/msedgewebview2.adml",
+          "Sha256": "095EC4A9F82276F753B68312071BE981F7ABD202C89C6201D3491583DCC9CC83"
+        },
+        {
+          "Path": "pl-PL/msedge.adml",
+          "Sha256": "B116621C206B7D5A2350BBB2B0765C6C74404039F2520662E70D5B2287130E63"
+        },
+        {
+          "Path": "pl-PL/msedgeupdate.adml",
+          "Sha256": "DD2711C766A1A61AA9B5D444D2F2CFBF2177BD890243B6B2E712B9BD0636E1EB"
+        },
+        {
+          "Path": "pl-PL/msedgewebview2.adml",
+          "Sha256": "B802D48411E689E4683212E18A3D5844DDDB098B447DC35B3F5505BB0290556B"
+        },
+        {
+          "Path": "pt-BR/msedge.adml",
+          "Sha256": "38C79CA71A609266EF313F8E7E81EA643BC5D4FCB6437045E9023FDF5DED9E41"
+        },
+        {
+          "Path": "pt-BR/msedgeupdate.adml",
+          "Sha256": "E18662B022ED5EA5456F71F889CE5DC0C00FBB4AC9674C9ACF9371AC90E09E11"
+        },
+        {
+          "Path": "pt-BR/msedgewebview2.adml",
+          "Sha256": "94440C383447E37F210213E40DD6DA93089F9E22ABB67CA3C73ADBD25BB2751D"
+        },
+        {
+          "Path": "pt-PT/msedge.adml",
+          "Sha256": "7BAFF8436EFA669483A7A96D28B31368D4C08C3046C6664000922A64BD341BB4"
+        },
+        {
+          "Path": "pt-PT/msedgeupdate.adml",
+          "Sha256": "6F1DC3E6FA24E2C6D6036FE663C0E590C5F129044227DB5DDC9BB351D29C1E0C"
+        },
+        {
+          "Path": "pt-PT/msedgewebview2.adml",
+          "Sha256": "F2325604CDD7EA2465590E83DFF7C1E5E72A37D596088312F36EF3413B42BF7D"
+        },
+        {
+          "Path": "ru-RU/msedge.adml",
+          "Sha256": "84246AD0AE2212F527B237565096FE30C66B69DE75227D8D4B09181954B1EE87"
+        },
+        {
+          "Path": "ru-RU/msedgeupdate.adml",
+          "Sha256": "28216D500B9E46D4D31C5C1876FB171327FBE910C8EA5CAB475E4FCF3DD3AD8E"
+        },
+        {
+          "Path": "ru-RU/msedgewebview2.adml",
+          "Sha256": "EDBF4177495D3D03364BB9CF821547039EBFDCD400A1CAC428D75454B912A768"
+        },
+        {
+          "Path": "sv-SE/msedge.adml",
+          "Sha256": "9C43D744A0045A181059600F1FA8A639716B1611FDDC9E4F9502BF2F7ADDCFE3"
+        },
+        {
+          "Path": "sv-SE/msedgeupdate.adml",
+          "Sha256": "74BD206F57234240855759F4CF52CAB9AFC591233E7E9D3624D2D13511934380"
+        },
+        {
+          "Path": "sv-SE/msedgewebview2.adml",
+          "Sha256": "157BE9AACBC838D5E3270474C9665DA816BBA1C1D52AEA81563C384BE18E18AA"
+        },
+        {
+          "Path": "tr-TR/msedge.adml",
+          "Sha256": "171A41749945B417D8AC5A30F99013C54CB5001916CAFF759D9017AB6A00CE42"
+        },
+        {
+          "Path": "tr-TR/msedgeupdate.adml",
+          "Sha256": "4DE3D7A69C077E12571BEA9B5C3A4D59027A91D821CEC2D53BBD70E523763B55"
+        },
+        {
+          "Path": "tr-TR/msedgewebview2.adml",
+          "Sha256": "2B4086E203EF4F7E717A13B22C631EB7CA87546968EC9BB790EF5CAB46F96A1E"
+        },
+        {
+          "Path": "zh-CN/msedge.adml",
+          "Sha256": "2F8FF7719726DAC8C90A0820BDFD2BC3CF4BA9A568F6AC0B34F9246C272031EA"
+        },
+        {
+          "Path": "zh-CN/msedgeupdate.adml",
+          "Sha256": "1DFE1F9F43FE0C3348E55BD3FC81EAADCE9D4A47CA4FAB9142C90479589DF42F"
+        },
+        {
+          "Path": "zh-CN/msedgewebview2.adml",
+          "Sha256": "2F2A4C509E657880D5AD4F0D5A805703A189641F4BB5937DF913D47F364AF7AD"
+        },
+        {
+          "Path": "zh-TW/msedge.adml",
+          "Sha256": "047ECDB2C27D230D077ECFA02227D29EB1EB1F15C42E64CEB18989078E1EB122"
+        },
+        {
+          "Path": "zh-TW/msedgeupdate.adml",
+          "Sha256": "4368BB7EA7EF552357924C3B7ED8A93E82AEAAC514833FEE056CB83CEE35C041"
+        },
+        {
+          "Path": "zh-TW/msedgewebview2.adml",
+          "Sha256": "E42F7E481FA1D55B38E15D2280CF0315472A4134EB2CF07877E7CB50742D6440"
+        }
+      ]
+    },
+    {
+      "Name": "Chrome",
+      "DisplayName": "Google Chrome",
+      "Publisher": "Google",
+      "Version": "156.0.8078.80",
+      "Page": "https://support.google.com/chrome/a/answer/187202",
+      "Uri": "https://dl.google.com/dl/edgedl/chrome/policy/policy_templates.zip",
+      "FileName": "policy_templates.zip",
+      "Size": 123187433,
+      "Sha256": "05AAFE40D0D56ABBCC513BF1EA3D82E0C65DF99FC52BBCEB965ACC4364387375",
+      "Format": "Zip",
+      "Files": [
+        {
+          "Path": "chrome.admx",
+          "Sha256": "0ED23CA0AFCDA6182A26C980E8F875069CE62C1580E05B5243C310375055E1B2"
+        },
+        {
+          "Path": "google.admx",
+          "Sha256": "539928AD612BEDA392074652158C20428E238896360711C932CD461D1673F347"
+        },
+        {
+          "Path": "de-DE/chrome.adml",
+          "Sha256": "1369474D3F22A8516EB643DFD1D8B7F6AD453CDFF3B719C6A517A172F32BAD22"
+        },
+        {
+          "Path": "de-DE/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "en-US/chrome.adml",
+          "Sha256": "F4FE4F169919F4A1C1375A16A68ABB22572C62DFB70CD61F74BE8B5F2972D4C8"
+        },
+        {
+          "Path": "en-US/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "es-419/chrome.adml",
+          "Sha256": "68B535F38827D3FB09D3F3794FDA2BA9ADD45F7CB21F24FEFB919917DA35EFDD"
+        },
+        {
+          "Path": "es-419/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "es-ES/chrome.adml",
+          "Sha256": "01A15235CE1023BECAA43BCBFAB99298E555DD26A05470774E95A852DB026573"
+        },
+        {
+          "Path": "es-ES/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "fr-FR/chrome.adml",
+          "Sha256": "16D3F5F4A4E0DFB5AA1CB2261F56E546F8DE20408430C30CFDB49AAA8599C221"
+        },
+        {
+          "Path": "fr-FR/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "id-ID/chrome.adml",
+          "Sha256": "428E7BB07F458218C10D94FC711BDC3255281DD137A9947A449CD84BB26D8ED4"
+        },
+        {
+          "Path": "id-ID/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "it-IT/chrome.adml",
+          "Sha256": "AB774015E25974F4101E9197AEDD8CFAF890467451B7DF8DCDA653367337362A"
+        },
+        {
+          "Path": "it-IT/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "ja-JP/chrome.adml",
+          "Sha256": "52B4D00F3CE29105B1075908C51CAA21ED85EE23CF084F7A73FAD0CACE1D8DB0"
+        },
+        {
+          "Path": "ja-JP/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "ko-KR/chrome.adml",
+          "Sha256": "6FAF4CC5843F8353F2B3C7FBC28D7AEF43088BE6A483905EA7B24933ED591B36"
+        },
+        {
+          "Path": "ko-KR/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "nl-NL/chrome.adml",
+          "Sha256": "87E422D70CA5D9D24BBBA7590E4A9EF41BDFA78D9B48C2A36D9DB2576A36AC68"
+        },
+        {
+          "Path": "nl-NL/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "pt-BR/chrome.adml",
+          "Sha256": "BCD41E078D448BC86F54850B2C3B599B7348637943FCD6687376D7C27ECE08C8"
+        },
+        {
+          "Path": "pt-BR/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "ru-RU/chrome.adml",
+          "Sha256": "530DF28F0D34C9A3FDC1F80338615EDDF6BC607AD0738CCA573503A05C3F1EAE"
+        },
+        {
+          "Path": "ru-RU/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "th-TH/chrome.adml",
+          "Sha256": "C88FBEE909B801D3DB1557F4A6C2A0684138EF2A7C9CABA85C2FC5618A1C2DDD"
+        },
+        {
+          "Path": "th-TH/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "tr-TR/chrome.adml",
+          "Sha256": "C4538C28CB58988F6C4C537CDCD6B78D3EC8F4FDB3308A3EEF314B56D0707937"
+        },
+        {
+          "Path": "tr-TR/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "uk-UA/chrome.adml",
+          "Sha256": "C9E64A1C3E9BB161C721B65797BA609F8015B4C27C4B461EDC9866BCEE67FCB4"
+        },
+        {
+          "Path": "uk-UA/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "vi-VN/chrome.adml",
+          "Sha256": "3F3E48C3C702BCC6B786D0FC22744E1943414BB489A802BDBC2330B5304AEDB9"
+        },
+        {
+          "Path": "vi-VN/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "zh-CN/chrome.adml",
+          "Sha256": "4289CCD9068D77063A0BD2A3215F1714EA5304495880E205B51E4A712FF3820C"
+        },
+        {
+          "Path": "zh-CN/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        },
+        {
+          "Path": "zh-TW/chrome.adml",
+          "Sha256": "30FEC3F3BE3846F08B2D76415C6F11FB6CD63AD0141B6373DCE7808509082B26"
+        },
+        {
+          "Path": "zh-TW/google.adml",
+          "Sha256": "4CFE0F3717C5ECE8A10F8F974B1B9610FFEA610B8A2CDF3FCF62A337D78088ED"
+        }
+      ]
+    },
+    {
+      "Name": "GoogleUpdate",
+      "DisplayName": "Google Update",
+      "Publisher": "Google",
+      "Version": "2025-08-10",
+      "Page": "https://support.google.com/chrome/a/answer/6350036",
+      "Uri": "https://dl.google.com/dl/update2/enterprise/googleupdateadmx.zip",
+      "FileName": "googleupdateadmx.zip",
+      "Size": 2056847,
+      "Sha256": "D7B183D70C75720CDE21AD15ECCFF8A89387FB940AB5B274121A08855B09602E",
+      "Format": "Zip",
+      "Files": [
+        {
+          "Path": "google.admx",
+          "Sha256": "3AC714ED9549B7B42A4FE2D7127304AB757762AE71015F8F8892287FDEB0B0B8"
+        },
+        {
+          "Path": "GoogleUpdate.admx",
+          "Sha256": "424AF2B5A9B82BFA973B55A2154444C16E00025AF0C0087B064ABA0A373F86EA"
+        },
+        {
+          "Path": "en-US/google.adml",
+          "Sha256": "5D53A7B191CA8D342EB68122FDC6D858F6EADD22A199973F4F1CA272A8B83DB7"
+        },
+        {
+          "Path": "en-US/GoogleUpdate.adml",
+          "Sha256": "692317FD8EA5BE1784B8384007040A87FA7BE3725A6D0D63F78E0027A57DAB84"
+        }
+      ]
+    }
+  ]
+}

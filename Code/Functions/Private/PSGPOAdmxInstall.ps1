@@ -58,14 +58,17 @@ function Get-PSGPOAdmxPackage {
     (Get-Content -LiteralPath (Join-Path $PSScriptRoot 'Resources' 'PolicyDefinitions.json') -Raw | ConvertFrom-Json).Package
 }
 
-# The package of Microsoft into $Path: downloaded, or copied from $Source (a copy downloaded on
-# another computer). Throws when it is not the package pinned (its size, its SHA-256).
+# The package of Microsoft (or of another publisher, Install-PSGPOProductAdmx) into $Path:
+# downloaded, or copied from $Source (a copy downloaded on another computer). Throws when it is
+# not the package pinned (its size, its SHA-256).
 function Save-PSGPOAdmxPackage {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] [string]$Path,
         [string]$Source,
-        [object]$Package = (Get-PSGPOAdmxPackage)
+        [object]$Package = (Get-PSGPOAdmxPackage),
+        # The parameter that gives the package downloaded beforehand, for the error.
+        [string]$SourceParameter = 'MsiPath'
     )
 
     if ($Source) {
@@ -73,7 +76,7 @@ function Save-PSGPOAdmxPackage {
         Copy-Item -LiteralPath $Source -Destination $Path -Force -ErrorAction Stop
     } else {
         try { Invoke-WebRequest -Uri $Package.Uri -OutFile $Path -UseBasicParsing -ErrorAction Stop }
-        catch { throw "Cannot download $($Package.Uri) ($($_.Exception.Message)): download '$($Package.FileName)' on another computer ($($Package.Page)) and give it with -MsiPath." }
+        catch { throw "Cannot download $($Package.Uri) ($($_.Exception.Message)): download '$($Package.FileName)' on another computer ($($Package.Page)) and give it with -$SourceParameter." }
     }
     $size = (Get-Item -LiteralPath $Path).Length
     $sha256 = (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash
@@ -163,6 +166,34 @@ function Get-PSGPOAdmxInstallFolder {
     Join-Path $data 'PSGPOTools' 'PolicyDefinitions'
 }
 
+# The folder to install ADMX files in without -Path: the first folder of
+# Get-PSGPOAdmxInstallFolder that can be written to. -PreferExisting: the first one that holds
+# .admx files already (those of Windows: the console reads one folder), when there is one.
+function Resolve-PSGPOAdmxInstallPath {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([switch]$PreferExisting)
+
+    $candidates = @(Get-PSGPOAdmxInstallFolder)
+    if ($PreferExisting) {
+        $existing = @($candidates | Where-Object { Get-ChildItem -LiteralPath $_ -File -Filter '*.admx' -ErrorAction SilentlyContinue | Select-Object -First 1 })
+        if ($existing.Count) { return $existing[0] }
+    }
+    foreach ($candidate in $candidates) {
+        $parent = Split-Path -Parent $candidate
+        try {
+            $null = New-Item -ItemType Directory -Path $parent -Force -ErrorAction Stop
+            $probe = Join-Path $parent ".write-$([guid]::NewGuid())"
+            [System.IO.File]::WriteAllText($probe, '')
+            Remove-Item -LiteralPath $probe -Force
+            return $candidate
+        } catch {
+            Write-Verbose "Not writable: $parent"
+        }
+    }
+    throw 'No folder to install the ADMX files in: neither the module nor the data folder of the user can be written to; give -Path.'
+}
+
 # The languages to install by default: en-US, and the language of the session when the catalog has it.
 function Resolve-PSGPOAdmxLanguage {
     [CmdletBinding()]
@@ -171,7 +202,9 @@ function Resolve-PSGPOAdmxLanguage {
         [Parameter(Mandatory)] [string[]]$Available,
         [string[]]$Language,
         [switch]$All,
-        [cultureinfo]$Current = [cultureinfo]::CurrentUICulture
+        [cultureinfo]$Current = [cultureinfo]::CurrentUICulture,
+        # Whose ADMX files, for the error.
+        [string]$Product = 'Windows'
     )
 
     $pick = {
@@ -182,7 +215,7 @@ function Resolve-PSGPOAdmxLanguage {
     if ($Language) {
         foreach ($name in $Language) {
             $found = & $pick $name
-            if (-not $found) { throw "No '$name' language in the ADMX files of Windows: $($Available -join ', ')." }
+            if (-not $found) { throw "No '$name' language in the ADMX files of ${Product}: $($Available -join ', ')." }
             $found
         }
         return

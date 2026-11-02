@@ -18,6 +18,17 @@ $PSGPOAccountCompleter = {
 foreach ($parameter in 'ApplyTo', 'DenyTo') { Register-ArgumentCompleter -CommandName 'Approve-PSGPO' -ParameterName $parameter -ScriptBlock $PSGPOAccountCompleter }
 Register-ArgumentCompleter -CommandName 'Set-PSGPOPermission', 'Set-PSGPOWmiFilterPermission' -ParameterName 'Account' -ScriptBlock $PSGPOAccountCompleter
 
+# The products whose ADMX files the module pins (Resources/AdmxProducts.json): Office, Firefox...
+Register-ArgumentCompleter -CommandName 'Install-PSGPOProductAdmx', 'Get-PSGPOProductAdmx' -ParameterName 'Name' -ScriptBlock {
+    param($CommandName, $ParameterName, $WordToComplete)
+    $null = $CommandName, $ParameterName
+    $word = "$WordToComplete".Trim("'", '"')
+    foreach ($product in @(Read-PSGPOAdmxProductFile)) {
+        if (-not "$($product.Name)".StartsWith($word, [System.StringComparison]::OrdinalIgnoreCase)) { continue }
+        [System.Management.Automation.CompletionResult]::new($product.Name, $product.Name, 'ParameterValue', "$($product.DisplayName) $($product.Version) ($($product.Publisher))")
+    }
+}
+
 # At import: the version of HGPM, and the command that installs a newer one from the PowerShell
 # Gallery (Write-PSGPOImportBanner).
 Write-PSGPOImportBanner

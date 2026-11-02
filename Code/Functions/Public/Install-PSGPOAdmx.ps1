@@ -99,22 +99,7 @@ function Install-PSGPOAdmx {
             throw "The central store of $($Directory.DomainName) has ADMX files ($target): give -Force to add those of Windows, the others kept."
         }
     } else {
-        if (-not $Path) {
-            foreach ($candidate in @(Get-PSGPOAdmxInstallFolder)) {
-                $parent = Split-Path -Parent $candidate
-                try {
-                    $null = New-Item -ItemType Directory -Path $parent -Force -ErrorAction Stop
-                    $probe = Join-Path $parent ".write-$([guid]::NewGuid())"
-                    [System.IO.File]::WriteAllText($probe, '')
-                    Remove-Item -LiteralPath $probe -Force
-                    $Path = $candidate
-                    break
-                } catch {
-                    Write-Verbose "Not writable: $parent"
-                }
-            }
-            if (-not $Path) { throw 'No folder to install the ADMX files in: neither the module nor the data folder of the user can be written to; give -Path.' }
-        }
+        if (-not $Path) { $Path = Resolve-PSGPOAdmxInstallPath }
         $target = [System.IO.Path]::GetFullPath($Path)
         if ((Get-ChildItem -LiteralPath $target -File -Filter '*.admx' -ErrorAction SilentlyContinue | Select-Object -First 1) -and -not $Force) {
             throw "ADMX files are already in '$target': give -Force to write those of Windows, the others kept."

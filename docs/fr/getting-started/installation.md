@@ -97,6 +97,59 @@ nom remplacés ; s'il y en a déjà, ajoutez `-Force`. Un ordinateur sans intern
 paquet sur un autre (la page de Microsoft est dans l'erreur d'un téléchargement qui échoue) et
 donnez-le avec `-MsiPath` ; il est vérifié comme un téléchargement.
 
+### Les fichiers ADMX d'autres produits { #product-admx }
+
+Les stratégies des autres produits que Windows viennent avec leurs propres fichiers ADMX, qu'un
+administrateur ajoute au magasin central pour GPMC : la console les y lit aussi, dans le même
+dossier que ceux de Windows. `Install-PSGPOProductAdmx` installe ceux de sept produits depuis leurs
+éditeurs, comme `Install-PSGPOAdmx` ceux de Windows, dans un dossier ou le magasin central :
+
+| Produit (`-Name`) | Éditeur | Paquet | Fichiers ADMX |
+|---|---|---|---|
+| `Office` : Microsoft 365 Apps, Office LTSC, Office 2016 à 2024 | Microsoft | `admintemplates_x64_<version>_en-us.exe` | `office16.admx`, `word16.admx`, `excel16.admx`, `outlk16.admx`... (12 fichiers, 12 langues) |
+| `Firefox` | Mozilla | `policy_templates_v<version>.zip` (GitHub) | `firefox.admx`, `mozilla.admx` |
+| `AdobeAcrobat`, `AdobeReader` | Adobe | `AcrobatADMTemplate.zip`, `ReaderADMTemplate.zip` | `AcrobatDC.admx`, `AcrobatReaderDC.admx` (en-US seulement) |
+| `Edge` | Microsoft | `MicrosoftEdgePolicyTemplates.cab` | `msedge.admx`, `msedgeupdate.admx`, `msedgewebview2.admx` |
+| `Chrome`, `GoogleUpdate` | Google | `policy_templates.zip`, `googleupdateadmx.zip` | `chrome.admx`, `GoogleUpdate.admx`, et `google.admx` qu'ils partagent |
+
+```powershell
+Get-PSGPOProductAdmx | Format-Table Name, Publisher, Version, Languages   # les produits et la version épinglée
+Install-PSGPOProductAdmx -Name Office, Firefox -CentralStore -Server dc.hardenbox.labo -UICulture en-US, fr-FR
+Install-PSGPOProductAdmx -Name Edge, Chrome, GoogleUpdate     # à côté de ceux de Windows (Install-PSGPOAdmx)
+Install-PSGPOProductAdmx -Name Office -PackagePath ./admintemplates_x64_5568_1000_en-us.exe   # sans internet
+Install-PSGPOProductAdmx -SourcePath ~/Downloads/Zoom/PolicyDefinitions -CentralStore -Server dc.hardenbox.labo
+```
+
+Comme pour Windows, le module épingle le paquet de chaque produit (`HGPM/Resources/AdmxProducts.json` :
+son adresse, sa taille et son SHA-256) et le SHA-256 de chacun de ses fichiers `.admx` et `.adml` :
+un paquet ou un fichier qui diffère est refusé avant que rien ne soit écrit. Les paquets sont ceux
+de leurs éditeurs, sous leurs conditions ; HGPM ne les livre ni ne les redistribue. Rien d'un paquet
+n'est exécuté : une archive zip est lue, un cabinet extrait (`expand` sous Windows, `cabextract` ou
+7-Zip sous Linux et macOS : `sudo apt install cabextract`), et le programme d'Office est lu pour le
+cabinet qu'il contient. Les fichiers sont retrouvés dans le paquet par leur contenu, où qu'il les
+range : le paquet d'Office met les fichiers `.adml` de ses 12 langues côte à côte (`word16.adml`,
+`word16.adml0`...), chacun épinglé à sa place dans le dossier de sa langue.
+
+- Les langues : `-UICulture`, `-AllLanguages`, par défaut en-US et la langue de la session. Une
+  langue qu'un produit n'a pas est laissée avec un avertissement : GPMC et HGPM montrent ses
+  stratégies en en-US.
+- Les fichiers `.admx` d'un produit déjà présents ne sont remplacés qu'avec `-Force` ;
+  `google.admx`, que Chrome et Google Update partagent, n'arrête pas le second.
+- Un fichier qui déclare l'espace de noms d'un fichier d'un autre nom déjà présent est refusé : GPMC
+  refuse un magasin où deux fichiers déclarent un même espace de noms. Un produit dont les fichiers
+  utilisent ceux de Windows (`windows.admx`) est installé avec un avertissement quand ils n'y sont pas.
+- `-CentralStore` inscrit l'installation dans le journal d'audit (`InstallAdmx`, avec le produit, sa
+  version et le SHA-256 de son paquet).
+
+Une version d'un produit plus récente que celle épinglée, ou un autre produit (Zoom, 7-Zip,
+FSLogix...) : extrayez ses fichiers et donnez leur dossier avec `-SourcePath`. Le dossier (ses
+fichiers `.admx`, et un dossier par langue avec les fichiers `.adml`) est vérifié comme GPMC le lit :
+chaque fichier `.admx` a son fichier `.adml` dans chaque langue installée, avec les chaînes et les
+présentations qu'il nomme. Les dossiers des langues prennent le nom de leur culture (`fr-FR`, pas
+`fr-fr`) : le SYSVOL d'un contrôleur de domaine Samba les distingue, une copie faite sur son disque
+laisserait un dossier de langue que la console ne lit pas. Pour les mainteneurs,
+`CI/Update-AdmxProductCatalog.ps1` épingle un nouveau paquet d'un produit.
+
 ### Le cache des fichiers ADMX { #admx-cache }
 
 Analyser un dossier `PolicyDefinitions` prend quelques secondes, et chaque console du lanceur

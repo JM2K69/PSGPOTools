@@ -118,6 +118,8 @@ Compare-PSGPOPolicyRuleSet -RuleSet $baseline, $domaine -DifferenceOnly | Export
 |---|---|
 | [`Initialize-PSGPOAdmx`](commands/initialize-psgpoadmx.md) `-Path [-UICulture]` | charge les fichiers ADMX et ADML d'un dossier (PolicyDefinitions local ou magasin central) |
 | [`Install-PSGPOAdmx`](commands/install-psgpoadmx.md) `[-UICulture] [-AllLanguages] [-Path] [-CentralStore] [-MsiPath] [-Force]` | installe les fichiers ADMX de Windows depuis le paquet de Microsoft (vérifiés), dans un dossier ou le magasin central du domaine |
+| [`Install-PSGPOProductAdmx`](commands/install-psgpoproductadmx.md) `-Name\|-SourcePath [-UICulture] [-AllLanguages] [-Path] [-CentralStore] [-PackagePath] [-Force]` | installe les fichiers ADMX d'autres produits (Office, Firefox, Adobe, Edge, Chrome, Google Update) depuis leurs éditeurs (vérifiés), ou de tout produit depuis un dossier, dans un dossier ou le magasin central du domaine |
+| [`Get-PSGPOProductAdmx`](commands/get-psgpoproductadmx.md) `[-Name]` | les produits dont elle installe les fichiers ADMX, la version épinglée et ses langues |
 | [`Get-PSGPOPolicy`](commands/get-psgpopolicy.md) `[-Scope Machine\|User]` | les stratégies chargées |
 | [`Get-PSGPOCategory`](commands/get-psgpocategory.md) | leurs catégories |
 | [`Get-PSGPOSupportedOn`](commands/get-psgposupportedon.md) | les plateformes qu'elles prennent en charge |

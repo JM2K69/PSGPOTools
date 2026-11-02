@@ -1,5 +1,11 @@
 # HGPM Release History
 
+## Unreleased
+
+### Added
+
+* The ADMX files of other products than Windows, from their publishers: `Install-PSGPOProductAdmx` installs those of Office (Microsoft 365 Apps, Office LTSC, Office 2016 to 2024), Firefox, Adobe Acrobat and Acrobat Reader, Edge, Chrome and Google Update into a folder or the central store of the domain, as `Install-PSGPOAdmx` those of Windows, and `Get-PSGPOProductAdmx` lists them with the version pinned. The module pins each package (its address, size and SHA-256) and each of its files (`Resources/AdmxProducts.json`, `CI/Update-AdmxProductCatalog.ps1`), reads a package without running anything (the cabinet the program of Office holds included) and finds its files by their content; `-SourcePath` installs those of any other product from a folder, checked as GPMC reads it (an `.adml` file in each language, with the strings and presentations), the folders of the languages named after their culture. A namespace that two files would declare is refused, a product that needs `windows.admx` warns when it is missing, and the install of the central store is in the audit log; checked on a Windows domain: the seven products installed into its central store, and GPMC names the policies of Office, Firefox, Edge, Chrome and Acrobat Reader that HGPM writes
+
 ## 0.2.0
 
 The first release out of alpha: `Install-PSResource -Name HGPM` installs it, without `-Prerelease`.

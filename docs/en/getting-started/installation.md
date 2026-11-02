@@ -93,6 +93,59 @@ name replaced; with files already there, give `-Force`. A computer without inter
 package on another one (the page of Microsoft is in the error of a failed download) and give it
 with `-MsiPath`; it is checked as a download is.
 
+### The ADMX files of other products { #product-admx }
+
+The policies of other products than Windows come with their own ADMX files, which an
+administrator adds to the central store for GPMC: the console reads them from there as well, in
+the same folder as those of Windows. `Install-PSGPOProductAdmx` installs those of seven products
+from their publishers, as `Install-PSGPOAdmx` those of Windows, into a folder or the central store:
+
+| Product (`-Name`) | Publisher | Package | ADMX files |
+|---|---|---|---|
+| `Office`: Microsoft 365 Apps, Office LTSC, Office 2016 to 2024 | Microsoft | `admintemplates_x64_<version>_en-us.exe` | `office16.admx`, `word16.admx`, `excel16.admx`, `outlk16.admx`... (12 files, 12 languages) |
+| `Firefox` | Mozilla | `policy_templates_v<version>.zip` (GitHub) | `firefox.admx`, `mozilla.admx` |
+| `AdobeAcrobat`, `AdobeReader` | Adobe | `AcrobatADMTemplate.zip`, `ReaderADMTemplate.zip` | `AcrobatDC.admx`, `AcrobatReaderDC.admx` (en-US only) |
+| `Edge` | Microsoft | `MicrosoftEdgePolicyTemplates.cab` | `msedge.admx`, `msedgeupdate.admx`, `msedgewebview2.admx` |
+| `Chrome`, `GoogleUpdate` | Google | `policy_templates.zip`, `googleupdateadmx.zip` | `chrome.admx`, `GoogleUpdate.admx`, and `google.admx` they share |
+
+```powershell
+Get-PSGPOProductAdmx | Format-Table Name, Publisher, Version, Languages   # the products and the version pinned
+Install-PSGPOProductAdmx -Name Office, Firefox -CentralStore -Server dc.hardenbox.labo -UICulture en-US, fr-FR
+Install-PSGPOProductAdmx -Name Edge, Chrome, GoogleUpdate     # next to those of Windows (Install-PSGPOAdmx)
+Install-PSGPOProductAdmx -Name Office -PackagePath ./admintemplates_x64_5568_1000_en-us.exe   # without internet
+Install-PSGPOProductAdmx -SourcePath ~/Downloads/Zoom/PolicyDefinitions -CentralStore -Server dc.hardenbox.labo
+```
+
+As for Windows, the module pins the package of each product (`HGPM/Resources/AdmxProducts.json`:
+its address, size and SHA-256) and the SHA-256 of each of its `.admx` and `.adml` files: a package
+or a file that differs is refused before anything is written. The packages are their publishers',
+under their terms; HGPM neither ships nor redistributes them. Nothing of a package is run: a zip
+archive is read, a cabinet extracted (`expand` on Windows, `cabextract` or 7-Zip on Linux and
+macOS: `sudo apt install cabextract`), and the program of Office is read for the cabinet it holds.
+The files are found in the package by their content, wherever it puts them: the package of Office
+holds the `.adml` files of its 12 languages side by side (`word16.adml`, `word16.adml0`...), each
+pinned at its place in the folder of its language.
+
+- The languages: `-UICulture`, `-AllLanguages`, by default en-US and the language of the session.
+  A language a product does not have is left with a warning: GPMC and HGPM show its policies in
+  en-US.
+- The `.admx` files of a product already there are replaced with `-Force` only; `google.admx`,
+  which Chrome and Google Update share, does not stop the second one.
+- A file that declares the namespace of a file of another name already there is refused: GPMC
+  refuses a store where two files declare one namespace. A product whose files use those of
+  Windows (`windows.admx`) is installed with a warning when they are not there.
+- `-CentralStore` writes the install in the audit log (`InstallAdmx`, with the product, its version
+  and the SHA-256 of its package).
+
+A newer version of a product than the one pinned, or another product (Zoom, 7-Zip, FSLogix...):
+extract its files and give their folder with `-SourcePath`. The folder (its `.admx` files, and one
+folder per language with the `.adml` files) is checked as GPMC reads it: every `.admx` file has its
+`.adml` file in each language installed, with the strings and presentations it names. The folders
+of the languages are named after their culture (`fr-FR`, not `fr-fr`): the SYSVOL of a Samba domain
+controller tells them apart, a copy made on its disk would leave a language folder that the
+console does not read. For maintainers, `CI/Update-AdmxProductCatalog.ps1` pins a new package of a
+product.
+
 ### The cache of the ADMX files { #admx-cache }
 
 Parsing a `PolicyDefinitions` folder takes a few seconds, and each console of the launcher opens in
