@@ -212,5 +212,31 @@ Describe 'After Initialize-PSGPOAdmx' {
                 (New-PSGPOPolicyTree -Filter 'no policy has this name').Count | Should -Be 0
             }
         }
+
+        It 'Says on Administrative Templates where the ADMX files come from: the central store in a colour of its own' {
+            InModuleScope HGPM -Parameters @{ PolicyDefinitions = $PolicyDefinitions } {
+                param($PolicyDefinitions)
+                $Loaded = $script:PSGPOAdmxFolder
+                $Loaded.Path | Should -Be (Get-Item -LiteralPath $PolicyDefinitions).FullName -Because 'Initialize-PSGPOAdmx keeps the folder it loaded'
+                $Loaded.UICulture | Should -Be 'en-US'
+                $Loaded.CentralStore | Should -BeFalse -Because 'sources/PolicyDefinitions is a copy, not SYSVOL\<domain>\Policies\PolicyDefinitions'
+                $Templates = @((New-PSGPOPolicyTree)[0].Children[0].Children | Where-Object Tag -EQ 'AdministrativeTemplates:Machine')[0]
+                $Templates.IconBrush | Should -Be $script:PSGPOIconBrush['folder']
+                $Templates.ToolTip | Should -BeLike '*retrieved from a folder of this computer, not from the central store*'
+                "$Templates" | Should -Be $Templates.ToolTip -Because 'the tooltip of the tree shows the node'
+                try {
+                    $script:PSGPOAdmxFolder = [pscustomobject]@{ Path = '\\dc.hardenbox.labo\SYSVOL\hardenbox.labo\Policies\PolicyDefinitions'; UICulture = 'en-US'; CentralStore = $true }
+                    $Templates = @((New-PSGPOPolicyTree)[1].Children[0].Children | Where-Object Tag -EQ 'AdministrativeTemplates:User')[0]
+                    $Templates.IconBrush | Should -Be $script:PSGPOIconBrush['folder-central-store']
+                    $Templates.IconBrush | Should -Not -Be $script:PSGPOIconBrush['folder']
+                    $Templates.ToolTip | Should -Be 'Policy definitions (ADMX files) retrieved from the central store: \\dc.hardenbox.labo\SYSVOL\hardenbox.labo\Policies\PolicyDefinitions'
+                    # The other folders keep their header as tooltip.
+                    $Category = $Templates.Children[0]
+                    "$Category" | Should -Be $Category.Header
+                } finally {
+                    $script:PSGPOAdmxFolder = $Loaded
+                }
+            }
+        }
     }
 }

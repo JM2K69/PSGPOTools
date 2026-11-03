@@ -3652,7 +3652,7 @@ InModuleScope -ModuleName HGPM {
             [GPOToolsUtility]::Policies.Count | Should -BeGreaterThan 0
         }
 
-        It 'Opens the console on the folder chosen last, else on the central store of the domain shown, as GPMC' {
+        It 'Opens the console on the central store of the domain shown, as GPMC, else on the folder chosen last' {
             Mock Show-PSGPOAdmxWindow { $true }
             Mock Start-PSGPOManagerWindow { $script:AdmxSource = $AdmxSource }
             Mock Initialize-PSGPODomainConfiguration { $false }
@@ -3665,11 +3665,11 @@ InModuleScope -ModuleName HGPM {
             $Sample = Import-PSGPODirectory -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json')
             [GPOToolsUtility]::RemoveAll()
 
-            # The folder chosen in the ADMX window: the choice of the user.
+            # A folder chosen in the ADMX window: the central store all the same, as GPMC.
             Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $PolicyDefinitions; UICulture = 'fr-FR' }
             Show-GPOManagerAvalonia -Directory $Sample -Language 'en-US'
-            $script:AdmxSource.Path | Should -Be $PolicyDefinitions
-            Should -Invoke Get-PSGPOAdmxCentralStore -Times 0 -Exactly -Because 'the store is not looked for when a folder is chosen'
+            $script:AdmxSource.Path | Should -Be $Store -Because 'the central store goes before the folder chosen'
+            $script:AdmxSource.UICulture | Should -Be 'en-US' -Because 'the only language of the store'
 
             # None chosen: the central store, of the computer for a description of a domain, of the
             # domain read otherwise.
@@ -3677,8 +3677,7 @@ InModuleScope -ModuleName HGPM {
             Show-GPOManagerAvalonia -Directory $Sample -Language 'en-US'
             Should -Invoke Show-PSGPOAdmxWindow -Times 0 -Exactly
             $script:AdmxSource.Path | Should -Be $Store
-            $script:AdmxSource.UICulture | Should -Be 'en-US' -Because 'the only language of the store'
-            Should -Invoke Get-PSGPOAdmxCentralStore -Times 1 -Exactly -ParameterFilter { -not $DomainName }
+            Should -Invoke Get-PSGPOAdmxCentralStore -Times 2 -Exactly -ParameterFilter { -not $DomainName }
             . (Join-Path $PSScriptRoot 'Fixtures' 'LdapDirectory.ps1')
             Show-GPOManagerAvalonia -Directory (New-TestLdapDirectory) -Language 'en-US'
             Should -Invoke Get-PSGPOAdmxCentralStore -Times 1 -Exactly -ParameterFilter { $DomainName -eq 'hardenbox.labo' -and $Server -eq 'dc.hardenbox.labo' }
@@ -3697,6 +3696,13 @@ InModuleScope -ModuleName HGPM {
             Show-GPOManagerAvalonia -Directory $Sample -Language 'en-US'
             Should -Invoke Show-PSGPOAdmxWindow -Times 1 -Exactly -ParameterFilter { $CentralStore -contains $Store }
             $script:AdmxSource | Should -BeNullOrEmpty
+
+            # No central store: the folder chosen in the ADMX window, in its language.
+            Mock Get-PSGPOAdmxCentralStore { }
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $PolicyDefinitions; UICulture = 'en-US'; AdmxFailed = $null }
+            Show-GPOManagerAvalonia -Directory $Sample -Language 'en-US'
+            $script:AdmxSource.Path | Should -Be $PolicyDefinitions
+            $script:AdmxSource.UICulture | Should -Be 'en-US'
         }
 
         It 'Remembers the language, not the central store it proposed: the console takes the store of the domain it shows' {

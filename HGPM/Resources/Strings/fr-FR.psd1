@@ -1271,6 +1271,8 @@
     'The administrative templates of {0} are not loaded: {1} The next start of the console asks for them.' = 'Les modèles d''administration de {0} ne sont pas chargés : {1} Le prochain démarrage de la console les demande.'
     'The administrative templates of {0} are loaded without the files that cannot be read: {1}' = 'Les modèles d''administration de {0} sont chargés, sans les fichiers illisibles : {1}'
     'Loading the administrative templates (ADMX)...' = 'Chargement des modèles d''administration (ADMX)...'
+    'Policy definitions (ADMX files) retrieved from the central store: {0}' = 'Définitions de stratégies (fichiers ADMX) récupérées à partir du magasin central : {0}'
+    'Policy definitions (ADMX files) retrieved from a folder of this computer, not from the central store of the domain: {0}' = 'Définitions de stratégies (fichiers ADMX) récupérées à partir d''un dossier de cet ordinateur, pas du magasin central du domaine : {0}'
     'Change Domain Controller...' = 'Changer de contrôleur de domaine...'
     'GPMC changes the GPOs on the PDC emulator, which the other domain controllers replicate from. Samba does not replicate SYSVOL: a change made on another domain controller stays there.' = 'GPMC modifie les GPO sur l''émulateur PDC, depuis lequel les autres contrôleurs de domaine les répliquent. Samba ne réplique pas SYSVOL : une modification faite sur un autre contrôleur de domaine y reste.'
     'Change' = 'Changer'

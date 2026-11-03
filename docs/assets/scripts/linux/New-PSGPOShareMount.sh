@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 # Mounts a share of HGPM on a Linux console of Tier 0: the central backups of the GPOs, which HGPM
-# reads and writes as a folder. Kerberos, multiuser: each account of the computer reaches the share
-# with its own ticket (kinit), the server checks its rights; HGPM finds the mount in /proc/mounts
-# from Backup.Path (\\server\gpo-backups).
+# reads and writes as a folder, or SYSVOL, where the console reads the central store of the ADMX
+# files. Kerberos, multiuser: each account of the computer reaches the share with its own ticket
+# (kinit), the server checks its rights; HGPM finds the mount in /proc/mounts from Backup.Path
+# (\\server\gpo-backups), and the central store of the domain in a SYSVOL mounted.
 #
 #   sudo ./New-PSGPOShareMount.sh //files.contoso.com/gpo-backups                 # /mnt/gpo-backups
 #   sudo ./New-PSGPOShareMount.sh //files.contoso.com/gpo-backups /mnt/gpo-backups --fstab
+#   sudo ./New-PSGPOShareMount.sh //dc.contoso.com/sysvol --fstab                 # /mnt/sysvol
 #
 # --fstab also adds it to /etc/fstab with x-systemd.automount: from then on it mounts itself when a
 # console of Tier 0 first reaches it, after a restart too (HGPM finds it in /etc/fstab). Needs

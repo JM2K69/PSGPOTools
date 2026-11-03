@@ -36,6 +36,8 @@ $script:PSGPOIconBrush = @{
     'toolbox'           = '#038387'
     'wrench'            = '#038387'
     'folder-preference' = '#038387'
+    # Administrative Templates read from the central store of the domain (New-PSGPOPolicyTree)
+    'folder-central-store' = '#0F6CBD'
 }
 
 # Path data of an icon of Resources/Icons ('folder' for folder.svg).

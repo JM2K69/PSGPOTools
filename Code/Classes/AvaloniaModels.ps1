@@ -17,9 +17,18 @@ class AvaloniaTreeNode {
     [object]$Tag
     # Bound two-way to TreeViewItem.IsExpanded
     [bool]$IsExpanded
+    # What the tooltip of the node says instead of its header (the Administrative Templates of the
+    # editor: where their ADMX files come from).
+    [string]$ToolTip
 
     AvaloniaTreeNode() {
         $this.Children = [System.Collections.ObjectModel.ObservableCollection[object]]::new()
+    }
+
+    # The tooltip of the editor tree shows the node ({Binding}): its text.
+    [string] ToString() {
+        if ($this.ToolTip) { return $this.ToolTip }
+        return $this.Header
     }
 }
 

@@ -64,8 +64,11 @@ d'Avalonia.
 Le module n'embarque pas de fichiers ADMX : la console lit ceux du magasin central du domaine
 (`\domaine\SYSVOL\domaine\Policies\PolicyDefinitions`), de Windows (`%windir%\PolicyDefinitions`)
 ou du SYSVOL d'un contrôleur de domaine Samba, sinon demande un dossier. Comme GPMC, elle prend
-le magasin central du domaine qu'elle montre quand il a des fichiers ADMX, sauf si un autre dossier
-a été choisi dans sa fenêtre, qui propose d'abord le magasin central ; `Initialize-PSGPOAdmx` sans
+le magasin central du domaine qu'elle montre dès qu'il a des fichiers ADMX (sous Linux, par le
+partage SYSVOL monté : [le magasin central sous Linux](#central-store-linux)) ; un dossier choisi
+dans sa fenêtre est lu quand il n'y a pas de magasin central. **Modèles d'administration**, dans
+l'arborescence de l'éditeur, dit d'où ils viennent : son dossier est bleu quand ils viennent du
+magasin central, et son info-bulle et ses détails donnent le dossier. `Initialize-PSGPOAdmx` sans
 `-Path` prend aussi le magasin central. Les fichiers d'un dossier
 sont analysés une fois, puis lus dans un cache de l'utilisateur tant qu'ils gardent leurs noms,
 tailles et dates (`%LOCALAPPDATA%\PSGPOTools\Admx` sous Windows ; `$XDG_CACHE_HOME/PSGPOTools/Admx`,
@@ -150,6 +153,69 @@ présentations qu'il nomme. Les dossiers des langues prennent le nom de leur cul
 laisserait un dossier de langue que la console ne lit pas. Pour les mainteneurs,
 `CI/Update-AdmxProductCatalog.ps1` épingle un nouveau paquet d'un produit.
 
+### Le magasin central sous Linux { #central-store-linux }
+
+Sous Windows, la console et `Initialize-PSGPOAdmx` lisent le magasin central du domaine par son
+partage, `\\<domaine>\SYSVOL\<domaine>\Policies\PolicyDefinitions`, comme GPMC. Linux n'a pas de
+chemin vers un partage : HGPM lit le magasin central par le partage SYSVOL **monté** (mount.cifs),
+qu'il trouve de lui-même dans `/proc/mounts` et `/etc/fstab`, le SYSVOL du contrôleur de domaine lu
+en premier. Sans lui, il ne regarde que le SYSVOL d'un contrôleur de domaine Samba, sur son disque
+(`/var/lib/samba/sysvol/<domaine>/Policies/PolicyDefinitions`), que Samba réserve à root et à
+`BUILTIN\Administrators` : la console d'un compte, sur le contrôleur de domaine ou sur un autre
+ordinateur Linux, ne l'y trouve pas et lit un dossier de l'ordinateur. Créer le magasin central
+depuis Linux ne suffit donc pas : toutes les consoles sous Windows le lisent aussitôt, une console
+sous Linux une fois le partage SYSVOL monté.
+
+**1. Créer le magasin central**, depuis Linux, avec le ticket Kerberos d'un compte qui écrit dans
+SYSVOL (un administrateur du domaine). Les fichiers passent par SMB (`smbclient`) ; le paquet de
+Windows demande `msitools`, ceux d'Office et d'Edge `cabextract` :
+
+```bash
+sudo apt install smbclient msitools cabextract        # Debian et Ubuntu
+kinit administrator@HARDENBOX.LABO
+```
+
+```powershell
+$domain = Get-PSGPODirectory -Server dc.hardenbox.labo
+Install-PSGPOAdmx -CentralStore -Directory $domain -UICulture en-US, fr-FR                     # Windows
+Install-PSGPOProductAdmx -Name Office, Firefox, Edge -CentralStore -Directory $domain -UICulture en-US, fr-FR
+```
+
+```bash
+smbclient //dc.hardenbox.labo/sysvol --use-kerberos=required -c 'ls hardenbox.labo\Policies\PolicyDefinitions\*.admx'
+```
+
+Écrivez les fichiers par SMB, comme ces commandes, pas par une copie sur le disque du contrôleur de
+domaine : là, un dossier de langue `fr-fr` à côté de `fr-FR` serait un autre dossier, que les
+consoles ne lisent pas.
+
+**2. Monter le partage SYSVOL sur chaque console Linux**, en root, avec le script des
+[sauvegardes centrales](../features/backup-history.md) : Kerberos, multi-utilisateur (chaque compte
+atteint le partage avec son propre ticket, le serveur vérifie ses droits), `--fstab` pour qu'il se
+monte de lui-même à chaque démarrage. Il demande `cifs-utils` et `keyutils` :
+
+```bash
+sudo ./New-PSGPOShareMount.sh //dc.hardenbox.labo/sysvol --fstab          # /mnt/sysvol
+ls /mnt/sysvol/hardenbox.labo/Policies/PolicyDefinitions
+```
+
+[Télécharger linux/New-PSGPOShareMount.sh](../assets/scripts/linux/New-PSGPOShareMount.sh){ download }
+
+**3. Rien à choisir** : la console trouve le magasin dans le montage, avant tout dossier choisi
+auparavant, et le relit à chaque démarrage, depuis [le cache](#admx-cache) tant que ses fichiers ne
+changent pas ; ses **Modèles d'administration** sont bleus, le dossier du magasin dans leur
+info-bulle. `Initialize-PSGPOAdmx` sans `-Path` le prend aussi :
+
+```powershell
+Initialize-PSGPOAdmx -UICulture fr-FR            # /mnt/sysvol/hardenbox.labo/Policies/PolicyDefinitions
+```
+
+Sur le labo Samba, le magasin de Windows et de sept produits (258 fichiers `.admx`, 11 699
+stratégies) est analysé en 7 secondes environ par le montage, puis lu en 4 secondes environ depuis
+le cache.
+
+![Les modèles d'administration lus depuis le magasin central, monté sous Linux : un dossier bleu, le magasin dans ses détails](../assets/screenshots/95-central-store.fr.png){ width="560" }
+
 ### Le cache des fichiers ADMX { #admx-cache }
 
 Analyser un dossier `PolicyDefinitions` prend quelques secondes, et chaque console du lanceur
@@ -209,6 +275,8 @@ l'identité de la session.
 | Client Kerberos | le ticket qu'utilise la console | `apt install krb5-user` | `dnf install krb5-workstation` |
 | `smbclient` | lire et écrire SYSVOL | `apt install smbclient` | `dnf install samba-client` |
 | `samba-tool`, bindings Python de Samba | créer et supprimer des GPO, droits SYSVOL | `apt install python3-samba samba-common-bin` | `dnf install samba-tools python3-samba` |
+| `msitools`, `cabextract` | installer les fichiers ADMX : de Windows (`Install-PSGPOAdmx`), d'Office et d'Edge (`Install-PSGPOProductAdmx`) | `apt install msitools cabextract` | `dnf install msitools cabextract` |
+| `cifs-utils`, `keyutils` | lire le magasin central : le partage SYSVOL monté ([le magasin central sous Linux](#central-store-linux)) | `apt install cifs-utils keyutils` | `dnf install cifs-utils keyutils` |
 | Une session graphique | la fenêtre (X11, ou Wayland avec XWayland) | | |
 
 La console s'authentifie en **Kerberos** : prenez d'abord un ticket, et donnez le contrôleur de

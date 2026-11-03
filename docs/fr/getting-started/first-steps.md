@@ -57,6 +57,12 @@ Initialize-PSGPOAdmx -Path \\hardenbox.labo\SYSVOL\hardenbox.labo\Policies\Polic
 Show-GPOManagerAvalonia
 ```
 
+Sous Linux, le magasin central se lit par le partage SYSVOL monté
+(`/mnt/sysvol/hardenbox.labo/Policies/PolicyDefinitions`), que la console trouve d'elle-même : voir
+[le magasin central sous Linux](installation.md#central-store-linux). Dès que le magasin central du
+domaine est là, la console le lit, comme GPMC : **Modèles d'administration** est alors bleu dans
+l'arborescence, et son info-bulle donne le dossier d'où viennent les fichiers ADMX.
+
 ## Se repérer dans la fenêtre
 
 ![Les détails d'une GPO](../assets/screenshots/02-gpo-details.fr.png)

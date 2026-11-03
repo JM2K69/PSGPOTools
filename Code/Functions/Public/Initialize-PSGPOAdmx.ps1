@@ -20,8 +20,9 @@ Function Initialize-PSGPOAdmx {
     .PARAMETER Path
         Folder containing the .admx files and one sub-folder per culture for the .adml files.
         Defaults to the central store of the domain when it holds ADMX files, as GPMC
-        (\\<domain>\SYSVOL\<domain>\Policies\PolicyDefinitions; on a Samba domain controller, its
-        SYSVOL), else to %windir%\PolicyDefinitions on Windows; required elsewhere on Linux and macOS.
+        (\\<domain>\SYSVOL\<domain>\Policies\PolicyDefinitions; on Linux, the SYSVOL share mounted,
+        found in /proc/mounts and /etc/fstab, or the SYSVOL of a Samba domain controller), else to
+        %windir%\PolicyDefinitions on Windows; required elsewhere on Linux and macOS.
     .PARAMETER UICulture
         Culture of the ADML files to load (sub-folder name, for example en-US or fr-FR); detected
         when not given.
@@ -29,6 +30,9 @@ Function Initialize-PSGPOAdmx {
         Parses the files, neither reading nor writing the cache.
     .EXAMPLE
         Initialize-PSGPOAdmx -Path '\\contoso.com\SYSVOL\contoso.com\Policies\PolicyDefinitions' -UICulture 'fr-FR'
+    .EXAMPLE
+        # Linux: the central store, the SYSVOL share mounted (New-PSGPOShareMount.sh //dc.contoso.com/sysvol)
+        Initialize-PSGPOAdmx -Path /mnt/sysvol/contoso.com/Policies/PolicyDefinitions
     .EXAMPLE
         # Linux: a copy of the PolicyDefinitions folder, in the language of the session
         Initialize-PSGPOAdmx -Path ~/PolicyDefinitions
@@ -65,11 +69,15 @@ Function Initialize-PSGPOAdmx {
 
     # Empty Statics properties
     [GPOToolsUtility]::RemoveAll()
+    $script:PSGPOAdmxFolder = $null
     $culture = [cultureinfo]::GetCultureInfo($Language.Culture)
+    # What is loaded, once it is: the node Administrative Templates of the editor says where from.
+    $loaded = [pscustomobject]@{ Path = $Item.FullName; UICulture = $culture.Name; CentralStore = (Test-PSGPOAdmxCentralStorePath -Path $Item.FullName) }
     $cache = if (-not $NoCache) { Get-PSGPOAdmxCacheEntry -Path $Item.FullName -Culture $culture.Name }
     $cached = if ($cache) { Import-PSGPOAdmxCache -Entry $cache }
     if ($cached) {
         foreach ($warning in $cached.Warnings) { Write-Warning $warning }
+        $script:PSGPOAdmxFolder = $loaded
         return
     }
 
@@ -95,6 +103,7 @@ Function Initialize-PSGPOAdmx {
         [GPOToolsUtility]::RemoveAll()
         throw "No ADMX file of '$($Item.FullName)' can be loaded in $($culture.Name): $reasons"
     }
+    $script:PSGPOAdmxFolder = $loaded
     if ($cache -and -not $parse.Errors -and -not [GPOToolsUtility]::Incomplete) {
         # Without a cache, the next load parses the files again.
         try { Export-PSGPOAdmxCache -Entry $cache -Warnings $warnings }

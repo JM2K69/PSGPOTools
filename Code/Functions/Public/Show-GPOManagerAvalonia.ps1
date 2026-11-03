@@ -143,8 +143,9 @@ function Show-GPOManagerAvalonia {
         }
     }
 
-    # Else, when none is loaded: the folder chosen last, else the central store of the domain
-    # shown, read the first time the console needs them (the editor, the Settings and History
+    # Else, when none is loaded: as GPMC, the central store of the domain shown (on Linux, the
+    # SYSVOL share mounted), else the folder chosen last, read the first time the console needs
+    # them (the editor, the Settings and History
     # tabs, a report); a console that only links or approves never waits for them. Asked for in
     # a window when there is none, or when the last load of the console failed.
     $admxSource = $null

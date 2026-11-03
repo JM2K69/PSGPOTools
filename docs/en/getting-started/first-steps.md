@@ -56,6 +56,12 @@ Initialize-PSGPOAdmx -Path \\hardenbox.labo\SYSVOL\hardenbox.labo\Policies\Polic
 Show-GPOManagerAvalonia
 ```
 
+On Linux, the central store is read through the SYSVOL share mounted
+(`/mnt/sysvol/hardenbox.labo/Policies/PolicyDefinitions`), which the console finds by itself: see
+[the central store on Linux](installation.md#central-store-linux). Whenever the central store of the
+domain is there, the console reads it, as GPMC: **Administrative Templates** in the tree is blue
+then, and its tooltip gives the folder the ADMX files come from.
+
 ## Find your way in the window
 
 ![The details of a GPO](../assets/screenshots/02-gpo-details.png)

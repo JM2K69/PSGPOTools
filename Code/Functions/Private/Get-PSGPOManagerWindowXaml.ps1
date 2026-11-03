@@ -1322,9 +1322,10 @@ $(Get-PSGPOWindowResourceXaml)
                         </TreeView.Styles>
                         <TreeView.ItemTemplate>
                             <TreeDataTemplate ItemsSource='{Binding Children}'>
-                                <Grid ColumnDefinitions='Auto,*'>
+                                <!-- The tooltip shows the node: its header, or its ToolTip (where the ADMX files come from) -->
+                                <Grid ColumnDefinitions='Auto,*' Background='Transparent' ToolTip.Tip='{Binding}'>
                                     <PathIcon Grid.Column='0' Data='{Binding IconData}' Foreground='{Binding IconBrush}' VerticalAlignment='Center' Margin='0,0,6,0'/>
-                                    <TextBlock Grid.Column='1' Text='{Binding Header}' TextTrimming='CharacterEllipsis' ToolTip.Tip='{Binding Header}'/>
+                                    <TextBlock Grid.Column='1' Text='{Binding Header}' TextTrimming='CharacterEllipsis'/>
                                 </Grid>
                             </TreeDataTemplate>
                         </TreeView.ItemTemplate>

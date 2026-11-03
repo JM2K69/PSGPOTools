@@ -37,13 +37,22 @@ InModuleScope -ModuleName HGPM {
             Mock Get-PSGPOAdmxCentralStore { }
         }
 
-        It 'Takes the folder chosen last in its language, without looking for the central store' {
+        It 'Takes the folder chosen last in its language when there is no central store' {
             $Path = [System.IO.Path]::GetFullPath((New-PolicyDefinitions 'Chosen' 'en-US', 'fr-FR'))
             Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $Path; UICulture = 'fr-FR' }
             $Source = Get-PSGPOAdmxStartSource
             $Source.Path | Should -Be $Path
             $Source.UICulture | Should -Be 'fr-FR'
-            Should -Invoke Get-PSGPOAdmxCentralStore -Times 0 -Exactly
+        }
+
+        It 'Takes the central store of the domain before the folder chosen last, as GPMC' {
+            $Path = [System.IO.Path]::GetFullPath((New-PolicyDefinitions 'ChosenBeforeStore' 'en-US', 'fr-FR'))
+            $Store = [System.IO.Path]::GetFullPath((New-PolicyDefinitions 'StoreFirst' 'en-US', 'fr-FR'))
+            Set-PSGPOUserSetting -Values @{ PolicyDefinitions = $Path; UICulture = 'fr-FR' }
+            Mock Get-PSGPOAdmxCentralStore { $Store } -ParameterFilter { $DomainName -eq 'hardenbox.labo' -and $Server -eq 'dc.hardenbox.labo' }
+            $Source = Get-PSGPOAdmxStartSource -DomainName 'hardenbox.labo' -Server 'dc.hardenbox.labo'
+            $Source.Path | Should -Be $Store
+            $Source.UICulture | Should -Be 'fr-FR' -Because 'the language chosen last, which the store has'
         }
 
         It 'Takes en-US when the language found by its folder has no .adml' {
@@ -78,6 +87,42 @@ InModuleScope -ModuleName HGPM {
             Mock Select-PSGPOAdmxFolder { $Path }
             @(Get-PSGPOAdmxCentralStore -DomainName 'hardenbox.labo' -Server 'dc.hardenbox.labo') |
                 Should -Be @('\\dc.hardenbox.labo\SYSVOL\hardenbox.labo\Policies\PolicyDefinitions', '\\hardenbox.labo\SYSVOL\hardenbox.labo\Policies\PolicyDefinitions')
+        }
+
+        It 'Is found in the SYSVOL share mounted (Linux), the domain controller read first, then the SYSVOL of the disk' -Skip:$IsWindows {
+            Mock Select-PSGPOAdmxFolder { $Path }
+            $Mounts = @(
+                '//dc2.hardenbox.labo/SYSVOL /mnt/dc2-sysvol cifs rw,sec=krb5,multiuser 0 0'
+                '//dc.hardenbox.labo/sysvol /mnt/sysvol cifs rw,sec=krb5,multiuser 0 0'
+                '//dc.hardenbox.labo/gpo-backups /mnt/gpo-backups cifs rw,sec=krb5 0 0'
+                '/dev/sda1 / ext4 rw 0 0'
+            )
+            @(Get-PSGPOAdmxCentralStore -DomainName 'hardenbox.labo' -Server 'dc.hardenbox.labo' -Mounts $Mounts -SambaSysvol (Join-Path $TestDrive 'no-sysvol')) |
+                Should -Be @('/mnt/sysvol/hardenbox.labo/Policies/PolicyDefinitions', '/mnt/dc2-sysvol/hardenbox.labo/Policies/PolicyDefinitions')
+        }
+
+        It 'Takes the path below a part of SYSVOL mounted, a space, and a share mounted by /etc/fstab' {
+            @(Get-PSGPOSysvolMountStore -DomainName 'hardenbox.labo' -Mounts '//dc/sysvol/hardenbox.labo /mnt/hardenbox\040sysvol cifs rw 0 0') |
+                Should -Be @([System.IO.Path]::Combine('/mnt/hardenbox sysvol', 'Policies', 'PolicyDefinitions'))
+            @(Get-PSGPOSysvolMountStore -DomainName 'hardenbox.labo' -Mounts '//dc/sysvol/hardenbox.labo/Policies/PolicyDefinitions /mnt/store cifs rw 0 0') | Should -Be @('/mnt/store')
+            @(Get-PSGPOSysvolMountStore -DomainName 'hardenbox.labo' -Mounts '//dc/sysvol/other.labo /mnt/other cifs rw 0 0') | Should -BeNullOrEmpty -Because 'the SYSVOL of another domain'
+            @(Get-PSGPOSysvolMountStore -DomainName 'hardenbox.labo' -Mounts '//dc.hardenbox.labo/sysvol /mnt/sysvol cifs sec=krb5,multiuser,x-systemd.automount 0 0') |
+                Should -Be @([System.IO.Path]::Combine('/mnt/sysvol', 'hardenbox.labo', 'Policies', 'PolicyDefinitions'))
+        }
+
+        It 'Lists the domains of a SYSVOL mounted at its root when no domain is given' {
+            $Root = Join-Path $TestDrive 'mounted-sysvol'
+            $null = New-Item -ItemType Directory -Path (Join-Path $Root 'hardenbox.labo'), (Join-Path $Root 'child.hardenbox.labo') -Force
+            @(Get-PSGPOSysvolMountStore -Mounts "//dc/sysvol $Root cifs rw 0 0" | Sort-Object) |
+                Should -Be @([System.IO.Path]::Combine($Root, 'child.hardenbox.labo', 'Policies', 'PolicyDefinitions'), [System.IO.Path]::Combine($Root, 'hardenbox.labo', 'Policies', 'PolicyDefinitions'))
+        }
+
+        It 'Tells a central store from a copy of the ADMX files' {
+            Test-PSGPOAdmxCentralStorePath -Path '\\dc.hardenbox.labo\SYSVOL\hardenbox.labo\Policies\PolicyDefinitions' | Should -BeTrue
+            Test-PSGPOAdmxCentralStorePath -Path '/mnt/sysvol/hardenbox.labo/Policies/PolicyDefinitions/' | Should -BeTrue
+            Test-PSGPOAdmxCentralStorePath -Path '/var/lib/samba/sysvol/hardenbox.labo/Policies/PolicyDefinitions' | Should -BeTrue
+            Test-PSGPOAdmxCentralStorePath -Path 'C:\Windows\PolicyDefinitions' | Should -BeFalse
+            Test-PSGPOAdmxCentralStorePath -Path '/home/admin/.local/share/PSGPOTools/PolicyDefinitions' | Should -BeFalse
         }
     }
 
@@ -165,7 +210,7 @@ InModuleScope -ModuleName HGPM {
             $Sysvol = Join-Path $TestDrive 'sysvol'
             $null = New-PolicyDefinitions (Join-Path 'sysvol' 'hardenbox.labo' 'Policies' 'PolicyDefinitions') 'en-US'
             $null = New-Item -ItemType Directory -Path (Join-Path $Sysvol 'other.labo' 'Policies') -Force
-            @(Get-PSGPOAdmxCentralStore -SambaSysvol $Sysvol) | Should -Be @([System.IO.Path]::GetFullPath((Join-Path $Sysvol 'hardenbox.labo' 'Policies' 'PolicyDefinitions')))
+            @(Get-PSGPOAdmxCentralStore -SambaSysvol $Sysvol -Mounts @()) | Should -Be @([System.IO.Path]::GetFullPath((Join-Path $Sysvol 'hardenbox.labo' 'Policies' 'PolicyDefinitions')))
         }
 
         It 'Loads the central store when Initialize-PSGPOAdmx has no -Path' {

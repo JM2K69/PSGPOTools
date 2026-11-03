@@ -5,6 +5,12 @@
 ### Added
 
 * The ADMX files of other products than Windows, from their publishers: `Install-PSGPOProductAdmx` installs those of Office (Microsoft 365 Apps, Office LTSC, Office 2016 to 2024), Firefox, Adobe Acrobat and Acrobat Reader, Edge, Chrome and Google Update into a folder or the central store of the domain, as `Install-PSGPOAdmx` those of Windows, and `Get-PSGPOProductAdmx` lists them with the version pinned. The module pins each package (its address, size and SHA-256) and each of its files (`Resources/AdmxProducts.json`, `CI/Update-AdmxProductCatalog.ps1`), reads a package without running anything (the cabinet the program of Office holds included) and finds its files by their content; `-SourcePath` installs those of any other product from a folder, checked as GPMC reads it (an `.adml` file in each language, with the strings and presentations), the folders of the languages named after their culture. A namespace that two files would declare is refused, a product that needs `windows.admx` warns when it is missing, and the install of the central store is in the audit log; checked on a Windows domain: the seven products installed into its central store, and GPMC names the policies of Office, Firefox, Edge, Chrome and Acrobat Reader that HGPM writes
+* The central store on Linux: the console and `Initialize-PSGPOAdmx` find it in the SYSVOL share mounted (mount.cifs with Kerberos, `New-PSGPOShareMount.sh //<dc>/sysvol --fstab`), in `/proc/mounts` and `/etc/fstab`, the SYSVOL of the domain controller read first; the documentation says how to create a central store from Linux and mount it ([the central store on Linux](https://jm2k69.github.io/PSGPOTools/en/getting-started/installation/#central-store-linux))
+* **Administrative Templates**, in the tree of the editor, says where the ADMX files come from, as the Group Policy editor: a blue folder when they come from the central store of the domain, the folder in its tooltip and in its details
+
+### Changed
+
+* The console reads the central store of the domain whenever it holds ADMX files, as GPMC, before a folder chosen in its ADMX window: the folder chosen is read when there is no central store (it was read first)
 
 ## 0.2.0
 

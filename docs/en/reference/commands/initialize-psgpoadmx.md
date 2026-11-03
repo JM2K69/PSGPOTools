@@ -22,7 +22,7 @@ The files of a folder are parsed once: what is loaded is kept in a cache of the 
 
 ### -Path
 
-Folder containing the .admx files and one sub-folder per culture for the .adml files. Defaults to the central store of the domain when it holds ADMX files, as GPMC (\\<domain>\SYSVOL\<domain>\Policies\PolicyDefinitions; on a Samba domain controller, its SYSVOL), else to %windir%\PolicyDefinitions on Windows; required elsewhere on Linux and macOS.
+Folder containing the .admx files and one sub-folder per culture for the .adml files. Defaults to the central store of the domain when it holds ADMX files, as GPMC (\\<domain>\SYSVOL\<domain>\Policies\PolicyDefinitions; on Linux, the SYSVOL share mounted, found in /proc/mounts and /etc/fstab, or the SYSVOL of a Samba domain controller), else to %windir%\PolicyDefinitions on Windows; required elsewhere on Linux and macOS.
 
 | Type | Required | Position | Default value | Accepts pipeline input |
 |---|---|---|---|---|
@@ -53,6 +53,13 @@ Initialize-PSGPOAdmx -Path '\\contoso.com\SYSVOL\contoso.com\Policies\PolicyDefi
 ```
 
 ### Example 2
+
+```powershell
+# Linux: the central store, the SYSVOL share mounted (New-PSGPOShareMount.sh //dc.contoso.com/sysvol)
+Initialize-PSGPOAdmx -Path /mnt/sysvol/contoso.com/Policies/PolicyDefinitions
+```
+
+### Example 3
 
 ```powershell
 # Linux: a copy of the PolicyDefinitions folder, in the language of the session

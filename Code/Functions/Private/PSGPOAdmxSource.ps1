@@ -80,10 +80,74 @@ function Select-PSGPOAdmxFolder {
     }
 }
 
+# The ADMX files loaded by Initialize-PSGPOAdmx: their folder, their language, and whether the
+# folder is a central store (the node Administrative Templates of the editor says it, as GPMC).
+$script:PSGPOAdmxFolder = $null
+
+# Is a PolicyDefinitions folder the central store of a domain, SYSVOL\<domain>\Policies\
+# PolicyDefinitions: through its share (Windows), the share mounted (Linux) or on the disk of a
+# Samba domain controller? A copy elsewhere is not.
+function Test-PSGPOAdmxCentralStorePath {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param([string]$Path)
+
+    "$Path".TrimEnd('\', '/') -match '[\\/][^\\/]+[\\/]Policies[\\/]PolicyDefinitions$'
+}
+
+# The central stores in the SYSVOL shares mounted on this computer (Linux: mount.cifs, Kerberos;
+# New-PSGPOShareMount.sh //<dc>/sysvol): what is mounted (/proc/mounts), then what mounts itself
+# when it is reached (/etc/fstab, x-systemd.automount), as <mount point>/<domain>/Policies/
+# PolicyDefinitions. The SYSVOL of the domain controller given first.
+function Get-PSGPOSysvolMountStore {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [string]$DomainName,
+        [string]$Server,
+        # The lines of /proc/mounts, then of /etc/fstab (the tests give theirs).
+        [string[]]$Mounts
+    )
+
+    if (-not $PSBoundParameters.ContainsKey('Mounts')) { $Mounts = @(Get-Content -LiteralPath '/proc/mounts', '/etc/fstab' -ErrorAction SilentlyContinue | Where-Object { $_ -notmatch '^\s*#' }) }
+    # A server by its full name or its short one: the first label is compared.
+    $shortName = { param($Name) ("$Name" -split '\.')[0] }
+    $first = [System.Collections.Generic.List[string]]::new()
+    $others = [System.Collections.Generic.List[string]]::new()
+    foreach ($line in $Mounts) {
+        $fields = "$line".Trim() -split '\s+'
+        if ($fields.Count -lt 3 -or $fields[2] -notin 'cifs', 'smb3') { continue }
+        $source = [regex]::Match($fields[0], '^//([^/]+)/([^/]+)(?:/(.*))?$')
+        if (-not $source.Success -or $source.Groups[2].Value -ne 'sysvol') { continue }
+        # \040 is a space in /proc/mounts.
+        $mountPoint = $fields[1] -replace '\\040', ' '
+        # A part of the share mounted (//dc/sysvol/<domain>): the rest of the path below it.
+        $mounted = @(($source.Groups[3].Value -replace '\\', '/').Split('/') | Where-Object { $_ })
+        $domains = if ($mounted.Count) { @($mounted[0]) } elseif ($DomainName) { @($DomainName) }
+            else { @(Get-ChildItem -LiteralPath $mountPoint -Directory -ErrorAction SilentlyContinue | ForEach-Object { $_.Name }) }
+        foreach ($domain in $domains) {
+            if ($DomainName -and -not [string]::Equals($domain, $DomainName, [System.StringComparison]::OrdinalIgnoreCase)) { continue }
+            $parts = @($domain, 'Policies', 'PolicyDefinitions')
+            if ($mounted.Count -gt $parts.Count) { continue }
+            $below = $true
+            for ($index = 0; $index -lt $mounted.Count; $index++) {
+                if (-not [string]::Equals($mounted[$index], $parts[$index], [System.StringComparison]::OrdinalIgnoreCase)) { $below = $false }
+            }
+            if (-not $below) { continue }
+            $tail = @(if ($mounted.Count -lt $parts.Count) { $parts[$mounted.Count..($parts.Count - 1)] })
+            $path = if ($tail.Count) { [System.IO.Path]::Combine([string[]](@($mountPoint) + $tail)) } else { $mountPoint }
+            if ($Server -and (& $shortName $source.Groups[1].Value) -eq (& $shortName $Server)) { $first.Add($path) } else { $others.Add($path) }
+        }
+    }
+    $first
+    $others
+}
+
 # The central store of the domain, when it holds ADMX files, as GPMC uses it before the files of
 # the computer: \\<domain>\SYSVOL\<domain>\Policies\PolicyDefinitions on a computer of the domain
-# (Windows, the domain controllers Windows or Samba), Policies/PolicyDefinitions in the SYSVOL of
-# a Samba domain controller (Linux).
+# (Windows, the domain controllers Windows or Samba); on Linux, the SYSVOL share mounted
+# (Get-PSGPOSysvolMountStore), then Policies/PolicyDefinitions in the SYSVOL of a Samba domain
+# controller, which Samba gives to root and the administrators only.
 function Get-PSGPOAdmxCentralStore {
     [CmdletBinding()]
     [OutputType([string])]
@@ -92,11 +156,14 @@ function Get-PSGPOAdmxCentralStore {
         [string]$DomainName,
 
         # The domain controller the domain is read from: its SYSVOL first, when the name of the
-        # domain does not resolve (Windows).
+        # domain does not resolve (Windows), its mounted SYSVOL first (Linux).
         [string]$Server,
 
         # The SYSVOL of Samba (a parameter for the tests).
-        [string]$SambaSysvol = '/var/lib/samba/sysvol'
+        [string]$SambaSysvol = '/var/lib/samba/sysvol',
+
+        # The lines of /proc/mounts and /etc/fstab (a parameter for the tests).
+        [string[]]$Mounts
     )
 
     $paths = [System.Collections.Generic.List[string]]::new()
@@ -105,6 +172,9 @@ function Get-PSGPOAdmxCentralStore {
         if ($domain -and $Server) { $paths.Add("\\$Server\SYSVOL\$domain\Policies\PolicyDefinitions") }
         if ($domain) { $paths.Add("\\$domain\SYSVOL\$domain\Policies\PolicyDefinitions") }
     } else {
+        $mount = @{ DomainName = $DomainName; Server = $Server }
+        if ($PSBoundParameters.ContainsKey('Mounts')) { $mount.Mounts = $Mounts }
+        foreach ($store in @(Get-PSGPOSysvolMountStore @mount)) { $paths.Add($store) }
         foreach ($sysvol in @(Get-ChildItem -LiteralPath $SambaSysvol -Directory -ErrorAction SilentlyContinue)) {
             if ($DomainName -and $sysvol.Name -ne $DomainName) { continue }
             $paths.Add((Join-Path $sysvol.FullName 'Policies' 'PolicyDefinitions'))
@@ -138,13 +208,13 @@ function Get-PSGPOAdmxCandidate {
     Select-PSGPOAdmxFolder -Path $paths
 }
 
-# The ADMX files the console loads without asking, the first time it needs them: a folder chosen
-# in the ADMX window instead of a central store, while it holds .admx files; else, as GPMC, the
-# central store of the domain shown; else the central store chosen in the window (of another
-# domain); else the folder chosen while no store was reached (AdmxFallback). In the language chosen last when the folder has it, else in the one of the session
-# (Resolve-PSGPOAdmxCulture: else the same language, else en-US...), else en-US. Path is $null when
-# there is none, or when the last load of the console failed (AdmxFailed): the ADMX window asks
-# then, with the central stores found (CentralStore, $null when not looked for).
+# The ADMX files the console loads without asking, the first time it needs them: as GPMC, the
+# central store of the domain shown whenever it holds ADMX files; else the folder chosen last in
+# the ADMX window (a folder, or the central store of another domain); else the folder chosen while
+# no store was reached (AdmxFallback). In the language chosen last when the folder has it, else in
+# the one of the session (Resolve-PSGPOAdmxCulture: else the same language, else en-US...), else
+# en-US. Path is $null when there is none, or when the last load of the console failed
+# (AdmxFailed): the ADMX window asks then, with the central stores found (CentralStore).
 function Get-PSGPOAdmxStartSource {
     [CmdletBinding()]
     [OutputType([hashtable])]
@@ -171,20 +241,17 @@ function Get-PSGPOAdmxStartSource {
         $culture
     }
 
-    # A central store saved by the window (0.1.17 saved the one it proposed): the store of the domain shown first.
-    $saved = if ($settings.PolicyDefinitions) { @(Select-PSGPOAdmxFolder -Path "$($settings.PolicyDefinitions)")[0] }
-    $savedStore = $saved -and ($saved -match '^\\\\[^\\]+\\SYSVOL\\[^\\]+\\Policies\\PolicyDefinitions$' -or $saved -match '[\\/]sysvol[\\/][^\\/]+[\\/]Policies[\\/]PolicyDefinitions$')
     $take = {
         param([string]$Path)
         $culture = & $languageOf $Path
         if ($culture) { $source.Path = $Path; $source.UICulture = $culture }
         [bool]$culture
     }
-    if (-not $settings.AdmxFailed -and $saved -and -not $savedStore -and (& $take $saved)) { return $source }
     $source.CentralStore = @(Get-PSGPOAdmxCentralStore -DomainName $DomainName -Server $Server)
     if ($settings.AdmxFailed) { return $source }
     foreach ($store in $source.CentralStore) { if (& $take $store) { return $source } }
-    if ($savedStore -and (& $take $saved)) { return $source }
+    $saved = if ($settings.PolicyDefinitions) { @(Select-PSGPOAdmxFolder -Path "$($settings.PolicyDefinitions)")[0] }
+    if ($saved -and (& $take $saved)) { return $source }
     $fallback = if ($settings.AdmxFallback) { @(Select-PSGPOAdmxFolder -Path "$($settings.AdmxFallback)")[0] }
     if ($fallback -and (& $take $fallback)) { return $source }
     $source

@@ -116,7 +116,8 @@ function Initialize-PSGPOManagerPolicyTreeView {
             }
         } else {
             $displayNameTextBox.Text = ''
-            $descriptionTextBox.Text = ''
+            # Administrative Templates: where their ADMX files come from (New-PSGPOPolicyTree).
+            $descriptionTextBox.Text = if ($selected -and $selected.ToolTip) { $selected.ToolTip } else { '' }
             $scopeTextBox.Text = ''
             $registryPathTextBox.Text = ''
             $registryKeyTextBox.Text = ''

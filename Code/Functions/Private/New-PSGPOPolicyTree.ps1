@@ -52,6 +52,16 @@ function New-PSGPOPolicyTree {
         $templatesNode.Tag = "AdministrativeTemplates:$scope"
         $templatesNode.IsExpanded = $expand
         $templatesNode.Parent = $policiesNode
+        # Where the ADMX files come from, as the Group Policy editor says it: the central store of
+        # the domain in a colour of its own.
+        if ($script:PSGPOAdmxFolder) {
+            if ($script:PSGPOAdmxFolder.CentralStore) {
+                $templatesNode.IconBrush = $script:PSGPOIconBrush['folder-central-store']
+                $templatesNode.ToolTip = Get-PSGPOText 'Policy definitions (ADMX files) retrieved from the central store: {0}' $script:PSGPOAdmxFolder.Path
+            } else {
+                $templatesNode.ToolTip = Get-PSGPOText 'Policy definitions (ADMX files) retrieved from a folder of this computer, not from the central store of the domain: {0}' $script:PSGPOAdmxFolder.Path
+            }
+        }
 
         # One node per category object within this scope, so lookups do not scan siblings.
         $categoryNodes = [System.Collections.Generic.Dictionary[object, object]]::new()

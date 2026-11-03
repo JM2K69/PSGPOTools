@@ -60,9 +60,12 @@ The commands that do not open a window (backups, drift, approval...) never need 
 The module does not ship ADMX files: the console reads those of the central store of the domain
 (`\domain\SYSVOL\domain\Policies\PolicyDefinitions`), of Windows (`%windir%\PolicyDefinitions`)
 or of the SYSVOL of a Samba domain controller, else asks for a folder. As GPMC, it takes the
-central store of the domain it shows when it holds ADMX files, unless another folder was chosen
-in its window, which proposes the central store first; `Initialize-PSGPOAdmx` without `-Path`
-takes the central store too. The files of a folder are parsed once, then read
+central store of the domain it shows whenever it holds ADMX files (on Linux, through the SYSVOL
+share mounted: [the central store on Linux](#central-store-linux)); a folder chosen in its window
+is read when there is no central store. **Administrative Templates** in the tree of the editor
+says where they come from: its folder is blue when they come from the central store, and its
+tooltip and its details give the folder. `Initialize-PSGPOAdmx` without `-Path` takes the central
+store too. The files of a folder are parsed once, then read
 from a cache of the user while they keep their names, sizes and dates (`%LOCALAPPDATA%\PSGPOTools\Admx`
 on Windows; `$XDG_CACHE_HOME/PSGPOTools/Admx`, else `~/.cache/PSGPOTools/Admx` elsewhere;
 `-NoCache` parses them). Where there are none (a
@@ -146,6 +149,68 @@ controller tells them apart, a copy made on its disk would leave a language fold
 console does not read. For maintainers, `CI/Update-AdmxProductCatalog.ps1` pins a new package of a
 product.
 
+### The central store on Linux { #central-store-linux }
+
+On Windows, the console and `Initialize-PSGPOAdmx` read the central store of the domain through its
+share, `\\<domain>\SYSVOL\<domain>\Policies\PolicyDefinitions`, as GPMC does. Linux has no path to a
+share: HGPM reads the central store through the SYSVOL share **mounted** (mount.cifs), which it
+finds by itself in `/proc/mounts` and `/etc/fstab`, the SYSVOL of the domain controller read first.
+Without it, it looks only in the SYSVOL of a Samba domain controller, on its disk
+(`/var/lib/samba/sysvol/<domain>/Policies/PolicyDefinitions`), which Samba gives to root and
+`BUILTIN\Administrators` only: the console of an account, on the domain controller or on another
+Linux computer, does not find it there and reads a folder of the computer. Creating the central
+store from Linux is then not enough: every console on Windows reads it at once, a console on Linux
+once the SYSVOL share is mounted.
+
+**1. Create the central store**, from Linux, with the Kerberos ticket of an account that writes
+SYSVOL (a domain administrator). The files go over SMB (`smbclient`); the package of Windows needs
+`msitools`, those of Office and Edge `cabextract`:
+
+```bash
+sudo apt install smbclient msitools cabextract        # Debian and Ubuntu
+kinit administrator@HARDENBOX.LABO
+```
+
+```powershell
+$domain = Get-PSGPODirectory -Server dc.hardenbox.labo
+Install-PSGPOAdmx -CentralStore -Directory $domain -UICulture en-US, fr-FR                     # Windows
+Install-PSGPOProductAdmx -Name Office, Firefox, Edge -CentralStore -Directory $domain -UICulture en-US, fr-FR
+```
+
+```bash
+smbclient //dc.hardenbox.labo/sysvol --use-kerberos=required -c 'ls hardenbox.labo\Policies\PolicyDefinitions\*.admx'
+```
+
+Write the files over SMB, as these commands do, not by a copy on the disk of the domain controller:
+there, a language folder `fr-fr` beside `fr-FR` would be another folder, which the consoles do not
+read.
+
+**2. Mount the SYSVOL share on each Linux console**, as root, with the script of the
+[central backups](../features/backup-history.md): Kerberos, multiuser (each account reaches the
+share with its own ticket, the server checks its rights), `--fstab` to mount it by itself at each
+start. It needs `cifs-utils` and `keyutils`:
+
+```bash
+sudo ./New-PSGPOShareMount.sh //dc.hardenbox.labo/sysvol --fstab          # /mnt/sysvol
+ls /mnt/sysvol/hardenbox.labo/Policies/PolicyDefinitions
+```
+
+[Download linux/New-PSGPOShareMount.sh](../assets/scripts/linux/New-PSGPOShareMount.sh){ download }
+
+**3. Nothing to choose**: the console finds the store in the mount, before any folder chosen
+before, and reads it at each start, from [the cache](#admx-cache) while its files do not change;
+its **Administrative Templates** are blue, the folder of the store in their tooltip.
+`Initialize-PSGPOAdmx` without `-Path` takes it too:
+
+```powershell
+Initialize-PSGPOAdmx -UICulture fr-FR            # /mnt/sysvol/hardenbox.labo/Policies/PolicyDefinitions
+```
+
+On the Samba lab, the store of Windows and of seven products (258 `.admx` files, 11,699 policies)
+is parsed in about 7 seconds through the mount, then read in about 4 seconds from the cache.
+
+![Administrative Templates read from the central store, mounted on Linux: a blue folder, the store in its details](../assets/screenshots/95-central-store.png){ width="560" }
+
 ### The cache of the ADMX files { #admx-cache }
 
 Parsing a `PolicyDefinitions` folder takes a few seconds, and each console of the launcher opens in
@@ -203,6 +268,8 @@ identity of the session.
 | Kerberos client | the ticket the console uses | `apt install krb5-user` | `dnf install krb5-workstation` |
 | `smbclient` | read and write SYSVOL | `apt install smbclient` | `dnf install samba-client` |
 | `samba-tool`, Samba Python bindings | create and delete GPOs, SYSVOL permissions | `apt install python3-samba samba-common-bin` | `dnf install samba-tools python3-samba` |
+| `msitools`, `cabextract` | install the ADMX files: of Windows (`Install-PSGPOAdmx`), of Office and Edge (`Install-PSGPOProductAdmx`) | `apt install msitools cabextract` | `dnf install msitools cabextract` |
+| `cifs-utils`, `keyutils` | read the central store: the SYSVOL share mounted ([the central store on Linux](#central-store-linux)) | `apt install cifs-utils keyutils` | `dnf install cifs-utils keyutils` |
 | A graphical session | the window (X11 or Wayland with XWayland) | | |
 
 The console authenticates with **Kerberos**: get a ticket first, and give the domain controller
