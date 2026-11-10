@@ -4298,6 +4298,9 @@ InModuleScope -ModuleName HGPM {
                 Start-PSGPOAuditLogWindow -Path $Tickets -OnShown {
                     param($Ui)
                     @($Ui.auditGrid.Columns | ForEach-Object Header)[0..6] | Should -Be @('Time', 'Account', 'Action', 'GPO or object', 'Ticket', 'Broken', 'Tier')
+                    $Ui.auditGrid.Columns[0].Width.Value | Should -Be 185 -Because 'the time keeps its width'
+                    $Ui.auditGrid.Columns[1].Width.Value | Should -Be 164 -Because 'the other columns of HGPM give the room of those of the add-ons, a fifth at most'
+                    $Ui.auditGrid.Columns[4].Width.Value | Should -Be 110
                     @($Ui.auditGrid.ItemsSource).Count | Should -Be 4
                     @($Ui.auditGrid.ItemsSource).AddOn1 | Should -Be @('', 'CHG1', 'CHG1', 'CHG2') -Because 'the value of the add-on for each line, the newest first'
                     @($Ui.auditGrid.ItemsSource | Where-Object AddOn2).Count | Should -Be 0 -Because 'a column that cannot be read stays empty'

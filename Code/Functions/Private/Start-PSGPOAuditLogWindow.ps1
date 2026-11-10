@@ -64,6 +64,17 @@ function Start-PSGPOAuditLogWindow {
     # place of the row (AddOn1...), with a list of its values when it filters. A column whose value
     # cannot be read stays empty, said once in the technical log.
     $added = @(Get-PSGPOAddOnAuditColumn)
+    # The columns of HGPM give the room the add-ons take, a fifth of their width at most: the GPO or
+    # object, which takes what is left, keeps its room. The time keeps its width: it is all shown.
+    if ($added.Count) {
+        $taken = 0
+        foreach ($column in $added) { $taken += $column.Width }
+        $fixed = @($ui.auditGrid.Columns | Select-Object -Skip 1 | Where-Object { $_.Width.IsAbsolute })
+        $total = 0
+        foreach ($gridColumn in $fixed) { $total += $gridColumn.Width.Value }
+        $factor = [Math]::Max(0.8, ($total - $taken) / $total)
+        foreach ($gridColumn in $fixed) { $gridColumn.Width = [Avalonia.Controls.DataGridLength]::new([Math]::Round($gridColumn.Width.Value * $factor)) }
+    }
     $audit.Columns = @(for ($i = 0; $i -lt $added.Count; $i++) {
             $column = [pscustomobject]@{
                 Name = $added[$i].Name; Edition = $added[$i].Edition; Header = $added[$i].Header; All = $added[$i].All; Get = $added[$i].Get
