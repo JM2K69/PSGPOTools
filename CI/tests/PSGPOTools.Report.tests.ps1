@@ -211,6 +211,14 @@ InModuleScope -ModuleName HGPM {
             Get-PSGPOText 'Settings' | Should -Be 'Settings' -Because 'the language of the session comes back'
         }
 
+        It 'Shows the column Options only for the settings that have some' {
+            $Report = Get-PSGPOReport -Directory $Directory -Name $Gpo.DisplayName
+            $Report.Computer = @($Report.Computer) + [pscustomobject]@{ Path = 'Policies > Windows Settings > Security Settings > Account Policies > Password Policy'; Name = 'Minimum password length'; State = '7 characters'; Options = ''; IsExtra = $false }
+            $Html = ConvertTo-PSGPOReportHtml -Report $Report
+            $Html | Should -BeLike "*Password Policy</h3>`n<table><thead><tr><th>Setting</th><th>State</th></tr></thead><tbody>`n<tr><td>Minimum password length</td><td>7 characters</td></tr>*" -Because 'a security setting has no options'
+            $Html | Should -BeLike "*Scripts (Startup/Shutdown)*</h3>`n<table><thead><tr><th>Setting</th><th>State</th><th>Options</th></tr></thead>*Install-Agent.cmd*" -Because 'a script has its options'
+        }
+
         It 'Refuses -Path for objects, and says which GPO it does not know' {
             { Get-PSGPOReport -Directory $Directory -Name $Gpo.DisplayName -Path (Join-Path $TestDrive 'x.xml') } | Should -Throw '*-ReportType Xml or Html*'
             Get-PSGPOReport -Directory $Directory -Name 'No such GPO' -ErrorVariable Problem -ErrorAction SilentlyContinue | Should -BeNullOrEmpty

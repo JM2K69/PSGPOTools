@@ -166,7 +166,13 @@ function ConvertTo-PSGPOReportHtml {
         if (-not @($Rows).Count) { & $add "<p class=`"none`">$(& $encode (Get-PSGPOText 'No settings defined.'))</p>"; return }
         foreach ($group in @($Rows | Group-Object Path)) {
             & $add "<h3>$(& $show $group.Name)</h3>"
-            & $table @((Get-PSGPOText 'Setting'), (Get-PSGPOText 'State'), (Get-PSGPOText 'Options')) @(foreach ($row in $group.Group) { , @((& $show $row.Name), (& $show $row.State), (& $show $row.Options)) })
+            # Options only where a setting has some (a policy with values, a preference): the
+            # security settings have none.
+            if (@($group.Group | Where-Object { "$($_.Options)".Trim() }).Count) {
+                & $table @((Get-PSGPOText 'Setting'), (Get-PSGPOText 'State'), (Get-PSGPOText 'Options')) @(foreach ($row in $group.Group) { , @((& $show $row.Name), (& $show $row.State), (& $show $row.Options)) })
+            } else {
+                & $table @((Get-PSGPOText 'Setting'), (Get-PSGPOText 'State')) @(foreach ($row in $group.Group) { , @((& $show $row.Name), (& $show $row.State)) })
+            }
         }
     }
 
