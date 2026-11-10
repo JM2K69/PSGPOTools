@@ -1259,6 +1259,7 @@
     'An HTML page of the GPO: its details, links, delegation and settings (Get-PSGPOReport)' = 'Une page HTML de la GPO : ses détails, liens, délégation et paramètres (Get-PSGPOReport)'
     'Save the report of the GPO' = 'Enregistrer le rapport de la GPO'
     'HTML page' = 'Page HTML'
+    'XML file' = 'Fichier XML'
     'Report saved: {0}' = 'Rapport enregistré : {0}'
     'The report is not saved: {0}' = 'Le rapport n''est pas enregistré : {0}'
     'Report of {0} GPOs' = 'Rapport de {0} GPO'

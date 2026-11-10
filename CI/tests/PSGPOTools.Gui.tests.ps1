@@ -2149,6 +2149,13 @@ InModuleScope -ModuleName HGPM {
                     $Ui.directoryTabs.SelectedIndex | Should -Be 0
                     $Ui.directoryResultTextBlock.Text | Should -Be "Report saved: $Report"
                     Get-Content -LiteralPath $Report -Raw | Should -BeLike '*Settings the console does not interpret (2)*fdeploy1.ini*'
+                    # As GPMC: an HTML page or an XML document, by the extension chosen.
+                    @(& $Ui.GpoReportFileType | ForEach-Object { $_.Name }) | Should -Be @('HTML page', 'XML file')
+                    $XmlReport = Join-Path $TestDrive "report-$([guid]::NewGuid()).xml"
+                    & $Ui.SaveGpoReport -Path $XmlReport
+                    Wait-ConsoleOperation $Ui
+                    $Ui.directoryResultTextBlock.Text | Should -Be "Report saved: $XmlReport"
+                    ([xml](Get-Content -LiteralPath $XmlReport -Raw)).DocumentElement.LocalName | Should -Be 'GpoReports'
 
                     Invoke-Click $Ui.approveGpoMenuItem
                     $Ui.approveGpoUninterpretedPanel.IsVisible | Should -BeTrue

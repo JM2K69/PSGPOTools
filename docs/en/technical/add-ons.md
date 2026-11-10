@@ -49,8 +49,10 @@ An add-on left out is said in the technical log and in the **About** of the laun
 reason why. `PSGPOTOOLS_NO_ADDON=1` loads none (the tests set it).
 
 The first contract, that of HGPM 0.3.0, which brings the add-ons, is **1**. It changes
-when what HGPM asks of an add-on, or gives it, changes: an add-on built for another contract is
-refused with a message that says which package to install, never with an error inside a console.
+when a hook changes or goes away, so that an add-on built for it would not work: an add-on built
+for another contract is refused with a message that says which package to install, never with an
+error inside a console. A hook **added** keeps the contract: the add-ons built before it work as
+they did, and one that uses it requires the version of HGPM that has it.
 
 ## The hooks of the contract 1
 
@@ -61,11 +63,39 @@ as it is.
 |---|---|---|---|
 | `WindowLogo` | `Icon` or `Header` | the path of an image | `Icon`: the icon of every window (title bar, task bar); `Header`: the image of the header of the consoles, shown in 44 x 44 |
 | `ReportHtml` | the HTML of a report | the HTML changed | the HTML reports (`Get-PSGPOReport -ReportType Html`, **Save report...**) |
+| `ReportFormat` (HGPM 0.4.0) | its `Save`: the HTML of a report (`ReportHtml` applied) and a path | the file written | the types of file of **Save report...**, after HTML and XML; `Get-PSGPOReport -ReportType Html -Path` with its extension |
 
 An HTML report holds three markers where an add-on adds what it gives, without reading the rest
 of the page: `<!-- hgpm:head -->` before `</head>`, `<!-- hgpm:body-start -->` after `<body>`,
 `<!-- hgpm:body-end -->` before `</body>`. A report stays one file: what an add-on adds is in the
 page.
+
+### Formats of report
+
+`ReportFormat` gives the formats of file an add-on writes the reports in, besides the HTML page
+and the XML document of HGPM. Each one is a hashtable:
+
+| Key | What |
+|---|---|
+| `Name` | its name (`Text`), in the technical log |
+| `Extension` | its extension, letters and digits (`txt`); not `html`, `htm` nor `xml`, those of HGPM |
+| `TypeName` | the type of file of the save dialog: a text, or a text per language (`@{ 'en-US' = 'Text file'; 'fr-FR' = 'Fichier texte' }`, English when the language of the interface has none) |
+| `Save` | `param($Html, $Path)`: writes the HTML report to `$Path` in that format |
+
+```powershell
+Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -ReportFormat @{
+    Name      = 'Text'
+    Extension = 'txt'
+    TypeName  = @{ 'en-US' = 'Text file'; 'fr-FR' = 'Fichier texte' }
+    Save      = { param($Html, $Path) Set-Content -LiteralPath $Path -Value ($Html -replace '<[^>]+>', '') }
+}
+```
+
+**Save report...** offers each type, and the report is written by the extension of the file
+chosen; `Get-PSGPOReport -ReportType Html -Path ./gpo.txt` does the same. Unlike the other hooks,
+the error of `Save` is the one of the save: the console says the report is not saved, with it, and
+a `Save` that writes no file is an error too. A format that does not fit (an extension of HGPM,
+no `Save`...) stops the registration: the add-on is not loaded, and the technical log says why.
 
 ## Versions
 

@@ -44,8 +44,9 @@ Une GPO a aussi deux onglets :
   Les ordinateurs les appliquent quand même : vérifiez-les avec GPMC, ou dans les fichiers de la
   GPO, avant de l'approuver ([durcissement](../technical/hardening.md#what-the-approver-sees)).
   **Enregistrer le rapport...**, dans cet onglet ou dans le menu contextuel d'une GPO, écrit le
-  rapport de la GPO en page HTML, dans la langue de l'interface, comme GPMC en enregistre un
-  (`Get-PSGPOReport`).
+  rapport de la GPO en page HTML ou en document XML, selon le type choisi dans la boîte de
+  dialogue, dans la langue de l'interface, comme GPMC en enregistre un (`Get-PSGPOReport`) ; un
+  add-on peut donner d'autres types ([add-ons](../technical/add-ons.md)).
 - **History** : ses sauvegardes en frise ([sauvegardes et historique](backup-history.md)).
 
 ![L'onglet Settings](../assets/screenshots/03-gpo-settings.fr.png)

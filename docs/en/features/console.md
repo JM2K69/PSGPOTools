@@ -43,7 +43,9 @@ A GPO also has two tabs:
   of the GPO none of its readers reads. The computers apply them all the same: review them with
   GPMC, or in the files of the GPO, before approving it ([hardening](../technical/hardening.md#what-the-approver-sees)).
   **Save report...**, in this tab or in the context menu of a GPO, writes the report of the GPO as
-  an HTML page, in the language of the interface, as GPMC saves one (`Get-PSGPOReport`).
+  an HTML page or an XML document, by the type chosen in the dialog, in the language of the
+  interface, as GPMC saves one (`Get-PSGPOReport`); an add-on can give other types
+  ([add-ons](../technical/add-ons.md)).
 - **History**: its backups as a timeline ([backups and history](backup-history.md)).
 
 ![The Settings tab](../assets/screenshots/03-gpo-settings.png)

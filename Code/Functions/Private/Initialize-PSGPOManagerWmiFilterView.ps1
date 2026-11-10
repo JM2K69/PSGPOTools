@@ -116,23 +116,29 @@ function Initialize-PSGPOManagerWmiFilterView {
     # path chosen.
     $filePicker = @{ Task = $null; Timer = $null; Done = $null }
     # A file chosen with the picker of the system: a .mof file by default, else the type given
-    # (-TypeName, -Patterns: *.ps1...); $Done gets its path.
+    # (-TypeName, -Patterns: *.ps1...), or the types given (-Types: @{ Name; Patterns }, the first
+    # one by default); $Done gets its path.
     function Start-FilePicker {
         param(
             [switch]$Save, [string]$Title, [string]$Path, [Parameter(Mandatory)] [scriptblock]$Done,
-            [string]$TypeName = (Get-PSGPOText 'WMI filter (.mof)'), [string[]]$Patterns = @('*.mof')
+            [string]$TypeName = (Get-PSGPOText 'WMI filter (.mof)'), [string[]]$Patterns = @('*.mof'),
+            [object[]]$Types
         )
-        $type = [Avalonia.Platform.Storage.FilePickerFileType]::new($TypeName)
-        $type.Patterns = [string[]]$Patterns
+        if (-not $Types) { $Types = @(@{ Name = $TypeName; Patterns = $Patterns }) }
+        $choices = [Avalonia.Platform.Storage.FilePickerFileType[]]@(foreach ($choice in $Types) {
+                $type = [Avalonia.Platform.Storage.FilePickerFileType]::new($choice.Name)
+                $type.Patterns = [string[]]@($choice.Patterns)
+                $type
+            })
         if ($Save) {
             $options = [Avalonia.Platform.Storage.FilePickerSaveOptions]::new()
             $options.SuggestedFileName = [System.IO.Path]::GetFileName($Path)
-            $options.DefaultExtension = $Patterns[0].TrimStart('*', '.')
-            $options.FileTypeChoices = [Avalonia.Platform.Storage.FilePickerFileType[]]@($type)
+            $options.DefaultExtension = @($Types[0].Patterns)[0].TrimStart('*', '.')
+            $options.FileTypeChoices = $choices
         } else {
             $options = [Avalonia.Platform.Storage.FilePickerOpenOptions]::new()
             $options.AllowMultiple = $false
-            $options.FileTypeFilter = [Avalonia.Platform.Storage.FilePickerFileType[]]@($type)
+            $options.FileTypeFilter = $choices
         }
         $options.Title = $Title
         $filePicker.Done = $Done

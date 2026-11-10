@@ -55,20 +55,25 @@ function Initialize-PSGPOManagerReportView {
         $uninterpretedSettingsList.ItemsSource = $cached.Uninterpreted
     }
     # Save report... of the Settings tab and of the context menu, as GPMC: the report of the GPO as
-    # an HTML page (Get-PSGPOReport), in the language of the interface; its result under the button,
-    # or in the Details tab from the context menu (FromMenu).
+    # an HTML page or an XML document (Get-PSGPOReport), or in a format an add-on gives, by the
+    # extension of the file; in the language of the interface; its result under the button, or in
+    # the Details tab from the context menu (FromMenu).
     $gpoReport = @{ Gpo = $null; FromMenu = $false; Path = $null }
     function Save-GpoReport {
         param([Parameter(Mandatory)] [string]$Path)
         $gpo = $gpoReport.Gpo
         if (-not $gpo) { return }
         if (Wait-ConsoleAdmx -Then ${function:Save-GpoReport} -ArgumentList $Path) { return }
-        # In the background: it reads the folder of the GPO.
+        # In the background: it reads the folder of the GPO, and an add-on may print it.
         $gpoReport.Path = $Path
         $null = Start-ConsoleOperation -Text (Get-PSGPOText 'Saving the report of {0}...' $gpo.DisplayName) -ScriptBlock {
             param($Directory, $Gpo, $Path)
-            $html = ConvertTo-PSGPOReportHtml -Report @(Get-PSGPOReportData -Directory $Directory -Gpo $Gpo)
-            [System.IO.File]::WriteAllText($Path, $html, [System.Text.UTF8Encoding]::new($false))
+            $report = @(Get-PSGPOReportData -Directory $Directory -Gpo $Gpo)
+            if ([System.IO.Path]::GetExtension($Path) -eq '.xml') {
+                [System.IO.File]::WriteAllText($Path, (ConvertTo-PSGPOReportXml -Report $report), [System.Text.UTF8Encoding]::new($false))
+            } else {
+                $null = Write-PSGPOReportHtmlFile -Html (ConvertTo-PSGPOReportHtml -Report $report) -Path $Path
+            }
         } -ArgumentList $Directory, $gpo, $Path -Done {
             Show-GpoReportResult -Text (Get-PSGPOText 'Report saved: {0}' $gpoReport.Path)
         } -Failed {
@@ -101,7 +106,14 @@ function Initialize-PSGPOManagerReportView {
         # A name of file: the name of the GPO without the characters a file name cannot have.
         $invalid = [System.IO.Path]::GetInvalidFileNameChars()
         $file = (-join @($gpo.DisplayName.ToCharArray() | ForEach-Object { if ($invalid -contains $_) { '_' } else { $_ } })) + '.html'
-        Start-FilePicker -Save -Title (Get-PSGPOText 'Save the report of the GPO') -Path $file -TypeName (Get-PSGPOText 'HTML page') -Patterns '*.html' -Done { param($Path) Save-GpoReport -Path $Path }
+        Start-FilePicker -Save -Title (Get-PSGPOText 'Save the report of the GPO') -Path $file -Types (Get-GpoReportFileType) -Done { param($Path) Save-GpoReport -Path $Path }
+    }
+    # The types of file of a report, as GPMC: an HTML page, an XML document, then those of the
+    # add-ons loaded.
+    function Get-GpoReportFileType {
+        @{ Name = Get-PSGPOText 'HTML page'; Patterns = @('*.html') }
+        @{ Name = Get-PSGPOText 'XML file'; Patterns = @('*.xml') }
+        foreach ($format in @(Get-PSGPOAddOnReportFormat)) { @{ Name = $format.TypeName; Patterns = @("*.$($format.Extension)") } }
     }
     $settingsReportButton.IsVisible = $null -ne $window.StorageProvider -and $window.StorageProvider.CanSave
     $settingsReportButton.Add_Click({ Start-GpoReportSave })

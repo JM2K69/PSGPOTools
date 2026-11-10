@@ -19,7 +19,9 @@ function Get-PSGPOReport {
         HGPM, in English (namespace https://jm2k69.github.io/PSGPOTools/schemas/gpo-report/1, not
         the schema of the reports of GPMC); Html a page in one file, in the language of the
         interface (-Language), readable in any browser. Without -Path, the XML and the HTML are
-        returned as a string; with -Path, written in that file (UTF-8), the file returned.
+        returned as a string; with -Path, written in that file (UTF-8), the file returned. An
+        add-on can give other formats of file (its hook ReportFormat, Register-PSGPOAddOn): the
+        HTML report is written in one when -Path has its extension.
     .PARAMETER Name
         Display names of the GPOs (* and ? make a pattern).
     .PARAMETER All
@@ -27,7 +29,8 @@ function Get-PSGPOReport {
     .PARAMETER ReportType
         Object, Xml or Html.
     .PARAMETER Path
-        The file the XML or HTML report is written to; one file for all the GPOs.
+        The file the XML or HTML report is written to; one file for all the GPOs. With
+        -ReportType Html, the extension of a format an add-on gives writes in that format.
     .PARAMETER Language
         Language of an HTML report: en-US, or a language of Resources/Strings (fr-FR); by default
         the one of the interface (English in a session that never opened a console).
@@ -96,17 +99,19 @@ function Get-PSGPOReport {
         }
         if ($ReportType -eq 'Object' -or -not $reports.Count) { return }
 
-        $text = if ($ReportType -eq 'Xml') {
-            ConvertTo-PSGPOReportXml -Report $reports.ToArray()
-        } else {
-            # The language asked for, for this report only.
-            $previous = $script:PSGPOLanguage
-            if ($Language) { $null = Set-PSGPOLanguage -Language $Language }
-            try { ConvertTo-PSGPOReportHtml -Report $reports.ToArray() } finally { if ($Language) { $null = Set-PSGPOLanguage -Language $previous } }
+        # The language asked for, for this report only (the HTML, and the type of file of a format
+        # of an add-on).
+        $previous = $script:PSGPOLanguage
+        if ($Language -and $ReportType -eq 'Html') { $null = Set-PSGPOLanguage -Language $Language }
+        try {
+            $text = if ($ReportType -eq 'Xml') { ConvertTo-PSGPOReportXml -Report $reports.ToArray() } else { ConvertTo-PSGPOReportHtml -Report $reports.ToArray() }
+            if (-not $Path) { return $text }
+            $full = $PSCmdlet.GetUnresolvedProviderPathFromPSPath($Path)
+            if ($ReportType -eq 'Html') { return Write-PSGPOReportHtmlFile -Html $text -Path $full }
+            [System.IO.File]::WriteAllText($full, $text, [System.Text.UTF8Encoding]::new($false))
+            Get-Item -LiteralPath $full
+        } finally {
+            if ($Language -and $ReportType -eq 'Html') { $null = Set-PSGPOLanguage -Language $previous }
         }
-        if (-not $Path) { return $text }
-        $full = $PSCmdlet.GetUnresolvedProviderPathFromPSPath($Path)
-        [System.IO.File]::WriteAllText($full, $text, [System.Text.UTF8Encoding]::new($false))
-        Get-Item -LiteralPath $full
     }
 }

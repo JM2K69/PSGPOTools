@@ -46,6 +46,9 @@ Register-PSGPOAddOn -Name 'HGPM.TestHooks' -Contract 1 -Edition 'Test Edition' -
 } -ReportHtml {
     param($Html)
     $Html.Replace('<!-- hgpm:head -->', '<style>h2 { color: #123abc; }</style>').Replace('<!-- hgpm:body-start -->', '<p class="test-start">Contoso</p>').Replace('<!-- hgpm:body-end -->', '<p class="test-end">Confidential</p>')
+} -ReportFormat @{
+    Name = 'Test'; Extension = '.TST'; TypeName = @{ 'en-US' = 'Test file'; 'fr-FR' = 'Fichier de test' }
+    Save = { param($Html, $Path) [System.IO.File]::WriteAllText($Path, "TEST`n$Html") }
 }
 '@
         Copy-Item -LiteralPath $script:Logo -Destination (Join-Path $script:AddOnFolder 'Icon.png')
@@ -194,6 +197,67 @@ throw 'The broken add-on of the tests.'
             Add-PSGPOAddOnItem -Name 'HGPM.Nothing' -Version '1.0' -Contract 1 -State Loaded -ReportHtml { }
             $script:PSGPOAddOn.Loaded = $true
             Invoke-PSGPOAddOnReportHtml -Html '<html><!-- hgpm:head --></html>' | Should -BeExactly '<html><!-- hgpm:head --></html>'
+        }
+
+        It 'Saves a report in the format an add-on gives for the extension of the file, its type in the language of the interface' {
+            $Format = @(Get-PSGPOAddOnReportFormat)
+            $Format.Count | Should -Be 1
+            $Format[0].Name | Should -Be 'Test'
+            $Format[0].Extension | Should -Be 'tst' -Because 'the extension is kept without its dot, in lower case'
+            $Format[0].TypeName | Should -Be 'Test file'
+            $Format[0].Edition | Should -Be 'Test Edition'
+            $Before = $script:PSGPOLanguage
+            try {
+                $script:PSGPOLanguage = 'fr-FR'
+                @(Get-PSGPOAddOnReportFormat)[0].TypeName | Should -Be 'Fichier de test'
+                $script:PSGPOLanguage = 'de-DE'
+                @(Get-PSGPOAddOnReportFormat)[0].TypeName | Should -Be 'Test file' -Because 'English when the language has no text'
+            } finally { $script:PSGPOLanguage = $Before }
+
+            $Test = Join-Path $TestDrive 'report.TST'
+            (Write-PSGPOReportHtmlFile -Html '<html>x</html>' -Path $Test).FullName | Should -Be $Test
+            [System.IO.File]::ReadAllText($Test) | Should -BeExactly "TEST`n<html>x</html>"
+            $Page = Join-Path $TestDrive 'report.html'
+            $null = Write-PSGPOReportHtmlFile -Html '<html>x</html>' -Path $Page
+            [System.IO.File]::ReadAllText($Page) | Should -BeExactly '<html>x</html>'
+
+            # Get-PSGPOReport: the HTML report, branded by the add-on, in its format.
+            $Directory = Import-PSGPODirectory -Path $script:SamplePath
+            $Gpo = @($Directory.Gpos)[0]
+            $File = Get-PSGPOReport -Name $Gpo.DisplayName -Directory $Directory -ReportType Html -Path (Join-Path $TestDrive 'gpo.tst')
+            $Text = [System.IO.File]::ReadAllText($File.FullName)
+            $Text | Should -BeLike "TEST`n<!DOCTYPE html>*"
+            $Text | Should -BeLike '*<p class="test-start">Contoso</p>*'
+        }
+
+        It 'Says the error of a format, and a format that wrote no file; keeps HTML without an add-on' {
+            $Fails = ConvertTo-PSGPOAddOnReportFormat -Format @{ Name = 'Fails'; Extension = 'bad'; TypeName = 'Bad'; Save = { throw 'no printer here' } }
+            $Silent = ConvertTo-PSGPOAddOnReportFormat -Format @{ Name = 'Silent'; Extension = 'nil'; TypeName = 'Nil'; Save = { } }
+            Add-PSGPOAddOnItem -Name 'HGPM.Formats' -Version '1.0' -Contract 1 -State Loaded -ReportFormat $Fails, $Silent
+            $script:PSGPOAddOn.Loaded = $true
+            { Write-PSGPOReportHtmlFile -Html '<html/>' -Path (Join-Path $TestDrive 'r.bad') } | Should -Throw '*no printer here*'
+            # A file of before is not taken for the one asked.
+            $Old = Join-Path $TestDrive 'r.nil'
+            Set-Content -LiteralPath $Old -Value 'old'
+            { Write-PSGPOReportHtmlFile -Html '<html/>' -Path $Old } | Should -Throw '*wrote no file*'
+            Test-Path -LiteralPath $Old | Should -BeFalse
+
+            Reset-TestAddOn
+            $env:PSGPOTOOLS_NO_ADDON = '1'
+            @(Get-PSGPOAddOnReportFormat) | Should -BeNullOrEmpty
+            $null = Write-PSGPOReportHtmlFile -Html '<html/>' -Path (Join-Path $TestDrive 'r.tst')
+            [System.IO.File]::ReadAllText((Join-Path $TestDrive 'r.tst')) | Should -BeExactly '<html/>' -Because 'without the add-on, the HTML page'
+        }
+
+        It 'Refuses a format of report that does not fit: the add-on is not loaded' {
+            $Save = { param($Html, $Path) }
+            { Register-PSGPOAddOn -Name 'HGPM.Format1' -Version '1.0' -Contract 1 -ReportFormat 'pdf' } | Should -Throw '*each format is a hashtable*'
+            { Register-PSGPOAddOn -Name 'HGPM.Format2' -Version '1.0' -Contract 1 -ReportFormat @{ Name = 'Page'; Extension = 'htm'; TypeName = 'x'; Save = $Save } } | Should -Throw '*.htm is a format of HGPM*'
+            { Register-PSGPOAddOn -Name 'HGPM.Format3' -Version '1.0' -Contract 1 -ReportFormat @{ Name = 'P'; Extension = 'p d f'; TypeName = 'x'; Save = $Save } } | Should -Throw '*is not letters and digits*'
+            { Register-PSGPOAddOn -Name 'HGPM.Format4' -Version '1.0' -Contract 1 -ReportFormat @{ Name = 'P'; Extension = 'pdf'; Save = $Save } } | Should -Throw '*has no TypeName*'
+            { Register-PSGPOAddOn -Name 'HGPM.Format5' -Version '1.0' -Contract 1 -ReportFormat @{ Name = 'P'; Extension = 'pdf'; TypeName = 'x'; Save = 'print' } } | Should -Throw '*Save is not a scriptblock*'
+            { Register-PSGPOAddOn -Name 'HGPM.Format6' -Version '1.0' -Contract 1 -ReportFormat @{ Name = 'A'; Extension = 'pdf'; TypeName = 'x'; Save = $Save }, @{ Name = 'B'; Extension = 'PDF'; TypeName = 'y'; Save = $Save } } | Should -Throw '*extension .pdf twice*'
+            @($script:PSGPOAddOn.Items | Where-Object Name -Like 'HGPM.Format*') | Should -BeNullOrEmpty
         }
     }
 }

@@ -1,5 +1,12 @@
 # HGPM Release History
 
+## Unreleased
+
+### Added
+
+* **Save report...** writes the report of a GPO as an HTML page or an XML document, by the type chosen in the dialog, as GPMC
+* Add-ons: the hook `ReportFormat` of `Register-PSGPOAddOn` gives formats of file of the reports besides HTML and XML (a name, an extension, the type of file of the save dialog in each language, and `Save`, which writes the HTML report in that format): **Save report...** offers them, and `Get-PSGPOReport -ReportType Html -Path` writes in one by the extension of the path; the error of `Save` is the one of the save, and a format that does not fit stops the registration of the add-on. A hook added keeps the contract of the add-on points (1): the add-ons built before it work as they did ([add-ons](https://jm2k69.github.io/PSGPOTools/en/technical/add-ons/#formats-of-report))
+
 ## 0.3.0
 
 ### Added

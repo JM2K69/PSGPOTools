@@ -18,6 +18,13 @@
                   256 x 256) or Header (their header, shown in 44 x 44); nothing: that of HGPM.
       ReportHtml  param($Html): the HTML report changed, returned; its markers <!-- hgpm:head -->,
                   <!-- hgpm:body-start --> and <!-- hgpm:body-end --> say where to add.
+      ReportFormat  formats of file the reports are saved in besides HTML and XML, each a
+                  hashtable: Name (PDF), Extension (pdf), TypeName (the type of file of the save
+                  dialog: a text, or a text per language @{ 'en-US' = ...; 'fr-FR' = ... }) and
+                  Save, param($Html, $Path): the HTML report (ReportHtml applied) written to $Path
+                  in that format. Its error is the one of the save: the file was asked for.
+    A hook added to the contract keeps it: an add-on built before the hook works as it did, and
+    one that uses it requires the version of HGPM that has it.
 #>
 
 # The contract of the add-on points of this version of the core: what Register-PSGPOAddOn takes
@@ -55,7 +62,8 @@ function Add-PSGPOAddOnItem {
         [string]$Reason,
         [string]$Path,
         [scriptblock]$WindowLogo,
-        [scriptblock]$ReportHtml
+        [scriptblock]$ReportHtml,
+        [object[]]$ReportFormat = @()
     )
 
     $known = @($script:PSGPOAddOn.Items | Where-Object Name -EQ $Name)
@@ -71,6 +79,7 @@ function Add-PSGPOAddOnItem {
             Path = $Path
             WindowLogo = $WindowLogo
             ReportHtml = $ReportHtml
+            ReportFormat = @($ReportFormat)
         })
     # The images asked before are asked again with this add-on.
     $script:PSGPOAddOn.Logo = @{}
@@ -157,6 +166,80 @@ function Get-PSGPOAddOnWindowLogo {
     }
     $script:PSGPOAddOn.Logo[$Kind] = $path
     $path
+}
+
+# A format of report an add-on gives (its hook ReportFormat), checked: Name, Extension (letters and
+# digits, not those of HGPM: html, htm, xml), TypeName (a text, or a text per language) and Save
+# (a scriptblock). Throws what is wrong: the add-on does not register.
+function ConvertTo-PSGPOAddOnReportFormat {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [AllowNull()] [object]$Format)
+
+    if ($Format -isnot [System.Collections.IDictionary]) { throw 'ReportFormat: each format is a hashtable: Name, Extension, TypeName and Save.' }
+    $name = "$($Format['Name'])".Trim()
+    $extension = "$($Format['Extension'])".Trim().TrimStart('.').ToLowerInvariant()
+    $typeName = $Format['TypeName']
+    $save = $Format['Save']
+    if (-not $name) { throw 'ReportFormat: a format has no Name.' }
+    if ($extension -notmatch '^[a-z0-9]{1,10}$') { throw "ReportFormat $($name): its Extension '$($Format['Extension'])' is not letters and digits (pdf)." }
+    if ($extension -in 'html', 'htm', 'xml') { throw "ReportFormat $($name): .$extension is a format of HGPM." }
+    $texts = if ($typeName -is [System.Collections.IDictionary]) {
+        $byLanguage = [ordered]@{}
+        foreach ($key in $typeName.Keys) { if ("$($typeName[$key])".Trim()) { $byLanguage["$key"] = "$($typeName[$key])".Trim() } }
+        $byLanguage
+    } elseif ("$typeName".Trim()) { [ordered]@{ 'en-US' = "$typeName".Trim() } }
+    if (-not $texts -or -not $texts.Count) { throw "ReportFormat $($name): it has no TypeName (the type of file of the save dialog)." }
+    if ($save -isnot [scriptblock]) { throw "ReportFormat $($name): its Save is not a scriptblock param(`$Html, `$Path)." }
+    [pscustomobject]@{ Name = $name; Extension = $extension; TypeName = $texts; Save = $save }
+}
+
+# The formats of report of the add-ons loaded, each extension once (the first add-on that gives
+# it): Name, Extension, TypeName in the language of the interface (else English, else the first
+# given), Save, and the Edition that gives it.
+function Get-PSGPOAddOnReportFormat {
+    [CmdletBinding()]
+    param()
+
+    $language = if ($script:PSGPOLanguage) { $script:PSGPOLanguage } else { 'en-US' }
+    $seen = [System.Collections.Generic.HashSet[string]]::new([System.StringComparer]::OrdinalIgnoreCase)
+    foreach ($addOn in @(Get-PSGPOLoadedAddOn)) {
+        foreach ($format in @($addOn.ReportFormat)) {
+            if (-not $format -or -not $seen.Add($format.Extension)) { continue }
+            $typeName = if ($format.TypeName.Contains($language)) { $format.TypeName[$language] }
+                elseif ($format.TypeName.Contains('en-US')) { $format.TypeName['en-US'] }
+                else { @($format.TypeName.Values)[0] }
+            [pscustomobject]@{ Name = $format.Name; Extension = $format.Extension; TypeName = $typeName; Save = $format.Save; Edition = $addOn.Edition }
+        }
+    }
+}
+
+# Writes an HTML report to a file: in the format an add-on gives for the extension of $Path (its
+# Save), else as the HTML page itself (UTF-8). The error of an add-on is the one of the save: the
+# file was asked for. The file written.
+function Write-PSGPOReportHtmlFile {
+    [CmdletBinding()]
+    [OutputType([System.IO.FileInfo])]
+    param(
+        [Parameter(Mandatory)] [string]$Html,
+        [Parameter(Mandatory)] [string]$Path
+    )
+
+    $extension = [System.IO.Path]::GetExtension($Path).TrimStart('.')
+    $format = if ($extension) { @(Get-PSGPOAddOnReportFormat | Where-Object Extension -EQ $extension)[0] }
+    if (-not $format) {
+        [System.IO.File]::WriteAllText($Path, $Html, [System.Text.UTF8Encoding]::new($false))
+        return Get-Item -LiteralPath $Path
+    }
+    # The file of before is not taken for the one the add-on made.
+    if (Test-Path -LiteralPath $Path -PathType Leaf) { Remove-Item -LiteralPath $Path -Force }
+    try {
+        $null = & $format.Save $Html $Path
+    } catch {
+        Write-PSGPOLogEntry -Level Error -Source 'Add-ons' -Message "$($format.Edition) did not write the report as $($format.Name): $($_.Exception.GetBaseException().Message)" -ErrorRecord $_ -Detail ([ordered]@{ Path = $Path })
+        throw
+    }
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { throw "$($format.Edition) wrote no file $Path ($($format.Name))." }
+    Get-Item -LiteralPath $Path
 }
 
 # The HTML report as the add-ons change it (their hook ReportHtml), each in turn; an add-on that

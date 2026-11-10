@@ -17,7 +17,7 @@ The report of a GPO holds its details (status, owner, versions, approval, WMI fi
 
 It lists apart what HGPM does not interpret: a client-side extension whose settings it does not read (Folder Redirection, Software Installation, IP Security...), a file of the folder of the GPO no reader of HGPM reads. The computers apply them all the same: review them with GPMC, or in the files of the GPO, before approving it.
 
--ReportType Object (the default) gives PSGPOTools.GpoReport objects; Xml an XML document of HGPM, in English (namespace https://jm2k69.github.io/PSGPOTools/schemas/gpo-report/1, not the schema of the reports of GPMC); Html a page in one file, in the language of the interface (-Language), readable in any browser. Without -Path, the XML and the HTML are returned as a string; with -Path, written in that file (UTF-8), the file returned.
+-ReportType Object (the default) gives PSGPOTools.GpoReport objects; Xml an XML document of HGPM, in English (namespace https://jm2k69.github.io/PSGPOTools/schemas/gpo-report/1, not the schema of the reports of GPMC); Html a page in one file, in the language of the interface (-Language), readable in any browser. Without -Path, the XML and the HTML are returned as a string; with -Path, written in that file (UTF-8), the file returned. An add-on can give other formats of file (its hook ReportFormat, Register-PSGPOAddOn): the HTML report is written in one when -Path has its extension.
 
 ## Parameters
 
@@ -47,7 +47,7 @@ Object, Xml or Html.
 
 ### -Path
 
-The file the XML or HTML report is written to; one file for all the GPOs.
+The file the XML or HTML report is written to; one file for all the GPOs. With -ReportType Html, the extension of a format an add-on gives writes in that format.
 
 | Type | Required | Position | Default value | Accepts pipeline input |
 |---|---|---|---|---|

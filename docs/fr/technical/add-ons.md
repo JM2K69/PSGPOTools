@@ -49,8 +49,11 @@ Un add-on laissé de côté est signalé dans le journal technique et dans **À 
 avec la raison. `PSGPOTOOLS_NO_ADDON=1` n'en charge aucun (les tests le posent).
 
 Le premier contrat, celui de HGPM 0.3.0, qui apporte les add-ons, est le **1**. Il change
-quand ce que HGPM demande à un add-on, ou lui donne, change : un add-on fait pour un autre contrat
-est refusé avec un message qui dit quel paquet installer, jamais avec une erreur dans une console.
+quand un point d'accroche change ou disparaît, de sorte qu'un add-on fait pour lui ne marcherait
+plus : un add-on fait pour un autre contrat est refusé avec un message qui dit quel paquet
+installer, jamais avec une erreur dans une console. Un point d'accroche **ajouté** garde le
+contrat : les add-ons faits avant lui marchent comme avant, et celui qui l'utilise exige la
+version de HGPM qui l'a.
 
 ## Les points d'accroche du contrat 1
 
@@ -61,11 +64,40 @@ laisse ce que fait HGPM tel quel.
 |---|---|---|---|
 | `WindowLogo` | `Icon` ou `Header` | le chemin d'une image | `Icon` : l'icône de chaque fenêtre (barre de titre, barre des tâches) ; `Header` : l'image de l'en-tête des consoles, affichée en 44 x 44 |
 | `ReportHtml` | le HTML d'un rapport | le HTML modifié | les rapports HTML (`Get-PSGPOReport -ReportType Html`, **Enregistrer le rapport...**) |
+| `ReportFormat` (HGPM 0.4.0) | son `Save` : le HTML d'un rapport (`ReportHtml` appliqué) et un chemin | le fichier écrit | les types de fichier de **Enregistrer le rapport...**, après HTML et XML ; `Get-PSGPOReport -ReportType Html -Path` avec son extension |
 
 Un rapport HTML contient trois repères où un add-on ajoute ce qu'il donne, sans lire le reste de
 la page : `<!-- hgpm:head -->` avant `</head>`, `<!-- hgpm:body-start -->` après `<body>`,
 `<!-- hgpm:body-end -->` avant `</body>`. Un rapport reste un seul fichier : ce qu'ajoute un
 add-on est dans la page.
+
+### Formats de rapport
+
+`ReportFormat` donne les formats de fichier dans lesquels un add-on écrit les rapports, en plus de
+la page HTML et du document XML de HGPM. Chacun est une table de hachage :
+
+| Clé | Quoi |
+|---|---|
+| `Name` | son nom (`Text`), dans le journal technique |
+| `Extension` | son extension, lettres et chiffres (`txt`) ; ni `html`, ni `htm`, ni `xml`, celles de HGPM |
+| `TypeName` | le type de fichier de la boîte d'enregistrement : un texte, ou un texte par langue (`@{ 'en-US' = 'Text file'; 'fr-FR' = 'Fichier texte' }`, l'anglais quand la langue de l'interface n'en a pas) |
+| `Save` | `param($Html, $Path)` : écrit le rapport HTML dans `$Path` dans ce format |
+
+```powershell
+Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -ReportFormat @{
+    Name      = 'Text'
+    Extension = 'txt'
+    TypeName  = @{ 'en-US' = 'Text file'; 'fr-FR' = 'Fichier texte' }
+    Save      = { param($Html, $Path) Set-Content -LiteralPath $Path -Value ($Html -replace '<[^>]+>', '') }
+}
+```
+
+**Enregistrer le rapport...** propose chaque type, et le rapport est écrit selon l'extension du
+fichier choisi ; `Get-PSGPOReport -ReportType Html -Path ./gpo.txt` fait de même. Contrairement
+aux autres points d'accroche, l'erreur de `Save` est celle de l'enregistrement : la console dit
+que le rapport n'est pas enregistré, avec elle, et un `Save` qui n'écrit aucun fichier est aussi
+une erreur. Un format qui ne convient pas (une extension de HGPM, pas de `Save`...) arrête
+l'enregistrement : l'add-on n'est pas chargé, et le journal technique dit pourquoi.
 
 ## Versions
 
