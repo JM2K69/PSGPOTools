@@ -135,6 +135,7 @@ Get-PSGPOPolicy -Scope Machine | Where-Object DisplayName -Like '*biometrics*' |
 |---|---|
 | [`Start-HGPM`](commands/start-hgpm.md) `[-Language]` | opens the launcher: a tile for each tool of HGPM |
 | [`Test-PSGPOUpdate`](commands/test-psgpoupdate.md) `[-Prerelease] [-Quiet] [-Repository]` | tells whether a newer version of HGPM is on the PowerShell Gallery, and the command that installs it |
+| [`Register-PSGPOAddOn`](commands/register-psgpoaddon.md) `-Name -Contract [-Version] [-Edition] [-WindowLogo] [-ReportHtml]` | for an add-on ([add-ons](../technical/add-ons.md)): registers it when it is imported, with its hooks |
 
 ## Password policies
 

@@ -30,7 +30,7 @@ $(Get-PSGPOWindowResourceXaml)
             <!-- The buttons keep their width; the title takes the rest, trimmed when the window is narrow. -->
             <Grid ColumnDefinitions='*,Auto'>
                 <Grid Grid.Column='0' ColumnDefinitions='Auto,*' VerticalAlignment='Center' Margin='0,0,16,0'>
-                    <!-- The logo of HGPM (Resources/hgpm.png), set when the window opens. -->
+                    <!-- The logo of HGPM (Resources/hgpm.png), or of the branding of an add-on, set when the window opens. -->
                     <Image Grid.Column='0' Name='logoImage' Width='44' Height='44' VerticalAlignment='Center' Margin='0,0,12,0'
                            RenderOptions.BitmapInterpolationMode='HighQuality'/>
                     <StackPanel Grid.Column='1' VerticalAlignment='Center'>

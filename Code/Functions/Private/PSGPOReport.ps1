@@ -59,7 +59,7 @@ function Get-PSGPOReportData {
         Problems = [string[]]$problems
         ReadBy = if ($Directory.Account) { $Directory.Account } else { [Environment]::UserName }
         Generated = [datetime]::UtcNow
-        Version = "$((Get-PSGPOModuleVersion).Version)"
+        Version = Get-PSGPOEditionVersion
     }
 }
 
@@ -186,9 +186,13 @@ function ConvertTo-PSGPOReportHtml {
   .warn { color: var(--warn); } .box { border: 1px solid var(--warn); border-radius: 4px; padding: 4px 12px 8px; margin-top: 16px; }
   @media print { body { margin: 0; } section.gpo { page-break-after: always; } }
 </style>
-</head>
-<body>
 '@
+    # Where an add-on adds to the report (its hook ReportHtml): in the head, at the start and at
+    # the end of the body.
+    & $add '<!-- hgpm:head -->'
+    & $add '</head>'
+    & $add '<body>'
+    & $add '<!-- hgpm:body-start -->'
     foreach ($item in $Report) {
         & $add '<section class="gpo">'
         & $add "<h1>$(& $encode $item.DisplayName)</h1>"
@@ -250,7 +254,8 @@ function ConvertTo-PSGPOReportHtml {
         foreach ($problem in @($item.Problems)) { & $add "<p class=`"warn`">$(& $encode $problem)</p>" }
         & $add '</section>'
     }
+    & $add '<!-- hgpm:body-end -->'
     & $add '</body>'
     & $add '</html>'
-    $html.ToString()
+    Invoke-PSGPOAddOnReportHtml -Html $html.ToString()
 }

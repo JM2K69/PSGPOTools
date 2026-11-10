@@ -70,7 +70,9 @@ function Get-PSGPOStatusBarItem {
 # The version of HGPM in the status bar of the consoles, with a dot: green when it is the latest
 # of the PowerShell Gallery, orange when a newer one is there (its command in the tooltip), grey
 # when the Gallery was not read. The Gallery is read as at the import: at most once a day, 8
-# seconds at most, never when the check is off (Test-PSGPOUpdateCheckSkipped).
+# seconds at most, never when the check is off (Test-PSGPOUpdateCheckSkipped). With an add-on
+# loaded: HGPM and the add-on, never the Gallery, as HGPM is updated with the package
+# of the add-on, which holds the HGPM it was tested with.
 function Get-PSGPOVersionStatusItem {
     [CmdletBinding()]
     [OutputType([AvaloniaStatusItem])]
@@ -79,6 +81,13 @@ function Get-PSGPOVersionStatusItem {
     $item = [AvaloniaStatusItem]::new()
     $item.IconData = Get-PSGPOIconData -Name 'info'
     $item.HasBadge = $true
+    $addOns = @(Get-PSGPOLoadedAddOn)
+    if ($addOns.Count) {
+        $version = Get-PSGPOEditionVersion
+        $item.Text = "HGPM $version"
+        $item.ToolTip = Get-PSGPOText 'HGPM {0}: updated with the package of {1}, which holds the version of HGPM it was tested with, not from the PowerShell Gallery.' $version $addOns[0].Edition
+        return $item
+    }
     $installed = Get-PSGPOModuleVersion
     $latest = $null
     try { if (-not (Test-PSGPOUpdateCheckSkipped)) { $latest = Get-PSGPOLatestGalleryVersion -Installed $installed.Version } } catch { $latest = $null }

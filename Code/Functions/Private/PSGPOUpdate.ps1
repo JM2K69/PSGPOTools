@@ -152,7 +152,11 @@ function Write-PSGPOImportBanner {
     try {
         $installed = Get-PSGPOModuleVersion
         $message = "HGPM $($installed.Version)"
-        if (-not (Test-PSGPOUpdateCheckSkipped)) {
+        # An add-on installed: HGPM is updated with its package, which holds the
+        # HGPM it was tested with, not from the Gallery.
+        $addOns = @(Find-PSGPOAddOn)
+        foreach ($addOn in $addOns) { $message += " + $($addOn.Name -replace '^HGPM\.', '') $($addOn.Version)" }
+        if (-not $addOns.Count -and -not (Test-PSGPOUpdateCheckSkipped)) {
             $latest = Get-PSGPOLatestGalleryVersion -Installed $installed.Version
             if ($latest -and $latest -gt $installed.Version) {
                 $message += "`nHGPM $latest is available on the PowerShell Gallery: $(Get-PSGPOUpdateCommand -InstalledPath $installed.Path -Latest $latest), then open a new PowerShell session. (Test-PSGPOUpdate for the details; PSGPOTOOLS_SKIP_UPDATE_CHECK=1 skips this check.)"

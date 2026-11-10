@@ -83,6 +83,8 @@ $(Get-PSGPOWindowResourceXaml)
                                          Padding='0' VerticalAlignment='Center'/>
                     </StackPanel>
                     <SelectableTextBlock Name='aboutPathTextBlock' TextWrapping='Wrap' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
+                    <!-- An add-on installed and not loaded, and why (Get-PSGPOAddOnState). -->
+                    <SelectableTextBlock Name='aboutAddOnTextBlock' TextWrapping='Wrap' FontSize='12' Foreground='#CA5010' IsVisible='False'/>
                     <SelectableTextBlock Name='aboutRuntimeTextBlock' TextWrapping='Wrap' FontSize='12' Foreground='{DynamicResource SecondaryTextBrush}'/>
                     <StackPanel Orientation='Horizontal' Spacing='16'>
                         <HyperlinkButton Name='aboutDocsLink' Padding='0'/>

@@ -798,6 +798,8 @@
     'HGPM {0}: {1} available' = 'HGPM {0} : {1} disponible'
     'HGPM {0} is on the PowerShell Gallery: {1}, then open a new PowerShell session.' = 'HGPM {0} est sur la PowerShell Gallery : {1}, puis ouvrez une nouvelle session PowerShell.'
     'HGPM {0}: the latest version of the PowerShell Gallery.' = 'HGPM {0} : la dernière version de la PowerShell Gallery.'
+    'The add-on {0} {1} is not loaded: {2}' = 'L''add-on {0} {1} n''est pas chargé : {2}'
+    'HGPM {0}: updated with the package of {1}, which holds the version of HGPM it was tested with, not from the PowerShell Gallery.' = 'HGPM {0} : mis à jour avec le paquet de {1}, qui contient la version de HGPM avec laquelle il a été testé, pas depuis la PowerShell Gallery.'
     'HGPM {0}: the PowerShell Gallery was not read (no network, or the check is off), the updates are unknown.' = 'HGPM {0} : la PowerShell Gallery n''a pas été lue (pas de réseau, ou vérification désactivée), les mises à jour sont inconnues.'
     # The advanced audit policy (audit.csv)
     'Set in audit.csv' = 'Défini dans audit.csv'

@@ -67,6 +67,7 @@ nav = [
     "technical/dc-audit.md",
     "technical/file-formats.md",
     "technical/user-interface.md",
+    "technical/add-ons.md",
     "technical/tests.md",
   ] },
   { "Référence" = [
@@ -128,6 +129,7 @@ nav = [
       "reference/commands/new-psgpomigrationtable.md",
       "reference/commands/new-psgpostartergpo.md",
       "reference/commands/new-psgpowmifilter.md",
+      "reference/commands/register-psgpoaddon.md",
       "reference/commands/register-psgpoeventsource.md",
       "reference/commands/remove-psgpo.md",
       "reference/commands/remove-psgpobackup.md",

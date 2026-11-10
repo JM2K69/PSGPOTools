@@ -148,12 +148,16 @@ function Start-PSGPOLauncherWindow {
     function Update-LauncherAbout {
         $ui.aboutButtonText.Text = Get-PSGPOText 'About'
         [Avalonia.Controls.ToolTip]::SetTip($ui.aboutButton, (Get-PSGPOText 'About HGPM: its version, the Hardenad community'))
-        $ui.aboutVersionTextBlock.Text = Get-PSGPOText 'Version {0}' $about.Version
+        # With the add-ons loaded: 0.3.0 + Contoso 0.3.0.1.
+        $ui.aboutVersionTextBlock.Text = Get-PSGPOText 'Version {0}' (Get-PSGPOEditionVersion)
         $ui.aboutDescriptionTextBlock.Text = Get-PSGPOText 'Group Policy management for Samba AD and Active Directory, in the spirit of GPMC, on Windows and Linux.'
         $ui.aboutCommunityTextBlock.Text = Get-PSGPOText 'HGPM is a product of the Hardenad community:'
         # A name of domain, not a text to translate.
         $ui.aboutHardenadLink.Content = 'hardenad.net'
         $ui.aboutPathTextBlock.Text = Get-PSGPOText 'Installed in {0}' $about.Path
+        $left = @(Get-PSGPOAddOnState | Where-Object State -NE 'Loaded')
+        $ui.aboutAddOnTextBlock.Text = @($left | ForEach-Object { Get-PSGPOText 'The add-on {0} {1} is not loaded: {2}' $_.Name $_.Version $_.Reason }) -join "`n"
+        $ui.aboutAddOnTextBlock.IsVisible = $left.Count -gt 0
         $ui.aboutRuntimeTextBlock.Text = Get-PSGPOText 'PowerShell {0} on {1}' $PSVersionTable.PSVersion ([System.Runtime.InteropServices.RuntimeInformation]::OSDescription)
         $ui.aboutDocsLink.Content = Get-PSGPOText 'Documentation'
         $ui.aboutDocsLink.NavigateUri = [uri]"https://jm2k69.github.io/PSGPOTools/$(if ("$($launch.Language)" -like 'fr*') { 'fr' } else { 'en' })/"

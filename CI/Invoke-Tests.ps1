@@ -30,6 +30,8 @@ param(
 $ErrorActionPreference = 'Stop'
 # Each test file imports the module: its import must not read the PowerShell Gallery.
 $env:PSGPOTOOLS_SKIP_UPDATE_CHECK = '1'
+# Nor load the add-ons installed on the computer: PSGPOTools.AddOn.tests.ps1 has its own.
+$env:PSGPOTOOLS_NO_ADDON = '1'
 # The errors the tests make on purpose: in a technical log of their own, not in the log of the system.
 $env:PSGPOTOOLS_LOG_PATH = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-tests-log-$PID"
 $env:PSGPOTOOLS_SKIP_SYSTEM_LOG = '1'
