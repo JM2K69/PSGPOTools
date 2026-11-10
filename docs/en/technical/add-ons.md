@@ -67,6 +67,9 @@ as it is.
 | `BeforeChange` (HGPM 0.4.0) | the directory of the domain | nothing; **an error refuses the change** | before each change of the domain: GPOs, links, WMI filters, permissions, settings, the configuration |
 | `AuditEntry` (HGPM 0.4.0) | the line of the audit log, before it is written | nothing: it adds to `$Entry.Details` | each line of the [audit log](../features/audit-log.md), and of the log of the system |
 | `ConsoleField` (HGPM 0.4.0) | its `Get` and `Set` | the value, kept by the add-on | a field of the toolbar of the GPO console |
+| `AuditColumn` (HGPM 0.4.0) | its `Get`: a line of the audit log | its value for that line | a column of the audit log window, and a list of its values that filters the lines |
+| `ApprovalNote` (HGPM 0.4.0) | the directory and the pending GPO | lines of text | the approval form of a pending GPO, below what the approver approves |
+| `BeforeApproval` (HGPM 0.4.0) | the directory and the pending GPO | nothing; **an error refuses the approval** | before a pending GPO is approved, by the console and `Approve-PSGPO` |
 
 An HTML report holds three markers where an add-on adds what it gives, without reading the rest
 of the page: `<!-- hgpm:head -->` before `</head>`, `<!-- hgpm:body-start -->` after `<body>`,
@@ -133,6 +136,56 @@ Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -ConsoleField @{
 read). Unlike the other hooks, its error is the refusal: the change is not made, and its message is
 the one the account reads. A console runs its long operations in a runspace of its own: a value
 the add-on keeps for the process (an environment variable of the process) is seen by both.
+
+### A column of the audit log
+
+`AuditColumn` gives columns of the [audit log window](../features/audit-log.md), after the GPO or
+object: what the add-on reads in each line (its `Details`), shown and filtered. Each column is a
+hashtable:
+
+| Key | What |
+|---|---|
+| `Name` | its name, letters and digits |
+| `Header` | its title: a text, or a text per language |
+| `Width` | its width, 60 to 400 pixels (130) |
+| `Get` | `param($Entry)`: its value for a line of the log (`Get-PSGPOAuditLog`) |
+| `Filter` | `$true`: a list of its values, the newest first, filters the lines, beside the search |
+| `All` | the first item of that list: a text, or a text per language (`<title>: all` when not given) |
+
+```powershell
+Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -AuditColumn @{
+    Name   = 'Ticket'
+    Header = 'Ticket'
+    Filter = $true
+    All    = @{ 'en-US' = 'All the tickets'; 'fr-FR' = 'Tous les tickets' }
+    Get    = { param($Entry) $Entry.Details.Ticket }
+}
+```
+
+The search of the window reads the values of the columns too. The window has three places for the
+columns of the add-ons: those beyond are left out, and the technical log says it. A `Get` that
+fails leaves its column empty, said once in the technical log.
+
+### The approval of a GPO
+
+With the [approval workflow](../workflows/approval.md), an add-on can tell the approver
+what it knows of a pending GPO (`ApprovalNote`: its request, its ticket...) and refuse its
+approval (`BeforeApproval`): both are called with the directory and the GPO.
+
+```powershell
+Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -ApprovalNote {
+    param($Directory, $Gpo)
+    "Ticket of this session: $env:CONTOSO_TICKET"
+} -BeforeApproval {
+    param($Directory, $Gpo)
+    if (-not $env:CONTOSO_TICKET) { throw "Type the ticket that allows the GPO '$($Gpo.DisplayName)' first." }
+}
+```
+
+The lines of `ApprovalNote` are shown when the form opens, in a frame below its text; an add-on
+that fails tells nothing. `BeforeApproval` is called before anything is written (the groups of
+security filtering, the permissions, the owner): its error is the refusal, its message the one the
+approver reads in the form, and the GPO stays pending.
 
 ### Settings for the domain
 

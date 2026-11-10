@@ -237,6 +237,9 @@ function Initialize-PSGPOManagerGpoFormView {
         $approveGpoUninterpretedPanel.IsVisible = $approveGpo.Uninterpreted.Count -gt 0
         $approveGpoUninterpretedCheckBox.IsChecked = $false
         $approveGpoUninterpretedTextBlock.Text = Get-PSGPOText 'The console does not interpret {0} setting(s) of this GPO, which the computers apply: {1}. See them in the Settings tab.' $approveGpo.Uninterpreted.Count (@($approveGpo.Uninterpreted | ForEach-Object { ConvertTo-PSGPODisplayText $_.Name }) -join ', ')
+        # What the add-ons tell the approver (the request of the change, its ticket...).
+        $approveGpoAddOnTextBlock.Text = @(Get-PSGPOAddOnApprovalNote -Directory $Directory -Gpo $gpo) -join [Environment]::NewLine
+        $approveGpoAddOnBorder.IsVisible = [bool]$approveGpoAddOnTextBlock.Text
         Hide-DirectoryForm
         $directoryResultTextBlock.Text = ''
         Show-DirectoryForm $approveGpoPanel

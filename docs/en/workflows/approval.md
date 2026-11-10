@@ -152,6 +152,10 @@ Right click the GPO > **Approve...**:
   approved only once *I reviewed these settings with GPMC, or in the files of the GPO* is checked.
   `Approve-PSGPO` says them in a warning and in its confirmation
   ([hardening](../technical/hardening.md#what-the-approver-sees)).
+- **What an add-on tells**, when one is installed with HGPM: a frame below the text of the form
+  (the ticket of the request of the GPO, for instance); an add-on may also refuse the approval, in
+  the form and with `Approve-PSGPO`, before anything is written
+  ([add-ons](../technical/add-ons.md#the-approval-of-a-gpo)).
 
 ![The approval of a GPO with settings the console does not interpret](../assets/screenshots/80-approve-not-interpreted.png)
 

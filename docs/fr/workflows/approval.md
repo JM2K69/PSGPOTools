@@ -154,6 +154,10 @@ Clic droit sur la GPO > **Approve...** :
   GPO n'est approuvée qu'une fois *J'ai vérifié ces paramètres avec GPMC, ou dans les fichiers de la
   GPO* cochée. `Approve-PSGPO` les cite dans un avertissement et dans sa confirmation
   ([durcissement](../technical/hardening.md#what-the-approver-sees)).
+- **Ce que dit un add-on**, quand un add-on est installé avec HGPM : un cadre sous le texte du
+  formulaire (le ticket de la demande de la GPO, par exemple) ; un add-on peut aussi refuser
+  l'approbation, dans le formulaire et avec `Approve-PSGPO`, avant toute écriture
+  ([add-ons](../technical/add-ons.md#lapprobation-dune-gpo)).
 
 ![L'approbation d'une GPO avec des paramètres que la console n'interprète pas](../assets/screenshots/80-approve-not-interpreted.fr.png)
 

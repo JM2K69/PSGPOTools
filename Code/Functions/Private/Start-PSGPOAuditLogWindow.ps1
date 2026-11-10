@@ -1,7 +1,8 @@
 <#
     Private implementation of Show-AuditLogAvalonia: the changes of the audit log (Get-PSGPOAuditLog)
     in a window, newest first, filtered by period, domain, action and a search, the details of the
-    selected one, the changes shown exported to CSV.
+    selected one, the changes shown exported to CSV. The add-ons loaded may give columns (their
+    hook AuditColumn), after the GPO or object, each with a list of its values that filters too.
 
     The folder is the one given (-Path), else Audit.Path of the configuration of the domain: the
     domain given, else read once the window is shown (-DomainParameters, else the domain of the
@@ -39,7 +40,7 @@ function Start-PSGPOAuditLogWindow {
     $controlNames = @(
         'logoImage', 'subtitleTextBlock', 'themeToggleButton', 'themeToggleIcon', 'themeToggleText',
         'auditFolderTextBox', 'auditFolderBrowseButton', 'auditRefreshButton', 'auditPeriodComboBox', 'auditDomainComboBox',
-        'auditActionComboBox', 'auditSearchTextBox', 'auditExportButton', 'auditEmptyTextBlock', 'auditGrid',
+        'auditActionComboBox', 'auditAddOnFilterPanel', 'auditSearchTextBox', 'auditExportButton', 'auditEmptyTextBlock', 'auditGrid',
         'auditSummaryTextBlock', 'auditStatusTextBlock', 'auditDetailsBorder', 'auditDetailsTitleTextBlock',
         'auditDetailsWhoTextBlock', 'auditDetailsTargetTextBlock', 'auditDetailsTextBlock'
     )
@@ -56,7 +57,36 @@ function Start-PSGPOAuditLogWindow {
     $audit = @{
         Entries = @(); Rows = @(); Shown = @(); Domains = @(); Actions = @(); Filling = $false
         Directory = $Directory; DomainParameters = $DomainParameters; Picker = @{ Task = $null; Timer = $null; Done = $null }
+        Columns = @()
     }
+
+    # The columns the add-ons give (their hook AuditColumn), after the GPO or object: each in its
+    # place of the row (AddOn1...), with a list of its values when it filters. A column whose value
+    # cannot be read stays empty, said once in the technical log.
+    $added = @(Get-PSGPOAddOnAuditColumn)
+    $audit.Columns = @(for ($i = 0; $i -lt $added.Count; $i++) {
+            $column = [pscustomobject]@{
+                Name = $added[$i].Name; Edition = $added[$i].Edition; Header = $added[$i].Header; All = $added[$i].All; Get = $added[$i].Get
+                Slot = "AddOn$($i + 1)"; Values = @(); ComboBox = $null; Failed = $false
+            }
+            $gridColumn = [Avalonia.Controls.DataGridTextColumn]::new()
+            $gridColumn.Header = $column.Header
+            $gridColumn.Binding = [Avalonia.Data.Binding]::new($column.Slot)
+            $gridColumn.Width = [Avalonia.Controls.DataGridLength]::new([double]$added[$i].Width)
+            $ui.auditGrid.Columns.Insert(4 + $i, $gridColumn)
+            if ($added[$i].Filter) {
+                $comboBox = [Avalonia.Controls.ComboBox]::new()
+                $comboBox.MinWidth = 170
+                $comboBox.Margin = [Avalonia.Thickness]::new(8, 0, 0, 0)
+                $comboBox.ItemsSource = [string[]]@($column.All)
+                $comboBox.SelectedIndex = 0
+                [Avalonia.Controls.ToolTip]::SetTip($comboBox, $column.Header)
+                $comboBox.add_SelectionChanged({ Update-AuditGridRow })
+                $ui.auditAddOnFilterPanel.Children.Add($comboBox)
+                $column.ComboBox = $comboBox
+            }
+            $column
+        })
 
     function Set-AuditStatus {
         param([string]$Text)
@@ -121,6 +151,18 @@ function Start-PSGPOAuditLogWindow {
                 $row.Check = Get-PSGPOAuditCheckText -Check "$($entry.Check)"
                 $row.Entry = $entry
                 $row.SearchText = (@($entry.Account, $entry.Computer, $entry.Server, $entry.Action, $row.Action, $entry.Target, $entry.GpoName, "$($entry.GpoId)", (Format-PSGPOAuditDetail -Details $entry.Details)) -join ' ').ToLowerInvariant()
+                foreach ($column in $audit.Columns) {
+                    if ($column.Failed) { continue }
+                    try {
+                        $value = "$(& $column.Get $entry)".Trim()
+                    } catch {
+                        $column.Failed = $true
+                        $value = ''
+                        Write-PSGPOLogEntry -Level Warning -Source 'Add-ons' -Message "The column $($column.Name) of $($column.Edition) cannot be read: $($_.Exception.GetBaseException().Message) It stays empty." -ErrorRecord $_
+                    }
+                    $row.($column.Slot) = $value
+                    if ($value) { $row.SearchText += ' ' + $value.ToLowerInvariant() }
+                }
                 $row
             })
 
@@ -135,13 +177,21 @@ function Start-PSGPOAuditLogWindow {
             $ui.auditDomainComboBox.SelectedIndex = [Math]::Max(0, [array]::IndexOf([string[]]$audit.Domains, [string]$domain) + 1)
             $ui.auditActionComboBox.ItemsSource = [string[]]@(@(Get-PSGPOText 'All the actions') + @($audit.Actions | ForEach-Object { Get-PSGPOAuditActionText -Action $_ }))
             $ui.auditActionComboBox.SelectedIndex = [Math]::Max(0, [array]::IndexOf([string[]]$audit.Actions, [string]$action) + 1)
+            # The values of the columns of the add-ons, the newest first.
+            foreach ($column in @($audit.Columns | Where-Object ComboBox)) {
+                $chosen = if ($column.ComboBox.SelectedIndex -gt 0) { $column.Values[$column.ComboBox.SelectedIndex - 1] }
+                $column.Values = @($audit.Rows | ForEach-Object -MemberName $column.Slot | Where-Object { $_ } | Select-Object -Unique)
+                $column.ComboBox.ItemsSource = [string[]]@(@($column.All) + $column.Values)
+                $column.ComboBox.SelectedIndex = [Math]::Max(0, [array]::IndexOf([string[]]$column.Values, [string]$chosen) + 1)
+            }
         } finally {
             $audit.Filling = $false
         }
         Update-AuditGridRow
     }
 
-    # The rows the filters keep: the period, the domain, the action, the words of the search.
+    # The rows the filters keep: the period, the domain, the action, the values chosen in the lists of
+    # the add-ons, the words of the search.
     function Update-AuditGridRow {
         if ($audit.Filling) { return }
         $after = switch ($ui.auditPeriodComboBox.SelectedIndex) {
@@ -153,12 +203,16 @@ function Start-PSGPOAuditLogWindow {
         $domain = if ($ui.auditDomainComboBox.SelectedIndex -gt 0) { $audit.Domains[$ui.auditDomainComboBox.SelectedIndex - 1] }
         $action = if ($ui.auditActionComboBox.SelectedIndex -gt 0) { $audit.Actions[$ui.auditActionComboBox.SelectedIndex - 1] }
         $words = @("$($ui.auditSearchTextBox.Text)".ToLowerInvariant() -split '\s+' | Where-Object { $_ })
+        $values = @(foreach ($column in @($audit.Columns | Where-Object ComboBox)) {
+                if ($column.ComboBox.SelectedIndex -gt 0) { [pscustomobject]@{ Slot = $column.Slot; Value = $column.Values[$column.ComboBox.SelectedIndex - 1] } }
+            })
         $audit.Shown = [object[]]@(foreach ($row in $audit.Rows) {
                 if ($row.Entry.Time.ToUniversalTime() -lt $after) { continue }
                 if ($domain -and $row.Entry.Domain -ne $domain) { continue }
                 if ($action -and $row.Entry.Action -ne $action) { continue }
                 $kept = $true
-                foreach ($word in $words) { if (-not $row.SearchText.Contains($word)) { $kept = $false; break } }
+                foreach ($value in $values) { if ($row.($value.Slot) -cne $value.Value) { $kept = $false; break } }
+                foreach ($word in $words) { if (-not $kept) { break }; if (-not $row.SearchText.Contains($word)) { $kept = $false; break } }
                 if ($kept) { $row }
             })
         $ui.auditGrid.ItemsSource = $audit.Shown

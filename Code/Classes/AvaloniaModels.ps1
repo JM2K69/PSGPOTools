@@ -283,6 +283,10 @@ class AvaloniaAuditRow {
     [object]$Entry
     # What the search reads, in lower case
     [string]$SearchText
+    # The values of the columns the add-ons give (their hook AuditColumn), in their order
+    [string]$AddOn1
+    [string]$AddOn2
+    [string]$AddOn3
 }
 
 # The value of a setting in one set, in the details of the Policy Analyzer view

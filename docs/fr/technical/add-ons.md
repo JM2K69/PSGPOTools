@@ -68,6 +68,9 @@ laisse ce que fait HGPM tel quel.
 | `BeforeChange` (HGPM 0.4.0) | l'annuaire du domaine | rien ; **une erreur refuse la modification** | avant chaque modification du domaine : GPO, liens, filtres WMI, permissions, paramètres, configuration |
 | `AuditEntry` (HGPM 0.4.0) | la ligne du journal d'audit, avant son écriture | rien : il ajoute à `$Entry.Details` | chaque ligne du [journal d'audit](../features/audit-log.md), et du journal du système |
 | `ConsoleField` (HGPM 0.4.0) | son `Get` et son `Set` | la valeur, gardée par l'add-on | un champ de la barre d'outils de la console GPO |
+| `AuditColumn` (HGPM 0.4.0) | son `Get` : une ligne du journal d'audit | sa valeur pour cette ligne | une colonne de la fenêtre du journal d'audit, et une liste de ses valeurs qui filtre les lignes |
+| `ApprovalNote` (HGPM 0.4.0) | l'annuaire et la GPO en attente | des lignes de texte | le formulaire d'approbation d'une GPO en attente, sous ce qu'approuve l'approbateur |
+| `BeforeApproval` (HGPM 0.4.0) | l'annuaire et la GPO en attente | rien ; **une erreur refuse l'approbation** | avant l'approbation d'une GPO en attente, par la console et `Approve-PSGPO` |
 
 Un rapport HTML contient trois repères où un add-on ajoute ce qu'il donne, sans lire le reste de
 la page : `<!-- hgpm:head -->` avant `</head>`, `<!-- hgpm:body-start -->` après `<body>`,
@@ -136,6 +139,56 @@ fichier lu). Contrairement aux autres points d'accroche, son erreur est le refus
 n'est pas faite, et son message est celui que le compte lit. Une console fait ses longues
 opérations dans un runspace à elle : une valeur que l'add-on garde pour le processus (une variable
 d'environnement du processus) est vue des deux.
+
+### Une colonne du journal d'audit
+
+`AuditColumn` donne des colonnes de la [fenêtre du journal d'audit](../features/audit-log.md),
+après la GPO ou l'objet : ce que l'add-on lit dans chaque ligne (ses `Details`), affiché et filtré.
+Chaque colonne est une table de hachage :
+
+| Clé | Quoi |
+|---|---|
+| `Name` | son nom, des lettres et des chiffres |
+| `Header` | son titre : un texte, ou un texte par langue |
+| `Width` | sa largeur, 60 à 400 pixels (130) |
+| `Get` | `param($Entry)` : sa valeur pour une ligne du journal (`Get-PSGPOAuditLog`) |
+| `Filter` | `$true` : une liste de ses valeurs, les plus récentes d'abord, filtre les lignes, à côté de la recherche |
+| `All` | le premier élément de cette liste : un texte, ou un texte par langue (`<titre> : toutes les valeurs` sinon) |
+
+```powershell
+Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -AuditColumn @{
+    Name   = 'Ticket'
+    Header = 'Ticket'
+    Filter = $true
+    All    = @{ 'en-US' = 'All the tickets'; 'fr-FR' = 'Tous les tickets' }
+    Get    = { param($Entry) $Entry.Details.Ticket }
+}
+```
+
+La recherche de la fenêtre lit aussi les valeurs des colonnes. La fenêtre a trois places pour les
+colonnes des add-ons : celles au-delà sont laissées de côté, et le journal technique le dit. Un
+`Get` qui échoue laisse sa colonne vide, dit une fois dans le journal technique.
+
+### L'approbation d'une GPO
+
+Avec le [workflow d'approbation](../workflows/approval.md), un add-on peut dire à l'approbateur ce
+qu'il sait d'une GPO en attente (`ApprovalNote` : sa demande, son ticket...) et refuser son
+approbation (`BeforeApproval`) : les deux sont appelés avec l'annuaire et la GPO.
+
+```powershell
+Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -ApprovalNote {
+    param($Directory, $Gpo)
+    "Ticket de cette session : $env:CONTOSO_TICKET"
+} -BeforeApproval {
+    param($Directory, $Gpo)
+    if (-not $env:CONTOSO_TICKET) { throw "Saisissez d'abord le ticket qui autorise la GPO '$($Gpo.DisplayName)'." }
+}
+```
+
+Les lignes de `ApprovalNote` s'affichent à l'ouverture du formulaire, dans un cadre sous son texte ;
+un add-on qui échoue ne dit rien. `BeforeApproval` est appelé avant toute écriture (les groupes de
+filtrage de sécurité, les permissions, le propriétaire) : son erreur est le refus, son message
+celui que l'approbateur lit dans le formulaire, et la GPO reste en attente.
 
 ### Réglages pour le domaine
 

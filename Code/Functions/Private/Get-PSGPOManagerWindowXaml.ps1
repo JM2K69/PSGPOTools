@@ -347,6 +347,10 @@ $(Get-PSGPOWindowResourceXaml)
                                             Background='{DynamicResource SecondaryBackgroundBrush}'>
                                         <StackPanel Spacing='8'>
                                             <TextBlock Name='approveGpoTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            <!-- What the add-ons tell the approver (their hook ApprovalNote) -->
+                                            <Border Name='approveGpoAddOnBorder' BorderThickness='3,0,0,0' BorderBrush='#0078D4' Padding='8,2,0,2' IsVisible='False'>
+                                                <TextBlock Name='approveGpoAddOnTextBlock' TextWrapping='Wrap' Foreground='{DynamicResource TextBrush}'/>
+                                            </Border>
                                             <Grid ColumnDefinitions='Auto,*'>
                                                 <TextBlock Text='The creators' VerticalAlignment='Center' Margin='0,0,12,0'
                                                            Foreground='{DynamicResource SecondaryTextBrush}'/>

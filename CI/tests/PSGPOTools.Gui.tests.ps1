@@ -2085,7 +2085,10 @@ InModuleScope -ModuleName HGPM {
                     AccountCreatorSids = @(); ApprovedOwner = 'Domain Admins'; ApprovedOwnerSid = 'S-1-5-21-1-2-3-512'; CreatorRights = 'EditSettings'
                 }
             }
+            $AddOnsBefore = $script:PSGPOAddOn
+            $TicketBefore = $env:PSGPOTOOLS_TEST_TICKET
             try {
+                $env:PSGPOTOOLS_TEST_TICKET = $null
                 $Directory.Account = 'CORP\tech1'
                 $Directory.Workflow = & $Workflow $false
                 Start-PSGPOManagerWindow -Directory $Directory -OnShown {
@@ -2113,12 +2116,23 @@ InModuleScope -ModuleName HGPM {
                     $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects'
                     $Ui.domainTreeView.SelectedItem = Get-DomainNode $Ui 'Group Policy Objects', 'T1 - Lyon - Proxy (waiting for approval)'
                     $Ui.approveGpoMenuItem.IsVisible | Should -BeTrue
+                    # An add-on tells the approver, and refuses the approval until its ticket is typed.
+                    $script:PSGPOAddOn = @{ Searched = $true; Found = @(); Loaded = $true; Items = [System.Collections.Generic.List[object]]::new(); Logo = @{} }
+                    $null = Register-PSGPOAddOn -Name 'HGPM.TestApproval' -Version '1.0' -Contract 1 -ApprovalNote {
+                        param($Directory, $Gpo)
+                        "Request of $($Gpo.DisplayName): CHG1"
+                    } -BeforeApproval {
+                        param($Directory, $Gpo)
+                        if ($env:PSGPOTOOLS_TEST_TICKET -ne 'CHG1') { throw 'The approval needs the ticket CHG1.' }
+                    }
                     # Opened from another tab: its form is in the Details tab, which is shown.
                     $Ui.directoryTabs.SelectedItem = $Ui.settingsTab
                     Invoke-Click $Ui.approveGpoMenuItem
                     $Ui.directoryTabs.SelectedIndex | Should -Be 0 -Because 'the form of Approve... is in the Details tab'
                     $Ui.approveGpoPanel.IsVisible | Should -BeTrue
                     $Ui.approveGpoTextBlock.Text | Should -BeLike "Approve the GPO 'T1 - Lyon - Proxy', created by CORP\tech1? Its owner becomes Domain Admins*"
+                    $Ui.approveGpoAddOnBorder.IsVisible | Should -BeTrue
+                    $Ui.approveGpoAddOnTextBlock.Text | Should -Be 'Request of T1 - Lyon - Proxy: CHG1'
                     $Ui.approveGpoRightsComboBox.SelectedItem.Tag | Should -Be 'EditSettings' -Because 'the configuration proposes it'
                     $Ui.approveGpoApplyToTextBox.Text | Should -Be 'Authenticated Users'
                     $Ui.approveGpoDenyToTextBox.Text | Should -Be ''
@@ -2129,6 +2143,11 @@ InModuleScope -ModuleName HGPM {
                     $Ui.approveGpoGroupsCheckBox.IsChecked = $true
                     $Ui.approveGpoFilteringGrid.IsEnabled | Should -BeFalse -Because 'the new groups apply and deny it'
                     $Ui.approveGpoRightsComboBox.SelectedIndex = 0
+                    Invoke-Click $Ui.approveGpoConfirmButton
+                    $Ui.approveGpoErrorTextBlock.Text | Should -Be 'The approval needs the ticket CHG1.'
+                    $Gpo.ApprovalState | Should -Be 'Pending' -Because 'the add-on refused it before anything was written'
+                    @($Ui.Directory.Groups.Values | Where-Object Name -EQ 'APPLY_T1 - Lyon - Proxy') | Should -BeNullOrEmpty
+                    $env:PSGPOTOOLS_TEST_TICKET = 'CHG1'
                     Invoke-Click $Ui.approveGpoConfirmButton
                     $Ui.approveGpoPanel.IsVisible | Should -BeFalse
                     $Gpo.ApprovalState | Should -Be 'Approved'
@@ -2141,6 +2160,8 @@ InModuleScope -ModuleName HGPM {
                 (Get-PSGPOBackup -Path $Root -Approved).DisplayName | Should -Be 'T1 - Lyon - Proxy'
             } finally {
                 $env:PSGPOTOOLS_SETTINGS_PATH = $SettingsBefore
+                $env:PSGPOTOOLS_TEST_TICKET = $TicketBefore
+                $script:PSGPOAddOn = $AddOnsBefore
             }
         }
 
@@ -4256,6 +4277,47 @@ InModuleScope -ModuleName HGPM {
                 $Ui.auditEmptyTextBlock.Text | Should -Be 'No change matches the filters.'
                 $Ui.auditExportButton.IsEnabled | Should -BeFalse
             }
+        }
+
+        It 'Shows the columns of the add-ons after the GPO or object, their values in a list that filters the changes' {
+            $Tickets = Join-Path $TestDrive 'AuditTickets'
+            $null = New-Item -ItemType Directory -Path $Tickets -Force
+            Set-Content -LiteralPath (Join-Path $Tickets 'contoso.com-2026-11.jsonl') -Encoding utf8 -Value @(
+                (New-TestEntry -Time $Now.AddHours(-3) -Domain 'contoso.com' -Account 'CONTOSO\bob' -Action 'NewGpo' -Target 'CN=Policies' -GpoName 'T1 - Proxy' -Details @{ Ticket = 'CHG2' })
+                (New-TestEntry -Time $Now.AddHours(-2) -Domain 'contoso.com' -Account 'CONTOSO\bob' -Action 'SaveGpoFile' -Target 'CN=Policies' -GpoName 'T1 - Proxy' -Details @{ Ticket = 'CHG1' })
+                (New-TestEntry -Time $Now.AddHours(-1) -Domain 'contoso.com' -Account 'CONTOSO\alice' -Action 'ApproveGpo' -Target 'CN=Policies' -GpoName 'T1 - Proxy' -Details @{ Ticket = 'CHG1' })
+                (New-TestEntry -Time $Now.AddMinutes(-30) -Domain 'contoso.com' -Account 'CONTOSO\alice' -Action 'SaveConfiguration' -Target 'Configuration')
+            )
+            $AddOnsBefore = $script:PSGPOAddOn
+            try {
+                $script:PSGPOAddOn = @{ Searched = $true; Found = @(); Loaded = $true; Items = [System.Collections.Generic.List[object]]::new(); Logo = @{} }
+                $null = Register-PSGPOAddOn -Name 'HGPM.TestAudit' -Version '1.0' -Contract 1 -AuditColumn @(
+                    @{ Name = 'Ticket'; Header = 'Ticket'; Width = 110; Filter = $true; All = 'All the tickets'; Get = { param($Entry) $Entry.Details.Ticket } }
+                    @{ Name = 'Broken'; Header = 'Broken'; Get = { throw 'no value here' } }
+                )
+                Start-PSGPOAuditLogWindow -Path $Tickets -OnShown {
+                    param($Ui)
+                    @($Ui.auditGrid.Columns | ForEach-Object Header)[0..6] | Should -Be @('Time', 'Account', 'Action', 'GPO or object', 'Ticket', 'Broken', 'Tier')
+                    @($Ui.auditGrid.ItemsSource).Count | Should -Be 4
+                    @($Ui.auditGrid.ItemsSource).AddOn1 | Should -Be @('', 'CHG1', 'CHG1', 'CHG2') -Because 'the value of the add-on for each line, the newest first'
+                    @($Ui.auditGrid.ItemsSource | Where-Object AddOn2).Count | Should -Be 0 -Because 'a column that cannot be read stays empty'
+                    $List = @($Ui.auditAddOnFilterPanel.Children)
+                    $List.Count | Should -Be 1 -Because 'only the column that filters has a list'
+                    @($List[0].ItemsSource) | Should -Be @('All the tickets', 'CHG1', 'CHG2')
+                    $List[0].SelectedIndex = 2
+                    @($Ui.auditGrid.ItemsSource).Action | Should -Be @('GPO created')
+                    $List[0].SelectedIndex = 1
+                    @($Ui.auditGrid.ItemsSource).Account | Should -Be @('CONTOSO\alice', 'CONTOSO\bob')
+                    $Ui.auditSummaryTextBlock.Text | Should -Be '2 change(s) shown, 4 in the log'
+                    $Ui.auditSearchTextBox.Text = 'alice'
+                    @($Ui.auditGrid.ItemsSource).Action | Should -Be @('GPO approved') -Because 'the list and the search both filter'
+                    # Read again: the value chosen stays.
+                    $Ui.auditSearchTextBox.Text = ''
+                    $Ui.auditRefreshButton.RaiseEvent([Avalonia.Interactivity.RoutedEventArgs]::new([Avalonia.Controls.Button]::ClickEvent))
+                    $List[0].SelectedIndex | Should -Be 1
+                    @($Ui.auditGrid.ItemsSource).Count | Should -Be 2
+                }
+            } finally { $script:PSGPOAddOn = $AddOnsBefore }
         }
 
         It 'Says when the folder holds no log yet, and speaks French' {

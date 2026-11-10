@@ -38,6 +38,9 @@ Show-AuditLogAvalonia -Server dc.hardenbox.labo -Language fr-FR
 - **Le domaine** et **l'action** : ceux que contient le journal.
 - **La recherche** lit tous les textes d'une modification, détails compris : chaque mot doit être
   trouvé (`registry.pol tiers1`).
+- **Les colonnes des add-ons**, quand un add-on est installé avec HGPM : après *GPO ou objet* (un
+  ticket de changement, par exemple), chacune avec une liste de ses valeurs, les plus récentes
+  d'abord, qui filtre les modifications ([add-ons](../technical/add-ons.md#une-colonne-du-journal-daudit)).
 - **Les détails** de la modification choisie : tout ce que le journal en garde, comme le contrôleur
   de domaine, la GPO et son identifiant, et ses détails (les options d'un lien modifiées, le
   fichier enregistré avec son SHA-256 et sa nouvelle version, les droits des créateurs à une

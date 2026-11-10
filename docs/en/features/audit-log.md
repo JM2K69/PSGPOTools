@@ -37,6 +37,9 @@ Show-AuditLogAvalonia -Server dc.hardenbox.labo -Language fr-FR
 - **The domain** and **the action**: those the log holds.
 - **The search** reads every text of a change, its details included: each word must be found
   (`registry.pol tiers1`).
+- **The columns of the add-ons**, when one is installed with HGPM: after *GPO or object* (a ticket
+  of change, for instance), each with a list of its values, the newest first, that filters the
+  changes ([add-ons](../technical/add-ons.md#a-column-of-the-audit-log)).
 - **The details** of the selected change: everything the log keeps of it, as the domain controller,
   the GPO and its identifier, and its details (the options of a link changed, the file saved with
   its SHA-256 and its new version, the rights of the creators at an approval...).

@@ -898,6 +898,7 @@
     'Action' = 'Action'
     'All the domains' = 'Tous les domaines'
     'All the actions' = 'Toutes les actions'
+    '{0}: all' = '{0} : toutes les valeurs'
     'Choose the folder of the audit log.' = 'Choisissez le dossier du journal d''audit.'
     'No audit log in {0}: the folder does not exist yet, nothing was changed or written there.' = 'Pas de journal d''audit dans {0} : le dossier n''existe pas encore, rien n''y a été modifié ni écrit.'
     '{0} line(s) of the log are not entries of the audit log: left out.' = '{0} ligne(s) du journal ne sont pas des entrées du journal d''audit : ignorées.'

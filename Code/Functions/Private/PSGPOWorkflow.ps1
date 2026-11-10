@@ -927,6 +927,8 @@ function Invoke-PSGPOApproval {
         [string]$ReviewStamp
     )
 
+    # An add-on may refuse it (its hook BeforeApproval) before anything is written.
+    Invoke-PSGPOAddOnBeforeApproval -Directory $Directory -Gpo $Gpo
     $created = @()
     if ($CreateFilteringGroups) {
         try {

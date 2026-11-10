@@ -304,6 +304,70 @@ throw 'The broken add-on of the tests.'
             { Register-PSGPOAddOn -Name 'HGPM.Field5' -Version '1.0' -Contract 1 -ConsoleField @{ Name = 'T'; Label = 'x'; Get = $Set; Set = $Set }, @{ Name = 'T'; Label = 'y'; Get = $Set; Set = $Set } } | Should -Throw '*gives the field T twice*'
         }
 
+        It 'Gives the audit log window the columns of the add-ons, checked, three at most, in the language of the interface' {
+            $Get = { param($Entry) $Entry.Details.Ticket }
+            $null = Register-PSGPOAddOn -Name 'HGPM.Columns' -Version '1.0' -Contract 1 -AuditColumn @(
+                @{ Name = 'Ticket'; Header = @{ 'en-US' = 'Ticket'; 'fr-FR' = 'Billet' }; Width = 110; Filter = $true; All = @{ 'en-US' = 'All the tickets'; 'fr-FR' = 'Tous les billets' }; Get = $Get }
+                @{ Name = 'Site'; Header = 'Site'; Get = $Get }
+            )
+            $null = Register-PSGPOAddOn -Name 'HGPM.Columns2' -Version '1.0' -Contract 1 -AuditColumn @{ Name = 'Team'; Header = 'Team'; Filter = $true; Get = $Get }, @{ Name = 'Extra'; Header = 'Extra'; Get = $Get }
+            $script:PSGPOAddOn.Loaded = $true
+            $Columns = @(Get-PSGPOAddOnAuditColumn)
+            $Columns.Count | Should -Be 3 -Because 'the window has three places for the columns of the add-ons'
+            $Columns.Name | Should -Be 'Ticket', 'Site', 'Team'
+            $Columns[0].Header | Should -Be 'Ticket'
+            $Columns[0].Width | Should -Be 110
+            $Columns[0].Filter | Should -BeTrue
+            $Columns[0].All | Should -Be 'All the tickets'
+            $Columns[1].Width | Should -Be 130
+            $Columns[1].Filter | Should -BeFalse
+            $Columns[2].All | Should -Be 'Team: all'
+            & $Columns[0].Get ([pscustomobject]@{ Details = @{ Ticket = 'CHG1' } }) | Should -Be 'CHG1'
+            $Before = $script:PSGPOLanguage
+            try {
+                $null = Set-PSGPOLanguage -Language 'fr-FR'
+                $French = @(Get-PSGPOAddOnAuditColumn)
+                $French[0].Header | Should -Be 'Billet'
+                $French[0].All | Should -Be 'Tous les billets'
+                $French[2].All | Should -Be 'Team : toutes les valeurs'
+            } finally { $null = Set-PSGPOLanguage -Language $(if ($Before) { $Before } else { 'en-US' }) }
+
+            { Register-PSGPOAddOn -Name 'HGPM.Column1' -Version '1.0' -Contract 1 -AuditColumn 'Ticket' } | Should -Throw '*each column is a hashtable*'
+            { Register-PSGPOAddOn -Name 'HGPM.Column2' -Version '1.0' -Contract 1 -AuditColumn @{ Name = 'a b'; Header = 'x'; Get = $Get } } | Should -Throw '*is not letters and digits*'
+            { Register-PSGPOAddOn -Name 'HGPM.Column3' -Version '1.0' -Contract 1 -AuditColumn @{ Name = 'T'; Get = $Get } } | Should -Throw '*has no Header*'
+            { Register-PSGPOAddOn -Name 'HGPM.Column4' -Version '1.0' -Contract 1 -AuditColumn @{ Name = 'T'; Header = 'x'; Get = 'Ticket' } } | Should -Throw '*its Get is not a scriptblock*'
+            { Register-PSGPOAddOn -Name 'HGPM.Column5' -Version '1.0' -Contract 1 -AuditColumn @{ Name = 'T'; Header = 'x'; Get = $Get; Width = 1000 } } | Should -Throw '*Width*is not 60 to 400 pixels*'
+            { Register-PSGPOAddOn -Name 'HGPM.Column6' -Version '1.0' -Contract 1 -AuditColumn @{ Name = 'T'; Header = 'x'; Get = $Get }, @{ Name = 'T'; Header = 'y'; Get = $Get } } | Should -Throw '*gives the column T twice*'
+            @($script:PSGPOAddOn.Items | Where-Object Name -Match '^HGPM\.Column\d$') | Should -BeNullOrEmpty
+        }
+
+        It 'Tells the approver what the add-ons say, and lets an add-on refuse an approval before anything is written' {
+            $Before = $env:PSGPOTOOLS_TEST_TICKET
+            try {
+                $env:PSGPOTOOLS_TEST_TICKET = $null
+                Add-PSGPOAddOnItem -Name 'HGPM.Approval' -Version '1.0' -Contract 1 -State Loaded -ApprovalNote {
+                    param($Directory, $Gpo)
+                    "Request of $($Gpo.DisplayName): CHG0001"
+                    ''
+                    'Created by bob'
+                } -BeforeApproval {
+                    param($Directory, $Gpo)
+                    if ($env:PSGPOTOOLS_TEST_TICKET -ne 'CHG0001') { throw "The approval of the GPO '$($Gpo.DisplayName)' needs the ticket CHG0001." }
+                }
+                Add-PSGPOAddOnItem -Name 'HGPM.Mute' -Version '1.0' -Contract 1 -State Loaded -ApprovalNote { throw 'no note here' }
+                $script:PSGPOAddOn.Loaded = $true
+                $Directory = Import-PSGPODirectory -Path $script:SamplePath
+                $Directory.IsReadOnly = $false
+                $Gpo = @($Directory.Gpos)[0]
+                @(Get-PSGPOAddOnApprovalNote -Directory $Directory -Gpo $Gpo) | Should -Be "Request of $($Gpo.DisplayName): CHG0001", 'Created by bob' -Because 'the empty lines are left out, and the add-on that fails tells nothing'
+
+                $Backups = Join-Path $TestDrive 'approval-backups'
+                $Approval = @{ Directory = $Directory; Gpo = $Gpo; CreatorRights = 'ReadOnly'; ApplyTo = [pscustomobject]@{ Name = 'Authenticated Users'; Sid = 'S-1-5-11' }; BackupPath = $Backups }
+                { Invoke-PSGPOApproval @Approval } | Should -Throw "*The approval of the GPO '$($Gpo.DisplayName)' needs the ticket CHG0001.*"
+                Test-Path -LiteralPath $Backups | Should -BeFalse -Because 'nothing is done once the add-on refuses'
+            } finally { $env:PSGPOTOOLS_TEST_TICKET = $Before }
+        }
+
         It 'Refuses a format of report that does not fit: the add-on is not loaded' {
             $Save = { param($Html, $Path) }
             { Register-PSGPOAddOn -Name 'HGPM.Format1' -Version '1.0' -Contract 1 -ReportFormat 'pdf' } | Should -Throw '*each format is a hashtable*'

@@ -62,7 +62,7 @@ $(Get-PSGPOWindowResourceXaml)
                 </Grid>
 
                 <!-- The filters and the export -->
-                <Grid Grid.Row='1' ColumnDefinitions='Auto,Auto,Auto,*,Auto' Margin='0,0,0,8'>
+                <Grid Grid.Row='1' ColumnDefinitions='Auto,Auto,Auto,Auto,*,Auto' Margin='0,0,0,8'>
                     <ComboBox Grid.Column='0' Name='auditPeriodComboBox' MinWidth='170' SelectedIndex='2'>
                         <ComboBoxItem Content='Last 24 hours'/>
                         <ComboBoxItem Content='Last 7 days'/>
@@ -71,8 +71,10 @@ $(Get-PSGPOWindowResourceXaml)
                     </ComboBox>
                     <ComboBox Grid.Column='1' Name='auditDomainComboBox' MinWidth='180' Margin='8,0,0,0'/>
                     <ComboBox Grid.Column='2' Name='auditActionComboBox' MinWidth='240' Margin='8,0,0,0'/>
-                    <TextBox Grid.Column='3' Name='auditSearchTextBox' Margin='8,0' Watermark='Search an account, a GPO, a computer, a detail...'/>
-                    <Button Grid.Column='4' Name='auditExportButton' ToolTip.Tip='Export the changes shown to a CSV file'>
+                    <!-- The lists of the columns the add-ons give (their hook AuditColumn) -->
+                    <StackPanel Grid.Column='3' Name='auditAddOnFilterPanel' Orientation='Horizontal'/>
+                    <TextBox Grid.Column='4' Name='auditSearchTextBox' Margin='8,0' Watermark='Search an account, a GPO, a computer, a detail...'/>
+                    <Button Grid.Column='5' Name='auditExportButton' ToolTip.Tip='Export the changes shown to a CSV file'>
                         <StackPanel Orientation='Horizontal' Spacing='6'>
                             <PathIcon Data='{StaticResource Icon.arrow-export}'/>
                             <TextBlock Text='Export to CSV...' VerticalAlignment='Center'/>

@@ -7,7 +7,7 @@ _The help of the command, as `Get-Help Register-PSGPOAddOn -Full` gives it._
 ## Syntax
 
 ```powershell
-Register-PSGPOAddOn [-Name] <string> [[-Version] <version>] [-Contract] <int> [[-Edition] <string>] [[-WindowLogo] <scriptblock>] [[-ReportHtml] <scriptblock>] [[-ReportFormat] <Object[]>] [[-BeforeChange] <scriptblock>] [[-AuditEntry] <scriptblock>] [[-ConsoleField] <Object[]>] [<CommonParameters>]
+Register-PSGPOAddOn [-Name] <string> [[-Version] <version>] [-Contract] <int> [[-Edition] <string>] [[-WindowLogo] <scriptblock>] [[-ReportHtml] <scriptblock>] [[-ReportFormat] <Object[]>] [[-BeforeChange] <scriptblock>] [[-AuditEntry] <scriptblock>] [[-ConsoleField] <Object[]>] [[-AuditColumn] <Object[]>] [[-ApprovalNote] <scriptblock>] [[-BeforeApproval] <scriptblock>] [<CommonParameters>]
 ```
 
 ## Description
@@ -38,6 +38,16 @@ written; what the add-on knows of the change goes in $Entry.Details.
 - ConsoleField (HGPM 0.4.0): fields of the toolbar of the GPO console, each a hashtable:
 Name, Label, ToolTip and Placeholder (a text, or a text per language), Width (80 to 400
 pixels), Get (its value) and Set, param($Value) (the value typed: its error is said).
+- AuditColumn (HGPM 0.4.0): columns of the audit log window, each a hashtable: Name,
+Header (a text, or a text per language), Width (60 to 400 pixels), Get, param($Entry)
+(its value for a line of the log), and Filter: a list of its values beside the search
+filters the lines, All (a text, or a text per language) its first item. Three columns
+of add-ons at most.
+- ApprovalNote (HGPM 0.4.0), param($Directory, $Gpo): lines of text the approval form of
+a pending GPO shows the approver, below what it approves.
+- BeforeApproval (HGPM 0.4.0), param($Directory, $Gpo): called before a pending GPO is
+approved, by the console and Approve-PSGPO. Its error refuses the approval, its
+message said to the account: nothing is written.
 The settings of an add-on for the domain are in AddOns.<name> of the configuration of the
 domain (the name of the add-on without HGPM.), kept as they are by HGPM.
 A hook added to the contract keeps it: an add-on built before it works as it did.
@@ -127,6 +137,30 @@ The fields of the toolbar of the GPO console the add-on gives: hashtables Name, 
 |---|---|---|---|---|
 | `Object[]` | No | 10 | `@()` | No |
 
+### -AuditColumn
+
+The columns of the audit log window the add-on gives: hashtables Name, Header, Width, Get (param($Entry)), Filter, All.
+
+| Type | Required | Position | Default value | Accepts pipeline input |
+|---|---|---|---|---|
+| `Object[]` | No | 11 | `@()` | No |
+
+### -ApprovalNote
+
+The hook that tells the approver of a pending GPO: param($Directory, $Gpo); lines of text.
+
+| Type | Required | Position | Default value | Accepts pipeline input |
+|---|---|---|---|---|
+| `ScriptBlock` | No | 12 | None | No |
+
+### -BeforeApproval
+
+The hook called before a pending GPO is approved: param($Directory, $Gpo); an error refuses it.
+
+| Type | Required | Position | Default value | Accepts pipeline input |
+|---|---|---|---|---|
+| `ScriptBlock` | No | 13 | None | No |
+
 ## Examples
 
 ### Example 1
@@ -159,6 +193,23 @@ Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -ConsoleField @{
 } -AuditEntry {
     param($Entry)
     $Entry.Details['Ticket'] = $env:CONTOSO_TICKET
+}
+```
+
+### Example 4
+
+```powershell
+# The ticket in a column of the audit log window, its values in a list that filters it,
+# and the approval of a GPO refused without a ticket.
+Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -AuditColumn @{
+    Name = 'Ticket'; Header = 'Ticket'; Width = 120; Filter = $true; All = @{ 'en-US' = 'All the tickets'; 'fr-FR' = 'Tous les tickets' }
+    Get = { param($Entry) $Entry.Details.Ticket }
+} -ApprovalNote {
+    param($Directory, $Gpo)
+    "Ticket of this session: $env:CONTOSO_TICKET"
+} -BeforeApproval {
+    param($Directory, $Gpo)
+    if (-not $env:CONTOSO_TICKET) { throw "Type the ticket that allows the GPO '$($Gpo.DisplayName)' first." }
 }
 ```
 

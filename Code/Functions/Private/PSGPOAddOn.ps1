@@ -31,6 +31,13 @@
       ConsoleField  fields of the toolbar of the GPO console, each a hashtable: Name, Label and
                   ToolTip (a text, or a text per language), Placeholder, Width, Get (its value)
                   and Set, param($Value): the value typed, kept by the add-on; its error is said.
+      AuditColumn  columns of the audit log window, each a hashtable: Name, Header (a text, or a
+                  text per language), Width, Get, param($Entry): its value for a line of the log,
+                  and Filter: a list of its values filters the lines (All: its first item).
+      ApprovalNote  param($Directory, $Gpo): lines of text the approval form of a pending GPO
+                  shows the approver, below what it approves.
+      BeforeApproval  param($Directory, $Gpo): called before a pending GPO is approved (the
+                  console and Approve-PSGPO). Its error refuses the approval, with its message.
     Their settings for the domain are in AddOns.<name> of the configuration of the domain
     (Get-PSGPOAddOnConfiguration, Save-PSGPOAddOnConfiguration).
     A hook added to the contract keeps it: an add-on built before the hook works as it did, and
@@ -76,7 +83,10 @@ function Add-PSGPOAddOnItem {
         [object[]]$ReportFormat = @(),
         [scriptblock]$BeforeChange,
         [scriptblock]$AuditEntry,
-        [object[]]$ConsoleField = @()
+        [object[]]$ConsoleField = @(),
+        [object[]]$AuditColumn = @(),
+        [scriptblock]$ApprovalNote,
+        [scriptblock]$BeforeApproval
     )
 
     $known = @($script:PSGPOAddOn.Items | Where-Object Name -EQ $Name)
@@ -96,6 +106,9 @@ function Add-PSGPOAddOnItem {
             BeforeChange = $BeforeChange
             AuditEntry = $AuditEntry
             ConsoleField = @($ConsoleField)
+            AuditColumn = @($AuditColumn)
+            ApprovalNote = $ApprovalNote
+            BeforeApproval = $BeforeApproval
         })
     # The images asked before are asked again with this add-on.
     $script:PSGPOAddOn.Logo = @{}
@@ -375,6 +388,99 @@ function Invoke-PSGPOAddOnAuditEntry {
             $null = & $addOn.AuditEntry $Entry
         } catch {
             Write-PSGPOLogEntry -Level Warning -Source 'Add-ons' -Message "The line of the audit log is not completed by $($addOn.Edition): $($_.Exception.GetBaseException().Message)" -ErrorRecord $_
+        }
+    }
+}
+
+# The columns of the audit log window the add-ons may give, in all: the window has as many places
+# for them (AvaloniaAuditRow.AddOn1...).
+$script:PSGPOAddOnAuditColumnCount = 3
+
+# A column of the audit log window an add-on gives (its hook AuditColumn), checked: Name, Header
+# and Get; Width (60 to 400 pixels, 130 by default), Filter and All optional. Throws what is wrong.
+function ConvertTo-PSGPOAddOnAuditColumn {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [AllowNull()] [object]$Column)
+
+    if ($Column -isnot [System.Collections.IDictionary]) { throw 'AuditColumn: each column is a hashtable: Name, Header and Get.' }
+    $name = "$($Column['Name'])".Trim()
+    if ($name -notmatch '^\w+$') { throw "AuditColumn: its Name '$name' is not letters and digits." }
+    $header = ConvertTo-PSGPOAddOnText -Text $Column['Header']
+    if (-not $header) { throw "AuditColumn ${name}: it has no Header." }
+    if ($Column['Get'] -isnot [scriptblock]) { throw "AuditColumn ${name}: its Get is not a scriptblock param(`$Entry)." }
+    $width = 130
+    if ($null -ne $Column['Width']) {
+        if ("$($Column['Width'])" -notmatch '^\d+$' -or [int]$Column['Width'] -lt 60 -or [int]$Column['Width'] -gt 400) { throw "AuditColumn ${name}: its Width '$($Column['Width'])' is not 60 to 400 pixels." }
+        $width = [int]$Column['Width']
+    }
+    [pscustomobject]@{
+        Name = $name
+        Header = $header
+        Width = $width
+        Get = $Column['Get']
+        Filter = [bool]$Column['Filter']
+        All = ConvertTo-PSGPOAddOnText -Text $Column['All']
+    }
+}
+
+# The columns of the audit log window of the add-ons loaded, their texts in the language of the
+# interface; those beyond the places of the window are left out, and said in the technical log.
+function Get-PSGPOAddOnAuditColumn {
+    [CmdletBinding()]
+    param()
+
+    $columns = @(foreach ($addOn in @(Get-PSGPOLoadedAddOn)) {
+            foreach ($column in @($addOn.AuditColumn)) {
+                if (-not $column) { continue }
+                $header = Get-PSGPOAddOnText -Text $column.Header
+                [pscustomobject]@{
+                    Name = $column.Name; Edition = $addOn.Edition; Header = $header; Width = $column.Width; Get = $column.Get; Filter = $column.Filter
+                    All = $(if ($column.All) { Get-PSGPOAddOnText -Text $column.All } else { Get-PSGPOText '{0}: all' $header })
+                }
+            }
+        })
+    if ($columns.Count -gt $script:PSGPOAddOnAuditColumnCount) {
+        $left = @($columns | Select-Object -Skip $script:PSGPOAddOnAuditColumnCount | ForEach-Object { "$($_.Edition) $($_.Name)" })
+        Write-PSGPOLogEntry -Level Warning -Source 'Add-ons' -Message "The audit log window shows $($script:PSGPOAddOnAuditColumnCount) columns of add-ons at most: $($left -join ', ') left out."
+    }
+    $columns | Select-Object -First $script:PSGPOAddOnAuditColumnCount
+}
+
+# What the add-ons tell the approver of a pending GPO (their hook ApprovalNote): lines of text; an
+# add-on that fails is said in the technical log, and tells nothing.
+function Get-PSGPOAddOnApprovalNote {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)] [object]$Directory,
+        [Parameter(Mandatory)] [object]$Gpo
+    )
+
+    foreach ($addOn in @(Get-PSGPOLoadedAddOn | Where-Object ApprovalNote)) {
+        try {
+            foreach ($line in @(& $addOn.ApprovalNote $Directory $Gpo)) { if ("$line".Trim()) { "$line".Trim() } }
+        } catch {
+            Write-PSGPOLogEntry -Level Warning -Source 'Add-ons' -Message "$($addOn.Edition) tells nothing of the approval of the GPO '$($Gpo.DisplayName)': $($_.Exception.GetBaseException().Message)" -ErrorRecord $_
+        }
+    }
+}
+
+# Before a pending GPO is approved (Invoke-PSGPOApproval): each add-on may refuse it (its hook
+# BeforeApproval throws), with its message; nothing is written.
+function Invoke-PSGPOAddOnBeforeApproval {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [object]$Directory,
+        [Parameter(Mandatory)] [object]$Gpo
+    )
+
+    foreach ($addOn in @(Get-PSGPOLoadedAddOn | Where-Object BeforeApproval)) {
+        try {
+            $null = & $addOn.BeforeApproval $Directory $Gpo
+        } catch {
+            $message = $_.Exception.GetBaseException().Message
+            Write-PSGPOLogEntry -Level Warning -Source 'Add-ons' -Message "The approval of the GPO '$($Gpo.DisplayName)' is refused by $($addOn.Edition): $message"
+            throw $message
         }
     }
 }
