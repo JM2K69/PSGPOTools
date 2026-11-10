@@ -48,7 +48,7 @@ imports them in the session.
 An add-on left out is said in the technical log and in the **About** of the launcher, with the
 reason why. `PSGPOTOOLS_NO_ADDON=1` loads none (the tests set it).
 
-The first contract, that of the version of HGPM that brings the add-ons, is **1**. It changes
+The first contract, that of HGPM 0.3.0, which brings the add-ons, is **1**. It changes
 when what HGPM asks of an add-on, or gives it, changes: an add-on built for another contract is
 refused with a message that says which package to install, never with an error inside a console.
 

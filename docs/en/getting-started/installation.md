@@ -309,7 +309,7 @@ PowerShell Gallery has it:
 
 ```text
 PS> Import-Module HGPM
-HGPM 0.2.0
+HGPM 0.3.0
 HGPM 0.2.1 is available on the PowerShell Gallery: Update-PSResource -Name HGPM, then open a new PowerShell session.
 ```
 
@@ -327,7 +327,7 @@ prereleases count when the version loaded is one (or with `-Prerelease`).
 ```powershell
 Test-PSGPOUpdate
 # Name             : HGPM
-# InstalledVersion : 0.2.0
+# InstalledVersion : 0.3.0
 # LatestVersion    : 0.2.1
 # UpdateAvailable  : True
 # UpdateCommand    : Update-PSResource -Name HGPM

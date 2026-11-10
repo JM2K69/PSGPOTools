@@ -48,7 +48,7 @@ fenêtre, un rapport, la barre d'état. Il le fait dans chaque processus, puisqu
 Un add-on laissé de côté est signalé dans le journal technique et dans **À propos** du lanceur,
 avec la raison. `PSGPOTOOLS_NO_ADDON=1` n'en charge aucun (les tests le posent).
 
-Le premier contrat, celui de la version de HGPM qui apporte les add-ons, est le **1**. Il change
+Le premier contrat, celui de HGPM 0.3.0, qui apporte les add-ons, est le **1**. Il change
 quand ce que HGPM demande à un add-on, ou lui donne, change : un add-on fait pour un autre contrat
 est refusé avec un message qui dit quel paquet installer, jamais avec une erreur dans une console.
 
