@@ -23,6 +23,16 @@
                   dialog: a text, or a text per language @{ 'en-US' = ...; 'fr-FR' = ... }) and
                   Save, param($Html, $Path): the HTML report (ReportHtml applied) written to $Path
                   in that format. Its error is the one of the save: the file was asked for.
+      BeforeChange  param($Directory): called before each change of the directory (GPOs, links,
+                  WMI filters, permissions, settings, configuration: its AssertWritable). Its
+                  error refuses the change, with its message: nothing is written.
+      AuditEntry  param($Entry): the line of the audit log before it is written (a dictionary);
+                  what the add-on knows of the change goes in $Entry.Details.
+      ConsoleField  fields of the toolbar of the GPO console, each a hashtable: Name, Label and
+                  ToolTip (a text, or a text per language), Placeholder, Width, Get (its value)
+                  and Set, param($Value): the value typed, kept by the add-on; its error is said.
+    Their settings for the domain are in AddOns.<name> of the configuration of the domain
+    (Get-PSGPOAddOnConfiguration, Save-PSGPOAddOnConfiguration).
     A hook added to the contract keeps it: an add-on built before the hook works as it did, and
     one that uses it requires the version of HGPM that has it.
 #>
@@ -63,7 +73,10 @@ function Add-PSGPOAddOnItem {
         [string]$Path,
         [scriptblock]$WindowLogo,
         [scriptblock]$ReportHtml,
-        [object[]]$ReportFormat = @()
+        [object[]]$ReportFormat = @(),
+        [scriptblock]$BeforeChange,
+        [scriptblock]$AuditEntry,
+        [object[]]$ConsoleField = @()
     )
 
     $known = @($script:PSGPOAddOn.Items | Where-Object Name -EQ $Name)
@@ -80,6 +93,9 @@ function Add-PSGPOAddOnItem {
             WindowLogo = $WindowLogo
             ReportHtml = $ReportHtml
             ReportFormat = @($ReportFormat)
+            BeforeChange = $BeforeChange
+            AuditEntry = $AuditEntry
+            ConsoleField = @($ConsoleField)
         })
     # The images asked before are asked again with this add-on.
     $script:PSGPOAddOn.Logo = @{}
@@ -258,4 +274,143 @@ function Invoke-PSGPOAddOnReportHtml {
         }
     }
     $Html
+}
+
+# A text an add-on gives: one text, or a text per language (@{ 'en-US' = ...; 'fr-FR' = ... }), as
+# an ordered table by language; $null when it gives none.
+function ConvertTo-PSGPOAddOnText {
+    [CmdletBinding()]
+    param([AllowNull()] [object]$Text)
+
+    $texts = [ordered]@{}
+    if ($Text -is [System.Collections.IDictionary]) { foreach ($key in $Text.Keys) { if ("$($Text[$key])".Trim()) { $texts["$key"] = "$($Text[$key])".Trim() } } }
+    elseif ("$Text".Trim()) { $texts['en-US'] = "$Text".Trim() }
+    if ($texts.Count) { $texts }
+}
+
+# The text of an add-on in the language of the interface, else English, else the first one given.
+function Get-PSGPOAddOnText {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([AllowNull()] [System.Collections.IDictionary]$Text)
+
+    if (-not $Text -or -not $Text.Count) { return '' }
+    $language = if ($script:PSGPOLanguage) { $script:PSGPOLanguage } else { 'en-US' }
+    if ($Text.Contains($language)) { return $Text[$language] }
+    if ($Text.Contains('en-US')) { return $Text['en-US'] }
+    @($Text.Values)[0]
+}
+
+# A field of the toolbar an add-on gives (its hook ConsoleField), checked: Name, Label, Get and Set;
+# ToolTip, Placeholder and Width (80 to 400 pixels, 160 by default) optional. Throws what is wrong.
+function ConvertTo-PSGPOAddOnConsoleField {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [AllowNull()] [object]$Field)
+
+    if ($Field -isnot [System.Collections.IDictionary]) { throw 'ConsoleField: each field is a hashtable: Name, Label, Get and Set.' }
+    $name = "$($Field['Name'])".Trim()
+    if ($name -notmatch '^\w+$') { throw "ConsoleField: its Name '$name' is not letters and digits." }
+    $label = ConvertTo-PSGPOAddOnText -Text $Field['Label']
+    if (-not $label) { throw "ConsoleField ${name}: it has no Label." }
+    foreach ($key in 'Get', 'Set') { if ($Field[$key] -isnot [scriptblock]) { throw "ConsoleField ${name}: its $key is not a scriptblock." } }
+    $width = 160
+    if ($null -ne $Field['Width']) {
+        if ("$($Field['Width'])" -notmatch '^\d+$' -or [int]$Field['Width'] -lt 80 -or [int]$Field['Width'] -gt 400) { throw "ConsoleField ${name}: its Width '$($Field['Width'])' is not 80 to 400 pixels." }
+        $width = [int]$Field['Width']
+    }
+    [pscustomobject]@{
+        Name = $name
+        Label = $label
+        ToolTip = ConvertTo-PSGPOAddOnText -Text $Field['ToolTip']
+        Placeholder = ConvertTo-PSGPOAddOnText -Text $Field['Placeholder']
+        Width = $width
+        Get = $Field['Get']
+        Set = $Field['Set']
+    }
+}
+
+# The fields of the toolbar of the add-ons loaded, their texts in the language of the interface.
+function Get-PSGPOAddOnConsoleField {
+    [CmdletBinding()]
+    param()
+
+    foreach ($addOn in @(Get-PSGPOLoadedAddOn)) {
+        foreach ($field in @($addOn.ConsoleField)) {
+            if (-not $field) { continue }
+            [pscustomobject]@{
+                Name = $field.Name; Edition = $addOn.Edition
+                Label = Get-PSGPOAddOnText -Text $field.Label; ToolTip = Get-PSGPOAddOnText -Text $field.ToolTip
+                Placeholder = Get-PSGPOAddOnText -Text $field.Placeholder; Width = $field.Width
+                Get = $field.Get; Set = $field.Set
+            }
+        }
+    }
+}
+
+# Before a change of the directory (GPOToolsDirectory.AssertWritable): each add-on may refuse it
+# (its hook BeforeChange throws), with its message; the change is not made.
+function Invoke-PSGPOAddOnBeforeChange {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [object]$Directory)
+
+    foreach ($addOn in @(Get-PSGPOLoadedAddOn | Where-Object BeforeChange)) {
+        try {
+            $null = & $addOn.BeforeChange $Directory
+        } catch {
+            $message = $_.Exception.GetBaseException().Message
+            Write-PSGPOLogEntry -Level Warning -Source 'Add-ons' -Message "A change of $($Directory.DomainName) is refused by $($addOn.Edition): $message"
+            throw $message
+        }
+    }
+}
+
+# The line of the audit log as the add-ons complete it (their hook AuditEntry), each in turn; an
+# add-on that fails leaves it as it was.
+function Invoke-PSGPOAddOnAuditEntry {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [System.Collections.IDictionary]$Entry)
+
+    foreach ($addOn in @(Get-PSGPOLoadedAddOn | Where-Object AuditEntry)) {
+        try {
+            $null = & $addOn.AuditEntry $Entry
+        } catch {
+            Write-PSGPOLogEntry -Level Warning -Source 'Add-ons' -Message "The line of the audit log is not completed by $($addOn.Edition): $($_.Exception.GetBaseException().Message)" -ErrorRecord $_
+        }
+    }
+}
+
+# The settings of an add-on in the configuration of the domain in use (AddOns.<Name>): a table,
+# empty when the domain has none.
+function Get-PSGPOAddOnConfiguration {
+    [CmdletBinding()]
+    [OutputType([hashtable])]
+    param([Parameter(Mandatory)] [ValidatePattern('^\w+$')] [string]$Name)
+
+    $addOns = (Get-PSGPOConfigurationData).AddOns
+    if ($addOns -is [hashtable] -and $addOns[$Name] -is [hashtable]) { return $addOns[$Name] }
+    @{}
+}
+
+# Writes the settings of an add-on in the configuration of the domain of $Directory (AddOns.<Name>),
+# the other settings as the domain has them: an administrator of the domain; $null or an empty table
+# removes them. Written in the audit log as every configuration saved.
+function Save-PSGPOAddOnConfiguration {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
+        [Parameter(Mandatory)] [ValidatePattern('^\w+$')] [string]$Name,
+        [AllowNull()] [hashtable]$Settings
+    )
+
+    # As the domain has it now: another console may have changed it.
+    Use-PSGPODomainConfiguration -Directory $Directory -Force
+    $state = $script:PSGPOConfigurationState
+    if ($state.Problem) { throw "The configuration of the domain $($state.Path) cannot be read, nothing is written: $($state.Problem)" }
+    $known = @{}
+    foreach ($key in $state.Override.Keys) { if ($key -ne 'AddOns') { $known[$key] = $state.Override[$key] } }
+    $addOns = @{}
+    if ($state.Override.AddOns -is [hashtable]) { foreach ($key in $state.Override.AddOns.Keys) { $addOns[$key] = $state.Override.AddOns[$key] } }
+    if ($Settings -and $Settings.Count) { $addOns[$Name] = $Settings } else { $addOns.Remove($Name) }
+    # The caller asked: its own confirmation, not that of the configuration.
+    Save-PSGPODomainConfiguration -Directory $Directory -Values (ConvertTo-PSGPOFlatConfiguration -Data $known) -AddOns $addOns -Confirm:$false
 }

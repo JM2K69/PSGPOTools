@@ -116,11 +116,13 @@ function ConvertFrom-PSGPOConfigurationByte {
 function Split-PSGPOUnknownSetting {
     [CmdletBinding()]
     [OutputType([hashtable])]
-    param([Parameter(Mandatory)] [hashtable]$Defaults, [Parameter(Mandatory)] [hashtable]$Override)
+    param([Parameter(Mandatory)] [hashtable]$Defaults, [Parameter(Mandatory)] [hashtable]$Override, [string]$Path = '')
 
     $known = @{}
     $unknown = @{}
     foreach ($key in $Override.Keys) {
+        # The settings of the add-ons: known as they are, each add-on checks its own.
+        if (-not $Path -and $key -eq 'AddOns') { $known[$key] = $Override[$key]; continue }
         if (-not $Defaults.ContainsKey($key)) {
             if ($Override[$key] -is [hashtable]) {
                 $flat = ConvertTo-PSGPOFlatConfiguration -Data $Override[$key] -Prefix "$key."
@@ -129,7 +131,7 @@ function Split-PSGPOUnknownSetting {
                 $unknown[$key] = $Override[$key]
             }
         } elseif ($Defaults[$key] -is [hashtable] -and $Override[$key] -is [hashtable]) {
-            $inner = Split-PSGPOUnknownSetting -Defaults $Defaults[$key] -Override $Override[$key]
+            $inner = Split-PSGPOUnknownSetting -Defaults $Defaults[$key] -Override $Override[$key] -Path "$Path$key."
             $known[$key] = $inner.Known
             foreach ($name in $inner.Unknown.Keys) { $unknown["$key.$name"] = $inner.Unknown[$name] }
         } else {
@@ -152,6 +154,12 @@ function Merge-PSGPOConfiguration {
     $result = @{}
     foreach ($key in $Base.Keys) { $result[$key] = $Base[$key] }
     foreach ($key in $Override.Keys) {
+        # The settings of the add-ons, as the domain has them: no default to merge them with.
+        if (-not $Path -and $key -eq 'AddOns') {
+            if ($Override[$key] -isnot [hashtable]) { throw 'AddOns must be a table (@{ ... }).' }
+            $result[$key] = $Override[$key]
+            continue
+        }
         if (-not $Base.ContainsKey($key)) { throw "Unknown setting $Path$key." }
         if ($Base[$key] -is [hashtable]) {
             if ($Override[$key] -isnot [hashtable]) { throw "$Path$key must be a table (@{ ... })." }
@@ -223,6 +231,14 @@ function Test-PSGPOConfiguration {
     $minimum = "$($Configuration.Console.MinimumVersion)".Trim()
     if ($minimum -and $minimum -notmatch '^\d+\.\d+(\.\d+)?$') { "Console.MinimumVersion must be a version of HGPM (0.1.14), not '$minimum'." }
     if ($groups.Container -and "$($groups.Container)" -notmatch '^(?:(?:OU|CN)=[^,]+)(?:,(?:OU|CN|DC)=[^,]+)*$') { "NewGpo.SecurityFilteringGroups.Container is not a distinguished name: '$($groups.Container)'." }
+    # A table per add-on, by its name; what is in it is the add-on's.
+    $addOns = $Configuration.AddOns
+    if ($null -ne $addOns -and $addOns -isnot [hashtable]) { 'AddOns must be a table (@{ ... }).' }
+    elseif ($addOns) {
+        foreach ($name in $addOns.Keys) {
+            if ($name -notmatch '^\w+$' -or $addOns[$name] -isnot [hashtable]) { "AddOns.$name must be a table (@{ ... }), named after its add-on without HGPM. (Contoso)." }
+        }
+    }
 }
 
 # The configuration in use: the defaults, with the configuration of the domain over them.
@@ -378,7 +394,10 @@ function Save-PSGPODomainConfiguration {
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory)] [GPOToolsDirectory]$Directory,
-        [Parameter(Mandatory)] [AllowEmptyCollection()] [hashtable]$Values
+        [Parameter(Mandatory)] [AllowEmptyCollection()] [hashtable]$Values,
+        # The settings of the add-ons (AddOns, a table per add-on); those of the domain are kept
+        # when it is not given (the Settings window does not show them).
+        [hashtable]$AddOns
     )
 
     $defaults = Import-PowerShellDataFile -LiteralPath (Get-PSGPODefaultConfigurationPath)
@@ -387,16 +406,20 @@ function Save-PSGPODomainConfiguration {
         if (-not $flatDefaults.ContainsKey($key)) { throw "Unknown setting $key." }
         if ($flatDefaults[$key] -is [bool] -and $Values[$key] -isnot [bool]) { throw "$key must be True or False." }
     }
+    $state = $script:PSGPOConfigurationState
+    $same = [object]::ReferenceEquals($state.Directory, $Directory)
+    if (-not $PSBoundParameters.ContainsKey('AddOns')) { $AddOns = if ($same -and $state.Override.AddOns -is [hashtable]) { $state.Override.AddOns } else { @{} } }
     $override = ConvertFrom-PSGPOFlatConfiguration -Flat $Values
+    if ($AddOns.Count) { $override['AddOns'] = $AddOns }
     $problems = @(Test-PSGPOConfiguration -Configuration (Merge-PSGPOConfiguration -Base $defaults -Override $override))
     if ($problems.Count) { throw ($problems -join ' ') }
     # The settings of a newer console this one does not know: kept as they are, not checked.
-    $state = $script:PSGPOConfigurationState
-    if ($state.Unknown.Count -and [object]::ReferenceEquals($state.Directory, $Directory)) {
+    if ($state.Unknown.Count -and $same) {
         $all = @{}
         foreach ($key in $Values.Keys) { $all[$key] = $Values[$key] }
         foreach ($key in $state.Unknown.Keys) { $all[$key] = $state.Unknown[$key] }
         $override = ConvertFrom-PSGPOFlatConfiguration -Flat $all
+        if ($AddOns.Count) { $override['AddOns'] = $AddOns }
     }
     $path = $Directory.GetConfigurationPath()
     if (-not $PSCmdlet.ShouldProcess($path, 'Save the configuration of the domain')) { return }

@@ -27,6 +27,16 @@ function Register-PSGPOAddOn {
           Save, param($Html, $Path), which writes the HTML report (ReportHtml applied) to $Path
           in that format; its error is the one of the save. A format that does not fit stops the
           registration: the add-on is not loaded, and the technical log says why.
+        - BeforeChange (HGPM 0.4.0), param($Directory): called before each change of the
+          directory (GPOs, links, WMI filters, permissions, settings, the configuration). Its
+          error refuses the change, its message said to the account: nothing is written.
+        - AuditEntry (HGPM 0.4.0), param($Entry): the line of the audit log before it is
+          written; what the add-on knows of the change goes in $Entry.Details.
+        - ConsoleField (HGPM 0.4.0): fields of the toolbar of the GPO console, each a hashtable:
+          Name, Label, ToolTip and Placeholder (a text, or a text per language), Width (80 to 400
+          pixels), Get (its value) and Set, param($Value) (the value typed: its error is said).
+        The settings of an add-on for the domain are in AddOns.<name> of the configuration of the
+        domain (the name of the add-on without HGPM.), kept as they are by HGPM.
         A hook added to the contract keeps it: an add-on built before it works as it did.
         With an add-on loaded, the consoles and the reports show its version beside that of HGPM
         (HGPM 0.3.0 + Contoso 0.3.0.1), and the updates of the PowerShell Gallery are not
@@ -47,6 +57,13 @@ function Register-PSGPOAddOn {
     .PARAMETER ReportFormat
         The formats of file of the reports the add-on gives: hashtables Name, Extension, TypeName,
         Save (param($Html, $Path)).
+    .PARAMETER BeforeChange
+        The hook called before each change of the directory: param($Directory); an error refuses it.
+    .PARAMETER AuditEntry
+        The hook that completes a line of the audit log: param($Entry), in $Entry.Details.
+    .PARAMETER ConsoleField
+        The fields of the toolbar of the GPO console the add-on gives: hashtables Name, Label,
+        ToolTip, Placeholder, Width, Get, Set (param($Value)).
     .EXAMPLE
         # In the module of the add-on (HGPM.Contoso.psm1):
         Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -Edition 'Contoso' -WindowLogo { param($Kind) Join-Path $PSScriptRoot "$Kind.png" }
@@ -55,6 +72,18 @@ function Register-PSGPOAddOn {
         Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -ReportFormat @{
             Name = 'Text'; Extension = 'txt'; TypeName = @{ 'en-US' = 'Text file'; 'fr-FR' = 'Fichier texte' }
             Save = { param($Html, $Path) Set-Content -LiteralPath $Path -Value ($Html -replace '<[^>]+>', '') }
+        }
+    .EXAMPLE
+        # A value typed in the console, written in the audit log, needed before each change.
+        Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -ConsoleField @{
+            Name = 'Ticket'; Label = @{ 'en-US' = 'Ticket'; 'fr-FR' = 'Ticket' }
+            Get = { $env:CONTOSO_TICKET }; Set = { param($Value) $env:CONTOSO_TICKET = $Value }
+        } -BeforeChange {
+            param($Directory)
+            if (-not $env:CONTOSO_TICKET) { throw 'Type the ticket of the change first.' }
+        } -AuditEntry {
+            param($Entry)
+            $Entry.Details['Ticket'] = $env:CONTOSO_TICKET
         }
     .OUTPUTS
         PSGPOTools.AddOn
@@ -70,7 +99,10 @@ function Register-PSGPOAddOn {
         [string]$Edition,
         [scriptblock]$WindowLogo,
         [scriptblock]$ReportHtml,
-        [object[]]$ReportFormat = @()
+        [object[]]$ReportFormat = @(),
+        [scriptblock]$BeforeChange,
+        [scriptblock]$AuditEntry,
+        [object[]]$ConsoleField = @()
     )
 
     $core = (Get-PSGPOModuleVersion).Version
@@ -90,7 +122,11 @@ function Register-PSGPOAddOn {
     $extensions = @($formats.Extension)
     $twice = @($extensions | Group-Object | Where-Object Count -GT 1 | ForEach-Object Name)
     if ($twice.Count) { throw "ReportFormat: $Name gives the extension .$($twice[0]) twice." }
-    Add-PSGPOAddOnItem -Name $Name -Version $Version -Edition $Edition -Contract $Contract -State Loaded -Path $path -WindowLogo $WindowLogo -ReportHtml $ReportHtml -ReportFormat $formats
+    # Its fields of the console checked the same way.
+    $fields = @(foreach ($field in @($ConsoleField)) { ConvertTo-PSGPOAddOnConsoleField -Field $field })
+    $twice = @($fields.Name | Group-Object | Where-Object Count -GT 1 | ForEach-Object Name)
+    if ($twice.Count) { throw "ConsoleField: $Name gives the field $($twice[0]) twice." }
+    Add-PSGPOAddOnItem -Name $Name -Version $Version -Edition $Edition -Contract $Contract -State Loaded -Path $path -WindowLogo $WindowLogo -ReportHtml $ReportHtml -ReportFormat $formats -BeforeChange $BeforeChange -AuditEntry $AuditEntry -ConsoleField $fields
     Write-PSGPOLogEntry -Level Verbose -Source 'Add-ons' -Message "The add-on $Name $Version is loaded (contract $Contract)."
     @($script:PSGPOAddOn.Items | Where-Object Name -EQ $Name)[0]
 }

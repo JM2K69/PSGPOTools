@@ -1036,7 +1036,12 @@ class GPOToolsDirectory {
 
     hidden [void] AssertWritable() {
         if ($this.IsReadOnly) { throw "The directory $($this.DomainName) is read-only ($($this.Source))." }
+        $this.BeforeChange()
     }
+
+    # Before a change of the domain: nothing for a directory in memory (a sample, a file read);
+    # the domain (GPOToolsLdapDirectory) asks the add-ons.
+    hidden [void] BeforeChange() {}
 
     hidden [void] AssertCanLink([GPOToolsSom]$Som) {
         if ($Som.Kind -eq [GPOToolsSomKind]::Site) { throw "The links of the site $($Som.Name) are read, not changed, by this console: change them with GPMC." }
@@ -1232,6 +1237,12 @@ class GPOToolsLdapDirectory : GPOToolsDirectory {
         $this.Server = $Server
         $this.ServerType = $ServerType
         $this.Source = "read over LDAP from $Server ($ServerType)"
+    }
+
+    # A change of the domain: an add-on may refuse it (its hook BeforeChange), before anything is
+    # written.
+    hidden [void] BeforeChange() {
+        Invoke-PSGPOAddOnBeforeChange -Directory $this
     }
 
     hidden [void] SaveNewGpo([GPOToolsGpo]$Gpo) {

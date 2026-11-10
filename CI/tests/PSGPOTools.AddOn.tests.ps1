@@ -249,6 +249,61 @@ throw 'The broken add-on of the tests.'
             [System.IO.File]::ReadAllText((Join-Path $TestDrive 'r.tst')) | Should -BeExactly '<html/>' -Because 'without the add-on, the HTML page'
         }
 
+        It 'Lets an add-on refuse a change before it is made, and complete the line of the audit log' {
+            $Before = $env:PSGPOTOOLS_TEST_TICKET
+            try {
+                $env:PSGPOTOOLS_TEST_TICKET = $null
+                Add-PSGPOAddOnItem -Name 'HGPM.Gate' -Version '1.0' -Contract 1 -State Loaded -BeforeChange {
+                    param($Directory)
+                    if (-not $env:PSGPOTOOLS_TEST_TICKET) { throw "Type the ticket of the change of $($Directory.DomainName) first." }
+                } -AuditEntry {
+                    param($Entry)
+                    $Entry.Details['Ticket'] = $env:PSGPOTOOLS_TEST_TICKET
+                }
+                Add-PSGPOAddOnItem -Name 'HGPM.Broken' -Version '1.0' -Contract 1 -State Loaded -AuditEntry { throw 'no audit here' }
+                $script:PSGPOAddOn.Loaded = $true
+                # A directory in memory (a sample, a file read) is not the domain: no add-on asked.
+                $Directory = Import-PSGPODirectory -Path $script:SamplePath
+                $Directory.IsReadOnly = $false
+                $Gpo = @($Directory.Gpos)[0]
+                $Name = $Gpo.DisplayName
+                $Directory.RenameGpo($Gpo, 'Renamed by the test')
+                $Gpo.DisplayName | Should -Be 'Renamed by the test'
+                # The domain: each change asks the add-ons first.
+                $Domain = [GPOToolsLdapDirectory]::new('corp.contoso.com', 'DC=corp,DC=contoso,DC=com', 'dc1.corp.contoso.com', 'Samba AD')
+                { $Domain.AssertWritable() } | Should -Throw '*Type the ticket of the change of corp.contoso.com first.*'
+                $env:PSGPOTOOLS_TEST_TICKET = 'CHG0001'
+                { $Domain.AssertWritable() } | Should -Not -Throw
+                $Details = @{ From = $Name }
+                Write-PSGPOAuditEntry -Directory $Directory -Action 'RenameGpo' -Target $Gpo.DisplayName -Gpo $Gpo -Details $Details
+                $Line = @(Get-PSGPOAuditLog -Path (Get-PSGPOAuditPath) -Action 'RenameGpo' | Where-Object Target -EQ 'Renamed by the test')[0]
+                $Line.Details.Ticket | Should -Be 'CHG0001' -Because 'the add-on completes the line, the one that fails leaves it'
+                $Line.Details.From | Should -Be $Name
+                $Details.ContainsKey('Ticket') | Should -BeFalse -Because 'the table of the caller is not changed'
+            } finally { $env:PSGPOTOOLS_TEST_TICKET = $Before }
+        }
+
+        It 'Gives the console the fields of the add-ons, checked, in the language of the interface' {
+            $Field = @{ Name = 'Ticket'; Label = @{ 'en-US' = 'Ticket'; 'fr-FR' = 'Billet' }; Placeholder = 'CHG0000000'; ToolTip = 'The ticket of the change'; Width = 140; Get = { 'CHG1' }; Set = { param($Value) } }
+            $null = Register-PSGPOAddOn -Name 'HGPM.Field' -Version '1.0' -Contract 1 -ConsoleField $Field
+            $script:PSGPOAddOn.Loaded = $true
+            $Fields = @(Get-PSGPOAddOnConsoleField)
+            $Fields.Count | Should -Be 1
+            $Fields[0].Label | Should -Be 'Ticket'
+            $Fields[0].Placeholder | Should -Be 'CHG0000000'
+            $Fields[0].Width | Should -Be 140
+            & $Fields[0].Get | Should -Be 'CHG1'
+            $Before = $script:PSGPOLanguage
+            try { $script:PSGPOLanguage = 'fr-FR'; @(Get-PSGPOAddOnConsoleField)[0].Label | Should -Be 'Billet' } finally { $script:PSGPOLanguage = $Before }
+
+            $Set = { param($Value) }
+            { Register-PSGPOAddOn -Name 'HGPM.Field1' -Version '1.0' -Contract 1 -ConsoleField @{ Name = 'a b'; Label = 'x'; Get = $Set; Set = $Set } } | Should -Throw '*is not letters and digits*'
+            { Register-PSGPOAddOn -Name 'HGPM.Field2' -Version '1.0' -Contract 1 -ConsoleField @{ Name = 'T'; Get = $Set; Set = $Set } } | Should -Throw '*has no Label*'
+            { Register-PSGPOAddOn -Name 'HGPM.Field3' -Version '1.0' -Contract 1 -ConsoleField @{ Name = 'T'; Label = 'x'; Set = $Set } } | Should -Throw '*its Get is not a scriptblock*'
+            { Register-PSGPOAddOn -Name 'HGPM.Field4' -Version '1.0' -Contract 1 -ConsoleField @{ Name = 'T'; Label = 'x'; Get = $Set; Set = $Set; Width = 20 } } | Should -Throw '*Width*is not 80 to 400 pixels*'
+            { Register-PSGPOAddOn -Name 'HGPM.Field5' -Version '1.0' -Contract 1 -ConsoleField @{ Name = 'T'; Label = 'x'; Get = $Set; Set = $Set }, @{ Name = 'T'; Label = 'y'; Get = $Set; Set = $Set } } | Should -Throw '*gives the field T twice*'
+        }
+
         It 'Refuses a format of report that does not fit: the add-on is not loaded' {
             $Save = { param($Html, $Path) }
             { Register-PSGPOAddOn -Name 'HGPM.Format1' -Version '1.0' -Contract 1 -ReportFormat 'pdf' } | Should -Throw '*each format is a hashtable*'

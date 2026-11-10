@@ -140,4 +140,9 @@
         # approval).
         CreatorRights = 'ReadOnly'
     }
+
+    # The settings of the add-ons (Register-PSGPOAddOn): a table per add-on, by its name without
+    # HGPM. (Contoso for HGPM.Contoso). HGPM keeps them as they are, each add-on checks its own;
+    # the Settings window does not show them, and keeps them when it saves.
+    AddOns = @{}
 }

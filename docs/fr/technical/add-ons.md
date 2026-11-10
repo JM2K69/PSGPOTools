@@ -65,6 +65,9 @@ laisse ce que fait HGPM tel quel.
 | `WindowLogo` | `Icon` ou `Header` | le chemin d'une image | `Icon` : l'icône de chaque fenêtre (barre de titre, barre des tâches) ; `Header` : l'image de l'en-tête des consoles, affichée en 44 x 44 |
 | `ReportHtml` | le HTML d'un rapport | le HTML modifié | les rapports HTML (`Get-PSGPOReport -ReportType Html`, **Enregistrer le rapport...**) |
 | `ReportFormat` (HGPM 0.4.0) | son `Save` : le HTML d'un rapport (`ReportHtml` appliqué) et un chemin | le fichier écrit | les types de fichier de **Enregistrer le rapport...**, après HTML et XML ; `Get-PSGPOReport -ReportType Html -Path` avec son extension |
+| `BeforeChange` (HGPM 0.4.0) | l'annuaire du domaine | rien ; **une erreur refuse la modification** | avant chaque modification du domaine : GPO, liens, filtres WMI, permissions, paramètres, configuration |
+| `AuditEntry` (HGPM 0.4.0) | la ligne du journal d'audit, avant son écriture | rien : il ajoute à `$Entry.Details` | chaque ligne du [journal d'audit](../features/audit-log.md), et du journal du système |
+| `ConsoleField` (HGPM 0.4.0) | son `Get` et son `Set` | la valeur, gardée par l'add-on | un champ de la barre d'outils de la console GPO |
 
 Un rapport HTML contient trois repères où un add-on ajoute ce qu'il donne, sans lire le reste de
 la page : `<!-- hgpm:head -->` avant `</head>`, `<!-- hgpm:body-start -->` après `<body>`,
@@ -98,6 +101,51 @@ aux autres points d'accroche, l'erreur de `Save` est celle de l'enregistrement :
 que le rapport n'est pas enregistré, avec elle, et un `Save` qui n'écrit aucun fichier est aussi
 une erreur. Un format qui ne convient pas (une extension de HGPM, pas de `Save`...) arrête
 l'enregistrement : l'add-on n'est pas chargé, et le journal technique dit pourquoi.
+
+### Une valeur de la console, avant chaque modification
+
+Un add-on peut demander une valeur dans la console GPO (`ConsoleField`), l'écrire dans chaque ligne
+du journal d'audit (`AuditEntry`) et refuser une modification sans elle (`BeforeChange`) : un
+ticket de changement, par exemple. Un champ est une table de hachage :
+
+| Clé | Quoi |
+|---|---|
+| `Name` | son nom, lettres et chiffres |
+| `Label`, `ToolTip`, `Placeholder` | ses textes : un texte, ou un texte par langue |
+| `Width` | sa largeur, de 80 à 400 pixels (160) |
+| `Get` | sa valeur, telle que l'add-on la garde |
+| `Set` | `param($Value)` : la valeur saisie (Entrée, ou le champ quitté) ; son erreur est dite dans la console, en rouge, et le champ montre la valeur que l'add-on garde |
+
+```powershell
+Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -ConsoleField @{
+    Name  = 'Ticket'
+    Label = @{ 'en-US' = 'Ticket'; 'fr-FR' = 'Ticket' }
+    Get   = { $env:CONTOSO_TICKET }
+    Set   = { param($Value) $env:CONTOSO_TICKET = $Value }
+} -BeforeChange {
+    param($Directory)
+    if (-not $env:CONTOSO_TICKET) { throw 'Saisissez d''abord le ticket du changement.' }
+} -AuditEntry {
+    param($Entry)
+    $Entry.Details['Ticket'] = $env:CONTOSO_TICKET
+}
+```
+
+`BeforeChange` n'est appelé que pour le domaine, pas pour un annuaire en mémoire (un exemple, un
+fichier lu). Contrairement aux autres points d'accroche, son erreur est le refus : la modification
+n'est pas faite, et son message est celui que le compte lit. Une console fait ses longues
+opérations dans un runspace à elle : une valeur que l'add-on garde pour le processus (une variable
+d'environnement du processus) est vue des deux.
+
+### Réglages pour le domaine
+
+Un add-on garde ses réglages pour le domaine dans la configuration du domaine, `AddOns.<nom>`
+([configuration](../reference/configuration.md#addons)) : toutes les consoles du domaine les
+lisent, seul un administrateur du domaine les écrit. Dans le module de HGPM :
+`Get-PSGPOAddOnConfiguration -Name Contoso` les donne, et
+`Save-PSGPOAddOnConfiguration -Directory $Directory -Name Contoso -Settings @{ ... }` les écrit
+(`$null` les retire), les autres réglages tels que le domaine les a, dans le journal d'audit comme
+toute configuration enregistrée.
 
 ## Versions
 

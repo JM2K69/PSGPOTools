@@ -10,6 +10,43 @@
 
 function Initialize-PSGPOManagerToolbarView {
     $managementButton.Add_Click({ Show-View 'Management' })
+
+    # The fields the add-ons give (their hook ConsoleField): a label and a box each, before the
+    # buttons. The value typed goes to the add-on (its Set) when Enter is pressed or the box is
+    # left; its error is said, in red, and the box shows the value the add-on keeps.
+    $addOnFields = @{ Boxes = [System.Collections.Generic.List[object]]::new() }
+    function Submit-AddOnField {
+        param([Parameter(Mandatory)] $Box)
+        $field = $Box.Tag
+        $value = "$($Box.Text)".Trim()
+        try {
+            if ($value -ne "$(& $field.Get)") { $null = & $field.Set $value }
+            $Box.ClearValue([Avalonia.Controls.TextBox]::BorderBrushProperty)
+        } catch {
+            $Box.BorderBrush = [Avalonia.Media.SolidColorBrush]::new([Avalonia.Media.Color]::Parse('#D13438'))
+            Show-DirectoryResult -Text "$($field.Label): $($_.Exception.GetBaseException().Message)" -Problem
+        }
+        $Box.Text = "$(& $field.Get)"
+    }
+    foreach ($field in @(Get-PSGPOAddOnConsoleField)) {
+        $label = [Avalonia.Controls.TextBlock]::new()
+        $label.Text = $field.Label
+        $label.VerticalAlignment = [Avalonia.Layout.VerticalAlignment]::Center
+        $box = [Avalonia.Controls.TextBox]::new()
+        $box.Name = "addOnField$($field.Name)"
+        $box.Tag = $field
+        $box.Width = $field.Width
+        $box.VerticalAlignment = [Avalonia.Layout.VerticalAlignment]::Center
+        if ($field.Placeholder) { $box.Watermark = $field.Placeholder }
+        if ($field.ToolTip) { [Avalonia.Controls.ToolTip]::SetTip($box, $field.ToolTip) }
+        try { $box.Text = "$(& $field.Get)" } catch { Write-PSGPOLogEntry -Level Warning -Source 'Add-ons' -Message "The field $($field.Name) of $($field.Edition) cannot be read: $($_.Exception.GetBaseException().Message)" }
+        $box.Add_KeyDown({ param($control, $keyArgs) if ($keyArgs.Key -eq [Avalonia.Input.Key]::Enter) { Submit-AddOnField -Box $control } })
+        $box.Add_LostFocus({ param($control) Submit-AddOnField -Box $control })
+        $addOnFieldPanel.Children.Add($label)
+        $addOnFieldPanel.Children.Add($box)
+        $addOnFields.Boxes.Add($box)
+    }
+    $addOnFieldPanel.IsVisible = $addOnFields.Boxes.Count -gt 0
     # The configuration window (New-PSGPOConfigurationWindow), one at a time, owned by the console;
     # for the administrators of the domain only, who change the configuration every console reads.
     $configurationWindow = @{ Ui = $null }

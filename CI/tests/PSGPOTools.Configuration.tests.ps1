@@ -87,6 +87,36 @@ InModuleScope -ModuleName HGPM {
             { Save-PSGPODomainConfiguration -Directory $script:Domain -Values @{ 'Future.Mode' = 'Loose' } } | Should -Throw '*Unknown setting Future.Mode*' -Because 'this console does not set them'
         }
 
+        It 'Keeps the settings of the add-ons as they are, when the Settings window saves too' {
+            $Domain = Set-DomainConfiguration "@{ NewGpo = @{ Status = 'UserOnly' }; AddOns = @{ Contoso = @{ Required = `$true; Pattern = '^CHG\d+$' } } }"
+            (Get-PSGPOConfiguration).Problem | Should -BeNullOrEmpty
+            $script:PSGPOConfigurationState.Unknown.Count | Should -Be 0 -Because 'the settings of the add-ons are known as they are, each add-on checks its own'
+            $Settings = Get-PSGPOAddOnConfiguration -Name 'Contoso'
+            $Settings.Required | Should -BeTrue
+            $Settings.Pattern | Should -Be '^CHG\d+$'
+            (Get-PSGPOAddOnConfiguration -Name 'Fabrikam').Count | Should -Be 0
+            @(Get-PSGPOConfigurationSetting | Where-Object Key -Like 'AddOns*') | Should -BeNullOrEmpty -Because 'the Settings window does not show them'
+
+            # The Settings window saves the settings it shows: those of the add-ons stay.
+            Save-PSGPODomainConfiguration -Directory $Domain -Values @{ 'NewGpo.Status' = 'ComputerOnly' }
+            $Saved = ConvertFrom-PSGPOConfigurationByte -Bytes $Domain.ReadConfigurationFile()
+            $Saved.NewGpo.Status | Should -Be 'ComputerOnly'
+            $Saved.AddOns.Contoso.Pattern | Should -Be '^CHG\d+$'
+
+            # An add-on writes its own settings, the others as the domain has them.
+            Save-PSGPOAddOnConfiguration -Directory $Domain -Name 'Fabrikam' -Settings @{ Level = 2 }
+            $Saved = ConvertFrom-PSGPOConfigurationByte -Bytes $Domain.ReadConfigurationFile()
+            $Saved.NewGpo.Status | Should -Be 'ComputerOnly'
+            $Saved.AddOns.Contoso.Required | Should -BeTrue
+            $Saved.AddOns.Fabrikam.Level | Should -Be 2
+            (Get-PSGPOAddOnConfiguration -Name 'Fabrikam').Level | Should -Be 2 -Because 'the configuration is read again'
+            Save-PSGPOAddOnConfiguration -Directory $Domain -Name 'Contoso' -Settings $null
+            @((ConvertFrom-PSGPOConfigurationByte -Bytes $Domain.ReadConfigurationFile()).AddOns.Keys) | Should -Be @('Fabrikam')
+
+            $Output = @(Set-DomainConfiguration "@{ AddOns = @{ Contoso = 'yes' } }" 3>&1)
+            "$($Output | Where-Object { $_ -is [System.Management.Automation.WarningRecord] })" | Should -BeLike '*is not used:*AddOns.Contoso must be a table*'
+        }
+
         It 'Saves the configuration of the domain, checked first, and reads it again' {
             $Domain = Set-DomainConfiguration $null
             { Save-PSGPODomainConfiguration -Directory $Domain -Values @{ 'NewGpo.Status' = 'Sometimes' } } | Should -Throw '*Status must be Enabled*'

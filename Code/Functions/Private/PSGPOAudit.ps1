@@ -273,8 +273,11 @@ function Write-PSGPOAuditEntry {
         GpoId = if ($Gpo) { $Gpo.Id.ToString() }
         GpoName = if ($Gpo) { $Gpo.DisplayName }
         Tier = if ($Directory.AuditTier) { $Directory.AuditTier }
-        Details = $Details
+        # A copy: an add-on adds to it (its hook AuditEntry), not to the table of the caller.
+        Details = [ordered]@{}
     }
+    foreach ($key in $Details.Keys) { $entry.Details[$key] = $Details[$key] }
+    Invoke-PSGPOAddOnAuditEntry -Entry $entry
     # The change for a SIEM first, whatever happens to the share.
     try { Write-PSGPOAuditSystemLog -Entry $entry } catch { Write-Verbose "The log of the system: $($_.Exception.GetBaseException().Message)" }
     $item = [ordered]@{ Folder = $null; Name = $null; Line = ConvertTo-Json -InputObject $entry -Depth 5 -Compress }

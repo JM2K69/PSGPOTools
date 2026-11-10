@@ -44,6 +44,8 @@ $(Get-PSGPOWindowResourceXaml)
 
                 <StackPanel Grid.Column='1' Orientation='Horizontal'
                             HorizontalAlignment='Right' VerticalAlignment='Center' Spacing='12'>
+                    <!-- The fields of the add-ons (their hook ConsoleField), filled by the toolbar view. -->
+                    <StackPanel Name='addOnFieldPanel' Orientation='Horizontal' Spacing='8' VerticalAlignment='Center' IsVisible='False'/>
                     <Button Name='managementButton' Height='36'>
                         <StackPanel Orientation='Horizontal' Spacing='8'>
                             <PathIcon Data='{StaticResource Icon.organization}'/>
@@ -788,15 +790,16 @@ $(Get-PSGPOWindowResourceXaml)
                                         <TextBlock Text='Comment' FontSize='12' FontWeight='SemiBold' Foreground='{DynamicResource SecondaryTextBrush}'/>
                                         <TextBox Name='gpoCommentTextBox' AcceptsReturn='True' TextWrapping='Wrap' MinHeight='56' MaxHeight='160'
                                                  Watermark='No comment'/>
-                                        <StackPanel Orientation='Horizontal' Spacing='8'>
-                                            <Button Name='gpoCommentSaveButton' IsEnabled='False'>
+                                        <!-- A grid, not a horizontal panel: a long message wraps in the width left. -->
+                                        <Grid ColumnDefinitions='Auto,*'>
+                                            <Button Name='gpoCommentSaveButton' IsEnabled='False' VerticalAlignment='Top'>
                                                 <StackPanel Orientation='Horizontal' Spacing='8'>
                                                     <PathIcon Data='{StaticResource Icon.save}'/>
                                                     <TextBlock Text='Save the comment' VerticalAlignment='Center'/>
                                                 </StackPanel>
                                             </Button>
-                                            <TextBlock Name='gpoCommentStatusTextBlock' VerticalAlignment='Center' TextWrapping='Wrap'/>
-                                        </StackPanel>
+                                            <TextBlock Name='gpoCommentStatusTextBlock' Grid.Column='1' Margin='8,0,0,0' VerticalAlignment='Center' TextWrapping='Wrap'/>
+                                        </Grid>
                                     </StackPanel>
 
                                     <TextBlock Name='linksHeaderTextBlock' FontSize='12' FontWeight='SemiBold'
@@ -1679,16 +1682,17 @@ $(Get-PSGPOWindowResourceXaml)
                                     </StackPanel>
 
                                     <!-- Editing a GPO: what its Registry.pol holds, and Apply to save the setting -->
-                                    <StackPanel Name='applyPanel' Orientation='Horizontal' Spacing='12' Margin='0,12,0,0' IsVisible='False'>
-                                        <Button Name='applySettingButton' IsEnabled='False'>
+                                    <!-- A grid, not a horizontal panel: a long message wraps in the width left. -->
+                                    <Grid Name='applyPanel' ColumnDefinitions='Auto,*' Margin='0,12,0,0' IsVisible='False'>
+                                        <Button Name='applySettingButton' IsEnabled='False' VerticalAlignment='Top'>
                                             <StackPanel Orientation='Horizontal' Spacing='8'>
                                                 <PathIcon Data='{StaticResource Icon.save}'/>
                                                 <TextBlock Text='Apply' VerticalAlignment='Center'/>
                                             </StackPanel>
                                         </Button>
-                                        <TextBlock Name='applyStatusTextBlock' VerticalAlignment='Center' TextWrapping='Wrap' FontSize='12'
+                                        <TextBlock Name='applyStatusTextBlock' Grid.Column='1' Margin='12,0,0,0' VerticalAlignment='Center' TextWrapping='Wrap' FontSize='12'
                                                    Foreground='{DynamicResource SecondaryTextBrush}'/>
-                                    </StackPanel>
+                                    </Grid>
 
                                     <TextBlock Text='Options' FontSize='12' FontWeight='SemiBold'
                                                Foreground='{DynamicResource SecondaryTextBrush}' Margin='0,16,0,4'/>

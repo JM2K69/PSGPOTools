@@ -412,6 +412,37 @@ InModuleScope -ModuleName HGPM {
             }
         }
 
+        It 'Shows the fields of the add-ons in the toolbar, gives them what is typed, says their error' {
+            $global:PSGPOTestFieldValue = 'CHG0001'
+            $Field = ConvertTo-PSGPOAddOnConsoleField -Field @{
+                Name = 'Ticket'; Label = 'Ticket'; Placeholder = 'CHG0000000'; ToolTip = 'The ticket of the change'
+                Get = { $global:PSGPOTestFieldValue }
+                Set = { param($Value) if ($Value -notmatch '^CHG\d+$') { throw "'$Value' is not a ticket." }; $global:PSGPOTestFieldValue = $Value }
+            }
+            $script:PSGPOAddOn = @{ Searched = $true; Found = @(); Loaded = $true; Items = [System.Collections.Generic.List[object]]::new(); Logo = @{} }
+            Add-PSGPOAddOnItem -Name 'HGPM.Field' -Version '1.0' -Contract 1 -State Loaded -ConsoleField $Field
+            try {
+                Start-PSGPOManagerWindow -Directory $Directory -OnShown {
+                    param($Ui)
+                    $Ui.addOnFieldPanel.IsVisible | Should -BeTrue
+                    $Box = @($Ui.AddOnFields.Boxes)[0]
+                    $Box.Text | Should -Be 'CHG0001' -Because 'the box shows the value of the add-on'
+                    $Box.Watermark | Should -Be 'CHG0000000'
+                    [Avalonia.Controls.ToolTip]::GetTip($Box) | Should -Be 'The ticket of the change'
+                    $Box.Text = 'CHG0002'
+                    & $Ui.SubmitAddOnField -Box $Box
+                    $global:PSGPOTestFieldValue | Should -Be 'CHG0002'
+                    $Box.Text = 'oops'
+                    & $Ui.SubmitAddOnField -Box $Box
+                    $Ui.directoryResultTextBlock.Text | Should -Be "Ticket: 'oops' is not a ticket."
+                    $Box.Text | Should -Be 'CHG0002' -Because 'the box shows the value the add-on keeps'
+                }
+            } finally {
+                $script:PSGPOAddOn = @{ Searched = $false; Found = @(); Loaded = $false; Items = [System.Collections.Generic.List[object]]::new(); Logo = @{} }
+                Remove-Variable -Name PSGPOTestFieldValue -Scope Global -ErrorAction SilentlyContinue
+            }
+        }
+
         It 'Opens on the domain tree, the domain expanded' {
             Start-PSGPOManagerWindow -Directory $Directory -OnShown {
                 param($Ui)

@@ -64,6 +64,9 @@ as it is.
 | `WindowLogo` | `Icon` or `Header` | the path of an image | `Icon`: the icon of every window (title bar, task bar); `Header`: the image of the header of the consoles, shown in 44 x 44 |
 | `ReportHtml` | the HTML of a report | the HTML changed | the HTML reports (`Get-PSGPOReport -ReportType Html`, **Save report...**) |
 | `ReportFormat` (HGPM 0.4.0) | its `Save`: the HTML of a report (`ReportHtml` applied) and a path | the file written | the types of file of **Save report...**, after HTML and XML; `Get-PSGPOReport -ReportType Html -Path` with its extension |
+| `BeforeChange` (HGPM 0.4.0) | the directory of the domain | nothing; **an error refuses the change** | before each change of the domain: GPOs, links, WMI filters, permissions, settings, the configuration |
+| `AuditEntry` (HGPM 0.4.0) | the line of the audit log, before it is written | nothing: it adds to `$Entry.Details` | each line of the [audit log](../features/audit-log.md), and of the log of the system |
+| `ConsoleField` (HGPM 0.4.0) | its `Get` and `Set` | the value, kept by the add-on | a field of the toolbar of the GPO console |
 
 An HTML report holds three markers where an add-on adds what it gives, without reading the rest
 of the page: `<!-- hgpm:head -->` before `</head>`, `<!-- hgpm:body-start -->` after `<body>`,
@@ -96,6 +99,50 @@ chosen; `Get-PSGPOReport -ReportType Html -Path ./gpo.txt` does the same. Unlike
 the error of `Save` is the one of the save: the console says the report is not saved, with it, and
 a `Save` that writes no file is an error too. A format that does not fit (an extension of HGPM,
 no `Save`...) stops the registration: the add-on is not loaded, and the technical log says why.
+
+### A value of the console, before each change
+
+An add-on can ask for a value in the GPO console (`ConsoleField`), write it in each line of the
+audit log (`AuditEntry`) and refuse a change without it (`BeforeChange`): a ticket of change, for
+instance. A field is a hashtable:
+
+| Key | What |
+|---|---|
+| `Name` | its name, letters and digits |
+| `Label`, `ToolTip`, `Placeholder` | its texts: a text, or a text per language |
+| `Width` | its width, 80 to 400 pixels (160) |
+| `Get` | its value, as the add-on keeps it |
+| `Set` | `param($Value)`: the value typed (Enter, or the field left); its error is said in the console, in red, and the field shows the value the add-on keeps |
+
+```powershell
+Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -ConsoleField @{
+    Name  = 'Ticket'
+    Label = @{ 'en-US' = 'Ticket'; 'fr-FR' = 'Ticket' }
+    Get   = { $env:CONTOSO_TICKET }
+    Set   = { param($Value) $env:CONTOSO_TICKET = $Value }
+} -BeforeChange {
+    param($Directory)
+    if (-not $env:CONTOSO_TICKET) { throw 'Type the ticket of the change first.' }
+} -AuditEntry {
+    param($Entry)
+    $Entry.Details['Ticket'] = $env:CONTOSO_TICKET
+}
+```
+
+`BeforeChange` is called for the domain only, not for a directory in memory (a sample, a file
+read). Unlike the other hooks, its error is the refusal: the change is not made, and its message is
+the one the account reads. A console runs its long operations in a runspace of its own: a value
+the add-on keeps for the process (an environment variable of the process) is seen by both.
+
+### Settings for the domain
+
+An add-on keeps its settings for the domain in the configuration of the domain, `AddOns.<name>`
+([configuration](../reference/configuration.md#addons)): every console of the domain reads them,
+only an administrator of the domain writes them. In the module of HGPM:
+`Get-PSGPOAddOnConfiguration -Name Contoso` gives them, and
+`Save-PSGPOAddOnConfiguration -Directory $Directory -Name Contoso -Settings @{ ... }` writes them
+(`$null` removes them), the other settings as the domain has them, in the audit log as every
+configuration saved.
 
 ## Versions
 

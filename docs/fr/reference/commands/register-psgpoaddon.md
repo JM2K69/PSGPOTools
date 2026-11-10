@@ -7,7 +7,7 @@ _L'aide de la commande, telle que `Get-Help Register-PSGPOAddOn -Full` la donne 
 ## Syntaxe
 
 ```powershell
-Register-PSGPOAddOn [-Name] <string> [[-Version] <version>] [-Contract] <int> [[-Edition] <string>] [[-WindowLogo] <scriptblock>] [[-ReportHtml] <scriptblock>] [[-ReportFormat] <Object[]>] [<CommonParameters>]
+Register-PSGPOAddOn [-Name] <string> [[-Version] <version>] [-Contract] <int> [[-Edition] <string>] [[-WindowLogo] <scriptblock>] [[-ReportHtml] <scriptblock>] [[-ReportFormat] <Object[]>] [[-BeforeChange] <scriptblock>] [[-AuditEntry] <scriptblock>] [[-ConsoleField] <Object[]>] [<CommonParameters>]
 ```
 
 ## Description
@@ -30,6 +30,16 @@ TypeName (the type of file of the save dialog: a text, or a text per language) a
 Save, param($Html, $Path), which writes the HTML report (ReportHtml applied) to $Path
 in that format; its error is the one of the save. A format that does not fit stops the
 registration: the add-on is not loaded, and the technical log says why.
+- BeforeChange (HGPM 0.4.0), param($Directory): called before each change of the
+directory (GPOs, links, WMI filters, permissions, settings, the configuration). Its
+error refuses the change, its message said to the account: nothing is written.
+- AuditEntry (HGPM 0.4.0), param($Entry): the line of the audit log before it is
+written; what the add-on knows of the change goes in $Entry.Details.
+- ConsoleField (HGPM 0.4.0): fields of the toolbar of the GPO console, each a hashtable:
+Name, Label, ToolTip and Placeholder (a text, or a text per language), Width (80 to 400
+pixels), Get (its value) and Set, param($Value) (the value typed: its error is said).
+The settings of an add-on for the domain are in AddOns.<name> of the configuration of the
+domain (the name of the add-on without HGPM.), kept as they are by HGPM.
 A hook added to the contract keeps it: an add-on built before it works as it did.
 With an add-on loaded, the consoles and the reports show its version beside that of HGPM
 (HGPM 0.3.0 + Contoso 0.3.0.1), and the updates of the PowerShell Gallery are not
@@ -93,6 +103,30 @@ The formats of file of the reports the add-on gives: hashtables Name, Extension,
 |---|---|---|---|---|
 | `Object[]` | Non | 7 | `@()` | Non |
 
+### -BeforeChange
+
+The hook called before each change of the directory: param($Directory); an error refuses it.
+
+| Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
+|---|---|---|---|---|
+| `ScriptBlock` | Non | 8 | Aucune | Non |
+
+### -AuditEntry
+
+The hook that completes a line of the audit log: param($Entry), in $Entry.Details.
+
+| Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
+|---|---|---|---|---|
+| `ScriptBlock` | Non | 9 | Aucune | Non |
+
+### -ConsoleField
+
+The fields of the toolbar of the GPO console the add-on gives: hashtables Name, Label, ToolTip, Placeholder, Width, Get, Set (param($Value)).
+
+| Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
+|---|---|---|---|---|
+| `Object[]` | Non | 10 | `@()` | Non |
+
 ## Exemples
 
 ### Exemple 1
@@ -109,6 +143,22 @@ Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -Edition 'Contoso' -WindowL
 Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -ReportFormat @{
     Name = 'Text'; Extension = 'txt'; TypeName = @{ 'en-US' = 'Text file'; 'fr-FR' = 'Fichier texte' }
     Save = { param($Html, $Path) Set-Content -LiteralPath $Path -Value ($Html -replace '<[^>]+>', '') }
+}
+```
+
+### Exemple 3
+
+```powershell
+# A value typed in the console, written in the audit log, needed before each change.
+Register-PSGPOAddOn -Name 'HGPM.Contoso' -Contract 1 -ConsoleField @{
+    Name = 'Ticket'; Label = @{ 'en-US' = 'Ticket'; 'fr-FR' = 'Ticket' }
+    Get = { $env:CONTOSO_TICKET }; Set = { param($Value) $env:CONTOSO_TICKET = $Value }
+} -BeforeChange {
+    param($Directory)
+    if (-not $env:CONTOSO_TICKET) { throw 'Type the ticket of the change first.' }
+} -AuditEntry {
+    param($Entry)
+    $Entry.Details['Ticket'] = $env:CONTOSO_TICKET
 }
 ```
 

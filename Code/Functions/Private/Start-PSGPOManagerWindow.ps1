@@ -99,7 +99,7 @@ function Start-PSGPOManagerWindow {
     # A hashtable, because assigning a variable inside the posted action would only set a child-scope copy.
     $onShownState = @{ Error = $null }
     if ($OnShown) {
-        $controls = @{ Window = $window; Editing = $editing; Clipboard = $clipboard; Directory = $Directory; Configuration = $configurationWindow; GpoReport = $gpoReport; SaveGpoReport = ${function:Save-GpoReport}; GpoReportFileType = ${function:Get-GpoReportFileType} }
+        $controls = @{ Window = $window; Editing = $editing; Clipboard = $clipboard; Directory = $Directory; Configuration = $configurationWindow; GpoReport = $gpoReport; SaveGpoReport = ${function:Save-GpoReport}; GpoReportFileType = ${function:Get-GpoReportFileType}; AddOnFields = $addOnFields; SubmitAddOnField = ${function:Submit-AddOnField} }
         foreach ($controlName in $ui.Keys) { $controls[$controlName] = $ui[$controlName] }
         [Avalonia.Threading.Dispatcher]::UIThread.Post([System.Action] {
             try { & $OnShown $controls } catch { $onShownState.Error = $_ } finally { $window.Close() }

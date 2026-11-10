@@ -84,6 +84,18 @@ The [approval workflow](../workflows/approval.md).
 The groups are names of the domain (`sAMAccountName`, with or without `DOMAIN\`), or SIDs. A name
 the domain does not know stops the creation of GPOs, rather than give the wrong rights.
 
+## AddOns
+
+The settings of the [add-ons](../technical/add-ons.md) for the domain: a table per add-on, named
+after it without `HGPM.` (`Contoso` for `HGPM.Contoso`). HGPM keeps them as they are and each
+add-on checks its own; the Settings window does not show them, and keeps them when it saves.
+
+```powershell
+AddOns = @{
+    Contoso = @{ Ticket = $true }
+}
+```
+
 ## Example
 
 ```powershell
