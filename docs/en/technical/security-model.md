@@ -13,6 +13,7 @@ how to report a flaw.
 | **Tier 0** | the administrators of the domain, the approvers (`Workflow.Approvers`), the owner of the approved GPOs, the purgers of the audit log (`Audit.Purgers`) | configures HGPM for the domain, approves the GPOs, owns them once approved, keeps the backups and the archives |
 | **Tier 1, Tier 2** | the creators (`Workflow.Creators`), the groups of `Audit.Tiers` | create GPOs that wait for an approval, link them to the OUs of their tier, read the audit log of their tier |
 | **Readers** | the auditors (`Audit.Readers`) | read the whole audit log |
+| **Readers of a tier** | `Audit.TierReaders`: an auditor of a tier, the account of a service outside Tier 0 | read the audit log of their tier, never the one of Tier 0 |
 | **Unassigned** | any other user of the domain | reads what the domain lets it read; writes its changes, if any, in `Unassigned` |
 
 The boundary is the approval: a GPO of a technician applies to nobody until Tier 0 approves it,

@@ -78,6 +78,15 @@
         }
         # Groups that read every tier without writing (auditors), separated by commas.
         Readers = ''
+        # The readers of one tier only, without writing, never the folder of Tier 0: an auditor of
+        # a tier, the account of a service that must not read Tier 0 (a relay of the log to a
+        # messaging tool).
+        TierReaders = @{
+            # Groups that read the changes of Tier 1 only, without writing, separated by commas.
+            Tier1 = ''
+            # Groups that read the changes of Tier 2 only, without writing, separated by commas.
+            Tier2 = ''
+        }
         # Groups that run the retention of the central log (Invoke-PSGPOAuditRetention, planned):
         # they read every tier, delete the files of the old months and write the archives,
         # without being administrators of the domain. The group of a gMSA, separated by commas.

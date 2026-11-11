@@ -20,6 +20,9 @@ The audit log of a domain is central on a share of a file server (Audit.Path of 
 - Unassigned: a user of the domain in no tier (Domain Users);
 - Archive: the archives of the old months (Invoke-PSGPOAuditRetention);
 - the readers (Audit.Readers, the auditors) and Tier 0 read every folder;
+- the readers of a tier (Audit.TierReaders.Tier1, Audit.TierReaders.Tier2: an auditor of a
+tier, the account of a service that must not read Tier 0) read the folder of their tier
+only, without writing;
 - the accounts of a tier create their own file in the folder of their tier, append to it,
 and read the files of their tier, not those of the other tiers; the files already there
 are made append-only too;

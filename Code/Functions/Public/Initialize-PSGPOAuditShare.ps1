@@ -13,6 +13,9 @@ function Initialize-PSGPOAuditShare {
         - Unassigned: a user of the domain in no tier (Domain Users);
         - Archive: the archives of the old months (Invoke-PSGPOAuditRetention);
         - the readers (Audit.Readers, the auditors) and Tier 0 read every folder;
+        - the readers of a tier (Audit.TierReaders.Tier1, Audit.TierReaders.Tier2: an auditor of a
+          tier, the account of a service that must not read Tier 0) read the folder of their tier
+          only, without writing;
         - the accounts of a tier create their own file in the folder of their tier, append to it,
           and read the files of their tier, not those of the other tiers; the files already there
           are made append-only too;
@@ -96,12 +99,14 @@ function Initialize-PSGPOAuditShare {
             Tier2 = & $find $configuration.Audit.Tiers.Tier2
             Readers = & $find $configuration.Audit.Readers
             Purgers = & $find $configuration.Audit.Purgers
+            Tier1Readers = & $find $configuration.Audit.TierReaders.Tier1
+            Tier2Readers = & $find $configuration.Audit.TierReaders.Tier2
         }
     } finally {
         $connection.Dispose()
     }
 
-    $folders = @(Get-PSGPOAuditShareSddl -DomainAdminsSid "$domainSid-512" -Tier0 @($roles.Tier0.Sid) -Tier1 @($roles.Tier1.Sid) -Tier2 @($roles.Tier2.Sid) -Readers @($roles.Readers.Sid) -Purgers @($roles.Purgers.Sid))
+    $folders = @(Get-PSGPOAuditShareSddl -DomainAdminsSid "$domainSid-512" -Tier0 @($roles.Tier0.Sid) -Tier1 @($roles.Tier1.Sid) -Tier2 @($roles.Tier2.Sid) -Readers @($roles.Readers.Sid) -Purgers @($roles.Purgers.Sid) -Tier1Readers @($roles.Tier1Readers.Sid) -Tier2Readers @($roles.Tier2Readers.Sid))
     Set-PSGPOAuditShareAcl -Path $Path -Folder $folders
     if ($WhatIfPreference) { return }
     $names = @{ Tier0 = @(@($roles.Tier0.Name) + 'Domain Admins' | Select-Object -Unique); Tier1 = @($roles.Tier1.Name); Tier2 = @($roles.Tier2.Name); Unassigned = @(@('Domain Users') + @($roles.Purgers.Name) | Where-Object { $_ }); Archive = @($roles.Purgers.Name | Where-Object { $_ }) }
@@ -110,9 +115,9 @@ function Initialize-PSGPOAuditShare {
             PSTypeName = 'PSGPOTools.AuditShareFolder'
             Path = if ($item.Folder) { "$($Path.TrimEnd('\', '/'))\$($item.Folder)" } else { $Path }
             Writers = if ($item.Folder) { [string[]]$names[$item.Folder] } else { [string[]]@() }
-            Readers = [string[]]@(@($roles.Tier0.Name) + 'Domain Admins' + @($roles.Readers.Name) + $(if ($item.Folder -in 'Tier1', 'Tier2') { $names[$item.Folder] }) | Select-Object -Unique)
+            Readers = [string[]]@(@($roles.Tier0.Name) + 'Domain Admins' + @($roles.Readers.Name) + $(if ($item.Folder -in 'Tier1', 'Tier2') { $names[$item.Folder] + @($roles["$($item.Folder)Readers"].Name) }) | Where-Object { $_ } | Select-Object -Unique)
             Sddl = $item.Sddl
         }
     }
-    Write-PSGPOAuditEntry -Directory $Directory -Action 'InitializeAuditShare' -Target $Path -Details @{ Tier1 = @($roles.Tier1.Name | Where-Object { $_ }); Tier2 = @($roles.Tier2.Name | Where-Object { $_ }); Readers = @($roles.Readers.Name | Where-Object { $_ }); Purgers = @($roles.Purgers.Name | Where-Object { $_ }) }
+    Write-PSGPOAuditEntry -Directory $Directory -Action 'InitializeAuditShare' -Target $Path -Details @{ Tier1 = @($roles.Tier1.Name | Where-Object { $_ }); Tier2 = @($roles.Tier2.Name | Where-Object { $_ }); Readers = @($roles.Readers.Name | Where-Object { $_ }); Purgers = @($roles.Purgers.Name | Where-Object { $_ }); Tier1Readers = @($roles.Tier1Readers.Name | Where-Object { $_ }); Tier2Readers = @($roles.Tier2Readers.Name | Where-Object { $_ }) }
 }

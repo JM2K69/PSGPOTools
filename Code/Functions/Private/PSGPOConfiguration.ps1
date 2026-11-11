@@ -224,6 +224,7 @@ function Test-PSGPOConfiguration {
     if ($Configuration.Audit.Enabled -isnot [bool]) { 'Audit.Enabled must be $true or $false.' }
     foreach ($name in 'Tier1', 'Tier2') {
         if ("$($Configuration.Audit.Tiers[$name])" -match '[";|=+*?<>]') { "Audit.Tiers.$name holds names of groups separated by commas." }
+        if ("$($Configuration.Audit.TierReaders[$name])" -match '[";|=+*?<>]') { "Audit.TierReaders.$name holds names of groups separated by commas." }
     }
     foreach ($name in 'Readers', 'Purgers') {
         if ("$($Configuration.Audit[$name])" -match '[";|=+*?<>]') { "Audit.$name holds names of groups separated by commas." }

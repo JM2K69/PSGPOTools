@@ -7,7 +7,8 @@
       full control.
     - Tier0, Tier1, Tier2: the groups of the tier create their files there and read every file of
       their tier; Tier 0 (the approvers of the workflow, Domain Admins) and the readers (auditors)
-      read every tier.
+      read every tier; the readers of a tier (Audit.TierReaders: an auditor of a tier, the account
+      of a service outside Tier 0) read the folder of their tier only, without writing.
     - Unassigned: a user of the domain in no tier writes there (Domain Users: not the computers);
       Tier 0 and the readers read it.
     - The file of an account: its owner reads it and appends to it, without writing over it,
@@ -15,7 +16,8 @@
       without FILE_WRITE_DATA). Windows appends at its end; Samba refuses to open it to write,
       but lets a handle opened to append write anywhere: the lines are chained (Write-PSGPOAuditEntry).
     - The share itself: the groups of the tiers and the readers list it; any other account only
-      goes through it, to the folder Unassigned, without seeing what it holds.
+      goes through it, to the folder Unassigned (a reader of a tier, to its folder), without seeing
+      what it holds.
 #>
 
 # Access masks ([MS-DTYP] 2.4.3): read and list (FILE_GENERIC_READ | FILE_GENERIC_EXECUTE), the
@@ -33,6 +35,10 @@ function Get-PSGPOAuditShareSddl {
         [AllowEmptyCollection()] [string[]]$Tier1 = @(),
         [AllowEmptyCollection()] [string[]]$Tier2 = @(),
         [AllowEmptyCollection()] [string[]]$Readers = @(),
+        # The readers of Tier 1 and of Tier 2 only (Audit.TierReaders): they read the folder of
+        # their tier, without writing; never the folder of Tier 0.
+        [AllowEmptyCollection()] [string[]]$Tier1Readers = @(),
+        [AllowEmptyCollection()] [string[]]$Tier2Readers = @(),
         # The groups that run the retention (Audit.Purgers): they read every folder and delete
         # its files, write the archives in Archive, and write their own changes in Unassigned.
         [AllowEmptyCollection()] [string[]]$Purgers = @()
@@ -47,15 +53,16 @@ function Get-PSGPOAuditShareSddl {
     # has anyway (change the permissions).
     $owner = "(A;OIIO;$($right.Owner);;;CO)(A;OIIO;$($right.Owner);;;S-1-3-4)"
     $tier = {
-        param([string[]]$Writers)
-        $admins + $readAll + $purge + ((@($Writers) | Where-Object { $_ } | Select-Object -Unique | ForEach-Object { "(A;;$($right.Create);;;$_)(A;OIIO;$($right.Read);;;$_)" }) -join '') + $owner
+        param([string[]]$Writers, [string[]]$TierReaders)
+        $readTier = (@($TierReaders) | Where-Object { $_ } | Select-Object -Unique | ForEach-Object { "(A;OICI;$($right.Read);;;$_)" }) -join ''
+        $admins + $readAll + $purge + $readTier + ((@($Writers) | Where-Object { $_ } | Select-Object -Unique | ForEach-Object { "(A;;$($right.Create);;;$_)(A;OIIO;$($right.Read);;;$_)" }) -join '') + $owner
     }
     # Traverse: FILE_TRAVERSE | FILE_READ_ATTRIBUTES | SYNCHRONIZE, without listing.
-    $listRoot = (@(@($Tier1) + @($Tier2)) | Where-Object { $_ } | Select-Object -Unique | ForEach-Object { "(A;;$($right.Read);;;$_)" }) -join ''
+    $listRoot = (@(@($Tier1) + @($Tier2) + @($Tier1Readers) + @($Tier2Readers)) | Where-Object { $_ } | Select-Object -Unique | ForEach-Object { "(A;;$($right.Read);;;$_)" }) -join ''
     [pscustomobject]@{ Folder = ''; Sddl = "D:P$admins$readAll$purge$listRoot(A;;$($right.Traverse);;;AU)" }
-    [pscustomobject]@{ Folder = 'Tier0'; Sddl = 'D:P' + (& $tier (@($Tier0) + $DomainAdminsSid)) }
-    [pscustomobject]@{ Folder = 'Tier1'; Sddl = 'D:P' + (& $tier $Tier1) }
-    [pscustomobject]@{ Folder = 'Tier2'; Sddl = 'D:P' + (& $tier $Tier2) }
+    [pscustomobject]@{ Folder = 'Tier0'; Sddl = 'D:P' + (& $tier (@($Tier0) + $DomainAdminsSid) @()) }
+    [pscustomobject]@{ Folder = 'Tier1'; Sddl = 'D:P' + (& $tier $Tier1 $Tier1Readers) }
+    [pscustomobject]@{ Folder = 'Tier2'; Sddl = 'D:P' + (& $tier $Tier2 $Tier2Readers) }
     # Every user of the domain writes there, its own file only; not the computers (Authenticated Users).
     $domainUsers = $DomainAdminsSid -replace '-512$', '-513'
     # The retention writes its own changes there (a gMSA is no user of the domain).

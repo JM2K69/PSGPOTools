@@ -74,11 +74,11 @@ The share has a folder per tier, and the permissions of the roles:
 | Folder | Writes there (its own file) | Reads it |
 |---|---|---|
 | `Tier0` | the approvers of the workflow (`Workflow.Approvers`), Domain Admins | Tier 0, the readers |
-| `Tier1` | the groups of `Audit.Tiers.Tier1` | Tier 1, Tier 0, the readers |
-| `Tier2` | the groups of `Audit.Tiers.Tier2` | Tier 2, Tier 0, the readers |
+| `Tier1` | the groups of `Audit.Tiers.Tier1` | Tier 1, Tier 0, the readers, the readers of Tier 1 |
+| `Tier2` | the groups of `Audit.Tiers.Tier2` | Tier 2, Tier 0, the readers, the readers of Tier 2 |
 | `Unassigned` | a user of the domain in no tier (Domain Users, not the computers) | Tier 0, the readers |
 | `Archive` | the retention (`Audit.Purgers`) | Tier 0, the readers |
-| the share itself | nobody | listed by the groups of the tiers and the readers; any other account only goes through it, to `Unassigned` |
+| the share itself | nobody | listed by the groups of the tiers, the readers and the readers of a tier; any other account only goes through it, to `Unassigned` |
 
 - Each account adds its changes to **its own file**: `<tier>\<domain>-<yyyy-MM>-<account>-<computer>.jsonl`.
   No two consoles write the same file. Its owner **only appends** to it: it neither writes over
@@ -86,6 +86,10 @@ The share has a folder per tier, and the permissions of the roles:
 - **Tier 0 reads every tier**, an account of Tier 1 or Tier 2 the changes of its tier only, the
   readers (`Audit.Readers`, the auditors) everything, without writing. The window shows what the
   account can read, and the tier of each change.
+- **The readers of a tier** (`Audit.TierReaders.Tier1`, `Audit.TierReaders.Tier2`) read the folder
+  of their tier only, without writing, never the one of Tier 0: an auditor of a tier, or the
+  account of a service that sends the changes outside Tier 0 (to a messaging tool), which must not
+  read what Tier 0 does.
 - The tier of an account is read in its groups when the domain is read: an administrator of the
   domain or an approver is Tier 0, then the groups of `Audit.Tiers`.
 
@@ -134,6 +138,7 @@ Audit = @{
     Path = '\\files.contoso.com\gpo-audit'
     Tiers = @{ Tier1 = 'GPO-Tier1-Admins'; Tier2 = 'GPO-Tier2-Admins' }
     Readers = 'GPO-Auditors'
+    TierReaders = @{ Tier1 = 'GPO-Tier1-Readers'; Tier2 = 'GPO-Tier2-Readers' }
 }
 ```
 

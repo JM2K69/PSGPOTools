@@ -14,6 +14,7 @@ faille.
 | **Tier 0** | les administrateurs du domaine, les approbateurs (`Workflow.Approvers`), le propriétaire des GPO approuvées, les purgeurs du journal d'audit (`Audit.Purgers`) | configure HGPM pour le domaine, approuve les GPO, en est propriétaire une fois approuvées, garde les sauvegardes et les archives |
 | **Tier 1, Tier 2** | les créateurs (`Workflow.Creators`), les groupes de `Audit.Tiers` | créent des GPO qui attendent une approbation, les lient aux UO de leur tier, lisent le journal d'audit de leur tier |
 | **Lecteurs** | les auditeurs (`Audit.Readers`) | lisent tout le journal d'audit |
+| **Lecteurs d'un tier** | `Audit.TierReaders` : un auditeur d'un tier, le compte d'un service hors du Tier 0 | lisent le journal d'audit de leur tier, jamais celui du Tier 0 |
 | **Sans tier** | tout autre utilisateur du domaine | lit ce que le domaine le laisse lire ; écrit ses modifications, s'il en fait, dans `Unassigned` |
 
 La frontière, c'est l'approbation : une GPO d'un technicien ne s'applique à personne tant que le

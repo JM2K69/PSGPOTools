@@ -363,8 +363,17 @@ InModuleScope -ModuleName HGPM {
             ($Purged | Where-Object Folder -EQ 'Unassigned').Sddl | Should -BeLike '*(A;;0x1200ab;;;S-1-5-21-1-2-3-5000)*' -Because 'the retention writes its own change'
             ($Purged | Where-Object Folder -EQ 'Tier1').Sddl | Should -Not -BeLike '*(A;;0x1200ab;;;S-1-5-21-1-2-3-5000)*' -Because 'they write nothing in the folders of the tiers'
 
+            # The readers of a tier (Audit.TierReaders): its folder only, without writing, and the share listed.
+            $ByTier = @(Get-PSGPOAuditShareSddl -DomainAdminsSid 'S-1-5-21-1-2-3-512' -Tier1 'S-1-5-21-1-2-3-2001' -Tier2 'S-1-5-21-1-2-3-2002' -Tier1Readers 'S-1-5-21-1-2-3-6001' -Tier2Readers 'S-1-5-21-1-2-3-6001', 'S-1-5-21-1-2-3-6002')
+            ($ByTier | Where-Object Folder -EQ 'Tier1').Sddl | Should -BeLike '*(A;OICI;0x1200a9;;;S-1-5-21-1-2-3-6001)*' -Because 'a reader of Tier 1 reads its folder'
+            ($ByTier | Where-Object Folder -EQ 'Tier2').Sddl | Should -BeLike '*(A;OICI;0x1200a9;;;S-1-5-21-1-2-3-6001)*(A;OICI;0x1200a9;;;S-1-5-21-1-2-3-6002)*'
+            ($ByTier | Where-Object Folder -EQ 'Tier1').Sddl | Should -Not -BeLike '*S-1-5-21-1-2-3-6002*' -Because 'a reader of Tier 2 has nothing in the folder of Tier 1'
+            foreach ($Folder in 'Tier0', 'Unassigned', 'Archive') { ($ByTier | Where-Object Folder -EQ $Folder).Sddl | Should -Not -BeLike '*S-1-5-21-1-2-3-600*' -Because "a reader of a tier reads nothing in '$Folder'" }
+            @($ByTier.Sddl | Where-Object { $_ -like '*0x1200ab;;;S-1-5-21-1-2-3-600*' }) | Should -BeNullOrEmpty -Because 'it writes nowhere'
+            ($ByTier | Where-Object Folder -EQ '').Sddl | Should -BeLike '*(A;;0x1200a9;;;S-1-5-21-1-2-3-6001)(A;;0x1200a9;;;S-1-5-21-1-2-3-6002)*' -Because 'it lists the share, not what it holds'
+
             # A role the configuration leaves empty (no readers, no Tier 2): no ACE without a SID.
-            $Empty = @(Get-PSGPOAuditShareSddl -DomainAdminsSid 'S-1-5-21-1-2-3-512' -Tier0 @($null) -Tier2 @($null) -Readers @($null))
+            $Empty = @(Get-PSGPOAuditShareSddl -DomainAdminsSid 'S-1-5-21-1-2-3-512' -Tier0 @($null) -Tier2 @($null) -Readers @($null) -Tier1Readers @($null))
             @($Empty.Sddl | Where-Object { $_ -like '*;;;)*' }) | Should -BeNullOrEmpty
         }
 

@@ -77,11 +77,11 @@ Le partage a un dossier par tier, et les droits des rôles :
 | Dossier | Y écrit (son propre fichier) | Le lit |
 |---|---|---|
 | `Tier0` | les approbateurs du workflow (`Workflow.Approvers`), Admins du domaine | le Tier 0, les lecteurs |
-| `Tier1` | les groupes de `Audit.Tiers.Tier1` | le Tier 1, le Tier 0, les lecteurs |
-| `Tier2` | les groupes de `Audit.Tiers.Tier2` | le Tier 2, le Tier 0, les lecteurs |
+| `Tier1` | les groupes de `Audit.Tiers.Tier1` | le Tier 1, le Tier 0, les lecteurs, les lecteurs du Tier 1 |
+| `Tier2` | les groupes de `Audit.Tiers.Tier2` | le Tier 2, le Tier 0, les lecteurs, les lecteurs du Tier 2 |
 | `Unassigned` | un utilisateur du domaine sans tier (Domain Users, pas les ordinateurs) | le Tier 0, les lecteurs |
 | `Archive` | la rétention (`Audit.Purgers`) | le Tier 0, les lecteurs |
-| le partage lui-même | personne | listé par les groupes des tiers et les lecteurs ; tout autre compte ne fait que le traverser, vers `Unassigned` |
+| le partage lui-même | personne | listé par les groupes des tiers, les lecteurs et les lecteurs d'un tier ; tout autre compte ne fait que le traverser, vers `Unassigned` |
 
 - Chaque compte ajoute ses modifications à **son propre fichier** :
   `<tier>\<domaine>-<aaaa-MM>-<compte>-<ordinateur>.jsonl`. Deux consoles n'écrivent jamais le même
@@ -90,6 +90,10 @@ Le partage a un dossier par tier, et les droits des rôles :
 - **Le Tier 0 lit tous les tiers**, un compte du Tier 1 ou du Tier 2 les modifications de son tier
   seulement, les lecteurs (`Audit.Readers`, les auditeurs) tout, sans écrire. La fenêtre montre ce
   que le compte peut lire, et le tier de chaque modification.
+- **Les lecteurs d'un tier** (`Audit.TierReaders.Tier1`, `Audit.TierReaders.Tier2`) lisent le
+  dossier de leur tier seulement, sans écrire, jamais celui du Tier 0 : un auditeur d'un tier, ou le
+  compte d'un service qui envoie les modifications hors du Tier 0 (vers un outil de messagerie), et
+  qui ne doit pas lire ce que fait le Tier 0.
 - Le tier d'un compte est lu dans ses groupes à la lecture du domaine : un administrateur du domaine
   ou un approbateur est Tier 0, puis les groupes de `Audit.Tiers`.
 
@@ -138,6 +142,7 @@ Audit = @{
     Path = '\\fichiers.contoso.com\gpo-audit'
     Tiers = @{ Tier1 = 'GPO-Tier1-Admins'; Tier2 = 'GPO-Tier2-Admins' }
     Readers = 'GPO-Auditeurs'
+    TierReaders = @{ Tier1 = 'GPO-Tier1-Lecteurs'; Tier2 = 'GPO-Tier2-Lecteurs' }
 }
 ```
 
