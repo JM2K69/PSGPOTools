@@ -22,7 +22,7 @@ sources, sous Windows et sous Linux : la CI le vérifie à chaque commit).
 Le SHA-256 d'une archive, comparé à `SHA256SUMS` :
 
 ```powershell
-$archive = 'HGPM-0.3.0-win-x64.zip'
+$archive = 'HGPM-0.3.1-win-x64.zip'
 $expected = (Get-Content SHA256SUMS | Where-Object { $_.EndsWith("  $archive") }).Split(' ')[0]
 (Get-FileHash $archive -Algorithm SHA256).Hash.ToLower() -eq $expected
 ```
@@ -30,7 +30,7 @@ $expected = (Get-Content SHA256SUMS | Where-Object { $_.EndsWith("  $archive") }
 Son attestation, avec la CLI GitHub (depuis un ordinateur qui a internet) :
 
 ```bash
-gh attestation verify HGPM-0.3.0-win-x64.zip --repo JM2K69/PSGPOTools
+gh attestation verify HGPM-0.3.1-win-x64.zip --repo JM2K69/PSGPOTools
 ```
 
 Elle dit que le fichier a été construit par le workflow Release du dépôt, depuis le commit du tag,
@@ -42,7 +42,7 @@ poste d'administration, exigez le workflow de release et le tag attendu : un aut
 fichier attesté par un autre workflow, échoue alors.
 
 ```bash
-gh attestation verify HGPM-0.3.0-win-x64.zip --repo JM2K69/PSGPOTools --signer-workflow JM2K69/PSGPOTools/.github/workflows/release.yml --source-ref refs/tags/v0.3.0
+gh attestation verify HGPM-0.3.1-win-x64.zip --repo JM2K69/PSGPOTools --signer-workflow JM2K69/PSGPOTools/.github/workflows/release.yml --source-ref refs/tags/v0.3.1
 ```
 
 ## L'installer
@@ -51,19 +51,19 @@ Windows : débloquez l'archive avant de l'extraire. Téléchargés depuis intern
 seraient marqués, et la stratégie d'exécution `RemoteSigned` refuserait les scripts non signés.
 
 ```powershell
-Unblock-File .\HGPM-0.3.0-win-x64.zip
-Expand-Archive .\HGPM-0.3.0-win-x64.zip -DestinationPath $env:TEMP\HGPM-0.3.0
+Unblock-File .\HGPM-0.3.1-win-x64.zip
+Expand-Archive .\HGPM-0.3.1-win-x64.zip -DestinationPath $env:TEMP\HGPM-0.3.1
 $modules = "$env:ProgramFiles\PowerShell\Modules\HGPM"      # tous les utilisateurs ; $HOME\Documents\PowerShell\Modules\HGPM pour un seul
 New-Item -ItemType Directory -Path $modules -Force | Out-Null
-Copy-Item $env:TEMP\HGPM-0.3.0\HGPM "$modules\0.3.0" -Recurse
+Copy-Item $env:TEMP\HGPM-0.3.1\HGPM "$modules\0.3.1" -Recurse
 ```
 
 Linux :
 
 ```bash
-unzip HGPM-0.3.0-linux-x64.zip -d /tmp/hgpm
+unzip HGPM-0.3.1-linux-x64.zip -d /tmp/hgpm
 mkdir -p ~/.local/share/powershell/Modules/HGPM      # un utilisateur ; /usr/local/share/powershell/Modules pour tous
-cp -r /tmp/hgpm/HGPM ~/.local/share/powershell/Modules/HGPM/0.3.0
+cp -r /tmp/hgpm/HGPM ~/.local/share/powershell/Modules/HGPM/0.3.1
 ```
 
 Ensuite, pour que rien ne soit jamais cherché sur internet :
@@ -106,7 +106,7 @@ release), chaque script du module est signé, et le catalogue `HGPM.cat` liste c
 module :
 
 ```powershell
-$module = "$env:ProgramFiles\PowerShell\Modules\HGPM\0.3.0"
+$module = "$env:ProgramFiles\PowerShell\Modules\HGPM\0.3.1"
 Get-AuthenticodeSignature "$module\HGPM.psm1"
 # Le runtime d'une archive hors ligne n'est pas dans le catalogue (le module le vérifie, ci-dessus), ni le fichier qu'ajoute Install-PSResource.
 $skip = @(Get-ChildItem "$module\Avalonia\bin" -Recurse -File -ErrorAction SilentlyContinue).Name + 'PSGetModuleInfo.xml'
@@ -122,7 +122,7 @@ ci-dessus.
 Chacun peut reconstruire le module depuis le tag, et le comparer à la release :
 
 ```powershell
-git clone --branch v0.3.0 https://github.com/JM2K69/PSGPOTools
+git clone --branch v0.3.1 https://github.com/JM2K69/PSGPOTools
 cd PSGPOTools
 ./CI/03_Build.ps1
 (Get-FileHash HGPM/HGPM.psm1 -Algorithm SHA256).Hash.ToLower()   # la ligne HGPM/HGPM.psm1 de SHA256SUMS
