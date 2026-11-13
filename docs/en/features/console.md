@@ -104,7 +104,7 @@ directory was read from, its directory service (`Samba AD` or `Active Directory`
 the PDC emulator, the account connected, and the version of HGPM with a dot:
 
 - **green**: the latest version of the PowerShell Gallery;
-- **orange**: a newer version is on the Gallery (`HGPM 0.3.0: 0.3.1 available`); its
+- **orange**: a newer version is on the Gallery (`HGPM 0.3.1: 0.3.2 available`); its
   tooltip gives the command that installs it (`Update-PSResource -Name HGPM`, or
   `Install-PSResource` for a module not installed from the Gallery, a checkout of the repository
   for instance), then open a new PowerShell session;
