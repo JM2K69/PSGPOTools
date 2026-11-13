@@ -75,7 +75,8 @@ function Invoke-PSGPOAuditRetention {
     if ($share) {
         # Linux: the files of the share copied first, the old ones deleted on the share.
         $local = Join-Path ([System.IO.Path]::GetTempPath()) "PSGPOTools-retention-$([guid]::NewGuid())"
-        $null = New-Item -ItemType Directory -Path $local
+        # Even under -WhatIf (it says what it would archive and delete): a copy to read.
+        $null = New-Item -ItemType Directory -Path $local -WhatIf:$false
         $command = 'prompt OFF; recurse ON; lcd "{0}"; {1}mget *' -f $local, $(if ($share.Folder) { 'cd "{0}"; ' -f $share.Folder })
         $null = Invoke-PSGPOSmbClient -Server $share.Server -Share $share.Share -TimeoutSeconds 600 -AllowMissing -IgnoreExitCode -IgnoreStatus 'NT_STATUS_ACCESS_DENIED', 'NT_STATUS_NO_SUCH_FILE' -Command $command
     }
@@ -140,6 +141,6 @@ function Invoke-PSGPOAuditRetention {
             Write-PSGPOAuditEntry -Directory $Directory -Action 'PurgeAuditLog' -Target $Path -Details ([ordered]@{ RetentionMonths = $RetentionMonths; Months = @($done.Month); Files = ($done | Measure-Object Files -Sum).Sum })
         }
     } finally {
-        if ($share) { Remove-Item -LiteralPath $local -Recurse -Force -ErrorAction SilentlyContinue }
+        if ($share) { Remove-Item -LiteralPath $local -Recurse -Force -ErrorAction SilentlyContinue -WhatIf:$false }
     }
 }

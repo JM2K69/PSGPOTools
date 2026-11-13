@@ -182,10 +182,11 @@ function Resolve-PSGPOAdmxInstallPath {
     foreach ($candidate in $candidates) {
         $parent = Split-Path -Parent $candidate
         try {
-            $null = New-Item -ItemType Directory -Path $parent -Force -ErrorAction Stop
+            # Even under -WhatIf (Install-PSGPOAdmx -WhatIf names the folder): a probe, not a change.
+            if (-not (Test-Path -LiteralPath $parent -PathType Container)) { $null = New-Item -ItemType Directory -Path $parent -Force -ErrorAction Stop -WhatIf:$false }
             $probe = Join-Path $parent ".write-$([guid]::NewGuid())"
             [System.IO.File]::WriteAllText($probe, '')
-            Remove-Item -LiteralPath $probe -Force
+            Remove-Item -LiteralPath $probe -Force -WhatIf:$false
             return $candidate
         } catch {
             Write-Verbose "Not writable: $parent"

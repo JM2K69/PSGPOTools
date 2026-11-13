@@ -249,5 +249,19 @@ InModuleScope -ModuleName HGPM {
             @(Get-PSGPOAdmxCandidate) | Should -Contain ([System.IO.Path]::GetFullPath((Join-Path $TestDrive 'data-admx')))
             $Data | Should -BeLike '*PSGPOTools*PolicyDefinitions'
         }
+
+        It 'Tries the folder to install in under -WhatIf without leaving its probe' {
+            $Parent = Join-Path $TestDrive 'probe'
+            $null = New-Item -ItemType Directory -Path $Parent -Force
+            Mock Get-PSGPOAdmxInstallFolder { Join-Path $TestDrive 'probe' 'PolicyDefinitions' }
+            $WhatIfPreference = $true
+            try {
+                $Folder = Resolve-PSGPOAdmxInstallPath
+            } finally {
+                $WhatIfPreference = $false
+            }
+            $Folder | Should -Be (Join-Path $Parent 'PolicyDefinitions')
+            @(Get-ChildItem -LiteralPath $Parent -Force -Filter '.write-*') | Should -BeNullOrEmpty
+        }
     }
 }

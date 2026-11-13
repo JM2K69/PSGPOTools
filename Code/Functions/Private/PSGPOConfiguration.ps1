@@ -106,7 +106,8 @@ function ConvertFrom-PSGPOConfigurationByte {
         # Not the temporary file in the message.
         throw "it is not PowerShell data: $($_.Exception.Message.Replace($local, 'Configuration.psd1'))"
     } finally {
-        Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue
+        # Even under -WhatIf (any command that reads the domain): a copy to read, not a change.
+        Remove-Item -LiteralPath $local -Force -ErrorAction SilentlyContinue -WhatIf:$false
     }
 }
 
