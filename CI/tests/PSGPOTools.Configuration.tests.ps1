@@ -87,6 +87,21 @@ InModuleScope -ModuleName HGPM {
             { Save-PSGPODomainConfiguration -Directory $script:Domain -Values @{ 'Future.Mode' = 'Loose' } } | Should -Throw '*Unknown setting Future.Mode*' -Because 'this console does not set them'
         }
 
+        It 'Reads the configuration under -WhatIf without leaving its temporary copy' {
+            # A command run with -WhatIf reads the domain: the copy of the file to read is not one
+            # of its changes, it is deleted all the same.
+            $Temp = [System.IO.Path]::GetTempPath()
+            $Before = @(Get-ChildItem -LiteralPath $Temp -Filter 'PSGPOTools-*.psd1' -File -ErrorAction SilentlyContinue).FullName
+            $WhatIfPreference = $true
+            try {
+                $Read = ConvertFrom-PSGPOConfigurationByte -Bytes ([System.Text.Encoding]::UTF8.GetBytes("@{ NewGpo = @{ Status = 'UserOnly' } }"))
+            } finally {
+                $WhatIfPreference = $false
+            }
+            $Read.NewGpo.Status | Should -Be 'UserOnly'
+            @(Get-ChildItem -LiteralPath $Temp -Filter 'PSGPOTools-*.psd1' -File -ErrorAction SilentlyContinue | Where-Object FullName -NotIn $Before) | Should -BeNullOrEmpty
+        }
+
         It 'Saves the configuration of the domain, checked first, and reads it again' {
             $Domain = Set-DomainConfiguration $null
             { Save-PSGPODomainConfiguration -Directory $Domain -Values @{ 'NewGpo.Status' = 'Sometimes' } } | Should -Throw '*Status must be Enabled*'

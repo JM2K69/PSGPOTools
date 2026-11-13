@@ -1,5 +1,11 @@
 # HGPM Release History
 
+## 0.3.1
+
+### Fixed
+
+* A command run with `-WhatIf` no longer leaves temporary files behind, nor says it would delete them: the copy of the configuration of the domain read over SMB (`PSGPOTools-<guid>.psd1` in the temporary folder, on Linux; seen with `Install-PSGPOProductAdmx -WhatIf`) and the probe of the folder `Install-PSGPOAdmx` installs in (`.write-<guid>`) are deleted as without it; on Linux, `Invoke-PSGPOAuditRetention -WhatIf` copies the log to read it, and says which months it would archive (it said nothing)
+
 ## 0.3.0
 
 ### Added
