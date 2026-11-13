@@ -318,7 +318,7 @@ PowerShell Gallery en a une :
 ```text
 PS> Import-Module HGPM
 HGPM 0.3.1
-HGPM 0.2.1 is available on the PowerShell Gallery: Update-PSResource -Name HGPM, then open a new PowerShell session.
+HGPM 0.3.2 is available on the PowerShell Gallery: Update-PSResource -Name HGPM, then open a new PowerShell session.
 ```
 
 L'import lit la Gallery au plus une fois par jour (`UpdateCheck.json` dans le dossier de données
@@ -336,7 +336,7 @@ Les préversions comptent quand la version chargée en est une (ou avec `-Prerel
 Test-PSGPOUpdate
 # Name             : HGPM
 # InstalledVersion : 0.3.1
-# LatestVersion    : 0.2.1
+# LatestVersion    : 0.3.2
 # UpdateAvailable  : True
 # UpdateCommand    : Update-PSResource -Name HGPM
 
