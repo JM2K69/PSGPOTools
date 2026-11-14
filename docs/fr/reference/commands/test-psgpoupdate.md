@@ -1,6 +1,6 @@
 # Test-PSGPOUpdate
 
-Tells whether a newer version of HGPM is published on the PowerShell Gallery.
+Tells whether a newer version of HGPM, or of its add-ons, is published on the PowerShell Gallery.
 
 _L'aide de la commande, telle que `Get-Help Test-PSGPOUpdate -Full` la donne (en anglais)._
 
@@ -16,6 +16,8 @@ Compares the version of HGPM loaded in the session with the latest one of the Po
 
 The prereleases of the Gallery count when the version loaded is one, or with -Prerelease; a stable version is otherwise only compared with the stable ones. The result gives the command that updates the module: Update-PSResource when it was installed from the Gallery, Install-PSResource otherwise (a copy of the repository, for instance).
 
+The add-ons installed that follow the Gallery (their manifest requires a minimum version of HGPM, ModuleVersion) are compared too, in AddOns, and the command updates those installed from the Gallery with HGPM: Update-PSResource -Name HGPM, HGPM.Contoso. An add-on whose package brings HGPM (its manifest requires one version of HGPM only, RequiredVersion) is named in Package: HGPM is updated with that package, not from the Gallery, so UpdateAvailable is false and no command is given.
+
 Nothing is installed: the command only reads the Gallery.
 
 ## Paramètres
@@ -30,7 +32,7 @@ Takes the prereleases of the Gallery into account, even when the version loaded 
 
 ### -Quiet
 
-Returns $true when a newer version is published, $false otherwise, instead of the details.
+Returns $true when a newer version of HGPM or of an add-on is published, $false otherwise, instead of the details.
 
 | Type | Obligatoire | Position | Valeur par défaut | Accepte le pipeline |
 |---|---|---|---|---|
@@ -53,6 +55,12 @@ Test-PSGPOUpdate
 ```
 
 ### Exemple 2
+
+```powershell
+(Test-PSGPOUpdate).AddOns
+```
+
+### Exemple 3
 
 ```powershell
 if (Test-PSGPOUpdate -Quiet) { Update-PSResource -Name HGPM -Prerelease }

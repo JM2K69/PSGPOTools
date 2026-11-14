@@ -9,7 +9,8 @@ They are called add-ons, not extensions: a GPO already has client-side extension
 
 - Its name is `HGPM.<name>` (`HGPM.Contoso`).
 - Its manifest tags it `HGPMAddOn` (`PrivateData.PSData.Tags`).
-- It requires the version of HGPM it was tested with (`RequiredModules`).
+- It requires HGPM (`RequiredModules`): the version that has the hooks it uses, or later. How it
+  requires it says how both are updated (see [Versions](#versions)).
 - When it is imported, it registers itself with
   [`Register-PSGPOAddOn`](../reference/commands/register-psgpoaddon.md), with the **contract** of
   the add-on points it was built for, and its hooks.
@@ -18,8 +19,8 @@ They are called add-ons, not extensions: a GPO already has client-side extension
 # HGPM.Contoso.psd1
 @{
     RootModule      = 'HGPM.Contoso.psm1'
-    ModuleVersion   = '0.3.0.1'
-    RequiredModules = @(@{ ModuleName = 'HGPM'; RequiredVersion = '0.3.0' })
+    ModuleVersion   = '1.0.0'
+    RequiredModules = @(@{ ModuleName = 'HGPM'; ModuleVersion = '0.4.0' })
     PrivateData     = @{ PSData = @{ Tags = @('HGPMAddOn') } }
 }
 ```
@@ -42,8 +43,8 @@ imports them in the session.
 | State | Why | What the consoles do |
 |---|---|---|
 | Loaded | it registered itself with the contract of this HGPM | they call its hooks, and show its version |
-| Refused | built for another contract | they open without it |
-| Failed | it cannot be imported (the version of HGPM it requires, an error), or did not register | they open without it |
+| Refused | built for another contract, or for another version of HGPM than the one loaded (see [Versions](#versions)): never imported | they open without it |
+| Failed | it cannot be imported (an error), or did not register | they open without it |
 
 An add-on left out is said in the technical log and in the **About** of the launcher, with the
 reason why. `PSGPOTOOLS_NO_ADDON=1` loads none (the tests set it).
@@ -199,9 +200,35 @@ configuration saved.
 
 ## Versions
 
-An add-on is tested with one version of HGPM, and requires it: its package holds both, in the
-versions tested together, and a new version of HGPM brings a new package of the add-on. Its
-version is that of HGPM with a fourth number of its own: `HGPM.Contoso` `0.3.0.1` is made for
-HGPM `0.3.0`. With an add-on loaded, the consoles show both versions
-(`HGPM 0.3.0 + Contoso 0.3.0.1`) and do not propose the updates of the PowerShell Gallery: HGPM
-is updated with the package of the add-on.
+An add-on never stops the updates of HGPM. How its manifest requires HGPM says how both are
+updated:
+
+| Its manifest requires | The add-on | The updates |
+|---|---|---|
+| a minimum version: `@{ ModuleName = 'HGPM'; ModuleVersion = '0.4.0' }` | follows the PowerShell Gallery, as HGPM | HGPM offers those of the Gallery, and its command updates the add-ons installed from the Gallery with it: `Update-PSResource -Name HGPM, HGPM.Contoso` |
+| one version only: `@{ ModuleName = 'HGPM'; RequiredVersion = '0.4.0' }` | comes in a package that brings that HGPM, tested with it | HGPM is updated with the package of the add-on: the consoles never offer the Gallery |
+
+An add-on published on the PowerShell Gallery requires a **minimum** version: the first version of
+HGPM that has the hooks it uses. A hook added keeps the contract, so the versions of HGPM after it
+keep the add-on working. `MaximumVersion` is honoured too, for an add-on that knows the version of
+HGPM it no longer takes.
+
+An add-on that comes in a package requires **one** version of HGPM. Its own version is that of
+HGPM with a fourth number of its own: `HGPM.Contoso` `0.4.0.1` is made for HGPM `0.4.0`, and a new
+version of HGPM brings a new package of the add-on.
+
+An add-on that does not take the HGPM loaded is refused **before** it is imported, with the reason
+in the technical log and in the **About** of the launcher:
+
+- one version only, another than the one loaded: install the package of the add-on made for it;
+- a minimum version newer than the one loaded: update HGPM;
+- a maximum version older than the one loaded: update the add-on.
+
+Imported, such an add-on would make PowerShell load the HGPM it requires beside the one of the
+session, as `Update-PSResource` keeps the versions before beside the new one: two HGPM in one
+session.
+
+With add-ons loaded, the consoles show their versions beside that of HGPM
+(`HGPM 0.4.0 + Contoso 1.0.0`). [`Test-PSGPOUpdate`](../reference/commands/test-psgpoupdate.md)
+gives the add-ons that follow the Gallery in `AddOns`, each with its version installed and the
+latest one, and the add-on whose package brings HGPM in `Package`.

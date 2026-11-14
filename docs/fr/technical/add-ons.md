@@ -9,7 +9,9 @@ On parle d'add-ons, pas d'extensions : une GPO a déjà des extensions côté cl
 
 - Son nom est `HGPM.<nom>` (`HGPM.Contoso`).
 - Son manifeste le marque `HGPMAddOn` (`PrivateData.PSData.Tags`).
-- Il exige la version de HGPM avec laquelle il a été testé (`RequiredModules`).
+- Il exige HGPM (`RequiredModules`) : la version qui a les points d'accroche qu'il utilise, ou une
+  plus récente. La façon dont il l'exige dit comment les deux se mettent à jour (voir
+  [Versions](#versions)).
 - Quand il est importé, il s'enregistre avec
   [`Register-PSGPOAddOn`](../reference/commands/register-psgpoaddon.md), en donnant le
   **contrat** des points d'extension pour lequel il a été fait, et ses points d'accroche.
@@ -18,8 +20,8 @@ On parle d'add-ons, pas d'extensions : une GPO a déjà des extensions côté cl
 # HGPM.Contoso.psd1
 @{
     RootModule      = 'HGPM.Contoso.psm1'
-    ModuleVersion   = '0.3.0.1'
-    RequiredModules = @(@{ ModuleName = 'HGPM'; RequiredVersion = '0.3.0' })
+    ModuleVersion   = '1.0.0'
+    RequiredModules = @(@{ ModuleName = 'HGPM'; ModuleVersion = '0.4.0' })
     PrivateData     = @{ PSData = @{ Tags = @('HGPMAddOn') } }
 }
 ```
@@ -42,8 +44,8 @@ fenêtre, un rapport, la barre d'état. Il le fait dans chaque processus, puisqu
 | État | Pourquoi | Ce que font les consoles |
 |---|---|---|
 | Loaded | il s'est enregistré avec le contrat de ce HGPM | elles appellent ses points d'accroche et montrent sa version |
-| Refused | fait pour un autre contrat | elles s'ouvrent sans lui |
-| Failed | il ne peut pas être importé (la version de HGPM qu'il exige, une erreur), ou ne s'est pas enregistré | elles s'ouvrent sans lui |
+| Refused | fait pour un autre contrat, ou pour une autre version de HGPM que celle chargée (voir [Versions](#versions)) : jamais importé | elles s'ouvrent sans lui |
+| Failed | il ne peut pas être importé (une erreur), ou ne s'est pas enregistré | elles s'ouvrent sans lui |
 
 Un add-on laissé de côté est signalé dans le journal technique et dans **À propos** du lanceur,
 avec la raison. `PSGPOTOOLS_NO_ADDON=1` n'en charge aucun (les tests le posent).
@@ -202,9 +204,35 @@ toute configuration enregistrée.
 
 ## Versions
 
-Un add-on est testé avec une version de HGPM, et l'exige : son paquet contient les deux, dans les
-versions testées ensemble, et une nouvelle version de HGPM amène un nouveau paquet de l'add-on. Sa
-version est celle de HGPM avec un quatrième nombre à lui : `HGPM.Contoso` `0.3.0.1` est fait pour
-HGPM `0.3.0`. Avec un add-on chargé, les consoles montrent les deux versions
-(`HGPM 0.3.0 + Contoso 0.3.0.1`) et ne proposent pas les mises à jour de la PowerShell Gallery :
-HGPM se met à jour avec le paquet de l'add-on.
+Un add-on n'arrête jamais les mises à jour de HGPM. La façon dont son manifeste exige HGPM dit
+comment les deux se mettent à jour :
+
+| Son manifeste exige | L'add-on | Les mises à jour |
+|---|---|---|
+| une version minimale : `@{ ModuleName = 'HGPM'; ModuleVersion = '0.4.0' }` | suit la PowerShell Gallery, comme HGPM | HGPM propose celles de la Gallery, et sa commande met à jour avec lui les add-ons installés depuis la Gallery : `Update-PSResource -Name HGPM, HGPM.Contoso` |
+| une seule version : `@{ ModuleName = 'HGPM'; RequiredVersion = '0.4.0' }` | vient dans un paquet qui apporte ce HGPM, testé avec lui | HGPM se met à jour avec le paquet de l'add-on : les consoles ne proposent jamais la Gallery |
+
+Un add-on publié sur la PowerShell Gallery exige une version **minimale** : la première version de
+HGPM qui a les points d'accroche qu'il utilise. Un point d'accroche ajouté garde le contrat : les
+versions de HGPM qui suivent laissent l'add-on fonctionner. `MaximumVersion` est respecté aussi,
+pour un add-on qui connaît la version de HGPM qu'il ne prend plus.
+
+Un add-on qui vient dans un paquet exige **une seule** version de HGPM. Sa version est celle de HGPM
+avec un quatrième nombre à lui : `HGPM.Contoso` `0.4.0.1` est fait pour HGPM `0.4.0`, et une
+nouvelle version de HGPM amène un nouveau paquet de l'add-on.
+
+Un add-on qui ne prend pas le HGPM chargé est refusé **avant** d'être importé, avec la raison dans
+le journal technique et dans **À propos** du lanceur :
+
+- une seule version, autre que celle chargée : installez le paquet de l'add-on fait pour elle ;
+- une version minimale plus récente que celle chargée : mettez HGPM à jour ;
+- une version maximale plus ancienne que celle chargée : mettez l'add-on à jour.
+
+Importé, un tel add-on ferait charger par PowerShell le HGPM qu'il exige à côté de celui de la
+session, puisque `Update-PSResource` garde les versions d'avant à côté de la nouvelle : deux HGPM
+dans une même session.
+
+Avec des add-ons chargés, les consoles montrent leurs versions à côté de celle de HGPM
+(`HGPM 0.4.0 + Contoso 1.0.0`). [`Test-PSGPOUpdate`](../reference/commands/test-psgpoupdate.md)
+donne les add-ons qui suivent la Gallery dans `AddOns`, chacun avec sa version installée et la
+dernière, et l'add-on dont le paquet apporte HGPM dans `Package`.

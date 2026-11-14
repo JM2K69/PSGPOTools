@@ -3,9 +3,16 @@
     extensions: a GPO has client-side extensions.
 
     An add-on is a module named HGPM.<name> whose manifest tags it HGPMAddOn
-    (PrivateData.PSData.Tags). It requires the version of HGPM it was tested with
-    (RequiredModules) and, when it is imported, registers itself with Register-PSGPOAddOn, giving
-    the contract of the add-on points it was built for ($script:PSGPOAddOnContract) and its hooks.
+    (PrivateData.PSData.Tags). It requires HGPM (RequiredModules) and, when it is imported,
+    registers itself with Register-PSGPOAddOn, giving the contract of the add-on points it was
+    built for ($script:PSGPOAddOnContract) and its hooks.
+    How it requires HGPM says how both are updated (Get-PSGPOAddOnCoreRequirement):
+      a minimum version (ModuleVersion)  it follows the PowerShell Gallery: HGPM offers its
+                  updates, and its command updates the add-ons installed from the Gallery with it;
+      one version only (RequiredVersion)  its package brings that HGPM: HGPM is updated with the
+                  package, and never offers the Gallery (Get-PSGPOPackageAddOn).
+    An add-on that does not take the HGPM loaded is refused before it is imported: PowerShell would
+    load the HGPM it requires beside this one (Update-PSResource keeps the versions before).
     The core loads the add-ons installed the first time something needs them (a window, a report,
     the status bar), in every process: each console of Start-HGPM runs in its own. An add-on that
     cannot be loaded, or that was built for another contract, is left out and said in the
@@ -67,6 +74,101 @@ function Find-PSGPOAddOn {
     $script:PSGPOAddOn.Found
 }
 
+# A version of HGPM as four numbers, the missing ones 0 (0.4 is 0.4.0.0), to compare what a
+# manifest requires with the HGPM loaded; the prerelease label does not count, as for PowerShell.
+function ConvertTo-PSGPOCoreVersion {
+    [CmdletBinding()]
+    [OutputType([version])]
+    param([Parameter(Mandatory)] [string]$Version)
+
+    $parsed = [version]$Version
+    [version]::new($parsed.Major, [Math]::Max($parsed.Minor, 0), [Math]::Max($parsed.Build, 0), [Math]::Max($parsed.Revision, 0))
+}
+
+# How an add-on installed requires HGPM, read in its manifest (RequiredModules), as it writes it:
+# Pinned, the only version it takes (RequiredVersion); Minimum and Maximum (ModuleVersion,
+# MaximumVersion, which can end with a *). All empty: it requires no version of HGPM.
+function Get-PSGPOAddOnCoreRequirement {
+    [CmdletBinding()]
+    param([Parameter(Mandatory)] [string]$Path)
+
+    $requirement = [pscustomobject]@{ Pinned = $null; Minimum = $null; Maximum = $null }
+    if ([System.IO.Path]::GetExtension($Path) -ne '.psd1') { return $requirement }
+    $manifest = Import-PowerShellDataFile -LiteralPath $Path -ErrorAction Stop
+    foreach ($required in @($manifest.RequiredModules)) {
+        if ($required -isnot [System.Collections.IDictionary] -or $required.ModuleName -ne 'HGPM') { continue }
+        if ($required.RequiredVersion) { $requirement.Pinned = "$($required.RequiredVersion)" }
+        if ($required.ModuleVersion) { $requirement.Minimum = "$($required.ModuleVersion)" }
+        if ($required.MaximumVersion) { $requirement.Maximum = "$($required.MaximumVersion)" }
+    }
+    $requirement
+}
+
+# The HGPM loaded, as four numbers.
+function Get-PSGPOLoadedCoreVersion {
+    [CmdletBinding()]
+    [OutputType([version])]
+    param()
+
+    $loaded = (Get-PSGPOModuleVersion).Version
+    [version]::new($loaded.Major, $loaded.Minor, $loaded.Patch, 0)
+}
+
+# Why an add-on installed cannot be loaded with the HGPM of this process, from what its manifest
+# requires; nothing when it can. Imported, an add-on that requires another HGPM would make
+# PowerShell load that one too, beside the HGPM of the process: it is refused before.
+function Get-PSGPOAddOnCoreProblem {
+    [CmdletBinding()]
+    [OutputType([string])]
+    param([Parameter(Mandatory)] [object]$Module)
+
+    $requirement = Get-PSGPOAddOnCoreRequirement -Path $Module.Path
+    $loaded = (Get-PSGPOModuleVersion).Version
+    $core = Get-PSGPOLoadedCoreVersion
+    $named = "$($Module.Name) $($Module.Version)"
+    if ($requirement.Pinned -and (ConvertTo-PSGPOCoreVersion $requirement.Pinned) -ne $core) {
+        return "$named is made for HGPM $($requirement.Pinned) only (RequiredVersion), HGPM $loaded is loaded: install the package of $($Module.Name) made for HGPM $loaded. HGPM does not load a second version of itself for it."
+    }
+    if ($requirement.Minimum -and $core -lt (ConvertTo-PSGPOCoreVersion $requirement.Minimum)) {
+        return "$named needs HGPM $($requirement.Minimum) or later (ModuleVersion), HGPM $loaded is loaded: update HGPM."
+    }
+    if ($requirement.Maximum -and $core -gt (ConvertTo-PSGPOCoreVersion $requirement.Maximum.Replace('*', "$([int]::MaxValue)"))) {
+        return "$named takes HGPM $($requirement.Maximum) at most (MaximumVersion), HGPM $loaded is loaded: update $($Module.Name)."
+    }
+}
+
+# The add-ons installed whose package brings the HGPM loaded: their manifest requires it, and it
+# only (RequiredVersion). HGPM is updated with their package, never from the PowerShell Gallery.
+function Get-PSGPOPackageAddOn {
+    [CmdletBinding()]
+    param()
+
+    $core = Get-PSGPOLoadedCoreVersion
+    foreach ($module in @(Find-PSGPOAddOn)) {
+        try {
+            $pinned = (Get-PSGPOAddOnCoreRequirement -Path $module.Path).Pinned
+            if ($pinned -and (ConvertTo-PSGPOCoreVersion $pinned) -eq $core) { $module }
+        } catch {
+            Write-Verbose "The manifest of $($module.Name) cannot be read: $($_.Exception.GetBaseException().Message)"
+        }
+    }
+}
+
+# The add-ons installed that follow the PowerShell Gallery: their manifest requires no one version
+# of HGPM. The update of HGPM updates them with it.
+function Get-PSGPOGalleryAddOn {
+    [CmdletBinding()]
+    param()
+
+    foreach ($module in @(Find-PSGPOAddOn)) {
+        try {
+            if (-not (Get-PSGPOAddOnCoreRequirement -Path $module.Path).Pinned) { $module }
+        } catch {
+            Write-Verbose "The manifest of $($module.Name) cannot be read: $($_.Exception.GetBaseException().Message)"
+        }
+    }
+}
+
 # An add-on registered, or left out with the reason why.
 function Add-PSGPOAddOnItem {
     [CmdletBinding()]
@@ -125,17 +227,28 @@ function Initialize-PSGPOAddOn {
     foreach ($module in @(Find-PSGPOAddOn)) {
         # Imported already: it registered itself.
         if (@($script:PSGPOAddOn.Items | Where-Object Name -EQ $module.Name).Count) { continue }
+        $problem = $null
         try {
-            # Global: its commands are those of the session, as if the user had imported it.
-            Import-Module -Name $module.Path -Global -ErrorAction Stop -WarningAction SilentlyContinue -Verbose:$false
-            if (-not @($script:PSGPOAddOn.Items | Where-Object Name -EQ $module.Name).Count) {
-                Add-PSGPOAddOnItem -Name $module.Name -Version $module.Version -State Failed -Path $module.ModuleBase -Reason 'It did not register itself (Register-PSGPOAddOn).'
-            }
+            $problem = Get-PSGPOAddOnCoreProblem -Module $module
         } catch {
-            # A contract refused by Register-PSGPOAddOn keeps its reason.
-            $refused = @($script:PSGPOAddOn.Items | Where-Object { $_.Name -eq $module.Name -and $_.State -eq 'Refused' })
-            if (-not $refused.Count) {
-                Add-PSGPOAddOnItem -Name $module.Name -Version $module.Version -State Failed -Path $module.ModuleBase -Reason $_.Exception.GetBaseException().Message
+            Add-PSGPOAddOnItem -Name $module.Name -Version $module.Version -State Failed -Path $module.ModuleBase -Reason "Its manifest cannot be read: $($_.Exception.GetBaseException().Message)"
+        }
+        if ($problem) {
+            # Never imported: PowerShell would load the HGPM it requires beside this one.
+            Add-PSGPOAddOnItem -Name $module.Name -Version $module.Version -State Refused -Path $module.ModuleBase -Reason $problem
+        } elseif (-not @($script:PSGPOAddOn.Items | Where-Object Name -EQ $module.Name).Count) {
+            try {
+                # Global: its commands are those of the session, as if the user had imported it.
+                Import-Module -Name $module.Path -Global -ErrorAction Stop -WarningAction SilentlyContinue -Verbose:$false
+                if (-not @($script:PSGPOAddOn.Items | Where-Object Name -EQ $module.Name).Count) {
+                    Add-PSGPOAddOnItem -Name $module.Name -Version $module.Version -State Failed -Path $module.ModuleBase -Reason 'It did not register itself (Register-PSGPOAddOn).'
+                }
+            } catch {
+                # A contract refused by Register-PSGPOAddOn keeps its reason.
+                $refused = @($script:PSGPOAddOn.Items | Where-Object { $_.Name -eq $module.Name -and $_.State -eq 'Refused' })
+                if (-not $refused.Count) {
+                    Add-PSGPOAddOnItem -Name $module.Name -Version $module.Version -State Failed -Path $module.ModuleBase -Reason $_.Exception.GetBaseException().Message
+                }
             }
         }
         $item = @($script:PSGPOAddOn.Items | Where-Object Name -EQ $module.Name)[0]

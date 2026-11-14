@@ -134,7 +134,7 @@ Get-PSGPOPolicy -Scope Machine | Where-Object DisplayName -Like '*biom*' | Selec
 | Commande | Fait |
 |---|---|
 | [`Start-HGPM`](commands/start-hgpm.md) `[-Language]` | ouvre le lanceur : une tuile par outil de HGPM |
-| [`Test-PSGPOUpdate`](commands/test-psgpoupdate.md) `[-Prerelease] [-Quiet] [-Repository]` | dit si une version plus récente de HGPM est sur la PowerShell Gallery, et la commande qui l'installe |
+| [`Test-PSGPOUpdate`](commands/test-psgpoupdate.md) `[-Prerelease] [-Quiet] [-Repository]` | dit si une version plus récente de HGPM, ou de ses add-ons, est sur la PowerShell Gallery, et la commande qui l'installe |
 | [`Register-PSGPOAddOn`](commands/register-psgpoaddon.md) `-Name -Contract [-Version] [-Edition] [-WindowLogo] [-ReportHtml]` | pour un add-on ([add-ons](../technical/add-ons.md)) : l'enregistre quand il est importé, avec ses points d'accroche |
 
 ## Stratégies de mot de passe

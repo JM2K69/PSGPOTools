@@ -19,6 +19,16 @@ InModuleScope -ModuleName HGPM {
             (ConvertTo-PSGPOSemanticVersion -Version '1.2' -Prerelease '').ToString() | Should -Be '1.2.0'
         }
 
+        It 'Compares the versions of the add-ons, four numbers then the prerelease label' {
+            ConvertTo-PSGPOCoreVersion '0.4' | Should -Be ([version]'0.4.0.0')
+            ConvertTo-PSGPOCoreVersion '0.4.0' | Should -Be (ConvertTo-PSGPOCoreVersion '0.4.0.0') -Because 'what a manifest requires is compared as four numbers'
+            Test-PSGPONewerVersion -Version '1.0.0.1' -Than '1.0.0' | Should -BeTrue
+            Test-PSGPONewerVersion -Version '1.0' -Prerelease 'beta' -Than '1.0.0' | Should -BeFalse
+            Test-PSGPONewerVersion -Version '1.0.0' -Than '1.0' -ThanPrerelease 'rc' | Should -BeTrue
+            Test-PSGPONewerVersion -Version '1.0.0' -Prerelease 'beta' -Than '1.0.0' -ThanPrerelease 'alpha' | Should -BeTrue
+            Test-PSGPONewerVersion -Version '0.9.9' -Than '1.0.0' -ThanPrerelease 'alpha' | Should -BeFalse
+        }
+
         It 'Reads the version of the module loaded, with its prerelease label' {
             $Manifest = Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot '..' '..' 'HGPM' 'HGPM.psd1')
             $Expected = $Manifest.ModuleVersion + $(if ($Manifest.PrivateData.PSData.Prerelease) { "-$($Manifest.PrivateData.PSData.Prerelease)" })

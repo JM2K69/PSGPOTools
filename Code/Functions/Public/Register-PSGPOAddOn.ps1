@@ -4,10 +4,15 @@ function Register-PSGPOAddOn {
         Registers an add-on of HGPM: called by the add-on itself when it is imported, with the contract of the add-on points it was built for and its hooks.
     .DESCRIPTION
         An add-on of HGPM is a module named HGPM.<name>, tagged HGPMAddOn in its manifest
-        (PrivateData.PSData.Tags), that requires the version of HGPM it was tested with
-        (RequiredModules). HGPM loads the add-ons installed the first time a console, a report or
-        the status bar needs them, in each process; the add-on then calls this command from its
-        module, once.
+        (PrivateData.PSData.Tags), that requires HGPM (RequiredModules). HGPM loads the add-ons
+        installed the first time a console, a report or the status bar needs them, in each
+        process; the add-on then calls this command from its module, once.
+
+        How the manifest requires HGPM says how both are updated. A minimum version (ModuleVersion):
+        the add-on follows the PowerShell Gallery, and the update of HGPM updates it too. One
+        version only (RequiredVersion): the package of the add-on brings that HGPM, and HGPM no
+        longer offers the updates of the Gallery. An add-on that does not take the HGPM loaded is
+        refused before it is imported, so that PowerShell never loads a second HGPM for it.
 
         -Contract is the version of the add-on points the add-on was built for. An add-on built
         for another contract than the one of this version of HGPM is refused: the command throws,

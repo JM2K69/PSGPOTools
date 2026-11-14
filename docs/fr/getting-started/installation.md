@@ -343,6 +343,12 @@ Test-PSGPOUpdate
 if (Test-PSGPOUpdate -Quiet) { Update-PSResource -Name HGPM }
 ```
 
+Les [add-ons](../technical/add-ons.md#versions) installés depuis la Gallery se mettent à jour avec
+HGPM : la commande les nomme (`Update-PSResource -Name HGPM, HGPM.Contoso`), et `Test-PSGPOUpdate`
+donne leurs versions dans `AddOns`. Avec un add-on dont le paquet apporte HGPM, HGPM se met à jour
+avec ce paquet : ni l'import ni les consoles ne proposent la Gallery, et `Test-PSGPOUpdate` nomme
+l'add-on dans `Package`.
+
 ### Mettre à jour HGPM
 
 1. **Fermez** les consoles (`Show-GPOManagerAvalonia`, `Show-PSOManagerAvalonia`) et les sessions

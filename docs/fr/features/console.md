@@ -122,6 +122,11 @@ apparaît le lendemain, ou tout de suite après avoir supprimé `UpdateCheck.jso
 données local de l'utilisateur (`~/.local/share/PSGPOTools` sous Linux, `%LOCALAPPDATA%\PSGPOTools`
 sous Windows). La console des paramètres de mot de passe a la même barre d'état.
 
+La version montre les [add-ons](../technical/add-ons.md#versions) chargés à côté de celle de HGPM
+(`HGPM 0.4.0 + Contoso 1.0.0`), et la commande de l'info-bulle met à jour avec HGPM ceux installés
+depuis la Gallery. Avec un add-on dont le paquet apporte HGPM, la Gallery n'est pas lue : HGPM se
+met à jour avec ce paquet.
+
 ## Thèmes et réglages
 
 La barre d'outils bascule entre les thèmes clair et sombre, et ouvre la fenêtre **Settings** : la

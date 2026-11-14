@@ -120,6 +120,11 @@ day, or at once after deleting `UpdateCheck.json` from the local data folder of 
 (`~/.local/share/PSGPOTools` on Linux, `%LOCALAPPDATA%\PSGPOTools` on Windows). The console of the
 password settings has the same status bar.
 
+The version shows the [add-ons](../technical/add-ons.md#versions) loaded beside that of HGPM
+(`HGPM 0.4.0 + Contoso 1.0.0`), and the command of the tooltip updates those installed from the
+Gallery with HGPM. With an add-on whose package brings HGPM, the Gallery is not read: HGPM is
+updated with that package.
+
 ## Themes and settings
 
 The toolbar switches between the light and dark themes, and opens the **Settings** window: the

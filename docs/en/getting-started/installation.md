@@ -335,6 +335,12 @@ Test-PSGPOUpdate
 if (Test-PSGPOUpdate -Quiet) { Update-PSResource -Name HGPM }
 ```
 
+The [add-ons](../technical/add-ons.md#versions) installed from the Gallery are updated with HGPM:
+the command names them (`Update-PSResource -Name HGPM, HGPM.Contoso`), and `Test-PSGPOUpdate`
+gives their versions in `AddOns`. With an add-on whose package brings HGPM, HGPM is updated with
+that package: neither the import nor the consoles offer the Gallery, and `Test-PSGPOUpdate` names
+the add-on in `Package`.
+
 ### Update HGPM
 
 1. **Close** the consoles (`Show-GPOManagerAvalonia`, `Show-PSOManagerAvalonia`) and the PowerShell

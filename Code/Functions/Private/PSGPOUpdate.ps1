@@ -31,7 +31,9 @@ function Get-PSGPOModuleVersion {
 }
 
 # The command that installs a newer version: Update-PSResource for a module installed from the
-# repository, Install-PSResource otherwise (a copy of the repository, for instance).
+# repository, Install-PSResource otherwise (a copy of the repository, for instance). The add-ons
+# that follow the Gallery (Get-PSGPOGalleryAddOn) and were installed from the repository are
+# updated with HGPM, in the same command: Update-PSResource -Name HGPM, HGPM.Contoso.
 function Get-PSGPOUpdateCommand {
     [CmdletBinding()]
     [OutputType([string])]
@@ -41,15 +43,41 @@ function Get-PSGPOUpdateCommand {
         [string]$Repository = 'PSGallery'
     )
 
+    $names = @('HGPM')
     $fromRepository = $false
     try {
-        $fromRepository = [bool](@(Get-InstalledPSResource -Name 'HGPM' -ErrorAction Stop) |
-                Where-Object { $_.InstalledLocation -and $InstalledPath.StartsWith($_.InstalledLocation, [System.StringComparison]::OrdinalIgnoreCase) })
+        $addOns = @(Get-PSGPOGalleryAddOn)
+        # One name not installed is an error of PSResourceGet: the others are still listed.
+        $installed = @(Get-InstalledPSResource -Name (@('HGPM') + @($addOns | ForEach-Object Name)) -ErrorAction SilentlyContinue)
+        $within = { param($Resource, [string]$Path) $Resource.InstalledLocation -and $Path.StartsWith($Resource.InstalledLocation, [System.StringComparison]::OrdinalIgnoreCase) }
+        $fromRepository = [bool]@($installed | Where-Object { $_.Name -eq 'HGPM' -and (& $within $_ $InstalledPath) })
+        foreach ($addOn in $addOns) {
+            if (@($installed | Where-Object { $_.Name -eq $addOn.Name -and (& $within $_ $addOn.ModuleBase) }).Count) { $names += $addOn.Name }
+        }
     } catch {
         Write-Verbose "The modules installed by PSResourceGet cannot be read: $($_.Exception.Message)"
     }
-    '{0}-PSResource -Name HGPM{1}{2}' -f $(if ($fromRepository) { 'Update' } else { 'Install' }),
+    '{0}-PSResource -Name {1}{2}{3}' -f $(if ($fromRepository) { 'Update' } else { 'Install' }), ($names -join ', '),
         $(if ($Latest.PreReleaseLabel) { ' -Prerelease' }), $(if ($Repository -ne 'PSGallery') { " -Repository $Repository" })
+}
+
+# Whether a version is newer than another: its numbers first (four, the missing ones 0), then its
+# prerelease label (a release comes after its prereleases). For the add-ons, whose version can
+# have four numbers.
+function Test-PSGPONewerVersion {
+    [CmdletBinding()]
+    [OutputType([bool])]
+    param(
+        [Parameter(Mandatory)] [version]$Version,
+        [AllowNull()] [AllowEmptyString()] [string]$Prerelease,
+        [Parameter(Mandatory)] [version]$Than,
+        [AllowNull()] [AllowEmptyString()] [string]$ThanPrerelease
+    )
+
+    $numbers = ConvertTo-PSGPOCoreVersion "$Version"
+    $thanNumbers = ConvertTo-PSGPOCoreVersion "$Than"
+    if ($numbers -ne $thanNumbers) { return $numbers -gt $thanNumbers }
+    (ConvertTo-PSGPOSemanticVersion -Version '0.0.0' -Prerelease $Prerelease) -gt (ConvertTo-PSGPOSemanticVersion -Version '0.0.0' -Prerelease $ThanPrerelease)
 }
 
 # Where the import of the module keeps what it last read of the PowerShell Gallery:
@@ -152,11 +180,11 @@ function Write-PSGPOImportBanner {
     try {
         $installed = Get-PSGPOModuleVersion
         $message = "HGPM $($installed.Version)"
-        # An add-on installed: HGPM is updated with its package, which holds the
-        # HGPM it was tested with, not from the Gallery.
         $addOns = @(Find-PSGPOAddOn)
         foreach ($addOn in $addOns) { $message += " + $($addOn.Name -replace '^HGPM\.', '') $($addOn.Version)" }
-        if (-not $addOns.Count -and -not (Test-PSGPOUpdateCheckSkipped)) {
+        # An add-on whose package brings this HGPM: HGPM is updated with the package, not from the
+        # Gallery. The add-ons that follow the Gallery are in its command.
+        if (-not @(Get-PSGPOPackageAddOn).Count -and -not (Test-PSGPOUpdateCheckSkipped)) {
             $latest = Get-PSGPOLatestGalleryVersion -Installed $installed.Version
             if ($latest -and $latest -gt $installed.Version) {
                 $message += "`nHGPM $latest is available on the PowerShell Gallery: $(Get-PSGPOUpdateCommand -InstalledPath $installed.Path -Latest $latest), then open a new PowerShell session. (Test-PSGPOUpdate for the details; PSGPOTOOLS_SKIP_UPDATE_CHECK=1 skips this check.)"

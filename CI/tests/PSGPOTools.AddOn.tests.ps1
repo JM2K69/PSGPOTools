@@ -17,17 +17,19 @@ InModuleScope -ModuleName HGPM {
         $script:Logo = Join-Path (Get-Module HGPM).ModuleBase 'Resources' 'hgpm.png'
         $script:SamplePath = Join-Path $PSScriptRoot '..' '..' 'HGPM' 'Samples' 'Directory.sample.json'
         # An add-on: a module HGPM.<Name> in $Root, its manifest tagged HGPMAddOn (or not), its code.
+        # It requires the HGPM loaded, and it only (its package brings it), or as -Requires says.
         function New-TestAddOn {
-            param([string]$Root, [string]$Name, [string]$Version, [string]$Code, [switch]$Untagged)
+            param([string]$Root, [string]$Name, [string]$Version, [string]$Code, [switch]$Untagged, [string]$Requires)
             $folder = Join-Path $Root $Name $Version
             $null = New-Item -ItemType Directory -Path $folder -Force
             $tags = if ($Untagged) { "'Other'" } else { "'HGPMAddOn'" }
+            if (-not $Requires) { $Requires = "@{ ModuleName = 'HGPM'; RequiredVersion = '$((Import-PowerShellDataFile (Join-Path (Get-Module HGPM).ModuleBase 'HGPM.psd1')).ModuleVersion)' }" }
             Set-Content -LiteralPath (Join-Path $folder "$Name.psd1") -Value @"
 @{
     RootModule = '$Name.psm1'
     ModuleVersion = '$Version'
     GUID = '$([guid]::NewGuid())'
-    RequiredModules = @(@{ ModuleName = 'HGPM'; RequiredVersion = '$((Import-PowerShellDataFile (Join-Path (Get-Module HGPM).ModuleBase 'HGPM.psd1')).ModuleVersion)' })
+    RequiredModules = @($Requires)
     FunctionsToExport = '*'
     PrivateData = @{ PSData = @{ Tags = @($tags) } }
 }
@@ -131,7 +133,7 @@ throw 'The broken add-on of the tests.'
             Should -Invoke Get-PSGPOLatestGalleryVersion -Times 0 -Exactly
         }
 
-        It 'Says the add-ons installed at the import, without the Gallery' {
+        It 'Says the add-ons installed at the import, without the Gallery when their package brings HGPM' {
             Mock Get-PSGPOLatestGalleryVersion { [semver]'99.0.0' }
             Mock Test-PSGPOUpdateCheckSkipped { $false }
             $Banner = Write-PSGPOImportBanner 6>&1 | Out-String
@@ -141,10 +143,105 @@ throw 'The broken add-on of the tests.'
             Should -Invoke Get-PSGPOLatestGalleryVersion -Times 0 -Exactly
         }
 
+        It 'Gives no update of the Gallery when the package of an add-on brings HGPM' {
+            Mock Find-PSResource { [pscustomobject]@{ Version = [version]'99.0.0'; Prerelease = $null; PublishedDate = [datetime]'2026-11-14'; ReleaseNotes = '' } }
+            $Result = Test-PSGPOUpdate
+            $Result.LatestVersion | Should -Be '99.0.0'
+            $Result.UpdateAvailable | Should -BeFalse -Because 'HGPM is updated with the package of the add-on'
+            $Result.UpdateCommand | Should -BeNullOrEmpty
+            $Result.Package | Should -BeLike '*HGPM.TestHooks*'
+            $Result.AddOns | Should -BeNullOrEmpty -Because 'no add-on follows the Gallery'
+            Test-PSGPOUpdate -Quiet | Should -BeFalse
+        }
+
         It 'Refuses Register-PSGPOAddOn for another contract, or another name than HGPM.<name>' {
             { Register-PSGPOAddOn -Name 'HGPM.Direct' -Version '1.0' -Contract 2 } | Should -Throw '*built for the contract 2 of the add-on points*'
             ($script:PSGPOAddOn.Items | Where-Object Name -EQ 'HGPM.Direct').State | Should -Be 'Refused'
             { Register-PSGPOAddOn -Name 'Other.Module' -Version '1.0' -Contract 1 } | Should -Throw
+        }
+    }
+
+    # How an add-on requires HGPM says how both are updated: a minimum version follows the Gallery,
+    # with HGPM; an add-on that does not take the HGPM loaded is never imported.
+    Describe 'Add-ons and the updates of HGPM' {
+        BeforeAll {
+            $script:GalleryModules = Join-Path $TestDrive 'GalleryModules'
+            $null = New-TestAddOn -Root $script:GalleryModules -Name 'HGPM.TestFollows' -Version '1.0.0' -Requires "@{ ModuleName = 'HGPM'; ModuleVersion = '0.1.0' }" -Code @'
+function Get-TestFollowsValue { 'follows' }
+Register-PSGPOAddOn -Name 'HGPM.TestFollows' -Contract 1 -Edition 'Follows'
+'@
+            $null = New-TestAddOn -Root $script:GalleryModules -Name 'HGPM.TestPinned' -Version '0.0.1.1' -Requires "@{ ModuleName = 'HGPM'; RequiredVersion = '0.0.1' }" -Code 'function Get-TestPinnedValue { ''pinned'' }'
+            $null = New-TestAddOn -Root $script:GalleryModules -Name 'HGPM.TestAhead' -Version '1.0.0' -Requires "@{ ModuleName = 'HGPM'; ModuleVersion = '99.0.0' }" -Code 'function Get-TestAheadValue { ''ahead'' }'
+            $null = New-TestAddOn -Root $script:GalleryModules -Name 'HGPM.TestBehind' -Version '1.0.0' -Requires "@{ ModuleName = 'HGPM'; ModuleVersion = '0.0.1'; MaximumVersion = '0.0.*' }" -Code 'function Get-TestBehindValue { ''behind'' }'
+            $script:CoreBase = (Get-Module HGPM).ModuleBase
+            $script:CoreLabel = (Get-PSGPOModuleVersion).Version.PreReleaseLabel
+        }
+        BeforeEach {
+            Reset-TestAddOn
+            $env:PSModulePath = $script:GalleryModules + [System.IO.Path]::PathSeparator + $script:PathBefore
+            $env:PSGPOTOOLS_NO_ADDON = $null
+            # HGPM and the add-on that follows the Gallery, both installed from it.
+            Mock Get-InstalledPSResource {
+                [pscustomobject]@{ Name = 'HGPM'; InstalledLocation = (Split-Path -Path $script:CoreBase -Parent) }
+                [pscustomobject]@{ Name = 'HGPM.TestFollows'; InstalledLocation = $script:GalleryModules }
+            }
+            Mock Test-PSGPOUpdateCheckSkipped { $false }
+        }
+
+        It 'Refuses before its import an add-on that does not take the HGPM loaded: PowerShell would load another HGPM for it' {
+            $AddOns = @(Get-PSGPOAddOnState)
+            ($AddOns | Where-Object Name -EQ 'HGPM.TestFollows').State | Should -Be 'Loaded'
+            $Pinned = $AddOns | Where-Object Name -EQ 'HGPM.TestPinned'
+            $Pinned.State | Should -Be 'Refused'
+            $Pinned.Reason | Should -BeLike "HGPM.TestPinned 0.0.1.1 is made for HGPM 0.0.1 only (RequiredVersion), HGPM $script:Core is loaded: install the package of HGPM.TestPinned made for HGPM $script:Core.*"
+            $Ahead = $AddOns | Where-Object Name -EQ 'HGPM.TestAhead'
+            $Ahead.State | Should -Be 'Refused'
+            $Ahead.Reason | Should -BeLike "*needs HGPM 99.0.0 or later (ModuleVersion), HGPM $script:Core is loaded: update HGPM."
+            $Behind = $AddOns | Where-Object Name -EQ 'HGPM.TestBehind'
+            $Behind.State | Should -Be 'Refused'
+            $Behind.Reason | Should -BeLike '*takes HGPM 0.0.`* at most (MaximumVersion)*update HGPM.TestBehind.'
+            @(Get-Module -Name 'HGPM.TestPinned', 'HGPM.TestAhead', 'HGPM.TestBehind') | Should -BeNullOrEmpty -Because 'they are never imported'
+            @(Get-Module -Name 'HGPM').Count | Should -Be 1 -Because 'no second HGPM is loaded'
+        }
+
+        It 'Offers the update of the Gallery with an add-on that follows it, and updates the add-on with HGPM' {
+            Mock Get-PSGPOLatestGalleryVersion { [semver]'99.0.0' }
+            $Banner = Write-PSGPOImportBanner 6>&1 | Out-String
+            $Banner | Should -BeLike '*+ TestFollows 1.0.0*'
+            $Banner | Should -BeLike '*HGPM 99.0.0 is available on the PowerShell Gallery: Update-PSResource -Name HGPM, HGPM.TestFollows, then open a new PowerShell session.*'
+
+            $Item = Get-PSGPOVersionStatusItem
+            $Item.Text | Should -Be ('HGPM {0}: 99.0.0 available' -f $script:Core)
+            $Item.ToolTip | Should -BeLike '*Update-PSResource -Name HGPM, HGPM.TestFollows,*'
+            $Item.BadgeBrush | Should -Be '#CA5010'
+            Mock Get-PSGPOLatestGalleryVersion { (Get-PSGPOModuleVersion).Version }
+            $Item = Get-PSGPOVersionStatusItem
+            $Item.Text | Should -Be "HGPM $script:Core + Follows 1.0.0" -Because 'the version shows the add-ons loaded'
+            $Item.BadgeBrush | Should -Be '#107C10'
+        }
+
+        It 'Tells the updates of the add-ons that follow the Gallery, and the command that updates them with HGPM' {
+            Mock Find-PSResource {
+                $core = (Get-PSGPOModuleVersion).Version
+                switch ($Name) {
+                    'HGPM' { [pscustomobject]@{ Version = [version]"$($core.Major).$($core.Minor).$($core.Patch)"; Prerelease = $core.PreReleaseLabel; PublishedDate = [datetime]'2026-11-14'; ReleaseNotes = '' } }
+                    'HGPM.TestFollows' { [pscustomobject]@{ Version = [version]'1.0.0'; Prerelease = $null }; [pscustomobject]@{ Version = [version]'1.1.0'; Prerelease = $null } }
+                    default { throw "No match was found for package '$Name'." }
+                }
+            }
+            $Result = Test-PSGPOUpdate
+            @($Result.AddOns.Name | Sort-Object) | Should -Be 'HGPM.TestAhead', 'HGPM.TestBehind', 'HGPM.TestFollows' -Because 'the add-on pinned to another HGPM does not follow the Gallery'
+            $Follows = $Result.AddOns | Where-Object Name -EQ 'HGPM.TestFollows'
+            $Follows.InstalledVersion | Should -Be '1.0.0'
+            $Follows.LatestVersion | Should -Be '1.1.0'
+            $Follows.UpdateAvailable | Should -BeTrue
+            ($Result.AddOns | Where-Object Name -EQ 'HGPM.TestAhead').LatestVersion | Should -BeNullOrEmpty -Because 'it is not published'
+            ($Result.AddOns | Where-Object Name -EQ 'HGPM.TestAhead').UpdateAvailable | Should -BeFalse
+            $Result.LatestVersion | Should -Be $Result.InstalledVersion
+            $Result.UpdateAvailable | Should -BeTrue -Because 'HGPM is the latest, its add-on is not'
+            $Result.UpdateCommand | Should -Be ('Update-PSResource -Name HGPM, HGPM.TestFollows' + $(if ($script:CoreLabel) { ' -Prerelease' }))
+            $Result.Package | Should -BeNullOrEmpty
+            Test-PSGPOUpdate -Quiet | Should -BeTrue
         }
     }
 
